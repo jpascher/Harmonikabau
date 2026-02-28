@@ -1,7 +1,7 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-% \usepackage[german]{babel}  % not installed
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
 \usepackage{amsmath,amssymb}
 \usepackage{geometry}
 \geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
@@ -35,7 +35,7 @@
 % Header
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small Strömungsanalyse Bass-Stimmzunge 50\,Hz -- v6}
+\fancyhead[L]{\small Strömungsanalyse Bass-Stimmzunge 50\,Hz -- v8}
 \fancyhead[R]{\small\thepage}
 \fancyfoot[C]{\small Stationäre \& instationäre Analyse}
 
@@ -101,13 +101,13 @@ Gesamtweg über 200\,mm.
 \section{Trennwand -- Folie oder Furnier?}
 % ============================================================
 
-Für die Trennwand kommen zwei Materialien in Frage: \textbf{Kunststofffolie} ($\sim$0{,}1\,mm) oder \textbf{Holzfurnier} ($\sim$0{,}5\,mm). Die Wanddicke beeinflusst die Kanalbreite: Bei gerader Wand ergibt Folie 23{,}95\,mm pro Kanal, Furnier 23{,}75\,mm -- eine Differenz von 0{,}20\,mm (0{,}8\,\%). Strömungstechnisch ist das vernachlässigbar.
+Für die Trennwand kommen zwei Materialien in Frage: \textbf{Kunststofffolie} ($\sim$0{,}3\,mm) oder \textbf{Holzfurnier} ($\sim$0{,}5\,mm). Die Wanddicke beeinflusst die Kanalbreite: Bei gerader Wand ergibt Folie 23{,}85\,mm pro Kanal, Furnier 23{,}75\,mm -- eine Differenz von 0{,}10\,mm (0{,}4\,\%). Strömungstechnisch ist das vernachlässigbar.
 
 \begin{table}[H]
 \centering\small
 \begin{tabular}{l p{50mm} p{50mm}}
 \toprule
-& \textbf{Folie (0,1\,mm)} & \textbf{Furnier (0,5\,mm)} \\
+& \textbf{Folie (0,3\,mm)} & \textbf{Furnier (0,5\,mm)} \\
 \midrule
 Oberfläche & Glatt $\rightarrow$ weniger Reibung ($f \approx 0{,}02$) & Rau $\rightarrow$ mehr Reibung ($f \approx 0{,}03$) \\
 Stabilität & Flexibel $\rightarrow$ kann flattern, braucht Stützpunkte & Formstabil $\rightarrow$ bleibt in Position \\
@@ -210,7 +210,7 @@ scharf & 0 & 2{,}50 & 0{,}000016 & 0{,}0008\,\% \\
 
 \textbf{Stationäres Ergebnis:} Die Faltung trägt bei \textbf{allen Radien weniger als 0{,}01\,\% zum Gesamtwiderstand} bei. Der Grund: Die Faltungsquerschnittsfläche $S_\text{Faltung} = 760\,\text{mm}^2$ ist 127-mal größer als der Spalt ($6\,\text{mm}^2$). Der Verlustbeiwert wird mit $(S_\text{Spalt}/S_\text{Faltung})^2 = 6{,}2 \times 10^{-5}$ skaliert -- praktisch Null.
 
-\textbf{Instationäres Bild:} Für den Druckstoss-Durchgang ist die Frage differenzierter:
+\textbf{Instationäres Bild:} Für den Druckstoß-Durchgang ist die Frage differenzierter:
 
 \textbf{a) Reflexionen reduzieren:} An einer scharfen 90${}^\circ$-Ecke wird ein Druckpuls teilweise reflektiert (akustischer Impedanzsprung). Ein Viertelkreis glättet den Impedanzübergang und lässt mehr Pulsenergie passieren.
 
@@ -225,7 +225,7 @@ scharf & 0 & 2{,}50 & 0{,}000016 & 0{,}0008\,\% \\
 Das Optimum liegt also nicht bei maximaler Kohärenz, sondern bei \textbf{schnellem Druckaufbau mit ausreichend Störungen}. Der Druckstoß soll schnell am Spalt ankommen (wenig Reflexion in der Faltung, gute Wandführung), aber dort soll genügend Turbulenz entstehen, um die Selbsterregung sofort auszulösen. Die Turbulenz entsteht ohnehin am Spalt selbst ($\text{Re} \sim 1400$, Ablösungen an den Spaltkanten) -- sie muss nicht zusätzlich aus der Kammer angeliefert werden.
 
 \begin{keybox}
-\textbf{Empfehlung:} Ein Viertelkreis-Profil $R = 8$--$10$\,mm an den Ecken der Faltung reduziert Reflexionen und Energieverluste im Druckstoß-Transport, ohne die Turbulenz am Spalt zu beeinträchtigen (der Spalt erzeugt seine eigene Turbulenz). Baulich einfach (eingeleimter Rundstab, Wachshohlkehle oder Epoxy-Verrundung). Ob der Effekt hörbar ist, lässt sich nur durch Versuch klären.
+\textbf{Empfehlung:} Ein Viertelkreis-Profil $R = 8$--$10$\,mm an den Ecken der Faltung reduziert Reflexionen und Energieverluste im Druckstoß-Transport, ohne die Turbulenz am Spalt zu beeinträchtigen (der Spalt erzeugt seine eigene Turbulenz). Ob der Effekt hörbar ist, lässt sich nur durch Versuch klären.
 \end{keybox}
 
 % ============================================================
@@ -288,7 +288,7 @@ Im normalen Betrieb (mit Klappe und Kammer) wird der Anströmwinkel nicht direkt
 \textbf{Gerichtete Kanalströmung} (Wandführung erhält Strömungsrichtung): Die Luft biegt mit definierter Richtung in den Spalt ein. Es entsteht eine Tangentialkomponente, die den Bernoulli-Sog zuverlässig erzeugt. \textbf{Richtungslose, großskalig verwirbelte Kanalströmung} (viele Reflexionen, Stagnationspunkte): Die Richtungsinformation ist verloren. Die Luft nähert sich dem Spalt aus allen Richtungen -- die Tangentialkomponente mittelt sich teilweise heraus. Der Bernoulli-Antrieb wird schwächer.
 
 \begin{keybox}
-Das Düsenexperiment zeigt \textbf{direkt}, warum die Trennwand das Einschwingverhalten beeinflusst: Nicht über den Durchfluss (der ist immer gleich), sondern über den \textbf{Anströmwinkel} am Spalt. Die Wandform bestimmt, wie viel von der ursprünglichen Richtungsinformation des Druckstoßes am Spalt noch ankommt. Die Turbulenz, die für die Selbsterregung nötig ist, entsteht am Spalt selbst (Ablösungen an den Spaltkanten bei $\text{Re} \sim 1400$, vgl.\ Abschnitt Viertelkreis) -- sie muss nicht aus der Kammer mitgeliefert werden. Variante C (Parabel) liefert die beste Ansprache, weil sie die Richtungsinformation am besten erhält -- nicht weil sie die ``sauberste'' Strömung liefert.
+Das Düsenexperiment zeigt \textbf{direkt}, warum die Trennwand das Einschwingverhalten beeinflusst: Nicht über den Durchfluss (der ist immer gleich), sondern über den \textbf{Anströmwinkel} am Spalt. Die Wandform bestimmt, wie viel von der ursprünglichen Richtungsinformation des Druckstoßes am Spalt noch ankommt. Die Turbulenz, die für die Selbsterregung nötig ist, entsteht am Spalt selbst (Ablösungen an den Spaltkanten bei $\text{Re} \sim 1400$, vgl.\ Abschnitt Viertelkreis) -- sie muss nicht aus der Kammer mitgeliefert werden. Variante C (Parabel) liefert die beste Ansprache, weil sie die Richtungsinformation am besten erhält -- nicht weil sie die \emph{sauberste} Strömung liefert.
 \end{keybox}
 
 % ============================================================
@@ -536,7 +536,7 @@ Die Stimmzungenkammer ist eine \textbf{Serienkopplung}. Die Luft muss den Weg Ba
 
 Was passiert bei einer resonanten Kammer? Wenn die Helmholtz-Frequenz ein Vielfaches der Zungenfrequenz ist, kann die Kammer mitschwingen. Dabei wird Energie aus der Hauptschwingung in die Kammer-Eigenschwingung umgeleitet. Für den Amplitudenaufbau wirkt das wie eine zusätzliche Dämpfung.
 
-Praktische Konsequenz: \textbf{Die Kammer soll akustisch möglichst ,,unsichtbar'' sein.} Ihre Eigenfrequenzen sollen weit von der Zungenfrequenz und deren Obertönen entfernt liegen. Mit $f_H = 274$\,Hz (v7: Schlitz als Hals, Plattendicke als Halslänge) bei einer 50-Hz-Zunge ist das Verhältnis 5{,}5 -- kein ganzzahliges Vielfaches. Das ist günstig, aber näher an ganzzahligen Vielfachen als in v6 ($f_H = 461$\,Hz).
+Praktische Konsequenz: \textbf{Die Kammer soll akustisch möglichst \emph{unsichtbar} sein.} Ihre Eigenfrequenzen sollen weit von der Zungenfrequenz und deren Obertönen entfernt liegen. Mit $f_H = 274$\,Hz (v7: Schlitz als Hals, Plattendicke als Halslänge) bei einer 50-Hz-Zunge ist das Verhältnis 5{,}5 -- kein ganzzahliges Vielfaches. Das ist günstig, aber näher an ganzzahligen Vielfachen als in v6 ($f_H = 461$\,Hz).
 
 Praktische Erfahrung zeigt, dass die Trennwand das Einschwingverhalten entscheidend beeinflusst -- obwohl alle Varianten im stationären Zustand nahezu identische Volumenströme liefern. Die Erklärung liegt in der Serienkopplung: Die Kammer bestimmt nicht den Durchfluss, sondern die akustische Impedanz am Spalt.
 
@@ -548,7 +548,7 @@ Die Optimierung hat zwei Ebenen: Die Zunge selbst ($Q$, Aufbiegung, Material) be
 \section{Warum die Phasenlage entscheidet -- nicht die Strömungsqualität (v8 neu)}
 % ============================================================
 
-Die bisherige Argumentation (``saubere Strömungsführung = bessere Ansprache'') greift zu kurz. \textbf{Entscheidend ist nicht, wie gleichmäßig die Strömung am Spalt ankommt, sondern ob der Energienachschub mit der richtigen Phasenlage an der Zunge eintrifft.} Eine perfekt gleichmäßige Strömung hilft nichts, wenn die Phase nicht stimmt.
+Die bisherige Argumentation (\emph{saubere Strömungsführung = bessere Ansprache}) greift zu kurz. \textbf{Entscheidend ist nicht, wie gleichmäßig die Strömung am Spalt ankommt, sondern ob der Energienachschub mit der richtigen Phasenlage an der Zunge eintrifft.} Eine perfekt gleichmäßige Strömung hilft nichts, wenn die Phase nicht stimmt.
 
 \textbf{Warum kein Transmission-Line-Modell:} Der Spalt-zu-Kanal-Übergang (4\,mm$^2$ $\to$ 950\,mm$^2$) reflektiert 98{,}8\,\% der Wellenenergie -- für alle drei Varianten gleich. Ein Druckpuls schafft es nie als kohärente Welle durch diesen Impedanzsprung. Die Kammer wirkt nicht als Wellenleiter, sondern als \textbf{Helmholtz-Resonator} mit Impedanz $Z_\text{Kammer}(f)$.
 
@@ -587,7 +587,7 @@ Die 180\textdegree{}-Faltung ist eine \textbf{akustische Diskontinuität}. An de
 
 Diese Überlagerung ist der Mechanismus: Der reflektierte Puls kommt mit einer Zeitverzögerung an (doppelter Faltungs-Abstand / $c$). Je nach Frequenz ist die Überlagerung konstruktiv oder destruktiv -- die \textbf{effektive Phase} des Kammerdrucks am Spalt wird verschoben. Zusätzlich ändert die Faltung die effektive akustische Masse des Halses (der Luftpfad wird länger und gewundener), was $f_H$ geringfügig verschiebt.
 
-Die Abrundung (Viertelkreis $R = 8$--$10$\,mm) reduziert die Stärke der Reflexion: Ein stetiger Querschnittsübergang erzeugt weniger Reflexion als ein abrupter Knick. Das bedeutet weniger Phasenverzerrung -- nicht unbedingt eine ``bessere'' Phase, aber eine \textbf{berechenbarere}: Die Phase kommt näher an den idealen Helmholtz-Wert heran.
+Die Abrundung (Viertelkreis $R = 8$--$10$\,mm) reduziert die Stärke der Reflexion: Ein stetiger Querschnittsübergang erzeugt weniger Reflexion als ein abrupter Knick. Das bedeutet weniger Phasenverzerrung -- nicht unbedingt eine \emph{bessere} Phase, aber eine \textbf{berechenbarere}: Die Phase kommt näher an den idealen Helmholtz-Wert heran.
 
 \subsection{Hierarchie der Effekte für die Ansprache}
 
