@@ -186,109 +186,269 @@ Die stationäre Strömung ist erstaunlich unempfindlich gegen die Klappenöffnun
 Alle drei Effekte wirken zusammen und erklären, warum die Lautstärke-Einbußen in der Praxis deutlicher ausfallen als es die stationäre Berechnung erwarten lässt. Die Berechnung zeigt, dass der Effekt nicht im Durchfluss liegt -- also muss er im instationären Verhalten liegen.
 \end{keybox}
 
-% ---- 5.2 Viertelkreis an der 180${}^\circ$-Faltung ----
-\subsection{Viertelkreis an der 180\textdegree-Faltung}
+% ---- 5.2 Akustische Wirkung der 180${}^\circ$-Faltung ----
+\subsection{Akustische Wirkung der 180\textdegree-Faltung}
 
-Die 180\textdegree{}-Faltung am Ende der Trennwand hat scharfe Ecken. Kann man durch Einsetzen eines Viertelkreis-Profils (Radius $R$) an den beiden 90\textdegree{}-Ecken den Verlust reduzieren? Der hydraulische Durchmesser der Faltung ist $D_h = 25{,}8$\,mm (Spalt 19\,mm $\times$ Höhe 40\,mm).
+Die 180\textdegree{}-Faltung am Ende der Trennwand hat scharfe 90\textdegree{}-Ecken. Die bisherige Analyse betrachtete nur den stationären Strömungsverlust -- der vernachlässigbar klein ist. Aber die Faltung hat eine \textbf{akustische} Wirkung, die bisher nicht berücksichtigt wurde.
+
+\subsubsection{Coltman-Effekt: Gehrungsbiegungen als Impedanzstörung}
+
+Coltman\footnote{J.\,W.\ Coltman, \textit{Acoustic properties of miter bends}, CCRMA / Stanford (2006). Basierend auf Dequand et al., \textit{Acoustics of 90° sharp bends}, Acta Acustica 89 (2003), 1025--1037. Online: \url{https://ccrma.stanford.edu/marl/Coltman/documents/Coltman-1.44.pdf}} untersuchte die akustischen Eigenschaften von Gehrungsbiegungen in Rohren -- genau die Geometrie, die in Orgelpfeifen zum Falten langer Resonatoren verwendet wird.
+
+\textbf{Befund:} Eine scharfe 90\textdegree{}-Gehrungsbiegung verändert die \textbf{charakteristische Impedanz} des Rohres. Der Grund: Die Kompressibilität (Volumen) der Biegungssektion bleibt gleich, aber die \textbf{Inertanz sinkt}, weil die akustischen Schwingungen eine ``Abkürzung'' um die Biegung nehmen. Das Ergebnis:
+
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item Die Impedanz $Z = \sqrt{\text{Inertanz}/\text{Kompressibilität}}$ ist gestört
+\item Die effektive akustische Länge der Sektion ist \textbf{verkürzt}
+\item Es entsteht ein \textbf{Reflexionskoeffizient} an der Biegung
+\end{itemize}
+
+Coltman maß für eine 180\textdegree{}-Doppelbiegung (zwei dicht beieinanderliegende 90\textdegree{}-Gehrungen -- exakt die Geometrie unserer Kammerfaltung):
+
+\textbf{Akustische Verkürzung:} $\Delta l = 18{,}8$\,mm bei einem Rohr mit $D_\text{innen} = 23{,}8$\,mm, also $\Delta l \approx 0{,}79 \cdot D$.
+
+\subsubsection{Übertragung auf die Akkordeonkammer}
+
+Die relevante Dimension ist \textbf{nicht} der hydraulische Durchmesser der gesamten Faltungspassage ($D_h = 25{,}8$\,mm), sondern die \textbf{engere Dimension am Biegungspunkt}: der Faltungsspalt $\text{gap}_\text{fold} = 19$\,mm. Die akustische ``Abkürzung'' passiert dort, wo die Welle vom Kanal ($W_k = 23{,}8$\,mm breit) in den Faltungsbogen ($\text{gap}_\text{fold} = 19$\,mm) umbiegt -- also am engeren Querschnitt.
+
+\begin{equation*}
+\Delta l_\text{akustisch} \approx 0{,}79 \cdot \text{gap}_\text{fold} \approx 0{,}79 \times 19\,\text{mm} \approx 15\,\text{mm}
+\end{equation*}
+
+Der gesamte interne Kammerweg (Klappe $\to$ Kanal~B $\to$ Faltung $\to$ Kanal~A $\to$ Schlitz) ist ca.\ 169\,mm lang. Eine akustische Verkürzung von 15\,mm entspricht \textbf{9\,\%} der akustischen Länge -- nicht vernachlässigbar.
+
+\subsubsection{Was das für die Eckengeometrie bedeutet}
+
+In der alten (strömungstechnischen) Interpretation war die Empfehlung: Viertelkreis-Profil einsetzen, um Reflexionen und Wirbelbildung zu reduzieren. Akustisch ist die Situation differenzierter:
+
+\textbf{Scharfe Ecken:} Maximale Inertanzreduktion, stärkste akustische Verkürzung ($\Delta l \approx 20$\,mm). Reflexionskoeffizient am höchsten. Die Kammerresonanzen verschieben sich nach oben.
+
+\textbf{Verrundete Ecken} (Viertelkreis $R$): Der Impedanzübergang wird geglättet, der Reflexionskoeffizient sinkt. Aber gleichzeitig wird die Inertanzreduktion \textbf{verkleinert}, weil die Schwingungspfade weniger ``abkürzen'' können. Die akustische Verkürzung nimmt ab, die effektive Kammerlänge wächst.
+
+\textbf{Coltmans Kompensation:} Im Orgelbau wird die Impedanzstörung nicht durch Verrundung kompensiert, sondern durch \textbf{Einfügen von Hindernissen}: Eine dünne Platte am Trennwandende (Breite $\approx 0{,}5 + 2 \times 8{,}3 \approx 17$\,mm, Höhe $= H_\text{Kam} = 40$\,mm, Dicke 2\,mm) erhöht die Inertanz zurück auf den Wert des geraden Kanals. Alternativ wird die scharfe Ecke beidseitig 12\,mm bei 45\textdegree{} abgefast und mit einer Platte ($d \approx 25$\,mm) abgedeckt. Beides stellt die Impedanz des geraden Rohres wieder her.
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{l r r r r}
+\begin{tabular}{l p{30mm} p{30mm} p{30mm}}
 \toprule
-\textbf{Radius $R$} & $R/D_h$ & $\zeta_\text{Faltung}$ & $\zeta$ auf $S_\text{Spalt}$ bezogen & Anteil an $\zeta_\text{ges}$ \\
+& \textbf{Scharf} & \textbf{Viertelkreis} & \textbf{Coltman-Platte} \\
 \midrule
-scharf & 0 & 2{,}50 & 0{,}000016 & 0{,}0008\,\% \\
-3\,mm & 0{,}12 & 1{,}56 & 0{,}000010 & 0{,}0005\,\% \\
-5\,mm & 0{,}19 & 1{,}22 & 0{,}000008 & 0{,}0004\,\% \\
-8\,mm & 0{,}31 & 0{,}94 & 0{,}000006 & 0{,}0003\,\% \\
-10\,mm & 0{,}39 & 0{,}82 & 0{,}000005 & 0{,}0003\,\% \\
-15\,mm & 0{,}58 & 0{,}64 & 0{,}000004 & 0{,}0002\,\% \\
+Inertanz & Reduziert ($-$) & Teilweise wiederhergestellt & Voll kompensiert \\
+Volumen & Unverändert & Leicht vergrößert & Reduziert (angepasst) \\
+Impedanz $Z$ & Gestört & Anders gestört & Wiederhergestellt \\
+Reflexion & Maximal & Reduziert (glatter Übergang) & Minimal (kompensiert) \\
+$\Delta l_\text{akust.}$ & $\approx 15$\,mm & $\approx 8$--$12$\,mm & $\approx 0$ \\
+$f_H$-Verschiebung & Nach oben & Weniger nach oben & Keine \\
 \bottomrule
 \end{tabular}
-\caption{Faltungsverlust bei verschiedenen Verrundungsradien}
+\caption{Vergleich der Eckengeometrien -- akustische Wirkung}
 \end{table}
 
-\textbf{Stationäres Ergebnis:} Die Faltung trägt bei \textbf{allen Radien weniger als 0{,}01\,\% zum Gesamtwiderstand} bei. Der Grund: Die Faltungsquerschnittsfläche $S_\text{Faltung} = 760\,\text{mm}^2$ ist 127-mal größer als der Spalt ($6\,\text{mm}^2$). Der Verlustbeiwert wird mit $(S_\text{Spalt}/S_\text{Faltung})^2 = 6{,}2 \times 10^{-5}$ skaliert -- praktisch Null.
+\subsubsection{Vergleich mit dem Orgelbau}
 
-\textbf{Instationäres Bild:} Für den Druckstoß-Durchgang ist die Frage differenzierter:
+Die Organ Historical Society bestätigt: Gefaltete (``mitered'') Orgelpfeifen unterscheiden sich akustisch nur \textbf{wenig} von geraden Pfeifen gleicher Länge. Der Haupteffekt ist die akustische Längenkorrektur, die bei der Intonation berücksichtigt wird. Der Klang (Obertonspektrum) ändert sich kaum -- was bestätigt, dass die Impedanzstörung bei den üblichen Verhältnissen ($D/\lambda \ll 1$) klein ist.
 
-\textbf{a) Reflexionen reduzieren:} An einer scharfen 90${}^\circ$-Ecke wird ein Druckpuls teilweise reflektiert (akustischer Impedanzsprung). Ein Viertelkreis glättet den Impedanzübergang und lässt mehr Pulsenergie passieren.
-
-\textbf{b) Wirbelbildung reduzieren:} Bei scharfen Ecken löst die Strömung bei jedem Druckstoß sofort ab und bildet Wirbel, die Energie dissipieren. Mit Radius $R > 5$\,mm bleibt die Strömung länger angelegt.
-
-\begin{warnbox}
-\textbf{Aber Vorsicht:} Eine \textbf{zu kohärente} Strömung am Spalt ist nicht wünschenswert! Die Bernoulli-Selbsterregung braucht eine Anfangsstörung, um die Schwingung auszulösen. Eine perfekt gleichmäßige, laminare Strömung würde die Zunge nur statisch auslenken, ohne sie in Schwingung zu versetzen. Ein gewisses Maß an Turbulenz und räumlicher Ungleichmäßigkeit ist notwendig.
-\end{warnbox}
-
-\textbf{Lokale Druckschwankungen} an der Zungenspitze stoßen die erste Auslenkung an. \textbf{Wirbelablösungen} an den Spaltkanten liefern breitbandige Störungen, die die Zunge zum Schwingen anregen. Wäre die Strömung perfekt laminar und gleichförmig, müsste die Zunge auf eine infinitesimale Instabilität warten -- der Einschwingvorgang würde sich deutlich verzögern.
-
-Das Optimum liegt also nicht bei maximaler Kohärenz, sondern bei \textbf{schnellem Druckaufbau mit ausreichend Störungen}. Der Druckstoß soll schnell am Spalt ankommen (wenig Reflexion in der Faltung, gute Wandführung), aber dort soll genügend Turbulenz entstehen, um die Selbsterregung sofort auszulösen. Die Turbulenz entsteht ohnehin am Spalt selbst ($\text{Re} \sim 1400$, Ablösungen an den Spaltkanten) -- sie muss nicht zusätzlich aus der Kammer angeliefert werden.
+Für unsere Kammer bei $f = 50$\,Hz: $\lambda = 6{,}9$\,m, $\text{gap}_\text{fold} = 19$\,mm, also $D/\lambda = 0{,}003$ -- die Störung ist klein. Bei Obertönen ($5f = 250$\,Hz, $\lambda = 1{,}4$\,m) steigt das Verhältnis auf 0{,}014 -- immer noch klein.
 
 \begin{keybox}
-\textbf{Empfehlung:} Ein Viertelkreis-Profil $R = 8$--$10$\,mm an den Ecken der Faltung reduziert Reflexionen und Energieverluste im Druckstoß-Transport, ohne die Turbulenz am Spalt zu beeinträchtigen (der Spalt erzeugt seine eigene Turbulenz). Ob der Effekt hörbar ist, lässt sich nur durch Versuch klären.
+\textbf{Neubewertung:} Die Faltung verändert nicht die Strömung (stationärer Verlust $< 0{,}01\,\%$), sondern die \textbf{akustische Impedanz} der Kammer. Scharfe Ecken verkürzen die effektive akustische Länge um ca.\ 15\,mm ($\approx 9\,\%$). Ein Viertelkreis-Profil reduziert die Reflexion, verändert aber die Impedanz \textbf{anders} als eine gezielte Kompensation. Im Orgelbau werden scharfe Biegungen akzeptiert und über die Rohrlänge kompensiert. Die Coltman-Kompensation (horizontale Platte $\approx 17 \times 40 \times 2$\,mm am Trennwandende) stellt die Impedanz gezielt wieder her. In der Akkordeonkammer, wo $f_H$ über Kammervolumen und Halsquerschnitt abgestimmt wird, verschiebt die Faltung $f_H$ um einige Hertz -- ein Effekt, der in die Kammerauslegung eingehen sollte, nicht nachträglich durch Verrundung ``repariert'' werden muss. Ob eine Verrundung die Ansprache verbessert oder verschlechtert, hängt davon ab, ob die Impedanzänderung $f_H$ in die richtige Richtung schiebt -- das lässt sich nur durch Versuch klären.
 \end{keybox}
 
 % ============================================================
-\section[Düsenwinkel-Experiment]{Düsenwinkel-Experiment -- warum der Anströmwinkel die Amplitude bestimmt}
+\section[Luftstrahl-Test]{Luftstrahl-Test -- warum der Eintrittswinkel die Amplitude bestimmt}
 % ============================================================
 
-Ein aufschlussreicher Praxistest: Stimmplatte montiert, Klappe entfernt, Anblasen mit einer Druckluftdüse aus verschiedenen Winkeln. Ergebnis: Die Zungenamplitude ändert sich \textbf{von Null bis Maximum} allein durch Änderung des Anströmwinkels.
+\subsection{Versuchsaufbau und Beobachtung}
 
-\subsection{Die zwei Komponenten des Jets}
+Ein aufschlussreicher Praxistest: Stimmplatte auf der Kammer montiert, Klappe entfernt, Anblasen mit einer Druckluftdüse aus verschiedenen Winkeln und Positionen. Die Luft nimmt dabei immer den internen Kammerweg: Klappenöffnung $\rightarrow$ Kanal~B $\rightarrow$ 180\textdegree-Faltung $\rightarrow$ Kanal~A $\rightarrow$ Schlitz $\rightarrow$ Spalt. Trotzdem ändert sich die Zungenamplitude \textbf{von Null bis Maximum} allein durch Änderung des Düsenwinkels.
 
-Ein Luftstrahl, der unter dem Winkel $\alpha$ auf den Spalt trifft, hat zwei Komponenten:
+\begin{warnbox}
+Die Luft trifft \textbf{nicht direkt} auf den Spalt. Der Spalt sitzt auf der Oberseite der Stimmplatte, die strömungsrelevante Unterseite ist nur über den Kammerinnenraum erreichbar. \textbf{Aber:} Obwohl der Strahl den Umweg durch zwei Kanäle und eine 180\textdegree-Faltung nehmen muss, beeinflusst der Eintrittswinkel am Kammereingang den effektiven Anströmzustand am Spalt -- und damit die Amplitude. Warum das so ist, zeigt die folgende Impulsbilanz.
+\end{warnbox}
+
+\subsection{Impulszerlegung am Kammereingang}
+
+Ein Luftstrahl, der unter dem Winkel $\alpha$ (gemessen gegen die Horizontale) in die Klappenöffnung eintritt, hat zwei Impulskomponenten. Bei $v_\text{jet} = \sqrt{2\Delta p/\rho} \approx 41$\,m/s (bei 1000\,Pa):
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{r r r l}
+\begin{tabular}{r r r r l}
 \toprule
-\textbf{Winkel $\alpha$} & $\sin\alpha$ (normal) & $\cos\alpha$ (tangential) & \textbf{Charakter} \\
+\textbf{Winkel $\alpha$} & $\cos\alpha$ & $v_\text{horiz}$ [m/s] & $v_\text{vert}$ [m/s] & \textbf{Charakter} \\
 \midrule
-0${}^\circ$ & 0{,}00 & 1{,}00 & Rein tangential -- kein Eintritt \\
-10${}^\circ$ & 0{,}17 & 0{,}98 & Flach -- viel Überströmung \\
-20${}^\circ$ & 0{,}34 & 0{,}94 & Optimal-Bereich? \\
-30${}^\circ$ & 0{,}50 & 0{,}87 & Optimal-Bereich? \\
-45${}^\circ$ & 0{,}71 & 0{,}71 & Optimal-Bereich? \\
-60${}^\circ$ & 0{,}87 & 0{,}50 & Steil -- wenig Überströmung \\
-75${}^\circ$ & 0{,}97 & 0{,}26 & Steil -- wenig Überströmung \\
-90${}^\circ$ & 1{,}00 & 0{,}00 & Rein normal -- statischer Druck \\
+0${}^\circ$  & 1{,}00 & 40{,}8 & 0{,}0  & Rein horizontal -- maximal gerichtet in Kanal~B \\
+10${}^\circ$ & 0{,}98 & 40{,}1 & 7{,}1  & Flach -- fast alles Kanalströmung \\
+20${}^\circ$ & 0{,}94 & 38{,}3 & 13{,}9 & Leicht schräg \\
+30${}^\circ$ & 0{,}87 & 35{,}3 & 20{,}4 & \textbf{Normalbetrieb} (Klappenwinkel) \\
+45${}^\circ$ & 0{,}71 & 28{,}8 & 28{,}8 & Symmetrisch \\
+60${}^\circ$ & 0{,}50 & 20{,}4 & 35{,}3 & Steil -- viel Wandaufprall \\
+90${}^\circ$ & 0{,}00 & 0{,}0  & 40{,}8 & Rein vertikal -- kein gerichteter Kanalfluss \\
 \bottomrule
 \end{tabular}
-\caption{Zerlegung des Anströmprofils in Normal- und Tangentialkomponente}
+\caption{Impulszerlegung des Eintrittstrahls am Kammereingang}
 \end{table}
 
-\textbf{Normalkomponente} (senkrecht zur Platte, $v \cdot \sin\alpha$): Treibt Luft durch den Spalt in den Schlitz hinein. Erzeugt statischen Überdruck unter der Zunge. Dieser Druck biegt die Zunge nach oben aus -- aber er schwingt nicht von selbst. Ohne weitere Kopplung hält er die Zunge nur statisch in einer Gleichgewichtslage.
+\textbf{Horizontalkomponente} ($v \cdot \cos\alpha$, in Kanal-B-Richtung): Wird zur gerichteten Kanalströmung. Horizontaler Impuls bleibt erhalten (Impulserhaltung), wird in Kanal~B transportiert, überlebt die 180\textdegree-Faltung (mit Richtungsumkehr) und kommt als definierte Strömung in Kanal~A am Spalt an.
 
-\textbf{Tangentialkomponente} (parallel zur Platte, $v \cdot \cos\alpha$): Strömt über die Spalt\-\textbf{öffnung} hinweg. Das ist der entscheidende Mechanismus.
+\textbf{Vertikalkomponente} ($v \cdot \sin\alpha$, quer zum Kanal): Wird an den Kammerwänden reflektiert und in Turbulenz umgewandelt. Dieser Impulsanteil dissipiert seine Richtungsinformation bereits im Kanal~B.
+
+\subsection{Warum die Richtungsinformation den Kammerweg überlebt}
+
+\textbf{Drei Gründe:}
+
+\textbf{1.\ Strahlkern reicht bis zur Faltung:} Der äquivalente Strahldurchmesser beträgt $d_\text{jet} \approx 18$\,mm (aus $S_\text{Klappe} = 244$\,mm$^2$). Die Kernzone, in der der Strahl seine Richtung behält, erstreckt sich über $L_\text{core} \approx 5 d_\text{jet} \approx 88$\,mm. Kanal~B ist nur 75\,mm lang -- der Strahlkern reicht also bis zur Faltung.
+
+\textbf{2.\ Laminare Kanalströmung:} Die Reynolds-Zahl im Kanal beträgt Re $\approx 239$ -- weit unter der Turbulenz-Grenze. Die viskose Reibung (Druckverlust $\Delta p_\text{reib} \approx 0{,}01$\,Pa, weniger als $0{,}001\,\%$ des Balgdrucks) zerstört praktisch keine Richtungsinformation.
+
+\textbf{3.\ Faltung kehrt Richtung um, aber erhält Betrag:} Der Zentripetaldruck an der 180\textdegree-Faltung beträgt nur $\sim 0{,}02$\,Pa. Die Faltung dreht den horizontalen Impuls um ($+x \rightarrow -x$), dissipiert aber bei Re $\sim 240$ nur einen Teil des gerichteten Impulses. Abschätzung: ca.\ 60\,\% des gerichteten Anteils überleben die Faltung ($\eta_\text{Faltung} \approx 0{,}6$).
+
+\subsection{Effektiver Anströmzustand am Spalt}
+
+Am Ende von Kanal~A biegt die Strömung um $\sim$90\textdegree{} in den Schlitz ein. Der \textbf{gerichtete Anteil} der Kanalströmung erzeugt dabei eine klare Tangentialkomponente (parallel zur Platte, über den Spalt), der \textbf{diffuse Anteil} teilt sich gleichmäßig auf. Der Richtungserhaltungsfaktor $\eta_\text{ges}$ bestimmt, wie viel Tangentialkomponente am Spalt ankommt:
+\begin{equation}
+\eta_\text{ges} = \cos\alpha \cdot \eta_\text{Faltung} \cdot \eta_\text{Wand}, \qquad
+f_\text{tan} = \frac{1 + \eta_\text{ges}}{2}
+\end{equation}
+wobei $f_\text{tan}$ die Tangential-Fraktion am Spalt ist ($f_\text{tan} = 0{,}5$ bei vollständig diffuser Strömung, $f_\text{tan} \to 1$ bei perfekt gerichteter).
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{r c c c c c c}
+\toprule
+& \multicolumn{2}{c}{\textbf{Wand A (gerade)}} & \multicolumn{2}{c}{\textbf{Wand B (schräg)}} & \multicolumn{2}{c}{\textbf{Wand C (Parabel)}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+$\alpha$ & $\eta_\text{ges}$ & $v_\text{tan}$ [m/s] & $\eta_\text{ges}$ & $v_\text{tan}$ [m/s] & $\eta_\text{ges}$ & $v_\text{tan}$ [m/s] \\
+\midrule
+0${}^\circ$  & 0{,}180 & 17{,}0 & 0{,}300 & 18{,}7 & 0{,}420 & 20{,}5 \\
+10${}^\circ$ & 0{,}177 & 17{,}0 & 0{,}295 & 18{,}7 & 0{,}414 & 20{,}4 \\
+20${}^\circ$ & 0{,}169 & 16{,}8 & 0{,}282 & 18{,}5 & 0{,}395 & 20{,}1 \\
+30${}^\circ$ & 0{,}156 & 16{,}7 & 0{,}260 & 18{,}2 & 0{,}364 & 19{,}7 \\
+45${}^\circ$ & 0{,}127 & 16{,}2 & 0{,}212 & 17{,}5 & 0{,}297 & 18{,}7 \\
+60${}^\circ$ & 0{,}090 & 15{,}7 & 0{,}150 & 16{,}6 & 0{,}210 & 17{,}4 \\
+90${}^\circ$ & 0{,}000 & 14{,}4 & 0{,}000 & 14{,}4 & 0{,}000 & 14{,}4 \\
+\bottomrule
+\end{tabular}
+\caption{Richtungserhaltung $\eta_\text{ges}$ und Tangentialgeschwindigkeit am Spalt ($v_\text{Spalt} = 28{,}8$\,m/s). Erhaltungsfaktoren: $\eta_\text{Faltung} = 0{,}6$; $\eta_\text{Wand}$: A = 0{,}3, B = 0{,}5, C = 0{,}7.}
+\end{table}
+
+\subsection{Bernoulli-Antriebsleistung}
+
+Der Bernoulli-Sog am Spalt -- der Antrieb der Schwingung -- skaliert mit dem Quadrat der Tangentialgeschwindigkeit: $\Delta p_B = \tfrac{1}{2}\rho\, v_\text{tan}^2$.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{r r r r r r r}
+\toprule
+& \multicolumn{2}{c}{\textbf{Wand A}} & \multicolumn{2}{c}{\textbf{Wand B}} & \multicolumn{2}{c}{\textbf{Wand C}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+$\alpha$ & $\Delta p_B$ [Pa] & Anteil & $\Delta p_B$ [Pa] & Anteil & $\Delta p_B$ [Pa] & Anteil \\
+\midrule
+0${}^\circ$  & 174 & 34{,}8\,\% & 211 & 42{,}2\,\% & 252 & 50{,}4\,\% \\
+10${}^\circ$ & 173 & 34{,}6\,\% & 210 & 42{,}0\,\% & 250 & 50{,}0\,\% \\
+30${}^\circ$ & 167 & 33{,}4\,\% & 198 & 39{,}7\,\% & 232 & 46{,}5\,\% \\
+60${}^\circ$ & 149 & 29{,}7\,\% & 165 & 33{,}1\,\% & 183 & 36{,}6\,\% \\
+90${}^\circ$ & 125 & 25{,}0\,\% & 125 & 25{,}0\,\% & 125 & 25{,}0\,\% \\
+\bottomrule
+\end{tabular}
+\caption{Bernoulli-Sog am Spalt für verschiedene Eintrittswinkel und Wandformen. Anteil bezogen auf $\Delta p_{B,\text{max}} = \tfrac{1}{2}\rho v_\text{Spalt}^2 = 499$\,Pa (wenn 100\,\% tangential wäre).}
+\end{table}
+
+\textbf{Zahlenwerte im Normalbetrieb ($\alpha = 30^\circ$):}
+\begin{itemize}[leftmargin=5mm]
+\item Wand~A: $\eta_\text{ges} = 0{,}156$, $v_\text{tan} = 16{,}7$\,m/s, $\Delta p_B = 167$\,Pa
+\item Wand~B: $\eta_\text{ges} = 0{,}260$, $v_\text{tan} = 18{,}2$\,m/s, $\Delta p_B = 198$\,Pa
+\item Wand~C: $\eta_\text{ges} = 0{,}364$, $v_\text{tan} = 19{,}7$\,m/s, $\Delta p_B = 232$\,Pa
+\end{itemize}
+Wand~C liefert \textbf{1{,}4-mal} so viel Bernoulli-Antrieb wie Wand~A ($+1{,}4$\,dB).
 
 \subsection{Der Flöten-Mechanismus am Zungenspalt}
 
-Wenn Luft über eine Öffnung streicht, entsteht an der Öffnung ein Unterdruck (Bernoulli). Genau das passiert bei der Tangentialkomponente des Jets: Sie strömt über den Spalt und erzeugt einen Sog, der Luft aus dem Schlitz herauszieht -- also die Zunge nach \textbf{unten} zieht. Gleichzeitig drückt die Normalkomponente die Zunge nach \textbf{oben}.
+Die Tangentialkomponente strömt über die Spaltöffnung und erzeugt Bernoulli-Unterdruck, der die Zunge nach \textbf{unten} zieht. Gleichzeitig drückt die Normalkomponente (statischer Druck im Schlitz) die Zunge nach \textbf{oben}.
 
 Entscheidend ist: Beide Kräfte ändern sich, wenn die Zunge schwingt. Bewegt sich die Zunge nach unten (Spalt wird größer), kann mehr Luft tangential über den Spalt strömen $\rightarrow$ stärkerer Sog $\rightarrow$ Zunge wird weiter nach unten gezogen. Bewegt sie sich nach oben (Spalt wird enger), verengt sich der Kanal für die Tangentialströmung $\rightarrow$ weniger Sog $\rightarrow$ Zunge federt zurück. Das ist eine \textbf{positive Rückkopplung}, die die Schwingung antreibt.
 
-Dieser Mechanismus ist physikalisch identisch mit der Tonerzeugung bei Flöteninstrumenten: Dort strömt ein flacher Luftstrahl über eine scharfe Kante (Labium), und die Wechselwirkung zwischen Jet und Resonator erzeugt den Ton. Die Zungenkante übernimmt hier die Rolle des Labiums.
+Dieser Mechanismus ist physikalisch verwandt mit der Tonerzeugung bei Flöteninstrumenten: Dort strömt ein flacher Luftstrahl über eine scharfe Kante (Labium). Die Zungenkante übernimmt hier die Rolle des Labiums.
 
-\subsection{Warum der Winkel die Amplitude bestimmt}
+\subsection{Druck- und Zugzunge: Richtungsunabhängigkeit des Mechanismus}
 
-\textbf{$\alpha = 0^\circ$ (rein tangential):} Maximale Überströmung, aber kein Druck im Schlitz. Die Zunge hat keine Vorauslenkung -- der Bernoulli-Sog muss gegen die volle Federsteifigkeit arbeiten. Außerdem fehlt der Durchfluss durch den Spalt, der für die klassische Bernoulli-Selbsterregung nötig ist. Ergebnis: Keine oder minimale Schwingung.
+Auf jeder Stimmplatte sitzen \textbf{zwei Zungen}: Die Druckzunge schwingt bei Luftstrom von Kammer nach außen (Balg drückt), die Zugzunge bei Luftstrom von außen in die Kammer (Balg zieht).
 
-\textbf{$\alpha = 90^\circ$ (rein normal):} Maximaler statischer Druck im Schlitz, aber keine Tangentialströmung. Die Zunge wird nach oben gedrückt und bleibt dort. Es fehlt der Bernoulli-Unterdruck an der Spaltoberseite, der die Zunge zurückziehen würde. Ergebnis: Statische Auslenkung, keine Schwingung.
-
-\textbf{Optimaler Winkel ($\sim 20^\circ\text{--}40^\circ$):} Beide Komponenten sind in der richtigen Balance. Die Normalkomponente liefert den Grunddruck, der die Zunge in den Arbeitsbereich vorspannt. Die Tangentialkomponente liefert den geschwindigkeitsabhängigen Bernoulli-Sog, der die Schwingung antreibt. Das Verhältnis entscheidet über die Phasenlage zwischen Druck und Zungenposition -- und damit über die Energiezufuhr pro Zyklus.
-
-Die Amplitude ändert sich stufenlos mit dem Winkel, weil die Energiezufuhr pro Schwingungszyklus vom Verhältnis der beiden Komponenten abhängt. Am optimalen Winkel ist die Netto-Energiezufuhr maximal.
-
-\subsection{Konsequenz für die Kammerauslegung}
-
-Dieses Experiment erklärt unmittelbar, warum die Klappenorientierung und die Trennwandform so wichtig sind: Sie bestimmen den \textbf{effektiven Anströmwinkel} am Spalt.
-
-Im normalen Betrieb (mit Klappe und Kammer) wird der Anströmwinkel nicht direkt vom Balgdruck bestimmt, sondern von der Geometrie des Luftwegs. Die Luft kommt aus Kanal A (parallel zur Platte) und muss um 90\textdegree{} in den Schlitz einbiegen. Der effektive Anströmwinkel hängt davon ab, wie die Strömung in Kanal A verteilt ist:
-
-\textbf{Gerichtete Kanalströmung} (Wandführung erhält Strömungsrichtung): Die Luft biegt mit definierter Richtung in den Spalt ein. Es entsteht eine Tangentialkomponente, die den Bernoulli-Sog zuverlässig erzeugt. \textbf{Richtungslose, großskalig verwirbelte Kanalströmung} (viele Reflexionen, Stagnationspunkte): Die Richtungsinformation ist verloren. Die Luft nähert sich dem Spalt aus allen Richtungen -- die Tangentialkomponente mittelt sich teilweise heraus. Der Bernoulli-Antrieb wird schwächer.
+Beide schwingen durch denselben Bernoulli-Mechanismus: Die Spaltverengung erzeugt Geschwindigkeitserhöhung, die Geschwindigkeitserhöhung erzeugt Unterdruck, der Unterdruck zieht die Zunge in den Schlitz (Durchschlagzunge). Die Rückkopplung zwischen Spaltweite und Unterdruck treibt die Schwingung -- \textbf{unabhängig von der globalen Strömungsrichtung} durch die Kammer.
 
 \begin{keybox}
-Das Düsenexperiment zeigt \textbf{direkt}, warum die Trennwand das Einschwingverhalten beeinflusst: Nicht über den Durchfluss (der ist immer gleich), sondern über den \textbf{Anströmwinkel} am Spalt. Die Wandform bestimmt, wie viel von der ursprünglichen Richtungsinformation des Druckstoßes am Spalt noch ankommt. Die Turbulenz, die für die Selbsterregung nötig ist, entsteht am Spalt selbst (Ablösungen an den Spaltkanten bei $\text{Re} \sim 1400$, vgl.\ Abschnitt Viertelkreis) -- sie muss nicht aus der Kammer mitgeliefert werden. Variante C (Parabel) liefert die beste Ansprache, weil sie die Richtungsinformation am besten erhält -- nicht weil sie die \emph{sauberste} Strömung liefert.
+Der Luftstrahl-Test zeigt, dass der Eintrittswinkel die Amplitude beeinflusst. Die Impulstransport-Rechnung erklärt einen realen Mechanismus: Horizontaler Impuls wird als gerichtete Kanalströmung zum Spalt transportiert, die Wandform beeinflusst die Erhaltung.
+
+\textbf{Aber:} Der Praxisbefund (Kapitel~7) zeigt, dass die Trennwandform auf Druck- \textit{und} Zugzunge \textbf{gleichermaßen} wirkt. Da die Strömungsführung nur die Druckzunge betreffen kann (bei der Zugzunge gibt es keinen Kanalstrahl), muss der \textbf{dominante} Wirkmechanismus der Trennwand ein anderer sein: die \textbf{akustische Impedanzkopplung} $Z(f)$, die auf beide Zungen identisch wirkt (siehe Kapitel~7). Die Strömungseffekte sind real, aber gegenüber der akustischen Kopplung untergeordnet.
+\end{keybox}
+
+% ============================================================
+\section{Druck- und Zugzunge -- und warum die Trennwand über Akustik wirkt}
+% ============================================================
+
+\subsection{Bernoulli am Engpass: richtungsunabhängig}
+
+Auf jeder Stimmplatte sitzen zwei Zungen für denselben Ton. Die Druckzunge schwingt beim Drücken des Balgs (Luft von Kammer nach außen), die Zugzunge beim Ziehen (Luft von außen in die Kammer). Beide schwingen durch denselben Bernoulli-Mechanismus am Engpass:
+
+\textbf{Druckzunge:} $\;p_\text{Kammer} > p_\text{außen}$, also $\Delta p = p_\text{Kammer} - p_\text{außen}$, und $v_\text{Spalt} = \sqrt{2\Delta p/\rho}$.
+
+\textbf{Zugzunge:} $\;p_\text{außen} > p_\text{Kammer}$, also $\Delta p = p_\text{außen} - p_\text{Kammer}$, und $v_\text{Spalt} = \sqrt{2\Delta p/\rho}$.
+
+Bei gleichem Balgdruck ist $|\Delta p|$ gleich, also $v_\text{Spalt}$ gleich, also der Bernoulli-Sog gleich. Die Zunge ist eine Druckmaschine, keine Impulsmaschine: Die Kraft entsteht durch $F = \Delta p \cdot A$ (Druckfeld am Engpass), nicht durch $F = \dot{m}\,\Delta v$ (Impulsübertrag eines Strahls). Im Gegensatz zu einer Impulsmaschine (z.\,B.\ Pelton-Rad), die bei Sogumkehr versagt (Kugelsenke, kein gerichteter Impuls, $F_\text{netto} = 0$), funktioniert die Druckmaschine in beiden Richtungen, weil die erzwungene Engpassgeometrie alle Stromlinien durch denselben Engpass führt -- egal ob von Druck oder von Sog getrieben.
+
+\subsection{Praktischer Befund: Druck und Zug verhalten sich gleich}
+
+Im Instrument ist die Ansprache bei Druck und Zug \textbf{kaum unterscheidbar}. Das bestätigt die Theorie: Da der Bernoulli-Engpass richtungsunabhängig ist und beide Zungen denselben Spalt nutzen, ergibt sich dasselbe Schwingverhalten.
+
+Aber es hat eine wichtige Konsequenz für die Frage, \textbf{wie} die Trennwand wirkt:
+
+\subsection{Der Widerspruch: Trennwand wirkt auf beide Zungen gleich}
+
+Der Praxistest zeigt: Verschiedene Trennwandformen beeinflussen die Ansprache -- und zwar bei Druck \textbf{und} Zug gleichermaßen.
+
+Das widerspricht der Strömungs\-führungs\-hypothese aus Kapitel~6. Denn wenn die Trennwand über den \textbf{gerichteten Kanalstrahl} wirken würde (Impulstransport, Tangentialkomponente, Flöten-Effekt), dann dürfte sie \textbf{nur die Druckzunge} beeinflussen:
+
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item \textbf{Druckzunge:} Luft strömt als Jet durch Klappe $\to$ Kanal~B $\to$ Faltung $\to$ Kanal~A $\to$ Spalt. Die Trennwand führt diesen Strahl. Richtungserhaltung, Tangentialkomponente am Spalt -- alles plausibel.
+\item \textbf{Zugzunge:} Luft wird von außen direkt in den Spalt gesogen. Kein Strahl läuft durch den Kanal zum Spalt hin. Die Trennwand kann keinen Strahl führen, der nicht existiert.
+\end{itemize}
+
+Wenn die Trennwand trotzdem auf \textbf{beide} Zungen gleich wirkt, muss ein anderer Mechanismus dominieren.
+
+\subsection{Der Schlüsseltest: ungefaltete Kammer, 0° vs.\ 90°}
+
+Der entscheidende experimentelle Befund: Eine \textbf{ungefaltete Kammer} (einfaches Rohr, keine Trennwand, keine Faltung) wird auf die Stimmplatte gesteckt. Das offene Rohrende kann relativ zum schwingenden Zungenende in verschiedenen Winkeln orientiert werden:
+
+\textbf{0°:} Das Rohrende liegt axial, direkt beim bewegten Zungenende.
+
+\textbf{90°:} Das Rohrende liegt quer zum bewegten Zungenende.
+
+\textbf{Ergebnis:} Die Ansprache unterscheidet sich -- und zwar bei \textbf{beiden} Zungen.
+
+In diesem Test gibt es: keine Trennwand, keine Faltung, keinen gerichteten Strahl im Kanal, keine Tangentialkomponente, keinen Flöten-Effekt. Trotzdem beeinflusst die Orientierung des Rohrendes relativ zum Spalt die Schwingung. Der einzige Mechanismus, der das erklären kann: \textbf{Die akustische Impedanzkopplung zwischen Kammeröffnung und Spalt.}
+
+\subsection{Der eigentliche Mechanismus: akustische Impedanzkopplung}
+
+Die Kammer wirkt als Helmholtz-Resonator (oder bei höheren Frequenzen als $\lambda/4$-Resonator). Bei jeder Schwingungsperiode erzeugt die Zunge eine Druckwelle, die in die Kammer läuft, reflektiert wird und zurückkommt. Die Kammerimpedanz $Z(f)$ bestimmt:
+
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item Die \textbf{Phase} der reflektierten Welle relativ zur Zungenbewegung (bestimmt, ob Energie zugeführt oder entzogen wird)
+\item Die \textbf{Amplitude} der Rückkopplung (bestimmt, wie stark der Effekt ist)
+\end{itemize}
+
+Was die \textbf{Rohrposition} (0° vs.\ 90°) verändert: Wo das akustische \glqq{}Ende\grqq{} der Kammer relativ zum Ort der maximalen Zungenauslenkung liegt, beeinflusst, wie die Druckwelle an den Spalt koppelt. Das offene Rohrende ist ein Druckknoten (Reflexion mit Phasenumkehr). Ob dieser Druckknoten direkt am bewegten Zungenende liegt (0°) oder seitlich versetzt (90°), verändert die effektive akustische Länge und damit $Z(f)$.
+
+Was die \textbf{Trennwand} verändert: Sie teilt die Kammer in zwei Kanäle mit unterschiedlichen Querschnitten. Das verändert:
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item Die effektive \textbf{Volumenaufteilung} zwischen den Kanälen
+\item Die \textbf{Helmholtz-Frequenz} $f_H$ des Gesamtsystems
+\item Die \textbf{Güte} $Q_H$ des Resonators (Dissipation an Wänden und Kanten)
+\item Die \textbf{Impedanz} $Z(f)$, die \textbf{beide} Zungen sehen
+\end{itemize}
+
+Dieser Mechanismus wirkt auf Druck- und Zugzunge gleichermaßen, weil die akustische Rückkopplung in beiden Fällen durch dieselbe Kammer mit derselben Impedanz läuft.
+
+\begin{keybox}
+\textbf{Zusammengefasst:} Die Trennwand beeinflusst die Ansprache \textbf{nicht primär über Strömungsführung} (Impulstransport, Richtungserhaltung, Tangentialkomponente), sondern über die \textbf{akustische Kammerimpedanz} $Z(f)$. Das beweist der Praxisbefund, dass die Trennwandform auf Druck- \textit{und} Zugzunge gleich wirkt -- und der 0°/90°-Test, bei dem ohne Trennwand und ohne Faltung allein die Position des akustischen Endes relativ zum Spalt die Ansprache verändert. Die Strömungseffekte (Kapitel~6) sind real, aber gegenüber der akustischen Kopplung untergeordnet.
 \end{keybox}
 
 % ============================================================
@@ -315,15 +475,23 @@ Alle drei Varianten liefern bei 1000\,Pa denselben Volumenstrom ($\sim$115\,ml/s
 
 \subsection{Warum die Trennwand trotzdem entscheidend ist}
 
-Der Widerspruch löst sich auf, wenn man den \textbf{instationären Anlauf} betrachtet statt den Gleichgewichtszustand. In den ersten Millisekunden nach Klappenöffnung passiert folgendes: Ein Druckstoß läuft vom Ventil durch Kanal B, um die Faltung, durch Kanal A zum Spalt. In dieser initialen Phase wirkt die Trennwand als Strömungsführung für den Druckaufbau. Ihre Form bestimmt, wie schnell der Druck am Spalt ankommt. Im eingeschwungenen Zustand wirkt die Kammer dann als Helmholtz-Resonator, und die Phasenlage der Kammerimpedanz bestimmt die Oberton-Kopplung (siehe Phasenanalyse-Abschnitt).
+Der Widerspruch löst sich auf, wenn man zwei Wirkmechanismen unterscheidet -- einen dominanten und einen untergeordneten:
 
-\textbf{Gerade Wand (A):} Der 30-Grad-Strahl prallt auf die Wand, erzeugt einen Stagnationspunkt und Wirbel. Der Druckstoß wird breit gestreut und teilweise reflektiert. Am Spalt kommt er verspätet und mit reduzierter Amplitude an. Der Druckaufbau ist langsam -- die Zunge erreicht den Schwellendruck für die Bernoulli-Rückkopplung später.
+\textbf{Dominanter Mechanismus: akustische Impedanz.} Die Trennwand verändert die effektive akustische Geometrie der Kammer: Volumenaufteilung zwischen den Kanälen, Position des ``akustischen Endes'' relativ zum Spalt, Helmholtz-Frequenz $f_H$ und Güte $Q_H$. Diese Änderungen wirken über die Kammerimpedanz $Z(f)$ auf \textbf{beide} Zungen gleichermaßen (Kapitel~7). Der 0°/90°-Test mit einem einfachen Rohr -- ohne Trennwand, ohne Faltung -- zeigt, dass allein die Position der Kammeröffnung relativ zum Spalt die Ansprache verändert. Die verschiedenen Wandformen (A, B, C) erzeugen verschiedene akustische Geometrien und damit verschiedene $Z(f)$-Verläufe.
 
-\textbf{Schräge Wand (B):} Die Düse am Eintritt beschleunigt den Druckstoß. Weniger Reflexionen auf dem Weg. Am Spalt kommt der Druck schneller auf den Schwellenwert. Der Anlauf ist kürzer.
+\textbf{Untergeordneter Mechanismus: Strömungsführung (nur Druckzunge).} In den ersten Millisekunden nach Klappenöffnung läuft ein Druckstoß vom Ventil durch Kanal~B, um die Faltung, durch Kanal~A zum Spalt. Die Wandform beeinflusst, wie schnell und mit welcher Amplitude dieser Druckstoß am Spalt ankommt. Dieser Effekt wirkt aber nur auf die Druckzunge (bei der Zugzunge gibt es keinen Kanalstrahl) und ist gegenüber der akustischen Kopplung untergeordnet, wie die praktisch identische Druck-/Zugansprache zeigt.
 
-\textbf{Parabolische Wand (C):} Die stetige Krümmung führt den Druckstoß ohne Ablösung entlang der Wand (Coanda-Effekt). Minimale Reflexionen, schnellster Druckaufbau am Spalt. Die Turbulenz, die die Selbsterregung auslöst, entsteht ohnehin am Spalt selbst (Ablösungen an den Kanten bei $\text{Re} \sim 1400$) und muss nicht aus der Kammer angeliefert werden.
+\textbf{Stationäre Strömung:} Für alle drei Varianten identisch. Deshalb ist die Strömungsberechnung nützlich (sie bestätigt, dass die Varianten sich \textit{stationär} nicht unterscheiden), aber sie erklärt nicht die hörbaren Unterschiede.
 
-In der Elektrotechnik-Analogie (Kapitel~10): Die stationäre Berechnung entspricht dem Gleichstromwiderstand eines Kabels -- für alle drei Varianten fast gleich. Aber die \textbf{Impulsantwort} (wie schnell ein Spannungssprung am Ende ankommt) hängt von der Wellenimpedanz, Reflexionen und Dispersion ab -- und die sind völlig verschieden. Für die Ansprache zählt nicht der Gleichstromwiderstand, sondern die Impulsantwort.
+Die drei Varianten unterscheiden sich also primär in ihrer \textbf{akustischen Wirkung}:
+
+\textbf{Gerade Wand (A):} Symmetrische Kanalaufteilung. Stagnationspunkt erzeugt Wirbel $\to$ erhöhte Dissipation $\to$ niedrigeres $Q_H$ $\to$ breitere, schwächere Kopplung. Akustisch: gleichmäßiges Impedanzprofil.
+
+\textbf{Schräge Wand (B):} Asymmetrische Kanalaufteilung (eng bei Klappe, weit bei Faltung). Weniger Dissipation als A. Verändert die Position, an der die akustische Welle auf unterschiedliche Querschnitte trifft $\to$ verändert $Z(f)$.
+
+\textbf{Parabolische Wand (C):} Stetige Querschnittsänderung. Minimale Reflexionen innerhalb der Kammer $\to$ höchstes $Q_H$ $\to$ schmalere, stärkere Kopplung. Akustisch: sanftester Impedanzübergang.
+
+In der Elektrotechnik-Analogie: Die stationäre Berechnung entspricht dem Gleichstromwiderstand eines Kabels -- für alle drei Varianten fast gleich. Die \textbf{Impedanz} bei der Betriebsfrequenz (und deren Obertönen) hängt aber von der Wellenimpedanz, Reflexionen und Dispersion ab -- und die sind völlig verschieden. Für die Ansprache zählt nicht der Gleichstromwiderstand, sondern die frequenzabhängige Impedanz $Z(f)$.
 
 % ============================================================
 \section[Dynamische Spaltfläche]{Die dynamische Spaltfläche -- warum 6\,mm$^2$ nur die halbe Wahrheit ist}
@@ -587,20 +755,20 @@ Die 180\textdegree{}-Faltung ist eine \textbf{akustische Diskontinuität}. An de
 
 Diese Überlagerung ist der Mechanismus: Der reflektierte Puls kommt mit einer Zeitverzögerung an (doppelter Faltungs-Abstand / $c$). Je nach Frequenz ist die Überlagerung konstruktiv oder destruktiv -- die \textbf{effektive Phase} des Kammerdrucks am Spalt wird verschoben. Zusätzlich ändert die Faltung die effektive akustische Masse des Halses (der Luftpfad wird länger und gewundener), was $f_H$ geringfügig verschiebt.
 
-Die Abrundung (Viertelkreis $R = 8$--$10$\,mm) reduziert die Stärke der Reflexion: Ein stetiger Querschnittsübergang erzeugt weniger Reflexion als ein abrupter Knick. Das bedeutet weniger Phasenverzerrung -- nicht unbedingt eine \emph{bessere} Phase, aber eine \textbf{berechenbarere}: Die Phase kommt näher an den idealen Helmholtz-Wert heran.
+Die Abrundung (Viertelkreis) reduziert den Reflexionskoeffizienten an der Faltung, verändert aber gleichzeitig die Inertanz der Biegungssektion (Coltman-Effekt, Abschnitt~5.2). Ein stetiger Querschnittsübergang erzeugt weniger Reflexion als ein abrupter Knick -- aber auch weniger akustische Verkürzung. Das bedeutet: Die Phase kommt näher an den idealen Helmholtz-Wert heran (berechenbarer), aber $f_H$ verschiebt sich nach unten (weil die effektive Kammerlänge wächst). Ob das die Ansprache verbessert, hängt davon ab, wo $f_H$ relativ zu den Zungenobertönen liegt.
 
 \subsection{Hierarchie der Effekte für die Ansprache}
 
 Die Kammergeometrie beeinflusst die Ansprache über \textbf{mehrere Mechanismen}, die physikalisch verschieden und unterschiedlich wichtig sind:
 
-\textbf{1.\ Akustische Phasenkopplung (dominant):} Die Phase der Kammerimpedanz $Z(f)$ bestimmt, ob Obertöne der Zunge Energie aus der Kammer aufnehmen oder abgeben. Wird primär durch $f_H$ bestimmt (Kammervolumen, Halsquerschnitt, Halslänge). Die Wandform hat darauf nur geringen Einfluss (über $Q_H$ und Reflexionen). Dies ist der Hauptgrund, warum die \textbf{Kammergröße} für verschiedene Tonhöhen variiert wird.
+\textbf{1.\ Akustische Phasenkopplung (dominant):} Die Phase der Kammerimpedanz $Z(f)$ bestimmt, ob Obertöne der Zunge Energie aus der Kammer aufnehmen oder abgeben. Wird primär durch $f_H$ bestimmt (Kammervolumen, Halsquerschnitt, Halslänge). Wirkt auf \textbf{beide} Zungen (Druck und Zug) gleichermaßen. Dies ist der Hauptgrund, warum die \textbf{Kammergröße} für verschiedene Tonhöhen variiert wird.
 
-\textbf{2.\ Kammer-Güte $Q_H$ (sekundär):} Bestimmt die Bandbreite der Kammer-Zungen-Kopplung. Höheres $Q_H$ (weniger Dissipation, z.B.\ Variante C) $\to$ schmalere, stärkere Kopplung. Niedrigeres $Q_H$ (mehr Dissipation, z.B.\ Variante A) $\to$ breitere, schwächere Kopplung. Die Wandform beeinflusst dies direkt.
+\textbf{2.\ Akustische Geometrie der Trennwand (sekundär, aber praktisch relevant):} Die Trennwand verändert die effektive akustische Kammergeometrie -- wo das \glqq{}akustische Ende\grqq{} relativ zum Spalt liegt, wie die Volumenaufteilung zwischen den Kanälen ist, und wie die Güte $Q_H$ des Resonators ausfällt. Höheres $Q_H$ (weniger Dissipation, z.B.\ Variante C) $\to$ schmalere, stärkere Kopplung. Niedrigeres $Q_H$ (mehr Dissipation, z.B.\ Variante A) $\to$ breitere, schwächere Kopplung. Dass dieser Effekt auf \textbf{beide} Zungen gleich wirkt, bestätigt den akustischen Mechanismus (Kapitel~7). Der 0°/90°-Test mit ungefalteter Kammer zeigt, dass allein die Position des Kammerendes relativ zum Spalt die Ansprache verändert -- ohne Trennwand, ohne Faltung.
 
-\textbf{3.\ Anströmwinkel am Spalt (untergeordnet, aber praktisch relevant):} Das Düsenexperiment zeigt eindeutig: Der Winkel, unter dem die Luft auf die Zunge trifft, bestimmt das Verhältnis zwischen Normalkomponente (statischer Druck) und Tangentialkomponente (Bernoulli-Sog). Nur bei ca.\ 20--40\textdegree{} stimmt die Balance für maximale Energiezufuhr. Die Wandform beeinflusst diesen Winkel, weil sie die Strömungsrichtung in Kanal~A lenkt.
+\textbf{3.\ Strömungsführung (untergeordnet):} Der Impulstransport durch den Kanal (Kapitel~6: Tangentialkomponente, Richtungserhaltung) ist ein realer Effekt, beeinflusst aber nur die Druckzunge. Da Druck- und Zugansprache praktisch kaum unterscheidbar sind und die Trennwandform auf beide gleich wirkt, ist dieser Mechanismus gegenüber der akustischen Kopplung untergeordnet.
 
 \begin{keybox}
-Dieser dritte Effekt erklärt die \textbf{praktische Erfahrung} der Instrumentenbauer, dass die Trennwandform hörbar wirkt, obwohl der stationäre Durchfluss identisch ist. Die gleichmäßige Luftführung selbst ist untergeordnet -- aber der \textbf{Winkel}, unter dem die Luft am Spalt ankommt, ist es nicht. Das ist ein aerodynamischer Effekt, der vom akustischen Phasenmechanismus unabhängig ist und vor allem beim Einschwingvorgang eine Rolle spielt. Zusammen erklären die drei Kanäle (Phase, Bandbreite, Winkel), warum weder rein akustische noch rein strömungstechnische Optimierung allein zum besten Ergebnis führt.
+Die \textbf{praktische Erfahrung} der Instrumentenbauer, dass die Trennwandform hörbar wirkt, erklärt sich primär durch den akustischen Mechanismus (Punkte 1 und 2): Die Wandform verändert $Z(f)$ und $Q_H$, und diese Änderung wirkt auf beide Zungen. Die Strömungseffekte (Punkt 3) sind ein realer, aber quantitativ kleiner Zusatz, der nur die Druckzunge betrifft. Für die Optimierung folgt: Die Kammergeometrie (Volumen, Hals) ist wichtiger als die Trennwandform, und die akustische Wirkung der Trennwand ist wichtiger als ihre strömungstechnische.
 \end{keybox}
 
 % ============================================================
@@ -703,7 +871,7 @@ Dennoch ersetzen sie keinen praktischen Test:
 
 \textbf{1.\ Idealisierte Geometrie:} Exakt plane Flächen, scharfe Kanten, gleichmäßige Spalte. Real: Holzfasern, Bearbeitungsspuren, individuelle Aufbiegung. Schon 0{,}1\,mm Unterschied in der Aufbiegung ändert $S_\text{eff}$ um $\sim$7\,\%.
 
-\textbf{2.\ Stationäre Strömung:} \textbf{Dies ist die gravierendste Einschränkung.} Die Verlustberechnung nimmt stationäre Strömung an. Tatsächlich pulsiert die Strömung mit 50\,Hz. Praktische Erfahrung zeigt, dass die Trennwandform das Einschwingverhalten entscheidend beeinflusst -- ein Effekt, der im instationären Anlauf (Impulsantwort) liegt und von der stationären Berechnung grundsätzlich nicht erfasst wird (siehe Kapitel~6).
+\textbf{2.\ Stationäre Strömung:} \textbf{Dies ist die gravierendste Einschränkung.} Die Verlustberechnung nimmt stationäre Strömung an. Tatsächlich pulsiert die Strömung mit 50\,Hz. Praktische Erfahrung zeigt, dass die Trennwandform das Einschwingverhalten entscheidend beeinflusst. Der dominante Mechanismus ist dabei \textbf{akustisch} (Impedanzkopplung $Z(f)$, wirkt auf beide Zungen gleich, siehe Kapitel~7), nicht strömungsmechanisch. Die stationäre Berechnung erfasst weder den akustischen noch den transienten Effekt.
 
 \textbf{3.\ Dämpfung:} $Q$ ist der empfindlichste Parameter. Unterschiede von Faktor~2 zwischen scheinbar identischen Zungen sind normal.
 
@@ -737,7 +905,7 @@ Für den Instrumentenbauer bedeutet das: \textbf{Die Berechnung sagt, wo man suc
 \item \textbf{Ansprache:} $\tau = Q/(\pi f)$. Bei $Q = 100$: 637\,ms, bei $Q = 25$: 159\,ms. Die Kammergeometrie beeinflusst nicht den stationären Durchfluss, aber entscheidend den instationären Anlauf.
 
 \item \textbf{Akustik:} Helmholtz 274\,Hz, Kammer akustisch klein.
-\item \textbf{Phasenkopplung (v8 neu):} Ansprache durch drei Mechanismen: (1)~akustische Phase (dominant, durch $f_H$), (2)~Kammer-Güte $Q_H$ (durch Wandform), (3)~Anströmwinkel am Spalt (durch Wandform, beim Einschwingen).
+\item \textbf{Phasenkopplung (v8 neu):} Ansprache durch drei Mechanismen: (1)~akustische Phase (dominant, durch $f_H$), (2)~akustische Geometrie der Trennwand ($Q_H$, Volumenaufteilung, Position des akustischen Endes -- wirkt auf beide Zungen), (3)~Strömungsführung (untergeordnet, nur Druckzunge).
 \item \textbf{Vorkammer (v8 neu):} 48$\times$20$\times$70\,mm (67\,cm$^3$) senkt Mode~1 von 274 auf 231\,Hz ($-$16\,\%). VK-Länge ist Abstimmwerkzeug für Oberton-Phasenlage ohne Einfluss auf stationären Durchfluss.
 \end{itemize}
 

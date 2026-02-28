@@ -1306,156 +1306,200 @@ st.append(Paragraph(
     "lässt. Auch hier gilt: <b>Die Berechnung zeigt, dass der Effekt nicht im "
     "Durchfluss liegt - also muss er im instationären Verhalten liegen.</b>", sty['Key']))
 
-# --- Kap 5b: Viertelkreis an der Faltung ---
-st.append(Paragraph("Viertelkreis an der 180°-Faltung", sty['Sec']))
+# --- Kap 5b: Akustische Wirkung der 180°-Faltung ---
+st.append(Paragraph("Akustische Wirkung der 180°-Faltung", sty['Sec']))
 
-# Calculate bend losses with quarter-circle radii
-D_h_fold = 2 * gap_fold * H_kam / (gap_fold + H_kam)  # hydraulic diameter of fold passage
+# Coltman acoustic shortening calculation
+# Relevante Dimension: gap_fold (engere Passage am Biegungspunkt), nicht D_h
+D_h_fold = 2 * gap_fold * H_kam / (gap_fold + H_kam)  # hydraulic diameter (nur für Referenz)
+ID_coltman = gap_fold  # Die akust. Abkürzung passiert an der engeren Dimension
+delta_l_acoustic = 0.79 * ID_coltman  # Coltman: double miter shortening ≈ 0.79 × ID
+L_chamber_total = 2 * L_wall + gap_fold  # total internal path
+shortening_pct = delta_l_acoustic / L_chamber_total * 100
 
-# Idelchik: 90° bend with inner radius R
-# Sharp (R=0): zeta_90 ~ 1.1
-# R/D_h = 0.25: zeta_90 ~ 0.8
-# R/D_h = 0.5: zeta_90 ~ 0.5  
-# R/D_h = 1.0: zeta_90 ~ 0.2-0.3
-# R/D_h = 2.0: zeta_90 ~ 0.1
+# Coltman compensation dimensions (mit gap_fold als ID)
+t_plate_coltman = 2e-3  # 2mm Plattendicke
+h_plate_coltman = 0.49 * ID_coltman - 0.5 * t_plate_coltman
+total_plate_w = t_w + 2 * h_plate_coltman
+d_bevel_coltman = 1.33 * ID_coltman  # bevel dimension for double bend
+W_k = (B_kam - t_w) / 2  # Kanalbreite
+block_pct = h_plate_coltman / W_k * 100
 
-# 180° turn = 2 x 90° plus additional mixing loss
-# Sharp 180°: zeta_180 ~ 2.0-2.5 (used: 1.0 for A because S_fold >> S_gap makes it nearly zero)
-# With radius R: zeta_180 ~ 2 * zeta_90(R/Dh) + 0.1 (residual)
+st.append(Paragraph(
+    "Die 180°-Faltung am Ende der Trennwand hat scharfe 90°-Ecken. Die bisherige "
+    "Analyse betrachtete nur den stationären Strömungsverlust — der vernachlässigbar "
+    f"klein ist (< 0,01% bei S<sub>Faltung</sub> = {S_fold*1e6:.0f} mm², "
+    f"{S_fold/S_gap:.0f}× größer als der Spalt). Aber die Faltung hat eine "
+    "<b>akustische</b> Wirkung:", sty['B']))
 
-radii_mm = [0, 3, 5, 8, 10, 15]
-fold_rows = [Prow(['Radius R', 'R/D<sub>h</sub>', 'zeta<sub>Faltung</sub>',
-              'zeta auf S<sub>Spalt</sub> bezogen', 'Anteil an zeta<sub>ges</sub>'], hdr=True)]
+st.append(Paragraph("Coltman-Effekt: Gehrungsbiegungen als Impedanzstörung", sty['Sec']))
 
-zeta_total_ref = configs['A-Gerade + Ausblas']['zeta']
+st.append(Paragraph(
+    "Coltman (CCRMA/Stanford, 2006; basierend auf Dequand et al., Acta Acustica 89, "
+    "2003) untersuchte die akustischen Eigenschaften von Gehrungsbiegungen in Rohren — "
+    "genau die Geometrie, die in Orgelpfeifen zum Falten langer Resonatoren verwendet wird. "
+    "Link: ccrma.stanford.edu/marl/Coltman/documents/Coltman-1.44.pdf", sty['B']))
 
-for R_mm in radii_mm:
-    R = R_mm / 1000.0
-    r_dh = R / D_h_fold
-    
-    # Idelchik approximation for 90° bend
-    if r_dh < 0.01:
-        z_90 = 1.1  # sharp
-    else:
-        z_90 = 0.21 * (1 + 0.7/r_dh**0.5)  # Idelchik interpolation
-    z_180 = 2 * z_90 + 0.15  # two bends + mixing
-    z_180 = min(z_180, 2.5)  # cap at sharp value
-    
-    # Scale to gap area
-    z_scaled = z_180 * (S_gap / S_fold)**2
-    anteil = z_scaled / zeta_total_ref * 100
-    
-    fold_rows.append([
-        f'{R_mm} mm' if R_mm > 0 else 'scharf',
-        f'{r_dh:.2f}' if R_mm > 0 else '0',
-        f'{z_180:.2f}',
-        f'{z_scaled:.6f}',
-        f'{anteil:.4f}%'
-    ])
+st.append(Paragraph(
+    "<b>Befund:</b> Eine scharfe 90°-Gehrungsbiegung verändert die "
+    "<b>charakteristische Impedanz</b> des Rohres. Die Kompressibilität (Volumen) "
+    "der Biegungssektion bleibt gleich, aber die <b>Inertanz sinkt</b>, weil die "
+    "akustischen Schwingungen eine 'Abkürzung' um die Biegung nehmen. Das Ergebnis: "
+    "die Impedanz Z = √(Inertanz/Kompressibilität) ist gestört, die effektive "
+    "akustische Länge ist <b>verkürzt</b>, und es entsteht ein Reflexionskoeffizient.", sty['B']))
 
-t_fold_r = Table(fold_rows, colWidths=[18*mm, 18*mm, 28*mm, 36*mm, 30*mm])
-t_fold_r.setStyle(TableStyle([
+st.append(Paragraph(
+    "Coltman maß für eine <b>180°-Doppelbiegung</b> (zwei dicht beieinanderliegende "
+    "90°-Gehrungen — exakt die Geometrie unserer Kammerfaltung): Akustische Verkürzung "
+    "Δl = 18,8 mm bei D<sub>innen</sub> = 23,8 mm, also <b>Δl ≈ 0,79 × D</b>.", sty['B']))
+
+st.append(Paragraph("Übertragung auf die Akkordeonkammer", sty['Sec']))
+
+st.append(Paragraph(
+    f"Unsere Faltung hat einen rechteckigen Querschnitt ({gap_fold*1e3:.0f} × "
+    f"{H_kam*1e3:.0f} mm). Die relevante Dimension ist nicht D<sub>h</sub> = "
+    f"{D_h_fold*1e3:.1f} mm, sondern die <b>engere Passage am Biegungspunkt</b>: "
+    f"gap<sub>fold</sub> = {gap_fold*1e3:.0f} mm — dort biegt die Welle vom Kanal "
+    f"(W<sub>k</sub> = {W_k*1e3:.1f} mm) in den Faltungsbogen um.", sty['B']))
+
+st.append(Paragraph(
+    f"<b>Δl<sub>akustisch</sub> ≈ 0,79 × {ID_coltman*1e3:.0f} mm ≈ "
+    f"{delta_l_acoustic*1e3:.0f} mm</b>", sty['B']))
+
+st.append(Paragraph(
+    f"Der gesamte interne Kammerweg ist ca. {L_chamber_total*1e3:.0f} mm lang. Eine "
+    f"akustische Verkürzung von {delta_l_acoustic*1e3:.0f} mm entspricht "
+    f"<b>{shortening_pct:.0f}%</b> der gesamten akustischen Länge — das ist nicht "
+    f"vernachlässigbar! Diese Verkürzung verschiebt die Helmholtz-Frequenz f<sub>H</sub> "
+    f"und alle Kammerresonanzen nach oben.", sty['B']))
+
+st.append(Paragraph("Was das für die Eckengeometrie bedeutet", sty['Sec']))
+
+# Comparison table
+corner_rows = [Prow(['', 'Scharf', 'Viertelkreis', 'Coltman-Platte'], hdr=True)]
+corner_rows.append(['Inertanz', 'Reduziert (−)', 'Teilweise wiederhergest.', 'Voll kompensiert'])
+corner_rows.append(['Volumen', 'Unverändert', 'Leicht vergrößert', 'Reduziert (angepasst)'])
+corner_rows.append(['Impedanz Z', 'Gestört', 'Anders gestört', 'Wiederhergestellt'])
+corner_rows.append(['Reflexion', 'Maximal', 'Reduziert (glatter)', 'Minimal (kompensiert)'])
+corner_rows.append(['Δl akust.', f'≈ {delta_l_acoustic*1e3:.0f} mm', '≈ 10–15 mm', '≈ 0'])
+corner_rows.append(['f_H-Verschiebung', 'Nach oben', 'Weniger nach oben', 'Keine'])
+
+t_corner = Table(corner_rows, colWidths=[24*mm, 30*mm, 33*mm, 33*mm])
+t_corner.setStyle(TableStyle([
     ('BACKGROUND',(0,0),(-1,0),HexColor('#16213e')),('TEXTCOLOR',(0,0),(-1,0),white),
+    ('BACKGROUND',(0,1),(0,-1),HexColor('#e8e8e8')),
     ('FONTSIZE',(0,0),(-1,-1),7),('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
-    ('ALIGN',(0,0),(-1,-1),'CENTER'),('GRID',(0,0),(-1,-1),0.5,HexColor('#ccc')),
+    ('FONTNAME',(0,1),(0,-1),'Helvetica-Bold'),
+    ('ALIGN',(0,0),(-1,-1),'CENTER'),('VALIGN',(0,0),(-1,-1),'MIDDLE'),
+    ('GRID',(0,0),(-1,-1),0.5,HexColor('#ccc')),
     ('ROWBACKGROUNDS',(0,1),(-1,-1),[white,HexColor('#f5f5f5')]),
     ('TOPPADDING',(0,0),(-1,-1),1.5*mm),('BOTTOMPADDING',(0,0),(-1,-1),1.5*mm)]))
 
 st.append(Paragraph(
-    f"Die 180°-Faltung am Ende der Trennwand hat scharfe Ecken. Kann man durch "
-    f"Einsetzen eines Viertelkreis-Profils (Radius R) an den beiden 90°-Ecken den "
-    f"Verlust reduzieren? Der hydraulische Durchmesser der Faltung ist "
-    f"D<sub>h</sub> = {D_h_fold*1e3:.1f} mm (Spalt {gap_fold*1e3:.0f} mm x Höhe "
-    f"{H_kam*1e3:.0f} mm).", sty['B']))
+    "<b>Scharfe Ecken:</b> Maximale Inertanzreduktion, stärkste akustische Verkürzung. "
+    "Reflexionskoeffizient am höchsten. Kammerresonanzen verschieben sich nach oben.", sty['B']))
 
-st.append(t_fold_r)
+st.append(Paragraph(
+    "<b>Verrundete Ecken</b> (Viertelkreis R): Impedanzübergang geglättet, "
+    "Reflexionskoeffizient sinkt. Aber gleichzeitig wird die Inertanzreduktion "
+    "<b>verkleinert</b> — die akustische Verkürzung nimmt ab, die effektive "
+    "Kammerlänge wächst.", sty['B']))
+
+st.append(Paragraph(
+    "<b>Coltmans Kompensation</b> (Orgelbau): Nicht Verrundung, sondern "
+    "<b>Einfügen von Hindernissen</b>: Eine horizontale Platte am Trennwandende "
+    f"(Breite ≈ {total_plate_w*1e3:.0f} mm, ragt {h_plate_coltman*1e3:.0f} mm pro Seite "
+    f"über die Trennwand, blockiert {block_pct:.0f}% jedes Kanals) erhöht die Inertanz "
+    "zurück auf den Wert des geraden Kanals. Alternativ: Scharfe Ecke beidseitig "
+    f"{(d_bevel_coltman-t_w)/2*1e3:.0f} mm bei 45° abfasen und mit Platte "
+    f"(d ≈ {d_bevel_coltman*1e3:.0f} mm) abdecken.", sty['B']))
+
+st.append(t_corner)
 st.append(Spacer(1, 2*mm))
 
-st.append(Paragraph(
-    f"<b>Stationäres Ergebnis:</b> Die Faltung trägt bei <b>allen Radien weniger als "
-    f"0,01% zum Gesamtwiderstand</b> bei. Der Grund: Die Faltungsquerschnittsfläche "
-    f"S<sub>Faltung</sub> = {S_fold*1e6:.0f} mm2 ist {S_fold/S_gap:.0f}-mal größer als "
-    f"der Spalt ({S_gap*1e6:.0f} mm2). Der Verlustbeiwert wird mit (S<sub>Spalt</sub>/"
-    f"S<sub>Faltung</sub>)2 = ({S_gap/S_fold:.4f})2 = {(S_gap/S_fold)**2:.2e} skaliert - "
-    f"praktisch Null.", sty['B']))
+st.append(Paragraph("Vergleich mit dem Orgelbau", sty['Sec']))
+
+lambda_50 = 343.0 / 50.0
+lambda_250 = 343.0 / 250.0
+d_lambda_50 = ID_coltman / lambda_50
+d_lambda_250 = ID_coltman / lambda_250
 
 st.append(Paragraph(
-    "<b>Instationäres Bild:</b> Für den Druckstoß-Durchgang ist die Frage "
-    "differenzierter als beim stationären Durchfluss. Ein Viertelkreis-Profil "
-    "mit R = 8-10 mm hätte zwei Effekte:", sty['B']))
+    "Die Organ Historical Society bestätigt: Gefaltete ('mitered') Orgelpfeifen "
+    "unterscheiden sich akustisch nur <b>wenig</b> von geraden Pfeifen gleicher "
+    "Länge. Der Haupteffekt ist die akustische Längenkorrektur, die bei der "
+    "Intonation berücksichtigt wird. Der Klang (Obertonspektrum) ändert sich "
+    "kaum — was bestätigt, dass die Impedanzstörung bei den üblichen Verhältnissen "
+    "(D/λ << 1) klein ist.", sty['B']))
 
 st.append(Paragraph(
-    "<b>a) Reflexionen reduzieren:</b> An einer scharfen 90°-Ecke wird ein "
-    "Druckpuls teilweise reflektiert (akustische Impedanzsprung). Je steiler "
-    "die Geometrieänderung, desto stärker die Reflexion. Ein Viertelkreis "
-    "glättet den Impedanzübergang und lässt mehr Pulsenergie passieren.", sty['B']))
+    f"Für unsere Kammer bei f = 50 Hz: λ = {lambda_50:.1f} m, "
+    f"gap<sub>fold</sub> = {ID_coltman*1e3:.0f} mm, also D/λ = {d_lambda_50:.4f} — "
+    f"die Störung ist klein. Bei Obertönen (5f = 250 Hz, λ = {lambda_250:.1f} m) "
+    f"steigt das Verhältnis auf {d_lambda_250:.3f} — immer noch klein.", sty['B']))
 
 st.append(Paragraph(
-    "<b>b) Wirbelbildung reduzieren:</b> Bei scharfen Ecken löst die Strömung "
-    "bei jedem Druckstoß sofort ab und bildet Wirbel, die Energie dissipieren. "
-    "Mit Radius R > 5 mm bleibt die Strömung länger angelegt.", sty['B']))
+    f"<b>Neubewertung:</b> Die Faltung verändert nicht die Strömung "
+    f"(stationärer Verlust < 0,01%), sondern die <b>akustische Impedanz</b> der "
+    f"Kammer. Scharfe Ecken verkürzen die effektive akustische Länge um ca. "
+    f"{delta_l_acoustic*1e3:.0f} mm (≈ {shortening_pct:.0f}%). Ein Viertelkreis-Profil "
+    f"reduziert die Reflexion, verändert aber die Impedanz <b>anders</b> als eine "
+    f"gezielte Kompensation. Im Orgelbau werden scharfe Biegungen akzeptiert und über "
+    f"die Rohrlänge kompensiert. Die Coltman-Kompensation (horizontale Platte "
+    f"≈ {total_plate_w*1e3:.0f} × {H_kam*1e3:.0f} × 2 mm am Trennwandende, ragt "
+    f"{h_plate_coltman*1e3:.0f} mm pro Seite über die Wand, blockiert {block_pct:.0f}% "
+    f"jedes Kanals) stellt die Impedanz gezielt wieder her. "
+    f"In der Akkordeonkammer, wo f<sub>H</sub> über "
+    f"Kammervolumen und Halsquerschnitt abgestimmt wird, verschiebt die Faltung "
+    f"f<sub>H</sub> um einige Hertz — ein Effekt, der in die Kammerauslegung eingehen "
+    f"sollte, nicht nachträglich durch Verrundung 'repariert' werden muss. Ob eine "
+    f"Verrundung die Ansprache verbessert oder verschlechtert, hängt davon ab, ob die "
+    f"Impedanzänderung f<sub>H</sub> in die richtige Richtung schiebt — das lässt sich "
+    f"nur durch Versuch klären.", sty['Key']))
 
-st.append(Paragraph(
-    "<b>Aber Vorsicht:</b> Eine <b>zu kohärente</b> Strömung am Spalt ist "
-    "nicht wünschenswert! Die Bernoulli-Selbsterregung braucht eine "
-    "Anfangsstörung, um die Schwingung auszulösen. Eine perfekt gleichmäßige, "
-    "laminare Strömung würde die Zunge nur statisch auslenken, ohne sie in "
-    "Schwingung zu versetzen. Ein gewisses Maß an Turbulenz und räumlicher "
-    "Ungleichmäßigkeit ist notwendig:", sty['Warn']))
-
-st.append(Paragraph(
-    "<b>Lokale Druckschwankungen</b> an der Zungenspitze stößen die erste "
-    "Auslenkung an. <b>Wirbelablösungen</b> an den Spaltkanten liefern "
-    "breitbandige Störungen, die die Zunge zum Schwingen anregen. "
-    "Wäre die Strömung perfekt laminar und gleichförmig, müsste die Zunge "
-    "auf eine infinitesimale Instabilität warten - der Einschwingvorgang "
-    "würde sich deutlich verzögern.", sty['B']))
-
-st.append(Paragraph(
-    "Das Optimum liegt also nicht bei maximaler Kohärenz, sondern bei "
-    "<b>schnellem Druckaufbau mit ausreichend Störungen</b>. Konkret: "
-    "Der Druckstoß soll schnell am Spalt ankommen (-> wenig Reflexion in "
-    "der Faltung, gute Wandführung), aber dort soll genügend Turbulenz "
-    "entstehen, um die Selbsterregung sofort auszulösen. Die Turbulenz "
-    "entsteht ohnehin am Spalt selbst (Re ~ 1400, Ablösungen an den "
-    "Spaltkanten) - sie muss nicht zusätzlich aus der Kammer angeliefert "
-    "werden.", sty['B']))
-
-st.append(Paragraph(
-    "<b>Empfehlung:</b> Ein Viertelkreis-Profil R = 8-10 mm an den Ecken der "
-    "Faltung reduziert Reflexionen und Energieverluste im Druckstoß-Transport, "
-    "ohne die Turbulenz am Spalt zu beeinträchtigen (der Spalt erzeugt seine "
-    "eigene Turbulenz). Ob der Effekt hörbar ist, "
-    "hängt davon ab, wie stark die Faltungsreflexionen den Anlauf tatsächlich "
-    "bremsen - das lässt sich nur durch Versuch klären.", sty['Key']))
-
-# Kap 5b: Düsenwinkel-Experiment
+# Kap 6: Luftstrahl-Test
 st.append(PageBreak())
-st.append(Paragraph("Kapitel 5b: Düsenwinkel-Experiment - warum der Anströmwinkel die Amplitude bestimmt", sty['Ch']))
+st.append(Paragraph("Kapitel 6: Luftstrahl-Test - warum der Eintrittswinkel die Amplitude bestimmt", sty['Ch']))
 
 st.append(Paragraph(
-    "Ein aufschlussreicher Praxistest: Stimmplatte montiert, Klappe entfernt, "
-    "Anblasen mit einer Druckluftdüse aus verschiedenen Winkeln. Ergebnis: "
-    "Die Zungenamplitude ändert sich <b>von Null bis Maximum</b> allein durch "
-    "Änderung des Anströmwinkels. Wie lässt sich das erklären?", sty['B']))
-
-st.append(Paragraph("Die zwei Komponenten des Jets", sty['Sec']))
+    "Ein aufschlussreicher Praxistest: Stimmplatte auf der Kammer montiert, Klappe "
+    "entfernt, Anblasen mit einer Druckluftdüse aus verschiedenen Winkeln und Positionen. "
+    "Die Luft nimmt dabei immer den internen Kammerweg: Klappenöffnung → Kanal B → "
+    "180°-Faltung → Kanal A → Schlitz → Spalt. Trotzdem ändert sich die Zungenamplitude "
+    "<b>von Null bis Maximum</b> allein durch Änderung des Düsenwinkels.", sty['B']))
 
 st.append(Paragraph(
-    "Ein Luftstrahl, der unter dem Winkel alpha auf den Spalt trifft, hat zwei "
-    "Komponenten:", sty['B']))
+    "Die Luft trifft <b>nicht direkt</b> auf den Spalt. Der Spalt sitzt auf der "
+    "Oberseite der Stimmplatte, die strömungsrelevante Unterseite ist nur über den "
+    "Kammerinnenraum erreichbar. <b>Aber:</b> Obwohl der Strahl den Umweg durch zwei "
+    "Kanäle und eine 180°-Faltung nehmen muss, beeinflusst der Eintrittswinkel am "
+    "Kammereingang den effektiven Anströmzustand am Spalt - und damit die Amplitude. "
+    "Warum das so ist, zeigt die folgende Impulsbilanz.", sty['Warn']))
 
-nozzle_rows = [['Winkel alpha', 'Normalkomp. sin(alpha)', 'Tangentialkomp. cos(alpha)', 'Charakter']]
-for ang in [0, 10, 20, 30, 45, 60, 75, 90]:
+st.append(Paragraph("Impulszerlegung am Kammereingang", sty['Sec']))
+
+# Berechnung: Impulszerlegung
+v_jet = np.sqrt(2 * 1000.0 / rho)  # ~40.8 m/s bei 1000 Pa
+dp_balg_ref_val = 1000.0  # Pa Referenzdruck
+
+st.append(Paragraph(
+    f"Ein Luftstrahl, der unter dem Winkel α (gemessen gegen die Horizontale) in die "
+    f"Klappenöffnung eintritt, hat zwei Impulskomponenten. Bei v<sub>jet</sub> = "
+    f"√(2Δp/ρ) ≈ {v_jet:.0f} m/s (bei 1000 Pa):", sty['B']))
+
+nozzle_rows = [['Winkel α', 'cos α', 'v_horiz [m/s]', 'v_vert [m/s]', 'Charakter']]
+for ang in [0, 10, 20, 30, 45, 60, 90]:
     ar = np.radians(ang)
-    char = ('Rein tangential - kein Eintritt' if ang == 0
-            else 'Rein normal - statischer Druck' if ang == 90
-            else 'Flach - viel Überströmung' if ang <= 15
-            else 'Optimal-Bereich?' if 20 <= ang <= 45
-            else 'Steil - wenig Überströmung')
-    nozzle_rows.append([f'{ang}°', f'{np.sin(ar):.2f}', f'{np.cos(ar):.2f}', char])
+    v_h = v_jet * np.cos(ar)
+    v_v = v_jet * np.sin(ar)
+    char = ('Rein horizontal → max. gerichtet' if ang == 0
+            else 'Rein vertikal → kein Kanalfluss' if ang == 90
+            else '<b>Normalbetrieb (Klappe)</b>' if ang == 30
+            else 'Symmetrisch' if ang == 45
+            else f'cos={np.cos(ar):.2f}')
+    nozzle_rows.append([f'{ang}°', f'{np.cos(ar):.2f}', f'{v_h:.1f}', f'{v_v:.1f}', char])
 
-t_nozzle = Table(nozzle_rows, colWidths=[22*mm, 32*mm, 34*mm, 45*mm])
+t_nozzle = Table(nozzle_rows, colWidths=[18*mm, 15*mm, 22*mm, 22*mm, 50*mm])
 t_nozzle.setStyle(TableStyle([
     ('BACKGROUND',(0,0),(-1,0),HexColor('#533483')),('TEXTCOLOR',(0,0),(-1,0),white),
     ('FONTSIZE',(0,0),(-1,-1),7),('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
@@ -1466,107 +1510,248 @@ st.append(t_nozzle)
 st.append(Spacer(1, 2*mm))
 
 st.append(Paragraph(
-    "<b>Normalkomponente</b> (senkrecht zur Platte, v*sin(alpha)): Treibt Luft durch "
-    "den Spalt in den Schlitz hinein. Erzeugt statischen Überdruck unter der Zunge. "
-    "Dieser Druck biegt die Zunge nach oben aus - aber er schwingt nicht von selbst. "
-    "Ohne weitere Kopplung hält er die Zunge nur statisch in einer Gleichgewichtslage.", sty['B']))
+    "<b>Horizontalkomponente</b> (v·cos α, in Kanal-B-Richtung): Wird zur gerichteten "
+    "Kanalströmung. Horizontaler Impuls bleibt erhalten (Impulserhaltung), wird in "
+    "Kanal B transportiert, überlebt die 180°-Faltung (mit Richtungsumkehr) und kommt "
+    "als definierte Strömung in Kanal A am Spalt an.", sty['B']))
 
 st.append(Paragraph(
-    "<b>Tangentialkomponente</b> (parallel zur Platte, v*cos(alpha)): Strömt über "
-    "die Spalt<b>öffnung</b> hinweg. Das ist der entscheidende Mechanismus:", sty['B']))
+    "<b>Vertikalkomponente</b> (v·sin α, quer zum Kanal): Wird an den Kammerwänden "
+    "reflektiert und in Turbulenz umgewandelt. Dieser Impulsanteil dissipiert seine "
+    "Richtungsinformation bereits im Kanal B.", sty['B']))
+
+st.append(Paragraph("Warum die Richtungsinformation den Kammerweg überlebt", sty['Sec']))
+
+# Berechnung: Strahlkern
+d_jet_eq = np.sqrt(4 * S_klap_eff / np.pi)
+L_core = 5.0 * d_jet_eq
+S_kanalB = W_k * H_kam  # gerade Wand als Referenz
+v_spalt_ref = np.sqrt(2 * 1000 / (rho * 2.0))  # ~28.8 m/s bei 1000 Pa
+Q_ref = v_spalt_ref * S_gap
+v_kanal_ref = Q_ref / S_kanalB
+D_h_kanal = 2 * W_k * H_kam / (W_k + H_kam)
+Re_kanal_ref = v_kanal_ref * D_h_kanal / nu
+
+st.append(Paragraph(
+    f"<b>1. Strahlkern reicht bis zur Faltung:</b> Der äquivalente Strahldurchmesser "
+    f"beträgt d<sub>jet</sub> ≈ {d_jet_eq*1e3:.0f} mm. Die Kernzone erstreckt sich über "
+    f"L<sub>core</sub> ≈ 5·d<sub>jet</sub> ≈ {L_core*1e3:.0f} mm. Kanal B ist nur "
+    f"{L_wall*1e3:.0f} mm lang → der Strahlkern reicht bis zur Faltung.", sty['B']))
+
+st.append(Paragraph(
+    f"<b>2. Laminare Kanalströmung:</b> Re<sub>Kanal</sub> ≈ {Re_kanal_ref:.0f} — weit "
+    f"unter der Turbulenzgrenze. Der Reibungsdruckverlust beträgt weniger als 0,001% des "
+    f"Balgdrucks. Praktisch keine Dissipation der Richtungsinformation.", sty['B']))
+
+st.append(Paragraph(
+    "<b>3. Faltung kehrt Richtung um, erhält Betrag:</b> Der Zentripetaldruck an der "
+    "180°-Faltung beträgt nur ~0,02 Pa. Die Faltung dreht den horizontalen Impuls um "
+    "(+x → −x), dissipiert aber bei Re ~240 nur einen Teil des gerichteten Impulses. "
+    "Abschätzung: ca. 60% des gerichteten Anteils überleben (η<sub>Faltung</sub> ≈ 0,6).", sty['B']))
+
+st.append(Paragraph("Effektiver Anströmzustand am Spalt", sty['Sec']))
+
+st.append(Paragraph(
+    "Am Ende von Kanal A biegt die Strömung um ~90° in den Schlitz ein. Der "
+    "<b>gerichtete Anteil</b> erzeugt eine Tangentialkomponente (Bernoulli-Sog), "
+    "der <b>diffuse Anteil</b> teilt sich gleichmäßig auf. Der Richtungserhaltungsfaktor: "
+    "η<sub>ges</sub> = cos α · η<sub>Faltung</sub> · η<sub>Wand</sub>, "
+    "Tangential-Fraktion: f<sub>tan</sub> = (1 + η<sub>ges</sub>)/2.", sty['B']))
+
+# Berechnungstabelle: η und v_tan für alle Winkel × Wände
+eta_fold = 0.6
+eta_wand = {'A': 0.3, 'B': 0.5, 'C': 0.7}
+v_spalt_val = 28.8  # m/s bei 1000 Pa
+
+eta_rows = [['α', 'η_ges (A)', 'v_tan (A)', 'η_ges (B)', 'v_tan (B)', 'η_ges (C)', 'v_tan (C)']]
+for ang in [0, 10, 20, 30, 45, 60, 90]:
+    ar = np.radians(ang)
+    row = [f'{ang}°']
+    for wname in ['A', 'B', 'C']:
+        eta = np.cos(ar) * eta_fold * eta_wand[wname]
+        f_tan = (1 + eta) / 2
+        v_t = v_spalt_val * f_tan
+        row.extend([f'{eta:.3f}', f'{v_t:.1f}'])
+    eta_rows.append(row)
+
+t_eta = Table(eta_rows, colWidths=[12*mm, 18*mm, 18*mm, 18*mm, 18*mm, 18*mm, 18*mm])
+t_eta.setStyle(TableStyle([
+    ('BACKGROUND',(0,0),(-1,0),HexColor('#16213e')),('TEXTCOLOR',(0,0),(-1,0),white),
+    ('FONTSIZE',(0,0),(-1,-1),7),('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
+    ('ALIGN',(0,0),(-1,-1),'CENTER'),('GRID',(0,0),(-1,-1),0.5,HexColor('#ccc')),
+    ('ROWBACKGROUNDS',(0,1),(-1,-1),[white,HexColor('#f5f5f5')]),
+    ('TOPPADDING',(0,0),(-1,-1),1.5*mm),('BOTTOMPADDING',(0,0),(-1,-1),1.5*mm)]))
+st.append(t_eta)
+st.append(Spacer(1, 2*mm))
+
+st.append(Paragraph("Bernoulli-Antriebsleistung", sty['Sec']))
+
+st.append(Paragraph(
+    "Der Bernoulli-Sog am Spalt skaliert mit Δp<sub>B</sub> = ½ρ v<sub>tan</sub>². "
+    "Bei α = 30° (Normalbetrieb):", sty['B']))
+
+# Zahlenwerte bei 30°
+dp_B_results = []
+for wname, eta_w in eta_wand.items():
+    eta = np.cos(np.radians(30)) * eta_fold * eta_w
+    f_tan = (1 + eta) / 2
+    v_t = v_spalt_val * f_tan
+    dp_B = 0.5 * rho * v_t**2
+    dp_B_results.append((wname, eta, v_t, dp_B))
+
+bern_rows = [['', 'Wand A (gerade)', 'Wand B (schräg)', 'Wand C (Parabel)']]
+bern_rows.append(['η_ges'] + [f'{r[1]:.3f}' for r in dp_B_results])
+bern_rows.append(['v_tan [m/s]'] + [f'{r[2]:.1f}' for r in dp_B_results])
+bern_rows.append(['Δp_B [Pa]'] + [f'{r[3]:.0f}' for r in dp_B_results])
+
+t_bern = Table(bern_rows, colWidths=[25*mm, 30*mm, 30*mm, 30*mm])
+t_bern.setStyle(TableStyle([
+    ('BACKGROUND',(0,0),(-1,0),HexColor('#533483')),('TEXTCOLOR',(0,0),(-1,0),white),
+    ('BACKGROUND',(0,1),(0,-1),HexColor('#e8e8e8')),
+    ('FONTSIZE',(0,0),(-1,-1),7.5),('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
+    ('FONTNAME',(0,1),(0,-1),'Helvetica-Bold'),
+    ('ALIGN',(0,0),(-1,-1),'CENTER'),('GRID',(0,0),(-1,-1),0.5,HexColor('#ccc')),
+    ('TOPPADDING',(0,0),(-1,-1),1.5*mm),('BOTTOMPADDING',(0,0),(-1,-1),1.5*mm)]))
+st.append(t_bern)
+st.append(Spacer(1, 2*mm))
+
+ratio_CA = dp_B_results[2][3] / dp_B_results[0][3]
+st.append(Paragraph(
+    f"Wand C liefert <b>{ratio_CA:.1f}×</b> so viel Bernoulli-Antrieb wie Wand A "
+    f"(+{10*np.log10(ratio_CA):.1f} dB). Der Effekt überlebt den gefalteten Kammerweg, "
+    f"weil bei Re ≈ {Re_kanal_ref:.0f} (laminar) die Impulsdissipation gering ist und "
+    f"der Strahlkern (~{L_core*1e3:.0f} mm) die gesamte Kanallänge ({L_wall*1e3:.0f} mm) "
+    f"abdeckt.", sty['Key']))
 
 st.append(Paragraph("Der Flöten-Mechanismus am Zungenspalt", sty['Sec']))
 
 st.append(Paragraph(
-    "Wenn Luft über eine Öffnung streicht, entsteht an der Öffnung ein Unterdruck "
-    "(Bernoulli). Genau das passiert bei der Tangentialkomponente des Jets: "
-    "Sie strömt über den Spalt und erzeugt einen Sog, der Luft aus dem Schlitz "
-    "herauszieht - also die Zunge nach <b>unten</b> zieht. "
-    "Gleichzeitig drückt die Normalkomponente die Zunge nach <b>oben</b>.", sty['B']))
+    "Die Tangentialkomponente strömt über die Spaltöffnung und erzeugt "
+    "Bernoulli-Unterdruck, der die Zunge nach <b>unten</b> zieht. Gleichzeitig "
+    "drückt die Normalkomponente (statischer Druck im Schlitz) die Zunge nach "
+    "<b>oben</b>.", sty['B']))
 
 st.append(Paragraph(
-    "Entscheidend ist: Beide Kräft ändern sich, wenn die Zunge schwingt. "
-    "Bewegt sich die Zunge nach unten (Spalt wird größer), kann mehr Luft "
-    "tangential über den Spalt strömen -> stärkerer Sog -> Zunge wird weiter "
-    "nach unten gezogen. Bewegt sie sich nach oben (Spalt wird enger), verengt "
-    "sich der Kanal für die Tangentialströmung -> weniger Sog -> Zunge federt "
-    "zurück. Das ist eine <b>positive Rückkopplung</b>, die die Schwingung antreibt.", sty['B']))
+    "Entscheidend ist: Beide Kräfte ändern sich, wenn die Zunge schwingt. "
+    "Bewegt sich die Zunge nach unten (Spalt wird größer) → stärkerer Sog → "
+    "Zunge wird weiter nach unten gezogen. Bewegt sie sich nach oben (Spalt enger) → "
+    "weniger Sog → Zunge federt zurück. Das ist eine <b>positive Rückkopplung</b>, "
+    "die die Schwingung antreibt. Physikalisch verwandt mit der Tonerzeugung "
+    "bei Flöteninstrumenten (Labium-Mechanismus).", sty['B']))
+
+# ─────────────────────────────────────────────────────────────
+# Kap 7: Druck- und Zugzunge
+# ─────────────────────────────────────────────────────────────
+st.append(PageBreak())
+st.append(Paragraph("Kapitel 7: Druck- und Zugzunge — und warum die Trennwand über Akustik wirkt", sty['Ch']))
+
+st.append(Paragraph("Bernoulli am Engpass: richtungsunabhängig", sty['Sec']))
 
 st.append(Paragraph(
-    "Dieser Mechanismus ist physikalisch identisch mit der Tonerzeugung bei "
-    "Flöteninstrumenten: Dort strömt ein flacher Luftstrahl über eine scharfe "
-    "Kante (Labium), und die Wechselwirkung zwischen Jet und Resonator erzeugt "
-    "den Ton. Die Zungenkante übernimmt hier die Rolle des Labiums.", sty['B']))
-
-st.append(Paragraph("Warum der Winkel die Amplitude bestimmt", sty['Sec']))
+    "Auf jeder Stimmplatte sitzen zwei Zungen für denselben Ton. Die Druckzunge "
+    "schwingt beim Drücken des Balgs (Luft von Kammer nach außen), die Zugzunge "
+    "beim Ziehen (Luft von außen in die Kammer). Beide schwingen durch denselben "
+    "Bernoulli-Mechanismus am Engpass:", sty['B']))
 
 st.append(Paragraph(
-    "<b>alpha = 0° (rein tangential):</b> Maximale Überströmung, aber kein Druck "
-    "im Schlitz. Die Zunge hat keine Vorauslenkung - der Bernoulli-Sog muss gegen "
-    "die volle Federsteifigkeit arbeiten. Außerdem fehlt der Durchfluss durch den "
-    "Spalt, der für die klassische Bernoulli-Selbsterregung nötig ist. "
-    "Ergebnis: Keine oder minimale Schwingung.", sty['B']))
+    "Druckzunge: p<sub>Kammer</sub> > p<sub>außen</sub>, also "
+    "Δp = p<sub>Kammer</sub> − p<sub>außen</sub>, v = √(2Δp/ρ). "
+    "Zugzunge: p<sub>außen</sub> > p<sub>Kammer</sub>, also "
+    "Δp = p<sub>außen</sub> − p<sub>Kammer</sub>, v = √(2Δp/ρ). "
+    "Bei gleichem Balgdruck ist |Δp| gleich → v gleich → Bernoulli-Sog gleich.", sty['B']))
 
 st.append(Paragraph(
-    "<b>alpha = 90° (rein normal):</b> Maximaler statischer Druck im Schlitz, "
-    "aber keine Tangentialströmung. Die Zunge wird nach oben gedrückt und bleibt "
-    "dort. Es fehlt der Bernoulli-Unterdruck an der Spaltoberseite, der die "
-    "Zunge zurückziehen würde. Es fehlt auch die Wechselwirkung zwischen "
-    "Spaltweite und Saugkraft. Ergebnis: Statische Auslenkung, keine Schwingung.", sty['B']))
+    "Die Zunge ist eine <b>Druckmaschine</b>, keine Impulsmaschine: F = Δp·A "
+    "(Druckfeld am Engpass), nicht F = ṁ·Δv (Impulsübertrag eines Strahls). "
+    "Im Gegensatz zu einer Impulsmaschine (z.B. Pelton-Rad), die bei Sogumkehr "
+    "versagt (Kugelsenke, kein gerichteter Impuls, F<sub>netto</sub> = 0), "
+    "funktioniert die Druckmaschine in beiden Richtungen, weil die erzwungene "
+    "Engpassgeometrie alle Stromlinien durch denselben Engpass führt.", sty['B']))
+
+st.append(Paragraph("Praktischer Befund: Druck und Zug verhalten sich gleich", sty['Sec']))
 
 st.append(Paragraph(
-    "<b>Optimaler Winkel (~ 20-40°):</b> Beide Komponenten sind in der richtigen "
-    "Balance. Die Normalkomponente liefert den Grunddruck, der die Zunge "
-    "in den Arbeitsbereich vorspannt. Die Tangentialkomponente liefert den "
-    "geschwindigkeitsabhängigen Bernoulli-Sog, der die Schwingung antreibt. "
-    "Das Verhältnis entscheidet über die Phasenlage zwischen Druck und "
-    "Zungenposition - und damit über die Energiezufuhr pro Zyklus.", sty['B']))
+    "Im Instrument ist die Ansprache bei Druck und Zug <b>kaum unterscheidbar</b>. "
+    "Das bestätigt die Theorie: Da der Bernoulli-Engpass richtungsunabhängig ist "
+    "und beide Zungen denselben Spalt nutzen, ergibt sich dasselbe Schwingverhalten. "
+    "Aber es hat eine wichtige Konsequenz für die Frage, <b>wie</b> die Trennwand "
+    "wirkt:", sty['B']))
+
+st.append(Paragraph("Der Widerspruch: Trennwand wirkt auf beide Zungen gleich", sty['Sec']))
 
 st.append(Paragraph(
-    "Die Amplitude ändert sich stufenlos mit dem Winkel, weil die "
-    "Energiezufuhr pro Schwingungszyklus vom Verhältnis der beiden Komponenten "
-    "abhängt. Am optimalen Winkel ist die Netto-Energiezufuhr maximal - die "
-    "Phasenbeziehung zwischen Druckschwankung und Zungengeschwindigkeit ist "
-    "so, dass in jedem Zyklus maximale Energie in die Schwingung gepumpt wird.", sty['B']))
-
-st.append(Paragraph("Konsequenz für die Kammerauslegung", sty['Sec']))
+    "Der Praxistest zeigt: Verschiedene Trennwandformen beeinflussen die Ansprache "
+    "— und zwar bei Druck <b>und</b> Zug gleichermaßen.", sty['B']))
 
 st.append(Paragraph(
-    "Dieses Experiment erklärt unmittelbar, warum die Klappenorientierung und die "
-    "Trennwandform so wichtig sind: Sie bestimmen den <b>effektiven Anströmwinkel</b> "
-    "am Spalt.", sty['B']))
+    "Das widerspricht der Strömungsführungshypothese aus Kap. 6. Denn wenn die "
+    "Trennwand über den gerichteten Kanalstrahl wirken würde (Impulstransport, "
+    "Tangentialkomponente, Flöten-Effekt), dann dürfte sie <b>nur die Druckzunge</b> "
+    "beeinflussen: Bei der Druckzunge strömt ein Jet durch den Kanal zum Spalt — "
+    "die Trennwand führt diesen Strahl. Bei der Zugzunge wird Luft von außen "
+    "direkt in den Spalt gesogen — kein Strahl läuft durch den Kanal.", sty['B']))
 
 st.append(Paragraph(
-    "Im normalen Betrieb (mit Klappe und Kammer) wird der Anströmwinkel nicht "
-    "direkt vom Balgdruck bestimmt, sondern von der Geometrie des Luftwegs. "
-    "Die Luft kommt aus Kanal A (parallel zur Platte) und muss um 90° in den "
-    "Schlitz einbiegen. Der effektive Anströmwinkel hängt davon ab, wie die "
-    "Strömung in Kanal A verteilt ist:", sty['B']))
+    "Wenn die Trennwand trotzdem auf <b>beide</b> Zungen gleich wirkt, muss ein "
+    "anderer Mechanismus dominieren.", sty['B']))
+
+st.append(Paragraph("Der Schlüsseltest: ungefaltete Kammer, 0° vs. 90°", sty['Sec']))
 
 st.append(Paragraph(
-    "<b>Gerichtete Kanalströmung</b> (Wandführung erhält Strömungsrichtung): "
-    "Die Luft biegt mit definierter Richtung in den Spalt ein. Es entsteht eine "
-    "Tangentialkomponente, die den Bernoulli-Sog zuverlässig erzeugt. "
-    "<b>Richtungslose, großskalig verwirbelte Kanalströmung</b> (viele "
-    "Reflexionen, Stagnationspunkte): Die Richtungsinformation ist verloren. "
-    "Die Luft nähert sich dem Spalt aus allen Richtungen - die "
-    "Tangentialkomponente mittelt sich teilweise heraus. Der "
-    "Bernoulli-Antrieb wird schwächer.", sty['B']))
+    "Entscheidender experimenteller Befund: Eine <b>ungefaltete Kammer</b> "
+    "(einfaches Rohr, keine Trennwand, keine Faltung) wird auf die Stimmplatte "
+    "gesteckt. Das offene Rohrende kann relativ zum schwingenden Zungenende in "
+    "verschiedenen Winkeln orientiert werden:", sty['B']))
 
 st.append(Paragraph(
-    "Das Düsenexperiment zeigt also <b>direkt</b>, warum die Trennwand das "
-    "Einschwingverhalten beeinflusst: Nicht über den Durchfluss (der ist immer "
-    "gleich), sondern über den <b>Anströmwinkel</b> am Spalt. Die Wandform "
-    "bestimmt, wie viel von der ursprünglichen Richtungsinformation des "
-    "Druckstoßes am Spalt noch ankommt. Die Turbulenz, die für die "
-    "Selbsterregung nötig ist, entsteht am Spalt selbst (Ablösungen an den "
-    "Spaltkanten bei Re ~ 1400, vgl. Kap. 5b) - sie muss nicht aus der Kammer "
-    "mitgeliefert werden. Variante C (Parabel) liefert die beste Ansprache, weil "
-    "sie die Richtungsinformation am besten erhält - nicht weil sie die "
-    "<b>sauberste</b> Strömung liefert.", sty['Key']))
+    "<b>0°:</b> Rohrende axial, direkt beim bewegten Zungenende. "
+    "<b>90°:</b> Rohrende quer zum bewegten Zungenende. "
+    "<b>Ergebnis:</b> Die Ansprache unterscheidet sich — bei <b>beiden</b> Zungen.", sty['B']))
 
-# Kap 6: Trennwandvarianten
-st.append(Paragraph("Kapitel 6: Drei Trennwandvarianten", sty['Ch']))
+st.append(Paragraph(
+    "In diesem Test gibt es: keine Trennwand, keine Faltung, keinen gerichteten "
+    "Strahl, keine Tangentialkomponente, keinen Flöten-Effekt. Trotzdem beeinflusst "
+    "die Orientierung des Rohrendes relativ zum Spalt die Schwingung. Der einzige "
+    "Mechanismus, der das erklären kann: <b>Die akustische Impedanzkopplung "
+    "zwischen Kammeröffnung und Spalt.</b>", sty['B']))
+
+st.append(Paragraph("Der eigentliche Mechanismus: akustische Impedanzkopplung", sty['Sec']))
+
+st.append(Paragraph(
+    "Die Kammer wirkt als Helmholtz-Resonator. Bei jeder Schwingungsperiode "
+    "erzeugt die Zunge eine Druckwelle, die in die Kammer läuft, reflektiert "
+    "wird und zurückkommt. Die Kammerimpedanz Z(f) bestimmt die <b>Phase</b> der "
+    "reflektierten Welle (Energie zuführen oder entziehen?) und die <b>Amplitude</b> "
+    "der Rückkopplung.", sty['B']))
+
+st.append(Paragraph(
+    "Was die <b>Rohrposition</b> (0° vs. 90°) verändert: Wo das akustische "
+    "'Ende' der Kammer relativ zum Ort der maximalen Zungenauslenkung liegt, "
+    "beeinflusst die Kopplung der Druckwelle an den Spalt. Das offene Rohrende "
+    "ist ein Druckknoten (Reflexion mit Phasenumkehr). Ob dieser Druckknoten "
+    "direkt am bewegten Zungenende liegt (0°) oder seitlich versetzt (90°), "
+    "verändert die effektive akustische Länge und damit Z(f).", sty['B']))
+
+st.append(Paragraph(
+    "Was die <b>Trennwand</b> verändert: Sie teilt die Kammer in zwei Kanäle "
+    "mit unterschiedlichen Querschnitten. Das verändert die effektive "
+    "Volumenaufteilung, die Helmholtz-Frequenz f<sub>H</sub>, die Güte Q<sub>H</sub> "
+    "und die Impedanz Z(f), die <b>beide</b> Zungen sehen. Dieser Mechanismus "
+    "wirkt auf Druck- und Zugzunge gleichermaßen.", sty['B']))
+
+st.append(Paragraph(
+    "<b>Zusammengefasst:</b> Die Trennwand beeinflusst die Ansprache "
+    "<b>nicht primär über Strömungsführung</b> (Impulstransport, "
+    "Richtungserhaltung, Tangentialkomponente), sondern über die "
+    "<b>akustische Kammerimpedanz</b> Z(f). Das beweist der Praxisbefund, "
+    "dass die Trennwandform auf Druck- <i>und</i> Zugzunge gleich wirkt — "
+    "und der 0°/90°-Test, bei dem ohne Trennwand und ohne Faltung allein "
+    "die Position des akustischen Endes relativ zum Spalt die Ansprache "
+    "verändert. Die Strömungseffekte (Kap. 6) sind real, aber gegenüber "
+    "der akustischen Kopplung untergeordnet.", sty['Key']))
+
+# Kap 8: Trennwandvarianten
+st.append(Paragraph("Kapitel 8: Drei Trennwandvarianten", sty['Ch']))
 st.append(make_fig_varianten())
 st.append(Spacer(1, 2*mm))
 st.append(Paragraph(f"<b>A - Gerade:</b> Beide Kanäle {W_k*1e3:.1f} mm. 30°-Strahl prallt ~90° auf Wand. Stagnationspunkt, Ablösung, stärkster Richtungsverlust und Reflexion.", sty['B']))
@@ -1598,44 +1783,50 @@ st.append(Paragraph(
 st.append(Paragraph("Warum die Trennwand trotzdem entscheidend ist:", sty['Sec']))
 
 st.append(Paragraph(
-    "Der Widerspruch löst sich auf, wenn man den <b>instationären Anlauf</b> "
-    "betrachtet statt den Gleichgewichtszustand. In den ersten Millisekunden nach "
-    "Klappenöffnung passiert folgendes: Ein Druckstoß läuft vom Ventil durch "
-    "Kanal B, um die Faltung, durch Kanal A zum Spalt. In dieser initialen Phase "
-    "wirkt die Trennwand als Strömungsführung für den Druckaufbau. "
-    "Ihre Form bestimmt, wie schnell der Druck am Spalt ankommt. "
-    "Im eingeschwungenen Zustand (nach wenigen ms) wirkt die Kammer dann als "
-    "Helmholtz-Resonator, und die Phasenlage der Kammerimpedanz bestimmt die "
-    "Oberton-Kopplung (siehe Kap. 10b).", sty['B']))
+    "<b>Dominanter Mechanismus: akustische Impedanz.</b> Die Trennwand verändert "
+    "die effektive akustische Geometrie der Kammer: Volumenaufteilung zwischen "
+    "den Kanälen, Position des 'akustischen Endes' relativ zum Spalt, "
+    "Helmholtz-Frequenz f<sub>H</sub> und Güte Q<sub>H</sub>. Diese Änderungen "
+    "wirken über die Kammerimpedanz Z(f) auf <b>beide</b> Zungen gleichermaßen "
+    "(Kap. 7). Der 0°/90°-Test mit einem einfachen Rohr — ohne Trennwand, "
+    "ohne Faltung — zeigt, dass allein die Position der Kammeröffnung relativ "
+    "zum Spalt die Ansprache verändert.", sty['B']))
 
 st.append(Paragraph(
-    "<b>Gerade Wand (A):</b> Der 30-Grad-Strahl prallt auf die Wand, erzeugt einen "
-    "Stagnationspunkt und Wirbel. Der Druckstoß wird breit gestreut und "
-    "teilweise reflektiert. Am Spalt kommt er verspätet und mit reduzierter "
-    "Amplitude an. Der Druckaufbau ist langsam - die Zunge erreicht den "
-    "Schwellendruck für die Bernoulli-Rückkopplung später.", sty['B']))
+    "<b>Untergeordneter Mechanismus: Strömungsführung (nur Druckzunge).</b> "
+    "In den ersten Millisekunden nach Klappenöffnung läuft ein Druckstoß "
+    "durch den Kanal zum Spalt. Die Wandform beeinflusst, wie schnell und "
+    "mit welcher Amplitude dieser ankommt. Aber: Dieser Effekt wirkt nur auf "
+    "die Druckzunge und ist gegenüber der akustischen Kopplung untergeordnet, "
+    "wie die praktisch identische Druck-/Zugansprache zeigt.", sty['B']))
 
 st.append(Paragraph(
-    "<b>Schräge Wand (B):</b> Die Düse am Eintritt beschleunigt den Druckstoß. "
-    "Weniger Reflexionen auf dem Weg. Am Spalt kommt der Druck schneller auf "
-    "den Schwellenwert. Der Anlauf ist kürzer.", sty['B']))
+    "Die drei Varianten unterscheiden sich primär in ihrer "
+    "<b>akustischen Wirkung:</b>", sty['B']))
 
 st.append(Paragraph(
-    "<b>Parabolische Wand (C):</b> Die stetige Krümmung führt den Druckstoß "
-    "entlang der Wand (Coanda-Effekt). Minimale Reflexionen, daher schnellster "
-    "Druckaufbau am Spalt. Entscheidend ist nicht, dass die Strömung 'sauber' "
-    "oder laminar ankommt - entscheidend ist, dass der Druckstoß seine "
-    "Richtungsinformation behält und wenig Energie durch Reflexionen verliert. "
-    "Die Turbulenz, die die Selbsterregung auslöst, entsteht am Spalt selbst "
-    "(Ablösungen an den Kanten bei Re ~ 1400, vgl. Kap. 5b).", sty['B']))
+    "<b>Gerade Wand (A):</b> Symmetrische Kanalaufteilung. Stagnationspunkt "
+    "erzeugt Wirbel → erhöhte Dissipation → niedrigeres Q<sub>H</sub> → "
+    "breitere, schwächere Kopplung. Akustisch: gleichmäßiges Impedanzprofil.", sty['B']))
 
 st.append(Paragraph(
-    "In der Elektrotechnik-Analogie (Kapitel 10): Die stationäre Berechnung "
-    "entspricht dem Gleichstromwiderstand eines Kabels - für alle drei Varianten "
-    "fast gleich. Aber die <b>Impulsantwort</b> (wie schnell ein Spannungssprung "
-    "am Ende ankommt) hängt von der Wellenimpedanz, Reflexionen und Dispersion "
-    "ab - und die sind völlig verschieden. Für die Ansprache zählt nicht der "
-    "Gleichstromwiderstand, sondern die Impulsantwort.", sty['Key']))
+    "<b>Schräge Wand (B):</b> Asymmetrische Kanalaufteilung (eng bei Klappe, "
+    "weit bei Faltung). Weniger Dissipation als A. Verändert die Position, "
+    "an der die akustische Welle auf unterschiedliche Querschnitte trifft → "
+    "verändert Z(f).", sty['B']))
+
+st.append(Paragraph(
+    "<b>Parabolische Wand (C):</b> Stetige Querschnittsänderung. Minimale "
+    "Reflexionen innerhalb der Kammer → höchstes Q<sub>H</sub> → schmalere, "
+    "stärkere Kopplung. Akustisch: sanftester Impedanzübergang.", sty['B']))
+
+st.append(Paragraph(
+    "In der Elektrotechnik-Analogie: Die stationäre Berechnung entspricht dem "
+    "Gleichstromwiderstand eines Kabels — für alle drei Varianten fast gleich. "
+    "Die <b>Impedanz</b> bei der Betriebsfrequenz (und deren Obertönen) hängt "
+    "aber von der Wellenimpedanz, Reflexionen und Dispersion ab — und die sind "
+    "völlig verschieden. Für die Ansprache zählt nicht der Gleichstromwiderstand, "
+    "sondern die frequenzabhängige Impedanz Z(f).", sty['Key']))
 
 # ===============================================================
 # Kap 6b: Dynamische Spaltfläche
@@ -2321,12 +2512,14 @@ st.append(Paragraph(
     "Faltungsgeometrien erzeugen unterschiedliche Phasenlagen am Spalt.", sty['B']))
 
 st.append(Paragraph(
-    "Die Abrundung (Viertelkreis R = 8-10 mm) reduziert die Stärke der Reflexion "
-    "an der Faltung: Ein stetiger Querschnittsübergang erzeugt weniger Reflexion "
-    "als ein abrupter Knick. Das bedeutet weniger Phasenverzerrung am Spalt - "
-    "nicht unbedingt eine <b>bessere</b> Phase, aber eine <b>berechenbarere</b>: "
-    "Die Phase kommt näher an den idealen Helmholtz-Wert heran, der durch "
-    "V, S<sub>Hals</sub> und L<sub>Hals</sub> bestimmt ist.", sty['B']))
+    "Die Abrundung (Viertelkreis) reduziert den Reflexionskoeffizienten an der "
+    "Faltung, verändert aber gleichzeitig die Inertanz der Biegungssektion "
+    "(Coltman-Effekt, Kap. 5b). Ein stetiger Querschnittsübergang erzeugt weniger "
+    "Reflexion als ein abrupter Knick — aber auch weniger akustische Verkürzung. "
+    "Das bedeutet: Die Phase kommt näher an den idealen Helmholtz-Wert heran "
+    "(berechenbarer), aber f<sub>H</sub> verschiebt sich nach unten (weil die "
+    "effektive Kammerlänge wächst). Ob das die Ansprache verbessert, hängt "
+    "davon ab, wo f<sub>H</sub> relativ zu den Zungenobertönen liegt.", sty['B']))
 
 st.append(Paragraph("Hierarchie der Effekte für die Ansprache", sty['Sec']))
 
@@ -2338,48 +2531,40 @@ st.append(Paragraph(
     "<b>1. Akustische Phasenkopplung (dominant):</b> "
     "Die Phase der Kammerimpedanz Z(f) bestimmt, ob Obertöne der Zunge Energie "
     "aus der Kammer aufnehmen oder an sie abgeben. Wird primär durch f<sub>H</sub> "
-    "bestimmt (Kammervolumen, Halsquerschnitt, Halslänge). Die Wandform hat darauf "
-    "nur geringen Einfluss (über Q<sub>H</sub> und Reflexionen). "
+    "bestimmt (Kammervolumen, Halsquerschnitt, Halslänge). Wirkt auf <b>beide</b> "
+    "Zungen (Druck und Zug) gleichermaßen. "
     "Dies ist der Hauptgrund, warum die <b>Kammergröße</b> für verschiedene "
     "Tonhöhen variiert wird.", sty['B']))
 
 st.append(Paragraph(
-    "<b>2. Kammer-Güte Q<sub>H</sub> (sekundär):</b> "
-    "Bestimmt die Bandbreite der Kammer-Zungen-Kopplung. Höheres Q<sub>H</sub> "
-    "(weniger Dissipation, z.B. Variante C) -> schmalere, stärkere Kopplung. "
-    "Niedrigeres Q<sub>H</sub> (mehr Dissipation, z.B. Variante A) -> breitere, "
-    "schwächere Kopplung. Die Wandform beeinflusst dies direkt über die "
-    "Strömungsverluste in der Kammer.", sty['B']))
+    "<b>2. Akustische Geometrie der Trennwand (sekundär, aber praktisch relevant):</b> "
+    "Die Trennwand verändert die effektive akustische Kammergeometrie — wo das "
+    "'akustische Ende' relativ zum Spalt liegt, wie die Volumenaufteilung zwischen "
+    "den Kanälen ist, und wie die Güte Q<sub>H</sub> des Resonators ausfällt. "
+    "Höheres Q<sub>H</sub> (weniger Dissipation, z.B. Variante C) → schmalere, "
+    "stärkere Kopplung. Niedrigeres Q<sub>H</sub> (mehr Dissipation, z.B. "
+    "Variante A) → breitere, schwächere Kopplung. Dass dieser Effekt auf "
+    "<b>beide</b> Zungen gleich wirkt, bestätigt den akustischen Mechanismus "
+    "(Kap. 7). Der 0°/90°-Test mit ungefalteter Kammer zeigt, dass allein die "
+    "Position des Kammerendes relativ zum Spalt die Ansprache verändert.", sty['B']))
 
 st.append(Paragraph(
-    "<b>3. Anströmwinkel am Spalt (untergeordnet, aber praktisch relevant):</b> "
-    "Das Düsenexperiment (Kap. 5b) zeigt eindeutig: Der Winkel, unter dem "
-    "die Luft auf die Zunge trifft, bestimmt das Verhältnis zwischen "
-    "Normalkomponente (statischer Druck) und Tangentialkomponente (Bernoulli-Sog). "
-    "Nur bei ca. 20-40° stimmt die Balance für maximale Energiezufuhr. "
-    "Die Wandform beeinflusst diesen Winkel, weil sie die Strömungsrichtung "
-    "in Kanal A lenkt, bevor die Luft in den Spalt einbiegt.", sty['B']))
+    "<b>3. Strömungsführung (untergeordnet):</b> "
+    "Der Impulstransport durch den Kanal (Kap. 6: Tangentialkomponente, "
+    "Richtungserhaltung) ist ein realer Effekt, beeinflusst aber nur die "
+    "Druckzunge. Da Druck- und Zugansprache praktisch kaum unterscheidbar "
+    "sind und die Trennwandform auf beide gleich wirkt, ist dieser Mechanismus "
+    "gegenüber der akustischen Kopplung untergeordnet.", sty['B']))
 
 st.append(Paragraph(
-    "Dieser dritte Effekt erklärt die <b>praktische Erfahrung</b> der "
-    "Instrumentenbauer, dass die Trennwandform hörbar wirkt, obwohl "
-    "der stationäre Durchfluss identisch ist und die Phasenkopplung "
-    "primär durch die Kammergröße bestimmt wird. Die gleichmäßige "
-    "Luftführung selbst ist untergeordnet - aber der <b>Winkel</b>, "
-    "unter dem die Luft am Spalt ankommt, ist es nicht. Das ist ein "
-    "aerodynamischer Effekt, der vom akustischen Phasenmechanismus "
-    "unabhängig ist und vor allem in den ersten Schwingungszyklen "
-    "(dem Einschwingvorgang) eine Rolle spielt.", sty['B']))
-
-st.append(Paragraph(
-    "<b>Zusammenfassung:</b> Die Kammergeometrie beeinflusst die Ansprache "
-    "über drei verschiedene Kanäle: (1) Akustische Phase (dominant, durch "
-    "Kammergröße), (2) Resonanzbandbreite (Q<sub>H</sub>, durch Wandform), "
-    "(3) Anströmwinkel (durch Wandform, besonders beim Einschwingvorgang). "
-    "Dass alle drei Kanäle existieren, erklärt, warum weder eine rein "
-    "akustische Optimierung noch eine rein strömungstechnische allein zum "
-    "besten Ergebnis führt - der erfahrene Instrumentenbauer optimiert "
-    "intuitiv alle drei gleichzeitig.", sty['Key']))
+    "Die <b>praktische Erfahrung</b> der Instrumentenbauer, dass die "
+    "Trennwandform hörbar wirkt, erklärt sich primär durch den akustischen "
+    "Mechanismus (Punkte 1 und 2): Die Wandform verändert Z(f) und Q<sub>H</sub>, "
+    "und diese Änderung wirkt auf beide Zungen. Die Strömungseffekte (Punkt 3) "
+    "sind ein realer, aber quantitativ kleiner Zusatz, der nur die Druckzunge "
+    "betrifft. Für die Optimierung folgt: Die Kammergeometrie (Volumen, Hals) "
+    "ist wichtiger als die Trennwandform, und die akustische Wirkung der "
+    "Trennwand ist wichtiger als ihre strömungstechnische.", sty['Key']))
 
 # ═══════════════════════════════════════════════════════════════
 # Kap 10c: Vorkammer-Analyse
@@ -2733,9 +2918,11 @@ st.append(Paragraph(
     "Kopplung, akustische Rückwirkung) sind analytisch schwer zu fassen und "
     "ändern die Verlustbeiwerte um geschätzt 10-30 Prozent. "
     "<b>Dies ist die gravierendste Einschränkung:</b> Praktische Erfahrung zeigt, "
-    "dass die Trennwandform das Einschwingverhalten entscheidend beeinflusst - "
-    "ein Effekt, der im instationären Anlauf (Impulsantwort) liegt und von der "
-    "stationären Berechnung grundsätzlich nicht erfasst wird (siehe Kapitel 6).", sty['B']))
+    "dass die Trennwandform das Einschwingverhalten entscheidend beeinflusst. "
+    "Der dominante Mechanismus ist dabei <b>akustisch</b> (Impedanzkopplung Z(f), "
+    "wirkt auf beide Zungen gleich, siehe Kap. 7), nicht strömungsmechanisch. "
+    "Die stationäre Berechnung erfasst weder den akustischen noch den transienten "
+    "Effekt.", sty['B']))
 
 st.append(Paragraph(
     "<b>3. Dämpfung:</b> Die Güte Q ist der empfindlichste Parameter der "
@@ -2801,10 +2988,10 @@ st.append(Paragraph(f"<b>Spalt:</b> Dreieckig (0->{h_aufbiegung*1e3:.1f} mm), S<
 st.append(Paragraph(f"<b>Dynamische Spaltänderung [K6]:</b> Der Balgdruck biegt die Zunge statisch nach unten. Grenzdruck dp<sub>crit</sub> = {dp_crit:.0f} Pa identisch mit Schwellendruck. Effektiver Schwingungsbeginn bei ~{dp_dynamic_est:.0f} Pa ({dp_dynamic_est/100:.0f} mbar). Arbeitsbereich {dp_dynamic_est:.0f}-{dp_crit:.0f} Pa.", sty['Good']))
 st.append(Paragraph(f"<b>Trennwand-Material:</b> Folie und Furnier sind strömungstechnisch gleichwertig. Furnier ist stabiler und akustisch neutraler. Folie spart Platz, kann aber flattern.", sty['Good']))
 st.append(Paragraph(f"<b>Klappenorientierung:</b> Ausblas (zeta={zeta_klap_ausblas:.2f}) besser als Umlenk (zeta={zeta_klap_umlenk:.2f}). Ausblas nutzt Wandgeometrie voll, Umlenk nur bei Platzmangel.", sty['Good']))
-st.append(Paragraph(f"<b>Trennwandform:</b> Praktisch entscheidend für die Ansprache (instationärer Anlauf). C (Parabel) beste Richtungserhaltung, B (schräg) guter Kompromiss, A (gerade) am einfachsten aber am trägsten. Stationärer Durchfluss bei allen gleich - der Unterschied liegt in der Impulsantwort (Reflexionen, Richtungsverlust). Die Turbulenz für die Selbsterregung erzeugt der Spalt selbst.", sty['Good']))
-st.append(Paragraph(f"<b>Ansprache:</b> tau = Q/(pi*f). Bei Q=100: {tau_vals[0]*1e3:.0f} ms, bei Q=25: {tau_vals[2]*1e3:.0f} ms. Die Kammergeometrie beeinflusst nicht den stationären Durchfluss, aber entscheidend den instationären Anlauf (Impulsantwort).", sty['Good']))
+st.append(Paragraph(f"<b>Trennwandform:</b> Praktisch entscheidend für die Ansprache, primär über akustische Impedanz Z(f) (wirkt auf beide Zungen gleich). C (Parabel) höchstes Q_H (schmalere, stärkere Kopplung), B (schräg) guter Kompromiss, A (gerade) niedrigstes Q_H (breitere, schwächere Kopplung). Stationärer Durchfluss bei allen gleich. Strömungsführung (Impulstransport, Tangentialkomponente) ist ein untergeordneter Zusatzeffekt, der nur die Druckzunge betrifft.", sty['Good']))
+st.append(Paragraph(f"<b>Ansprache:</b> tau = Q/(pi*f). Bei Q=100: {tau_vals[0]*1e3:.0f} ms, bei Q=25: {tau_vals[2]*1e3:.0f} ms. Die Kammergeometrie beeinflusst nicht den stationären Durchfluss, aber entscheidend die akustische Impedanz Z(f) und damit die Kopplung zwischen Kammer und Zunge.", sty['Good']))
 st.append(Paragraph(f"<b>Akustik:</b> Helmholtz {f_H:.0f} Hz, Kammer akustisch klein.", sty['Good']))
-st.append(Paragraph(f"<b>Phasenkopplung [v8 neu]:</b> Die Ansprache wird durch drei Mechanismen bestimmt: (1) akustische Phase (dominant, durch f<sub>H</sub>), (2) Kammer-Güte Q<sub>H</sub> (durch Wandform), (3) Anströmwinkel am Spalt (durch Wandform, beim Einschwingen). Gleichmäßige Strömung allein reicht nicht - die Phase muss stimmen.", sty['Good']))
+st.append(Paragraph(f"<b>Phasenkopplung [v8 neu]:</b> Die Ansprache wird durch drei Mechanismen bestimmt: (1) akustische Phase (dominant, durch f<sub>H</sub>), (2) akustische Geometrie der Trennwand (Q<sub>H</sub>, Volumenaufteilung, Position des akustischen Endes — wirkt auf beide Zungen), (3) Strömungsführung (untergeordnet, nur Druckzunge).", sty['Good']))
 st.append(Paragraph(f"<b>Vorkammer [v8 neu]:</b> 48x20x70 mm ({V_vk*1e6:.0f} cm<super>3</super>) senkt Mode 1 von {f_H:.0f} auf {f_mode1:.0f} Hz (-16%). 5. OT (250 Hz) koppelt besser, 6. OT (300 Hz) schlechter. VK-Länge ist Abstimmwerkzeug für die Oberton-Phasenlage ohne Einfluss auf den stationären Durchfluss.", sty['Good']))
 
 doc.build(st)

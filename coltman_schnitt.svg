@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 680" font-family="Arial, sans-serif">
+  <style>
+    .title { font-size: 15px; font-weight: bold; fill: #16213e; }
+    .subtitle { font-size: 12px; font-weight: bold; fill: #333; }
+    .label { font-size: 10px; fill: #333; }
+    .dim { font-size: 9px; fill: #c00; font-style: italic; }
+    .note { font-size: 9px; fill: #555; }
+    .wall { fill: #8B7355; }
+    .air { fill: #e8f4fd; }
+    .comp { fill: #c0392b; stroke: #922b21; stroke-width: 1; }
+    .bevel-fill { fill: #d4c4a0; stroke: #8B7355; stroke-width: 1; }
+    .outer { fill: #5a4a30; }
+  </style>
+  
+  <defs>
+    <marker id="arr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#2980b9"/>
+    </marker>
+    <marker id="rarr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#c0392b"/>
+    </marker>
+    <marker id="dL" markerWidth="5" markerHeight="4" refX="0" refY="2" orient="auto">
+      <polygon points="5 0, 0 2, 5 4" fill="#c00"/>
+    </marker>
+    <marker id="dR" markerWidth="5" markerHeight="4" refX="5" refY="2" orient="auto">
+      <polygon points="0 0, 5 2, 0 4" fill="#c00"/>
+    </marker>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="5" height="5" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="#a08060" stroke-width="0.6"/>
+    </pattern>
+  </defs>
+
+  <text x="460" y="25" text-anchor="middle" class="title">Schnitt durch die Kammerfaltung — drei Varianten (nach Coltman)</text>
+  <text x="460" y="42" text-anchor="middle" class="note">Schnittebene senkrecht zur Zungenachse · Maße basierend auf gap_fold = 19 mm als relevantem ID</text>
+
+  <!-- =============== A: UNKOMPENSIERT =============== -->
+  <text x="150" y="72" text-anchor="middle" class="subtitle">A: Ist-Zustand (scharf)</text>
+
+  <!-- Outer walls -->
+  <rect x="40" y="90" width="8"   height="210" class="outer"/>
+  <rect x="252" y="90" width="8"  height="210" class="outer"/>
+  <rect x="40" y="292" width="220" height="8"  class="outer"/>
+
+  <!-- Air -->
+  <rect x="48"  y="90" width="86"  height="202" class="air"/>
+  <rect x="142" y="90" width="110" height="202" class="air"/>
+  <rect x="48"  y="245" width="204" height="47" class="air"/>
+
+  <!-- Trennwand -->
+  <rect x="134" y="90" width="8" height="155" fill="url(#hatch)" stroke="#5a4a30" stroke-width="1.5"/>
+  <rect x="134" y="90" width="8" height="155" class="wall" fill-opacity="0.55" stroke="#5a4a30" stroke-width="1.5"/>
+
+  <!-- Kanalbreite-Maß links -->
+  <line x1="48" y1="180" x2="134" y2="180" stroke="#888" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="91" y="176" text-anchor="middle" class="note">≈ 24 mm</text>
+
+  <!-- Labels -->
+  <text x="91"  y="145" text-anchor="middle" class="subtitle" fill="#2980b9">Kanal A</text>
+  <text x="91"  y="160" text-anchor="middle" class="label"    fill="#2980b9">→ Spalt</text>
+  <text x="197" y="145" text-anchor="middle" class="subtitle" fill="#2980b9">Kanal B</text>
+  <text x="197" y="160" text-anchor="middle" class="label"    fill="#2980b9">← Klappe</text>
+
+  <!-- gap_fold Maß -->
+  <line x1="30" y1="245" x2="30" y2="292" stroke="#c00" stroke-width="0.7" marker-start="url(#dL)" marker-end="url(#dR)"/>
+  <text x="18" y="272" text-anchor="middle" class="dim" transform="rotate(-90,18,272)">19 mm</text>
+
+  <!-- Sharp corners -->
+  <circle cx="134" cy="245" r="5" fill="none" stroke="#c00" stroke-width="2"/>
+  <circle cx="142" cy="245" r="5" fill="none" stroke="#c00" stroke-width="2"/>
+
+  <!-- Flow -->
+  <path d="M210,115 L210,265 Q210,284 190,284 L88,284 Q65,284 65,265 L65,115"
+        fill="none" stroke="#2980b9" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arr)"/>
+
+  <!-- Acoustic shortcut -->
+  <path d="M115,247 Q138,285 161,247" fill="none" stroke="#e67e22" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="138" y="318" text-anchor="middle" class="dim">akust. Abkürzung</text>
+  <text x="138" y="330" text-anchor="middle" class="dim">Δl ≈ 15 mm (9%)</text>
+
+
+  <!-- =============== B: PLATTENSEGMENT (horizontal) =============== -->
+  <text x="470" y="72" text-anchor="middle" class="subtitle">B: Platte (Inertanz ↑)</text>
+
+  <!-- Outer walls -->
+  <rect x="360" y="90" width="8"   height="210" class="outer"/>
+  <rect x="572" y="90" width="8"   height="210" class="outer"/>
+  <rect x="360" y="292" width="220" height="8"  class="outer"/>
+
+  <!-- Air -->
+  <rect x="368" y="90" width="86"  height="202" class="air"/>
+  <rect x="462" y="90" width="110" height="202" class="air"/>
+  <rect x="368" y="245" width="204" height="47" class="air"/>
+
+  <!-- Trennwand -->
+  <rect x="454" y="90" width="8" height="155" fill="url(#hatch)" stroke="#5a4a30" stroke-width="1.5"/>
+  <rect x="454" y="90" width="8" height="155" class="wall" fill-opacity="0.55" stroke="#5a4a30" stroke-width="1.5"/>
+
+  <!-- Labels -->
+  <text x="411" y="145" text-anchor="middle" class="subtitle" fill="#2980b9">A</text>
+  <text x="517" y="145" text-anchor="middle" class="subtitle" fill="#2980b9">B</text>
+
+  <!-- ── THE PLATE: horizontal, ~17mm total width ── -->
+  <!-- Trennwand center at x=458. Plate 8.3mm left + 8mm Wand + 8.3mm right ≈ scales to drawing -->
+  <!-- In drawing: Trennwand at 454-462. Each side 8.3/24 × 86px ≈ 30px -->
+  <rect x="424" y="245" width="68" height="3" class="comp" rx="0.5"/>
+
+  <!-- h dimension left -->
+  <line x1="424" y1="240" x2="454" y2="240" stroke="#c00" stroke-width="0.7" marker-start="url(#dL)" marker-end="url(#dR)"/>
+  <text x="439" y="236" text-anchor="middle" class="dim">8,3 mm</text>
+
+  <!-- h dimension right -->
+  <line x1="462" y1="240" x2="492" y2="240" stroke="#c00" stroke-width="0.7" marker-start="url(#dL)" marker-end="url(#dR)"/>
+  <text x="477" y="236" text-anchor="middle" class="dim">8,3 mm</text>
+
+  <!-- Total width below -->
+  <line x1="424" y1="258" x2="492" y2="258" stroke="#c00" stroke-width="0.7" marker-start="url(#dL)" marker-end="url(#dR)"/>
+  <text x="458" y="271" text-anchor="middle" class="dim">≈ 17 mm gesamt</text>
+
+  <!-- Annotation -->
+  <line x1="538" y1="228" x2="496" y2="244" stroke="#c0392b" stroke-width="1" marker-end="url(#rarr)"/>
+  <text x="540" y="220" class="label" fill="#c0392b">horizontale Platte</text>
+  <text x="540" y="232" class="label" fill="#c0392b">17 × 40 × 2 mm</text>
+
+  <!-- Flow -->
+  <path d="M530,115 L530,265 Q530,284 510,284 L408,284 Q385,284 385,265 L385,115"
+        fill="none" stroke="#2980b9" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arr)"/>
+
+  <!-- Remaining gap annotation -->
+  <text x="458" y="318" text-anchor="middle" class="note" fill="#c0392b">Verbleibender Durchgang pro Kanal:</text>
+  <text x="458" y="330" text-anchor="middle" class="note" fill="#c0392b">24 − 8 = 16 mm (65% offen)</text>
+
+
+  <!-- =============== C: ABGEFASTE ECKE =============== -->
+  <text x="790" y="72" text-anchor="middle" class="subtitle">C: 45°-Fase + Platte (Vol. ↓)</text>
+
+  <!-- Outer walls -->
+  <rect x="680" y="90" width="8"   height="210" class="outer"/>
+  <rect x="892" y="90" width="8"   height="210" class="outer"/>
+  <rect x="680" y="292" width="220" height="8"  class="outer"/>
+
+  <!-- Air -->
+  <rect x="688" y="90" width="86"  height="202" class="air"/>
+  <rect x="782" y="90" width="110" height="202" class="air"/>
+  <rect x="688" y="245" width="204" height="47" class="air"/>
+
+  <!-- Trennwand (shorter) -->
+  <rect x="774" y="90" width="8" height="140" fill="url(#hatch)" stroke="#5a4a30" stroke-width="1.5"/>
+  <rect x="774" y="90" width="8" height="140" class="wall" fill-opacity="0.55" stroke="#5a4a30" stroke-width="1.5"/>
+
+  <!-- Labels -->
+  <text x="731" y="145" text-anchor="middle" class="subtitle" fill="#2980b9">A</text>
+  <text x="837" y="145" text-anchor="middle" class="subtitle" fill="#2980b9">B</text>
+
+  <!-- Bevels: 45° triangles -->
+  <polygon points="774,230 774,248 757,248" class="bevel-fill"/>
+  <line x1="774" y1="230" x2="757" y2="248" stroke="#8B7355" stroke-width="1.5"/>
+  <polygon points="782,230 782,248 799,248" class="bevel-fill"/>
+  <line x1="782" y1="230" x2="799" y2="248" stroke="#8B7355" stroke-width="1.5"/>
+
+  <!-- Horizontal plate covering bevel bottom -->
+  <rect x="754" y="248" width="48" height="3" class="comp" rx="0.5"/>
+
+  <!-- Width dimension: d ≈ 25mm -->
+  <line x1="754" y1="261" x2="802" y2="261" stroke="#c00" stroke-width="0.7" marker-start="url(#dL)" marker-end="url(#dR)"/>
+  <text x="778" y="275" text-anchor="middle" class="dim">d ≈ 25 mm</text>
+  <text x="778" y="287" text-anchor="middle" class="dim">(1,33 × 19)</text>
+
+  <!-- Annotation -->
+  <line x1="852" y1="228" x2="803" y2="244" stroke="#c0392b" stroke-width="1" marker-end="url(#rarr)"/>
+  <text x="854" y="220" class="label" fill="#c0392b">Ecken 45° abgesägt,</text>
+  <text x="854" y="232" class="label" fill="#c0392b">Platte darunter</text>
+
+  <!-- Flow -->
+  <path d="M850,115 L850,265 Q850,284 830,284 L728,284 Q705,284 705,265 L705,115"
+        fill="none" stroke="#2980b9" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arr)"/>
+
+  <text x="778" y="318" text-anchor="middle" class="note" fill="#c0392b">Dreiecke füllen Eckenvolumen →</text>
+  <text x="778" y="330" text-anchor="middle" class="note" fill="#c0392b">Kompressibilität ↓ → Z kompensiert</text>
+
+
+  <!-- =============== EXPLANATION =============== -->
+  <rect x="30" y="352" width="860" height="200" rx="6" fill="#f9f9f4" stroke="#ccc"/>
+
+  <text x="460" y="377" text-anchor="middle" class="title">Korrigierte Berechnung (ID = gap_fold = 19 mm)</text>
+
+  <!-- Why gap_fold -->
+  <text x="50" y="398" class="note" font-weight="bold">Warum gap_fold statt D_h?</text>
+  <text x="50" y="411" class="note">Die akustische „Abkürzung" passiert an den Ecken, wo die Welle vom Kanal (24 mm breit) in die Faltungspassage</text>
+  <text x="50" y="423" class="note">(19 mm hoch) umbiegt. Relevant ist die engere Dimension am Biegungspunkt: gap_fold = 19 mm.</text>
+  <text x="50" y="435" class="note">Mit D_h = 25,8 mm ergäbe sich h = 12 mm pro Seite → 49% Blockade → unplausibel groß.</text>
+
+  <!-- B -->
+  <rect x="50" y="448" width="16" height="10" class="comp" rx="2"/>
+  <text x="58" y="457" text-anchor="middle" font-size="9" font-weight="bold" fill="white">B</text>
+  <text x="75" y="455" class="label" font-weight="bold">Platte: h = 0,49 × 19 − 0,5 × 2 = 8,3 mm pro Seite</text>
+  <text x="75" y="467" class="note">Gesamtplatte: 0,5 + 2 × 8,3 ≈ <b>17 mm</b> breit × 40 mm tief × 2 mm dick.</text>
+  <text x="75" y="479" class="note">Blockiert 8,3 / 23,8 = 35% jedes Kanals. Verbleibender Durchgang ≈ 16 mm pro Kanal.</text>
+
+  <!-- C -->
+  <polygon points="50,496 58,486 66,496" fill="#d4c4a0" stroke="#8B7355" stroke-width="1"/>
+  <rect x="48" y="496" width="20" height="3" class="comp" rx="0.5"/>
+  <text x="58" y="494" text-anchor="middle" font-size="9" font-weight="bold" fill="#922b21">C</text>
+  <text x="75" y="493" class="label" font-weight="bold">Fase: d = 1,33 × 19 = 25 mm, Fase pro Seite = 12 mm</text>
+  <text x="75" y="505" class="note">Trennwand wird um 12 mm pro Seite bei 45° abgesägt. Darunter Platte 25 × 40 mm.</text>
+
+  <!-- Shortening -->
+  <text x="50" y="525" class="note" font-weight="bold">Akustische Verkürzung (unkompensiert):</text>
+  <text x="50" y="537" class="note">Δl = 0,79 × 19 = 15 mm. Bei Gesamtweg 169 mm = 9%. Verschiebt f_H um einige Hz nach oben.</text>
+
+  <!-- Key insight -->
+  <rect x="50" y="548" width="820" height="30" rx="4" fill="#fff3cd" stroke="#f0c040"/>
+  <text x="460" y="561" text-anchor="middle" class="label" font-weight="bold" fill="#856404">Beide Platten liegen horizontal am Trennwandende. B ist einfacher (nur ankleben),</text>
+  <text x="460" y="573" text-anchor="middle" class="label" fill="#856404">C ist aufwändiger (sägen + kleben), aber verändert das Eckenvolumen gezielter.</text>
+
+  <text x="460" y="600" text-anchor="middle" class="note">Quelle: J. W. Coltman, "Acoustic properties of miter bends", CCRMA/Stanford 2006</text>
+</svg>
