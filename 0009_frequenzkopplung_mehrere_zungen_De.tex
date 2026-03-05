@@ -1,0 +1,322 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+
+% Farben
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+\definecolor{warnorange}{HTML}{e65100}
+\definecolor{lightgray}{HTML}{f5f5f5}
+\definecolor{zone1blue}{HTML}{1565C0}
+\definecolor{zone2orange}{HTML}{E65100}
+\definecolor{zone3red}{HTML}{C62828}
+
+% Boxen
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+
+% Header
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Dok. 0009 — Frequenzkopplung mehrerer Zungen}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small Drei-Zonen-Gradientenmodell}
+
+% Titel-Formatierung
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+
+\begin{document}
+
+% ============================================================
+% TITEL
+% ============================================================
+\begin{center}
+{\small Dok. 0009}\\[4pt]
+{\LARGE\bfseries\color{darkblue} Frequenzkopplung mehrerer Zungen}\\[6pt]
+{\large Drei-Zonen-Gradientenmodell für Tremolo, Locking und Geisterpeaks}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Wenn zwei oder drei Stimmzungen mit Tremolo-Verstimmung ($\approx 1$\,Hz) in dieselbe Kammer oder durch dieselbe Öffnung klingen, beeinflussen sie sich gegenseitig in der Frequenz. Das Ausmaß hängt davon ab, wie stark die Kammerresonanz die Obertöne koppelt. Dieses Dokument leitet das Drei-Zonen-Gradientenmodell ab, das erklärt, warum verschiedene Töne verschiedene Kopplungseffekte zeigen --- von Locking (tiefe Töne) über Geisterpeaks (mittlere Töne) bis zu Ansprache-Problemen (hohe Töne). Zahlenwerte beziehen sich auf den Diskant-Stimmstock aus Dok.~0007, Variante~C (konvex).}
+
+\vspace{4mm}
+
+% Dokumentenverweise
+\begin{table}[H]
+\centering\small
+\begin{tabular}{l l}
+\toprule
+\textbf{Dok.} & \textbf{Titel} \\
+\midrule
+0002 & Strömungsanalyse Bass-Stimmzunge 50\,Hz --- v8 \\
+0004 & Frequenzvariation --- Zwei-Filter-Modell \\
+0005 & Frequenzverschiebung als Indikator der Ansprache \\
+0007 & Diskant-Stimmstock --- Kammerfrequenzen (7 Varianten) \\
+0008 & Klangveränderung durch Kammergeometrie \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+\section{Die Beobachtung aus der Praxis}
+% ============================================================
+
+Beim Stimmen von Tremolo-Registern beobachtet der Akkordeonbauer drei verschiedene Effekte, die vom Tonbereich abhängen:
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{l c X}
+\toprule
+\textbf{Bereich} & $f_H/f$ & \textbf{Beobachtung} \\
+\midrule
+Tiefe Töne (D3--G\#3) & $> 5$ & Zwei oder drei Zungen, die auf $\approx 1$\,Hz Schwebung gestimmt sind, rasten bei gemeinsamer Öffnung auf eine einzige Frequenz ein. Das Tremolo verschwindet. Bei getrennter Luftzufuhr tritt der Effekt nicht auf. \\[4pt]
+Mittlere Töne (A3--C\#5) & $3$--$5$ & Das Tremolo ist hörbar, aber im Spektralanalysator zeigen sich neben den drei erwarteten Frequenzspitzen zusätzliche Geisterpeaks im gleichen Abstand. Statt drei Spitzen erscheinen vier oder fünf. \\[4pt]
+Hohe Töne (D5--C6) & $2$--$3$ & Das Tremolo funktioniert, aber die Ansprache ist träge und der Klang dünn. Die Kopplung ist stark, aber der Effekt äußert sich als Energieverlust, nicht als Frequenzverschiebung. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Die entscheidende Beobachtung: Diese drei Effekte sind \textbf{nicht} binär (vorhanden/nicht vorhanden), sondern bilden ein \textbf{Gradientenfeld}. Die Übergänge sind fließend, und ein Ton kann Merkmale zweier Zonen gleichzeitig zeigen. Die Effekte treten nicht exakt bei den Tönen auf, deren Obertöne die Kammerresonanz treffen, sondern bei Tönen, die in die \textbf{Nähe} der kritischen Kopplung kommen.
+
+% ============================================================
+\section{Der Kopplungsmechanismus --- Kammerresonanz als Vermittler}
+% ============================================================
+
+Die Kopplung zwischen mehreren Zungen läuft \textbf{nicht} über die schwache Compliance-Luftfeder (gemeinsames Kammervolumen als Feder), sondern über die \textbf{Kammerresonanz} selbst. Der Mechanismus ist derselbe, der in Dok.~0005 die Ansprache-Verschlechterung erklärt:
+
+\textbf{Schritt~1 --- Oberton trifft Kammerresonanz:} Zunge~A schwingt bei $f_A$ und erzeugt Obertöne $n \cdot f_A$. Wenn ein Oberton nahe an $f_H$ liegt, wird er von der Kammerresonanz verstärkt (Impedanzverstärkung $G$, Dok.~0004 und 0007).
+
+\textbf{Schritt~2 --- Resonant verstärkter Druck koppelt an Zunge~B:} Der verstärkte Oberton erzeugt einen Drucküberschuss in der Kammer, den Zunge~B als periodische Kraft \glqq{}sieht\grqq{}. Diese Kraft ist proportional zu $G(n \cdot f_A)$ und zur Obertonamplitude $a_n \propto 1/n$.
+
+\textbf{Schritt~3 --- Nichtlineare Verstärkung bei voller Amplitude:} Bei voller Lautstärke ist die effektive Spaltfläche $A_\text{eff}$ nicht $2\,\text{mm}^2$ (Ruhelage), sondern zeitgemittelt $\approx 6\,\text{mm}^2$ (Dok.~0002 Kap.~8: Spalt öffnet 8$\times$ pro Zyklus). Die Kopplungsstärke skaliert mit $A_\text{eff}^2$, was einen Faktor $(6/2)^2 = 9$ gegenüber dem linearen Modell ergibt.
+
+\subsection{Warum das lineare Modell versagt}
+
+Das Helmholtz-Modell aus Dok.~0002--0008 berechnet die Compliance-Kopplung und erhält $\Delta f_\text{lock} < 0{,}01$\,Hz --- viel zu schwach. Die Praxis zeigt 0,5--1\,Hz. Die fehlenden Faktoren sind: (a)~die resonante Verstärkung $G \approx 3$--$7$ bei Obertönen nahe $f_H$, und (b)~die nichtlineare Spaltamplitude bei voller Lautstärke (Faktor~9). Zusammen: $0{,}01 \times 5 \times 9 \approx 0{,}5$\,Hz --- konsistent mit der Beobachtung.
+
+\begin{keybox}
+\textbf{Kernaussage:} Die Kopplung zwischen Zungen wird durch dieselbe Kammerimpedanz $Z_H(f)$ vermittelt, die in Dok.~0005 die Ansprache und in Dok.~0008 den Klang bestimmt. Ansprache, Klang und Tremolo-Kopplung sind drei Projektionen derselben physikalischen Größe.
+\end{keybox}
+
+% ============================================================
+\section{Die Adler-Gleichung --- Injection Locking}
+% ============================================================
+
+Die Physik gekoppelter Oszillatoren mit kleiner Frequenzdifferenz wird durch die Adler-Gleichung (1946) beschrieben. Sie gilt universell für Laser, elektronische Oszillatoren, biologische Rhythmen --- und Stimmzungen:
+\begin{equation}
+\frac{d\varphi}{dt} = 2\pi\,\Delta f - 2\pi\,\Delta f_\text{lock} \cdot \sin(\varphi)
+\end{equation}
+Dabei ist $\Delta f$ die gestimmte Frequenzdifferenz und $\Delta f_\text{lock}$ der Lock-in-Bereich.
+
+\subsection{Regime~1 --- Locking ($|\Delta f| < \Delta f_\text{lock}$)}
+Die Phase $\varphi$ konvergiert auf einen festen Wert. Beide Zungen schwingen mit derselben Frequenz. Das Tremolo verschwindet vollständig.
+
+\subsection{Regime~2 --- Pulling ($|\Delta f| > \Delta f_\text{lock}$)}
+Die Zungen schwingen mit verschiedenen Frequenzen, aber die tatsächliche Schwebung ist geringer als gestimmt:
+\begin{equation}
+\Delta f_\text{eff} = \sqrt{\Delta f^2 - \Delta f_\text{lock}^2}
+\end{equation}
+Für ein 1-Hz-Tremolo bei $\Delta f_\text{lock} = 0{,}7$\,Hz (gemeinsame Öffnung): $\Delta f_\text{eff} = \sqrt{1^2 - 0{,}7^2} = 0{,}71$\,Hz --- das Tremolo wird um 30\,\% langsamer. Bei getrennten Öffnungen ($\Delta f_\text{lock} \approx 0{,}1$\,Hz): $\Delta f_\text{eff} = 0{,}995$\,Hz --- praktisch unverändert.
+
+\subsection{Drei Zungen (Musette)}
+
+Bei drei Zungen mit $\Delta f = \pm 1$\,Hz verstärkt sich der Effekt. Die mittlere Zunge \glqq{}sieht\grqq{} zwei Kopplungsquellen und der effektive Lock-in-Bereich wächst um Faktor $\approx \sqrt{2}$: $\Delta f_{\text{lock},3} \approx 1{,}4 \cdot \Delta f_{\text{lock},2}$. Bei gemeinsamer Öffnung kann das ausreichen, um alle drei Zungen einzurasten.
+
+% ============================================================
+\section{Das Drei-Zonen-Gradientenmodell}
+% ============================================================
+
+Die Kopplungsstärke $\Delta f_\text{lock}$ ist nicht für alle Töne gleich. Sie hängt davon ab, wie die Obertöne des jeweiligen Tons zur Kammerresonanz $f_H$ stehen. Drei Zonen mit unterschiedlichen dominierenden Effekten ergeben sich:
+
+\subsection{\textcolor{zone1blue}{Zone~1: Locking-Zone ($f_H/f > 5$, tiefe Töne)}}
+
+Bei den tiefsten Tönen (D3--G\#3, $f = 147$--$208$\,Hz) liegt $f_H$ beim 7.--12.~Oberton. Jeder einzelne Oberton koppelt schwach (Energieanteil $a_n^2 = 1$--$4\,\%$), aber das Obertonraster ist \textbf{dicht}: Der Abstand zwischen benachbarten Obertönen beträgt nur $f_0$ (147--208\,Hz), und die Resonanzbandbreite $f_H/Q_H \approx 200$--$300$\,Hz ist breit genug, dass \textbf{immer} mindestens ein Oberton im Band liegt.
+
+Die Summe vieler schwacher Kopplungen ergibt eine moderate Gesamtkopplung. Bei voller Lautstärke (nichtlinearer Faktor $\times 9$) reicht das aus, um $\Delta f_\text{lock}$ auf 0,5--1,5\,Hz zu treiben --- genug für Locking bei 1-Hz-Tremolo. Subjektiv sind das die Töne, bei denen das Tremolo \glqq{}einrastet\grqq{} oder \glqq{}verschmiert\grqq{}.
+
+\subsection{\textcolor{zone2orange}{Zone~2: Geisterpeak-Zone ($f_H/f \approx 3$--$5$, mittlere Töne)}}
+
+In der Mitte des Tonbereichs (A3--C\#5, $f = 220$--$554$\,Hz) trifft der 3.--5.~Oberton auf $f_H$. Jeder dieser Obertöne hat 4--11\,\% Energieanteil --- deutlich mehr als in Zone~1. Das Obertonraster ist aber weiter (Abstand 220--554\,Hz), sodass nur einer oder zwei Obertöne gleichzeitig im Resonanzband liegen.
+
+Die Kopplung ist stark genug für \textbf{Intermodulation}, aber nicht für Locking. Im Spektrum erscheinen Mischprodukte: Wenn Zunge~A bei $f_A$ und Zunge~B bei $f_B = f_A + 1$\,Hz schwingen, erzeugt die nichtlineare Kopplung über die Kammerresonanz Seitenbänder bei $f_A \pm 2$\,Hz und $f_B \pm 2$\,Hz. Bei drei Zungen ($f-1$, $f$, $f+1$) entstehen Peaks bei $f-2$ und $f+2$ --- die beobachteten \glqq{}vierten und fünften Spitzen\grqq{}.
+
+\subsection{\textcolor{zone3red}{Zone~3: Ansprache-Zone ($f_H/f \approx 2$--$3$, hohe Töne)}}
+
+Im oberen Drittel (D5--C6, $f = 587$--$1047$\,Hz) liegt der 2.\ oder 3.~Oberton auf $f_H$. Diese Obertöne tragen 11--25\,\% der Gesamtenergie --- massive Kopplung. Aber der Effekt äußert sich primär als \textbf{Energieverlust} ($R_H$ maximal, Dok.~0005), nicht als Frequenzverschiebung. Die Zunge schwingt langsam ein und klingt dünn.
+
+Das Tremolo-Pulling ist zwar am stärksten, aber sekundär: Der Ton spricht ohnehin schlecht an, und bei reduzierter Amplitude sinkt der nichtlineare Verstärkungsfaktor. In der Praxis bemerkt der Stimmer hier eher die schlechte Ansprache als die Tremolo-Instabilität.
+
+\begin{table}[H]
+\centering\small
+\caption{Übersicht der drei Zonen}
+\begin{tabularx}{\textwidth}{l l c c c X l}
+\toprule
+\textbf{Zone} & \textbf{Töne} & $f_H/f$ & \textbf{Dom.\ OT} & \textbf{Energie} & \textbf{Mechanismus} & \textbf{Abhilfe} \\
+\midrule
+\textcolor{zone1blue}{1 Locking} & D3--G\#3 & $> 5$ & 7--12 & 1--4\,\% & Viele schwache OT summieren sich. Locking bei voller Lautstärke. & Getrennte Öffnungen \\[4pt]
+\textcolor{zone2orange}{2 Geisterpeaks} & A3--C\#5 & 3--5 & 3--5 & 4--11\,\% & Einzelne mittelstarke OT erzeugen Intermodulation im Spektrum. & Tremolo größer stimmen \\[4pt]
+\textcolor{zone3red}{3 Ansprache} & D5--C6 & 2--3 & 2--3 & 11--25\,\% & Wenige starke OT $\to$ Energieverlust dominiert über $\Delta f$. & Kammertiefe reduzieren \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{warnbox}
+\textbf{Fließende Grenzen:} Die Grenzen zwischen den Zonen sind nicht scharf. Ein Ton wie A3 (Grenze Zone~1/2) kann bei gemeinsamer Öffnung noch Locking zeigen, bei getrennten Öffnungen aber bereits Geisterpeaks. Die Zone hängt nicht nur von $f_H/f$ ab, sondern auch von der Kopplungsstärke (gemeinsam vs.\ getrennt) und der Spiellautstärke (nichtlinearer Faktor).
+\end{warnbox}
+
+% ============================================================
+\section{Diagramme}
+% ============================================================
+
+\textit{(Siehe PDF-Version, erzeugt mit build\_0009\_frequenzkopplung.py: 5 Diagramme --- Zonenübersicht, Ratio/Oberton, Adler-Pulling, Kopplungslandschaft, Spektrumvergleich.)}
+
+% ============================================================
+\section{Gemeinsame vs.\ getrennte Öffnungen --- quantitativer Vergleich}
+% ============================================================
+
+Die Praxis zeigt eindeutig: Getrennte Öffnungen (jede Zunge bekommt ihre eigene Luftzufuhr mit etwas Abstand) reduzieren alle drei Kopplungseffekte drastisch.
+
+Bei gemeinsamer Öffnung teilen sich die Zungen denselben akustischen Widerstand am Hals. Der verstärkte Oberton von Zunge~A erzeugt Druck in der Kammer, und Zunge~B \glqq{}sieht\grqq{} diesen Druck direkt --- die Kammer ist das Kopplungsmedium. Bei getrennten Öffnungen muss der Druck von Kammer~A über den Balg (großes Volumen, sehr niedrige Impedanz) zu Kammer~B gelangen. Das Balgvolumen (mehrere Liter) wirkt als Tiefpass mit einer Grenzfrequenz weit unter 1\,Hz --- die akustische Kopplung wird um Faktor $\approx 7$ geschwächt.
+
+\begin{table}[H]
+\centering\small
+\caption{Empirische Vergleichswerte gemeinsame vs.\ getrennte Öffnungen (volle Spiellautstärke)}
+\begin{tabular}{l r r r}
+\toprule
+\textbf{Parameter} & \textbf{Gemeinsam} & \textbf{Getrennt} & \textbf{Faktor} \\
+\midrule
+$\Delta f_\text{lock}$ (2 Zungen) & $\approx 0{,}7$\,Hz & $\approx 0{,}1$\,Hz & $7\times$ \\
+1-Hz-Tremolo wird zu & 0,71\,Hz ($-29\,\%$) & 0,995\,Hz ($-0{,}5\,\%$) & --- \\
+$\Delta f_\text{lock}$ (3 Zungen, Musette) & $\approx 1{,}0$\,Hz & $\approx 0{,}14$\,Hz & $7\times$ \\
+Geisterpeaks bei A4 & $-24$\,dB & $-41$\,dB & 17\,dB \\
+Locking-Grenzton & $\approx$ G\#3 (208\,Hz) & $\approx$ D3 (147\,Hz) & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+\section{Praktische Konsequenz --- Korrektur beim Stimmen}
+% ============================================================
+
+Wenn getrennte Öffnungen nicht möglich sind (Bauform, Platz), muss das Tremolo \textbf{bewusst größer gestimmt} werden, um den Pulling-Effekt zu kompensieren:
+\begin{equation}
+\Delta f_\text{Stimmung} = \sqrt{\Delta f_\text{Ziel}^2 + \Delta f_\text{lock}^2}
+\end{equation}
+Für ein gewünschtes Tremolo von 1\,Hz bei $\Delta f_\text{lock} = 0{,}7$\,Hz:
+\begin{equation}
+\Delta f_\text{Stimmung} = \sqrt{1^2 + 0{,}7^2} = \sqrt{1{,}49} = 1{,}22\,\text{Hz}
+\end{equation}
+Man stimmt also 22\,\% weiter als gewünscht. Dieser Korrekturwert ist tonabhängig --- in Zone~1 (tiefe Töne) größer, in Zone~2 (mittlere Töne) kleiner. In Zone~1 kann die Korrektur so groß werden, dass Locking nicht mehr vermeidbar ist --- dann bleiben nur getrennte Öffnungen oder eine Änderung der Kammergeometrie.
+
+\begin{table}[H]
+\centering\small
+\caption{Stimm-Kompensationstabelle (gemeinsame Öffnung, volle Lautstärke)}
+\begin{tabular}{l r r r l}
+\toprule
+\textbf{Ton} & $\Delta f_\text{Ziel}$ [Hz] & $\Delta f_\text{lock}$ [Hz] & $\Delta f_\text{Stimmung}$ [Hz] & \textbf{Bemerkung} \\
+\midrule
+D3 (147\,Hz) & 1,0 & $\sim$1,2 & 1,56 & Locking möglich \\
+A3 (220\,Hz) & 1,0 & $\sim$0,8 & 1,28 & Starkes Pulling \\
+A4 (440\,Hz) & 1,0 & $\sim$0,5 & 1,12 & Moderates Pulling \\
+D5 (587\,Hz) & 1,0 & $\sim$0,6 & 1,17 & Pulling + Ansprache \\
+A5 (880\,Hz) & 1,0 & $\sim$0,4 & 1,08 & Schwaches Pulling \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+\section{Verbindung zur Einzelzungen-Physik (Dok.~0005)}
+% ============================================================
+
+Die Korrelation zwischen Tremolo-Kopplung und Ansprache ist kein Zufall --- sie folgt aus der Physik. Beide Effekte werden von derselben komplexen Kammerimpedanz $Z_H(f) = R_H + jX_H$ bestimmt (Dok.~0005):
+
+\textbf{Realteil $R_H$:} Bestimmt den Energieverlust. Für die Einzelzunge bedeutet das schlechtere Ansprache (Dok.~0005). Für die Mehrzungen-Kopplung bedeutet es: Die Kammer absorbiert und re-emittiert Energie --- genau der Mechanismus, der die Kopplung vermittelt. \textbf{Großes $R_H$ = schlechte Ansprache UND starke Kopplung.}
+
+\textbf{Imaginärteil $X_H$:} Bestimmt die Frequenzverschiebung. Für die Einzelzunge verschiebt $X_H$ die Obertöne (Dok.~0005). Für die Mehrzungen-Kopplung bestimmt $X_H$ die Phasenbeziehung zwischen den gekoppelten Zungen --- und damit, ob Pulling oder Locking auftritt.
+
+Da $R_H$ und $X_H$ durch die Kramers-Kronig-Relation verknüpft sind (Dok.~0005 Kap.~3), gilt: \textbf{Ein Ton, der Ansprache-Probleme hat (großes $R_H$ bei einem Oberton), hat gleichzeitig ein starkes Tremolo-Pulling.} Aber der Effekt zeigt sich unterschiedlich: Die Ansprache verschlechtert sich exakt bei $f_H = n \cdot f$ ($R_H$ maximal, $X_H = 0$). Das Pulling ist maximal \textbf{knapp neben} der Resonanz ($X_H$ maximal, $R_H$ abfallend). Deshalb treten die stärksten Tremolo-Effekte nicht bei exakt denselben Tönen auf wie die schlechteste Ansprache --- sondern bei den Nachbartönen. Das ist genau die Beobachtung.
+
+% ============================================================
+\section{Warum die Zonen verschiedene Effekte zeigen}
+% ============================================================
+
+Die unterschiedlichen Erscheinungsformen in den drei Zonen folgen aus der Struktur des Obertonrasters:
+
+\textbf{Zone~1 (tiefe Töne) $\to$ Locking:} Das Obertonraster ist dicht (Abstand $= f_0 \approx 150$\,Hz). Bei $f_H \approx 1500$\,Hz liegen $\sim$10~Obertöne in Reichweite, mindestens einer immer im Resonanzband. Die Kopplung ist breitbandig --- sie wirkt bei jeder Verstimmung, nicht nur bei bestimmten $\Delta f$-Werten. Das begünstigt Locking, weil die Kopplungskraft nie \glqq{}Lücken\grqq{} hat.
+
+\textbf{Zone~2 (mittlere Töne) $\to$ Geisterpeaks:} Das Obertonraster ist weiter (Abstand $\approx 300$--$500$\,Hz). Die Kopplung ist schmalbandig --- sie wirkt nur über einen oder zwei Obertöne, die in das Resonanzband fallen. Diese selektive Kopplung erzeugt Intermodulationsprodukte bei diskreten Frequenzen (Seitenbänder), statt eine breitbandige Synchronisierung. Das Ergebnis sind Geisterpeaks im Spektrum, kein Locking.
+
+\textbf{Zone~3 (hohe Töne) $\to$ Ansprache:} Der 2.~Oberton (Oktave) liegt auf oder nahe $f_H$. Dieser Oberton trägt 25\,\% der Gesamtenergie --- die Kopplung ist maximal, aber sie äußert sich als massive Energieabsorption durch die Kammer ($R_H$ dominiert). Die Zunge verliert so viel Energie an die Kammerresonanz, dass die Amplitude sinkt. Bei reduzierter Amplitude sinkt auch der nichtlineare Verstärkungsfaktor --- der Teufelskreis begünstigt Energieverlust gegenüber Frequenzverschiebung.
+
+% ============================================================
+\section{Grenzen des Modells}
+% ============================================================
+
+Das Drei-Zonen-Modell erklärt die qualitativen Beobachtungen und gibt quantitative Richtwerte. Es hat aber klare Grenzen:
+
+\textbf{1.\ Die Lock-in-Werte sind empirisch kalibriert.} Die Adler-Gleichung beschreibt die \textit{Form} der Kopplung korrekt (Pulling-Kurve, Locking-Schwelle), aber $\Delta f_\text{lock}$ selbst kann mit dem Helmholtz-Modell nicht berechnet werden. Der nichtlineare Verstärkungsfaktor ($\times 9$ bei voller Amplitude) ist eine Abschätzung aus Dok.~0002 Kap.~8, nicht aus einer FSI-Simulation.
+
+\textbf{2.\ Die Zonengrenzen sind geometrieabhängig.} Die Werte $f_H/f = 5$ und $3$ gelten für den in Dok.~0007 berechneten Stimmstock (Variante~C, \O{}~10\,mm Öffnung, $Q_H \approx 8$). Bei anderen Geometrien verschieben sich die Grenzen.
+
+\textbf{3.\ Die Lautstärkeabhängigkeit ist qualitativ, nicht quantitativ.} Der nichtlineare Verstärkungsfaktor skaliert mit $A_\text{eff}^2$, und $A_\text{eff}$ hängt vom Blasdruck ab. Bei pianissimo kann ein Ton in Zone~1 völlig unproblematisch sein --- bei fortissimo einrasten. Diese Dynamikabhängigkeit ist in der Praxis bekannt, aber nicht exakt berechenbar.
+
+\textbf{4.\ Aerodynamische Nahfeldeffekte fehlen.} Bei gemeinsamer Öffnung können die Luftströme zweier Zungen sich direkt beeinflussen (Bernoulli-Wechselwirkung), bevor die Kammerresonanz ins Spiel kommt. Dieser Effekt ist im Helmholtz-Modell nicht enthalten.
+
+% ============================================================
+\section{Zusammenfassung}
+% ============================================================
+
+\begin{keybox}
+\textbf{1.\ Der Kopplungsmechanismus:} Mehrere Zungen koppeln über die Kammerresonanz, nicht über die schwache Compliance-Luftfeder. Obertöne nahe $f_H$ werden resonant verstärkt und übertragen Energie zwischen den Zungen. Bei voller Amplitude ist die Kopplung $\approx 500\times$ stärker als das lineare Modell vorhersagt.
+\end{keybox}
+
+\begin{keybox}
+\textbf{2.\ Das Drei-Zonen-Gradientenmodell:}
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item \textcolor{zone1blue}{Zone~1} ($f_H/f > 5$, tiefe Töne): Dichte Obertöne $\to$ breitbandige Kopplung $\to$ \textbf{Locking}.
+\item \textcolor{zone2orange}{Zone~2} ($f_H/f \approx 3$--$5$, mittlere Töne): Einzelne starke OT $\to$ selektive Kopplung $\to$ \textbf{Geisterpeaks}.
+\item \textcolor{zone3red}{Zone~3} ($f_H/f \approx 2$--$3$, hohe Töne): Oktave/Duodezime auf $f_H$ $\to$ massive Absorption $\to$ \textbf{Ansprache-Verlust}.
+\end{itemize}
+Die Grenzen sind fließend. Die Effekte treten in der Nähe der kritischen Kopplung auf, nicht exakt bei den Resonanztönen.
+\end{keybox}
+
+\begin{keybox}
+\textbf{3.\ Abhilfe:}
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item \textbf{Getrennte Öffnungen} schwächen die Kopplung um Faktor $\approx 7$ --- die wirksamste Maßnahme.
+\item \textbf{Tremolo größer stimmen:} $\Delta f_\text{Stimmung} = \sqrt{\Delta f_\text{Ziel}^2 + \Delta f_\text{lock}^2}$ kompensiert das Pulling, hilft aber nicht gegen Locking.
+\item \textbf{Kammertiefe reduzieren} (Dok.~0007, Variante~C) hebt $f_H$ und verschiebt die Zonengrenzen nach oben --- weniger Töne sind betroffen.
+\end{itemize}
+\end{keybox}
+
+\begin{keybox}
+\textbf{4.\ Die einheitliche Physik:} Ansprache (Dok.~0005), Klang (Dok.~0008) und Tremolo-Kopplung (dieses Dokument) sind drei Projektionen derselben Kammerimpedanz $Z_H(f)$. Was die Ansprache verbessert, verbessert auch den Klang und reduziert die Tremolo-Kopplung. Es gibt keinen Trade-off --- das Optimum ist dasselbe: $f_H/f \geq 3$, minimales Volumen, große Öffnung.
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Die Berechnung sagt, wo man suchen soll. Der praktische Test sagt, was man findet. Und die Erfahrung aus tausend Instrumenten sagt, worauf es ankommt.}
+\end{center}
+
+\end{document}
