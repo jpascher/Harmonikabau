@@ -419,9 +419,11 @@ story.append(Paragraph(
     'Wenn zwei oder drei Stimmzungen mit Tremolo-Verstimmung (≈ 1 Hz) in dieselbe Kammer oder '
     'durch dieselbe Öffnung klingen, beeinflussen sie sich gegenseitig in der Frequenz. '
     'Das Ausmaß hängt davon ab, wie stark die Kammerresonanz die Obertöne koppelt. '
-    'Dieses Dokument leitet das Drei-Zonen-Gradientenmodell ab, das erklärt, warum verschiedene Töne '
-    'verschiedene Kopplungseffekte zeigen — von Locking (tiefe Töne) über Geisterpeaks (mittlere Töne) '
-    'bis zu Ansprache-Problemen (hohe Töne). '
+    'Dieses Dokument bietet ein Erklärungsmodell — das Drei-Zonen-Gradientenmodell —, '
+    'das die beobachteten Phänomene (Locking, Geisterpeaks, Ansprache-Verlust) physikalisch plausibel '
+    'auf die Kammerimpedanz zurückführt. Die angegebenen Zahlenwerte sind Größenordnungsabschätzungen '
+    'auf Basis vereinfachter Modelle und empirischer Kalibrierung — sie liefern keine '
+    'konstruktiv verwertbaren Vorgaben, sondern ein qualitatives Verständnis der Zusammenhänge. '
     'Zahlenwerte beziehen sich auf den Diskant-Stimmstock aus Dok. 0007, Variante C (konvex).', sAbstract))
 
 story.append(Spacer(1, 2*mm))
@@ -897,20 +899,27 @@ story.append(Paragraph(
 story.append(Paragraph('Kapitel 11: Zusammenfassung', sChapter))
 
 story.append(Paragraph(
-    '<b>1. Der Kopplungsmechanismus:</b> Mehrere Zungen koppeln über die Kammerresonanz, nicht über '
+    '<b>1. Einordnung:</b> Dieses Dokument ist ein Erklärungsmodell, keine Konstruktionsanleitung. '
+    'Die Berechnungen geben bestenfalls eine plausible physikalische Erklärung der beobachteten '
+    'Phänomene. Die Zahlenwerte (Δf<sub>lock</sub>, Kompensationstabelle) sind '
+    'Größenordnungsabschätzungen — sie zeigen die Richtung, nicht das Ziel. '
+    'Konstruktionsentscheidungen erfordern nach wie vor praktische Tests und Erfahrung.', sWarnBox))
+
+story.append(Paragraph(
+    '<b>2. Der Kopplungsmechanismus:</b> Mehrere Zungen koppeln über die Kammerresonanz, nicht über '
     'die schwache Compliance-Luftfeder. Obertöne nahe f<sub>H</sub> werden resonant verstärkt und '
     'übertragen Energie zwischen den Zungen. Bei voller Amplitude ist die Kopplung ≈ 500× stärker '
     'als das lineare Modell vorhersagt.', sKeyBox))
 
 story.append(Paragraph(
-    '<b>2. Das Drei-Zonen-Gradientenmodell:</b><br/>'
+    '<b>3. Das Drei-Zonen-Gradientenmodell:</b><br/>'
     '• Zone 1 (f<sub>H</sub>/f > 5, tiefe Töne): Dichte Obertöne → breitbandige Kopplung → <b>Locking</b>.<br/>'
     '• Zone 2 (f<sub>H</sub>/f ≈ 3–5, mittlere Töne): Einzelne starke OT → selektive Kopplung → <b>Geisterpeaks</b>.<br/>'
     '• Zone 3 (f<sub>H</sub>/f ≈ 2–3, hohe Töne): Oktave/Duodezime auf f<sub>H</sub> → massive Absorption → <b>Ansprache-Verlust</b>.<br/>'
     'Die Grenzen sind fließend. Die Effekte treten in der Nähe der kritischen Kopplung auf, nicht exakt bei den Resonanztönen.', sKeyBox))
 
 story.append(Paragraph(
-    '<b>3. Abhilfe:</b><br/>'
+    '<b>4. Abhilfe:</b><br/>'
     '• <b>Getrennte Öffnungen</b> schwächen die Kopplung um Faktor ≈ 7 — die wirksamste Maßnahme.<br/>'
     '• <b>Tremolo größer stimmen:</b> Δf<sub>Stimmung</sub> = √(Δf<sub>Ziel</sub>² + Δf<sub>lock</sub>²) '
     'kompensiert das Pulling, hilft aber nicht gegen Locking.<br/>'
@@ -918,7 +927,7 @@ story.append(Paragraph(
     'die Zonengrenzen nach oben — weniger Töne sind betroffen.', sKeyBox))
 
 story.append(Paragraph(
-    '<b>4. Die einheitliche Physik:</b> Ansprache (Dok. 0005), Klang (Dok. 0008) und Tremolo-Kopplung '
+    '<b>5. Die einheitliche Physik:</b> Ansprache (Dok. 0005), Klang (Dok. 0008) und Tremolo-Kopplung '
     '(dieses Dokument) sind drei Projektionen derselben Kammerimpedanz Z<sub>H</sub>(f). '
     'Was die Ansprache verbessert, verbessert auch den Klang und reduziert die Tremolo-Kopplung. '
     'Es gibt keinen Trade-off zwischen diesen drei Zielen — das Optimum ist dasselbe: '

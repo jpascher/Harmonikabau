@@ -57,7 +57,7 @@
 {\large Drei-Zonen-Gradientenmodell für Tremolo, Locking und Geisterpeaks}\\[4pt]
 \textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
 \end{center}
-{\small\itshape Wenn zwei oder drei Stimmzungen mit Tremolo-Verstimmung ($\approx 1$\,Hz) in dieselbe Kammer oder durch dieselbe Öffnung klingen, beeinflussen sie sich gegenseitig in der Frequenz. Das Ausmaß hängt davon ab, wie stark die Kammerresonanz die Obertöne koppelt. Dieses Dokument leitet das Drei-Zonen-Gradientenmodell ab, das erklärt, warum verschiedene Töne verschiedene Kopplungseffekte zeigen --- von Locking (tiefe Töne) über Geisterpeaks (mittlere Töne) bis zu Ansprache-Problemen (hohe Töne). Zahlenwerte beziehen sich auf den Diskant-Stimmstock aus Dok.~0007, Variante~C (konvex).}
+{\small\itshape Wenn zwei oder drei Stimmzungen mit Tremolo-Verstimmung ($\approx 1$\,Hz) in dieselbe Kammer oder durch dieselbe Öffnung klingen, beeinflussen sie sich gegenseitig in der Frequenz. Das Ausmaß hängt davon ab, wie stark die Kammerresonanz die Obertöne koppelt. Dieses Dokument bietet ein Erklärungsmodell --- das Drei-Zonen-Gradientenmodell ---, das die beobachteten Phänomene (Locking, Geisterpeaks, Ansprache-Verlust) physikalisch plausibel auf die Kammerimpedanz zurückführt. Die angegebenen Zahlenwerte sind Größenordnungsabschätzungen auf Basis vereinfachter Modelle und empirischer Kalibrierung --- sie liefern keine konstruktiv verwertbaren Vorgaben, sondern ein qualitatives Verständnis der Zusammenhänge. Zahlenwerte beziehen sich auf den Diskant-Stimmstock aus Dok.~0007, Variante~C (konvex).}
 
 \vspace{4mm}
 
@@ -286,12 +286,16 @@ Das Drei-Zonen-Modell erklärt die qualitativen Beobachtungen und gibt quantitat
 \section{Zusammenfassung}
 % ============================================================
 
+\begin{warnbox}
+\textbf{1.\ Einordnung:} Dieses Dokument ist ein Erklärungsmodell, keine Konstruktionsanleitung. Die Berechnungen geben bestenfalls eine plausible physikalische Erklärung der beobachteten Phänomene. Die Zahlenwerte ($\Delta f_\text{lock}$, Kompensationstabelle) sind Größenordnungsabschätzungen --- sie zeigen die Richtung, nicht das Ziel. Konstruktionsentscheidungen erfordern nach wie vor praktische Tests und Erfahrung.
+\end{warnbox}
+
 \begin{keybox}
-\textbf{1.\ Der Kopplungsmechanismus:} Mehrere Zungen koppeln über die Kammerresonanz, nicht über die schwache Compliance-Luftfeder. Obertöne nahe $f_H$ werden resonant verstärkt und übertragen Energie zwischen den Zungen. Bei voller Amplitude ist die Kopplung $\approx 500\times$ stärker als das lineare Modell vorhersagt.
+\textbf{2.\ Der Kopplungsmechanismus:} Mehrere Zungen koppeln über die Kammerresonanz, nicht über die schwache Compliance-Luftfeder. Obertöne nahe $f_H$ werden resonant verstärkt und übertragen Energie zwischen den Zungen. Bei voller Amplitude ist die Kopplung $\approx 500\times$ stärker als das lineare Modell vorhersagt.
 \end{keybox}
 
 \begin{keybox}
-\textbf{2.\ Das Drei-Zonen-Gradientenmodell:}
+\textbf{3.\ Das Drei-Zonen-Gradientenmodell:}
 \begin{itemize}[leftmargin=5mm, itemsep=1pt]
 \item \textcolor{zone1blue}{Zone~1} ($f_H/f > 5$, tiefe Töne): Dichte Obertöne $\to$ breitbandige Kopplung $\to$ \textbf{Locking}.
 \item \textcolor{zone2orange}{Zone~2} ($f_H/f \approx 3$--$5$, mittlere Töne): Einzelne starke OT $\to$ selektive Kopplung $\to$ \textbf{Geisterpeaks}.
@@ -301,7 +305,7 @@ Die Grenzen sind fließend. Die Effekte treten in der Nähe der kritischen Koppl
 \end{keybox}
 
 \begin{keybox}
-\textbf{3.\ Abhilfe:}
+\textbf{4.\ Abhilfe:}
 \begin{itemize}[leftmargin=5mm, itemsep=1pt]
 \item \textbf{Getrennte Öffnungen} schwächen die Kopplung um Faktor $\approx 7$ --- die wirksamste Maßnahme.
 \item \textbf{Tremolo größer stimmen:} $\Delta f_\text{Stimmung} = \sqrt{\Delta f_\text{Ziel}^2 + \Delta f_\text{lock}^2}$ kompensiert das Pulling, hilft aber nicht gegen Locking.
@@ -310,7 +314,7 @@ Die Grenzen sind fließend. Die Effekte treten in der Nähe der kritischen Koppl
 \end{keybox}
 
 \begin{keybox}
-\textbf{4.\ Die einheitliche Physik:} Ansprache (Dok.~0005), Klang (Dok.~0008) und Tremolo-Kopplung (dieses Dokument) sind drei Projektionen derselben Kammerimpedanz $Z_H(f)$. Was die Ansprache verbessert, verbessert auch den Klang und reduziert die Tremolo-Kopplung. Es gibt keinen Trade-off --- das Optimum ist dasselbe: $f_H/f \geq 3$, minimales Volumen, große Öffnung.
+\textbf{5.\ Die einheitliche Physik:} Ansprache (Dok.~0005), Klang (Dok.~0008) und Tremolo-Kopplung (dieses Dokument) sind drei Projektionen derselben Kammerimpedanz $Z_H(f)$. Was die Ansprache verbessert, verbessert auch den Klang und reduziert die Tremolo-Kopplung. Es gibt keinen Trade-off --- das Optimum ist dasselbe: $f_H/f \geq 3$, minimales Volumen, große Öffnung.
 \end{keybox}
 
 \vspace{3mm}
