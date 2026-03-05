@@ -1,0 +1,283 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+
+% Farben
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+\definecolor{warnorange}{HTML}{e65100}
+\definecolor{lightgray}{HTML}{f5f5f5}
+
+% Boxen
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+
+% Header
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Impedanzvergleich: Durchschlagzunge vs.\ Labialpfeife}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small Ergänzung zu bass\_50hz\_v8}
+
+% Titel-Formatierung
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+
+\begin{document}
+
+% ============================================================
+% TITEL
+% ============================================================
+\begin{center}
+{\LARGE\bfseries\color{darkblue} Wie die Stimmzunge die Impedanz verändert}\\[6pt]
+{\large Systematischer Vergleich: Durchschlagzunge (Akkordeon) vs.\ Labialpfeife (Orgel)}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Ergänzungskapitel zu bass\_50hz\_v8. Stellt den fundamentalen Impedanz-Unterschied zwischen einer geflöteten Orgelpfeife und einer Stimmzunge in der Basskammer systematisch dar. Zahlenwerte beziehen sich auf die 50-Hz-Basszunge aus v8.}
+
+\vspace{4mm}
+
+% ============================================================
+\section{Warum dieser Vergleich?}
+% ============================================================
+
+Die Basskammer des Akkordeons und eine gefaltete Orgelpfeife haben äußerlich viel gemeinsam: ein gefalteter Luftweg, ein Resonanzvolumen, eine 180\textdegree-Faltung (Gehrungsbiegung), eine Öffnung zur Außenluft. Der Coltman-Effekt (Impedanzstörung an der Faltung, v8 Abschnitt~5.2) gilt für beide Systeme. Die akustische Verkürzung $\Delta l \approx 0{,}79 \cdot D$ ist geometrisch, nicht vom Anregungsmechanismus abhängig.
+
+Aber die \textbf{Art der Tonerzeugung} ist fundamental verschieden -- und damit die Rolle, die die Kammerimpedanz für das Schwingverhalten spielt. Dieser Unterschied erklärt, warum Orgelbauer ihre Rohre als Resonatoren optimieren, während Akkordeobauer ihre Kammern möglichst akustisch \glqq{}unsichtbar\grqq{} halten wollen (v8 Kapitel~10).
+
+% ============================================================
+\section{Die Labialpfeife: Das Rohr bestimmt die Frequenz}
+% ============================================================
+
+\subsection{Anregungsmechanismus}
+
+Bei einer geflöteten (labialen) Orgelpfeife erzeugt ein flacher Luftstrahl (Jet) aus dem Kernspalt eine Instabilität am Labium (Schneide). Der Jet schwingt seitlich hin und her -- getrieben durch die \textbf{akustische Rückkopplung aus dem Rohr}. Die Frequenz des Tons wird \textbf{nicht} vom Jet bestimmt (der hat keine Eigenfrequenz im musikalischen Sinn), sondern von der Rohrresonanz.
+
+\subsection{Eingangsimpedanz des Rohres}
+
+Das Rohr wirkt als akustischer Resonator mit frequenzabhängiger Eingangsimpedanz:
+\begin{equation}
+Z_\text{Rohr}(f) = j\,\rho c \cdot \frac{S_\text{Mund}}{S_\text{Rohr}} \cdot \tan\!\left(\frac{2\pi f\, L_\text{eff}}{c}\right)
+\end{equation}
+(gedackte Pfeife; bei offener Pfeife $\cot$ statt $\tan$). Die Impedanz hat \textbf{scharfe Maxima} bei den Rohrresonanzen ($\lambda/4$ bei gedackt, $\lambda/2$ bei offen).
+
+\subsection{Kopplung: Jet als Geschwindigkeitsgenerator}
+
+Der Jet am Labium ist ein \textbf{Geschwindigkeitsgenerator} (hohe Schnelle, niedrige Impedanz). Er \glqq{}sieht\grqq{} das Rohr als Last. Die Schwingung entsteht dort, wo die \textbf{Rohrimpedanz maximal} ist -- weil dort die größte Druckrückkopplung auf den Jet wirkt. Der Jet passt sich der Rohrlänge an.
+
+\begin{keybox}
+\textbf{Schlüsselaussage Labialpfeife:} Das Rohr ist der frequenzbestimmende Resonator. Der Jet ist eine breitbandige Energiequelle, die bei der Rohrresonanz maximal ankoppelt. Die Impedanz am Labium ist \textbf{zeitlich konstant} (lineare Kopplung) -- das Rohrende bewegt sich nicht.
+\end{keybox}
+
+% ============================================================
+\section{Die Durchschlagzunge: Die Zunge bestimmt die Frequenz}
+% ============================================================
+
+\subsection{Anregungsmechanismus}
+
+Die Stimmzunge ist ein \textbf{mechanischer Oszillator} mit eigener Eigenfrequenz (Euler-Bernoulli). Die 50-Hz-Basszunge in v8 hat:
+\begin{equation}
+f_\text{Zunge} = \frac{1{,}875^2}{2\pi L^2} \sqrt{\frac{EI}{\rho_s A}} \approx 50\,\text{Hz}
+\end{equation}
+Die Frequenz wird durch Länge, Steifigkeit und Masse der Zunge bestimmt -- \textbf{nicht} durch die Kammer. Die Kammer hat $f_H = 274$\,Hz -- weit entfernt von 50\,Hz.
+
+\subsection{Der Spalt als nichtlinearer Impedanzwandler}
+
+Hier liegt der fundamentale Unterschied. Der Spalt zwischen Zunge und Stimmplatte verwandelt die mechanische Impedanz der Zunge in eine \textbf{akustische Impedanz}, die die Kammer \glqq{}sieht\grqq{}:
+\begin{equation}
+Z_\text{akust,Spalt}(t) = \frac{\Delta p(t)}{q(t)} = \frac{\tfrac{1}{2}\rho\, v_\text{Spalt}^2(t)}{v_\text{Spalt}(t) \cdot S_\text{Spalt}(t)} = \frac{\rho\, v_\text{Spalt}(t)}{2\, S_\text{Spalt}(t)}
+\end{equation}
+Da $S_\text{Spalt}(t)$ sich im Schwingzyklus um \textbf{Faktor~100} ändert (v8 Kapitel~8: von $\sim 0$ bis 58\,mm$^2$), ist die akustische Impedanz am Spalt \textbf{zeitvariabel und stark nichtlinear}.
+
+\subsection{Mechanische Impedanz der Zunge}
+
+Die Zunge selbst hat die mechanische Impedanz eines gedämpften Feder-Masse-Systems:
+\begin{equation}
+Z_\text{mech}(f) = R_\text{Dämpfung} + j\!\left(\omega\, m_\text{eff} - \frac{k_\text{eff}}{\omega}\right)
+\end{equation}
+Bei $f = f_\text{Zunge}$: $Z_\text{mech} = R_\text{Dämpfung}$ (rein reell, Minimum). Die Güte $Q = \omega_0 m_\text{eff}/R$ bestimmt die Bandbreite.
+
+\begin{keybox}
+\textbf{Schlüsselaussage Durchschlagzunge:} Die Zunge ist der frequenzbestimmende Oszillator. Die Kammer ist \textbf{kein} Resonator im Sinne der Frequenzselektion, sondern ein Impedanz-Modulator, der über die Phase der Rückkopplung die Obertöne und die Einschwingzeit beeinflusst. Die Impedanz am Spalt ist \textbf{zeitvariabel} (nichtlineare Kopplung).
+\end{keybox}
+
+% ============================================================
+\section{Gegenüberstellung der Impedanzverhältnisse}
+% ============================================================
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+\textbf{Eigenschaft} & \textbf{Labialpfeife (Orgel)} & \textbf{Durchschlagzunge (Akkordeon)} \\
+\midrule
+Frequenzbestimmung & Rohrresonanz (Impedanz-Maximum) & Mechanische Eigenfrequenz der Zunge \\[3pt]
+Anregung & Jet am Labium (Geschwindigkeitsgenerator, breitbandig) & Bernoulli-Sog am Spalt (selbsterregt bei $f_\text{Zunge}$) \\[3pt]
+Impedanz am Anregungsort & Zeitlich konstant (Rohrmund bewegt sich nicht) & Periodisch geschaltet: Faktor $\sim$100 pro Zyklus \\[3pt]
+Kopplungsart & Quasi-linear (kleine Jet-Auslenkung) & Stark nichtlinear ($S_\text{Spalt} \sim 0 \ldots 58$\,mm$^2$) \\[3pt]
+Kammer/Rohr-Rolle & \textbf{Frequenzselektiv} (das Rohr \textit{ist} das Instrument) & \textbf{Phasenkopplung} (Kammer beeinflusst Obertöne, nicht Grundton) \\[3pt]
+Kopplung (E-Technik) & Parallelresonanz (LC parallel, Jet $\parallel$ Rohr) & Serienkopplung (Luft muss \textit{durch} Kammer, v8 Kap.~10) \\[3pt]
+Resonante Kammer & \textbf{Erwünscht} (Resonanz = Tonerzeugung) & \textbf{Schädlich} (Resonanz entzieht Energie, v8 Kap.~10) \\[3pt]
+Obertonstruktur & Vom Rohr erzwungen (harmonisch durch Rohrlänge) & Von der Zunge erzeugt, von Kammer \textit{gefiltert} \\[3pt]
+Coltman-Effekt & Korrektur der Rohrlänge ($\Delta l \to$ Intonation) & Korrektur von $f_H$ ($\Delta l \to$ Phasenverschiebung der Obertöne) \\
+\bottomrule
+\end{tabularx}
+\caption{Impedanz-Vergleich: Labialpfeife vs.\ Durchschlagzunge}
+\end{table}
+
+% ============================================================
+\section{Der Spalt als periodisch geschaltete Impedanz}
+% ============================================================
+
+\subsection{Elektrotechnische Analogie}
+
+In der E-Technik-Analogie (v8 Kapitel~7) ist die Labialpfeife ein \textbf{linearer LC-Schwingkreis}, der von einer Konstantstromquelle (Jet) angeregt wird. Die Resonanzfrequenz $f_0 = 1/(2\pi\sqrt{LC})$ ist zeitunabhängig.
+
+Die Durchschlagzunge dagegen ist ein LC-Kreis, dessen \textbf{Abschlusswiderstand $R(t)$ mit der Zungenfrequenz zwischen Null und Unendlich geschaltet wird}:
+
+\begin{equation}
+R_\text{Spalt}(t) = \begin{cases}
+\infty & \text{Spalt geschlossen (Zunge im Schlitz)} \\
+\displaystyle\frac{\rho\, v}{2\, S_\text{Spalt}(t)} & \text{Spalt offen}
+\end{cases}
+\end{equation}
+
+Das ist ein \textbf{parametrischer Oszillator}: ein System, bei dem ein Schaltkreis-Parameter ($R$) periodisch moduliert wird. Parametrische Oszillatoren können Energie bei \textbf{anderen Frequenzen} als der Anregungsfrequenz aufnehmen oder abgeben -- was erklärt, warum die Kammerresonanz bei 274\,Hz (weit von 50\,Hz) trotzdem die Obertöne der 50-Hz-Zunge beeinflussen kann.
+
+\subsection{Zahlenwerte für die 50-Hz-Basszunge}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{r r r r}
+\toprule
+\textbf{Phase im Zyklus} & $S_\text{Spalt}$ [mm$^2$] & $v_\text{Spalt}$ [m/s] & $Z_\text{akust}$ [Pa\,s/m$^3$] \\
+\midrule
+Spalt geschlossen & $\approx 0$ & -- & $\to \infty$ \\
+Spalt minimal (Seitenspalt) & 7{,}5 & 22 & $1{,}8 \times 10^6$ \\
+Spalt Ruhelage & 4{,}0 & 29 & $4{,}3 \times 10^6$ \\
+Spalt maximal (Durchschwung) & 58 & 2 & $2{,}1 \times 10^4$ \\
+\bottomrule
+\end{tabular}
+\caption{Akustische Spaltimpedanz in verschiedenen Phasen des Schwingzyklus (bei 1\,kPa Balgdruck). Der Faktor zwischen Minimum und Maximum beträgt $\sim$200.}
+\end{table}
+
+\begin{warnbox}
+Die Impedanz am Spalt ändert sich um mehr als \textbf{zwei Größenordnungen} innerhalb einer einzigen Schwingungsperiode von 20\,ms. Bei einer Labialpfeife ist die entsprechende Schwankung $< 1\,\%$. Dies ist der fundamentale physikalische Grund, warum lineare akustische Modelle (Helmholtz, Transmission-Line) für die Stimmzunge nur im Einschwingbereich (kleine Amplitude) zuverlässig sind.
+\end{warnbox}
+
+% ============================================================
+\section{Konsequenz: Warum die Kammer anders optimiert werden muss}
+% ============================================================
+
+\subsection{Orgelpfeife: Resonanz erwünscht}
+
+Der Orgelbauer \textbf{maximiert} die Resonanzgüte des Rohres. Ein höheres $Q$ des Rohres bedeutet:
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item Schärfere Frequenzselektion $\to$ reinerer Ton
+\item Stärkere Rückkopplung auf den Jet $\to$ stabilere Schwingung
+\item Weniger Energieverlust $\to$ lauterer Ton bei gleichem Winddruck
+\end{itemize}
+
+Deshalb werden Orgelpfeifen aus glattem Material (Zinn, Blei, Holz mit glatter Innenfläche) gefertigt, und die Coltman-Kompensation dient der \textbf{exakten Intonation} -- die Impedanzstörung der Faltung soll die Resonanzfrequenz nicht verschieben.
+
+\subsection{Stimmzungenkammer: Resonanz schädlich}
+
+Der Akkordeonbauer will das Gegenteil: Die Kammer soll möglichst \textbf{nicht resonieren}. Eine resonante Kammer bei einem Oberton der Zunge (v8 Kapitel~10):
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item Entzieht Energie über Serienkopplung $\to$ langsame Ansprache
+\item Erzwingt Phasenverschiebungen $\to$ verändert Klangfarbe
+\item Koppelt an die Nachbar-Zunge (gleicher Ton, Druck/Zug) $\to$ Schwebung
+\end{itemize}
+
+Deshalb ist die Empfehlung aus v8: $f_H$ so wählen, dass kein Oberton der Zunge in das Resonanzband fällt. Die Coltman-Korrektur hat hier eine \textbf{andere Funktion} als im Orgelbau: Sie verschiebt nicht die Intonation (die bestimmt die Zunge), sondern die \textbf{Phasenlage der Impedanz bei den Obertönen}.
+
+\subsection{Quantitativer Vergleich}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{l r r}
+\toprule
+\textbf{Parameter} & \textbf{Orgelpfeife (C2, 65\,Hz, gedackt)} & \textbf{Basszunge (50\,Hz)} \\
+\midrule
+Effektive Rohrlänge & $\sim$1300\,mm (gedackt $\lambda/4$) & 169\,mm (Kammerweg) \\
+$f_\text{Resonanz}/f_\text{Ton}$ & $= 1{,}00$ (Resonanz \textbf{ist} der Ton) & $= 5{,}48$ ($f_H/f_\text{Zunge}$, weit entfernt) \\
+Resonanz-Güte $Q$ & $20$--$50$ (gewünscht: hoch) & $5$--$10$ (gewünscht: niedrig) \\
+Akustische Länge der Faltung & Kritisch (Intonation) & Sekundär ($f_H$-Verschiebung) \\
+Impedanz am Mund & $\sim$konstant (linear) & Faktor $\sim$200 pro Zyklus \\
+Coltman-Korrektur Zweck & Rohrstimmung & Oberton-Phasenlage \\
+\bottomrule
+\end{tabular}
+\caption{Quantitativer Vergleich Orgelpfeife (C2 gedackt) vs.\ Basszunge (50\,Hz)}
+\end{table}
+
+% ============================================================
+\section{Die drei Zeitskalen der Impedanz}
+% ============================================================
+
+Die Analyse zeigt, dass bei der Durchschlagzunge \textbf{drei Zeitskalen} der Impedanz relevant sind, die bei der Labialpfeife keine Rolle spielen:
+
+\textbf{1.\ Schnelle Zeitskala -- Spaltmodulation ($T = 1/f_\text{Zunge} = 20$\,ms):} Die Impedanz am Spalt wird 50-mal pro Sekunde zwischen fast Null und fast Unendlich geschaltet. Dieser Effekt erzeugt die nichtlineare Selbsterregung und bestimmt das Obertonspektrum. Bei der Labialpfeife gibt es kein Äquivalent -- der Rohrmund hat konstanten Querschnitt.
+
+\textbf{2.\ Mittlere Zeitskala -- Einschwingvorgang ($\tau = Q/(\pi f) \sim 100$--$600$\,ms):} Während des Amplitudenaufbaus wächst die Schwingungsamplitude, und die \textbf{zeitgemittelte} Spaltimpedanz sinkt (v8 Kapitel~8: mittlere Spaltfläche steigt von 4\,mm$^2$ auf 32\,mm$^2$). Die Kammer \glqq{}sieht\grqq{} eine sich über hunderte Millisekunden langsam ändernde Last. In dieser Phase ist die Helmholtz-Näherung am besten gültig.
+
+\textbf{3.\ Langsame Zeitskala -- Statische Spaltverengung (Balgdruck-Änderung):} Der Balgdruck biegt die Zunge statisch (v8 Kapitel~9). Bei steigendem Druck sinkt $h_\text{eff}$, steigt $Z_\text{Spalt,Ruhe}$, und der Arbeitspunkt der Schwingung verschiebt sich. Diese Zeitskala ist $\sim$1\,s (Balgbewegung des Spielers).
+
+Bei der Labialpfeife gibt es nur eine relevante Zeitskala: die (feste) akustische Periodendauer des Rohres. Der Winddruck beeinflusst die Amplitude, aber nicht die Impedanzverhältnisse am Labium.
+
+% ============================================================
+\section{Warum lineare Modelle trotzdem nützlich sind}
+% ============================================================
+
+Trotz der starken Nichtlinearität der Spaltkopplung ist das lineare Helmholtz-Modell aus v8 \textbf{nicht falsch} -- es beschreibt die Kammer unter der Annahme, dass die \textbf{zeitgemittelte Spaltimpedanz} als konstanter Abschluss wirkt. Das ist gültig für:
+
+\begin{itemize}[leftmargin=5mm, itemsep=3pt]
+\item \textbf{Einschwingbereich (kleine Amplitude):} $S_\text{Spalt} \approx 4$\,mm$^2$, wenig Modulation. Helmholtz und Phasenkopplung (v8 Kapitel~11) beschreiben korrekt, ob ein Oberton Energie gewinnt oder verliert.
+
+\item \textbf{Oberton-Analyse:} Die Frage, ob der 5.\ Oberton (250\,Hz) bei $f_H = 274$\,Hz Energie gewinnt oder verliert, hängt von der \textbf{mittleren} Impedanz ab. Die schnelle Modulation mittelt sich über die viel längere Oberton-Periode heraus (50\,Hz-Modulation bei 250\,Hz-Abfrage $\to$ 5~Zyklen Mittelung).
+
+\item \textbf{Vergleich der Trennwandvarianten:} Alle drei Varianten erfahren dieselbe nichtlineare Spaltmodulation. Der \textbf{Unterschied} zwischen A, B und C liegt in der linearen Kammer-Impedanz $Z(f)$ -- und genau die beschreibt das Helmholtz-Modell.
+\end{itemize}
+
+\begin{warnbox}
+\textbf{Wo das lineare Modell versagt:} Bei voller Amplitude ($A \sim 20$\,mm) wird die zeitgemittelte Spaltfläche $\sim$8-mal so groß (v8 Kapitel~8). Der Spalt ist nicht mehr der alleinige Engpass, die Klappe wird relevant, und die Kammer-Impedanz wirkt nicht mehr als Abschluss eines festen Halses, sondern als Abschluss eines periodisch umgeschalteten Ventils. In dieser Phase bräuchte man eine zeitaufgelöste FSI-Simulation.
+\end{warnbox}
+
+% ============================================================
+\section{Zusammenfassung}
+% ============================================================
+
+\begin{keybox}
+\textbf{Kernaussage:} Die Stimmzunge verwandelt die Kammer-Impedanz von einem \textbf{frequenzselektierenden Resonator} (Orgelpfeife: Rohr bestimmt Frequenz, Impedanz zeitlich konstant, Resonanz erwünscht) in einen \textbf{phasenmodulierenden Energiepuffer} (Akkordeon: Zunge bestimmt Frequenz, Impedanz zeitvariabel um Faktor~200, Resonanz schädlich).
+
+Der Spalt als nichtlinearer, zeitvariabler Impedanzwandler ist das entscheidende Element, das im Orgelpfeifen-Modell \textbf{kein Äquivalent} hat. In der E-Technik-Analogie: Die Orgelpfeife ist ein linearer Schwingkreis mit Konstantstrom-Anregung; die Stimmzunge ist ein parametrischer Oszillator, bei dem der Abschlusswiderstand mit 50\,Hz zwischen Kurzschluss und Leerlauf geschaltet wird.
+
+Für den Instrumentenbauer folgt: \textbf{Die Kammer ist kein Resonanzkörper} (wie bei der Orgelpfeife), sondern ein \textbf{Impedanz-Umfeld}, das die Zunge \glqq{}sieht\grqq{}. Die Optimierung zielt nicht auf Resonanzverstärkung, sondern auf Phasenverträglichkeit: $f_H$ muss so liegen, dass kein Oberton der Zunge in das Resonanzband fällt (v8 Kapitel~12), und die Wandform moduliert die Bandbreite dieses Bandes (v8 Kapitel~11).
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Die Berechnung sagt, wo man suchen soll. Der praktische Test sagt, was man findet.}
+\end{center}
+
+\end{document}

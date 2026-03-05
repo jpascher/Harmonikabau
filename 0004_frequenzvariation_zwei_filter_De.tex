@@ -1,0 +1,338 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+
+% Farben
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Dok.\,0004 -- Frequenzvariation durch Kammerkopplung}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small Querverweise: Dok.\,0002 (Strömungsanalyse v8) $\cdot$ Dok.\,0003 (Impedanzvergleich)}
+
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries\color{darkblue} Dok.\,0004: Frequenzvariation der Stimmzunge\\durch Kammerkopplung}\\[6pt]
+{\large Das gekoppelte Zwei-Filter-Modell: Zunge $\times$ Kammer}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Zeigt, warum die Kammer trotz getrennter Eigenfrequenzen die Tonhöhe der Zunge verschiebt, und wie sich das als Filterkombination zweier gekoppelter Systeme berechnen lässt. Zahlenwerte: 50-Hz-Basszunge, $f_H = 274$\,Hz, $Q_H \approx 7$ (aus Dok.\,0002).}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Dokumentenverweise} \\
+\midrule
+Dok.\,0001 & Analyse zur Instrumentenakustik und Wahrnehmungspsychologie \\
+Dok.\,0002 & Strömungsanalyse Bass-Stimmzunge 50\,Hz -- v8 \\
+Dok.\,0003 & Impedanzvergleich Durchschlagzunge vs.\ Labialpfeife \\
+\textbf{Dok.\,0004} & \textbf{Frequenzvariation -- Zwei-Filter-Modell (dieses Dokument)} \\
+Dok.\,0006 & Zeichenerklärung \\
+Dok.\,0007 & Diskant-Stimmstock -- Kammerfrequenzen \\
+Dok.\,0008 & Klangveränderung durch Kammergeometrie \\
+Dok.\,0500 & Leitfaden zur ästhetischen Forensik bei Akkordeon-Gehäusen \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verifikationsskript aller Berechnungen \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{4mm}
+
+% ============================================================
+\section{Der praktische Befund}
+% ============================================================
+
+Jeder erfahrene Akkordeonbauer kennt das Phänomen: \textbf{Dieselbe Stimmzunge, auf verschiedene Kammern montiert, klingt unterschiedlich hoch.} Die Frequenzvariation ist klein (wenige Cent), aber eindeutig messbar. Cottingham und Millot haben an Durchschlagzungen Verschiebungen von 10--30~Cent gemessen, wenn der Resonator verändert wurde. Bei Akkordeon-Basskammern, wo $f_\text{Zunge} \ll f_H$, ist der Effekt kleiner (1--5~Cent), aber systematisch.
+
+Das widerspricht der vereinfachten Aussage aus Dok.\,0002 Kap.\,11, dass die Kammer ``den Grundton nicht stört'' (Phase $\approx -89$°). Die Phase ist tatsächlich fast $-90$° -- aber \textbf{fast} ist nicht \textbf{exakt}, und auch eine reine Compliance verschiebt die Frequenz, weil sie der Zunge eine zusätzliche Federsteifigkeit aufzwingt.
+
+Dok.\,0003 zeigt, dass der fundamentale Unterschied zur Orgelpfeife im \textbf{zeitvariablen Spalt} liegt (Impedanz-Faktor~200 pro Zyklus). Trotzdem ist die Frequenzverschiebung berechenbar -- mit dem folgenden Zwei-Filter-Modell.
+
+\begin{warnbox}
+\textbf{Praktische Konsequenz:} Ein Instrument wird nicht ``auf der Werkbank'' gestimmt und dann in beliebige Kammern eingebaut. Die Zunge wird \textbf{in ihrer Kammer} gestimmt. Wenn die Kammer geändert wird, ändert sich die Tonhöhe.
+\end{warnbox}
+
+% ============================================================
+\section{Das Zwei-Filter-Modell}
+% ============================================================
+
+\subsection{Zwei Resonatoren, ein Spalt}
+
+\textbf{Filter~1 -- Die Zunge (mechanischer Bandpass):} Feder-Masse-System mit $f_1 = 50$\,Hz und $Q_1 = 50$--$150$ (Dok.\,0002 Kap.\,9):
+\begin{equation}
+H_1(f) = \frac{f_1^2}{f_1^2 - f^2 + j f f_1 / Q_1}
+\end{equation}
+
+\textbf{Filter~2 -- Die Kammer (akustischer Bandpass):} Helmholtz-Resonator mit $f_H = 274$\,Hz und $Q_H = 5$--$10$ (Dok.\,0002 Kap.\,11):
+\begin{equation}
+H_2(f) = \frac{f_H^2}{f_H^2 - f^2 + j f f_H / Q_H}
+\end{equation}
+
+\textbf{Die Kopplung:} Der Spalt wandelt Zungenauslenkung in Volumenstrom ($q = A_\text{eff} \cdot \dot{x}$) und Kammerdruck in Kraft ($F = A_\text{eff} \cdot p$). Die effektive Spaltfläche $A_\text{eff} = W \cdot h_\text{max}/3 = 4$\,mm$^2$ (Dok.\,0002 Kap.\,2) ist das Kopplungselement.
+
+\subsection{Die Rückkopplungsschleife (Barkhausen-Bedingung)}
+
+Das System ist eine \textbf{Rückkopplungsschleife}:
+
+\medskip
+\centerline{$x \to S(x) \to q \to p_\text{Kammer} \to F_\text{Bernoulli} \to x$}
+\medskip
+
+Die Schwingfrequenz erfüllt die Barkhausen-Bedingung:
+\begin{equation}
+\varphi_\text{Zunge}(f) + \varphi_\text{Kammer}(f) + \varphi_\text{Kopplung}(f) = 0
+\end{equation}
+
+Ohne Kammer: $\varphi_\text{Zunge}(f_\text{mech}) = 0$ $\to$ Schwingung bei $f_\text{mech}$. Mit Kammer: $\varphi_\text{Kammer}(f_\text{mech}) \neq 0$ $\to$ die Zunge verschiebt ihre Frequenz.
+
+\begin{keybox}
+\textbf{Kernaussage:} Die Kammer addiert eine Phasenverschiebung zur Rückkopplung. Um die Phasenbedingung zu erfüllen, verschiebt das System seine Schwingfrequenz. Die Verschiebung hängt davon ab, wie steil die Zungenphase bei $f_\text{mech}$ verläuft ($= Q_1$) und wie groß die Kammerphase bei $f_\text{mech}$ ist ($= f_\text{mech}/f_H$ und Kopplungsstärke).
+\end{keybox}
+
+% ============================================================
+\section{Die drei Mechanismen der Frequenzverschiebung}
+% ============================================================
+
+\subsection{Mechanismus 1: Statische Compliance-Belastung (Luftfeder)}
+
+Die Kammer ($V = 180$\,cm$^3$) wirkt als zusätzliche Feder:
+\begin{equation}
+\Delta k = \frac{A_\text{eff}^2 \cdot \rho c^2}{V} = \frac{(4 \times 10^{-6})^2 \times 1{,}2 \times 343^2}{1{,}8 \times 10^{-4}} = 0{,}013\;\text{N/m}
+\end{equation}
+
+Verglichen mit der mechanischen Federsteifigkeit $k_\text{mech} = \omega_1^2 m_\text{eff} = 37{,}0$\,N/m (mit $m_\text{eff} = 0{,}243 \times m_\text{total} = 0{,}375$\,g für den ersten Cantilever-Mode):
+\begin{equation}
+\frac{\Delta f}{f} = \frac{\Delta k}{2 k_\text{mech}} = \frac{0{,}013}{74{,}0} = 1{,}7 \times 10^{-4} \quad \Rightarrow \quad \mathbf{0{,}3\;\text{Cent}}
+\end{equation}
+
+Immer nach \textbf{oben} (härtere Feder), immer vorhanden, unabhängig von $f_H$.
+
+\subsection{Mechanismus 2: Resonante Verstärkung bei Obertönen nahe $f_H$}
+
+Die Impedanz wird nahe $f_H$ um den Faktor $G(f)$ verstärkt:
+\begin{equation}
+G(f) = \frac{1}{\sqrt{\left(1 - (f/f_H)^2\right)^2 + \left(f/(f_H \cdot Q_H)\right)^2}}
+\end{equation}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rrrrl}
+\toprule
+OT $n$ & $f$ [Hz] & $f/f_H$ & $G(f)$ & Phase $Z$ [°] \\
+\midrule
+1 & 50 & 0{,}18 & 1{,}0 & $-88{,}5$ \\
+3 & 150 & 0{,}55 & 1{,}4 & $-83{,}6$ \\
+5 & 250 & 0{,}91 & 4{,}7 & $-52{,}1$ \\
+$f_H$ & 274 & 1{,}00 & 7{,}0 & $0{,}0$ \\
+6 & 300 & 1{,}09 & 4{,}0 & $+51{,}8$ \\
+8 & 400 & 1{,}46 & 0{,}9 & $+79{,}6$ \\
+10 & 500 & 1{,}82 & 0{,}4 & $+83{,}6$ \\
+\bottomrule
+\end{tabular}
+\caption{Impedanz-Verstärkung $G(f)$ des Helmholtz-Resonators bei den Obertönen der 50-Hz-Zunge ($f_H = 274$\,Hz, $Q_H = 7$). Phasenwerte aus Dok.\,0002 Kap.\,11.}
+\end{table}
+
+\subsection{Mechanismus 3: Nichtlineare Rückkopplung auf den Grundton}
+
+Die Obertöne werden durch die nichtlineare Spaltkopplung (Dok.\,0002 Kap.\,8, Dok.\,0003 Kap.\,5) an den Grundton gebunden. Wird der $n$-te Oberton um $\Delta f_n$ gezogen:
+\begin{equation}
+\Delta f_1 \approx \frac{1}{n} \cdot \Delta f_n
+\end{equation}
+
+\subsection{Der Bernoulli-Verstärkungsfaktor}
+
+Die Kopplungskonstante:
+\begin{equation}
+\kappa = \frac{A_\text{eff}}{\sqrt{m_\text{eff} \cdot C_a \cdot \omega_1 \cdot \omega_2}} = \frac{4 \times 10^{-6}}{\sqrt{3{,}75 \times 10^{-4} \times 1{,}28 \times 10^{-9} \times 314 \times 1721}} \approx 0{,}008
+\end{equation}
+mit der akustischen Compliance $C_a = V / (\rho c^2) = 1{,}28 \times 10^{-9}$\,m$^3$/Pa.
+
+$\kappa \approx 0{,}008 \ll 1$: \textbf{schwache Kopplung}. Die Spaltfläche (4\,mm$^2$) ist winzig gegenüber der Kammerfläche ($\sim$950\,mm$^2$). Aber der Bernoulli-Mechanismus \textbf{verstärkt} die Kopplung. Die Kammer-Druckschwankung moduliert den Bernoulli-Sog am Spalt:
+\begin{equation}
+\beta = \frac{\delta p_\text{Kammer}}{p_\text{Bernoulli}} = \frac{q_\text{Zunge} \cdot |Z_H(f_1)|}{\frac{1}{2}\rho v_\text{Spalt}^2} \approx 0{,}63\,\%
+\end{equation}
+
+Diese 0{,}63\,\% Druckmodulation verschieben die Frequenz um:
+\begin{equation}
+\Delta f_\text{Bernoulli} \approx f_1 \cdot \frac{\beta}{2} = 50 \times 0{,}003 = \mathbf{0{,}16\;\text{Hz} \approx 5{,}4\;\text{Cent}}
+\end{equation}
+
+\begin{keybox}
+Die rein akustische Kopplung ($\kappa^2$) ergibt nur 0{,}3~Cent. Aber die Bernoulli-Verstärkung ($\beta \approx 0{,}6\,\%$ Druckmodulation) hebt die Frequenzverschiebung auf \textbf{ca.~5~Cent} -- klar hörbar und konsistent mit der Praxis. Die beiden Filter sind nicht passiv hintereinandergeschaltet, sondern \textbf{aktiv über den Bernoulli-Mechanismus rückgekoppelt}.
+\end{keybox}
+
+% ============================================================
+\section{Die vollständige Filterkombination}
+% ============================================================
+
+Die geschlossene Übertragungsfunktion des Gesamtsystems:
+\begin{equation}
+\boxed{H_\text{ges}(f) = \frac{H_1(f)}{1 - \kappa_\text{eff} \cdot H_1(f) \cdot H_2(f)}}
+\end{equation}
+
+Die Pole von $H_\text{ges}$ geben die tatsächlichen Schwingfrequenzen des gekoppelten Systems 4.\,Ordnung:
+
+\textbf{Mode~1 (Zungenmode):}
+\begin{equation}
+f_1' \approx f_1 \cdot \left(1 + \kappa^2 \frac{f_1^2}{f_H^2 - f_1^2}\right) = 50{,}000\;\text{Hz} \quad \text{(+0{,}3 Cent rein akustisch)}
+\end{equation}
+
+\textbf{Mode~2 (Kammermode):}
+\begin{equation}
+f_2' \approx f_H \cdot \left(1 - \kappa^2 \frac{f_H^2}{f_H^2 - f_1^2}\right) = 273{,}98\;\text{Hz}
+\end{equation}
+
+\textbf{Mode-Abstoßung:} Die Moden stoßen sich ab -- der tiefere wird tiefer (nach Bernoulli-Korrektur: \textit{höher}), der höhere höher. Mit Bernoulli-Verstärkung ($\beta = 0{,}63\,\%$) wird die Verschiebung des Zungenmodes zu \textbf{$\sim$5~Cent}.
+
+% ============================================================
+\section{Parametrische Abhängigkeiten}
+% ============================================================
+
+\subsection{Kammervolumen $V$}
+
+$\Delta k \sim 1/V$: Kleinere Kammer $\to$ steifere Luftfeder $\to$ größere Verschiebung.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rrrrr}
+\toprule
+$V$ [cm$^3$] & $f_H$ [Hz] & $\Delta k$ [N/m] & Statisch [Cent] & Mit Bernoulli [Cent] \\
+\midrule
+90 & 387 & 0{,}025 & 0{,}6 & $\sim$11 \\
+120 & 335 & 0{,}019 & 0{,}4 & $\sim$8 \\
+180 & 274 & 0{,}013 & 0{,}3 & $\sim$5 \\
+240 & 237 & 0{,}009 & 0{,}2 & $\sim$4 \\
+360 & 194 & 0{,}006 & 0{,}1 & $\sim$3 \\
+\bottomrule
+\end{tabular}
+\caption{Frequenzverschiebung als Funktion des Kammervolumens}
+\end{table}
+
+\subsection{Spaltfläche $A_\text{eff}$ (Aufbiegung)}
+
+$\Delta k \sim A_\text{eff}^2$: Mehr Aufbiegung $\to$ quadratisch stärkere Kopplung.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rrrr}
+\toprule
+$h_\text{max}$ [mm] & $A_\text{eff}$ [mm$^2$] & Statisch [Cent] & $\kappa$ \\
+\midrule
+0{,}5 & 1{,}3 & 0{,}03 & 0{,}003 \\
+1{,}0 & 2{,}7 & 0{,}13 & 0{,}005 \\
+1{,}5 & 4{,}0 & 0{,}29 & 0{,}008 \\
+2{,}0 & 5{,}3 & 0{,}52 & 0{,}010 \\
+2{,}5 & 6{,}7 & 0{,}81 & 0{,}013 \\
+\bottomrule
+\end{tabular}
+\caption{Frequenzverschiebung als Funktion der Aufbiegung (Kammer 180\,cm$^3$)}
+\end{table}
+
+\subsection{Helmholtz-Frequenz $f_H$}
+
+Maximale Kopplung, wenn $f_H = n \cdot f_\text{Zunge}$ (Oberton exakt auf Resonanz).
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rlrrl}
+\toprule
+$f_H$ [Hz] & Nächster OT & Abstand [Hz] & $G$ & Effekt \\
+\midrule
+150 & 3.\ OT (150) & $\pm 0$ & 7{,}0 & \textbf{Stark -- kritisch} \\
+200 & 4.\ OT (200) & $\pm 0$ & 7{,}0 & \textbf{Stark -- kritisch} \\
+250 & 5.\ OT (250) & $\pm 0$ & 7{,}0 & \textbf{Stark -- kritisch} \\
+274 & 5.\ OT (250) & $+24$ & 4{,}7 & Merklich \\
+300 & 6.\ OT (300) & $\pm 0$ & 7{,}0 & \textbf{Stark -- kritisch} \\
+325 & 6.\ OT (300) & $+25$ & 5{,}0 & Merklich \\
+400 & 8.\ OT (400) & $\pm 0$ & 7{,}0 & \textbf{Stark -- kritisch} \\
+\bottomrule
+\end{tabular}
+\caption{Verstärkungsfaktor $G$ am nächsten Oberton. $f_H = 274$\,Hz: $G = 4{,}7$ -- kein Volltreffer, aber nahe genug für merkliche Kopplung.}
+\end{table}
+
+\begin{keybox}
+\textbf{Optimierungsregel:} $f_H$ so wählen, dass es \textbf{zwischen zwei Obertönen} liegt. Die ungünstigste Situation ist $f_H = n \cdot f_\text{Zunge}$. Bei der 50-Hz-Zunge mit $f_H = 274$\,Hz: 5.~OT = 250\,Hz und 6.~OT = 300\,Hz umklammern $f_H$ -- kein exakter Treffer, günstig. Diese Optimierungsregel ergänzt die Empfehlung aus Dok.\,0002 Kap.\,12 (Vermeidung resonanter Obertöne) um den quantitativen Frequenzziehungs-Aspekt.
+\end{keybox}
+
+% ============================================================
+\section{Blockschaltbild}
+% ============================================================
+
+\begin{center}
+\fbox{\parbox{0.9\textwidth}{\small
+\textbf{Signalfluss der gekoppelten Filter:}
+
+\medskip
+$\text{[Balgdruck]} \to \text{[Klappe]} \to \underbrace{H_2(f): \text{Kammer-Filter}}_{\text{Bandpass } f_H = 274\,\text{Hz, } Q_H = 7} \to \text{[Spalt-Koppler]}$
+
+$\to \underbrace{H_1(f): \text{Zungen-Filter}}_{\text{Bandpass } f_1 = 50\,\text{Hz, } Q_1 = 50\text{--}150} \to \text{[Schallabstrahlung]}$
+
+\medskip
+\textbf{Rückkopplung:} $x \to S(x) \to q \to \delta p_\text{Kammer} \xrightarrow{\beta = 0{,}63\,\%} F_\text{Bernoulli} \to x$
+
+\medskip
+\textbf{Geschlossene Übertragungsfunktion:} $H_\text{ges}(f) = H_1(f) / (1 - \kappa_\text{eff} \cdot H_1 \cdot H_2)$
+}}
+\end{center}
+
+% ============================================================
+\section{Praktische Konsequenzen}
+% ============================================================
+
+\textbf{1.\ In der Kammer stimmen:} Die Kammerbelastung verschiebt die Frequenz um 1--5~Cent -- mehr als die Stimmtoleranz (±1--2~Cent). Nie auf der Werkbank stimmen.
+
+\textbf{2.\ Kammeränderungen erfordern Nachstimmen:} Jede Änderung an Volumen, Trennwand (Dok.\,0002 Kap.\,8) oder Klappe verändert $f_H$, $Q_H$ und damit die Frequenzverschiebung.
+
+\textbf{3.\ Große Kammern sind stabiler:} $\Delta k \sim 1/V$ -- große Kammern sind toleranter gegenüber geometrischen Schwankungen.
+
+\textbf{4.\ Aufbiegung wirkt quadratisch:} $\Delta k \sim A_\text{eff}^2$ -- ungleichmäßig aufgebogene Zungen sind schwerer zu stimmen.
+
+\textbf{5.\ Druck- und Zugzunge:} Beide sehen dieselbe Kammer-Impedanz (Dok.\,0002 Kap.\,7, Dok.\,0003 Kap.\,3) $\to$ gleiche Verschiebung $\to$ Tremolo-Schwebung bleibt erhalten.
+
+\textbf{6.\ Temperatur:} $C_a = V/(\rho c^2)$, und $c^2 \sim T$. Bei $+10$°C sinkt die Frequenzverschiebung um $\sim$3\,\% -- klein gegenüber der direkten Temperaturabhängigkeit der Zunge.
+
+% ============================================================
+\section{Zusammenfassung}
+% ============================================================
+
+\begin{keybox}
+\textbf{Die Stimmzunge und die Kammer bilden ein gekoppeltes Zwei-Filter-System.} Die Zunge ist ein schmalbandiger mechanischer Bandpass ($f_1 = 50$\,Hz, $Q = 50$--$150$), die Kammer ein breitbandiger akustischer Bandpass ($f_H = 274$\,Hz, $Q = 5$--$10$). Die Kopplung erfolgt über den Spalt -- nichtlinear durch den Bernoulli-Mechanismus (Dok.\,0003), aber linearisierbar für die Kleinsignalanalyse.
+
+\textbf{Drei Mechanismen} verschieben die Frequenz: (1)~Statische Compliance-Belastung ($+0{,}3$~Cent). (2)~Resonante Verstärkung bei Obertönen nahe $f_H$ ($+1$--$5$~Cent). (3)~Nichtlineare Rückkopplung auf den Grundton ($+1$--$3$~Cent). \textbf{Gesamtverschiebung: typisch 1--5~Cent.}
+
+\textbf{Die Übertragungsfunktion} $H_\text{ges}(f) = H_1/(1 - \kappa_\text{eff} \cdot H_1 \cdot H_2)$ ist berechenbar. Die Abhängigkeiten ($V$, $A_\text{eff}$, $f_H$, $Q_H$) sind quantitativ vorhersagbar. Die Übereinstimmung mit dem praktischen Befund bestätigt das Modell.
+
+\textbf{Die Zunge bestimmt die Frequenz -- aber die Kammer bestimmt mit.}
+\end{keybox}
+
+\end{document}

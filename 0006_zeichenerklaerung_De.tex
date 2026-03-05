@@ -1,0 +1,288 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{tcolorbox}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Dok.\,0006 -- Zeichenerklärung}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small Formelzeichen aller Dokumente (Dok.\,0001--0008)}
+
+\titleformat{\section}{\large\bfseries\color{darkblue}}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{darkblue!80}}{}{0em}{}
+
+\newcolumntype{S}{>{\itshape}p{22mm}}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries\color{darkblue} Dok.\,0006: Zeichenerklärung}\\[6pt]
+{\large Formelzeichen, Indizes und Konventionen aller Dokumente}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Vollständige Zeichenerklärung für alle Formelzeichen in Dok.\,0001--0008. Geordnet nach physikalischem Gebiet.}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabular}{ll}
+\toprule
+Dok.\,0001 & Instrumentenakustik und Wahrnehmungspsychologie \\
+Dok.\,0002 & Strömungsanalyse Bass-Stimmzunge 50\,Hz -- v8 \\
+Dok.\,0003 & Impedanzvergleich Durchschlagzunge vs.\ Labialpfeife \\
+Dok.\,0004 & Frequenzvariation -- Zwei-Filter-Modell \\
+Dok.\,0005 & Frequenzverschiebung als Indikator der Ansprache \\
+\textbf{Dok.\,0006} & \textbf{Zeichenerklärung (dieses Dokument)} \\
+Dok.\,0007 & Diskant-Stimmstock -- Kammerfrequenzen \\
+Dok.\,0008 & Klangveränderung durch Kammergeometrie \\
+Dok.\,0500 & Ästhetische Forensik bei Akkordeon-Gehäusen \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verifikationsskript aller Berechnungen \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4mm}
+
+% ============================================================
+\section{Geometrische Größen}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$L$ & mm & Freie Zungenlänge (70\,mm) & 0002 \\
+$W$ & mm & Zungenbreite (8\,mm) & 0002 \\
+$t$ & mm & Zungendicke (0{,}354\,mm) & 0002 \\
+$h$, $h_\text{max}$ & mm & Aufbiegung am freien Ende (1{,}5\,mm) & 0002, 0004 \\
+$h_\text{eff}$ & mm & Effektive Aufbiegung unter Balgdruck & 0002 \\
+$S_\text{Spalt}$ & mm$^2$ & Effektive Spaltfläche $= Wh_\text{max}/3$ & 0002, 0004 \\
+$S_\text{eff}$ & mm$^2$ & Zeitabhängige Durchströmfläche & 0002 \\
+$A_\text{eff}$ & m$^2$ & Kopplungsfläche $= S_\text{Spalt}$ in SI & 0004, 0005 \\
+$S_\text{Klappe}$ & mm$^2$ & Klappenöffnungsfläche (244\,mm$^2$) & 0002 \\
+$W_\text{Schlitz}$ & mm & Schlitzbreite (9\,mm) & 0002 \\
+$W_k$ & mm & Kanalbreite (23{,}8\,mm) & 0002 \\
+$V$ & cm$^3$ & Kammervolumen (180\,cm$^3$) & 0002--0005 \\
+$V_\text{VK}$ & cm$^3$ & Vorkammervolumen (67{,}2\,cm$^3$) & 0002 \\
+$\text{gap}_\text{fold}$ & mm & Faltungsspalt (19\,mm) & 0002 \\
+$L_\text{eff}$ & mm & Effektive akustische Länge & 0002, 0003 \\
+$\Delta l$ & mm & Akustische Verkürzung durch Faltung ($\approx 15$\,mm) & 0002, 0003 \\
+$x$ & mm & Auslenkung der Zungenspitze & 0002, 0004 \\
+$A$ (Amplitude) & mm & Schwingungsamplitude & 0002 \\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Materialeigenschaften}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$E$ & Pa & Elastizitätsmodul (Stahl: $\sim 200$\,GPa) & 0002 \\
+$I$ & m$^4$ & Flächenträgheitsmoment $= Wt^3/12$ & 0002 \\
+$\rho_s$ & kg/m$^3$ & Dichte Zungenmaterial (7800) & 0002, 0004 \\
+$\rho$ & kg/m$^3$ & Dichte Luft (1{,}2) & 0002--0005 \\
+$c$ & m/s & Schallgeschwindigkeit (343) & 0002--0005 \\
+$\mu$ & Pa\,s & Dynamische Viskosität Luft & 0002 \\
+$\eta$ & -- & Materialverlustfaktor & 0002 \\
+$m_\text{eff}$ & g & Effektive Masse 1.\,Mode ($0{,}243 \times m_\text{total}$) & 0004 \\
+$k_\text{mech}$ & N/m & Mechanische Federsteifigkeit $= \omega_1^2 m_\text{eff}$ & 0004, 0005 \\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Strömungsgrößen und Verlustbeiwerte}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$\Delta p$ & Pa & Balgdruck & 0002 \\
+$\Delta p_\text{min}$ & Pa & Schwellendruck ($\approx 224$\,Pa) & 0002 \\
+$\Delta p_\text{crit}$ & Pa & Grenzdruck Spaltschließung ($\approx 221$\,Pa) & 0002 \\
+$\Delta p_B$ & Pa & Bernoulli-Druck $= \tfrac{1}{2}\rho v_\text{tan}^2$ & 0002 \\
+$v_\text{Spalt}$ & m/s & Spaltgeschwindigkeit $= \sqrt{2\Delta p/\rho}$ & 0002 \\
+$v_\text{tan}$ & m/s & Tangentialkomponente am Spalt & 0002 \\
+$Q$ (Volumenstrom) & ml/s & Volumenstrom ($\sim 115$\,ml/s bei 1\,kPa) & 0002 \\
+Re & -- & Reynolds-Zahl & 0002 \\
+$\zeta$ & -- & Verlustbeiwert (allgemein) & 0002 \\
+$\zeta_\text{Klappe}$ & -- & Klappenverlust (Ausblas: 0{,}50; Umlenk: 1{,}70) & 0002 \\
+$\zeta_\text{entry}$ & -- & Schlitz-Eintrittsverlust (0{,}5) & 0002 \\
+$w_\text{tip}$ & mm & Statische Durchbiegung unter Balgdruck & 0002 \\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Richtungserhaltung}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$\alpha$ & ° & Eintrittswinkel des Luftstrahls & 0002 \\
+$\beta$ (Wandwinkel) & ° & Halbwinkel schräge Trennwand (B: 3{,}7°) & 0002 \\
+$\eta_\text{ges}$ & -- & Gesamter Richtungserhaltungsfaktor & 0002 \\
+$\eta_\text{Faltung}$ & -- & Erhaltung der 180°-Faltung ($\approx 0{,}6$) & 0002 \\
+$\eta_\text{Wand}$ & -- & Erhaltung Trennwand (A: 0{,}3; B: 0{,}5; C: 0{,}7) & 0002 \\
+$f_\text{tan}$ & -- & Tangential-Fraktion $= (1 + \eta_\text{ges})/2$ & 0002 \\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Frequenzen und Schwingungsgrößen}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$f_1$, $f_\text{Zunge}$ & Hz & Mechanische Eigenfrequenz (50\,Hz) & 0002--0005 \\
+$f_H$ & Hz & Helmholtz-Frequenz der Kammer (274\,Hz) & 0002--0005 \\
+$f_n = n f_1$ & Hz & $n$-ter Oberton der Zunge & 0002, 0004, 0005 \\
+$f_\text{frei}$ & Hz & Zungenfrequenz auf Prüfblock & 0005 \\
+$f_\text{Kammer}$ & Hz & Zungenfrequenz in der Kammer & 0005 \\
+$f_1'$, $f_2'$ & Hz & Gekoppelte Eigenfrequenzen & 0004 \\
+$\omega$ & rad/s & Kreisfrequenz $= 2\pi f$ & 0002--0005 \\
+$n$ & -- & Oberton-Nummer & 0002--0005 \\
+$\lambda$ & m & Wellenlänge $= c/f$ & 0002, 0003 \\
+$\Delta f$ & Hz, Cent & Frequenzverschiebung durch Kopplung & 0004, 0005 \\
+\bottomrule
+\end{longtable}
+
+\textbf{Einheit Cent:} 1\,Cent $= 1/1200$\,Oktave. Berechnung: $\Delta f\,[\text{Cent}] = 1200 \cdot \log_2(f_2/f_1)$. Musikalische Wahrnehmungsschwelle: $\pm 1$--$2$\,Cent.
+
+% ============================================================
+\section{Dämpfung und Güte}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$Q$, $Q_1$ & -- & Mechanische Güte der Zunge (50--150) & 0002, 0004, 0005 \\
+$Q_H$ & -- & Akustische Güte Helmholtz (5--10) & 0002--0005 \\
+$Q_\text{ges}$ & -- & Gesamtgüte (harmonische Summe) & 0002 \\
+$\zeta$ (Dämpfung) & -- & Dämpfungsverhältnis $= 1/(2Q)$ & 0002, 0005 \\
+$\Delta\zeta_n$ & -- & Zusätzliche Dämpfung OT $n$ durch Kammer & 0005 \\
+$\tau$ & ms & Einschwingzeit $= Q/(\pi f)$ & 0002, 0005 \\
+$\Delta\tau$ & ms & Verlängerung der Einschwingzeit & 0005 \\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Akustische Impedanz}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$Z_H(f)$ & Pa\,s/m$^3$ & Komplexe Impedanz Helmholtz-Resonator & 0002--0005 \\
+$Z_\text{Rohr}(f)$ & Pa\,s/m$^3$ & Eingangsimpedanz Rohr (Orgelpfeife) & 0003 \\
+$Z_\text{akust}(t)$ & Pa\,s/m$^3$ & Zeitvariable Spaltimpedanz & 0003 \\
+$Z_\text{mech}(f)$ & N\,s/m & Mechanische Impedanz der Zunge & 0003, 0004 \\
+$Z_0$ & Pa\,s/m$^3$ & Referenz-Impedanz $= 1/(\omega_H C_a)$ & 0005 \\
+$R_H(f)$ & Pa\,s/m$^3$ & Realteil $Z_H$ $\to$ Dämpfung/Ansprache & 0005 \\
+$X_H(f)$ & Pa\,s/m$^3$ & Imaginärteil $Z_H$ $\to$ Frequenzverschiebung & 0005 \\
+$C_a$ & m$^3$/Pa & Akustische Compliance $= V/(\rho c^2)$ & 0004, 0005 \\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Kopplungsgrößen (Zwei-Filter-Modell)}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$H_1(f)$ & -- & Übertragungsfunktion Zunge (Bandpass $f_1$) & 0004, 0005 \\
+$H_2(f)$ & -- & Übertragungsfunktion Kammer (Bandpass $f_H$) & 0004, 0005 \\
+$H_\text{ges}(f)$ & -- & Geschlossene Übertragungsfunktion $= H_1/(1 - \kappa_\text{eff} H_1 H_2)$ & 0004, 0005 \\
+$\kappa$ & -- & Akustische Kopplungskonstante ($\approx 0{,}008$) & 0004 \\
+$\kappa_\text{eff}$ & -- & Effektive Kopplung (mit Bernoulli) & 0004, 0005 \\
+$\beta$ (Bernoulli) & -- & Bernoulli-Verstärkungsfaktor ($\approx 0{,}6\,\%$) & 0004, 0005 \\
+$\Delta k$ & N/m & Zusätzliche Federsteifigkeit $= A_\text{eff}^2 \rho c^2/V$ & 0004 \\
+$G(f)$ & -- & Impedanz-Verstärkung nahe $f_H$ (Spitze $= Q_H$) & 0004, 0005 \\
+$D(f)$ & -- & Resonanznenner & 0005 \\
+$\varphi$ & ° & Phasenwinkel (Barkhausen: $\sum\varphi = 0$) & 0004 \\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Diskant-Stimmstock (Dok.\,0007)}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$d$ (Tiefe) & mm & Kammertiefe (variabel: 8$\to$3\,mm) & 0007 \\
+$d_\text{open}$ & mm & Durchmesser der kreisrunden Öffnung (10 oder 6\,mm) & 0007 \\
+$S_\text{neck}$ & mm$^2$ & Halsfläche $= \pi (d_\text{open}/2)^2$ & 0007 \\
+$l_\text{Hals}$ & mm & Physische Halshöhe (8\,mm) & 0007 \\
+$l_\text{eff}$ & mm & Effektive Halslänge $= l_\text{Hals} + 0{,}85 \cdot d_\text{open}$ & 0007 \\
+$p_\text{konvex}(x)$ & mm & Konvexe Kurve: $a \cdot (b/a)^x$ -- unter der Geraden & 0007 \\
+$p_\text{konkav}(x)$ & mm & Konkave Kurve: $a + b - a \cdot (b/a)^{1-x}$ -- über der Geraden & 0007 \\
+$R_\text{eff}$ & -- & Amplitudengewichtete Kopplungslast $= \sum a_n^2 R_{H,n}$ & 0007 \\
+$a_n$ & -- & Obertonamplitude $\approx 1/n$ (Durchschlagzunge) & 0007 \\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Klangveränderung (Dok.\,0008)}
+% ============================================================
+
+\begin{longtable}{S p{15mm} p{55mm} p{25mm}}
+\toprule
+\textbf{Zeichen} & \textbf{Einheit} & \textbf{Beschreibung} & \textbf{Dok.} \\
+\midrule
+\endhead
+$A_n(f_H)$ & -- & Amplituden-Übertragung des $n$-ten OT: $1/(1+\kappa_\text{eff} R_{H,n})$ & 0008 \\
+$\Phi_n$ & $^\circ$ & Phasenverschiebung des $n$-ten OT durch Kammer & 0008 \\
+$Q_\text{rad}$ & -- & Strahlungsgüte (Verlust durch Öffnung) & 0008 \\
+$Q_\text{visc}$ & -- & Viskose Güte (Wandreibung): $2V/(\delta A_\text{Wand})$ & 0008 \\
+$Q_\text{turb}$ & -- & Turbulenzgüte (bei Re $\ll$ 1000: $\to \infty$) & 0008 \\
+$\delta$ & $\mu$m & Viskose Grenzschichtdicke $= \sqrt{2\mu/(\rho\omega)}$ & 0008 \\
+$R_\text{rad}$ & Pa\,s/m$^3$ & Akustische Strahlungsresistanz der Öffnung & 0008 \\
+$A_\text{Wand}$ & mm$^2$ & Gesamte Kammer-Innenfläche & 0008 \\
+\bottomrule
+\end{longtable}
+
+\end{document}

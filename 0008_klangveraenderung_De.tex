@@ -1,0 +1,230 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=18mm, right=18mm, top=25mm, bottom=18mm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Dok.\,0008 -- Klangveränderung durch Kammergeometrie}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small Querverweise: Dok.\,0002 $\cdot$ Dok.\,0005 $\cdot$ Dok.\,0007}
+
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries\color{darkblue} Dok.\,0008: Klangveränderung durch Kammergeometrie}\\[6pt]
+{\large Die Kammer als Kerbfilter im Obertonspektrum}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Analysiert, wie die Kammergeometrie (Volumen, Öffnung) die Klangfarbe verändert. Die Kammer wirkt als frequenzabhängiger Kerbfilter (Notch): Sie dämpft Obertöne nahe $f_H$ und verschiebt deren Phase. Beide Effekte verändern die Wellenform und damit den Klangeindruck.}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabular}{ll}
+\toprule
+Dok.\,0002 & Strömungsanalyse Bass-Stimmzunge 50\,Hz -- v8 \\
+Dok.\,0005 & Frequenzverschiebung als Indikator der Ansprache \\
+Dok.\,0007 & Diskant-Stimmstock -- Kammerfrequenzen (7~Varianten) \\
+\textbf{Dok.\,0008} & \textbf{Klangveränderung durch Kammergeometrie (dieses Dokument)} \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verifikationsskript aller Berechnungen \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4mm}
+
+
+% ============================================================
+\section{Die Kammer als Kerbfilter -- nicht als Verstärker}
+% ============================================================
+
+Ein verbreitetes Missverständnis: Die Kammer ``verstärkt'' den Ton, wie der Resonanzkörper einer Gitarre. \textbf{Das Gegenteil ist der Fall.} Wegen der Serienkopplung (Dok.\,0002 Kap.\,10, Dok.\,0003) entzieht die Kammer der Zunge bei Resonanz Energie -- sie dämpft, statt zu verstärken.
+
+Die Kammer wirkt auf das Obertonspektrum wie ein \textbf{Kerbfilter} (Notch-Filter): Sie erzeugt ein ``Loch'' im Spektrum bei $f_H$. Die Übertragungsfunktion für den $n$-ten Oberton:
+\begin{equation}
+A_n(f_H) = \frac{1}{1 + \kappa_\text{eff} \cdot R_H(f_n)}
+\end{equation}
+
+Bei $f_n = f_H$ ist $R_H$ maximal und die Dämpfung am stärksten. Weit entfernt von $f_H$ ist $R_H \approx 0$ und $A_n \approx 1$ (ungedämpft).
+
+\begin{keybox}
+\textbf{Die Kammer ist kein Resonanzkörper, sondern ein Kerbfilter.} Sie erzeugt ein Loch im Obertonspektrum bei $f_H$. Die Zunge selbst erzeugt alle Obertöne -- die Kammer filtert einige davon heraus. Welche betroffen sind, hängt von $f_H$ ab (Volumen und Öffnung, Dok.\,0007). Wie stark sie betroffen sind, hängt von der Kopplungsstärke $\kappa_\text{eff}$ ab.
+\end{keybox}
+
+
+% ============================================================
+\section{Amplitudendämpfung und Phasenverschiebung}
+% ============================================================
+
+Dok.\,0005 zeigt: Realteil $R_H(f)$ und Imaginärteil $X_H(f)$ der Kammerimpedanz sind durch Kramers-Kronig verknüpft. Für den Klang: \textbf{Jede Amplitudendämpfung geht mit einer Phasenverschiebung einher.}
+
+\subsection{Amplitudendämpfung (Realteil $R_H$)}
+
+$R_H(f)$ hat die Form einer Lorentz-Glocke, zentriert bei $f_H$ mit Halbwertsbreite $f_H/Q_H$. Obertöne innerhalb dieser Breite werden in ihrer Amplitude reduziert:
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{l l l}
+\toprule
+\textbf{Betroffener OT} & \textbf{Frequenzbereich} & \textbf{Klangeffekt} \\
+\midrule
+$n = 2$ (Oktave) & $2f$ & Klang wird \textbf{dünn, hohl} -- 25\,\% Energie fehlt \\
+$n = 3$ (Duodezime) & $3f$ & Klang wird \textbf{nasal, kehlig} -- 11\,\% fehlt \\
+$n = 4$ (Doppeloktave) & $4f$ & Klang verliert \textbf{Klarheit} -- 6\,\% fehlt \\
+$n = 5$--$6$ & $5$--$6f$ & Klang verliert \textbf{Brillanz} -- wenig auffällig \\
+$n \geq 7$ & $\geq 7f$ & \textbf{Kaum hörbar} -- Amplitude ohnehin $< 2\,\%$ \\
+\bottomrule
+\end{tabular}
+\caption{Klangeffekt der Obertondämpfung nach Oberton-Ordnung}
+\end{table}
+
+\subsection{Phasenverschiebung (Imaginärteil $X_H$)}
+
+$X_H(f)$ hat die Form einer S-Kurve (Dispersionskurve): Unterhalb von $f_H$ wird die Phase \textbf{nacheilend}, oberhalb \textbf{voreilend} verschoben:
+\begin{equation}
+\Phi_n = \arctan\!\left(Q_H \cdot \left(\frac{f_n}{f_H} - \frac{f_H}{f_n}\right)\right)
+\end{equation}
+
+Die Phasenverschiebung verändert die \textbf{Wellenform} des Tons, ohne die Einzelamplituden wesentlich zu ändern. Das Ohr nimmt das als Veränderung der \textbf{Schärfe} oder \textbf{Weichheit} wahr. Der Effekt ist am stärksten, wenn benachbarte Obertöne unterschiedliche Phasenverschiebungen erfahren -- das verformt die Wellenform am deutlichsten.
+
+\begin{warnbox}
+\textbf{Die Phasenverschiebung erklärt, warum erfahrene Instrumentenbauer Klangunterschiede hören, die ein Spektralanalysator kaum zeigt.} Die Amplituden ändern sich nur um wenige Prozent, aber die Phasenbeziehungen ändern sich deutlich -- und das formt die Wellenform um.
+\end{warnbox}
+
+
+% ============================================================
+\section{Was die Variationsfaktoren am Klang verändern}
+% ============================================================
+
+\subsection{Tiefe senken (Varianten B, C, Ci): $f_H$ steigt $\to$ Loch wandert nach oben}
+
+Wenn die Tiefe von 8 auf 3\,mm sinkt, steigt $f_H$ von 1500--1950\,Hz auf 1500--3190\,Hz. Das Kerbfilter-Loch verschiebt sich von den 3.--5.~Obertönen nach oben zu den 5.--8.~Obertönen.
+
+\textbf{Klangeffekt:} Die energiereichen niedrigen Obertöne (2., 3.) werden \textbf{freigegeben}. Der Klang wird \textbf{voller, grundtöniger, wärmer}. Die Brillanz wird leicht gedämpft -- aber die hohen Obertöne haben ohnehin wenig Energie ($a_5^2 = 4\,\%$). Der Verlust ist kaum hörbar.
+
+\subsection{Öffnung verkleinern (Varianten D, E, Ei): $f_H$ sinkt $\to$ Loch wandert nach unten}
+
+Wenn $\varnothing$ von 10 auf 6\,mm sinkt, fällt $f_H$ auf 67\,\%. Das Kerbfilter-Loch wandert in den Bereich der 2.--3.~Obertöne.
+
+\textbf{Klangeffekt:} Die energiereichen niedrigen Obertöne werden \textbf{gedämpft}. Der Klang wird \textbf{dünn, hohl, leblos}. Der 2.~Oberton trägt 25\,\% der Gesamtenergie -- wenn er gedämpft wird, verliert der Ton seinen ``Körper''. Das ist nicht nur eine Ansprache-Verschlechterung, sondern auch eine \textbf{Klangverarmung}.
+
+\subsection{$Q_H$: Die Breite des Kerbfilters}
+
+$Q_H$ bestimmt, wie schmal das Kerbfilter-Loch ist. Die quantitative Analyse der Verlustmechanismen zeigt, dass $Q_H$ hauptsächlich durch die \textbf{Strahlungsverluste an der Öffnung} bestimmt wird -- nicht durch die Wandform:
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{l r r r l}
+\toprule
+& $Q_\text{rad}$ (Strahlung) & $Q_\text{visc}$ (Wandreibung) & $Q_\text{total}$ & Dominanter Verlust \\
+\midrule
+Diskant (5\,cm$^3$, 1691\,Hz) & 43 & 88 & 29 & Strahlung (67\,\%) \\
+Bass (180\,cm$^3$, 274\,Hz) & 263 & 113 & 79 & Wandreibung (70\,\%) \\
+\bottomrule
+\end{tabular}
+\caption{Zerlegung von $Q_H$. Wandform ändert $Q_\text{visc}$ um $\pm 5$--$10\,\%$ (Fläche), was $Q_\text{total}$ um maximal $\pm 3\,\%$ (Diskant) bis $\pm 7\,\%$ (Bass) verschiebt -- nicht hörbar.}
+\end{table}
+
+\textbf{Hohes $Q_H$} (große Öffnung, wenig Strahlung): \textbf{Schmales, tiefes Loch.} Ein einzelner Oberton wird stark gedämpft. Musikalisch: \textbf{scharfe Klangfärbung}.
+
+\textbf{Niedriges $Q_H$} (kleine Öffnung, viel Strahlung): \textbf{Breites, flaches Loch.} Mehrere Obertöne leicht gedämpft. Musikalisch: \textbf{diffuse Mattheit}.
+
+\begin{keybox}
+$Q_H$ wird fast ausschließlich durch die \textbf{Öffnungsgeometrie} bestimmt (Durchmesser, Halslänge), nicht durch die Wandform. Der hörbare Unterschied zwischen verschiedenen Trennwandformen (Dok.\,0002 Praxisbefund) läuft nicht über $Q_H$ ($< 7\,\%$ Änderung), sondern über die \textbf{instationäre Impulsantwort} -- Reflexionsmuster, Position des akustischen Endes, Druckstoß-Transport. Diese Effekte sind real, aber nicht im Helmholtz-Modell berechenbar.
+\end{keybox}
+
+
+% ============================================================
+\section{Klangcharakter über den Tonbereich}
+% ============================================================
+
+\textbf{Unteres Drittel (D3--C\#4):} $f_H$ weit über den niedrigen Obertönen. Kammer ``unsichtbar''. Klang voll und natürlich. Kein Unterschied zwischen den Varianten.
+
+\textbf{Mittleres Drittel (D4--C\#5):} Bei A kommt der 3.--5.~OT in $f_H$-Nähe. Leichte Dämpfung -- Klang wird etwas ``nasaler''. Bei C ist die Dämpfung geringer.
+
+\textbf{Oberes Drittel (D5--C6):} Bei A trifft der 2.~OT $f_H$ -- das Loch sitzt bei der Oktave. Klang wird \textbf{deutlich dünner}. Bei C liegt $f_H$ beim 3.--4.~OT -- Klang bleibt voller.
+
+
+% ============================================================
+\section{Die drei Klangdimensionen}
+% ============================================================
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{l l l l}
+\toprule
+\textbf{Dimension} & \textbf{Physik} & \textbf{Bestimmt durch} & \textbf{Klangeindruck} \\
+\midrule
+Position des Lochs & $f_H$ & Volumen $V$, Öffnung $S$ & Welcher OT fehlt \\
+Breite des Lochs & $Q_H$ & Öffnungsgeometrie (67--70\,\%) & Scharf vs.\ diffus \\
+Tiefe des Lochs & $\kappa_\text{eff}$ & Spaltfläche, Volumen & Stark vs.\ schwach \\
+\bottomrule
+\end{tabular}
+\caption{Die drei Klangdimensionen. Position ist der dominante Hebel.}
+\end{table}
+
+
+% ============================================================
+\section{Ansprache, Lautstärke und Klang: Dasselbe Optimum}
+% ============================================================
+
+Dok.\,0005 (Kap.\,10) zeigt: Optimale Kammerabstimmung verbessert Ansprache \textit{und} Lautstärke (Win-Win über $R_H$). Dieses Dokument ergänzt: \textbf{Auch der Klang profitiert.}
+
+Alle drei leiden unter derselben Quelle: $R_H(f)$. Er entzieht Energie ($\to$ Ansprache, Lautstärke) \textbf{und} dämpft Obertöne ($\to$ Klang). Wenn $R_H$ minimiert wird, verbessern sich alle drei.
+
+\begin{keybox}
+\textbf{Es gibt keinen Trade-off zwischen Ansprache, Lautstärke und Klang bei der Kammeroptimierung.} Alle drei werden durch dasselbe Optimum bedient: $f_H/f \geq 3$, minimales Volumen, große Öffnung. Der einzige echte Trade-off liegt in der \textbf{Zungengüte $Q_1$}: lauter und obertonreicher, aber langsamer. Das ist eine Zungen-Entscheidung, keine Kammer-Entscheidung.
+\end{keybox}
+
+
+% ============================================================
+\section{Zusammenfassung}
+% ============================================================
+
+\begin{keybox}
+\textbf{Die Kammer ist kein Resonanzkörper, sondern ein Kerbfilter.} Sie erzeugt ein Loch im Obertonspektrum bei $f_H$.
+
+\textbf{Welcher Oberton betroffen ist, bestimmt den Klangcharakter:}\\
+$\bullet$ 2.\,OT gedämpft ($f_H/f \approx 2$): \textbf{dünn, hohl} -- 25\,\% Energie fehlt\\
+$\bullet$ 3.\,OT gedämpft ($f_H/f \approx 3$): \textbf{nasal} -- 11\,\% fehlt\\
+$\bullet$ 5.+\,OT gedämpft ($f_H/f \geq 5$): \textbf{kaum verändert} -- $< 4\,\%$ Energie
+
+\textbf{Drei Klangdimensionen:} Position ($f_H$ über Volumen/Öffnung -- dominanter Hebel), Breite ($Q_H$ über Öffnungsgeometrie -- Wandform $< 7\,\%$), Tiefe ($\kappa_\text{eff}$ über Spaltfläche).
+
+\textbf{Die Phasenverschiebung} (Kramers-Kronig) verändert die Wellenform -- auch wenn die Amplituden im Spektralanalysator kaum verändert erscheinen. Das erklärt, warum geschulte Ohren Unterschiede hören, die Messgeräte nicht zeigen.
+
+\textbf{Ansprache, Lautstärke und Klang profitieren vom selben Optimum:} $f_H/f \geq 3$, minimales Volumen, große Öffnung. Kein Trade-off bei der Kammeroptimierung.
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Die Kammer erzeugt den Klang nicht -- sie filtert ihn. Weniger Filter, mehr Musik.}
+\end{center}
+
+\end{document}

@@ -1,0 +1,291 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=18mm, right=18mm, top=25mm, bottom=18mm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Dok.\,0007 -- Diskant-Stimmstock: Kammerfrequenzen D3--C6}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small 7 Varianten: A (Ref.) / B,C,Ci (Tiefe) / D,E,Ei (Öffnung)}
+
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries\color{darkblue} Dok.\,0007: Diskant-Stimmstock -- Kammerfrequenzen}\\[6pt]
+{\large Sieben Varianten mit praktischer Tiefenbeschränkung}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Vollständige Analyse für 35~Kammern (D3--C6). Sieben Varianten: Referenz + je drei Kurvenformen (linear, konvex, konkav) für Tiefe und Öffnung. Berücksichtigt die praktische Beschränkung: Die Kammertiefe darf nicht unter die maximale Zungenamplitude fallen. Amplitudengewichtete Bewertung ($a_n \sim 1/n$).}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabular}{ll}
+\toprule
+Dok.\,0002 & Strömungsanalyse Bass-Stimmzunge 50\,Hz -- v8 \\
+Dok.\,0004 & Frequenzvariation -- Zwei-Filter-Modell \\
+Dok.\,0005 & Frequenzverschiebung als Indikator der Ansprache \\
+Dok.\,0006 & Zeichenerklärung \\
+\textbf{Dok.\,0007} & \textbf{Diskant-Stimmstock -- Kammerfrequenzen (dieses Dokument)} \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verifikationsskript aller Berechnungen \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4mm}
+
+
+% ============================================================
+\section{Geometrie und Ausgangslage}
+% ============================================================
+
+Der Diskant-Stimmstock enthält 35~Kammern für die Töne D3 (146{,}8\,Hz) bis C6 (1046{,}5\,Hz). Jede Kammer ist ein Quader mit konstanter Breite $W = 15{,}5$\,mm und einer Länge, die linear von 50\,mm (D3) auf 30\,mm (C6) abnimmt. Die Auslassöffnung ist kreisrund mit $\varnothing$\,10\,mm ($S_\text{Hals} = 78{,}5$\,mm$^2$) und einer physischen Halshöhe von 8\,mm (effektive Halslänge $l_\text{eff} = 16{,}5$\,mm mit Mündungskorrektur $0{,}85 \cdot d$).
+
+Die Helmholtz-Frequenz jeder Kammer hängt von Volumen und Öffnung ab:
+\begin{equation}
+f_H = \frac{c}{2\pi}\sqrt{\frac{S_\text{Hals}}{V \cdot l_\text{eff}}}
+\end{equation}
+
+Aus Dok.\,0005 wissen wir: Ansprache-Probleme treten auf, wenn der 2.~oder 3.~Oberton einer Zunge in die Nähe der Kammerresonanz $f_H$ kommt. Das entspricht $f_H/f < 3$. Oberhalb von $f_H/f = 4$ ist die Kammer akustisch ``unsichtbar'' -- die Kopplung durch höhere Obertöne ($n \geq 5$) ist energetisch irrelevant ($a_n^2 < 4\,\%$).
+
+
+% ============================================================
+\section{Die praktische Beschränkung: Zungenanschlag}
+% ============================================================
+
+Die Berechnung zeigt, dass kleinere Kammervolumina $f_H$ nach oben schieben und damit die Ansprache verbessern. Aber die Kammertiefe kann nicht beliebig reduziert werden: \textbf{Die Zunge muss Platz zum Ausschwingen haben.}
+
+Eine Durchschlagzunge schwingt bei voller Lautstärke durch den Schlitz der Stimmplatte nach unten in die Kammer hinein. Wenn die Zungenspitze den Kammerboden berührt, wird die Schwingung abrupt gestoppt -- die Zunge ``schlägt an''. Das erzeugt ein hässliches Klappgeräusch, beschädigt auf Dauer die Zunge und begrenzt die Lautstärke.
+
+\subsection{Maximale Zungenamplitude im Diskant}
+
+Die maximale Auslenkung der Zungenspitze hängt von der Zungenlänge und der Spieldynamik ab:
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{l r r r}
+\toprule
+\textbf{Tonbereich} & \textbf{Zungenlänge} & \textbf{Max.\ Amplitude} & \textbf{Min.\ Tiefe} \\
+\midrule
+D3 (tiefster) & $\sim$35\,mm & $\sim$3{,}5\,mm & 4{,}0\,mm \\
+A3 & $\sim$28\,mm & $\sim$2{,}8\,mm & 3{,}3\,mm \\
+A4 (Mitte) & $\sim$18\,mm & $\sim$1{,}8\,mm & 2{,}3\,mm \\
+A5 & $\sim$10\,mm & $\sim$1{,}0\,mm & 1{,}5\,mm \\
+C6 (höchster) & $\sim$8\,mm & $\sim$0{,}8\,mm & 1{,}3\,mm \\
+\bottomrule
+\end{tabular}
+\caption{Geschätzte Zungenamplituden und Mindesttiefen (Amplitude $\approx$ 10\,\% der Zungenlänge $+$ 0{,}5\,mm Sicherheit)}
+\end{table}
+
+Die minimale Kammertiefe muss von etwa 4\,mm (D3) auf 1{,}3\,mm (C6) sinken. Die hier berechneten Varianten mit einer Mindesttiefe von 3\,mm (C6) liegen \textbf{deutlich über} dem Zungenanschlag.
+
+\begin{keybox}
+\textbf{Praktische Regel:} Die Kammertiefe sollte so gering wie möglich sein (minimales Volumen $\to$ höchstes $f_H$ $\to$ beste Entkopplung), aber \textbf{niemals} unter die maximale Zungenamplitude plus Sicherheitsabstand fallen. Für die tiefsten Diskanttöne (D3--F3) könnte die Tiefe mit 3\,mm knapp werden -- hier wären 4\,mm sicherer.
+\end{keybox}
+
+
+% ============================================================
+\section{Die drei Kurvenformen}
+% ============================================================
+
+Jeder geometrische Parameter (Tiefe oder Öffnungsdurchmesser) kann von seinem Startwert $a$ auf seinen Endwert $b$ auf drei verschiedene Arten verlaufen:
+\begin{align}
+\text{Linear:}\quad p(x) &= a + x\,(b - a) \\
+\text{Konvex:}\quad p(x) &= a \cdot (b/a)^x \\
+\text{Konkav:}\quad p(x) &= a + b - a \cdot (b/a)^{1-x}
+\end{align}
+
+Alle drei verbinden \textbf{dieselben Endpunkte}: $p(0) = a$, $p(1) = b$. Sie unterscheiden sich in der \textbf{Verteilung} der Reduktion über den Tonbereich:
+
+\textbf{Linear} verteilt die Reduktion gleichmäßig: In jedem Halbtonschritt ändert sich der Parameter um denselben absoluten Betrag (z.\,B.\ $-0{,}147$\,mm/Halbton bei $8 \to 3$\,mm).
+
+\textbf{Konvex} (liegt \textbf{unter} der Geraden) reduziert am Anfang schneller als linear und am Ende langsamer. Im Mittelbereich hat der Parameter einen \textbf{niedrigeren} Wert als bei linearem Verlauf. Beispiel Tiefe: Bei A4 hat konvex 4{,}9\,mm, linear 5{,}5\,mm -- also 0{,}6\,mm weniger.
+
+\textbf{Konkav} (liegt \textbf{über} der Geraden) reduziert am Anfang langsamer und am Ende schneller. Im Mittelbereich hat der Parameter einen \textbf{höheren} Wert als bei linearem Verlauf. Beispiel Tiefe: Bei A4 hat konkav ca.\ 6{,}1\,mm, linear 5{,}5\,mm -- also 0{,}6\,mm mehr.
+
+\begin{warnbox}
+\textbf{Welche Kurve besser ist, hängt davon ab, in welche Richtung der Parameter $f_H$ verschiebt:}
+
+Wenn \textbf{weniger} des Parameters $f_H$ \textbf{hebt} (wie bei der Tiefe: weniger $V \to$ höheres $f_H$), ist die Kurve besser, die im Mittelbereich weniger hat $\to$ \textbf{konvex gewinnt}.
+
+Wenn \textbf{mehr} des Parameters $f_H$ \textbf{hebt} (wie bei der Öffnung: mehr $S \to$ höheres $f_H$), ist die Kurve besser, die im Mittelbereich mehr hat $\to$ \textbf{konkav gewinnt}.
+\end{warnbox}
+
+
+% ============================================================
+\section{Die sieben Varianten}
+% ============================================================
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{c l l l l}
+\toprule
+\textbf{Var.} & \textbf{Kurzname} & \textbf{Tiefe [mm]} & $\boldsymbol{\varnothing}$ \textbf{Öffnung [mm]} & \textbf{Wirkung auf $f_H$} \\
+\midrule
+A & Referenz & 8 konstant & 10 konstant & Referenz \\
+\midrule
+B & d linear & 8$\to$3 linear & 10 konstant & $f_H$ steigt ($V$ sinkt) \\
+C & d konvex & 8$\to$3 konvex & 10 konstant & $f_H$ steigt stärker \\
+Ci & d konkav & 8$\to$3 konkav & 10 konstant & $f_H$ steigt schwächer \\
+\midrule
+D & $\varnothing$ linear & 8 konstant & 10$\to$6 linear & $f_H$ sinkt ($S$ sinkt) \\
+E & $\varnothing$ konvex & 8 konstant & 10$\to$6 konvex & $f_H$ sinkt stärker \\
+Ei & $\varnothing$ konkav & 8 konstant & 10$\to$6 konkav & $f_H$ sinkt schwächer \\
+\bottomrule
+\end{tabular}
+\caption{Die sieben Varianten. Obere Gruppe: Tiefe variiert. Untere Gruppe: Öffnung variiert.}
+\end{table}
+
+\subsection{Warum die Richtung entscheidet}
+
+\textbf{Tiefe senken} verkleinert das Kammervolumen $V$. Da $f_H \propto 1/\sqrt{V}$, \textbf{steigt} $f_H$. Das verschiebt $f_H/f$ nach oben -- weg von den niedrigen Obertönen. Das ist die \textbf{richtige Richtung}.
+
+\textbf{Öffnung verkleinern} reduziert die Halsfläche $S_\text{Hals}$ und gleichzeitig die Mündungskorrektur ($l_\text{eff} = 8 + 0{,}85 d$ sinkt ebenfalls). Der Nettoeffekt: $f_H \propto \sqrt{S/l_\text{eff}}$ \textbf{sinkt}. Quantitativ: $\varnothing$ von 10 auf 6\,mm senkt $f_H$ auf \textbf{67\,\%}. Das verschiebt $f_H/f$ nach \textbf{unten} -- das ist die \textbf{falsche Richtung}.
+
+
+% ============================================================
+\section{Hauptergebnis}
+% ============================================================
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{l r r r r r r r}
+\toprule
+& \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Ci} & \textbf{D} & \textbf{E} & \textbf{Ei} \\
+\midrule
+$f_H$ bei D3 [Hz] & 1513 & 1513 & 1513 & 1513 & 1513 & 1513 & 1513 \\
+$f_H$ bei C6 [Hz] & 1953 & 3189 & 3189 & 3189 & 1315 & 1315 & 1315 \\
+$f_H/f$ min. & 1{,}9 & 3{,}0 & 3{,}0 & 3{,}0 & 1{,}3 & 1{,}3 & 1{,}3 \\
+\midrule
+Kritisch (OT $\leq 2$) & 7 & 0 & \textbf{0} & 0 & 12 & 13 & 12 \\
+Merklich (OT $= 3$) & 7 & 7 & \textbf{5} & 8 & 5 & 5 & 5 \\
+Gut (OT $\geq 4$) & 21 & 28 & \textbf{30} & 27 & 18 & 17 & 18 \\
+$\sum R_\text{eff}$ & 17{,}4 & 12{,}8 & \textbf{12{,}3} & 13{,}5 & 17{,}2 & 17{,}3 & 17{,}0 \\
+\bottomrule
+\end{tabular}
+\caption{Hauptvergleich. Fett: Variante C (bestes Ergebnis).}
+\end{table}
+
+\subsection{Rangliste}
+
+\begin{enumerate}
+\item \textbf{C} (Tiefe konvex): 0~krit., 5~merkl., 30~gut. $\sum R = 12{,}3$
+\item \textbf{B} (Tiefe linear): 0~krit., 7~merkl., 28~gut. $\sum R = 12{,}8$
+\item \textbf{Ci} (Tiefe konkav): 0~krit., 8~merkl., 27~gut. $\sum R = 13{,}5$
+\item \textbf{Ei} ($\varnothing$ konkav): 12~krit., 5~merkl., 18~gut. $\sum R = 17{,}0$
+\item \textbf{D} ($\varnothing$ linear): 12~krit., 5~merkl., 18~gut. $\sum R = 17{,}2$
+\item \textbf{E} ($\varnothing$ konvex): 13~krit., 5~merkl., 17~gut. $\sum R = 17{,}3$
+\item \textbf{A} (Referenz): 7~krit., 7~merkl., 21~gut. $\sum R = 17{,}4$
+\end{enumerate}
+
+
+% ============================================================
+\section{Analyse der Tiefengruppe}
+% ============================================================
+
+Alle drei Tiefenvarianten (B, C, Ci) eliminieren die kritischen Resonanzen vollständig (0~kritische Töne). Sie unterscheiden sich nur in der Zahl der merklichen Resonanzen:
+
+\textbf{C (konvex, unter der Geraden):} 5~merkliche. Die Kurve gibt den mittleren Tönen weniger Volumen $\to$ höheres $f_H$ $\to$ bessere Entkopplung. Beispiel A4: Tiefe 4{,}9\,mm, $f_H/f = 5{,}1$. \textbf{Beste Tiefenvariante.}
+
+\textbf{B (linear):} 7~merkliche. Gleichmäßige Reduktion. A4: Tiefe 5{,}5\,mm, $f_H/f = 4{,}8$.
+
+\textbf{Ci (konkav, über der Geraden):} 8~merkliche. Die Kurve erhält im Mittelbereich mehr Volumen $\to$ niedrigeres $f_H$. Schlechteste Tiefenvariante -- aber immer noch 0~kritische.
+
+Der Unterschied zwischen den drei Tiefenvarianten ist \textbf{moderat} (12{,}3 vs.\ 12{,}8 vs.\ 13{,}5 in $\sum R_\text{eff}$). Der \textbf{große Sprung} ist von der Referenz A (17{,}4) zu jeder der drei Tiefenvarianten -- die Tiefenreduktion an sich ist viel wichtiger als die Kurvenform.
+
+\begin{keybox}
+\textbf{Praktische Bedeutung:} Der Unterschied zwischen konvex und linear entspricht 2~merklichen Resonanzen weniger -- hörbar, aber nicht dramatisch. Der Unterschied zwischen Tiefenreduktion und keiner (A vs.\ B/C/Ci) entspricht 7~kritischen Resonanzen -- das ist der entscheidende Schritt. \textbf{Wer die Tiefe reduziert, hat 95\,\% des Effekts. Die Kurvenform ist Feinabstimmung.}
+\end{keybox}
+
+
+% ============================================================
+\section{Analyse der Öffnungsgruppe}
+% ============================================================
+
+Die drei Öffnungsvarianten (D, E, Ei) verschlechtern die Situation gegenüber der Referenz -- sie haben \textbf{mehr} kritische Töne (12--13 statt 7). Der Grund: $\varnothing$ von 10 auf 6\,mm senkt $S_\text{Hals}$ von 78{,}5 auf 28{,}3\,mm$^2$ ($-$64\,\%) und $l_\text{eff}$ von 16{,}5 auf 13{,}1\,mm ($-$21\,\%). Der Nettoeffekt: $f_H$ sinkt auf \textbf{67\,\%}. $f_H/f$ fällt auf 1{,}3 bei C6 -- dort liegt $f_H$ \textbf{unter} der Zungenfrequenz selbst.
+
+\textbf{Ei (konkav):} 12~krit. -- am wenigsten schädlich, weil die Kurve die größeren Öffnungen im Mittelbereich erhält.
+
+\textbf{E (konvex):} 13~krit. -- am schädlichsten, weil die Kurve die Öffnung im Mittelbereich am stärksten reduziert.
+
+\begin{warnbox}
+\textbf{Fazit Öffnungsgruppe:} Keine der drei Öffnungsvarianten ist besser als die Referenz A. Die Öffnungsverkleinerung 10$\to$6\,mm allein ist \textbf{kontraproduktiv}. Auch die beste Öffnungsvariante (Ei) hat 12~kritische Töne -- fast doppelt so viele wie die Referenz (7). Die Öffnung allein zu variieren ist der falsche Ansatz.
+\end{warnbox}
+
+
+% ============================================================
+\section{Volumen minimal halten -- die praktische Optimierungsregel}
+% ============================================================
+
+Aus der Analyse folgt eine klare Optimierungsregel, die auch der praktischen Erfahrung des Instrumentenbauers entspricht:
+
+\begin{keybox}
+\textbf{Optimierungsregel: Volumen so gering wie die Zunge erlaubt.}
+
+Die Kammertiefe wird für jede Kammer so gewählt, dass:
+\begin{enumerate}
+\item Die Zunge bei maximaler Lautstärke \textbf{nicht anschlägt} (Tiefe $\geq$ max.\ Amplitude $+$ 0{,}5\,mm Sicherheit).
+\item Das Volumen \textbf{nicht größer} ist als für Bedingung (1) nötig.
+\item Die Öffnung \textbf{so groß wie möglich} bleibt (10\,mm), weil jede Verkleinerung $f_H$ in die falsche Richtung schiebt.
+\end{enumerate}
+\end{keybox}
+
+In der Praxis bedeutet das: Die Kammertiefe folgt der Zungenamplitude -- kurze Zungen (hohe Töne) brauchen weniger Platz, bekommen flachere Kammern und profitieren automatisch vom höheren $f_H/f$. Der konvexe Tiefenverlauf (C) ist dabei etwas besser als der lineare (B), weil er im Mittelbereich aggressiver reduziert.
+
+Das Ergebnis stimmt mit der Instrumentenbau-Praxis überein: Erfahrene Baumeister fertigen die Kammern so, dass die Zunge gerade eben nicht anschlägt, und machen die Kammer nicht tiefer als nötig. Die Berechnung zeigt jetzt \textbf{warum} das funktioniert: Weniger Volumen $\to$ höheres $f_H$ $\to$ weniger Oberton-Resonanzen $\to$ bessere Ansprache.
+
+
+% ============================================================
+\section{Zusammenfassung}
+% ============================================================
+
+\begin{keybox}
+\textbf{Sieben Varianten für den Diskant-Stimmstock D3--C6:}
+
+\textbf{Tiefe reduzieren} (B, C, Ci) hebt $f_H$ -- richtige Richtung, 0~kritische Töne.\\
+\textbf{Öffnung verkleinern} (D, E, Ei) senkt $f_H$ -- falsche Richtung, 12--13~kritische.
+
+Innerhalb Tiefe: \textbf{konvex $>$ linear $>$ konkav} (12{,}3 vs.\ 12{,}8 vs.\ 13{,}5).\\
+Innerhalb Öffnung: \textbf{konkav $>$ linear $>$ konvex} (17{,}0 vs.\ 17{,}2 vs.\ 17{,}3).
+
+In beiden Fällen gewinnt die Kurve, die mehr von dem Parameter erhält, der $f_H$ nach oben schiebt.
+
+\textbf{Der große Sprung} liegt in der Tiefenreduktion an sich (7~krit.\ weniger), nicht in der Kurvenform (2~merkl.\ weniger). Wer die Tiefe reduziert, hat 95\,\% des Effekts.
+
+\textbf{Praktische Regel:} Kammertiefe $=$ maximale Zungenamplitude $+$ 0{,}5\,mm. Nicht tiefer. Öffnung so groß wie möglich.
+
+$f_H/f \geq 3$ halten $\to$ kein 2.\,OT-Treffer $\to$ keine kritischen Probleme.
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Minimales Volumen, maximale Öffnung -- die Kammer so klein wie die Zunge erlaubt.}
+\end{center}
+
+\end{document}

@@ -1,0 +1,341 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Dok.\,0005 -- Frequenzverschiebung als Indikator der Ansprache}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small Querverweise: Dok.\,0002 (v8) $\cdot$ Dok.\,0003 (Impedanzvergleich) $\cdot$ Dok.\,0004 (Zwei-Filter)}
+
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries\color{darkblue} Dok.\,0005: Frequenzverschiebung als Indikator der Ansprache}\\[6pt]
+{\large Beweis des Zusammenhangs: $\Delta f$ und $\Delta\tau$ als Real- und Imaginärteil derselben Kopplung}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Beweist, dass Frequenzverschiebung und Ansprache-Verschlechterung physikalisch untrennbar verknüpft sind. Beide sind Projektionen derselben komplexen Kopplungsimpedanz $Z_H(f)$. Zahlenwerte: 50-Hz-Basszunge aus Dok.\,0002.}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Dokumentenverweise} \\
+\midrule
+Dok.\,0001 & Analyse zur Instrumentenakustik und Wahrnehmungspsychologie \\
+Dok.\,0002 & Strömungsanalyse Bass-Stimmzunge 50\,Hz -- v8 \\
+Dok.\,0003 & Impedanzvergleich Durchschlagzunge vs.\ Labialpfeife \\
+Dok.\,0004 & Frequenzvariation -- Zwei-Filter-Modell \\
+\textbf{Dok.\,0005} & \textbf{Frequenzverschiebung als Indikator der Ansprache (dieses Dokument)} \\
+Dok.\,0006 & Zeichenerklärung \\
+Dok.\,0007 & Diskant-Stimmstock -- Kammerfrequenzen \\
+Dok.\,0008 & Klangveränderung durch Kammergeometrie \\
+Dok.\,0500 & Leitfaden zur ästhetischen Forensik bei Akkordeon-Gehäusen \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verifikationsskript aller Berechnungen \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4mm}
+
+% ============================================================
+\section{Die zentrale These}
+% ============================================================
+
+Dok.\,0002 (Kap.\,10) zeigt: Eine resonante Kammer verschlechtert die Ansprache über Serienkopplung. Dok.\,0004 zeigt: Die Kammer verschiebt die Zungenfrequenz um 1--5~Cent. Beide Effekte werden durch dieselbe physikalische Größe verursacht -- die \textbf{komplexe Kopplungsimpedanz} $Z_H(f)$.
+
+\begin{keybox}
+\textbf{Frequenzverschiebung und Ansprache-Verschlechterung sind der Imaginär- und Realteil derselben komplexen Kopplungsfunktion.} Sie sind durch die Kramers-Kronig-Relation kausal verknüpft. An der Frequenzverschiebung lässt sich ablesen, ob die Ansprache besser oder schlechter wird -- und wie weit man von der kritischen Resonanz entfernt ist.
+\end{keybox}
+
+% ============================================================
+\section{Die komplexe Kopplungsimpedanz}
+% ============================================================
+
+\subsection{Zerlegung in Real- und Imaginärteil}
+
+Die Helmholtz-Impedanz der Kammer bei Frequenz $f$:
+\begin{equation}
+Z_H(f) = R_H(f) + j\,X_H(f)
+\end{equation}
+
+\textbf{Realteil} (Resistanz $=$ Energiedissipation $\to$ Ansprache-Verschlechterung):
+\begin{equation}
+R_H(f) = Z_0 \cdot \frac{f/f_H}{Q_H \cdot D(f)}
+\end{equation}
+
+\textbf{Imaginärteil} (Reaktanz $=$ Energiespeicherung $\to$ Frequenzverschiebung):
+\begin{equation}
+X_H(f) = Z_0 \cdot \frac{1 - (f/f_H)^2}{D(f)}
+\end{equation}
+
+wobei $D(f) = \left(1 - (f/f_H)^2\right)^2 + \left(f/(f_H \cdot Q_H)\right)^2$ und $Z_0 = 1/(\omega_H C_a)$.
+
+\subsection{Physikalische Zuordnung}
+
+\textbf{Realteil $R_H(f) \to$ Energieverlust $\to$ Ansprache-Verschlechterung:}
+\begin{equation}
+\Delta\zeta_n = \kappa_\text{eff}^2 \cdot \frac{R_H(nf_1)}{Z_0}, \qquad \Delta\tau_n = \frac{\Delta\zeta_n}{\pi f_1}
+\end{equation}
+
+\textbf{Imaginärteil $X_H(f) \to$ Frequenzverschiebung:}
+\begin{equation}
+\Delta f_n = -\kappa_\text{eff}^2 \cdot f_n \cdot \frac{X_H(f_n)}{2 Z_0}
+\end{equation}
+
+\begin{keybox}
+$\Delta\tau$ (Ansprache) $\propto R_H(f)$ und $\Delta f$ (Frequenz) $\propto X_H(f)$. Beide stammen aus \textbf{derselben} komplexen Impedanz $Z_H = R_H + jX_H$. Sie verhalten sich zueinander wie der Sinus und Kosinus eines Winkels -- kennt man den einen, kennt man den anderen.
+\end{keybox}
+
+% ============================================================
+\section{Der Vorzeichenwechsel als Warnsignal}
+% ============================================================
+
+Die entscheidende Erkenntnis liegt im \textbf{Vorzeichenwechsel} der Frequenzverschiebung:
+
+\begin{itemize}[leftmargin=5mm, itemsep=4pt]
+\item $\Delta f > 0$ (Ton wird \textbf{höher}): Nächster OT liegt \textbf{unter} $f_H$. Kammer wirkt als Feder (Compliance). Ansprache ist gut, verschlechtert sich wenn $\Delta f$ wächst.
+\item $\Delta f \to 0$ \textbf{mit Vorzeichenwechsel}: OT durchfährt $f_H$. \textbf{Worst Case.} Maximale Energieextraktion bei minimalem Frequenzsignal.
+\item $\Delta f < 0$ (Ton wird \textbf{tiefer}): Nächster OT liegt \textbf{über} $f_H$. Kammer wirkt als Masse (Inertanz). Ansprache war schlecht, wird wieder besser.
+\item $\Delta f \approx 0$ \textbf{ohne Vorzeichenwechsel}: Kein OT nahe $f_H$. \textbf{Best Case.}
+\end{itemize}
+
+\begin{warnbox}
+\textbf{Das Paradoxon:} Exakt bei optimaler Resonanz ($f_H = n \cdot f_\text{Zunge}$) ist die Dämpfung maximal ($R_H = Q_H \cdot Z_0$), aber die Frequenzverschiebung \textbf{dieses Obertons} ist Null ($X_H = 0$). Am Resonanzpunkt wird alle Kopplungsenergie in Dissipation umgewandelt (Realteil), nichts bleibt für Reaktanz (Imaginärteil). Der Oberton wird nicht verschoben, sondern \textbf{gedämpft} -- das ist schlimmer.
+\end{warnbox}
+
+\subsection{Nyquist-Diagramm der Kopplung}
+
+Im Nyquist-Diagramm ($R_H$ horizontal, $X_H$ vertikal) beschreibt die Impedanz einen \textbf{Kreis}. Jeder Oberton liegt auf einem Punkt dieses Kreises:
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{rrrl}
+\toprule
+OT $n$ & $R_H/Z_0$ & $X_H/Z_0$ & Position auf dem Kreis \\
+\midrule
+1 (50\,Hz) & 0{,}001 & $+$1{,}000 & $\uparrow$ Oberer Rand (reine Compliance) \\
+3 (150\,Hz) & 0{,}011 & $+$0{,}917 & $\uparrow$ Obere Hälfte \\
+5 (250\,Hz) & 0{,}090 & $+$0{,}537 & $\nearrow$ Annäherung an Gipfel \\
+$f_H$ (274) & 0{,}143 & $\approx 0$ & $\to$ \textbf{Gipfel} (maximale Dämpfung) \\
+6 (300\,Hz) & 0{,}072 & $-$0{,}374 & $\searrow$ Unterhalb des Gipfels \\
+8 (400\,Hz) & 0{,}017 & $-$0{,}655 & $\downarrow$ Untere Hälfte \\
+\bottomrule
+\end{tabular}
+\caption{Nyquist-Positionen der Obertöne. Am Gipfel ($f_H$): max.\ Dämpfung, $X_H$ wechselt Vorzeichen.}
+\end{table}
+
+Der 5.~Oberton (250\,Hz) liegt in der oberen Kreishälfte ($X > 0$, $\Delta f > 0$), der 6.~Oberton (300\,Hz) in der unteren ($X < 0$, $\Delta f < 0$). Dazwischen, bei $f_H = 274$\,Hz, liegt der Kreisgipfel. Dass kein Oberton exakt auf den Gipfel trifft, erklärt die relativ gute Ansprache der 50-Hz-Zunge in dieser Kammer.
+
+% ============================================================
+\section{Der mathematische Beweis: Kramers-Kronig}
+% ============================================================
+
+Die Verknüpfung ist \textbf{physikalisch zwingend}. Jede kausale, lineare Antwortfunktion erfüllt die Kramers-Kronig-Relationen:
+\begin{align}
+X_H(\omega) &= -\frac{1}{\pi}\, \mathcal{P} \int_{-\infty}^{\infty} \frac{R_H(\omega')}{\omega' - \omega}\, d\omega' \\
+R_H(\omega) &= +\frac{1}{\pi}\, \mathcal{P} \int_{-\infty}^{\infty} \frac{X_H(\omega')}{\omega' - \omega}\, d\omega'
+\end{align}
+($\mathcal{P}$ = Cauchyscher Hauptwert). \textbf{Kennt man den Frequenzverlauf der Frequenzverschiebung (alle $X_H(f)$), kann man daraus die Ansprache-Verschlechterung berechnen (alle $R_H(f)$) -- und umgekehrt.}
+
+Für den Helmholtz-Resonator:
+\begin{equation}
+Z_H(f) = \frac{Z_0}{1 - (f/f_H)^2 + j\,f/(f_H \cdot Q_H)}
+\end{equation}
+Der Realteil (Lorentz-Linie, Glockenform) und der Imaginärteil (Dispersionskurve, S-Form mit Nulldurchgang bei $f_H$) sind durch die Hilbert-Transformation verknüpft -- genau wie Absorption und Brechungsindex in der Optik.
+
+\begin{keybox}
+Die Kramers-Kronig-Relation ist eine Folge der \textbf{Kausalität}. Die Kammer kann nicht ``wählen'', nur Frequenz zu verschieben ohne Energie zu dissipieren (oder umgekehrt). Beide Effekte sind zwei Seiten derselben Medaille. Ein System, das die Frequenz stark zieht, \textbf{muss} auch Energie dissipieren -- und umgekehrt (außer exakt bei Resonanz, wo $X = 0$).
+\end{keybox}
+
+% ============================================================
+\section{Die praktische Messvorschrift}
+% ============================================================
+
+\textbf{Schritt 1:} Zungenfrequenz \textbf{frei} messen (Stimmplatte auf Prüfblock, keine Kammer). Ergebnis: $f_\text{frei}$.
+
+\textbf{Schritt 2:} Zungenfrequenz \textbf{in der Kammer} messen (gleicher Balgdruck). Ergebnis: $f_\text{Kammer}$.
+
+\textbf{Schritt 3:} $\Delta f = f_\text{Kammer} - f_\text{frei}$.
+
+\textbf{Schritt 4:} Interpretation:
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{l l l}
+\toprule
+\textbf{Messergebnis} & \textbf{Physik} & \textbf{Ansprache} \\
+\midrule
+$\Delta f \approx 0$, Ansprache gut & Kein OT nahe $f_H$ & \textbf{Optimal} \\
+$\Delta f > 0$ (Ton höher) & Nächster OT unter $f_H$ & Gut, wird schlechter \\
+$\Delta f$ maximal positiv & OT nähert sich $f_H$ & \textbf{Warnung} \\
+$\Delta f \to 0$ (Vorzeichenwechsel) & OT durchfährt $f_H$ & \textbf{Worst Case} \\
+$\Delta f < 0$ (Ton tiefer) & Nächster OT über $f_H$ & Besserung \\
+$\Delta f \approx 0$, Ansprache gut & OT weit von $f_H$ & \textbf{Optimal} \\
+\bottomrule
+\end{tabular}
+\caption{Interpretationsschlüssel: $\Delta f \to$ Ansprache-Prognose}
+\end{table}
+
+\textbf{Elegante Variante:} Verstellbare Kammer (verschiebbarer Boden). Volumen $V$ und damit $f_H$ stetig variieren. Wenn $\Delta f$ das Vorzeichen wechselt, hat man die Resonanz durchfahren -- dort ist die Ansprache am schlechtesten. Die Synchronizität von Vorzeichenwechsel und Ansprache-Minimum ist der \textbf{experimentelle Beweis} der Kramers-Kronig-Verknüpfung.
+
+% ============================================================
+\section{Gesamtbilanz: Summe über alle Obertöne}
+% ============================================================
+
+Der Gesamteffekt auf den Grundton ist die Summe über alle Obertöne:
+\begin{equation}
+\Delta f_\text{gesamt} = \sum_n \frac{a_n}{n} \cdot \Delta f_n, \qquad
+\Delta\tau_\text{gesamt} = \sum_n a_n^2 \cdot \Delta\tau_n
+\end{equation}
+
+Das Vorzeichen der Netto-Frequenzverschiebung zeigt an, von welcher Seite der dominante Oberton an $f_H$ herankommt:
+
+\begin{keybox}
+\textbf{Faustregel:}\\
+$\Delta f_\text{netto} > 0$ $\to$ Dominanter OT liegt \textbf{unter} $f_H$ $\to$ $f_H$ senken verschlechtert Ansprache.\\
+$\Delta f_\text{netto} < 0$ $\to$ Dominanter OT liegt \textbf{über} $f_H$ $\to$ $f_H$ heben verschlechtert Ansprache.\\
+$\Delta f_\text{netto} \approx 0$ $\to$ Entweder entkoppelt (gut) oder auf Resonanz (schlecht) $\to$ Ansprache-Test entscheidet.
+\end{keybox}
+
+% ============================================================
+\section{Das Problem der fehlenden Referenzfrequenz}
+% ============================================================
+
+Die Messvorschrift ($f_\text{frei}$ vs.\ $f_\text{Kammer}$) hat eine fundamentale \textbf{praktische Einschränkung}, die in den Berechnungen nicht auftaucht, aber für den Instrumentenbauer entscheidend ist:
+
+\begin{warnbox}
+\textbf{Es gibt keine absolute Referenzfrequenz.} Die Frequenz $f_\text{frei}$ (Zunge auf dem Prüfblock, ohne Kammer) ist \textbf{selbst} eine setup-abhängige Größe. Der Prüfblock hat ein eigenes Volumen, eine eigene akustische Impedanz, eine eigene Kopplung. $f_\text{frei}$ ist nicht die ``wahre'' Eigenfrequenz der Zunge -- es ist die Frequenz der Zunge \textbf{in einem anderen akustischen Umfeld}.
+\end{warnbox}
+
+Die physikalische Eigenfrequenz im Vakuum ($f_\text{vak}$) ist nicht praktisch messbar -- die Zunge braucht Luft zum Schwingen (Bernoulli-Mechanismus). Selbst eine Zunge im offenen Raum hat eine akustische Umgebung: die freie Schallabstrahlung als schwache Belastung.
+
+\subsection{Die drei ``Referenzfrequenzen'' des Akkordeonbauers}
+
+\textbf{$f_\text{Prüfblock}$:} Zunge auf einem standardisierten Holzblock, angeblasen mit definiertem Druck. Am nächsten an $f_\text{vak}$, aber nicht identisch (der Block hat eine Compliance). Geschätzter Unterschied zu $f_\text{vak}$: 0{,}1--0{,}5~Cent.
+
+\textbf{$f_\text{Kammer,offen}$:} Zunge in der Kammer montiert, Klappe offen. Die offene Klappe verändert die Kammerimpedanz gegenüber dem Spielbetrieb (niedrigere $Z$ am Klappenende $\to$ $f_H$ verschiebt sich).
+
+\textbf{$f_\text{Kammer,Spiel}$:} Zunge in der Kammer, Klappe geschlossen, vom Balg angeblasen. Das ist der ``echte'' Betriebszustand -- aber hier ist die Frequenz bereits durch die volle Kammerkopplung verändert.
+
+\subsection{Das Vorstimm-Setup als lokale Referenz}
+
+Da keine der drei Referenzfrequenzen ``absolut'' ist, arbeitet der erfahrene Instrumentenbauer mit einer \textbf{lokalen Referenz}: Er definiert sein persönliches Vorstimm-Setup (bestimmter Prüfblock, bestimmter Blasdruck, bestimmte Raumtemperatur) als \textbf{Nullpunkt}. Alle Frequenzmessungen werden relativ zu diesem Setup interpretiert. Das Setup ist die ``Eichung'' des Stimmvorgangs.
+
+Die $\Delta f$-Methode funktioniert trotzdem, weil sie eine \textbf{Differenz} misst: $\Delta f = f_\text{Kammer} - f_\text{Setup}$. Die absolute Frequenz spielt keine Rolle -- nur die Differenz und vor allem der \textbf{Vorzeichenwechsel} beim Variieren der Kammergeometrie. Der Vorzeichenwechsel ist setup-unabhängig, weil er eine Eigenschaft der Kammer-Zungen-Kopplung ist, nicht der absoluten Frequenz.
+
+\subsection{Was die Erfahrung liefert, was die Berechnung nicht kann}
+
+\textbf{1.\ Die Offset-Korrektur:} Wie viel Cent liegt $f_\text{Setup}$ über oder unter $f_\text{vak}$? Das weiß nur, wer jahrelang mit demselben Prüfblock gestimmt hat und die resultierenden Instrumente spielen gehört hat.
+
+\textbf{2.\ Die Temperaturkompensation:} $f_\text{Zunge}$ ändert sich mit der Temperatur (E-Modul: $\sim$0{,}5\,Cent/°C). $c$ ändert sich ebenfalls ($+0{,}17\,\%$/°C $\to$ verändert $f_H$ und $\Delta f$). Der erfahrene Stimmer kompensiert beides intuitiv.
+
+\textbf{3.\ Die Druckabhängigkeit:} Der Balgdruck verändert $h_\text{eff}$ (Dok.\,0002 Kap.\,9) und damit $S_\text{Spalt}$, $\kappa$ und $\Delta f$. Das Vorstimm-Setup definiert einen bestimmten Arbeitspunkt auf der Druckkurve.
+
+\textbf{4.\ Die Materialstreuung:} 0{,}1\,mm Unterschied in der Aufbiegung $\to$ 7\,\% in $S_\text{eff}$ (Dok.\,0002 Kap.\,13), und damit unterschiedliche $\kappa$ und $\Delta f$. Die Berechnung gibt den Mittelwert -- die Erfahrung sagt, wie weit der Einzelfall abweichen kann.
+
+\begin{keybox}
+\textbf{Die Rolle der Berechnung im Stimmvorgang:}
+
+Die Formeln aus Dok.\,0002--0005 ersetzen nicht die Erfahrung. Sie leisten etwas anderes: Sie erklären, \textbf{warum} die Erfahrungsregeln funktionieren. Sie sagen vorher, \textbf{in welche Richtung} eine Änderung wirkt. Sie identifizieren die \textbf{empfindlichen Parameter}. Sie warnen, \textbf{wann} man aufpassen muss (Vorzeichenwechsel $\to$ Resonanz).
+
+Was die Berechnung \textbf{nicht} kann: den exakten Cent-Wert vorhersagen, die Materialstreuung kompensieren, das Setup des Instrumentenbauers kennen. Dafür braucht es den praktischen Test -- und die Erfahrung, die aus tausend Tests ein Handwerk macht.
+\end{keybox}
+
+% ============================================================
+\section{Klarstellung: Ansprache vs.\ Lautstärke -- kein Trade-off bei der Kammerabstimmung}
+% ============================================================
+
+Ein naheliegendes Missverständnis muss ausgeräumt werden: Wenn optimale Ansprache bedeutet, dass die Kammer der Zunge möglichst \textbf{wenig} Energie entzieht -- reduziert dann gute Ansprache die maximal erzielbare Lautstärke?
+
+\textbf{Nein.} Die Antwort ergibt sich direkt aus der Physik der Serienkopplung (Dok.\,0002 Kap.\,10). Zwei Effekte müssen sauber getrennt werden, weil sie physikalisch verschieden sind:
+
+\subsection{Kammerabstimmung: Win-Win}
+
+Wenn ein Oberton der Zunge exakt auf $f_H$ liegt, ist $R_H$ maximal -- die Kammer entzieht der Zunge Energie über die Serienkopplung. Dieser Energieverlust verschlechtert \textbf{beides gleichzeitig}:
+
+\textbf{Ansprache:} Die entzogene Energie fehlt beim Amplitudenaufbau. Die Einschwingzeit $\tau$ verlängert sich um $\Delta\tau \propto R_H$ (Kap.\,3).
+
+\textbf{Lautstärke:} Im eingeschwungenen Zustand fließt ein Teil der Schwingungsenergie \textbf{pro Zyklus} in die Kammer-Dissipation ab, statt in Schallabstrahlung umgewandelt zu werden. Die Gleichgewichtsamplitude sinkt: $A_\text{max} \propto 1/\sqrt{R_H}$.
+
+Beide Effekte stammen aus derselben Quelle -- $R_H(f)$, dem Realteil der Kammerimpedanz. Wenn $R_H$ sinkt (kein Oberton auf $f_H$), verbessern sich \textbf{beide}: schnellere Ansprache \textbf{und} größere Amplitude. Bei der Kammerabstimmung gibt es keinen Trade-off. Optimale Abstimmung ist Win-Win.
+
+\subsection{Zungen-Güte $Q_1$: Der echte Trade-off}
+
+Der Trade-off zwischen Ansprache und Lautstärke existiert -- aber er liegt \textbf{nicht} in der Kammerabstimmung, sondern in der Zunge selbst:
+
+\textbf{Hohes $Q_1$} (geringe Dämpfung): Die Zunge speichert viel Energie pro Zyklus $\to$ \textbf{lauter}. Aber der Amplitudenaufbau dauert viele Zyklen $\to$ \textbf{langsame Ansprache} ($\tau = Q_1/(\pi f)$).
+
+\textbf{Niedriges $Q_1$} (starke Dämpfung): Wenige Zyklen zum Einschwingen $\to$ \textbf{schnelle Ansprache}. Aber die Gleichgewichtsamplitude ist geringer $\to$ \textbf{leiser}.
+
+Dieser Trade-off wird durch Material, Einspannung und Aufbiegung bestimmt (Dok.\,0002 Kap.\,9) -- \textbf{nicht} durch die Kammergeometrie.
+
+\begin{keybox}
+\textbf{Zusammenfassung der Unterscheidung:}
+
+\textbf{Kammerabstimmung} ($f_H$ relativ zu Obertönen, Dok.\,0005): Beeinflusst die \textbf{externe Dämpfung} durch die Kammer. Optimierung = $R_H$ minimieren = Win-Win (bessere Ansprache \textit{und} mehr Lautstärke).
+
+\textbf{Zungengüte} $Q_1$ (Material, Einspannung, Dok.\,0002): Beeinflusst die \textbf{interne Dämpfung} der Zunge. Hier gibt es den echten Trade-off: mehr $Q_1$ = lauter aber langsamer, weniger $Q_1$ = schneller aber leiser.
+
+Der Instrumentenbauer optimiert beides \textbf{unabhängig}: Die Kammer so abstimmen, dass sie möglichst wenig stört ($f_H$ zwischen Obertönen). Die Zunge so wählen, dass $Q_1$ zum musikalischen Kontext passt (Bass: eher niedrig für schnelle Ansprache; Diskant: eher hoch für Lautstärke und Sustain).
+\end{keybox}
+
+% ============================================================
+\section{Zusammenfassung}
+% ============================================================
+
+\begin{keybox}
+\textbf{Bewiesener Zusammenhang:} $\Delta f$ und $\Delta\tau$ sind Imaginär- und Realteil derselben komplexen Kopplungsimpedanz $Z_H(f)$, verknüpft durch Kramers-Kronig (Kausalität).
+
+\textbf{Optimale Resonanz ergibt schlechteste Ansprache:} Bei $f_H = n \cdot f_\text{Zunge}$ ist $R_H$ maximal, $X_H = 0$. Maximum der Energieextraktion bei Minimum der Frequenzverschiebung.
+
+\textbf{Die Frequenzverschiebung ist ein messbarer Indikator:}
+Großes $|\Delta f|$ $\to$ starke Kopplung, aber nicht kritisch.
+$\Delta f \to 0$ mit Vorzeichenwechsel $\to$ \textbf{schlechteste Ansprache}.
+$\Delta f \to 0$ ohne Vorzeichenwechsel $\to$ \textbf{beste Ansprache}.
+
+\textbf{Messvorschrift:} $f_\text{frei}$ vs.\ $f_\text{Kammer}$. Der Vorzeichenwechsel beim Variieren der Kammergeometrie markiert den Resonanzdurchgang.
+
+\textbf{Fehlende absolute Referenz:} $f_\text{frei}$ ist setup-abhängig. Das Vorstimm-Setup (Prüfblock, Blasdruck, Temperatur) definiert den lokalen Nullpunkt. Der Vorzeichenwechsel von $\Delta f$ ist setup-unabhängig -- er ist die physikalische Observable.
+
+\textbf{Kein Trade-off bei der Kammerabstimmung:} Optimale Abstimmung ($f_H$ zwischen Obertönen) verbessert Ansprache \textit{und} Lautstärke gleichzeitig, weil beide unter derselben Quelle ($R_H$) leiden. Der Trade-off zwischen Ansprache und Lautstärke liegt in der Zungengüte $Q_1$ (Material, Einspannung) -- nicht in der Kammer.
+
+\textbf{Die Berechnung sagt, wo man suchen soll. Das Setup definiert den Nullpunkt. Die Erfahrung sagt, was man findet.}
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Was man nicht messen kann, kann man nicht optimieren. Die Frequenzverschiebung ist die Messgröße -- das Setup ist die Eichung.}
+\end{center}
+
+\end{document}
