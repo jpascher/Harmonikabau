@@ -1,0 +1,146 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, left=3mm, right=3mm, top=2mm, bottom=2mm}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black, left=3mm, right=3mm, top=2mm, bottom=2mm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Dok. 0010 --- Güte der Stimmzunge}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small Zwei Verlustkanäle}
+
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+
+\begin{document}
+
+\begin{center}
+{\small Dok. 0010}\\[4pt]
+{\LARGE\bfseries\color{darkblue} Güte der Stimmzunge: Zwei Verlustkanäle}\\[6pt]
+{\large Luftkopplung vs.\ Einspannung --- und warum fast alles funktioniert}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Die Güte $Q$ der Stimmzunge bestimmt Ansprache und Klang (Dok.~0005, 0008). Die Energie der schwingenden Zunge verlässt das System über zwei Kanäle: (1)~Luftkopplung --- die Zunge als Impulsgenerator im Spalt, und (2)~mechanische Einspannung --- Biegezonen-Hysterese und Kontaktreibung am Niet. Die Berechnung zeigt, dass der Luftkanal mehr als 97\,\% der Gesamtverluste bestimmt. Die mechanische Einspannung trägt weniger als 3\,\% bei. Das erklärt, warum fast jede Materialkombination funktioniert --- und warum die Passgenauigkeit der Zunge im Schlitz die Ansprache weit stärker beeinflusst als das Plattenmaterial. Zahlenwerte sind Größenordnungsabschätzungen.}
+
+\vspace{4mm}
+
+\section{Zwei Verlustkanäle}
+
+Die Stimmzunge ist ein mechanischer Oszillator, der durch den Balgdruck in Schwingung gehalten wird. Die gespeicherte Schwingungsenergie verlässt die Zunge über zwei physikalisch verschiedene Kanäle:
+
+\textbf{Kanal~1 --- Luftkopplung (dominant):} Die Zunge schwingt durch den Spalt in der Stimmplatte und wirkt als Impulsgenerator. Bei jedem Durchschwung drückt sie Luft durch den Spalt. Die Verluste bestehen aus: (a)~akustischem Kurzschluss durch den Seitenspalt (Druckausgleich um die Zunge herum), (b)~Squeeze-Film-Dämpfung (viskose Kräfte im engen Spalt), (c)~Wirbelablösung an den Spaltkanten, (d)~Schallabstrahlung. Dieser Kanal ist materialunabhängig --- er hängt von der Spaltgeometrie ab, nicht vom Plattenmaterial.
+
+\textbf{Kanal~2 --- Mechanische Einspannung (sekundär):} Die Biegeschwingung der Zunge erzeugt an der Einspannung (Niet/Schraube) periodische Kräfte. In den Biegezonen --- Zunge am Fußpunkt, Platte unter dem Niet, Stimmstock unter der Platte --- wird bei jedem Zyklus ein Bruchteil der elastischen Energie durch innere Reibung (Hysterese, $\tan\delta$) in Wärme umgewandelt. Dazu kommt Kontaktreibung am Niet. Dieser Kanal hängt vom Material und der Einspannqualität ab.
+
+\section{Fall~A --- Gezupfte Zunge ohne Luftkanal}
+
+Um den mechanischen Kanal isoliert zu messen, betrachten wir eine Zunge, die gezupft wird und in stehender Luft nachschwingt --- ohne Kanal, ohne Balgdruck, ohne Strömung. Verluste: nur Materialhysterese ($\tan\delta_\text{Stahl} = 0{,}0002 \to Q = 5000$) und viskose Luftreibung an der Zungenoberfläche.
+
+Ergebnis: $Q \approx 4000$--$4400$. Im Instrument ist $Q \approx 50$--$200$.
+
+\begin{keybox}
+\textbf{Beweis:} $Q_\text{gezupft} \approx 4000$ vs.\ $Q_\text{Instrument} \approx 100$. Der Unterschied (Faktor 20--80) ist der Luftkanal. Praxistest: Zunge zupfen und Abklingverhalten beobachten --- die relative Dauer zwischen verschiedenen Zungen zeigt die Unterschiede in $Q_\text{mech}$.
+\end{keybox}
+
+\textbf{Anmerkung zu $\tau$:} Die Zeitkonstante $\tau = Q/(\pi f)$ ist eine Eigenschaft des Systems. Die tatsächlich hörbare Nachschwingzeit hängt zusätzlich von der eingebrachten Energie ab: $t_\text{hörbar} = \tau \cdot \ln(A_\text{Start}/A_\text{Schwelle})$. Beim Zupfen wird eine Auslenkung $x$ vorgegeben, nicht eine kontrollierte Energie. Die gespeicherte Energie ist $E = \tfrac{1}{2} k x^2$, wobei $k \propto EI/L^3$ die Federsteifigkeit der Zunge ist. Eine schwerere Zunge (steifere Feder) speichert bei gleicher Auslenkung mehr Energie $\to$ lauterer Start $\to$ länger hörbar --- auch bei gleichem $Q$. Bei Luftzuführung im Instrument ist es anders: Dort bestimmt der Balgdruck $\times$ Druckfläche die zugeführte Leistung kontinuierlich, nicht ein einmaliger Energiestoß.
+
+\section{Fall~B --- Spaltweite und Luftverluste}
+
+Im zweiten Extremfall nehmen wir eine ideale Einspannung ($Q_\text{mech} = \infty$) und betrachten nur die Luftverluste. Der Seitenspalt $s$ bestimmt zwei gegenläufige Effekte:
+
+\textbf{Enger Spalt $\to$ weniger Kurzschluss $\to$ mehr Antrieb} (gut). Der Seitenspalt hat den Querschnitt $A_\text{Spalt} = 2(L+W) \cdot s$ und den Poiseuille-Widerstand $R_\text{Spalt} = 12\,\mu\, h_\text{Platte} / (2(L+W) \cdot s^3)$. Die Antriebseffizienz ist der Druckteiler:
+\begin{equation}
+\eta = \frac{R_\text{Spalt}}{R_\text{Haupt} + R_\text{Spalt}}
+\end{equation}
+
+\textbf{Enger Spalt $\to$ mehr Squeeze-Dämpfung $\to$ mehr Bremse} (schlecht). Die Zunge verdrängt bei jedem Durchschwung das Volumen $Q = W \cdot t \cdot v_\text{tip}$, das durch den Seitenspalt abfließen muss. Der Poiseuille-Widerstand erzeugt einen Gegendruck, der die Zunge bremst.
+
+\textbf{Warum hohe Stimmplatten engere Spalte brauchen:} Die Hauptöffnung $A_\text{Haupt} = W \times x_\text{tip}$ sinkt mit kleinerer Zunge (Bass: 8\,mm$^2$, Sehr hoch: 0,5\,mm$^2$). Bei gleichem Seitenspalt wäre das Kurzschluss-Verhältnis $K = A_\text{Spalt}/A_\text{Haupt}$ für kleine Zungen viel größer --- der gesamte Balgdruck fließt durch den Seitenspalt ab. Deshalb muss $s$ proportional kleiner sein.
+
+\begin{warnbox}
+\textbf{Einschränkung:} Die berechneten Optima liegen systematisch höher als die Praxiswerte. Die Squeeze-Formel überschätzt die Bremswirkung, weil die Zunge sich beim Durchschwung biegt --- der Spalt ist nur am Fußpunkt eng, an der Spitze weiter. Die qualitative Aussage --- enger ist besser bis zur Squeeze-Grenze --- bleibt gültig.
+\end{warnbox}
+
+\section{Die mechanische Einspannung --- Lumped-Mass-Modell}
+
+Platte, Stimmstock und Prüfblock sind alle $\ll \lambda$ (Platte 40\,mm $\ll \lambda = 8$\,m bei 440\,Hz in Messing). Keine Wellenausbreitung in der Platte --- das Transmissionskoeffizienten-Modell (ebene Wellen an Grenzflächen) ist \textbf{falsch}. Stattdessen: \textbf{Lumped-Mass-Modell} --- die Platte wirkt als konzentrierte Masse.
+
+Die Impedanz einer konzentrierten Masse ist $Z = j\omega M$ --- rein imaginär, verlustfrei. Eine ideale Masse reflektiert 100\,\% der Schwingungsenergie. Verluste entstehen nur durch:
+
+\textbf{1.\ Biegezonen-Hysterese:} In den Zonen, wo Material periodisch verformt wird (Zunge am Fußpunkt, Platte unter dem Niet, Stimmstock unter der Platte), wird pro Zyklus ein Anteil $\tan\delta$ der elastischen Energie in Wärme umgewandelt. Je steifer und massiver die Einspannung, desto kleiner die Verformung, desto weniger Verlust.
+
+\textbf{2.\ Kontaktreibung am Niet/Schraube:} Die Querkraft am Einspannpunkt ($F \approx 0{,}25$\,N für A4 bei 1\,mm Amplitude) erzeugt Mikrobewegung an der Kontaktfläche. Niet (großflächig, fest gepresst): wenig Bewegung. Schraube (punktuell): mehr Mikro-Schlupf.
+
+\textbf{3.\ Übergangszone:} Zwischen Niet und freiem Biegungsende gibt es eine Zone von $\approx 0{,}05$--$0{,}2$\,mm, die weder fest eingespannt noch frei schwingend ist. Diese Zone wird beim Einspielen freigeräumt. Die Güte der Einspannung und die Frequenz hängen über diese Zone zusammen: Steifer Abschluss $\to$ schärfere Grenze $\to$ kürzeres $L_\text{eff}$ $\to$ minimal höhere Frequenz.
+
+\begin{keybox}
+\textbf{Konsequenz:} Je massiver und fester die Einspannung, desto höher $Q_\text{mech}$. Rangfolge: Prüfblock $>$ Schraubstock $>$ Stimmplatte auf Stimmstock $>$ Hand.
+\end{keybox}
+
+\section{Materialvergleich}
+
+Die Plattenmasse bestimmt $Q_\text{mech}$: Schwere Platte $\to$ höhere Impedanz $\to$ weniger Verformung $\to$ weniger Verlust. Bei $Q_\text{Luft} \approx 100$ ist $Q_\text{gesamt} = 1/(1/Q_\text{Luft} + 1/Q_\text{mech})$. Der Unterschied zwischen Messing und Magnesium beträgt weniger als 10\,\% in $Q_\text{gesamt}$ --- nicht hörbar.
+
+\section{Der Prüfblock}
+
+Der Prüfblock (5\,kg Stahl) ist der massivste Abschluss. Block (10\,cm) $\ll \lambda$ (11,6\,m bei 440\,Hz) $\to$ Lumped-Mass. $\tan\delta_\text{Stahl} = 0{,}0002$ $\to$ 50$\times$ weniger Dissipation als Holz. $Q_\text{mech}$ auf dem Prüfblock ist das höchste aller Konfigurationen.
+
+Der Klangunterschied Prüfblock vs.\ Instrument kommt \textbf{nicht} von der Impedanzkette, sondern von der fehlenden Kammer (kein Kerbfilter, Dok.~0008), der freien Abstrahlung und den anderen Strömungsverhältnissen. Die Frequenz bleibt gleich. Ansprache und Klangfarbe ändern sich wegen der Kammer, nicht wegen der Einspannung.
+
+\section{Grenzen der Berechnung}
+
+\textbf{1.}~$Q_\text{Luft} \approx 100$ ist geschätzt, nicht berechnet. \textbf{2.}~Die Squeeze-Film-Formel überschätzt die Bremswirkung (Zunge biegt sich). \textbf{3.}~Kontaktreibung am Niet und Stimmstock-Kopplung sind empirische Annahmen. \textbf{4.}~Plattenresonanzen fehlen.
+
+\section{Zusammenfassung}
+
+\begin{warnbox}
+\textbf{Einordnung:} Erklärungsmodell. Die Aufteilung in zwei Kanäle ist physikalisch fundiert. Absolute $Q$-Werte und Spaltgrenzen sind Größenordnungsabschätzungen.
+\end{warnbox}
+
+\begin{keybox}
+\textbf{1.\ Zwei Kanäle:} Luftkopplung $> 97\,\%$, Einspannung $< 3\,\%$. Beweis: Gezupfte Zunge $Q \approx 4000$, im Instrument $Q \approx 50$--$200$.
+
+\textbf{2.\ Spaltoptimum:} Enger $\to$ weniger Kurzschluss (gut), aber mehr Squeeze (schlecht). Kleine Zungen brauchen engere Spalte ($A_\text{Haupt}$ kleiner).
+
+\textbf{3.\ Einspannung:} Lumped-Mass. Fester = besser. Niet $>$ Schraube. Prüfblock hat höchstes $Q_\text{mech}$.
+
+\textbf{4.\ Warum fast alles funktioniert:} Der Luftkanal dominiert und ist materialunabhängig. Verdopplung von $Q_\text{mech}$ ändert $Q_\text{gesamt}$ um $< 3\,\%$.
+
+\textbf{5.\ Rangfolge:} 1.~Spaltweite Zunge/Schlitz (dominant). 2.~Kammergeometrie (Dok.~0005--0008). 3.~Niet vs.\ Schraube. 4.~Plattenmaterial (gering). 5.~Stimmstock (noch geringer). 6.~$\tan\delta_\text{Stahl}$ (vernachlässigbar).
+\end{keybox}
+
+\vspace{4mm}
+\textbf{Abschließende Bemerkung:} Dieses Dokument weist jedem Einzeleffekt seinen Anteil zu und stuft die meisten als vernachlässigbar ein. Das ist rechnerisch korrekt --- aber es unterschätzt die Summe. Plattenmaterial 3\,\%, Stimmstock 1\,\%, Gehäuseschwingung 0,5\,\%, Wachsalterung 0,5\,\%, Nietqualität 1\,\%, Plattenresonanzen 1\,\% --- jeder Einzelposten rechtfertigt keine Aufmerksamkeit. Aber zehn solcher Posten summieren sich auf 10--30\,\%, und sie summieren sich nicht einfach linear: Wie beim Schmetterlingseffekt können kleine Kopplungen zwischen den Effekten das Ergebnis verstärken oder abschwächen, ohne dass man den einzelnen Beitrag als bedeutsam erkennen würde.
+
+Dazu kommt ein Aspekt, den dieses Dokument nicht behandelt: \textbf{Alterung}. Wachs verändert seine Festigkeit über Jahre. Leimfugen im Gehäuse --- speziell bei Knochenleim --- brechen durch die Vibrationen, denen das Gehäuse dauerhaft ausgesetzt ist, langsam ein. Das Einspielen eines Instruments ist kein Mythos: Die Übergangszone an der Einspannung räumt sich frei (Kap.~4), Leimfugen setzen sich, das Holz des Stimmstocks und Gehäuses verändert seine Dämpfungseigenschaften unter zyklischer Belastung. Ein absolut schwingungsfreies Gehäuse gibt es nicht --- es ist Teil des Systems.
+
+Der Spielraum zwischen einem guten und einem sehr guten Instrument ist minimal --- aber wahrnehmbar. Zu sagen, der Stimmstock oder das Schwingverhalten des Gehäuses hätten keinen merklichen Einfluss, ist wahrscheinlich übertrieben. Die Berechnung zeigt die Rangfolge. Die Summe der kleinen Dinge, die kein Modell einzeln erfasst, macht den Unterschied, den der Instrumentenbauer hört und der Spieler fühlt.
+
+Dieses Dokument liefert Größenordnungen, um die relevanten Faktoren einzuschätzen. Es ersetzt nicht die Praxis des Stimmers und das geschulte Ohr. Im Vergleich von Stimmplatten hört man alle Feinheiten, die messtechnisch mit realistischem Aufwand praktisch unmöglich zu erfassen sind. Erfahrung und Gehörschulung sind der Schlüssel zum Erfolg.
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Die Zunge gibt ihre Energie der Luft --- nicht der Platte. Die Platte hält die Zunge. Die Luft macht den Klang.}
+\end{center}
+
+\end{document}
