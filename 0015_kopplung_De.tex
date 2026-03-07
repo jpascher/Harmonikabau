@@ -1,0 +1,285 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[margin=25mm]{geometry}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+
+\title{\textcolor{darkblue}{Dok. 0015\\Akustische Kopplung und Impedanzanpassung}}
+\author{Harmonikabau — Technische Dokumentation}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{Hinweis:} Dieses Dokument bietet ein Erklärungsmodell.
+Die angegebenen Zahlenwerte sind Größenordnungsabschätzungen ---
+sie liefern keine konstruktiv verwertbaren Vorgaben.
+Das Optimum wird gehört, nicht berechnet.
+\end{tcolorbox}
+
+\noindent\textit{Analyse der akustischen Kopplung zwischen Stimmzunge und Kammer als
+Zwei-Port-System. Übergangsgeometrie, Verengung als akustische Masse,
+Kopplungsschwerpunkt und Impedanzfehlanpassung.
+Referenz: Dok.~0005--0013.}
+
+\section{Die Kammer als Zwei-Port-System}
+
+In den bisherigen Dokumenten (Dok.~0004--0008) wurde die Kammer als
+Helmholtz-Resonator mit einer einzigen Öffnung (Klappe) behandelt.
+Dok.~0013 hat gezeigt, dass die Zunge den Kanal nie vollständig verschließt ---
+der Seitenspalt bleibt immer offen. Die Kammer hat daher \textbf{zwei Ports}:
+
+\textbf{Port~1 (Zungenende):} Die Zunge pulsiert und erzeugt Druckimpulse.
+Die effektive Fläche schwankt zwischen dem Seitenspalt
+($A_\mathrm{min} \approx 10~\mathrm{mm}^2$) und der Schlitzfläche
+($A_\mathrm{max} \approx 26~\mathrm{mm}^2$).
+
+\textbf{Port~2 (Klappe):} Stationäre Öffnung mit $A_2 \approx 300~\mathrm{mm}^2$.
+Hier strahlt der Schall ab.
+
+Die Conductance (Leitwert) $G = A/l$ bestimmt, wie leicht Luft durch jeden
+Port fließt. Port~1 (Zunge) hat zeitgemittelt etwa 70\,\% der Gesamt-Conductance ---
+die Zunge ist der Hauptport, nicht die Klappe.
+
+\begin{equation}
+f_H = \frac{c}{2\pi}\sqrt{\frac{S_1/l_1 + S_2/l_2}{V}}
+\end{equation}
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Konsequenz:} Alle Berechnungen in Dok.~0004--0008, die $f_H$ nur aus der
+Klappenöffnung ableiten, müssen als Untergrenze verstanden werden.
+Die tatsächliche Kammerresonanz liegt höher.
+\end{tcolorbox}
+
+\section{Ist die Faltung akustisch sichtbar?}
+
+Bei einem Bass mit 50\,Hz beträgt die Wellenlänge $\lambda = c/f = 6860$\,mm.
+Die größte Kammerabmessung (Kammerlänge 120\,mm) ist nur 1,7\,\% von $\lambda$.
+Eine Faltwand (30\,mm) ist 0,44\,\% von $\lambda$.
+
+Wenn $d/\lambda < 0{,}1$, beugt sich die Welle vollständig um das Hindernis ---
+es existiert akustisch nicht. Bei $d/\lambda > 0{,}5$ wirkt es als Reflektor.
+
+Bei 50\,Hz liegen \textbf{alle} Kammergeometrien tief im Bereich $d \ll \lambda$.
+Erst ab $\approx 1400$\,Hz (28.~Oberton) beginnt die Faltwand die Grenze
+$d/\lambda = 0{,}1$ zu erreichen.
+
+Die Analogie zum Lichtwellenleiter bestätigt dies: Ein glattes, rundes Rohr
+mit konstantem Querschnitt hat keinen Reflexionsfaktor --- die Welle folgt
+der Kurve, solange der Biegeradius groß gegen die Wellenlänge ist.
+
+\textbf{Coltman-Korrektur:} Coltman kompensiert nicht die Biegung selbst,
+sondern die Querschnittsänderung und Pfadlängendifferenz an der Faltstelle.
+$Z = \rho c / A$ bleibt konstant bei konstantem Querschnitt.
+Die Pfadlängenkorrektur skaliert mit $d^2/r$ --- bei $d/\lambda < 0{,}01$
+ist sie vernachlässigbar.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Fazit:} In der Basskammer spielt die Faltung für den Grundton und die
+ersten Obertöne keine Rolle. Die Anpassung geschieht an den Öffnungen
+(Port~1 und Port~2), nicht an der Faltung.
+\end{tcolorbox}
+
+\section{Verengung = akustische Masse}
+
+Jede Querschnittsverkleinerung im Kanal wirkt als konzentrierte akustische Masse:
+$m = \rho \times l / A$. Das gilt unabhängig davon, ob die Verengung in einem
+geraden Rohr, an einer Faltstelle oder am Übergang Schlitz$\to$Kammer sitzt.
+
+Die Coltman-Kompensation bei gefalteten Orgelpfeifen ist im Kern eine
+Verengung an der Umlenkstelle. Der Mechanismus ändert sich
+(Wellenleiter vs.\ Lumped Element), das physikalische Element
+(Verengung = Masse) bleibt dasselbe.
+
+\section{Druckaufbau vor der Engstelle}
+
+Der Druckimpuls der Zunge staut sich vor der Engstelle am Übergang
+Schlitz$\to$Kammer. Drei Szenarien:
+
+\textbf{Zu weit:} Druck entweicht sofort ins Volumen --- schwache Rückwirkung,
+geringe Kopplung.
+
+\textbf{Optimal:} Druck staut sich kurz auf --- maximale Rückwirkung,
+beste Kopplung.
+
+\textbf{Zu eng:} Impuls wird überwiegend reflektiert --- Energie kommt
+nicht ins Volumen.
+
+\section{Impedanzanpassung: Übergangsgeometrie als Transformator}
+
+Die Beobachtung, dass verschiedene Übergangsgeometrien die \textbf{Ansprache}
+ändern, aber nicht die \textbf{Filterwirkung}, lässt sich sauber als
+Anpassungsproblem modellieren:
+
+\textbf{Quelle:} Der Balgdruck $p_\mathrm{Balg}$ mit einem Innenwiderstand $R_i$,
+der vom Strömungswiderstand des Systems abhängt. $R_i \propto 1/A^2$ (Bernoulli).
+
+\textbf{Last:} Die Zunge mit mechanischer Impedanz $R_L$ (fix, von Steifigkeit
+und Masse bestimmt, Dok.~0012).
+
+\textbf{Transformator:} Die Übergangsgeometrie am Zungenende bestimmt,
+wie effizient die Energie der Strömung in Zungenenergie umgesetzt wird.
+
+\begin{equation}
+P / P_\mathrm{max} = \frac{4 \, R_L \, R_i}{(R_i + R_L)^2}
+\end{equation}
+
+Maximum bei $R_i = R_L$ --- klassische Anpassungsbedingung.
+Zu eng: $R_i \gg R_L \to$ Blockade. Zu weit: $R_i \ll R_L \to$ Kurzschluss.
+Optimal: $R_i = R_L \to$ maximaler Leistungstransfer Balg$\to$Zunge.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Entscheidend:} Die Filterwirkung ($f_H$, Kerbfilter) hängt vom
+Resonator ab --- Kammervolumen und Öffnungsfläche. Der Transformator
+(Übergangsgeometrie) ändert die Anpassungseffizienz, nicht die Resonanz.
+Das ist genau das, was man beobachtet: andere Ansprache, gleiche Klangfarbe.
+\end{tcolorbox}
+
+\section{Ersatzschaltbild: Zwei gekoppelte Schwingkreise}
+
+Die Trennung von Ansprache und Filterwirkung lässt sich als
+elektroakustische Analogie exakt darstellen. Zunge und Kammer sind je
+ein Serienschwingkreis (RLC), verbunden durch ein Kopplungselement:
+
+\textbf{Kreis 1 (Zunge):} Masse $m \to$ Induktivität $L_1$.
+Steifigkeit $k \to$ Kapazität $C_1 = 1/k$.
+Dämpfung $\to$ Widerstand $R_1$.
+$f_1 = 1/(2\pi\sqrt{L_1 C_1}) \approx 50$~Hz.
+
+\textbf{Kreis 2 (Kammer):} Akustische Masse $\rho l/A \to L_2$.
+Volumennachgiebigkeit $V/(\rho c^2) \to C_2$.
+$f_H = 1/(2\pi\sqrt{L_2 C_2})$.
+
+\textbf{Kopplung:} Gegenseitige Impedanz $M = k \times \sqrt{L_1 L_2}$.
+Der Kopplungskoeffizient $k$ (0--1) wird von der Übergangsgeometrie bestimmt.
+
+Die Transferfunktion $H(f) = I_2 / V_1$ zeigt zwei Resonanzpeaks (bei $f_1$ und $f_H$).
+Entscheidend: $k$ ändert die \textbf{Höhe} der Peaks (Energietransfer = Ansprache),
+aber nicht ihre \textbf{Position} (Frequenz = Filterwirkung). Umgekehrt
+verschiebt $C_2$ (Kammervolumen) den $f_H$-Peak, ohne die Ansprache zu ändern.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Berechenbar:} Mit den physikalischen Werten (Masse, Steifigkeit,
+Volumen, Öffnungsfläche) ergibt sich die Transferfunktion quantitativ.
+$k$ bestimmt Ansprache, $C_2$ bestimmt Filterwirkung ---
+diese Parameter sind unabhängig.
+\end{tcolorbox}
+
+\section{Klappenposition --- Feinkorrektur}
+
+Die Klappenöffnung kann in der Praxis um einige Millimeter bis maximal
+einen Zentimeter vom Kammerende versetzt werden. Die Verschiebung ändert
+die effektive akustische Länge des Halses und damit $f_H$.
+
+Im Praxisbereich (0--15\,mm) verschiebt sich $f_H$ um wenige Prozent.
+Die Klappenposition ist eine Feinkorrektur --- der Haupthebel liegt am
+Zungenende (Port~1), wo 70\,\% der Conductance sitzen.
+
+\section{Grenzen des Modells}
+
+Das Zwei-Port-Modell zeigt Zusammenhänge und Richtungen.
+Es sagt nicht, wo das Optimum liegt.
+
+\textbf{(a) Nichtlinearität:} Die Zunge schaltet periodisch zwischen
+kleiner und großer Öffnung. Die tatsächliche Impedanzmodulation
+(Dok.~0013) ist hochgradig nichtlinear.
+
+\textbf{(b) Klangziel:} Das ``optimale'' Spektrum hängt vom gewünschten
+Klangcharakter ab. Die Berechnung zeigt die Landkarte, den Weg geht das Ohr.
+
+\textbf{(c) Wechselwirkungen:} Spaltweite (Dok.~0010), Steifigkeit (Dok.~0012),
+Kammervolumen, Klappenöffnung und Übergangsgeometrie wirken zusammen.
+
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{Dieses Dokument ist ein Erklärungsmodell, keine Konstruktionsanleitung.
+Konstruktionsentscheidungen erfordern nach wie vor praktische Tests und Erfahrung.}
+\end{tcolorbox}
+
+\section{Wo koppelt die Zunge? --- Schwerpunkt des Volumenstroms}
+
+Die Annahme, dass die Kopplung am absoluten Ende der Zunge (Spitze) erfolgt,
+ist eine Vereinfachung. Die Zunge ist ein Cantilever --- ihre Schwingform
+folgt der ersten Euler-Bernoulli-Biegemode.
+
+Der Volumenstrom pro Längeneinheit $\mathrm{d}Q/\mathrm{d}x \propto y(x)$
+steigt steil zum Ende hin an. Der gewichtete \textbf{Schwerpunkt des
+Volumenstroms} liegt bei $x/L = 0{,}73$ --- nicht an der Spitze ($x/L = 1{,}0$).
+50\,\% des gesamten Volumenstroms entstehen erst in den letzten 23\,\%
+der Zungenlänge.
+
+Für eine Bass-Zunge mit $L = 70$\,mm liegt der Schwerpunkt bei 51\,mm
+von der Einspannung --- ca.\ 19\,mm vor der Spitze.
+
+\subsection{Impedanzfehlanpassung}
+
+Die mechanische Impedanz der Zunge und die akustische Impedanz der Luft
+unterscheiden sich um Größenordnungen. Die Zunge ist ein
+\textbf{Strom-Generator} (hohe Impedanz) --- sie erzwingt einen Volumenstrom,
+den die Luft aufnimmt.
+
+$Z_\mathrm{Zunge}$ liegt Faktor 50--500 über $Z_\mathrm{Luft}$.
+Die Kopplung ist \textbf{nicht angepasst} im Sinne eines maximalen
+Leistungstransfers ($Z_\mathrm{Quelle} = Z_\mathrm{Last}$).
+Das ist physikalisch richtig so: Die Zunge ist selbsterregt und schwingt
+auf ihrer Eigenfrequenz, nicht auf der Kammerresonanz. Die Luft wird
+``mitgenommen'', nicht ``angetrieben''.
+
+Dies steht im Einklang mit Dok.~0010: Über 97\,\% der Energieabgabe erfolgt
+über die Luftkopplung, weniger als 3\,\% über die mechanische Einspannung.
+
+\subsection{Konsequenz: Position der Plattenkante}
+
+Wenn die Stimmplatte die volle Zungenlänge abdeckt, koppelt der gesamte
+Schlitz in die Kammer. Ragt die Zunge über die Plattenkante hinaus (Aufbiegung),
+geht der energiereichste Teil --- die letzten 20--30\,\% der Zunge ---
+an der Kammer vorbei, direkt in den freien Raum.
+
+Die Position der Plattenkante relativ zur Zunge bestimmt daher, welcher Anteil
+des Volumenstroms in die Kammer eingekoppelt wird und welcher Anteil
+direkt abstrahlt.
+
+\section{Zusammenfassung}
+
+\begin{enumerate}
+\item \textbf{Zwei-Port-System:} Die Kammer ist beidseitig offen.
+  Port~1 (Zunge) trägt $\approx 70\,\%$ der Conductance.
+  Das Ein-Port-Modell unterschätzt $f_H$.
+\item \textbf{Faltung unsichtbar:} Bei 50\,Hz ist die größte Kammerabmessung
+  1,7\,\% von $\lambda$. Die Kammerform spielt keine Rolle ---
+  nur das Volumen zählt.
+\item \textbf{Impedanzanpassung:} Die Übergangsgeometrie wirkt als Transformator
+  zwischen Balgdruck (Quelle) und Zunge (Last). Maximaler Leistungstransfer
+  bei $R_i = R_L$. Die Filterwirkung ($f_H$) hängt vom Resonator ab,
+  nicht vom Transformator.
+\item \textbf{Ersatzschaltbild:} Zunge und Kammer bilden zwei gekoppelte
+  RLC-Schwingkreise. $k$ bestimmt die Ansprache (Energietransfer),
+  $C_2 = V/(\rho c^2)$ bestimmt die Filterwirkung ($f_H$).
+  Diese Parameter sind unabhängig.
+\item \textbf{Klappenposition = Feinkorrektur:} Wenige Prozent $f_H$-Verschiebung.
+  Der Haupthebel liegt am Zungenende.
+\item \textbf{Schwerpunkt bei $x/L = 0{,}73$:} Die Kopplung sitzt nicht an
+  der Zungenspitze, sondern $\approx 27\,\%$ davor.
+  Die Position der Plattenkante bestimmt die Einkopplung.
+\item \textbf{$Z_\mathrm{Zunge} \gg Z_\mathrm{Luft}$:} Die Zunge ist ein
+  Strom-Generator. Die Impedanzen sind nicht angepasst --- die Luft wird
+  mitgenommen, nicht angetrieben.
+\item \textbf{Optimum wird gehört:} Die Berechnung zeigt Zusammenhänge und
+  Richtungen. Erfahrung und Gehörschulung bleiben der Schlüssel zum Erfolg.
+\end{enumerate}
+
+\bigskip
+\textit{Die Zunge speist, die Kammer formt, die Klappe strahlt ab.
+Die Geometrie am Übergang bestimmt die Kopplung.}
+
+\end{document}

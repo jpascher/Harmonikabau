@@ -1,0 +1,62 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{booktabs,xcolor,float,fancyhdr,titlesec,hyperref,siunitx,tcolorbox}
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, left=3mm, right=3mm, top=2mm, bottom=2mm}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black, left=3mm, right=3mm, top=2mm, bottom=2mm}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Dok. 0012 --- Zungensteifigkeit}
+\fancyhead[R]{\small\thepage}
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+
+\begin{document}
+\begin{center}
+{\small Dok. 0012}\\[4pt]
+{\LARGE\bfseries\color{darkblue} Zungensteifigkeit, Verstimmung und Ansprache}\\[6pt]
+{\large Warum der Stimmer einen Kompromiss sucht}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Die Steifigkeit der Stimmzunge bestimmt zwei Eigenschaften, die einander widersprechen: Ansprache und Stimmstabilität. Eine weiche Zunge spricht leichter an, verstimmt aber stärker mit dem Balgdruck. Eine steife Zunge hält den Ton stabiler, braucht aber mehr Druck zum Anschwingen.}
+
+\section{Steifigkeit und Frequenz}
+
+Frequenz und Steifigkeit hängen beide von der Geometrie ab, aber \textbf{unterschiedlich stark}:
+\begin{equation}
+f \propto \frac{t}{L^2}, \qquad k = \frac{E \cdot W \cdot t^3}{4 \cdot L^3}
+\end{equation}
+Die Steifigkeit $k$ hängt \textbf{kubisch} von $t$ ab, die Frequenz nur linear. 10\,\% dünner = 27\,\% weicher, aber nur 10\,\% tiefer.
+
+\section{Verstimmung durch Balgdruck}
+
+Der Bernoulli-Effekt erzeugt eine ``negative Feder'': $k_\text{eff} = k_\text{Zunge} - k_\text{Bernoulli}(p)$. Die Frequenzverschiebung: $\Delta f/f \approx -k_\text{Bernoulli}/(2 \cdot k_\text{Zunge})$.
+
+\begin{keybox}
+\textbf{Ergebnis:} Bass (k $\approx$ 80--150\,N/m): 4--11\,Cent/kPa (hörbar). Diskant (k $\approx$ 250--400\,N/m): 0,3--0,8\,Cent/kPa (kaum hörbar).
+\end{keybox}
+
+\section{Der Kompromiss}
+
+$\Delta f \times p_\text{threshold} \approx \text{const}$ --- gute Ansprache und stabile Stimmung widersprechen sich physikalisch.
+
+\section{Stimmgewicht vs. Verdünnung}
+
+\textbf{Masse hinzufügen:} Senkt $f$, $k$ bleibt → gleiche Verstimmung. \textbf{Verdünnen:} Senkt $f$ und $k$ ($k \propto t^3$) → 37\,\% mehr Verstimmung bei 10\,\% Verdünnung.
+
+\section{Zusammenfassung}
+\begin{keybox}
+1.~$k \propto t^3$: Kubische Kopplung. 2.~Verstimmung $\propto 1/k$. 3.~$\Delta f \times p_\text{th} \approx$ const. 4.~Stimmgewicht ist stimmstabiler als Verdünnung. 5.~Profilierung entkoppelt Masse und Steifigkeit.
+\end{keybox}
+
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Die Zunge sucht ihr Gleichgewicht zwischen Freiheit und Kontrolle --- genau wie der Spieler.}
+\end{center}
+\end{document}

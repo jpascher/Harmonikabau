@@ -1,0 +1,134 @@
+\documentclass[11pt,a4paper]{article}
+\RequirePackage{fontspec}
+\usepackage[ngerman]{babel}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+\definecolor{warnred}{HTML}{c62828}
+
+\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, left=3mm, right=3mm, top=2mm, bottom=2mm}
+\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black, left=3mm, right=3mm, top=2mm, bottom=2mm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Dok. 0011 --- Kanalgeometrie der Stimmplatte}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small Torsion, konische Erweiterung und Energiezufuhr}
+
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+
+\begin{document}
+
+\begin{center}
+{\small Dok. 0011}\\[4pt]
+{\LARGE\bfseries\color{darkblue} Kanalgeometrie der Stimmplatte}\\[6pt]
+{\large Torsion, konische Erweiterung und Energiezufuhr}\\[4pt]
+\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
+\end{center}
+{\small\itshape Der Schlitz in der Stimmplatte, durch den die Zunge schwingt, ist nicht nur ein geometrischer Rahmen --- er bestimmt über die Spaltgeometrie die Energiezufuhr, begrenzt durch Torsionsschwingungen die minimale Spaltweite, und verändert bei konischer Erweiterung den akustischen Kurzschluss. Plattendicken: 2\,mm (C6) bis 15\,mm (50\,Hz). Bei voller Lautstärke schwingt die Zunge mindestens doppelt so weit wie die Plattendicke --- die Energiezufuhr erfolgt nur während des Kanaldurchgangs.}
+
+\vspace{4mm}
+
+\section{Die Zunge schwingt über den Kanal hinaus}
+
+Die Stimmzunge biegt sich auf und schwingt durch den Schlitz der Stimmplatte hindurch. Bei voller Lautstärke beträgt die Amplitude $x_\text{tip}$ mindestens das 1,2--1,5-fache der Plattendicke $h$. Der Gesamthub beträgt $2 \times x_\text{tip} \geq 2h$.
+
+Die Energiezufuhr durch den Balgdruck erfolgt \textbf{nur}, solange sich die Zunge im Kanal befindet. Oberhalb und unterhalb des Kanals gibt es keinen Druckunterschied --- die Zunge schwingt dort frei.
+
+\textit{Diagramme: siehe PDF (7 Abbildungen).}
+
+\section{Duty Cycle --- Zeitanteil im Kanal}
+
+\begin{equation}
+\text{Duty} = \frac{2}{\pi} \cdot \arcsin\!\left(\frac{h}{2\,x_\text{tip}}\right)
+\end{equation}
+
+Bei $x_\text{tip} = 1{,}3 \times h$ ergibt sich Duty $\approx 25\,\%$. Die Zunge ist nur ein Viertel der Zeit im Kanal. Sie passiert den Kanal nahe dem Nulldurchgang, wo die Geschwindigkeit \textbf{maximal} ist ($v = \omega \cdot x_\text{tip}$). Die mittlere Geschwindigkeit während des Kanaldurchgangs ist $\approx 1{,}5\times$ höher als über den gesamten Zyklus.
+
+\begin{keybox}
+\textbf{Für den Vergleich} verschiedener Kanalgeometrien (parallel vs.\ Konus) zählt nur der Kanalbereich. Da beide denselben Duty Cycle haben, ist der relative Vergleich gültig.
+\end{keybox}
+
+\section{Torsionsschwingung --- der Mindestspalt}
+
+Neben der Biege-Grundmode besitzt die Zunge eine Torsionsmode ($f_T = 5$--$14 \times f_\text{Biege}$). Bei transientem Anblasen wird die Torsion kurzzeitig angeregt. Die seitliche Auslenkung bei $\theta = 1°$: $y_\text{seitlich} = \theta \cdot W/2 = 0{,}04$--$0{,}10$\,mm --- im selben Bereich wie der Seitenspalt.
+
+\begin{keybox}
+\textbf{Konsequenz:} Der Mindestspalt wird durch die Torsionsamplitude bei transientem Anblasen begrenzt, nicht durch die Fertigungstoleranz allein. Bass: $s_\text{min} \approx 0{,}10$--$0{,}15$\,mm. Hoch: $s_\text{min} \approx 0{,}05$\,mm.
+\end{keybox}
+
+\section{Konische Kanalerweiterung}
+
+Um der Torsion Platz zu geben, ohne den oberen Spalt zu vergrößern: $s(z) = s_0 + (s_1 - s_0) \cdot z/h$. Kosten: Spaltwiderstand sinkt, Antriebseffizienz sinkt.
+
+Der Konus-Effekt skaliert mit dem \textbf{Konuswinkel}, nicht mit der absoluten Erweiterung:
+
+\begin{itemize}
+\item Bass ($h = 15$\,mm): 0,04\,mm Erweiterung $\to$ Winkel 0,15° $\to$ $-3\,\%$ Antrieb (vernachlässigbar)
+\item C6 ($h = 2$\,mm): 0,04\,mm Erweiterung $\to$ Winkel 1,15° $\to$ $-5$\,\% Antrieb (spürbar)
+\end{itemize}
+
+\begin{keybox}
+\textbf{Kernaussage:} Die konische Erweiterung ist bei dünnen Platten (Diskant/Hoch) kritischer als im Bass. Dieselbe absolute Erweiterung ergibt bei 2\,mm Plattendicke einen 8$\times$ steileren Winkel als bei 15\,mm.
+\end{keybox}
+
+\section{Antriebsfläche --- warum dicke Platten nötig sind}
+
+Die Antriebskraft $F = \Delta p \times W \times h$. Bass 50\,Hz: $F = 150$\,mN ($10 \times 15$\,mm). C6: $F = 7$\,mN ($3{,}5 \times 2$\,mm). Faktor 21$\times$. Das kompensiert die schwerere Basszunge.
+
+\section{Warum zu dicke Platten bei hohen Tönen schaden}
+
+Die Erfahrung zeigt, dass Stimmplatten bei sehr hohen Tönen nicht zu dick sein dürfen. Eine 4-mm-Platte für C6 funktioniert schlechter als eine 2-mm-Platte. Die Erklärung:
+
+\textbf{Effekt~1 --- Der Antrieb sättigt:} $\eta = R_\text{Spalt}/(R_\text{Haupt} + R_\text{Spalt})$ steigt mit $h$, nähert sich aber asymptotisch 100\,\%. Bei C6 ($s = 0{,}025$\,mm) ist $\eta > 90\,\%$ schon bei $h \approx 1$\,mm. Mehr Dicke bringt kaum noch mehr Antrieb.
+
+\textbf{Effekt~2 --- Die Squeeze-Bremse wächst quadratisch:} $R_\text{sq} \propto h$ (längerer Kanal), Bremsfläche $\propto h$. Ergebnis: $P_\text{squeeze} \propto h^2$. Je enger der Spalt, desto steiler der Anstieg ($\propto 1/s^3$). Hohe Töne mit engem Spalt reagieren besonders empfindlich.
+
+\textbf{Effekt~3 --- Luftmassen-Trägheit:} Die Luftsäule im Schlitz hat $m = \rho \cdot W \cdot s \cdot h$. Beschleunigungskraft $F = m \cdot \omega^2 \cdot x_\text{tip}$. Dieser Term wächst mit $h \times \omega^2$. Bei 50\,Hz: $\omega^2 \approx 10^5$. Bei 1000\,Hz: $\omega^2 \approx 4 \times 10^7$ --- 400$\times$ größer.
+
+\begin{keybox}
+\textbf{Warum die Praxis stimmt:} Bei C6 ist $\eta$ schon bei 1\,mm $> 90\,\%$ --- mehr Dicke bringt kaum Antrieb, aber die Squeeze-Bremse wächst quadratisch weiter. Bei Bass ist $\eta$ erst bei $\approx 5$\,mm $> 90\,\%$. Dazu: $R_\text{squeeze} \propto 1/s^3$ ist beim Bass ($s = 0{,}06$\,mm) 14$\times$ kleiner als bei C6 ($s = 0{,}025$\,mm).
+\end{keybox}
+
+\begin{warnbox}
+\textbf{Einschränkung:} Das Squeeze-Modell überschätzt die Bremswirkung (Dok.~0010). Die relative Aussage --- hohe Töne reagieren empfindlicher auf zu dicke Platten --- ist physikalisch fundiert und deckt sich mit der Erfahrung.
+\end{warnbox}
+
+\textit{Diagramme: siehe PDF (Abb.~8--10).}
+
+\section{Zusammenfassung}
+
+\begin{keybox}
+\textbf{1.\ Duty Cycle $\approx 25\,\%$:} Die Zunge ist nur ein Viertel der Zeit im Kanal --- bei maximaler Geschwindigkeit (Nulldurchgang).
+
+\textbf{2.\ Torsion bestimmt den Mindestspalt:} Seitliche Auslenkung 0,04--0,10\,mm bei transientem Anblasen.
+
+\textbf{3.\ Konische Erweiterung:} Nutzen: Platz für Torsion. Kosten: Skaliert mit dem Konuswinkel --- bei Bass vernachlässigbar, bei C6 erheblich.
+
+\textbf{4.\ Antriebsfläche:} $F \propto W \times h$. Dicke Bassplatten liefern 21$\times$ mehr Kraft als C6.
+
+\textbf{5.\ Zu dicke Platten schaden bei hohen Tönen:} Der Antrieb sättigt ($\eta \to 100\,\%$), aber die Squeeze-Bremse wächst quadratisch ($\propto h^2$) und die Luftträgheit wächst mit $h \times \omega^2$. Die Praxis-Dicken (2\,mm bei C6, 15\,mm bei Bass) sind durch dieses Gleichgewicht bestimmt.
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Der Kanal ist nicht nur ein Schlitz --- er ist der Ort, an dem Druck zu Bewegung wird.}
+\end{center}
+
+\end{document}

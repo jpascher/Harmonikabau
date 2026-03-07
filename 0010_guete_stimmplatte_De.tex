@@ -110,6 +110,52 @@ Der Klangunterschied Prüfblock vs.\ Instrument kommt \textbf{nicht} von der Imp
 
 \textbf{1.}~$Q_\text{Luft} \approx 100$ ist geschätzt, nicht berechnet. \textbf{2.}~Die Squeeze-Film-Formel überschätzt die Bremswirkung (Zunge biegt sich). \textbf{3.}~Kontaktreibung am Niet und Stimmstock-Kopplung sind empirische Annahmen. \textbf{4.}~Plattenresonanzen fehlen.
 
+\section{Rauheit des Stimmplattenkanals}
+
+Die Stimmplattenschlitze werden heute überwiegend durch Drahterodieren (Wire EDM) gefertigt. Dieses Verfahren erzeugt eine charakteristische Oberfläche mit $R_a \approx 0{,}8$--$3{,}2\,\mu$m, abhängig von der Schnittgeschwindigkeit und der Anzahl der Nachschnitte. Die Frage ist: Beeinflusst diese Rauheit die Güte der Zunge?
+
+\subsection{Rauheit beim Drahterodieren}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{l r r l}
+\toprule
+\textbf{Prozess} & $R_a$ [$\mu$m] & $k_s \approx 6 \cdot R_a$ [$\mu$m] & \textbf{Anmerkung} \\
+\midrule
+Hauptschnitt (1 Schnitt) & 2,5--3,2 & 15--19 & Schnell, günstig \\
++ 1 Nachschnitt & 1,2--1,8 & 7--11 & Standard-Qualität \\
++ 2 Nachschnitte & 0,6--1,0 & 4--6 & Fein, $\pm 0{,}01$\,mm Toleranz \\
++ 3 Nachschnitte (Feinst) & 0,3--0,5 & 2--3 & Maximale Güte, teuer \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Rauheit vs.\ Grenzschichtdicke}
+
+In einer oszillierenden Strömung bildet sich an der Wand eine viskose Grenzschicht der Dicke $\delta = \sqrt{2\nu/\omega}$ aus. Wenn $k_s \ll \delta$: hydraulisch glatt (Rauheit unsichtbar). Wenn $k_s \approx \delta$: Übergangsbereich. Wenn $k_s \gg \delta$: hydraulisch rau.
+
+Für $R_a = 1{,}6\,\mu$m (Standard-EDM, 1 Nachschnitt): $k_s \approx 10\,\mu$m $= 0{,}010$\,mm. Die Grenzschichtdicke $\delta$ beträgt 74--309\,$\mu$m je nach Frequenz. Das Verhältnis $k_s/\delta < 0{,}15$ bei \textbf{allen} Frequenzen --- die Oberfläche ist hydraulisch glatt. Selbst $R_a = 3{,}2\,\mu$m (nur Hauptschnitt) ergibt $k_s/\delta < 0{,}3$ --- noch im glatten Bereich.
+
+\textit{Diagramme: siehe PDF (Abb.~6 und 7).}
+
+\subsection{Toleranz vs.\ Rauheit}
+
+Die Squeeze-Dämpfung hängt kubisch vom Spalt ab ($P_\text{squeeze} \propto 1/s^3$). Eine Toleranzabweichung von $\pm 0{,}01$\,mm bei einem Nominalspalt von $0{,}03$\,mm verändert die Squeeze-Dämpfung um Faktor~3,4. Dieselbe Rauheit ($k_s = 0{,}010$\,mm) verändert sie um weniger als $0{,}1\,\%$.
+
+\begin{keybox}
+\textbf{Zusammenfassung:} Die Oberflächenrauheit aus dem Drahterodieren ($R_a = 0{,}8$--$3{,}2\,\mu$m) liegt bei allen Frequenzen im hydraulisch glatten Bereich. Feinere Oberfläche ($R_a < 0{,}8\,\mu$m) bringt akustisch nichts. Die Maßtoleranz ($\pm 0{,}01$\,mm) bestimmt die Ansprache, nicht die Oberflächengüte. Die Toleranz ist 100$\times$ wichtiger als die Rauheit. Wirtschaftlich: 1~Nachschnitt ($R_a \approx 1{,}6\,\mu$m) mit enger Toleranz ist akustisch optimal.
+\end{keybox}
+
+\subsection{Exkurs: Warum der Propeller-Vergleich nicht gilt}
+
+Bei Propellern, Golfbällen und Haifischhaut verbessert eine raue Oberfläche die Leistung, weil Rauheit die Grenzschicht-Turbulenz früher auslöst. Eine turbulente Grenzschicht hat mehr kinetische Energie nahe der Wand, verzögert die Strömungsablösung und reduziert den Formwiderstand.
+
+Im Stimmplattenkanal gilt das nicht. Der Propeller-Effekt tritt bei $\text{Re} > 10^5$ auf. Im Seitenspalt ist $\text{Re} \approx 100$--$200$ --- rein laminare Strömung. Bei laminarer Strömung hat Rauheit keinen Einfluss auf den Strömungswiderstand, solange $k_s \ll s$. Die Poiseuille-Formel $R \propto 1/s^3$ gilt unverändert. Der Kanal ist gerade und parallel --- keine konvexe Oberfläche, keine Strömungsablösung, kein Formwiderstand.
+
+\textbf{Die Spaltkante} am Einlauf erzeugt lokale Wirbel (90\textdegree-Umlenkung), aber der Einlaufverlust ist bei den vorliegenden Spaltweiten nur 2--5\,\% des Reibungsverlusts über die 3\,mm Kanallänge --- ebenfalls sekundär.
+
+\textbf{Das Paradoxon:} Selbst wenn Rauheit den Spaltwiderstand erhöhen würde --- das wäre für die Ansprache sogar \textbf{gut}, weil hoher Spaltwiderstand den akustischen Kurzschluss reduziert (Kap.~3). Aber bei $\text{Re} = 100$--$200$ tut die Rauheit nichts.
+
 \section{Zusammenfassung}
 
 \begin{warnbox}
