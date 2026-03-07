@@ -1,0 +1,120 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb,graphicx,booktabs,xcolor}
+\usepackage[margin=25mm]{geometry}
+\usepackage{tcolorbox,hyperref}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{keygreen}{HTML}{2e7d32}
+
+\title{\textcolor{darkblue}{Dok. 0018\\Hörbarkeit der Biegemoden:\\Kammer-Saugkreis, Transiente, Torsion}}
+\author{Harmonikabau --- Technische Dokumentation}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent\textit{Korrektur zu Dok.~0016: Die Biegemoden können unter bestimmten Bedingungen
+hörbar werden. Drei Mechanismen: Kammer-Resonanz, Einschwingvorgang, Torsion.
+Referenz: Dok.~0009, 0011, 0015--0017.}
+
+\noindent\textit{\small Berechnungsskript:
+\textbf{pruefskript\_0018\_hoerbarkeit.py} (modale Partizipation,
+Kammer-Saugkreis, Transiente, Torsionsmoden) im selben Verzeichnis auf GitHub.}
+
+\section{Korrektur: Biegemoden sind nicht immer unhörbar}
+
+Dok.~0016 hat gezeigt, dass die inharmonischen Biegemoden im Normalfall
+30--50\,dB leiser sind als die harmonischen Obertöne.
+Die Praxis zeigt aber: Mit einer abstimmbaren Resonanzkammer kann man
+Mode~2 bei manchen Zungen so stark anregen, dass \textbf{nur Mode~2 hörbar ist}.
+Und beim Einschwingvorgang prägt Mode~2 den Klangcharakter.
+
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{Die Grundaussage bleibt:} Die harmonischen Obertöne dominieren
+im eingeschwungenen Zustand. Aber Mode~2 ist nicht vernachlässigbar.
+\end{tcolorbox}
+
+\section{Kammer als Saugkreis: Mode 2 wird hörbar durch Subtraktion}
+
+Die Kammer wirkt als \textbf{Saugkreis} (Kerbfilter, Dok.~0005--0008) ---
+sie \textbf{unterdrückt} Frequenzen bei $f_H$. Die Kammer verstärkt Mode~2 nicht.
+Mode~2 wird hörbar, weil der Grundton und seine Harmonischen gedämpft werden,
+während Mode~2 \textbf{außerhalb der Kerbe} liegt.
+
+Voraussetzung: (a) $f_H$ trifft einen Harmonischen von $f_1$ $\to$ Grundton
+wird gedämpft. (b) $f_2$ (Biegemode) liegt \textbf{nicht} in der Kerbe
+$\to$ Mode~2 bleibt übrig. Das ist Subtraktion, nicht Addition.
+
+\textbf{Warum geht das nicht bei jeder Zunge?} Die Profilierung bestimmt $f_2$.
+Bei gleichmäßiger Zunge liegt $f_2 \approx 6{,}27 \times f_1$ --- nahe an
+$6 \times f_1$ (Harmonischer). Bei stärkerer Profilierung ($f_2 \approx 4$--$5 \times f_1$)
+liegt Mode~2 zwischen den Harmonischen und überlebt die Kerbe.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Im Akkordeon trifft es die Töne mit Ansprache-Problemen:}
+Dort ist die Kammer-Kopplung am stärksten, die Stimmplatten sind stärker
+profiliert, und das Zusammenspiel von Profilierung und Kammergeometrie
+erfüllt zufällig die Bedingung $f_H \neq f_2$.
+\end{tcolorbox}
+
+\section{Transiente Anregung: Einschwingvorgang}
+
+Beim Drücken einer Taste trifft der Balgdruck als Sprungfunktion.
+Jede Biegemode wird initial angestoßen.
+Mode~2 startet bei $\approx -25$\,dB und klingt in $\approx 40$\,ms ab.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Mode~2 ist im Einschwingvorgang hörbar} --- als kurze Klangfarbe
+in den ersten 50--100\,ms. Verschiedene Zungen haben verschiedene $f_2$
+$\to$ verschiedener Klangcharakter.
+\end{tcolorbox}
+
+\section{Torsionsschwingungen}
+
+Die Torsionsmoden liegen höher als die Biegemoden: $f_{T1} \approx 14$--$22 \times f_1$.
+Die Torsion selbst ist als Ton kaum hörbar --- aber die seitliche Auslenkung
+führt bei Basszungen zu Kanalberührung.
+
+Bei 1° Torsion: Basszunge (W=8\,mm): $\Delta y = 0{,}07$\,mm $>$ Spalt 0,04\,mm
+$\to$ Kontakt möglich. \textbf{Im normalen Betrieb sollte Kratzen nicht vorkommen} ---
+die Spalte sind groß genug. Aber bei \textbf{kalten Instrumenten} ist Kratzen normal:
+Das Metall kontrahiert ($\approx 2$--$3$\,µm bei $\Delta T = -17$\,K),
+der Spalt wird enger, die Toleranz sinkt. Sobald das Instrument sich erwärmt,
+verschwindet das Kratzen.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Paradoxon:} Die passgenauesten Stimmplatten --- also die teuersten ---
+sind am anfälligsten für Kratzen bei Kälte. Enge Spalte (bessere Ansprache)
+bedeuten weniger Toleranz für Torsion. Eine Platte mit 25\,µm Spalt verliert
+bei 3\,µm Kontraktion 12\,\% Spielraum --- eine mit 50\,µm nur 6\,\%.
+Die billige Platte mit großem Spalt kratzt nie, die teure mit perfektem Spalt
+kratzt im Winter.
+\end{tcolorbox}
+
+\section{Zusammenfassung}
+
+\begin{enumerate}
+\item \textbf{Eingeschwungen, ohne Kammer-Treffer:} Mode~2 bei $-37$\,dB ---
+  nicht hörbar. Harmonische dominieren.
+\item \textbf{Kammer als Saugkreis:} Die Kammer dämpft Harmonische.
+  Wenn $f_2$ außerhalb der Kerbe liegt, bleibt Mode~2 übrig --- hörbar
+  durch Subtraktion. Trifft besonders Töne mit Ansprache-Problemen.
+\item \textbf{Transiente:} Mode~2 bei $-25$\,dB, Dauer $\approx 40$\,ms.
+  Prägt Klangcharakter.
+\item \textbf{Torsion:} $f_{T1} \approx 14$--$22 \times f_1$.
+  Kanalberührung im Normalbetrieb nicht vorgesehen.
+  Bei \textbf{kalten Instrumenten} normal --- Metall kontrahiert, Spalt enger.
+  Verschwindet beim Erwärmen.
+\item \textbf{Korrektur:} ``Biegemoden nicht hörbar'' gilt nur eingeschwungen
+  ohne Kammer-Treffer.
+\end{enumerate}
+
+\bigskip
+\textit{Die Biegemoden sind leise --- aber nicht stumm.
+Die Kammer kann sie wecken, der Transient lässt sie kurz erklingen,
+die Torsion macht sie als Kratzen hörbar.}
+
+\end{document}
