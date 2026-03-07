@@ -1,0 +1,135 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb,graphicx,booktabs,xcolor}
+\usepackage[margin=25mm]{geometry}
+\usepackage{tcolorbox,hyperref}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{keygreen}{HTML}{2e7d32}
+
+\title{\textcolor{darkblue}{Dok. 0017\\Diskant-Stimmzungen: Obertonmoden F3 bis C6}}
+\author{Harmonikabau --- Technische Dokumentation}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{Hinweis:} Dieses Dokument bietet ein Erklärungsmodell.
+Die interpolierte Mensur ist eine Schätzung --- reale Stimmplatten
+variieren je nach Hersteller.
+\end{tcolorbox}
+
+\noindent\textit{\small Berechnungsskript: Die vollständige FEM-Berechnung mit allen Tabellen
+ist im selben Verzeichnis auf GitHub abgelegt:
+\textbf{pruefskript\_0017\_diskant.py} (W-Unabhängigkeit, gleichmäßige Mindestdicke,
+kalibrierte Profilierung, $f_2$ vs.\ $f_H$, Vergleich Bass/Diskant).}
+
+\noindent\textit{FEM-Berechnung der Biegemoden von Diskant-Stimmzungen mit variabler
+Mensur (L = 37$\to$14\,mm, W = 3,7$\to$1,7\,mm). Kalibrierte Dicke für jeden
+Halbton. Vergleich mit den Basszungen aus Dok.~0016.}
+
+\section{Die Breite W hat keinen Einfluss auf die Tonhöhe}
+
+Bei einem Euler-Bernoulli-Cantilever:
+\begin{equation}
+f = \frac{\beta^2}{2\pi L^2} \times t \times \sqrt{\frac{E}{12\rho}}
+\end{equation}
+
+Die Breite $W$ kürzt sich raus: $I = Wt^3/12$, $A = Wt$, also $I/A = t^2/12$.
+Die Tonhöhe wird ausschließlich durch $t$ und $L$ bestimmt.
+$W$ beeinflusst Masse ($\propto W$), Volumenstrom ($\propto W$),
+Lautstärke und Torsionssteifigkeit ($\propto W^3$) --- aber nicht den Ton.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{W bestimmt die Lautstärke und die Ansprache, nicht den Ton.}
+Deshalb nehmen $W$ und $L$ stetig ab von tief zu hoch ---
+die tiefen Töne brauchen mehr Volumenstrom.
+\end{tcolorbox}
+
+\section{Diskant-Mensur: L und W nehmen stetig ab, t wird profiliert}
+
+Im Unterschied zum Bass variieren im Diskant Länge und Breite stetig.
+Die Dicke am Fuß ($t_0$) ist immer etwas größer als die theoretische
+Mindestdicke --- die Profilierung (Verdünnung zur Spitze) passt den Ton an.
+
+\begin{center}
+\begin{tabular}{lcccccccc}
+\toprule
+Ton & $f$ & $L$ & $W$ & $t_0$ & $t_\mathrm{tip}$ & Verd. & $f_2/f_1$ & $f_2$ \\
+\midrule
+F3 & 175 & 37,0 & 3,70 & 0,298 & 0,223 & 28\,\% & 5,32 & 348 \\
+C3 & 131 & 29,0 & 3,05 & 0,133 & 0,104 & 24\,\% & 5,33 & 697 \\
+C4 & 262 & 22,8 & 2,51 & 0,161 & 0,132 & 20\,\% & 5,45 & 1426 \\
+C5 & 523 & 17,9 & 2,06 & 0,197 & 0,169 & 16\,\% & 5,63 & 2947 \\
+C6 & 1047 & 14,0 & 1,70 & 0,244 & 0,217 & 12\,\% & 5,82 & 6094 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{$f_2/f_1 = 5{,}3$--$5{,}8$} (profiliert) --- niedriger als die 6,27
+der gleichmäßigen Zunge, weil die Profilierung die Moden komprimiert.
+Die leichte Profilierung im Diskant (12--28\,\%) senkt das Verhältnis
+weniger als im Bass (30--50\,\%).
+\end{tcolorbox}
+
+\section{$f_2$ absolut: Wo trifft Mode~2 die Kammerresonanz?}
+
+Im Bass liegt die kritische Zone bei A1--A2 ($f_2 = 345$--$689$\,Hz,
+$f_H$ Bass $= 200$--$700$\,Hz). Im Diskant verschiebt sich alles nach oben:
+$f_2$ liegt für C2--C3 bei 410--820\,Hz --- \textbf{unter} den Diskantkammern.
+Erst ab C4 ($f_2 \approx 1640$\,Hz) beginnt $f_2$ den Diskantkammer-Bereich
+zu treffen. Die kritische Zone im Diskant ist \textbf{C4--C5}
+($f_2 = 1640$--$3280$\,Hz).
+
+\section{Profilierung im Diskant: Weniger Spielraum}
+
+Die Diskantzungen sind leicht profiliert: 12--25\,\% Verdünnung
+(Basszungen: 30--50\,\%). Die dünnste Stelle liegt bei den hohen Tönen
+an der Spitze, bei den tieferen eher in der Mitte. Die Profilierung senkt
+$f_2/f_1$ um 0,4--0,9 (von 6,27 auf 5,4--5,8). Im Bass war die Senkung
+1,0--2,3. Weniger Spielraum bei dünneren Zungen.
+
+\section{Steifigkeit und Masse}
+
+Die Steifigkeit steigt exponentiell: Faktor~100 von C2 (4,8\,N/m) bis
+C6 (489\,N/m). Die Masse sinkt von 117\,mg auf 47\,mg. Hohe Töne:
+steifer, leichter, höherer Schwellendruck, schnelleres Einschwingen.
+
+\section{Vergleich Bass --- Diskant}
+
+\textbf{Gemeinsam:} $f_2/f_1 = 6{,}27$ = konstant. Die Cantilever-Physik
+ist identisch.
+
+\textbf{Unterschied 1 --- Mensur:} Im Bass eine Zungenlänge für 2~Oktaven.
+Im Diskant variieren $L$, $W$ und $t$ gleichzeitig.
+
+\textbf{Unterschied 2 --- Profilierung:} Bass: 30--50\,\%, Effekt $-1{,}0$ bis
+$-2{,}3$. Diskant: 12--25\,\%, Effekt $-0{,}4$ bis $-0{,}9$.
+
+\textbf{Unterschied 3 --- Kritische Zone:} Bass: A1--A2 ($f_2$ im $f_H$-Bereich
+der Basskammern). Diskant: C4--C5 ($f_2$ im $f_H$-Bereich der Diskantkammern).
+Die unteren Diskant-Töne (F3--B3) sind unkritisch.
+
+\section{Zusammenfassung}
+
+\begin{enumerate}
+\item \textbf{W hat keinen Einfluss auf die Tonhöhe.} $f \propto t/L^2$.
+  $W$ bestimmt Lautstärke und Ansprache.
+\item \textbf{$f_2/f_1 = 6{,}27$ (gleichmäßig) = identisch mit Bass.}
+  Profiliert: 5,3--5,8 je nach Verdünnungstiefe.
+\item \textbf{Reale Dicke am Fuß $>$ Mindestdicke.} Die Profilierung
+  hebt $f_1$ an --- der Stimmer beginnt dicker und schleift herunter.
+\item \textbf{Kritische Zone: C4--C5.} $f_2 = 1400$--$3000$\,Hz trifft
+  die Diskantkammern. Untere Töne (F3--B3) unkritisch.
+\item \textbf{Steifigkeit:} Faktor~100 über 4~Oktaven.
+\end{enumerate}
+
+\bigskip
+\textit{Bass und Diskant gehorchen derselben Physik.
+Die Mensur ändert die absoluten Frequenzen --- die Verhältnisse bleiben.}
+
+\end{document}

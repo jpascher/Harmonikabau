@@ -1,0 +1,242 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,booktabs,xcolor}
+\usepackage[margin=25mm]{geometry}
+\usepackage{tcolorbox,hyperref}
+
+\definecolor{darkblue}{HTML}{16213e}
+\definecolor{accentred}{HTML}{e94560}
+\definecolor{keygreen}{HTML}{2e7d32}
+
+\title{\textcolor{darkblue}{Dok. 0016\\Obertonmoden der Basszunge: Profilierung und Inharmonizität}}
+\author{Harmonikabau --- Technische Dokumentation}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{Hinweis:} Dieses Dokument bietet ein Erklärungsmodell.
+Die FEM-Berechnung erfasst die Biegemoden eines idealisierten Balkens ---
+Strömungskopplung, nichtlineare Amplitude und Spalteffekte sind nicht enthalten.
+\end{tcolorbox}
+
+\noindent\textit{\small Berechnungsskripte: Die vollständigen FEM-Berechnungen mit allen Tabellen
+sind in zwei separaten Python-Skripten dokumentiert, die im selben Verzeichnis
+auf GitHub abgelegt sind:
+\textbf{pruefskript\_0016\_obertonmoden.py} (Profile, Gewichte, Steifigkeit, Knotenpositionen)
+und \textbf{pruefskript\_0016\_chromatisch.py} (chromatische Analyse über 2~Oktaven,
+$f_2/f_1$ = const bei gleichmäßigem Profil, $f_2$ absolut vs.\ $f_H$-Bereiche)
+und \textbf{pruefskript\_0016\_praxis.py} (Praxis-Profilierung mit wandernder
+dünnster Stelle, Verdünnungstiefe, Optimum-Suche).}
+
+\noindent\textit{FEM-Berechnung der Biegemoden einer Basszunge (L = 70\,mm) mit
+sechs verschiedenen Dickenprofilen. Modenformen, Frequenzverhältnisse,
+Inharmonizität und Konsequenzen für Klang und Kammerkopplung.
+Referenz: Dok.~0005--0009, 0012, 0015.}
+
+\section{Obertöne eines Cantilevers sind nicht harmonisch}
+
+Die Stimmzunge ist ein einseitig eingespannter Balken (Cantilever).
+Die Eigenfrequenzen der Biegemoden folgen nicht der harmonischen Reihe
+$(1:2:3:4\ldots)$, sondern der Cantilever-Reihe:
+
+\begin{equation}
+f_n / f_1 = (\beta_n / \beta_1)^2
+\end{equation}
+
+mit $\beta_1 L = 1{,}8751$, $\beta_2 L = 4{,}6941$, $\beta_3 L = 7{,}8548$,
+$\beta_4 L = 10{,}9955$. Das ergibt die Verhältnisse $1 : 6{,}27 : 17{,}55 : 34{,}39$ ---
+der 2.~Oberton liegt nicht bei der Oktave ($2\times$), sondern bei mehr als
+zweieinhalb Oktaven ($6{,}27\times$).
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Die Harmonischen im Klang stammen nicht von diesen Biegemoden.}
+Sie entstehen durch die periodische Unterbrechung des Luftstroms --- die Zunge
+wirkt als Impulsgenerator (Dok.~0013, 0015). Die Impulsform erzeugt harmonische
+Obertöne $(1f, 2f, 3f\ldots)$, auch wenn die mechanischen Moden ganz woanders liegen.
+\end{tcolorbox}
+
+Warum sind die mechanischen Moden trotzdem wichtig? Weil sie bestimmen,
+bei welchen Frequenzen die Zunge \textbf{resonant angeregt} werden kann ---
+durch die Kammer (Dok.~0009), durch Nachbarzungen oder durch transiente
+Druckschwankungen beim Spielen.
+
+\section{Sechs Dickenprofile}
+
+Die Profilierung verändert die Masseverteilung und die lokale Biegesteifigkeit.
+Sechs Profile werden verglichen, alle mit $t_0 = 0{,}40$\,mm am Fuß.
+
+\begin{center}
+\begin{tabular}{lccccc}
+\toprule
+Profil & $t_\mathrm{Spitze}$ & Verdünnung & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
+\midrule
+Gleichmäßig & 0,40\,mm & 0\,\% & 66,8\,Hz & 6,27 & 17,55 \\
+Linear 80\,\% & 0,32\,mm & 20\,\% & 68,5\,Hz & 5,71 & 15,57 \\
+Linear 50\,\% & 0,20\,mm & 50\,\% & 72,6\,Hz & 4,79 & 12,36 \\
+Linear 30\,\% & 0,12\,mm & 70\,\% & 77,5\,Hz & 4,07 & 9,94 \\
+Parabolisch 50\,\% & 0,27\,mm & 50\,\% & 77,9\,Hz & 5,01 & 12,89 \\
+Umgek. parabolisch & 0,20\,mm & 50\,\% & 61,8\,Hz & 4,97 & 13,00 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Obertonverhältnisse im Vergleich}
+
+Kein Profil kommt in die Nähe der harmonischen Reihe. Selbst bei 70\,\%
+Verdünnung liegt Mode~2 bei $4{,}07\times$ statt $2\times$. Die Inharmonizität
+ist eine fundamentale Eigenschaft des Cantilevers --- nur ein Saitenoszillator
+hätte harmonische Obertöne.
+
+\section{Stimmgewichte: Der gegenteilige Effekt}
+
+Die Profilierung senkt $f_2/f_1$ --- die Moden rücken zusammen.
+Stimmgewichte an der Spitze wirken \textbf{gegenteilig}: Sie senken $f_1$ stark,
+aber die höheren Moden weniger. $f_2/f_1$ \textbf{steigt} mit zunehmendem Gewicht.
+
+\begin{center}
+\begin{tabular}{lccccc}
+\toprule
+Gewicht & Masse & \% $m_Z$ & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
+\midrule
+Ohne & 0\,g & 0\,\% & 66,8\,Hz & 6,27 & 17,55 \\
+0,10\,g & 0,10\,g & 5,7\,\% & 60,2\,Hz & 6,37 & 18,04 \\
+0,20\,g & 0,20\,g & 11,4\,\% & 55,2\,Hz & 6,58 & 18,96 \\
+0,40\,g & 0,40\,g & 22,9\,\% & 48,1\,Hz & 7,11 & 21,03 \\
+1,50\,g & 1,50\,g & 85,9\,\% & 31,4\,Hz & 9,89 & 30,84 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Der Grund:} Das Gewicht sitzt am Schwingungsmaximum von Mode~1.
+Mode~1 wird maximal gebremst. Mode~2 hat an der Spitze weniger Amplitude
+$\to$ wird weniger gebremst $\to$ das Verhältnis steigt.
+\end{tcolorbox}
+
+\section{Kombination: Profilierung + Gewicht}
+
+In der Praxis wird beides kombiniert. Verdünnung senkt $f_2/f_1$,
+Gewicht hebt es wieder an. Linear~30\,\% allein: $f_2/f_1 = 4{,}07$
+bei $f_1 = 77{,}5$~Hz. Linear~30\,\% + 0,20~g: $f_2/f_1 = 4{,}64$
+bei $f_1 = 50{,}2$~Hz.
+
+\section{Gleiches $f_1$-Ziel, verschiedene Wege}
+
+Bei $f_1 = 50$~Hz: Gleichmäßig + Gewicht ergibt $f_2/f_1 \approx 6{,}7$.
+Linear~50\,\% + Gewicht: $\approx 5{,}3$. Linear~30\,\% + Gewicht:
+$\approx 4{,}6$. Verdünnung gewinnt --- auch mit Gewicht.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Ansprache:} Die profilierte Zunge hat bei gleichem $f_1$
+niedrigere Steifigkeit $\to$ bessere Ansprache (Dok.~0012).
+Profilierung + wenig Gewicht ist besser als viel Gewicht allein.
+\end{tcolorbox}
+
+\section{Modenformen und Knotenpositionen}
+
+Die Profilierung verschiebt die Schwingungsknoten zur Spitze hin.
+Bei der gleichmäßigen Zunge liegt der erste Knoten von Mode~2 bei $x \approx 55\,\%$.
+Bei Linear~30\,\% wandert er auf $x \approx 65\,\%$. Bei stark profilierten
+Zungen konzentriert sich die Schwingungsenergie am leichten Ende.
+
+\section{Inharmonizität in Cent}
+
+Alle Obertöne liegen tausende Cent über der harmonischen Reihe.
+Die Profilierung reduziert die Abweichung um 25--35\,\%.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Konsequenz:} Die Biegemoden fallen nie auf harmonische Obertöne
+des Grundtons. Die Kammer-Kopplung (Dok.~0009) betrifft die mechanischen
+Moden --- ob diese in der Nähe von $f_H$ liegen.
+\end{tcolorbox}
+
+\section{Steifigkeit und Grundfrequenz}
+
+Profilierung hat zwei gleichzeitige Effekte: $f_1$ steigt (weniger Masse),
+$k$ sinkt (dünnerer Querschnitt). Eine profilierte Zunge für denselben Ton
+muss länger oder am Fuß dicker sein --- und hat bei gleicher Frequenz
+niedrigere Steifigkeit, also bessere Ansprache (Dok.~0012).
+
+\textbf{Das ist der eigentliche Praxisnutzen:} Niedrigere Steifigkeit bei
+gleicher Grundfrequenz $\to$ bessere Ansprache.
+
+\section{Kammer-Kopplung: Wo fallen die Moden hin?}
+
+Mode~2 liegt bei der gleichmäßigen Zunge bei $\approx 420$\,Hz --- mitten
+im typischen $f_H$-Bereich. Profilierung verschiebt Mode~2 nach unten
+und kann ihn gezielt aus dem $f_H$-Bereich herausschieben.
+
+\section{Praxis-Profilierung: Position der dünnsten Stelle}
+
+In der Praxis ist die Zunge am dicksten bei der Niete und verjüngt sich glatt.
+Die dünnste Stelle kann an der Spitze oder zwischen Spitze und Mitte liegen ---
+der Verlauf ist nie abrupt.
+
+\textbf{Überraschendes Ergebnis:} Die Position der dünnsten Stelle hat wenig
+Einfluss auf $f_2/f_1$. Zwischen $x_\mathrm{min} = 0{,}7L$ und $1{,}0L$ ist
+das Plateau praktisch flach. Die \textbf{Tiefe} der Verdünnung bestimmt
+$f_2/f_1$, die Position bestimmt $f_1$.
+
+\section{Optimale Verdünnungstiefe}
+
+$f_2/f_1$ hat ein \textbf{Minimum bei $\approx 70\,\%$ Verdünnung}
+($t_\mathrm{min} \approx 0{,}12$\,mm bei $t_0 = 0{,}40$\,mm). Bei stärkerer
+Verdünnung steigt $f_2/f_1$ wieder an.
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+Verdünnung & $t_\mathrm{min}$ & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
+\midrule
+0\,\% & 0,40\,mm & 66,8\,Hz & 6,27 & 17,55 \\
+40\,\% & 0,24\,mm & 68,4\,Hz & 4,70 & 12,61 \\
+50\,\% & 0,20\,mm & 67,7\,Hz & 4,35 & 11,50 \\
+60\,\% & 0,16\,mm & 65,4\,Hz & 4,07 & 10,50 \\
+70\,\% & 0,12\,mm & 60,4\,Hz & 3,94 & 9,75 \\
+80\,\% & 0,08\,mm & 49,8\,Hz & 4,25 & 9,61 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Chromatische Analyse: 2 Oktaven, gleiche Mensur}
+
+Bei einer gleichmäßigen Zunge ist $f_2/f_1 = 6{,}27$ = \textbf{konstant},
+unabhängig von der Dicke. Da $f \propto t$, skalieren alle Moden gleich ---
+das Verhältnis fällt raus. Die Mensur legt $f_2/f_1$ für alle Töne fest.
+
+Die untere Oktave (A1--A2) ist die \textbf{kritische Zone}: $f_2$ liegt bei
+345--689\,Hz --- mitten im typischen $f_H$-Bereich. Die obere Oktave: $f_2 > 700$\,Hz,
+weit über $f_H$. Das erklärt, warum Geistertöne hauptsächlich bei tiefen Tönen auftreten.
+
+\section{Zusammenfassung}
+
+\begin{enumerate}
+\item \textbf{Cantilever-Obertöne sind inharmonisch:}
+  $1 : 6{,}27 : 17{,}55 : 34{,}39$. Die hörbaren Harmonischen stammen
+  vom Impulsgenerator, nicht von den Biegemoden.
+\item \textbf{Profilierung komprimiert die Verhältnisse:} Optimum bei
+  $\approx 70\,\%$ Verdünnung ($f_2/f_1 \approx 3{,}94$). Darüber hinaus
+  steigt $f_2/f_1$ wieder.
+\item \textbf{Position der dünnsten Stelle:} Zwischen 70\,\% und 100\,\% der
+  Länge kaum Unterschied. Die Tiefe bestimmt $f_2/f_1$, die Position
+  bestimmt $f_1$.
+\item \textbf{Stimmgewichte spreizen:} Gegenteiliger Effekt zur Verdünnung.
+  Profilierung + wenig Gewicht ist besser als viel Gewicht allein.
+\item \textbf{$f_2/f_1$ = const bei gleichmäßigem Profil:} Die Mensur
+  legt das Verhältnis für alle chromatischen Töne fest.
+\item \textbf{Kritische Zone = untere Oktave:} $f_2$ liegt für A1--A2
+  bei 345--689\,Hz --- mitten im $f_H$-Bereich. Dort treten Geistertöne auf.
+\item \textbf{Hauptnutzen:} Niedrigere Steifigkeit bei gleicher $f_1$
+  $\to$ bessere Ansprache. Verschiebung von Mode~2 aus dem $f_H$-Bereich.
+\end{enumerate}
+
+\bigskip
+\textit{Die Zunge schwingt inharmonisch. Der Klang ist harmonisch.
+Die Profilierung ändert die Ansprache --- die Obertöne macht die Luft.}
+
+\end{document}
