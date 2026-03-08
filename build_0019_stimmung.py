@@ -385,6 +385,19 @@ story.append(Paragraph(
     'bleibt h\u00f6rbar, die Quinten-Differenz (2 Cent) nicht. '
     'Null-Tremolo ist die Grundvoraussetzung f\u00fcr jede Feinstimmung.',sW))
 story.append(Paragraph(
+    '<b>Instrumente mit viel Tremolo: Temperiert stimmen!</b> '
+    'Bei Instrumenten mit kr\u00e4ftigem Tremolo (Wiener Stimmung, Musette) '
+    'sollte die Grundstimmung <b>gleichstufig temperiert</b> bleiben. '
+    'Der Grund: Wenn man zus\u00e4tzlich zur Tremolo-Schwebung noch die '
+    'Stimmungsabweichung der reinen Terzen hinzuf\u00fcgt, addieren sich die '
+    'Schwebungen. Das Tremolo klingt dann <b>ungleichm\u00e4\u00dfig</b> \u2014 '
+    'manche Akkorde schweben schneller als andere. Das wirkt verstimmt, '
+    'nicht rein. Temperierte Stimmung gew\u00e4hrleistet ein gleichm\u00e4\u00dfiges '
+    'Tremolo \u00fcber alle Tonarten.',sW))
+story.append(Paragraph(
+    'Details zur Tremolo-Physik, Schwebungsberechnung und Wechselwirkung '
+    'mit der Stimmung: siehe <b>Dok. 0020</b>.',sB))
+story.append(Paragraph(
     '<b>Druckabh\u00e4ngigkeit (Dok. 0012):</b> Der Balgdruck verstimmt den Ton. '
     'Im Bass: \u22485 Cent bei normalem Dynamikwechsel. Das \u00fcberspielt '
     'Quinten-Feinheiten, aber nicht Terzen-Korrekturen. '
@@ -546,11 +559,12 @@ story.append(Paragraph(
     'Wenn ja \u2192 die Zunge mit st\u00e4rkerer Drift etwas in Gegenrichtung vorstimmen. '
     'Wenn nein \u2192 beide auf denselben Ton stimmen.',sB))
 story.append(Paragraph(
-    'Der Hintergrund: Eine dickere Zunge (h\u00f6herer Grundton) reagiert weniger '
-    'auf Druckschwankungen als eine d\u00fcnnere (Dok. 0012). Wenn die Grundton-Zunge '
-    'steifer ist als die Oktav-Zunge, driftet die Oktav-Zunge bei h\u00f6herem Druck '
-    'st\u00e4rker nach unten. Die 5 Cent Vorstimmung kompensiert das f\u00fcr den '
-    '\u00fcblichen Spieldruckbereich.',sB))
+    'Der Hintergrund: Die l\u00e4ngere, tiefere Grundton-Zunge ist meist <b>weniger steif</b> '
+    'als die k\u00fcrzere Oktav-Zunge und hat daher die <b>gr\u00f6\u00dfere '
+    'Druckabh\u00e4ngigkeit</b> (Dok. 0012). Bei h\u00f6herem Spieldruck driftet die '
+    'Grundton-Zunge st\u00e4rker nach unten als die Oktav-Zunge. '
+    'Die Vorstimmung der Grundton-Zunge einige Cent nach oben kompensiert das '
+    'f\u00fcr den \u00fcblichen Spieldruckbereich.',sB))
 story.append(Paragraph(
     '<b>Spieleranpassung:</b> Je nach Spieler kann das angepasst werden. '
     'Wichtig ist auch die <b>Aufbiegung</b> der Zungen \u2014 sie beeinflusst '
@@ -567,8 +581,50 @@ story.append(Paragraph(
     'nicht f\u00fcr den Diskant. Im Diskant richtet sich die Stimmung '
     'nach der Druck/Zug-Strategie (oben).',sW))
 
-# Kap. 8
-story.append(Paragraph('8. Zusammenfassung',sCh))
+# Kap. 8: Vorstimmen
+story.append(Paragraph('8. Vorstimmen',sCh))
+story.append(Paragraph(
+    'Vorgestimmt wird entweder vom <b>Stimmplattenhersteller</b> (der auch nach '
+    'Bedarf ventiliert) oder vom Harmonikabauer selbst. '
+    'Wird selber vorgestimmt, erfolgt dies <b>bevor</b> die Stimmplatten '
+    'aufgewachst werden.',sB))
+
+story.append(Paragraph('<b>Ablauf:</b>',sB))
+story.append(Paragraph(
+    '1. <b>Sortieren:</b> Kontrollieren, welche Stimmplatten einen '
+    'positiven (+) und welche einen negativen (\u2212) Offset besitzen. '
+    'Entsprechend sortieren.',sB))
+story.append(Paragraph(
+    '2. <b>Stimmtisch:</b> Die Stimmplatten auf einem Stimmtisch mit '
+    'mehreren aufgereihten Kanzellen, einer Einzelkanzelle oder drei Kanzellen '
+    'mit Stimmger\u00e4t vorstimmen. Genauigkeit: ca. <b>\u00b12 Cent</b> '
+    '\u2014 den Grundton und die Tremolos.',sB))
+story.append(Paragraph(
+    '3. <b>Erfahrungswerte als Offset:</b> Dabei sollten bereits die '
+    'bekannten Erfahrungswerte als Offset mit einflie\u00dfen \u2014 '
+    'Werte, die man kennt, wenn man die Stimmplatten sp\u00e4ter auf dem Stimmstock '
+    'und im Instrument nachmisst. Das ist <b>stimmungsabh\u00e4ngig</b>: '
+    'Ein B-Es-As-Des-Satz ist anders zu behandeln als ein F-B-Es-As-Satz. '
+    'Die Einbau-Verstimmung h\u00e4ngt von der Position auf dem Stimmstock, '
+    'der Kammergeometrie und den Verschraubungen ab (Dok. 0021).',sB))
+story.append(Paragraph(
+    '4. <b>Nicht nur das Stimmger\u00e4t:</b> Man h\u00f6rt genau hin, '
+    'wie sich die Stimmplatte verh\u00e4lt \u2014 Anschwingverhalten und Klang. '
+    'Immer im Hinterkopf: Eine Stimmplatte, die auf dem Stimmtisch '
+    'sauber anspricht, kann im Instrument anders reagieren. '
+    'Das Stimmger\u00e4t zeigt die Frequenz, aber nicht die Qualit\u00e4t '
+    'der Schwingung.',sK))
+story.append(Paragraph(
+    '<b>Hohe T\u00f6ne bevorzugt etwas zu hoch vorstimmen:</b> '
+    'Bei den kurzen Zungen der hohen T\u00f6ne kommt man beim Feinstimmen '
+    'im Instrument schwer zum H\u00f6herstimmen heran (Dok. 0021: Stimmstock '
+    'ausbauen oder \u00fcber das Loch dr\u00fccken). Tieferkratzen geht dagegen '
+    'problemlos. Daher diese Zungen bevorzugt <b>einige Cent zu hoch</b> '
+    'vorstimmen \u2014 die Feinstimmung erfolgt dann nur durch Kratzen '
+    'nach unten.',sB))
+
+# Kap. 9
+story.append(Paragraph('9. Zusammenfassung',sCh))
 pts=[
     '<b>Terzen sind das Problem:</b> \u00b114 Cent Abweichung in der gleichstufigen Stimmung. '
     'Quinten sind fast rein (\u00b12 Cent).',
@@ -588,6 +644,9 @@ pts=[
     '<b>Praxis:</b> Terzen etwas enger als rein (Spielraum f\u00fcr Verstimmung in '
     'die richtige Richtung). Quinten enger bis rein, Oktaven rein bis weiter. '
     'Nie zum Extrem \u2014 Verstimmungen d\u00fcrfen nicht in die falsche Richtung gehen.',
+    '<b>Vorstimmen:</b> Vor dem Aufwachsen, auf \u00b12 Cent genau. '
+    'Erfahrungswerte f\u00fcr Einbau-Offset mit einbeziehen (stimmungsabh\u00e4ngig). '
+    'Nicht nur Stimmger\u00e4t \u2014 auch H\u00f6ren: Anschwingverhalten und Klang.',
 ]
 for i,p in enumerate(pts): story.append(Paragraph(f'{i+1}. {p}',sB))
 story.append(Spacer(1,6*mm))
