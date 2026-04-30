@@ -1,0 +1,112 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+% == Document Metadata ====================
+\newcommand{\hbdoknr}{0011}
+\newcommand{\hbtitel}{Channel Geometry of the Reed Plate}
+\newcommand{\hbuntertitel}{Corner Shapes, Taper and Acoustic Effect}
+\newcommand{\hbheadtext}{Doc.\,0011 --- Channel Geometry of the Reed Plate}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0002 $\cdot$ Doc.\,0010}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape The slot in the reed plate through which the reed vibrates is not merely a geometric frame --- through its gap geometry it governs the energy supply, limits the minimum gap width via torsional vibration, and modifies the acoustic short-circuit when tapered. Plate thicknesses range from 2\,mm (C6) to 15\,mm (50\,Hz). At full volume the reed swings at least twice as far as the plate thickness --- energy input occurs only during the transit through the channel.}
+
+\vspace{4mm}
+
+\section{The Reed Swings Beyond the Channel}
+
+The reed tongue deflects and swings through the slot in the reed plate. At full volume the tip amplitude $x_\text{tip}$ is at least 1.2--1.5 times the plate thickness $h$. Total stroke: $2 \times x_\text{tip} \geq 2h$.
+
+Energy input from bellows pressure occurs \textbf{only} while the reed is inside the channel. Above and below the channel there is no pressure difference --- the reed swings freely.
+
+\textit{Diagrams: see PDF (7 figures).}
+
+\section{Duty Cycle --- Time Fraction Inside the Channel}
+
+\begin{equation}
+\text{Duty} = \frac{2}{\pi} \cdot \arcsin\!\left(\frac{h}{2\,x_\text{tip}}\right)
+\end{equation}
+
+For $x_\text{tip} = 1{.}3 \times h$ the duty cycle is $\approx 25\,\%$. The reed spends only one quarter of the period inside the channel. It passes through near the zero crossing, where velocity is \textbf{maximum} ($v = \omega \cdot x_\text{tip}$). Mean velocity during channel transit is $\approx 1{.}5\times$ higher than over the full cycle.
+
+\begin{keybox}
+\textbf{For comparison} of different channel geometries (parallel vs.\ tapered), only the channel region counts. Since both have the same duty cycle, relative comparison is valid.
+\end{keybox}
+
+\section{Torsional Vibration --- the Minimum Gap}
+
+In addition to the fundamental bending mode, the reed has a torsional mode ($f_T = 5$--$14 \times f_\text{bending}$). During transient excitation, torsion is briefly excited. Lateral deflection at $\theta = 1°$: $y_\text{lateral} = \theta \cdot W/2 = 0{.}04$--$0{.}10$\,mm --- the same order as the side gap.
+
+\begin{keybox}
+\textbf{Consequence:} The minimum gap is limited by the torsional amplitude during transient excitation, not by manufacturing tolerance alone. Bass: $s_\text{min} \approx 0{.}10$--$0{.}15$\,mm. High treble: $s_\text{min} \approx 0{.}05$\,mm.
+\end{keybox}
+
+\section{Tapered Channel Widening}
+
+To give torsion room without increasing the top gap: $s(z) = s_0 + (s_1 - s_0) \cdot z/h$. Cost: gap resistance decreases, drive efficiency decreases.
+
+The taper effect scales with the \textbf{taper angle}, not with the absolute widening:
+
+\begin{itemize}
+\item Bass ($h = 15$\,mm): 0.04\,mm widening $\to$ angle 0.15° $\to$ $-3\,\%$ drive (negligible)
+\item C6 ($h = 2$\,mm): 0.04\,mm widening $\to$ angle 1.15° $\to$ $-5$\,\% drive (noticeable)
+\end{itemize}
+
+\begin{keybox}
+\textbf{Key finding:} Tapered widening is more critical for thin plates (treble/high) than in the bass. The same absolute widening produces an 8$\times$ steeper angle at 2\,mm plate thickness than at 15\,mm.
+\end{keybox}
+
+\section{Drive Area --- Why Thick Plates Are Needed}
+
+Drive force $F = \Delta p \times W \times h$. Bass 50\,Hz: $F = 150$\,mN ($10 \times 15$\,mm). C6: $F = 7$\,mN ($3{.}5 \times 2$\,mm). Factor of 21$\times$. This compensates for the heavier bass reed.
+
+\section{Why Overly Thick Plates Harm High Notes}
+
+Experience shows that reed plates for very high notes must not be too thick. A 4\,mm plate for C6 performs worse than a 2\,mm plate. The explanation:
+
+\textbf{Effect 1 --- Drive saturates:} $\eta = R_\text{gap}/(R_\text{main} + R_\text{gap})$ increases with $h$ but approaches 100\,\% asymptotically. For C6 ($s = 0{.}025$\,mm), $\eta > 90\,\%$ already at $h \approx 1$\,mm. More thickness yields almost no additional drive.
+
+\textbf{Effect 2 --- Squeeze brake grows quadratically:} $R_\text{sq} \propto h$ (longer channel), braking area $\propto h$. Result: $P_\text{squeeze} \propto h^2$. The tighter the gap, the steeper the increase ($\propto 1/s^3$). High notes with narrow gaps are particularly sensitive.
+
+\textbf{Effect 3 --- Air mass inertia:} Air column in slot has $m = \rho \cdot W \cdot s \cdot h$. Acceleration force $F = m \cdot \omega^2 \cdot x_\text{tip}$. This term grows with $h \times \omega^2$. At 50\,Hz: $\omega^2 \approx 10^5$. At 1000\,Hz: $\omega^2 \approx 4 \times 10^7$ --- 400$\times$ larger.
+
+\begin{keybox}
+\textbf{Why practice agrees:} For C6, $\eta > 90\,\%$ at 1\,mm --- more thickness gives almost no drive, but the squeeze brake keeps growing quadratically. For bass, $\eta > 90\,\%$ only at $\approx 5$\,mm. Additionally, $R_\text{squeeze} \propto 1/s^3$ is 14$\times$ smaller for bass ($s = 0{.}06$\,mm) than C6 ($s = 0{.}025$\,mm).
+\end{keybox}
+
+\begin{warnbox}
+\textbf{Limitation:} The squeeze model overestimates the braking effect (Doc.~0010). The relative statement --- high notes are more sensitive to overly thick plates --- is physically sound and consistent with experience.
+\end{warnbox}
+
+\textit{Diagrams: see PDF (Figs.~8--10).}
+
+\section{Summary}
+
+\begin{keybox}
+\textbf{1.\ Duty cycle $\approx 25\,\%$:} The reed is inside the channel only one quarter of the time --- at maximum velocity (zero crossing).
+
+\textbf{2.\ Torsion determines minimum gap:} Lateral deflection 0.04--0.10\,mm during transient excitation.
+
+\textbf{3.\ Tapered widening:} Benefit: room for torsion. Cost: scales with taper angle --- negligible for bass, significant for C6.
+
+\textbf{4.\ Drive area:} $F \propto W \times h$. Thick bass plates deliver 21$\times$ more force than C6.
+
+\textbf{5.\ Too thick plates harm high notes:} Drive saturates ($\eta \to 100\,\%$), but squeeze brake grows quadratically ($\propto h^2$) and air inertia grows with $h \times \omega^2$. Practical thicknesses (2\,mm at C6, 15\,mm at bass) are determined by this balance.
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape The channel is not just a slot --- it is the place where pressure becomes motion.}
+\end{center}
+
+
+\end{document}

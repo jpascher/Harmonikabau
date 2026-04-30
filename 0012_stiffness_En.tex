@@ -1,0 +1,56 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+% == Document Metadata ====================
+\newcommand{\hbdoknr}{0012}
+\newcommand{\hbtitel}{Reed Stiffness}
+\newcommand{\hbuntertitel}{Calculation, Material Selection and Effect on Frequency}
+\newcommand{\hbheadtext}{Doc.\,0012 --- Reed Stiffness}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0010}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape The stiffness of the reed determines two properties that are in conflict: response and tuning stability. A soft reed responds more easily but detunes more strongly with bellows pressure. A stiff reed holds the pitch more steadily but requires more pressure to start vibrating.}
+
+\section{Stiffness and Frequency}
+
+Frequency and stiffness both depend on geometry, but to \textbf{different degrees}:
+\begin{equation}
+f \propto \frac{t}{L^2}, \qquad k = \frac{E \cdot W \cdot t^3}{4 \cdot L^3}
+\end{equation}
+Stiffness $k$ depends \textbf{cubically} on $t$, while frequency depends only linearly. 10\,\% thinner = 27\,\% softer, but only 10\,\% flatter.
+
+\section{Detuning by Bellows Pressure}
+
+The Bernoulli effect creates a ``negative spring'': $k_\text{eff} = k_\text{reed} - k_\text{Bernoulli}(p)$. The frequency shift: $\Delta f/f \approx -k_\text{Bernoulli}/(2 \cdot k_\text{reed})$.
+
+\begin{keybox}
+\textbf{Result:} Bass (k $\approx$ 80--150\,N/m): 4--11\,cents/kPa (audible). Treble (k $\approx$ 250--400\,N/m): 0.3--0.8\,cents/kPa (barely audible).
+\end{keybox}
+
+\section{The Trade-off}
+
+$\Delta f \times p_\text{threshold} \approx \text{const}$ --- good response and stable tuning are physically incompatible.
+
+\section{Tuning Weight vs.\ Thinning}
+
+\textbf{Adding mass:} Lowers $f$, $k$ unchanged $\to$ same detuning. \textbf{Thinning:} Lowers $f$ and $k$ ($k \propto t^3$) $\to$ 37\,\% more detuning per 10\,\% thinning.
+
+\section{Summary}
+\begin{keybox}
+1.~$k \propto t^3$: cubic coupling. 2.~Detuning $\propto 1/k$. 3.~$\Delta f \times p_\text{th} \approx$ const. 4.~Tuning weight is more pitch-stable than thinning. 5.~Profiling decouples mass and stiffness.
+\end{keybox}
+
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape The reed seeks its equilibrium between freedom and control --- just like the player.}
+\end{center}
+
+\end{document}

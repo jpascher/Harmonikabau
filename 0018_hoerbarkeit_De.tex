@@ -1,21 +1,21 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
-\usepackage{amsmath,amssymb,graphicx,booktabs,xcolor}
-\usepackage[margin=25mm]{geometry}
-\usepackage{tcolorbox,hyperref}
+\usepackage{harmonikabau_preamble}
 
-\definecolor{darkblue}{HTML}{16213e}
-\definecolor{keygreen}{HTML}{2e7d32}
+% == Dokumentmetadaten ====================
+\newcommand{\hbdoknr}{0018}
+\newcommand{\hbtitel}{Hörbarkeit der Biegemoden}
+\newcommand{\hbuntertitel}{Kammer-Saugkreis, Transiente und Torsion}
+\newcommand{\hbheadtext}{Dok.\,0018 --- H\"{o}rbarkeit der Biegemoden}
+\newcommand{\hbfoottext}{Querverweise: Dok.\,0016 $\cdot$ Dok.\,0017}
 
-\title{\textcolor{darkblue}{Dok. 0018\\Hörbarkeit der Biegemoden:\\Kammer-Saugkreis, Transiente, Torsion}}
-\author{Harmonikabau --- Technische Dokumentation}
-\date{}
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
 
 \begin{document}
-\maketitle
-
+\hbmaketitle
 \noindent\textit{Korrektur zu Dok.~0016: Die Biegemoden können unter bestimmten Bedingungen
 hörbar werden. Drei Mechanismen: Kammer-Resonanz, Einschwingvorgang, Torsion.
 Referenz: Dok.~0009, 0011, 0015--0017.}
@@ -116,5 +116,6 @@ kratzt im Winter.
 \textit{Die Biegemoden sind leise --- aber nicht stumm.
 Die Kammer kann sie wecken, der Transient lässt sie kurz erklingen,
 die Torsion macht sie als Kratzen hörbar.}
+
 
 \end{document}

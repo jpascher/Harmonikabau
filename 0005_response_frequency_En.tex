@@ -1,0 +1,297 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+\newcommand{\hbdoknr}{0005}
+\newcommand{\hbtitel}{Frequency Shift as Response Indicator}
+\newcommand{\hbuntertitel}{Chamber Coupling, Operating Point and Geometric Influence}
+\newcommand{\hbheadtext}{Doc.\,0005 --- Frequency Shift as Response Indicator}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0002 $\cdot$ Doc.\,0004}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape Proves that frequency shift and response deterioration are physically inseparable. Both are projections of the same complex coupling impedance $Z_H(f)$. Numerical values: 50\,Hz bass reed from Doc.\,0002.}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Document References} \\
+\midrule
+Doc.\,0001 & Analysis of instrument acoustics and psychoacoustics \\
+Doc.\,0002 & Flow analysis of bass reed 50\,Hz -- v8 \\
+Doc.\,0003 & Impedance comparison: free-beating reed vs.\ labial pipe \\
+Doc.\,0004 & Frequency variation -- two-filter model \\
+\textbf{Doc.\,0005} & \textbf{Frequency shift as response indicator (this document)} \\
+Doc.\,0006 & Symbol reference \\
+Doc.\,0007 & Treble reed block -- chamber frequencies \\
+Doc.\,0008 & Tone modification by chamber geometry \\
+Doc.\,0500 & Guide to aesthetic forensics of accordion casework \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verification script for all calculations \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\vspace{4mm}
+
+\section{The Central Thesis}
+
+Doc.\,0002 (Ch.\,10) shows: a resonant chamber deteriorates response through series coupling. Doc.\,0004 shows: the chamber shifts the reed frequency by 1--5\,cents. Both effects are caused by the same physical quantity --- the \textbf{complex coupling impedance} $Z_H(f)$.
+
+\begin{keybox}
+\textbf{Frequency shift and response deterioration are the imaginary and real parts of the same complex coupling function.} They are causally linked through the Kramers--Kronig relation. The frequency shift reveals whether response is improving or worsening --- and how far one is from the critical resonance.
+\end{keybox}
+
+\section{The Complex Coupling Impedance}
+
+\subsection{Decomposition into Real and Imaginary Parts}
+
+The Helmholtz impedance of the chamber at frequency $f$:
+\begin{equation}
+Z_H(f) = R_H(f) + j\,X_H(f)
+\end{equation}
+
+\textbf{Real part} (resistance $=$ energy dissipation $\to$ response deterioration):
+\begin{equation}
+R_H(f) = Z_0 \cdot \frac{f/f_H}{Q_H \cdot D(f)}
+\end{equation}
+
+\textbf{Imaginary part} (reactance $=$ energy storage $\to$ frequency shift):
+\begin{equation}
+X_H(f) = Z_0 \cdot \frac{1 - (f/f_H)^2}{D(f)}
+\end{equation}
+
+where $D(f) = \left(1 - (f/f_H)^2\right)^2 + \left(f/(f_H \cdot Q_H)\right)^2$ and $Z_0 = 1/(\omega_H C_a)$.
+
+\subsection{Physical Assignment}
+
+\textbf{Real part $R_H(f) \to$ energy loss $\to$ response deterioration:}
+\begin{equation}
+\Delta\zeta_n = \kappa_\text{eff}^2 \cdot \frac{R_H(nf_1)}{Z_0}, \qquad \Delta\tau_n = \frac{\Delta\zeta_n}{\pi f_1}
+\end{equation}
+
+\textbf{Imaginary part $X_H(f) \to$ frequency shift:}
+\begin{equation}
+\Delta f_n = -\kappa_\text{eff}^2 \cdot f_n \cdot \frac{X_H(f_n)}{2 Z_0}
+\end{equation}
+
+\begin{keybox}
+$\Delta\tau$ (response) $\propto R_H(f)$ and $\Delta f$ (frequency) $\propto X_H(f)$. Both come from \textbf{the same} complex impedance $Z_H = R_H + jX_H$. They relate to each other like the sine and cosine of an angle --- know one, know the other.
+\end{keybox}
+
+\section{The Sign Change as Warning Signal}
+
+The key insight lies in the \textbf{sign change} of the frequency shift:
+
+\begin{itemize}[leftmargin=5mm, itemsep=4pt]
+\item $\Delta f > 0$ (tone becomes \textbf{higher}): Nearest OT lies \textbf{below} $f_H$. Chamber acts as spring (compliance). Response is good, deteriorates as $\Delta f$ grows.
+\item $\Delta f \to 0$ \textbf{with sign change}: OT passes through $f_H$. \textbf{Worst case.} Maximum energy extraction at minimum frequency signal.
+\item $\Delta f < 0$ (tone becomes \textbf{lower}): Nearest OT lies \textbf{above} $f_H$. Chamber acts as mass (inertance). Response was poor, improving.
+\item $\Delta f \approx 0$ \textbf{without sign change}: No OT near $f_H$. \textbf{Best case.}
+\end{itemize}
+
+\begin{warnbox}
+\textbf{The paradox:} Exactly at optimal resonance ($f_H = n \cdot f_\text{reed}$), damping is maximal ($R_H = Q_H \cdot Z_0$), but the frequency shift \textbf{of that overtone} is zero ($X_H = 0$). At the resonance point, all coupling energy is converted to dissipation (real part); nothing remains for reactance (imaginary part). The overtone is not shifted but \textbf{damped} --- which is worse.
+\end{warnbox}
+
+\subsection{Nyquist Diagram of the Coupling}
+
+In the Nyquist diagram ($R_H$ horizontal, $X_H$ vertical), the impedance traces a \textbf{circle}. Each overtone lies at a point on this circle:
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{rrrl}
+\toprule
+OT $n$ & $R_H/Z_0$ & $X_H/Z_0$ & Position on the circle \\
+\midrule
+1 (50\,Hz) & 0.001 & $+$1.000 & $\uparrow$ Upper edge (pure compliance) \\
+3 (150\,Hz) & 0.011 & $+$0.917 & $\uparrow$ Upper half \\
+5 (250\,Hz) & 0.090 & $+$0.537 & $\nearrow$ Approaching the peak \\
+$f_H$ (274) & 0.143 & $\approx 0$ & $\to$ \textbf{Peak} (maximum damping) \\
+6 (300\,Hz) & 0.072 & $-$0.374 & $\searrow$ Below the peak \\
+8 (400\,Hz) & 0.017 & $-$0.655 & $\downarrow$ Lower half \\
+\bottomrule
+\end{tabular}}
+\caption{Nyquist positions of the overtones. At the peak ($f_H$): max.\ damping, $X_H$ changes sign.}
+\end{table}
+
+The 5th overtone (250\,Hz) lies in the upper semicircle ($X > 0$, $\Delta f > 0$); the 6th overtone (300\,Hz) in the lower ($X < 0$, $\Delta f < 0$). Between them, at $f_H = 274$\,Hz, lies the peak. The fact that no overtone falls exactly on the peak explains the relatively good response of the 50\,Hz reed in this chamber.
+
+\section{The Mathematical Proof: Kramers--Kronig}
+
+The linkage is \textbf{physically compelling}. Every causal, linear response function satisfies the Kramers--Kronig relations:
+\begin{align}
+X_H(\omega) &= -\frac{1}{\pi}\, \mathcal{P} \int_{-\infty}^{\infty} \frac{R_H(\omega')}{\omega' - \omega}\, d\omega' \\
+R_H(\omega) &= +\frac{1}{\pi}\, \mathcal{P} \int_{-\infty}^{\infty} \frac{X_H(\omega')}{\omega' - \omega}\, d\omega'
+\end{align}
+($\mathcal{P}$ = Cauchy principal value). \textbf{Knowing the frequency dependence of the frequency shift (all $X_H(f)$), one can calculate the response deterioration (all $R_H(f)$) --- and vice versa.}
+
+For the Helmholtz resonator:
+\begin{equation}
+Z_H(f) = \frac{Z_0}{1 - (f/f_H)^2 + j\,f/(f_H \cdot Q_H)}
+\end{equation}
+The real part (Lorentzian, bell shape) and imaginary part (dispersion curve, S-shape with zero crossing at $f_H$) are linked by the Hilbert transform --- exactly like absorption and refractive index in optics.
+
+\begin{keybox}
+The Kramers--Kronig relation is a consequence of \textbf{causality}. The chamber cannot ``choose'' to shift frequency without dissipating energy (or vice versa). Both effects are two sides of the same coin. A system that pulls the frequency strongly \textbf{must} also dissipate energy --- and vice versa (except exactly at resonance, where $X = 0$).
+\end{keybox}
+
+\section{The Practical Measurement Procedure}
+
+\textbf{Step 1:} Measure reed frequency \textbf{free} (reed plate on test block, no chamber). Result: $f_\text{free}$.
+
+\textbf{Step 2:} Measure reed frequency \textbf{in the chamber} (same bellows pressure). Result: $f_\text{chamber}$.
+
+\textbf{Step 3:} $\Delta f = f_\text{chamber} - f_\text{free}$.
+
+\textbf{Step 4:} Interpretation:
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{l l l}
+\toprule
+\textbf{Measurement result} & \textbf{Physics} & \textbf{Response} \\
+\midrule
+$\Delta f \approx 0$, response good & No OT near $f_H$ & \textbf{Optimal} \\
+$\Delta f > 0$ (tone higher) & Nearest OT below $f_H$ & Good, deteriorating \\
+$\Delta f$ maximum positive & OT approaching $f_H$ & \textbf{Warning} \\
+$\Delta f \to 0$ (sign change) & OT passing through $f_H$ & \textbf{Worst case} \\
+$\Delta f < 0$ (tone lower) & Nearest OT above $f_H$ & Improving \\
+$\Delta f \approx 0$, response good & OT far from $f_H$ & \textbf{Optimal} \\
+\bottomrule
+\end{tabular}}
+\caption{Interpretation key: $\Delta f \to$ response prognosis}
+\end{table}
+
+\textbf{Elegant variant:} Adjustable chamber (sliding base). Vary volume $V$ and thus $f_H$ continuously. When $\Delta f$ changes sign, one has passed through resonance --- there response is worst. The synchrony of sign change and response minimum is the \textbf{experimental proof} of the Kramers--Kronig linkage.
+
+\section{Total Balance: Sum Over All Overtones}
+
+The total effect on the fundamental is the sum over all overtones:
+\begin{equation}
+\Delta f_\text{total} = \sum_n \frac{a_n}{n} \cdot \Delta f_n, \qquad
+\Delta\tau_\text{total} = \sum_n a_n^2 \cdot \Delta\tau_n
+\end{equation}
+
+The sign of the net frequency shift indicates from which side the dominant overtone approaches $f_H$:
+
+\begin{keybox}
+\textbf{Rule of thumb:}\\
+$\Delta f_\text{net} > 0$ $\to$ Dominant OT lies \textbf{below} $f_H$ $\to$ lowering $f_H$ worsens response.\\
+$\Delta f_\text{net} < 0$ $\to$ Dominant OT lies \textbf{above} $f_H$ $\to$ raising $f_H$ worsens response.\\
+$\Delta f_\text{net} \approx 0$ $\to$ Either decoupled (good) or on resonance (bad) $\to$ response test decides.
+\end{keybox}
+
+\section{The Problem of the Missing Reference Frequency}
+
+The measurement procedure ($f_\text{free}$ vs.\ $f_\text{chamber}$) has a fundamental \textbf{practical limitation} that does not appear in calculations but is critical for the instrument builder:
+
+\begin{warnbox}
+\textbf{There is no absolute reference frequency.} The frequency $f_\text{free}$ (reed on test block, no chamber) is \textbf{itself} a setup-dependent quantity. The test block has its own volume, acoustic impedance, coupling. $f_\text{free}$ is not the ``true'' natural frequency of the reed --- it is the frequency of the reed \textbf{in a different acoustic environment}.
+\end{warnbox}
+
+The physical natural frequency in vacuum ($f_\text{vac}$) is not practically measurable --- the reed needs air to vibrate (Bernoulli mechanism). Even a reed in open space has an acoustic environment: free sound radiation as a weak load.
+
+\subsection{The Three ``Reference Frequencies'' of the Accordion Builder}
+
+\textbf{$f_\text{test block}$:} Reed on a standardised wooden block, blown with defined pressure. Closest to $f_\text{vac}$, but not identical (the block has compliance). Estimated difference from $f_\text{vac}$: 0.1--0.5\,cents.
+
+\textbf{$f_\text{chamber,open}$:} Reed mounted in chamber, valve open. The open valve changes chamber impedance compared to playing (lower $Z$ at valve end $\to$ $f_H$ shifts).
+
+\textbf{$f_\text{chamber,playing}$:} Reed in chamber, valve closed, blown by bellows. This is the ``real'' operating state --- but here the frequency is already modified by full chamber coupling.
+
+\subsection{The Pre-tuning Setup as Local Reference}
+
+Since none of the three reference frequencies is ``absolute'', the experienced instrument builder works with a \textbf{local reference}: he defines his personal pre-tuning setup (specific test block, specific blowing pressure, specific room temperature) as the \textbf{zero point}. All frequency measurements are interpreted relative to this setup. The setup is the ``calibration'' of the tuning process.
+
+The $\Delta f$ method still works, because it measures a \textbf{difference}: $\Delta f = f_\text{chamber} - f_\text{setup}$. Absolute frequency is irrelevant --- only the difference and above all the \textbf{sign change} when varying the chamber geometry. The sign change is setup-independent, because it is a property of the chamber-reed coupling, not of the absolute frequency.
+
+\subsection{What Experience Provides That Calculation Cannot}
+
+\textbf{1.\ The offset correction:} How many cents does $f_\text{setup}$ lie above or below $f_\text{vac}$? Only someone who has tuned with the same test block for years and heard the resulting instruments can know.
+
+\textbf{2.\ Temperature compensation:} $f_\text{reed}$ changes with temperature (Young's modulus: $\sim$0.5\,cents/°C). $c$ also changes ($+0{.}17\,\%$/°C $\to$ changes $f_H$ and $\Delta f$). The experienced tuner compensates both intuitively.
+
+\textbf{3.\ Pressure dependence:} Bellows pressure changes $h_\text{eff}$ (Doc.\,0002 Ch.\,9) and thus $S_\text{gap}$, $\kappa$ and $\Delta f$. The pre-tuning setup defines a specific operating point on the pressure curve.
+
+\textbf{4.\ Material variation:} 0.1\,mm difference in deflection $\to$ 7\,\% in $S_\text{eff}$ (Doc.\,0002 Ch.\,13), and thus different $\kappa$ and $\Delta f$. Calculation gives the average --- experience says how far the individual case can deviate.
+
+\begin{keybox}
+\textbf{The role of calculation in the tuning process:}
+
+The formulas from Doc.\,0002--0005 do not replace experience. They accomplish something different: they explain \textbf{why} the rules of experience work. They predict \textbf{in which direction} a change acts. They identify the \textbf{sensitive parameters}. They warn \textbf{when} caution is needed (sign change $\to$ resonance).
+
+What calculation \textbf{cannot} do: predict the exact cent value, compensate for material variation, know the instrument builder's setup. For that, one needs the practical test --- and the experience that makes craft from a thousand tests.
+\end{keybox}
+
+\section{Clarification: Response vs.\ Loudness -- No Trade-off in Chamber Tuning}
+
+A natural misconception must be addressed: if optimal response means the chamber draws as \textbf{little} energy as possible from the reed --- does good response then reduce maximum achievable loudness?
+
+\textbf{No.} The answer follows directly from the physics of series coupling (Doc.\,0002 Ch.\,10). Two effects must be clearly separated because they are physically distinct:
+
+\subsection{Chamber Tuning: Win-Win}
+
+When an overtone of the reed falls exactly on $f_H$, $R_H$ is maximal --- the chamber draws energy from the reed through series coupling. This energy loss deteriorates \textbf{both simultaneously}:
+
+\textbf{Response:} The extracted energy is missing during amplitude build-up. Onset time $\tau$ increases by $\Delta\tau \propto R_H$ (Ch.\,3).
+
+\textbf{Loudness:} In the steady state, a fraction of the vibrational energy \textbf{per cycle} flows into chamber dissipation instead of being converted to sound radiation. The equilibrium amplitude falls: $A_\text{max} \propto 1/\sqrt{R_H}$.
+
+Both effects stem from the same source --- $R_H(f)$, the real part of the chamber impedance. When $R_H$ falls (no overtone on $f_H$), \textbf{both} improve: faster response \textbf{and} larger amplitude. In chamber tuning there is no trade-off. Optimal tuning is win-win.
+
+\subsection{Reed Quality Factor $Q_1$: The Real Trade-off}
+
+The trade-off between response and loudness exists --- but it lies \textbf{not} in chamber tuning, but in the reed itself:
+
+\textbf{High $Q_1$} (low damping): Reed stores much energy per cycle $\to$ \textbf{louder}. But amplitude build-up takes many cycles $\to$ \textbf{slow response} ($\tau = Q_1/(\pi f)$).
+
+\textbf{Low $Q_1$} (high damping): Few cycles to reach steady state $\to$ \textbf{fast response}. But equilibrium amplitude is lower $\to$ \textbf{quieter}.
+
+This trade-off is determined by material, clamping and deflection (Doc.\,0002 Ch.\,9) --- \textbf{not} by chamber geometry.
+
+\begin{keybox}
+\textbf{Summary of the distinction:}
+
+\textbf{Chamber tuning} ($f_H$ relative to overtones, Doc.\,0005): Affects \textbf{external damping} by the chamber. Optimisation = minimise $R_H$ = win-win (better response \textit{and} more loudness).
+
+\textbf{Reed quality factor} $Q_1$ (material, clamping, Doc.\,0002): Affects \textbf{internal damping} of the reed. Here lies the real trade-off: higher $Q_1$ = louder but slower; lower $Q_1$ = faster but quieter.
+
+The instrument builder optimises both \textbf{independently}: tune the chamber to disturb as little as possible ($f_H$ between overtones). Choose the reed so that $Q_1$ suits the musical context (bass: lower for fast response; treble: higher for loudness and sustain).
+\end{keybox}
+
+\section{Summary}
+
+\begin{keybox}
+\textbf{Proven relationship:} $\Delta f$ and $\Delta\tau$ are the imaginary and real parts of the same complex coupling impedance $Z_H(f)$, linked by Kramers--Kronig (causality).
+
+\textbf{Optimal resonance gives worst response:} At $f_H = n \cdot f_\text{reed}$, $R_H$ is maximal, $X_H = 0$. Maximum energy extraction at minimum frequency signal.
+
+\textbf{Frequency shift is a measurable indicator:}
+Large $|\Delta f|$ $\to$ strong coupling, but not critical.
+$\Delta f \to 0$ with sign change $\to$ \textbf{worst response}.
+$\Delta f \to 0$ without sign change $\to$ \textbf{best response}.
+
+\textbf{Measurement procedure:} $f_\text{free}$ vs.\ $f_\text{chamber}$. The sign change when varying chamber geometry marks the resonance crossing.
+
+\textbf{Missing absolute reference:} $f_\text{free}$ is setup-dependent. The pre-tuning setup (test block, blowing pressure, temperature) defines the local zero point. The sign change of $\Delta f$ is setup-independent --- it is the physical observable.
+
+\textbf{No trade-off in chamber tuning:} Optimal tuning ($f_H$ between overtones) improves response \textit{and} loudness simultaneously, because both suffer from the same source ($R_H$). The trade-off between response and loudness lies in the reed quality factor $Q_1$ (material, clamping) --- not in the chamber.
+
+\textbf{Calculation says where to look. Setup defines the zero point. Experience says what you find.}
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape What you cannot measure, you cannot optimise. The frequency shift is the measurement quantity --- the setup is the calibration.}
+\end{center}
+
+
+\end{document}

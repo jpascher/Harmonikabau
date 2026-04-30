@@ -1,0 +1,173 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+\newcommand{\hbdoknr}{0015}
+\newcommand{\hbtitel}{Acoustic Coupling and Impedance Matching}
+\newcommand{\hbuntertitel}{Channel Geometry, Slot Shape and Reed Block Design}
+\newcommand{\hbheadtext}{Doc.\,0015 --- Acoustic Coupling and Impedance Matching}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0002 $\cdot$ Doc.\,0007 $\cdot$ Doc.\,0011}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{Note:} This document presents an explanatory model.
+The numerical values given are order-of-magnitude estimates ---
+they provide no constructive specifications.
+The optimum is heard, not calculated.
+\end{tcolorbox}
+
+\noindent\textit{Analysis of acoustic coupling between reed and chamber as a two-port system. Transition geometry, constriction as acoustic mass, coupling centroid and impedance mismatch.
+Reference: Doc.~0005--0013.}
+
+\section{The Chamber as a Two-Port System}
+
+In the previous documents (Doc.~0004--0008), the chamber was treated as a Helmholtz resonator with a single opening (valve). Doc.~0013 showed that the reed never completely closes the channel --- the side gap always remains open. The chamber therefore has \textbf{two ports}:
+
+\textbf{Port~1 (reed end):} The reed pulsates and creates pressure impulses. The effective area fluctuates between the side gap ($A_\mathrm{min} \approx 10~\mathrm{mm}^2$) and the slot area ($A_\mathrm{max} \approx 26~\mathrm{mm}^2$).
+
+\textbf{Port~2 (valve):} Stationary opening with $A_2 \approx 300~\mathrm{mm}^2$. Sound radiates from here.
+
+The conductance $G = A/l$ determines how easily air flows through each port. Port~1 (reed) carries time-averaged $\approx 70\,\%$ of total conductance --- the reed is the primary port, not the valve.
+
+\begin{equation}
+f_H = \frac{c}{2\pi}\sqrt{\frac{S_1/l_1 + S_2/l_2}{V}}
+\end{equation}
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Consequence:} All calculations in Doc.~0004--0008 that derive $f_H$ only from the valve opening must be understood as lower bounds. The actual chamber resonance lies higher.
+\end{tcolorbox}
+
+\section{Is the Fold Acoustically Visible?}
+
+For a bass at 50\,Hz, the wavelength is $\lambda = c/f = 6860$\,mm. The largest chamber dimension (chamber length 120\,mm) is only 1.7\,\% of $\lambda$. A partition wall (30\,mm) is 0.44\,\% of $\lambda$.
+
+When $d/\lambda < 0{.}1$, the wave diffracts completely around the obstacle --- it does not exist acoustically. When $d/\lambda > 0{.}5$ it acts as a reflector.
+
+At 50\,Hz, \textbf{all} chamber geometries lie deep in the regime $d \ll \lambda$. Only above $\approx 1400$\,Hz (28th overtone) does the partition wall begin to approach the limit $d/\lambda = 0{.}1$.
+
+The analogy with an optical waveguide confirms this: a smooth, round tube with constant cross-section has no reflection coefficient --- the wave follows the curve as long as the bend radius is large compared to the wavelength.
+
+\textbf{Coltman correction:} Coltman compensates not the bend itself, but the cross-section change and path-length difference at the fold. $Z = \rho c / A$ remains constant at constant cross-section. The path-length correction scales with $d^2/r$ --- at $d/\lambda < 0{.}01$ it is negligible.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Conclusion:} In the bass chamber, the fold plays no role for the fundamental and the first overtones. Matching occurs at the openings (Port~1 and Port~2), not at the fold.
+\end{tcolorbox}
+
+\section{Constriction = Acoustic Mass}
+
+Every cross-section reduction in the channel acts as a concentrated acoustic mass: $m = \rho \times l / A$. This holds regardless of whether the constriction is in a straight tube, at a fold, or at the slot$\to$chamber transition.
+
+The Coltman compensation in folded organ pipes is fundamentally a constriction at the deflection point. The mechanism changes (waveguide vs.\ lumped element), but the physical element (constriction = mass) remains the same.
+
+\section{Pressure Build-up Before the Constriction}
+
+The reed's pressure impulse backs up before the constriction at the slot$\to$chamber transition. Three scenarios:
+
+\textbf{Too wide:} Pressure escapes immediately into the volume --- weak back-reaction, weak coupling.
+
+\textbf{Optimal:} Pressure briefly backs up --- maximum back-reaction, best coupling.
+
+\textbf{Too narrow:} The impulse is predominantly reflected --- energy does not enter the volume.
+
+\section{Impedance Matching: Transition Geometry as Transformer}
+
+The observation that different transition geometries change \textbf{response} but not \textbf{filter action} can be modelled cleanly as a matching problem:
+
+\textbf{Source:} Bellows pressure $p_\mathrm{bellows}$ with internal resistance $R_i$ depending on the system's flow resistance. $R_i \propto 1/A^2$ (Bernoulli).
+
+\textbf{Load:} The reed with mechanical impedance $R_L$ (fixed, determined by stiffness and mass, Doc.~0012).
+
+\textbf{Transformer:} The transition geometry at the reed end determines how efficiently flow energy is converted to reed energy.
+
+\begin{equation}
+P / P_\mathrm{max} = \frac{4 \, R_L \, R_i}{(R_i + R_L)^2}
+\end{equation}
+
+Maximum at $R_i = R_L$ --- classical matching condition. Too narrow: $R_i \gg R_L \to$ blockage. Too wide: $R_i \ll R_L \to$ short circuit. Optimal: $R_i = R_L \to$ maximum power transfer bellows$\to$reed.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Crucial:} The filter action ($f_H$, notch filter) depends on the resonator --- chamber volume and opening area. The transformer (transition geometry) changes matching efficiency, not resonance. This is exactly what is observed: different response, same timbre.
+\end{tcolorbox}
+
+\section{Equivalent Circuit: Two Coupled Resonators}
+
+The separation of response and filter action can be represented exactly as an electroacoustic analogy. Reed and chamber are each a series resonator (RLC), connected by a coupling element:
+
+\textbf{Circuit 1 (reed):} Mass $m \to$ inductance $L_1$. Stiffness $k \to$ capacitance $C_1 = 1/k$. Damping $\to$ resistance $R_1$. $f_1 = 1/(2\pi\sqrt{L_1 C_1}) \approx 50$~Hz.
+
+\textbf{Circuit 2 (chamber):} Acoustic mass $\rho l/A \to L_2$. Volume compliance $V/(\rho c^2) \to C_2$. $f_H = 1/(2\pi\sqrt{L_2 C_2})$.
+
+\textbf{Coupling:} Mutual impedance $M = k \times \sqrt{L_1 L_2}$. The coupling coefficient $k$ (0--1) is determined by the transition geometry.
+
+The transfer function $H(f) = I_2 / V_1$ shows two resonance peaks (at $f_1$ and $f_H$). Crucially: $k$ changes the \textbf{height} of the peaks (energy transfer = response), but not their \textbf{position} (frequency = filter action). Conversely, $C_2$ (chamber volume) shifts the $f_H$ peak without changing response.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Calculable:} With the physical values (mass, stiffness, volume, opening area) the transfer function is quantitatively determined. $k$ determines response, $C_2$ determines filter action --- these parameters are independent.
+\end{tcolorbox}
+
+\section{Valve Position --- Fine Adjustment}
+
+In practice the valve opening can be offset by a few millimetres to at most one centimetre from the chamber end. The shift changes the effective acoustic neck length and thus $f_H$.
+
+In the practical range (0--15\,mm), $f_H$ shifts by a few percent. Valve position is a fine adjustment --- the main lever is at the reed end (Port~1), where 70\,\% of conductance resides.
+
+\section{Limits of the Model}
+
+The two-port model shows relationships and directions. It does not say where the optimum lies.
+
+\textbf{(a) Nonlinearity:} The reed switches periodically between small and large opening. The actual impedance modulation (Doc.~0013) is highly nonlinear.
+
+\textbf{(b) Tonal target:} The ``optimal'' spectrum depends on the desired tonal character. The calculation shows the map; the ear walks the path.
+
+\textbf{(c) Interactions:} Gap width (Doc.~0010), stiffness (Doc.~0012), chamber volume, valve opening and transition geometry all act together.
+
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{This document is an explanatory model, not a design guide. Design decisions still require practical tests and experience.}
+\end{tcolorbox}
+
+\section{Where Does the Reed Couple? --- Centroid of Volume Flow}
+
+The assumption that coupling occurs at the absolute end of the reed (tip) is a simplification. The reed is a cantilever --- its vibration shape follows the first Euler--Bernoulli bending mode.
+
+Volume flow per unit length $\mathrm{d}Q/\mathrm{d}x \propto y(x)$ increases steeply towards the tip. The weighted \textbf{centroid of volume flow} lies at $x/L = 0{.}73$ --- not at the tip ($x/L = 1{.}0$). 50\,\% of total volume flow arises in the last 23\,\% of the reed length.
+
+For a bass reed with $L = 70$\,mm the centroid lies at 51\,mm from the clamping point --- about 19\,mm before the tip.
+
+\subsection{Impedance Mismatch}
+
+The mechanical impedance of the reed and the acoustic impedance of the air differ by orders of magnitude. The reed is a \textbf{current generator} (high impedance) --- it drives a volume flow that the air accommodates.
+
+$Z_\mathrm{reed}$ lies a factor 50--500 above $Z_\mathrm{air}$. The coupling is \textbf{not matched} in the sense of maximum power transfer ($Z_\mathrm{source} = Z_\mathrm{load}$). This is physically correct: the reed is self-excited and vibrates at its natural frequency, not at the chamber resonance. The air is ``carried along'', not ``driven''.
+
+This is consistent with Doc.~0010: over 97\,\% of energy output occurs through air coupling, less than 3\,\% through the mechanical clamping.
+
+\subsection{Consequence: Position of the Plate Edge}
+
+When the reed plate covers the full reed length, the entire slot couples into the chamber. If the reed protrudes beyond the plate edge (deflection), the most energetic part --- the last 20--30\,\% of the reed --- bypasses the chamber and radiates directly into free space.
+
+The position of the plate edge relative to the reed therefore determines what fraction of the volume flow is coupled into the chamber and what fraction radiates directly.
+
+\section{Summary}
+
+\begin{enumerate}
+\item \textbf{Two-port system:} The chamber is open at both ends. Port~1 (reed) carries $\approx 70\,\%$ of conductance. The single-port model underestimates $f_H$.
+\item \textbf{Fold invisible:} At 50\,Hz, the largest chamber dimension is 1.7\,\% of $\lambda$. Chamber shape is irrelevant --- only volume counts.
+\item \textbf{Impedance matching:} The transition geometry acts as a transformer between bellows pressure (source) and reed (load). Maximum power transfer at $R_i = R_L$. Filter action ($f_H$) depends on the resonator, not the transformer.
+\item \textbf{Equivalent circuit:} Reed and chamber form two coupled RLC resonators. $k$ determines response (energy transfer), $C_2 = V/(\rho c^2)$ determines filter action ($f_H$). These parameters are independent.
+\item \textbf{Valve position = fine adjustment:} A few percent $f_H$ shift. The main lever is at the reed end.
+\item \textbf{Centroid at $x/L = 0{.}73$:} Coupling does not occur at the reed tip, but $\approx 27\,\%$ before it. Plate edge position determines the coupling.
+\item \textbf{$Z_\mathrm{reed} \gg Z_\mathrm{air}$:} The reed is a current generator. Impedances are not matched --- the air is carried along, not driven.
+\item \textbf{Optimum is heard:} The calculation shows relationships and directions. Experience and ear training remain the key to success.
+\end{enumerate}
+
+\bigskip
+\textit{The reed feeds, the chamber shapes, the valve radiates. The geometry at the transition determines the coupling.}
+
+
+\end{document}

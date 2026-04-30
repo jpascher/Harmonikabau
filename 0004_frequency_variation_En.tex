@@ -1,0 +1,300 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+\newcommand{\hbdoknr}{0004}
+\newcommand{\hbtitel}{Reed Frequency Variation}
+\newcommand{\hbuntertitel}{through Chamber Coupling -- Two-Filter Model}
+\newcommand{\hbheadtext}{Doc.\,0004 --- Frequency Variation: Two-Filter Model}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0002 $\cdot$ Doc.\,0003}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape Shows why the chamber shifts the reed pitch despite separate natural frequencies, and how this can be calculated as a filter combination of two coupled systems. Numerical values: 50\,Hz bass reed, $f_H = 274$\,Hz, $Q_H \approx 7$ (from Doc.\,0002).}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Document References} \\
+\midrule
+Doc.\,0001 & Analysis of instrument acoustics and psychoacoustics \\
+Doc.\,0002 & Flow analysis of bass reed 50\,Hz -- v8 \\
+Doc.\,0003 & Impedance comparison: free-beating reed vs.\ labial pipe \\
+\textbf{Doc.\,0004} & \textbf{Frequency variation -- two-filter model (this document)} \\
+Doc.\,0006 & Symbol reference \\
+Doc.\,0007 & Treble reed block -- chamber frequencies \\
+Doc.\,0008 & Tone modification by chamber geometry \\
+Doc.\,0500 & Guide to aesthetic forensics of accordion casework \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verification script for all calculations \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\vspace{4mm}
+
+\section{The Practical Finding}
+
+Every experienced accordion builder knows the phenomenon: \textbf{the same reed, mounted in different chambers, sounds at different pitches.} The frequency variation is small (a few cents) but clearly measurable. Cottingham and Millot measured shifts of 10--30\,cents in free-beating reeds when the resonator was changed. In accordion bass chambers, where $f_\text{reed} \ll f_H$, the effect is smaller (1--5\,cents) but systematic.
+
+This contradicts the simplified statement from Doc.\,0002 Ch.\,11 that the chamber ``does not disturb the fundamental'' (phase $\approx -89°$). The phase is indeed almost $-90°$ --- but \textbf{almost} is not \textbf{exactly}, and even a pure compliance shifts the frequency because it imposes an additional spring stiffness on the reed.
+
+Doc.\,0003 shows that the fundamental difference from the organ pipe lies in the \textbf{time-variant gap} (impedance factor~200 per cycle). Nevertheless, the frequency shift is calculable --- with the following two-filter model.
+
+\begin{warnbox}
+\textbf{Practical consequence:} An instrument is not tuned ``on the bench'' and then installed in any chamber. The reed is tuned \textbf{in its chamber}. If the chamber is changed, the pitch changes.
+\end{warnbox}
+
+\section{The Two-Filter Model}
+
+\subsection{Two Resonators, One Gap}
+
+\textbf{Filter~1 -- The reed (mechanical band-pass):} Spring-mass system with $f_1 = 50$\,Hz and $Q_1 = 50$--$150$ (Doc.\,0002 Ch.\,9):
+\begin{equation}
+H_1(f) = \frac{f_1^2}{f_1^2 - f^2 + j f f_1 / Q_1}
+\end{equation}
+
+\textbf{Filter~2 -- The chamber (acoustic band-pass):} Helmholtz resonator with $f_H = 274$\,Hz and $Q_H = 5$--$10$ (Doc.\,0002 Ch.\,11):
+\begin{equation}
+H_2(f) = \frac{f_H^2}{f_H^2 - f^2 + j f f_H / Q_H}
+\end{equation}
+
+\textbf{The coupling:} The gap converts reed deflection into volume flow ($q = A_\text{eff} \cdot \dot{x}$) and chamber pressure into force ($F = A_\text{eff} \cdot p$). The effective gap area $A_\text{eff} = W \cdot h_\text{max}/3 = 4$\,mm$^2$ (Doc.\,0002 Ch.\,2) is the coupling element.
+
+\subsection{The Feedback Loop (Barkhausen Condition)}
+
+The system is a \textbf{feedback loop}:
+
+\medskip
+\centerline{$x \to S(x) \to q \to p_\text{chamber} \to F_\text{Bernoulli} \to x$}
+\medskip
+
+The oscillation frequency satisfies the Barkhausen condition:
+\begin{equation}
+\varphi_\text{reed}(f) + \varphi_\text{chamber}(f) + \varphi_\text{coupling}(f) = 0
+\end{equation}
+
+Without chamber: $\varphi_\text{reed}(f_\text{mech}) = 0$ $\to$ oscillation at $f_\text{mech}$. With chamber: $\varphi_\text{chamber}(f_\text{mech}) \neq 0$ $\to$ the reed shifts its frequency.
+
+\begin{keybox}
+\textbf{Core statement:} The chamber adds a phase shift to the feedback. To satisfy the phase condition, the system shifts its oscillation frequency. The shift depends on how steeply the reed phase varies at $f_\text{mech}$ ($= Q_1$) and how large the chamber phase is at $f_\text{mech}$ ($= f_\text{mech}/f_H$ and coupling strength).
+\end{keybox}
+
+\section{The Three Mechanisms of Frequency Shift}
+
+\subsection{Mechanism 1: Static Compliance Load (Air Spring)}
+
+The chamber ($V = 180$\,cm$^3$) acts as an additional spring:
+\begin{equation}
+\Delta k = \frac{A_\text{eff}^2 \cdot \rho c^2}{V} = \frac{(4 \times 10^{-6})^2 \times 1{.}2 \times 343^2}{1{.}8 \times 10^{-4}} = 0{.}013\;\text{N/m}
+\end{equation}
+
+Compared with the mechanical spring stiffness $k_\text{mech} = \omega_1^2 m_\text{eff} = 37{.}0$\,N/m (with $m_\text{eff} = 0{.}243 \times m_\text{total} = 0{.}375$\,g for the first cantilever mode):
+\begin{equation}
+\frac{\Delta f}{f} = \frac{\Delta k}{2 k_\text{mech}} = \frac{0{.}013}{74{.}0} = 1{.}7 \times 10^{-4} \quad \Rightarrow \quad \mathbf{0{.}3\;\text{cents}}
+\end{equation}
+
+Always \textbf{upward} (stiffer spring), always present, independent of $f_H$.
+
+\subsection{Mechanism 2: Resonant Amplification at Overtones near $f_H$}
+
+The impedance is amplified by factor $G(f)$ near $f_H$:
+\begin{equation}
+G(f) = \frac{1}{\sqrt{\left(1 - (f/f_H)^2\right)^2 + \left(f/(f_H \cdot Q_H)\right)^2}}
+\end{equation}
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{rrrrl}
+\toprule
+OT $n$ & $f$ [Hz] & $f/f_H$ & $G(f)$ & Phase $Z$ [°] \\
+\midrule
+1 & 50 & 0.18 & 1.0 & $-88.5$ \\
+3 & 150 & 0.55 & 1.4 & $-83.6$ \\
+5 & 250 & 0.91 & 4.7 & $-52.1$ \\
+$f_H$ & 274 & 1.00 & 7.0 & $0.0$ \\
+6 & 300 & 1.09 & 4.0 & $+51.8$ \\
+8 & 400 & 1.46 & 0.9 & $+79.6$ \\
+10 & 500 & 1.82 & 0.4 & $+83.6$ \\
+\bottomrule
+\end{tabular}}
+\caption{Impedance amplification $G(f)$ of the Helmholtz resonator at the overtones of the 50\,Hz reed ($f_H = 274$\,Hz, $Q_H = 7$). Phase values from Doc.\,0002 Ch.\,11.}
+\end{table}
+
+\subsection{Mechanism 3: Nonlinear Feedback to the Fundamental}
+
+The overtones are bound to the fundamental through nonlinear gap coupling (Doc.\,0002 Ch.\,8, Doc.\,0003 Ch.\,5). If the $n$-th overtone is pulled by $\Delta f_n$:
+\begin{equation}
+\Delta f_1 \approx \frac{1}{n} \cdot \Delta f_n
+\end{equation}
+
+\subsection{The Bernoulli Amplification Factor}
+
+The coupling constant:
+\begin{equation}
+\kappa = \frac{A_\text{eff}}{\sqrt{m_\text{eff} \cdot C_a \cdot \omega_1 \cdot \omega_2}}
+       = \frac{4 \times 10^{-6}}{\sqrt{3{.}75 \times 10^{-4} \cdot 1{.}28 \times 10^{-9} \cdot 314 \cdot 1721}}
+\end{equation}
+\begin{equation*}
+       \approx 0{.}008
+\end{equation*}
+with acoustic compliance $C_a = V / (\rho c^2) = 1{.}28 \times 10^{-9}$\,m$^3$/Pa.
+
+$\kappa \approx 0{.}008 \ll 1$: \textbf{weak coupling}. The gap area (4\,mm$^2$) is tiny compared to the chamber area ($\sim$950\,mm$^2$). But the Bernoulli mechanism \textbf{amplifies} the coupling. The chamber pressure fluctuation modulates the Bernoulli suction at the gap:
+\begin{equation}
+\beta = \frac{\delta p_\text{chamber}}{p_\text{Bernoulli}} = \frac{q_\text{reed} \cdot |Z_H(f_1)|}{\frac{1}{2}\rho v_\text{gap}^2} \approx 0{.}63\,\%
+\end{equation}
+
+This 0.63\,\% pressure modulation shifts the frequency by:
+\begin{equation}
+\Delta f_\text{Bernoulli} \approx f_1 \cdot \frac{\beta}{2} = 50 \times 0{.}003 = \mathbf{0{.}16\;\text{Hz} \approx 5{.}4\;\text{cents}}
+\end{equation}
+
+\begin{keybox}
+Pure acoustic coupling ($\kappa^2$) yields only 0.3\,cents. But Bernoulli amplification ($\beta \approx 0{.}6\,\%$ pressure modulation) raises the frequency shift to \textbf{$\sim$5\,cents} --- clearly audible and consistent with practice. The two filters are not passively cascaded, but \textbf{actively coupled through the Bernoulli mechanism}.
+\end{keybox}
+
+\section{The Complete Filter Combination}
+
+The closed transfer function of the total system:
+\begin{equation}
+\boxed{H_\text{ges}(f) = \frac{H_1(f)}{1 - \kappa_\text{eff} \cdot H_1(f) \cdot H_2(f)}}
+\end{equation}
+
+The poles of $H_\text{ges}$ give the actual oscillation frequencies of the coupled 4th-order system:
+
+\textbf{Mode~1 (reed mode):}
+\begin{equation}
+f_1' \approx f_1 \cdot \left(1 + \kappa^2 \frac{f_1^2}{f_H^2 - f_1^2}\right) = 50{.}000\;\text{Hz}
+\end{equation}
+$(+0.3$ cents purely acoustic)
+
+\textbf{Mode~2 (chamber mode):}
+\begin{equation}
+f_2' \approx f_H \cdot \left(1 - \kappa^2 \frac{f_H^2}{f_H^2 - f_1^2}\right) = 273{.}98\;\text{Hz}
+\end{equation}
+
+\textbf{Mode repulsion:} The modes repel each other --- the lower is pushed down (after Bernoulli correction: \textit{up}), the upper is pushed up. With Bernoulli amplification ($\beta = 0{.}63\,\%$), the shift of the reed mode becomes \textbf{$\sim$5\,cents}.
+
+\section{Parametric Dependencies}
+
+\subsection{Chamber Volume $V$}
+
+$\Delta k \sim 1/V$: smaller chamber $\to$ stiffer air spring $\to$ larger shift.
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{rrrrr}
+\toprule
+$V$ [cm$^3$] & $f_H$ [Hz] & $\Delta k$ [N/m] & Static [cents] & With Bernoulli [cents] \\
+\midrule
+90 & 387 & 0.025 & 0.6 & $\sim$11 \\
+120 & 335 & 0.019 & 0.4 & $\sim$8 \\
+180 & 274 & 0.013 & 0.3 & $\sim$5 \\
+240 & 237 & 0.009 & 0.2 & $\sim$4 \\
+360 & 194 & 0.006 & 0.1 & $\sim$3 \\
+\bottomrule
+\end{tabular}}
+\caption{Frequency shift as a function of chamber volume}
+\end{table}
+
+\subsection{Gap Area $A_\text{eff}$ (Deflection)}
+
+$\Delta k \sim A_\text{eff}^2$: more deflection $\to$ quadratically stronger coupling.
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{rrrr}
+\toprule
+$h_\text{max}$ [mm] & $A_\text{eff}$ [mm$^2$] & Static [cents] & $\kappa$ \\
+\midrule
+0.5 & 1.3 & 0.03 & 0.003 \\
+1.0 & 2.7 & 0.13 & 0.005 \\
+1.5 & 4.0 & 0.29 & 0.008 \\
+2.0 & 5.3 & 0.52 & 0.010 \\
+2.5 & 6.7 & 0.81 & 0.013 \\
+\bottomrule
+\end{tabular}}
+\caption{Frequency shift as a function of reed deflection (chamber 180\,cm$^3$)}
+\end{table}
+
+\subsection{Helmholtz Frequency $f_H$}
+
+Maximum coupling when $f_H = n \cdot f_\text{reed}$ (overtone exactly on resonance).
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{rlrrl}
+\toprule
+$f_H$ [Hz] & Nearest OT & Distance [Hz] & $G$ & Effect \\
+\midrule
+150 & 3rd OT (150) & $\pm 0$ & 7.0 & \textbf{Strong -- critical} \\
+200 & 4th OT (200) & $\pm 0$ & 7.0 & \textbf{Strong -- critical} \\
+250 & 5th OT (250) & $\pm 0$ & 7.0 & \textbf{Strong -- critical} \\
+274 & 5th OT (250) & $+24$ & 4.7 & Noticeable \\
+300 & 6th OT (300) & $\pm 0$ & 7.0 & \textbf{Strong -- critical} \\
+325 & 6th OT (300) & $+25$ & 5.0 & Noticeable \\
+400 & 8th OT (400) & $\pm 0$ & 7.0 & \textbf{Strong -- critical} \\
+\bottomrule
+\end{tabular}}
+\caption{Amplification factor $G$ at the nearest overtone. $f_H = 274$\,Hz: $G = 4{.}7$ --- not a direct hit, but close enough for noticeable coupling.}
+\end{table}
+
+\begin{keybox}
+\textbf{Optimisation rule:} Choose $f_H$ so that it lies \textbf{between two overtones}. The worst situation is $f_H = n \cdot f_\text{reed}$. For the 50\,Hz reed with $f_H = 274$\,Hz: 5th OT = 250\,Hz and 6th OT = 300\,Hz bracket $f_H$ --- no exact hit, favourable. This rule supplements the recommendation from Doc.\,0002 Ch.\,12 (avoiding resonant overtones) with the quantitative frequency-pulling aspect.
+\end{keybox}
+
+\section{Block Diagram}
+
+\begin{center}
+\fbox{\parbox{0.9\textwidth}{\small
+\textbf{Signal flow of the coupled filters:}
+
+\medskip
+$\text{[Bellows pressure]} \to \text{[Valve]} \to \underbrace{H_2(f): \text{Chamber filter}}_{\text{Band-pass } f_H = 274\,\text{Hz, } Q_H = 7} \to \text{[Gap coupler]}$
+
+$\to \underbrace{H_1(f): \text{Reed filter}}_{\text{Band-pass } f_1 = 50\,\text{Hz, } Q_1 = 50\text{--}150} \to \text{[Sound radiation]}$
+
+\medskip
+\textbf{Feedback:} $x \to S(x) \to q \to \delta p_\text{chamber} \xrightarrow{\beta = 0{.}63\,\%} F_\text{Bernoulli} \to x$
+
+\medskip
+\textbf{Closed transfer function:} $H_\text{ges}(f) = H_1(f) / (1 - \kappa_\text{eff} \cdot H_1 \cdot H_2)$
+}}
+\end{center}
+
+\section{Practical Consequences}
+
+\textbf{1.\ Tune in the chamber:} The chamber load shifts frequency by 1--5\,cents --- more than the tuning tolerance ($\pm$1--2\,cents). Never tune on the bench.
+
+\textbf{2.\ Chamber changes require retuning:} Any change to volume, partition wall (Doc.\,0002 Ch.\,8) or valve changes $f_H$, $Q_H$ and thus the frequency shift.
+
+\textbf{3.\ Large chambers are more stable:} $\Delta k \sim 1/V$ --- large chambers are more tolerant of geometric variations.
+
+\textbf{4.\ Deflection acts quadratically:} $\Delta k \sim A_\text{eff}^2$ --- unevenly deflected reeds are harder to tune.
+
+\textbf{5.\ Push and draw reeds:} Both see the same chamber impedance (Doc.\,0002 Ch.\,7, Doc.\,0003 Ch.\,3) $\to$ same shift $\to$ tremolo beat is preserved.
+
+\textbf{6.\ Temperature:} $C_a = V/(\rho c^2)$, and $c^2 \sim T$. At $+10$°C the frequency shift decreases by $\sim$3\,\% --- small compared to the direct temperature dependence of the reed.
+
+\section{Summary}
+
+\begin{keybox}
+\textbf{The reed and chamber form a coupled two-filter system.} The reed is a narrow-band mechanical band-pass ($f_1 = 50$\,Hz, $Q = 50$--$150$); the chamber is a broad-band acoustic band-pass ($f_H = 274$\,Hz, $Q = 5$--$10$). Coupling occurs through the gap --- nonlinearly through the Bernoulli mechanism (Doc.\,0003), but linearisable for small-signal analysis.
+
+\textbf{Three mechanisms} shift the frequency: (1)~Static compliance load ($+0{.}3$\,cents). (2)~Resonant amplification at overtones near $f_H$ ($+1$--$5$\,cents). (3)~Nonlinear feedback to the fundamental ($+1$--$3$\,cents). \textbf{Total shift: typically 1--5\,cents.}
+
+\textbf{The transfer function} $H_\text{ges}(f) = H_1/(1 - \kappa_\text{eff} \cdot H_1 \cdot H_2)$ is calculable. The dependencies ($V$, $A_\text{eff}$, $f_H$, $Q_H$) are quantitatively predictable. Agreement with practical findings confirms the model.
+
+\textbf{The reed determines the frequency --- but the chamber has a say.}
+\end{keybox}
+
+
+\end{document}

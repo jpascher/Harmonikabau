@@ -1,29 +1,22 @@
 \documentclass[11pt,a4paper]{article}
-\RequirePackage{fontspec}
-\usepackage[ngerman]{babel}
-\defaultfontfeatures{Ligatures=TeX}
-\usepackage{amsmath,amssymb}
-\usepackage{geometry}
-\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
-\usepackage{booktabs,xcolor,float,fancyhdr,titlesec,hyperref,siunitx,tcolorbox}
-\definecolor{darkblue}{HTML}{16213e}
-\definecolor{accentred}{HTML}{e94560}
-\definecolor{keygreen}{HTML}{2e7d32}
-\definecolor{warnred}{HTML}{c62828}
-\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, left=3mm, right=3mm, top=2mm, bottom=2mm}
-\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black, left=3mm, right=3mm, top=2mm, bottom=2mm}
-\pagestyle{fancy}\fancyhf{}
-\fancyhead[L]{\small Dok. 0012 --- Zungensteifigkeit}
-\fancyhead[R]{\small\thepage}
-\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
+\usepackage{harmonikabau_preamble}
+
+% == Dokumentmetadaten ====================
+\newcommand{\hbdoknr}{0012}
+\newcommand{\hbtitel}{Zungensteifigkeit}
+\newcommand{\hbuntertitel}{Berechnung, Materialwahl und Einfluss auf Frequenz}
+\newcommand{\hbheadtext}{Dok.\,0012 --- Zungensteifigkeit}
+\newcommand{\hbfoottext}{Querverweise: Dok.\,0010}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
 
 \begin{document}
-\begin{center}
-{\small Dok. 0012}\\[4pt]
-{\LARGE\bfseries\color{darkblue} Zungensteifigkeit, Verstimmung und Ansprache}\\[6pt]
-{\large Warum der Stimmer einen Kompromiss sucht}\\[4pt]
-\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
-\end{center}
+\hbmaketitle
+
 {\small\itshape Die Steifigkeit der Stimmzunge bestimmt zwei Eigenschaften, die einander widersprechen: Ansprache und Stimmstabilität. Eine weiche Zunge spricht leichter an, verstimmt aber stärker mit dem Balgdruck. Eine steife Zunge hält den Ton stabiler, braucht aber mehr Druck zum Anschwingen.}
 
 \section{Steifigkeit und Frequenz}
@@ -59,4 +52,5 @@ $\Delta f \times p_\text{threshold} \approx \text{const}$ --- gute Ansprache und
 \textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
 {\small\itshape Die Zunge sucht ihr Gleichgewicht zwischen Freiheit und Kontrolle --- genau wie der Spieler.}
 \end{center}
+
 \end{document}

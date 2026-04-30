@@ -1,54 +1,27 @@
 \documentclass[11pt,a4paper]{article}
-\RequirePackage{fontspec}
-\usepackage[ngerman]{babel}
-\defaultfontfeatures{Ligatures=TeX}
-\usepackage{amsmath,amssymb}
-\usepackage{geometry}
-\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{tabularx}
-\usepackage{xcolor}
-\usepackage{float}
-\usepackage{enumitem}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\usepackage{hyperref}
-\usepackage{siunitx}
-\usepackage{tcolorbox}
+\usepackage{harmonikabau_preamble}
 
-% Farben
-\definecolor{darkblue}{HTML}{16213e}
-\definecolor{accentred}{HTML}{e94560}
-\definecolor{keygreen}{HTML}{2e7d32}
-\definecolor{warnred}{HTML}{c62828}
+% == Dokumentmetadaten ====================
+\newcommand{\hbdoknr}{0004}
+\newcommand{\hbtitel}{Frequenzvariation der Stimmzunge}
+\newcommand{\hbuntertitel}{durch Kammerkopplung – Zwei-Filter-Modell}
+\newcommand{\hbheadtext}{Dok.\,0004 --- Frequenzvariation: Zwei-Filter-Modell}
+\newcommand{\hbfoottext}{Querverweise: Dok.\,0002 $\cdot$ Dok.\,0003}
 
-\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
-  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
-\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
-  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small Dok.\,0004 -- Frequenzvariation durch Kammerkopplung}
-\fancyhead[R]{\small\thepage}
-\fancyfoot[C]{\small Querverweise: Dok.\,0002 (Strömungsanalyse v8) $\cdot$ Dok.\,0003 (Impedanzvergleich)}
-
-\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
-\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
 
 \begin{document}
+\hbmaketitle
 
-\begin{center}
-{\LARGE\bfseries\color{darkblue} Dok.\,0004: Frequenzvariation der Stimmzunge\\durch Kammerkopplung}\\[6pt]
-{\large Das gekoppelte Zwei-Filter-Modell: Zunge $\times$ Kammer}\\[4pt]
-\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
-\end{center}
 {\small\itshape Zeigt, warum die Kammer trotz getrennter Eigenfrequenzen die Tonhöhe der Zunge verschiebt, und wie sich das als Filterkombination zweier gekoppelter Systeme berechnen lässt. Zahlenwerte: 50-Hz-Basszunge, $f_H = 274$\,Hz, $Q_H \approx 7$ (aus Dok.\,0002).}
 
 \vspace{2mm}
 \begin{center}\small
-\begin{tabular}{ll}
+\begin{tabularx}{\textwidth}{l X}
 \toprule
 \textbf{Dokumentenverweise} \\
 \midrule
@@ -63,7 +36,7 @@ Dok.\,0500 & Leitfaden zur ästhetischen Forensik bei Akkordeon-Gehäusen \\
 \midrule
 \href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verifikationsskript aller Berechnungen \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \vspace{4mm}
@@ -146,7 +119,7 @@ G(f) = \frac{1}{\sqrt{\left(1 - (f/f_H)^2\right)^2 + \left(f/(f_H \cdot Q_H)\rig
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{rrrrl}
+\resizebox{\linewidth}{!}{\begin{tabular}{rrrrl}
 \toprule
 OT $n$ & $f$ [Hz] & $f/f_H$ & $G(f)$ & Phase $Z$ [°] \\
 \midrule
@@ -158,7 +131,7 @@ $f_H$ & 274 & 1{,}00 & 7{,}0 & $0{,}0$ \\
 8 & 400 & 1{,}46 & 0{,}9 & $+79{,}6$ \\
 10 & 500 & 1{,}82 & 0{,}4 & $+83{,}6$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Impedanz-Verstärkung $G(f)$ des Helmholtz-Resonators bei den Obertönen der 50-Hz-Zunge ($f_H = 274$\,Hz, $Q_H = 7$). Phasenwerte aus Dok.\,0002 Kap.\,11.}
 \end{table}
 
@@ -173,8 +146,12 @@ Die Obertöne werden durch die nichtlineare Spaltkopplung (Dok.\,0002 Kap.\,8, D
 
 Die Kopplungskonstante:
 \begin{equation}
-\kappa = \frac{A_\text{eff}}{\sqrt{m_\text{eff} \cdot C_a \cdot \omega_1 \cdot \omega_2}} = \frac{4 \times 10^{-6}}{\sqrt{3{,}75 \times 10^{-4} \times 1{,}28 \times 10^{-9} \times 314 \times 1721}} \approx 0{,}008
+\kappa = \frac{A_\text{eff}}{\sqrt{m_\text{eff} \cdot C_a \cdot \omega_1 \cdot \omega_2}}
+       = \frac{4 \times 10^{-6}}{\sqrt{3{,}75 \times 10^{-4} \cdot 1{,}28 \times 10^{-9} \cdot 314 \cdot 1721}}
 \end{equation}
+\begin{equation*}
+       \approx 0{,}008
+\end{equation*}
 mit der akustischen Compliance $C_a = V / (\rho c^2) = 1{,}28 \times 10^{-9}$\,m$^3$/Pa.
 
 $\kappa \approx 0{,}008 \ll 1$: \textbf{schwache Kopplung}. Die Spaltfläche (4\,mm$^2$) ist winzig gegenüber der Kammerfläche ($\sim$950\,mm$^2$). Aber der Bernoulli-Mechanismus \textbf{verstärkt} die Kopplung. Die Kammer-Druckschwankung moduliert den Bernoulli-Sog am Spalt:
@@ -224,7 +201,7 @@ $\Delta k \sim 1/V$: Kleinere Kammer $\to$ steifere Luftfeder $\to$ größere Ve
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{rrrrr}
+\resizebox{\linewidth}{!}{\begin{tabular}{rrrrr}
 \toprule
 $V$ [cm$^3$] & $f_H$ [Hz] & $\Delta k$ [N/m] & Statisch [Cent] & Mit Bernoulli [Cent] \\
 \midrule
@@ -234,7 +211,7 @@ $V$ [cm$^3$] & $f_H$ [Hz] & $\Delta k$ [N/m] & Statisch [Cent] & Mit Bernoulli [
 240 & 237 & 0{,}009 & 0{,}2 & $\sim$4 \\
 360 & 194 & 0{,}006 & 0{,}1 & $\sim$3 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Frequenzverschiebung als Funktion des Kammervolumens}
 \end{table}
 
@@ -244,7 +221,7 @@ $\Delta k \sim A_\text{eff}^2$: Mehr Aufbiegung $\to$ quadratisch stärkere Kopp
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{rrrr}
+\resizebox{\linewidth}{!}{\begin{tabular}{rrrr}
 \toprule
 $h_\text{max}$ [mm] & $A_\text{eff}$ [mm$^2$] & Statisch [Cent] & $\kappa$ \\
 \midrule
@@ -254,7 +231,7 @@ $h_\text{max}$ [mm] & $A_\text{eff}$ [mm$^2$] & Statisch [Cent] & $\kappa$ \\
 2{,}0 & 5{,}3 & 0{,}52 & 0{,}010 \\
 2{,}5 & 6{,}7 & 0{,}81 & 0{,}013 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Frequenzverschiebung als Funktion der Aufbiegung (Kammer 180\,cm$^3$)}
 \end{table}
 
@@ -264,7 +241,7 @@ Maximale Kopplung, wenn $f_H = n \cdot f_\text{Zunge}$ (Oberton exakt auf Resona
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{rlrrl}
+\resizebox{\linewidth}{!}{\begin{tabular}{rlrrl}
 \toprule
 $f_H$ [Hz] & Nächster OT & Abstand [Hz] & $G$ & Effekt \\
 \midrule
@@ -276,7 +253,7 @@ $f_H$ [Hz] & Nächster OT & Abstand [Hz] & $G$ & Effekt \\
 325 & 6.\ OT (300) & $+25$ & 5{,}0 & Merklich \\
 400 & 8.\ OT (400) & $\pm 0$ & 7{,}0 & \textbf{Stark -- kritisch} \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Verstärkungsfaktor $G$ am nächsten Oberton. $f_H = 274$\,Hz: $G = 4{,}7$ -- kein Volltreffer, aber nahe genug für merkliche Kopplung.}
 \end{table}
 
@@ -334,5 +311,6 @@ $\to \underbrace{H_1(f): \text{Zungen-Filter}}_{\text{Bandpass } f_1 = 50\,\text
 
 \textbf{Die Zunge bestimmt die Frequenz -- aber die Kammer bestimmt mit.}
 \end{keybox}
+
 
 \end{document}

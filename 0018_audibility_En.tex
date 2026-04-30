@@ -1,0 +1,120 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+% == Document Metadata ====================
+\newcommand{\hbdoknr}{0018}
+\newcommand{\hbtitel}{Audibility of Bending Modes}
+\newcommand{\hbuntertitel}{Chamber Notch Filter, Transients and Torsion}
+\newcommand{\hbheadtext}{Doc.\,0018 --- Audibility of Bending Modes}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0016 $\cdot$ Doc.\,0017}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+\noindent\textit{Correction to Doc.~0016: Bending modes can become audible under certain conditions.
+Three mechanisms: chamber resonance, transient onset, torsion.
+Reference: Doc.~0009, 0011, 0015--0017.}
+
+\noindent\textit{\small Calculation script:
+\textbf{pruefskript\_0018\_hoerbarkeit.py} (modal participation,
+chamber notch filter, transients, torsional modes) in the same directory on GitHub.}
+
+\section{Correction: Bending Modes Are Not Always Inaudible}
+
+Doc.~0016 showed that the inharmonic bending modes are normally
+30--50\,dB quieter than the harmonic overtones.
+In practice however: with a tuneable resonance chamber, Mode~2 can be excited
+in some reeds so strongly that \textbf{only Mode~2 is audible}.
+And during the transient onset, Mode~2 shapes the tonal character.
+
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{The fundamental statement stands:} Harmonic overtones dominate
+in the steady state. But Mode~2 is not negligible.
+\end{tcolorbox}
+
+\section{Chamber as Notch Filter: Mode 2 Becomes Audible by Subtraction}
+
+The chamber acts as a \textbf{notch filter} (band-rejection, Doc.~0005--0008) ---
+it \textbf{suppresses} frequencies at $f_H$. The chamber does not amplify Mode~2.
+Mode~2 becomes audible because the fundamental and its harmonics are attenuated,
+while Mode~2 lies \textbf{outside the notch}.
+
+Conditions: (a) $f_H$ hits a harmonic of $f_1$ $\to$ fundamental is attenuated.
+(b) $f_2$ (bending mode) does \textbf{not} fall in the notch
+$\to$ Mode~2 survives. This is subtraction, not addition.
+
+\textbf{Why does this not occur in every reed?} Profiling determines $f_2$.
+For a uniform reed, $f_2 \approx 6{.}27 \times f_1$ --- close to $6 \times f_1$ (a harmonic).
+With stronger profiling ($f_2 \approx 4$--$5 \times f_1$),
+Mode~2 falls between the harmonics and survives the notch.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{In the accordion this affects notes with response problems:}
+Chamber coupling is strongest there, reed plates are more heavily profiled,
+and the interplay of profiling and chamber geometry happens to satisfy the
+condition $f_H \neq f_2$.
+\end{tcolorbox}
+
+\section{Transient Excitation: The Onset}
+
+When a key is pressed, the bellows pressure arrives as a step function.
+Every bending mode is initially excited.
+Mode~2 starts at $\approx -25$\,dB and decays in $\approx 40$\,ms.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Mode~2 is audible during the transient} --- as a brief tonal colouring
+in the first 50--100\,ms. Different reeds have different $f_2$
+$\to$ different tonal character.
+\end{tcolorbox}
+
+\section{Torsional Vibrations}
+
+Torsional modes lie above the bending modes: $f_{T1} \approx 14$--$22 \times f_1$.
+Torsion itself is barely audible as a pitch --- but lateral deflection
+leads to channel contact in bass reeds.
+
+At 1° torsion: bass reed (W=8\,mm): $\Delta y = 0{.}07$\,mm $>$ gap 0.04\,mm
+$\to$ contact possible. \textbf{Scraping should not occur in normal operation} ---
+the gaps are large enough. But in \textbf{cold instruments} scraping is normal:
+Metal contracts ($\approx 2$--$3$\,µm at $\Delta T = -17$\,K),
+the gap narrows, tolerance decreases. As the instrument warms up, the scraping disappears.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Paradox:} The most precisely fitted reed plates --- the most expensive ---
+are most susceptible to scraping in the cold. Narrow gaps (better response)
+mean less tolerance for torsion. A plate with 25\,µm gap loses
+12\,\% headroom from a 3\,µm contraction --- one with 50\,µm only 6\,\%.
+The cheap plate with a large gap never scrapes; the expensive one with the perfect gap
+scrapes in winter.
+\end{tcolorbox}
+
+\section{Summary}
+
+\begin{enumerate}
+\item \textbf{Steady state, no chamber resonance hit:} Mode~2 at $-37$\,dB ---
+  not audible. Harmonics dominate.
+\item \textbf{Chamber as notch filter:} The chamber attenuates harmonics.
+  If $f_2$ lies outside the notch, Mode~2 survives --- audible
+  by subtraction. Particularly affects notes with response problems.
+\item \textbf{Transient:} Mode~2 at $-25$\,dB, duration $\approx 40$\,ms.
+  Shapes tonal character.
+\item \textbf{Torsion:} $f_{T1} \approx 14$--$22 \times f_1$.
+  Channel contact not expected in normal operation.
+  Normal in \textbf{cold instruments} --- metal contracts, gap narrows.
+  Disappears as the instrument warms up.
+\item \textbf{Correction:} ``Bending modes inaudible'' applies only in steady state
+  without a chamber resonance hit.
+\end{enumerate}
+
+\bigskip
+\textit{Bending modes are quiet --- but not silent.
+The chamber can wake them, the transient lets them briefly sound,
+torsion makes them audible as scraping.}
+
+
+\end{document}

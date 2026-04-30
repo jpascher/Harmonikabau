@@ -1,51 +1,27 @@
 \documentclass[11pt,a4paper]{article}
-\RequirePackage{fontspec}
-\usepackage[ngerman]{babel}
-\defaultfontfeatures{Ligatures=TeX}
-\usepackage{amsmath,amssymb}
-\usepackage{geometry}
-\geometry{left=18mm, right=18mm, top=25mm, bottom=18mm}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{xcolor}
-\usepackage{float}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\usepackage{hyperref}
-\usepackage{siunitx}
-\usepackage{tcolorbox}
+\usepackage{harmonikabau_preamble}
 
-\definecolor{darkblue}{HTML}{16213e}
-\definecolor{accentred}{HTML}{e94560}
-\definecolor{keygreen}{HTML}{2e7d32}
-\definecolor{warnred}{HTML}{c62828}
+% == Dokumentmetadaten ====================
+\newcommand{\hbdoknr}{0007}
+\newcommand{\hbtitel}{Diskant-Stimmstock — Kammerfrequenzen D3–C6}
+\newcommand{\hbuntertitel}{Sieben Varianten mit praktischer Tiefenbeschränkung}
+\newcommand{\hbheadtext}{Dok.\,0007 --- Diskant-Stimmstock: Kammerfrequenzen D3--C6}
+\newcommand{\hbfoottext}{7 Varianten: A (Ref.) / B,C,Ci (Tiefe) / D,E,Ei (\"{O}ffnung)}
 
-\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
-  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
-\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
-  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small Dok.\,0007 -- Diskant-Stimmstock: Kammerfrequenzen D3--C6}
-\fancyhead[R]{\small\thepage}
-\fancyfoot[C]{\small 7 Varianten: A (Ref.) / B,C,Ci (Tiefe) / D,E,Ei (Öffnung)}
-
-\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
-\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
 
 \begin{document}
+\hbmaketitle
 
-\begin{center}
-{\LARGE\bfseries\color{darkblue} Dok.\,0007: Diskant-Stimmstock -- Kammerfrequenzen}\\[6pt]
-{\large Sieben Varianten mit praktischer Tiefenbeschränkung}\\[4pt]
-\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
-\end{center}
 {\small\itshape Vollständige Analyse für 35~Kammern (D3--C6). Sieben Varianten: Referenz + je drei Kurvenformen (linear, konvex, konkav) für Tiefe und Öffnung. Berücksichtigt die praktische Beschränkung: Die Kammertiefe darf nicht unter die maximale Zungenamplitude fallen. Amplitudengewichtete Bewertung ($a_n \sim 1/n$).}
 
 \vspace{2mm}
 \begin{center}\small
-\begin{tabular}{ll}
+\begin{tabularx}{\textwidth}{l X}
 \toprule
 Dok.\,0002 & Strömungsanalyse Bass-Stimmzunge 50\,Hz -- v8 \\
 Dok.\,0004 & Frequenzvariation -- Zwei-Filter-Modell \\
@@ -55,7 +31,7 @@ Dok.\,0006 & Zeichenerklärung \\
 \midrule
 \href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verifikationsskript aller Berechnungen \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 \vspace{4mm}
 
@@ -88,7 +64,7 @@ Die maximale Auslenkung der Zungenspitze hängt von der Zungenlänge und der Spi
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{l r r r}
+\resizebox{\linewidth}{!}{\begin{tabular}{l r r r}
 \toprule
 \textbf{Tonbereich} & \textbf{Zungenlänge} & \textbf{Max.\ Amplitude} & \textbf{Min.\ Tiefe} \\
 \midrule
@@ -98,7 +74,7 @@ A4 (Mitte) & $\sim$18\,mm & $\sim$1{,}8\,mm & 2{,}3\,mm \\
 A5 & $\sim$10\,mm & $\sim$1{,}0\,mm & 1{,}5\,mm \\
 C6 (höchster) & $\sim$8\,mm & $\sim$0{,}8\,mm & 1{,}3\,mm \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Geschätzte Zungenamplituden und Mindesttiefen (Amplitude $\approx$ 10\,\% der Zungenlänge $+$ 0{,}5\,mm Sicherheit)}
 \end{table}
 
@@ -143,21 +119,22 @@ Wenn \textbf{mehr} des Parameters $f_H$ \textbf{hebt} (wie bei der Öffnung: meh
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{c l l l l}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{c p{28mm} p{28mm} p{30mm} p{32mm}}
 \toprule
 \textbf{Var.} & \textbf{Kurzname} & \textbf{Tiefe [mm]} & $\boldsymbol{\varnothing}$ \textbf{Öffnung [mm]} & \textbf{Wirkung auf $f_H$} \\
 \midrule
 A & Referenz & 8 konstant & 10 konstant & Referenz \\
 \midrule
-B & d linear & 8$\to$3 linear & 10 konstant & $f_H$ steigt ($V$ sinkt) \\
-C & d konvex & 8$\to$3 konvex & 10 konstant & $f_H$ steigt stärker \\
+B  & d linear & 8$\to$3 linear & 10 konstant & $f_H$ steigt ($V$ sinkt) \\
+C  & d konvex & 8$\to$3 konvex & 10 konstant & $f_H$ steigt stärker \\
 Ci & d konkav & 8$\to$3 konkav & 10 konstant & $f_H$ steigt schwächer \\
 \midrule
-D & $\varnothing$ linear & 8 konstant & 10$\to$6 linear & $f_H$ sinkt ($S$ sinkt) \\
-E & $\varnothing$ konvex & 8 konstant & 10$\to$6 konvex & $f_H$ sinkt stärker \\
+D  & $\varnothing$ linear & 8 konstant & 10$\to$6 linear & $f_H$ sinkt ($S$ sinkt) \\
+E  & $\varnothing$ konvex & 8 konstant & 10$\to$6 konvex & $f_H$ sinkt stärker \\
 Ei & $\varnothing$ konkav & 8 konstant & 10$\to$6 konkav & $f_H$ sinkt schwächer \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Die sieben Varianten. Obere Gruppe: Tiefe variiert. Untere Gruppe: Öffnung variiert.}
 \end{table}
 
@@ -174,7 +151,7 @@ Ei & $\varnothing$ konkav & 8 konstant & 10$\to$6 konkav & $f_H$ sinkt schwäche
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{l r r r r r r r}
+\resizebox{\linewidth}{!}{\begin{tabular}{l r r r r r r r}
 \toprule
 & \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Ci} & \textbf{D} & \textbf{E} & \textbf{Ei} \\
 \midrule
@@ -187,7 +164,7 @@ Merklich (OT $= 3$) & 7 & 7 & \textbf{5} & 8 & 5 & 5 & 5 \\
 Gut (OT $\geq 4$) & 21 & 28 & \textbf{30} & 27 & 18 & 17 & 18 \\
 $\sum R_\text{eff}$ & 17{,}4 & 12{,}8 & \textbf{12{,}3} & 13{,}5 & 17{,}2 & 17{,}3 & 17{,}0 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Hauptvergleich. Fett: Variante C (bestes Ergebnis).}
 \end{table}
 
@@ -287,5 +264,6 @@ $f_H/f \geq 3$ halten $\to$ kein 2.\,OT-Treffer $\to$ keine kritischen Probleme.
 \textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
 {\small\itshape Minimales Volumen, maximale Öffnung -- die Kammer so klein wie die Zunge erlaubt.}
 \end{center}
+
 
 \end{document}

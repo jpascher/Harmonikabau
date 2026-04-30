@@ -1,21 +1,21 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
-\usepackage{amsmath,amssymb,graphicx,booktabs,xcolor}
-\usepackage[margin=25mm]{geometry}
-\usepackage{tcolorbox,hyperref}
+\usepackage{harmonikabau_preamble}
 
-\definecolor{darkblue}{HTML}{16213e}
-\definecolor{keygreen}{HTML}{2e7d32}
+% == Dokumentmetadaten ====================
+\newcommand{\hbdoknr}{0017}
+\newcommand{\hbtitel}{Diskant-Stimmzungen}
+\newcommand{\hbuntertitel}{Obertonmoden F3 bis C6}
+\newcommand{\hbheadtext}{Dok.\,0017 --- Diskant-Stimmzungen: Obertonmoden F3--C6}
+\newcommand{\hbfoottext}{Querverweise: Dok.\,0016}
 
-\title{\textcolor{darkblue}{Dok. 0017\\Diskant-Stimmzungen: Obertonmoden F3 bis C6}}
-\author{Harmonikabau --- Technische Dokumentation}
-\date{}
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
 
 \begin{document}
-\maketitle
-
+\hbmaketitle
 \begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
 \textbf{Hinweis:} Dieses Dokument bietet ein Erklärungsmodell.
 Die interpolierte Mensur ist eine Schätzung --- reale Stimmplatten
@@ -56,7 +56,7 @@ Die Dicke am Fuß ($t_0$) ist immer etwas größer als die theoretische
 Mindestdicke --- die Profilierung (Verdünnung zur Spitze) passt den Ton an.
 
 \begin{center}
-\begin{tabular}{lcccccccc}
+\resizebox{\linewidth}{!}{\begin{tabular}{lcccccccc}
 \toprule
 Ton & $f$ & $L$ & $W$ & $t_0$ & $t_\mathrm{tip}$ & Verd. & $f_2/f_1$ & $f_2$ \\
 \midrule
@@ -66,7 +66,7 @@ C4 & 262 & 22,8 & 2,51 & 0,161 & 0,132 & 20\,\% & 5,45 & 1426 \\
 C5 & 523 & 17,9 & 2,06 & 0,197 & 0,169 & 16\,\% & 5,63 & 2947 \\
 C6 & 1047 & 14,0 & 1,70 & 0,244 & 0,217 & 12\,\% & 5,82 & 6094 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 \begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
@@ -131,5 +131,6 @@ Die unteren Diskant-Töne (F3--B3) sind unkritisch.
 \bigskip
 \textit{Bass und Diskant gehorchen derselben Physik.
 Die Mensur ändert die absoluten Frequenzen --- die Verhältnisse bleiben.}
+
 
 \end{document}

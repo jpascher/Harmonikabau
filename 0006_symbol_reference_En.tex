@@ -1,0 +1,271 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+\newcommand{\hbdoknr}{0006}
+\newcommand{\hbtitel}{Symbol Reference}
+\newcommand{\hbuntertitel}{Formula Symbols and Units of the Accordion Construction Series}
+\newcommand{\hbheadtext}{Doc.\,0006 --- Symbol Reference}
+\newcommand{\hbfoottext}{Accordion Construction Series}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape Complete symbol reference for all formula symbols in Doc.\,0001--0008. Organised by physical domain.}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+Doc.\,0001 & Instrument acoustics and psychoacoustics \\
+Doc.\,0002 & Flow analysis of bass reed 50\,Hz -- v8 \\
+Doc.\,0003 & Impedance comparison: free-beating reed vs.\ labial pipe \\
+Doc.\,0004 & Frequency variation -- two-filter model \\
+Doc.\,0005 & Frequency shift as response indicator \\
+\textbf{Doc.\,0006} & \textbf{Symbol reference (this document)} \\
+Doc.\,0007 & Treble reed block -- chamber frequencies \\
+Doc.\,0008 & Tone modification by chamber geometry \\
+Doc.\,0500 & Aesthetic forensics of accordion casework \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verification script for all calculations \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\vspace{4mm}
+
+\section{Geometric Quantities}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$L$ & mm & Free reed length (70\,mm) & 0002 \\
+$W$ & mm & Reed width (8\,mm) & 0002 \\
+$t$ & mm & Reed thickness (0.354\,mm) & 0002 \\
+$h$, $h_\text{max}$ & mm & Tip deflection at free end (1.5\,mm) & 0002, 0004 \\
+$h_\text{eff}$ & mm & Effective deflection under bellows pressure & 0002 \\
+$S_\text{gap}$ & mm$^2$ & Effective gap area $= Wh_\text{max}/3$ & 0002, 0004 \\
+$S_\text{eff}$ & mm$^2$ & Time-dependent flow area & 0002 \\
+$A_\text{eff}$ & m$^2$ & Coupling area $= S_\text{gap}$ in SI & 0004, 0005 \\
+$S_\text{valve}$ & mm$^2$ & Valve opening area (244\,mm$^2$) & 0002 \\
+$W_\text{slot}$ & mm & Slot width (9\,mm) & 0002 \\
+$W_k$ & mm & Channel width (23.8\,mm) & 0002 \\
+$V$ & cm$^3$ & Chamber volume (180\,cm$^3$) & 0002--0005 \\
+$V_\text{pre}$ & cm$^3$ & Pre-chamber volume (67.2\,cm$^3$) & 0002 \\
+$\text{gap}_\text{fold}$ & mm & Fold gap (19\,mm) & 0002 \\
+$L_\text{eff}$ & mm & Effective acoustic length & 0002, 0003 \\
+$\Delta l$ & mm & Acoustic shortening by fold ($\approx 15$\,mm) & 0002, 0003 \\
+$x$ & mm & Reed tip deflection & 0002, 0004 \\
+$A$ (amplitude) & mm & Vibration amplitude & 0002 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Material Properties}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$E$ & Pa & Young's modulus (steel: $\sim 200$\,GPa) & 0002 \\
+$I$ & m$^4$ & Second moment of area $= Wt^3/12$ & 0002 \\
+$\rho_s$ & kg/m$^3$ & Reed material density (7800) & 0002, 0004 \\
+$\rho$ & kg/m$^3$ & Air density (1.2) & 0002--0005 \\
+$c$ & m/s & Speed of sound (343) & 0002--0005 \\
+$\mu$ & Pa\,s & Dynamic viscosity of air & 0002 \\
+$\eta$ & -- & Material loss factor & 0002 \\
+$m_\text{eff}$ & g & Effective mass, 1st mode ($0{.}243 \times m_\text{total}$) & 0004 \\
+$k_\text{mech}$ & N/m & Mechanical spring stiffness $= \omega_1^2 m_\text{eff}$ & 0004, 0005 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Flow Quantities and Loss Coefficients}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$\Delta p$ & Pa & Bellows pressure & 0002 \\
+$\Delta p_\text{min}$ & Pa & Threshold pressure ($\approx 224$\,Pa) & 0002 \\
+$\Delta p_\text{crit}$ & Pa & Critical pressure, gap closure ($\approx 221$\,Pa) & 0002 \\
+$\Delta p_B$ & Pa & Bernoulli pressure $= \tfrac{1}{2}\rho v_\text{tan}^2$ & 0002 \\
+$v_\text{gap}$ & m/s & Gap velocity $= \sqrt{2\Delta p/\rho}$ & 0002 \\
+$v_\text{tan}$ & m/s & Tangential component at the gap & 0002 \\
+$Q$ (volume flow) & ml/s & Volume flow ($\sim 115$\,ml/s at 1\,kPa) & 0002 \\
+Re & -- & Reynolds number & 0002 \\
+$\zeta$ & -- & Loss coefficient (general) & 0002 \\
+$\zeta_\text{valve}$ & -- & Valve loss (blow-through: 0.50; deflection: 1.70) & 0002 \\
+$\zeta_\text{entry}$ & -- & Slot entry loss (0.5) & 0002 \\
+$w_\text{tip}$ & mm & Static deflection under bellows pressure & 0002 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Directional Preservation}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$\alpha$ & ° & Entry angle of the air jet & 0002 \\
+$\beta$ (wall angle) & ° & Half-angle of angled partition (B: 3.7°) & 0002 \\
+$\eta_\text{total}$ & -- & Total directional preservation factor & 0002 \\
+$\eta_\text{fold}$ & -- & Preservation through 180° fold ($\approx 0{.}6$) & 0002 \\
+$\eta_\text{wall}$ & -- & Preservation through partition (A: 0.3; B: 0.5; C: 0.7) & 0002 \\
+$f_\text{tan}$ & -- & Tangential fraction $= (1 + \eta_\text{total})/2$ & 0002 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Frequencies and Vibration Quantities}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$f_1$, $f_\text{reed}$ & Hz & Mechanical natural frequency (50\,Hz) & 0002--0005 \\
+$f_H$ & Hz & Helmholtz frequency of chamber (274\,Hz) & 0002--0005 \\
+$f_n = n f_1$ & Hz & $n$-th overtone of the reed & 0002, 0004, 0005 \\
+$f_\text{free}$ & Hz & Reed frequency on test block & 0005 \\
+$f_\text{chamber}$ & Hz & Reed frequency in the chamber & 0005 \\
+$f_1'$, $f_2'$ & Hz & Coupled natural frequencies & 0004 \\
+$\omega$ & rad/s & Angular frequency $= 2\pi f$ & 0002--0005 \\
+$n$ & -- & Overtone number & 0002--0005 \\
+$\lambda$ & m & Wavelength $= c/f$ & 0002, 0003 \\
+$\Delta f$ & Hz, cents & Frequency shift through coupling & 0004, 0005 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\textbf{Unit cents:} 1\,cent $= 1/1200$\,octave. Calculation: $\Delta f\,[\text{cents}] = 1200 \cdot \log_2(f_2/f_1)$. Musical perception threshold: $\pm 1$--$2$\,cents.
+
+\section{Damping and Quality Factor}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$Q$, $Q_1$ & -- & Mechanical quality factor of reed (50--150) & 0002, 0004, 0005 \\
+$Q_H$ & -- & Acoustic quality factor, Helmholtz (5--10) & 0002--0005 \\
+$Q_\text{total}$ & -- & Total quality factor (harmonic sum) & 0002 \\
+$\zeta$ (damping) & -- & Damping ratio $= 1/(2Q)$ & 0002, 0005 \\
+$\Delta\zeta_n$ & -- & Additional damping of OT $n$ by chamber & 0005 \\
+$\tau$ & ms & Onset time $= Q/(\pi f)$ & 0002, 0005 \\
+$\Delta\tau$ & ms & Onset time extension & 0005 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Acoustic Impedance}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$Z_H(f)$ & Pa\,s/m$^3$ & Complex impedance, Helmholtz resonator & 0002--0005 \\
+$Z_\text{tube}(f)$ & Pa\,s/m$^3$ & Input impedance of tube (organ pipe) & 0003 \\
+$Z_\text{acoust}(t)$ & Pa\,s/m$^3$ & Time-variant gap impedance & 0003 \\
+$Z_\text{mech}(f)$ & N\,s/m & Mechanical impedance of reed & 0003, 0004 \\
+$Z_0$ & Pa\,s/m$^3$ & Reference impedance $= 1/(\omega_H C_a)$ & 0005 \\
+$R_H(f)$ & Pa\,s/m$^3$ & Real part $Z_H$ $\to$ damping/response & 0005 \\
+$X_H(f)$ & Pa\,s/m$^3$ & Imaginary part $Z_H$ $\to$ frequency shift & 0005 \\
+$C_a$ & m$^3$/Pa & Acoustic compliance $= V/(\rho c^2)$ & 0004, 0005 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Coupling Quantities (Two-Filter Model)}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$H_1(f)$ & -- & Transfer function, reed (band-pass $f_1$) & 0004, 0005 \\
+$H_2(f)$ & -- & Transfer function, chamber (band-pass $f_H$) & 0004, 0005 \\
+$H_\text{ges}(f)$ & -- & Closed transfer function $= H_1/(1 - \kappa_\text{eff} H_1 H_2)$ & 0004, 0005 \\
+$\kappa$ & -- & Acoustic coupling constant ($\approx 0{.}008$) & 0004 \\
+$\kappa_\text{eff}$ & -- & Effective coupling (with Bernoulli) & 0004, 0005 \\
+$\beta$ (Bernoulli) & -- & Bernoulli amplification factor ($\approx 0{.}6\,\%$) & 0004, 0005 \\
+$\Delta k$ & N/m & Additional spring stiffness $= A_\text{eff}^2 \rho c^2/V$ & 0004 \\
+$G(f)$ & -- & Impedance amplification near $f_H$ (peak $= Q_H$) & 0004, 0005 \\
+$D(f)$ & -- & Resonance denominator & 0005 \\
+$\varphi$ & ° & Phase angle (Barkhausen: $\sum\varphi = 0$) & 0004 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Treble Reed Block (Doc.\,0007)}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$d$ (depth) & mm & Chamber depth (variable: 8$\to$3\,mm) & 0007 \\
+$d_\text{open}$ & mm & Diameter of circular opening (10 or 6\,mm) & 0007 \\
+$S_\text{neck}$ & mm$^2$ & Neck area $= \pi (d_\text{open}/2)^2$ & 0007 \\
+$l_\text{neck}$ & mm & Physical neck height (8\,mm) & 0007 \\
+$l_\text{eff}$ & mm & Effective neck length $= l_\text{neck} + 0{.}85 \cdot d_\text{open}$ & 0007 \\
+$p_\text{convex}(x)$ & mm & Convex curve: $a \cdot (b/a)^x$ -- below the straight line & 0007 \\
+$p_\text{concave}(x)$ & mm & Concave curve: $a + b - a \cdot (b/a)^{1-x}$ -- above the line & 0007 \\
+$R_\text{eff}$ & -- & Amplitude-weighted coupling load $= \sum a_n^2 R_{H,n}$ & 0007 \\
+$a_n$ & -- & Overtone amplitude $\approx 1/n$ (free-beating reed) & 0007 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Tone Modification (Doc.\,0008)}
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l p{8mm} p{52mm} p{14mm}}
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description} & \textbf{Doc.} \\
+\midrule
+$A_n(f_H)$ & -- & Amplitude transfer of $n$-th OT: $1/(1+\kappa_\text{eff} R_{H,n})$ & 0008 \\
+$\Phi_n$ & $^{\circ}$ & Phase shift of $n$-th OT by chamber & 0008 \\
+$Q_\text{rad}$ & -- & Radiation quality factor (loss through opening) & 0008 \\
+$Q_\text{visc}$ & -- & Viscous quality factor (wall friction): $2V/(\delta A_\text{wall})$ & 0008 \\
+$Q_\text{turb}$ & -- & Turbulence quality factor (at Re $\ll$ 1000: $\to \infty$) & 0008 \\
+$\delta$ & $\mu$m & Viscous boundary layer thickness $= \sqrt{2\mu/(\rho\omega)}$ & 0008 \\
+$R_\text{rad}$ & Pa\,s/m$^3$ & Acoustic radiation resistance of opening & 0008 \\
+$A_\text{wall}$ & mm$^2$ & Total chamber interior surface area & 0008 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\end{document}

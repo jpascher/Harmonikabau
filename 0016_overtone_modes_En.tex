@@ -1,0 +1,241 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+% == Document Metadata ====================
+\newcommand{\hbdoknr}{0016}
+\newcommand{\hbtitel}{Overtone Modes of the Bass Reed}
+\newcommand{\hbuntertitel}{Profiling, Inharmonicity and Tonal Character}
+\newcommand{\hbheadtext}{Doc.\,0016 --- Overtone Modes of the Bass Reed}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0002 $\cdot$ Doc.\,0010}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{Note:} This document presents an explanatory model.
+The FEM calculation captures the bending modes of an idealised beam ---
+flow coupling, nonlinear amplitude and gap effects are not included.
+\end{tcolorbox}
+
+\noindent\textit{\small Calculation scripts: The complete FEM calculations with all tables
+are documented in two separate Python scripts deposited in the same directory
+on GitHub:
+\textbf{pruefskript\_0016\_obertonmoden.py} (profiles, weights, stiffness, node positions)
+and \textbf{pruefskript\_0016\_chromatisch.py} (chromatic analysis over 2~octaves,
+$f_2/f_1$ = const for uniform profile, absolute $f_2$ vs.\ $f_H$ ranges)
+and \textbf{pruefskript\_0016\_praxis.py} (practical profiling with migrating
+thinnest point, thinning depth, optimum search).}
+
+\noindent\textit{FEM calculation of the bending modes of a bass reed (L = 70\,mm) with
+six different thickness profiles. Mode shapes, frequency ratios,
+inharmonicity and consequences for tone and chamber coupling.
+Reference: Doc.~0005--0009, 0012, 0015.}
+
+\section{Overtones of a Cantilever Are Not Harmonic}
+
+The reed is a cantilever beam, clamped at one end.
+The natural frequencies of the bending modes do not follow the harmonic series
+$(1:2:3:4\ldots)$, but the cantilever series:
+
+\begin{equation}
+f_n / f_1 = (\beta_n / \beta_1)^2
+\end{equation}
+
+with $\beta_1 L = 1{.}8751$, $\beta_2 L = 4{.}6941$, $\beta_3 L = 7{.}8548$,
+$\beta_4 L = 10{.}9955$. This gives ratios $1 : 6{.}27 : 17{.}55 : 34{.}39$ ---
+the 2nd overtone lies not at the octave ($2\times$), but at more than
+two and a half octaves ($6{.}27\times$).
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{The harmonics in the sound do not come from these bending modes.}
+They arise from the periodic interruption of the airflow --- the reed
+acts as an impulse generator (Doc.~0013, 0015). The pulse shape produces harmonic
+overtones $(1f, 2f, 3f\ldots)$, even though the mechanical modes lie entirely elsewhere.
+\end{tcolorbox}
+
+Why are the mechanical modes important nonetheless? Because they determine
+at which frequencies the reed \textbf{can be resonantly excited} ---
+by the chamber (Doc.~0009), by neighbouring reeds, or by transient
+pressure fluctuations during playing.
+
+\section{Six Thickness Profiles}
+
+Profiling changes the mass distribution and the local bending stiffness.
+Six profiles are compared, all with $t_0 = 0{.}40$\,mm at the foot.
+
+\begin{center}
+\resizebox{\linewidth}{!}{\begin{tabular}{lccccc}
+\toprule
+Profile & $t_\mathrm{tip}$ & Thinning & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
+\midrule
+Uniform & 0.40\,mm & 0\,\% & 66.8\,Hz & 6.27 & 17.55 \\
+Linear 80\,\% & 0.32\,mm & 20\,\% & 68.5\,Hz & 5.71 & 15.57 \\
+Linear 50\,\% & 0.20\,mm & 50\,\% & 72.6\,Hz & 4.79 & 12.36 \\
+Linear 30\,\% & 0.12\,mm & 70\,\% & 77.5\,Hz & 4.07 & 9.94 \\
+Parabolic 50\,\% & 0.27\,mm & 50\,\% & 77.9\,Hz & 5.01 & 12.89 \\
+Inv.\ parabolic & 0.20\,mm & 50\,\% & 61.8\,Hz & 4.97 & 13.00 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section{Overtone Ratios Compared}
+
+No profile approaches the harmonic series. Even at 70\,\% thinning,
+Mode~2 lies at $4{.}07\times$ instead of $2\times$. The inharmonicity
+is a fundamental property of the cantilever --- only a string oscillator
+would have harmonic overtones.
+
+\section{Tuning Weights: The Opposite Effect}
+
+Profiling reduces $f_2/f_1$ --- the modes move closer together.
+Tuning weights at the tip act \textbf{in the opposite direction}: they lower $f_1$
+strongly, but higher modes less so. $f_2/f_1$ \textbf{increases} with added weight.
+
+\begin{center}
+\resizebox{\linewidth}{!}{\begin{tabular}{lccccc}
+\toprule
+Weight & Mass & \% $m_Z$ & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
+\midrule
+None & 0\,g & 0\,\% & 66.8\,Hz & 6.27 & 17.55 \\
+0.10\,g & 0.10\,g & 5.7\,\% & 60.2\,Hz & 6.37 & 18.04 \\
+0.20\,g & 0.20\,g & 11.4\,\% & 55.2\,Hz & 6.58 & 18.96 \\
+0.40\,g & 0.40\,g & 22.9\,\% & 48.1\,Hz & 7.11 & 21.03 \\
+1.50\,g & 1.50\,g & 85.9\,\% & 31.4\,Hz & 9.89 & 30.84 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{The reason:} The weight sits at the vibration maximum of Mode~1.
+Mode~1 is maximally slowed. Mode~2 has less amplitude at the tip
+$\to$ is less slowed $\to$ the ratio increases.
+\end{tcolorbox}
+
+\section{Combination: Profiling + Weight}
+
+In practice both are combined. Thinning reduces $f_2/f_1$,
+weight raises it again. Linear~30\,\% alone: $f_2/f_1 = 4{.}07$
+at $f_1 = 77{.}5$~Hz. Linear~30\,\% + 0.20~g: $f_2/f_1 = 4{.}64$
+at $f_1 = 50{.}2$~Hz.
+
+\section{Same Target $f_1$, Different Paths}
+
+At $f_1 = 50$~Hz: uniform + weight gives $f_2/f_1 \approx 6{.}7$.
+Linear~50\,\% + weight: $\approx 5{.}3$. Linear~30\,\% + weight:
+$\approx 4{.}6$. Profiling wins --- even with weight.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Response:} The profiled reed has lower stiffness at the same $f_1$
+$\to$ better response (Doc.~0012).
+Profiling + less weight is better than weight alone.
+\end{tcolorbox}
+
+\section{Mode Shapes and Node Positions}
+
+Profiling shifts the vibration nodes towards the tip.
+For the uniform reed the first node of Mode~2 is at $x \approx 55\,\%$.
+With Linear~30\,\% it migrates to $x \approx 65\,\%$. In heavily profiled
+reeds the vibrational energy concentrates at the light end.
+
+\section{Inharmonicity in Cents}
+
+All overtones lie thousands of cents above the harmonic series.
+Profiling reduces the deviation by 25--35\,\%.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{Consequence:} Bending modes never coincide with harmonic overtones
+of the fundamental. Chamber coupling (Doc.~0009) affects the mechanical
+modes --- whether they lie near $f_H$.
+\end{tcolorbox}
+
+\section{Stiffness and Fundamental Frequency}
+
+Profiling has two simultaneous effects: $f_1$ increases (less mass),
+$k$ decreases (thinner cross-section). A profiled reed for the same pitch
+must be longer or thicker at the foot --- and at the same frequency has
+lower stiffness, hence better response (Doc.~0012).
+
+\textbf{This is the real practical benefit:} Lower stiffness at the same fundamental frequency
+$\to$ better response.
+
+\section{Chamber Coupling: Where Do the Modes Fall?}
+
+Mode~2 for the uniform reed lies at $\approx 420$\,Hz --- right in the
+typical $f_H$ range. Profiling shifts Mode~2 downward
+and can push it deliberately out of the $f_H$ range.
+
+\section{Practical Profiling: Position of the Thinnest Point}
+
+In practice the reed is thickest at the rivet and tapers smoothly.
+The thinnest point can be at the tip or between tip and mid-span ---
+the transition is never abrupt.
+
+\textbf{Surprising result:} The position of the thinnest point has little
+influence on $f_2/f_1$. Between $x_\mathrm{min} = 0{.}7L$ and $1{.}0L$ the
+plateau is practically flat. The \textbf{depth} of the thinning determines
+$f_2/f_1$; the position determines $f_1$.
+
+\section{Optimal Thinning Depth}
+
+$f_2/f_1$ has a \textbf{minimum at $\approx 70\,\%$ thinning}
+($t_\mathrm{min} \approx 0{.}12$\,mm at $t_0 = 0{.}40$\,mm). Beyond this,
+$f_2/f_1$ rises again.
+
+\begin{center}
+\resizebox{\linewidth}{!}{\begin{tabular}{lcccc}
+\toprule
+Thinning & $t_\mathrm{min}$ & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
+\midrule
+0\,\% & 0.40\,mm & 66.8\,Hz & 6.27 & 17.55 \\
+40\,\% & 0.24\,mm & 68.4\,Hz & 4.70 & 12.61 \\
+50\,\% & 0.20\,mm & 67.7\,Hz & 4.35 & 11.50 \\
+60\,\% & 0.16\,mm & 65.4\,Hz & 4.07 & 10.50 \\
+70\,\% & 0.12\,mm & 60.4\,Hz & 3.94 & 9.75 \\
+80\,\% & 0.08\,mm & 49.8\,Hz & 4.25 & 9.61 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\section{Chromatic Analysis: 2 Octaves, Uniform Scale}
+
+For a uniform reed, $f_2/f_1 = 6{.}27$ = \textbf{constant},
+independent of thickness. Since $f \propto t$, all modes scale identically ---
+the ratio cancels. The scale fixes $f_2/f_1$ for all notes.
+
+The lower octave (A1--A2) is the \textbf{critical zone}: $f_2$ lies at
+345--689\,Hz --- right in the typical $f_H$ range. The upper octave: $f_2 > 700$\,Hz,
+far above $f_H$. This explains why ghost tones occur mainly in the low notes.
+
+\section{Summary}
+
+\begin{enumerate}
+\item \textbf{Cantilever overtones are inharmonic:}
+  $1 : 6{.}27 : 17{.}55 : 34{.}39$. The audible harmonics come
+  from the impulse generator, not the bending modes.
+\item \textbf{Profiling compresses the ratios:} Optimum at
+  $\approx 70\,\%$ thinning ($f_2/f_1 \approx 3{.}94$). Beyond this
+  $f_2/f_1$ rises again.
+\item \textbf{Position of thinnest point:} Between 70\,\% and 100\,\% of
+  length, little difference. Depth determines $f_2/f_1$; position
+  determines $f_1$.
+\item \textbf{Tuning weights widen the ratios:} Opposite effect to thinning.
+  Profiling + less weight is better than weight alone.
+\item \textbf{$f_2/f_1$ = const for uniform profile:} The scale
+  fixes the ratio for all chromatic notes.
+\item \textbf{Critical zone = lower octave:} $f_2$ for A1--A2
+  lies at 345--689\,Hz --- right in the $f_H$ range. Ghost tones occur there.
+\item \textbf{Primary benefit:} Lower stiffness at the same $f_1$
+  $\to$ better response. Shifting Mode~2 out of the $f_H$ range.
+\end{enumerate}
+
+\bigskip
+\textit{The reed vibrates inharmonically. The sound is harmonic.
+Profiling changes the response --- the overtones are made by the air.}
+
+
+\end{document}

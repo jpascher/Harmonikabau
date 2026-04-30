@@ -1,53 +1,27 @@
 \documentclass[11pt,a4paper]{article}
-\RequirePackage{fontspec}
-\usepackage[ngerman]{babel}
-\defaultfontfeatures{Ligatures=TeX}
-\usepackage{amsmath,amssymb}
-\usepackage{geometry}
-\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{tabularx}
-\usepackage{xcolor}
-\usepackage{float}
-\usepackage{enumitem}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\usepackage{hyperref}
-\usepackage{siunitx}
-\usepackage{tcolorbox}
+\usepackage{harmonikabau_preamble}
 
-\definecolor{darkblue}{HTML}{16213e}
-\definecolor{accentred}{HTML}{e94560}
-\definecolor{keygreen}{HTML}{2e7d32}
-\definecolor{warnred}{HTML}{c62828}
+% == Dokumentmetadaten ====================
+\newcommand{\hbdoknr}{0005}
+\newcommand{\hbtitel}{Frequenzverschiebung als Indikator der Ansprache}
+\newcommand{\hbuntertitel}{Kammerkopplung, Betriebspunkt und Einfluss der Geometrie}
+\newcommand{\hbheadtext}{Dok.\,0005 --- Frequenzverschiebung als Indikator der Ansprache}
+\newcommand{\hbfoottext}{Querverweise: Dok.\,0002 $\cdot$ Dok.\,0004}
 
-\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
-  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
-\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
-  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small Dok.\,0005 -- Frequenzverschiebung als Indikator der Ansprache}
-\fancyhead[R]{\small\thepage}
-\fancyfoot[C]{\small Querverweise: Dok.\,0002 (v8) $\cdot$ Dok.\,0003 (Impedanzvergleich) $\cdot$ Dok.\,0004 (Zwei-Filter)}
-
-\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
-\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
 
 \begin{document}
+\hbmaketitle
 
-\begin{center}
-{\LARGE\bfseries\color{darkblue} Dok.\,0005: Frequenzverschiebung als Indikator der Ansprache}\\[6pt]
-{\large Beweis des Zusammenhangs: $\Delta f$ und $\Delta\tau$ als Real- und Imaginärteil derselben Kopplung}\\[4pt]
-\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
-\end{center}
 {\small\itshape Beweist, dass Frequenzverschiebung und Ansprache-Verschlechterung physikalisch untrennbar verknüpft sind. Beide sind Projektionen derselben komplexen Kopplungsimpedanz $Z_H(f)$. Zahlenwerte: 50-Hz-Basszunge aus Dok.\,0002.}
 
 \vspace{2mm}
 \begin{center}\small
-\begin{tabular}{ll}
+\begin{tabularx}{\textwidth}{l X}
 \toprule
 \textbf{Dokumentenverweise} \\
 \midrule
@@ -63,7 +37,7 @@ Dok.\,0500 & Leitfaden zur ästhetischen Forensik bei Akkordeon-Gehäusen \\
 \midrule
 \href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verifikationsskript aller Berechnungen \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 \vspace{4mm}
 
@@ -139,7 +113,7 @@ Im Nyquist-Diagramm ($R_H$ horizontal, $X_H$ vertikal) beschreibt die Impedanz e
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{rrrl}
+\resizebox{\linewidth}{!}{\begin{tabular}{rrrl}
 \toprule
 OT $n$ & $R_H/Z_0$ & $X_H/Z_0$ & Position auf dem Kreis \\
 \midrule
@@ -150,7 +124,7 @@ $f_H$ (274) & 0{,}143 & $\approx 0$ & $\to$ \textbf{Gipfel} (maximale Dämpfung)
 6 (300\,Hz) & 0{,}072 & $-$0{,}374 & $\searrow$ Unterhalb des Gipfels \\
 8 (400\,Hz) & 0{,}017 & $-$0{,}655 & $\downarrow$ Untere Hälfte \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Nyquist-Positionen der Obertöne. Am Gipfel ($f_H$): max.\ Dämpfung, $X_H$ wechselt Vorzeichen.}
 \end{table}
 
@@ -191,7 +165,7 @@ Die Kramers-Kronig-Relation ist eine Folge der \textbf{Kausalität}. Die Kammer 
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{l l l}
+\resizebox{\linewidth}{!}{\begin{tabular}{l l l}
 \toprule
 \textbf{Messergebnis} & \textbf{Physik} & \textbf{Ansprache} \\
 \midrule
@@ -202,7 +176,7 @@ $\Delta f \to 0$ (Vorzeichenwechsel) & OT durchfährt $f_H$ & \textbf{Worst Case
 $\Delta f < 0$ (Ton tiefer) & Nächster OT über $f_H$ & Besserung \\
 $\Delta f \approx 0$, Ansprache gut & OT weit von $f_H$ & \textbf{Optimal} \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Interpretationsschlüssel: $\Delta f \to$ Ansprache-Prognose}
 \end{table}
 
@@ -337,5 +311,6 @@ $\Delta f \to 0$ ohne Vorzeichenwechsel $\to$ \textbf{beste Ansprache}.
 \textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
 {\small\itshape Was man nicht messen kann, kann man nicht optimieren. Die Frequenzverschiebung ist die Messgröße -- das Setup ist die Eichung.}
 \end{center}
+
 
 \end{document}

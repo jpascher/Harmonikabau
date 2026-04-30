@@ -1,26 +1,21 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{xcolor}
-\usepackage[margin=25mm]{geometry}
-\usepackage{tcolorbox}
-\usepackage{hyperref}
+\usepackage{harmonikabau_preamble}
 
-\definecolor{darkblue}{HTML}{16213e}
-\definecolor{accentred}{HTML}{e94560}
-\definecolor{keygreen}{HTML}{2e7d32}
+% == Dokumentmetadaten ====================
+\newcommand{\hbdoknr}{0015}
+\newcommand{\hbtitel}{Akustische Kopplung und Impedanzanpassung}
+\newcommand{\hbuntertitel}{Kanalgeometrie, Schlitzform und Stimmstock-Design}
+\newcommand{\hbheadtext}{Dok.\,0015 --- Akustische Kopplung und Impedanzanpassung}
+\newcommand{\hbfoottext}{Querverweise: Dok.\,0002 $\cdot$ Dok.\,0007 $\cdot$ Dok.\,0011}
 
-\title{\textcolor{darkblue}{Dok. 0015\\Akustische Kopplung und Impedanzanpassung}}
-\author{Harmonikabau — Technische Dokumentation}
-\date{}
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
 
 \begin{document}
-\maketitle
-
+\hbmaketitle
 \begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
 \textbf{Hinweis:} Dieses Dokument bietet ein Erklärungsmodell.
 Die angegebenen Zahlenwerte sind Größenordnungsabschätzungen ---
@@ -281,5 +276,6 @@ direkt abstrahlt.
 \bigskip
 \textit{Die Zunge speist, die Kammer formt, die Klappe strahlt ab.
 Die Geometrie am Übergang bestimmt die Kopplung.}
+
 
 \end{document}

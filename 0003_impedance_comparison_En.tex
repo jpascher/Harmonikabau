@@ -1,0 +1,224 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+\newcommand{\hbdoknr}{0003}
+\newcommand{\hbtitel}{Impedance Comparison}
+\newcommand{\hbuntertitel}{Free-beating Reed vs.\ Labial Pipe}
+\newcommand{\hbheadtext}{Doc.\,0003 --- Impedance Comparison: Free-beating Reed vs.\ Labial Pipe}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0002 $\cdot$ Doc.\,0004}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape Supplementary chapter to Doc.\,0002 (bass\_50hz\_v8). Systematically presents the fundamental impedance difference between a fluted organ pipe and a reed in a bass chamber. Numerical values refer to the 50\,Hz bass reed from Doc.\,0002. The resulting frequency variation is calculated quantitatively in Doc.\,0004.}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Document References} \\
+\midrule
+Doc.\,0001 & Analysis of instrument acoustics and psychoacoustics \\
+Doc.\,0002 & Flow analysis of bass reed 50\,Hz -- v8 \\
+\textbf{Doc.\,0003} & \textbf{Impedance comparison: free-beating reed vs.\ labial pipe (this document)} \\
+Doc.\,0004 & Frequency variation through chamber coupling -- two-filter model \\
+Doc.\,0006 & Symbol reference \\
+Doc.\,0007 & Treble reed block -- chamber frequencies \\
+Doc.\,0008 & Tone modification by chamber geometry \\
+Doc.\,0500 & Guide to aesthetic forensics of accordion casework \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verification script for all calculations \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\vspace{4mm}
+
+\section{Why This Comparison?}
+
+The bass chamber of an accordion and a folded organ pipe have much in common externally: a folded air path, a resonance volume, a 180\textdegree\ fold (mitre bend), an opening to the outside air. The Coltman effect (impedance disturbance at the fold, Doc.\,0002 Section~5.2) applies to both systems. The acoustic shortening $\Delta l \approx 0{.}79 \cdot D$ is geometric, independent of the excitation mechanism.
+
+But the \textbf{nature of sound generation} is fundamentally different --- and with it, the role that the chamber impedance plays in the oscillation behaviour. This difference explains why organ builders optimise their pipes as resonators, while accordion builders want their chambers to be acoustically as ``invisible'' as possible (Doc.\,0002 Ch.\,10).
+
+\textbf{Nevertheless}, practical tests clearly show that the chamber measurably shifts the pitch of the reed (1--5\,cents). This effect is calculated quantitatively in Doc.\,0004 as a coupled two-filter system.
+
+\section{The Labial Pipe: The Tube Determines the Frequency}
+
+\subsection{Excitation Mechanism}
+
+In a fluted (labial) organ pipe, a flat air jet from the core channel creates an instability at the labium (cutting edge). The jet oscillates laterally --- driven by the \textbf{acoustic feedback from the tube}. The frequency of the tone is \textbf{not} determined by the jet (which has no natural frequency in the musical sense), but by the tube resonance.
+
+\subsection{Input Impedance of the Tube}
+
+The tube acts as an acoustic resonator with frequency-dependent input impedance:
+\begin{equation}
+Z_\text{tube}(f) = j\,\rho c \cdot \frac{S_\text{mouth}}{S_\text{tube}} \cdot \tan\!\left(\frac{2\pi f\, L_\text{eff}}{c}\right)
+\end{equation}
+(stopped pipe; open pipe: $\cot$ instead of $\tan$). The impedance has \textbf{sharp maxima} at the tube resonances ($\lambda/4$ for stopped, $\lambda/2$ for open).
+
+\subsection{Coupling: Jet as Velocity Generator}
+
+The jet at the labium is a \textbf{velocity generator} (high velocity, low impedance). It ``sees'' the tube as a load. Oscillation occurs where the \textbf{tube impedance is maximal} --- because there the greatest pressure feedback acts on the jet. The jet adapts to the tube length.
+
+\begin{keybox}
+\textbf{Key statement -- labial pipe:} The tube is the frequency-determining resonator. The jet is a broadband energy source that couples maximally at the tube resonance. Impedance at the labium is \textbf{constant in time} (linear coupling) --- the tube end does not move.
+\end{keybox}
+
+\section{The Free-beating Reed: The Reed Determines the Frequency}
+
+\subsection{Excitation Mechanism}
+
+The reed is a \textbf{mechanical oscillator} with its own natural frequency (Euler--Bernoulli). The 50\,Hz bass reed in Doc.\,0002 has:
+\begin{equation}
+f_\text{reed} = \frac{1{.}875^2}{2\pi L^2} \sqrt{\frac{EI}{\rho_s A}} \approx 50\,\text{Hz}
+\end{equation}
+The frequency is determined by the length, stiffness and mass of the reed --- \textbf{not} by the chamber. The chamber has $f_H = 274$\,Hz --- far from 50\,Hz. \textbf{But} the chamber still shifts the frequency measurably (see Doc.\,0004, Ch.\,3).
+
+\subsection{The Gap as Nonlinear Impedance Converter}
+
+Here lies the fundamental difference. The gap between reed and plate converts the mechanical impedance of the reed into an \textbf{acoustic impedance} that the chamber ``sees'':
+\begin{equation}
+Z_\text{acoust,gap}(t) = \frac{\Delta p(t)}{q(t)} = \frac{\rho\, v_\text{gap}(t)}{2\, S_\text{gap}(t)}
+\end{equation}
+Since $S_\text{gap}(t)$ changes by a \textbf{factor of~100} during the oscillation cycle (Doc.\,0002 Ch.\,8: from $\sim 0$ to 58\,mm$^2$), the acoustic impedance at the gap is \textbf{time-variant and strongly nonlinear}.
+
+\subsection{Mechanical Impedance of the Reed}
+
+The reed itself has the mechanical impedance of a damped spring-mass system:
+\begin{equation}
+Z_\text{mech}(f) = R_\text{damping} + j\!\left(\omega\, m_\text{eff} - \frac{k_\text{eff}}{\omega}\right)
+\end{equation}
+At $f = f_\text{reed}$: $Z_\text{mech} = R_\text{damping}$ (purely real, minimum). The quality factor $Q = \omega_0 m_\text{eff}/R$ determines the bandwidth --- and thus how strongly the chamber impedance can shift the frequency (Doc.\,0004 Ch.\,2).
+
+\begin{keybox}
+\textbf{Key statement -- free-beating reed:} The reed is the frequency-determining oscillator. The chamber is \textbf{not} a resonator in the sense of frequency selection, but an impedance modulator that influences --- through the phase of the feedback --- the overtones, the onset time \textbf{and the pitch}. Impedance at the gap is \textbf{time-variant} (nonlinear coupling). The quantitative calculation of the frequency shift as a coupled two-filter system is found in Doc.\,0004.
+\end{keybox}
+
+\section{Comparison of Impedance Properties}
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{l p{55mm} p{55mm}}
+\toprule
+\textbf{Property} & \textbf{Labial pipe (organ)} & \textbf{Free-beating reed (accordion)} \\
+\midrule
+Frequency determination & Tube resonance (impedance maximum) & Mechanical natural frequency of the reed \\[3pt]
+Excitation & Jet at labium (velocity generator, broadband) & Bernoulli suction at gap (self-excited at $f_\text{reed}$) \\[3pt]
+Impedance at excitation point & Constant in time (tube mouth does not move) & Periodically switched: factor $\sim$100 per cycle \\[3pt]
+Coupling type & Quasi-linear (small jet deflection) & Strongly nonlinear ($S_\text{gap} \sim 0 \ldots 58$\,mm$^2$) \\[3pt]
+Chamber/tube role & \textbf{Frequency-selective} (the tube \textit{is} the instrument) & \textbf{Phase coupling} + \textbf{frequency pulling} (Doc.\,0004) \\[3pt]
+Coupling (electronics analogy) & Parallel resonance (LC parallel, jet $\parallel$ tube) & Series coupling (air must pass \textit{through} chamber, Doc.\,0002 Ch.\,10) \\[3pt]
+Resonant chamber & \textbf{Desired} (resonance = sound production) & \textbf{Harmful} (resonance draws energy, Doc.\,0002 Ch.\,10) \\[3pt]
+Overtone structure & Forced by tube (harmonic through tube length) & Generated by reed, \textit{filtered} by chamber \\[3pt]
+Frequency shift & Unlimited (tube \textit{is} frequency-determining) & 1--5\,cents (Doc.\,0004: $\Delta k = A_\text{eff}^2 \rho c^2 / V$) \\[3pt]
+Coltman effect & Correction of tube length ($\Delta l \to$ intonation) & Correction of $f_H$ ($\Delta l \to$ phase shift of overtones) \\
+\bottomrule
+\end{tabular}}
+\caption{Impedance comparison: labial pipe vs.\ free-beating reed}
+\end{table}
+
+\section{The Gap as Periodically Switched Impedance}
+
+\subsection{Electronics Analogy}
+
+In the electronics analogy (Doc.\,0002 Ch.\,7), the labial pipe is a \textbf{linear LC oscillator} excited by a constant current source (jet). The resonant frequency $f_0 = 1/(2\pi\sqrt{LC})$ is time-independent.
+
+The free-beating reed, by contrast, is an LC circuit whose \textbf{terminating resistance $R(t)$ is switched between zero and infinity at the reed frequency}:
+\begin{equation}
+R_\text{gap}(t) = \begin{cases}
+\infty & \text{gap closed (reed in slot)} \\
+\displaystyle\frac{\rho\, v}{2\, S_\text{gap}(t)} & \text{gap open}
+\end{cases}
+\end{equation}
+
+This is a \textbf{parametric oscillator}: a system in which a circuit parameter ($R$) is periodically modulated. Doc.\,0004 shows that it is precisely this parametric modulation that forms the basis of the closed transfer function $H_\text{ges}(f) = H_1(f) / (1 - \kappa_\text{eff} \cdot H_1 \cdot H_2)$.
+
+\subsection{Numerical Values for the 50\,Hz Bass Reed}
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{p{55mm} r r r}
+\toprule
+\textbf{Phase in cycle} & $S_\text{gap}$ [mm$^2$] & $v_\text{gap}$ [m/s] & $Z_\text{acoust}$ [Pa\,s/m$^3$] \\
+\midrule
+Gap closed & $\approx 0$ & -- & $\to \infty$ \\
+Gap minimal (side gap) & 7.5 & 22 & $1.8 \times 10^6$ \\
+Gap at rest position & 4.0 & 29 & $4.3 \times 10^6$ \\
+Gap maximal (full swing) & 58 & 2 & $2.1 \times 10^4$ \\
+\bottomrule
+\end{tabular}}
+\caption{Acoustic gap impedance at various phases of the oscillation cycle (at 1\,kPa bellows pressure). Factor between minimum and maximum: $\sim$200.}
+\end{table}
+
+\begin{warnbox}
+The impedance at the gap changes by more than \textbf{two orders of magnitude} within a single oscillation period of 20\,ms. For a labial pipe, the corresponding variation is $< 1\,\%$. This is the fundamental physical reason why linear acoustic models (Helmholtz, transmission line) are reliable for the reed only in the small-amplitude regime --- and yet a measurable frequency shift arises (Doc.\,0004).
+\end{warnbox}
+
+\section{Consequence: Why the Chamber Must Be Optimised Differently}
+
+\subsection{Organ Pipe: Resonance Desired}
+
+The organ builder \textbf{maximises} the resonance quality of the tube. Higher $Q$ means sharper frequency selection, stronger feedback, less energy loss. Hence organ pipes are made from smooth material, and Coltman compensation serves \textbf{exact intonation}.
+
+\subsection{Reed Chamber: Resonance Harmful --- But Not Without Effect}
+
+The accordion builder wants the chamber to \textbf{not resonate} (Doc.\,0002 Ch.\,10). But the chamber is never \textbf{without effect}: even when $f_\text{reed} \ll f_H$, the chamber impedance acts as a \textbf{frequency puller}. Three mechanisms (Doc.\,0004 Ch.\,3): (1)~Static compliance load (air spring, $\Delta k = A_\text{eff}^2 \rho c^2/V$, $+0{.}3$\,cents). (2)~Resonant amplification at overtones near $f_H$ ($+1$--$5$\,cents at the overtone). (3)~Nonlinear feedback to the fundamental ($+1$--$3$\,cents).
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{p{55mm} r r}
+\toprule
+\textbf{Parameter} & \textbf{Organ pipe (C2, stopped)} & \textbf{Bass reed (50\,Hz)} \\
+\midrule
+Effective tube length & $\sim$1300\,mm (stopped $\lambda/4$) & 169\,mm (chamber path) \\
+$f_\text{resonance}/f_\text{tone}$ & $= 1{.}00$ (resonance \textbf{is} the tone) & $= 5{.}48$ ($f_H/f_\text{reed}$, far away) \\
+Resonance quality $Q$ & $20$--$50$ (desired: high) & $5$--$10$ (desired: low) \\
+Impedance at mouth & $\sim$constant (linear) & factor $\sim$200 per cycle \\
+Frequency shift by resonator & 100\,\% (resonator = pitch) & 1--5\,cents (Doc.\,0004) \\
+\bottomrule
+\end{tabular}}
+\caption{Quantitative comparison: organ pipe (C2 stopped) vs.\ bass reed (50\,Hz)}
+\end{table}
+
+\section{The Three Time Scales of the Impedance}
+
+For the free-beating reed, \textbf{three time scales} are relevant that play no role in the labial pipe:
+
+\textbf{1.\ Fast time scale --- gap modulation ($T = 20$\,ms):} The impedance at the gap is switched 50 times per second between near zero and near infinity. This effect produces nonlinear self-excitation and determines the overtone spectrum.
+
+\textbf{2.\ Medium time scale --- transient onset ($\tau \sim 100$--$600$\,ms):} During amplitude build-up, the time-averaged gap area grows (Doc.\,0002 Ch.\,8: from 4\,mm$^2$ to 32\,mm$^2$). In this phase the Helmholtz approximation is most valid.
+
+\textbf{3.\ Slow time scale --- bellows pressure ($\sim$1\,s):} Bellows pressure statically deflects the reed (Doc.\,0002 Ch.\,9), shifts the operating point and thus the effective coupling.
+
+\section{Why Linear Models Are Still Useful}
+
+Despite the strong nonlinearity, the linear Helmholtz model is \textbf{not wrong}. It describes the time-averaged impedance and is valid for: transient behaviour, overtone analysis, comparison of partition variants A/B/C (Doc.\,0002 Ch.\,8), and the calculation of frequency shift in the two-filter model (Doc.\,0004).
+
+\begin{warnbox}
+\textbf{Where the linear model fails:} At full amplitude ($A \sim 20$\,mm) the time-averaged gap area becomes $\sim$8 times larger. At this stage, a time-resolved FSI simulation would be needed.
+\end{warnbox}
+
+\section{Summary}
+
+\begin{keybox}
+\textbf{Core statement:} The reed converts the chamber impedance from a \textbf{frequency-selecting resonator} (organ pipe: tube determines frequency, impedance constant in time, resonance desired) into a \textbf{phase-modulating energy buffer} (accordion: reed determines frequency, impedance time-variant by factor~200, resonance harmful).
+
+The gap as nonlinear impedance converter is the decisive element with no organ pipe equivalent. \textbf{Nevertheless} the chamber measurably shifts the reed frequency (1--5\,cents), which can be calculated as a coupled two-filter system (Doc.\,0004): $H_\text{ges}(f) = H_1(f) / (1 - \kappa_\text{eff} \cdot H_1 \cdot H_2)$.
+
+For the instrument builder: \textbf{The chamber is not a resonating body}, but an \textbf{impedance environment} that the reed ``sees'' and that co-determines its frequency. Optimisation targets phase compatibility (Doc.\,0002 Ch.\,11--12) and minimal frequency pulling (Doc.\,0004 Ch.\,5).
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape The calculation tells you where to look. The practical test tells you what you find.}
+\end{center}
+
+
+\end{document}

@@ -1,0 +1,207 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+% == Document Metadata ====================
+\newcommand{\hbdoknr}{0008}
+\newcommand{\hbtitel}{Tone Modification by Chamber Geometry}
+\newcommand{\hbuntertitel}{The Chamber as Notch Filter in the Overtone Spectrum}
+\newcommand{\hbheadtext}{Doc.\,0008 --- Tone Modification by Chamber Geometry}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0002 $\cdot$ Doc.\,0005 $\cdot$ Doc.\,0007}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape Analyses how chamber geometry (volume, opening) changes the timbre. The chamber acts as a frequency-dependent notch filter: it attenuates overtones near $f_H$ and shifts their phase. Both effects modify the waveform and thus the perceived sound.}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+Doc.\,0002 & Flow analysis of bass reed 50\,Hz -- v8 \\
+Doc.\,0005 & Frequency shift as indicator of response \\
+Doc.\,0007 & Treble reed block -- chamber frequencies (7~variants) \\
+\textbf{Doc.\,0008} & \textbf{Tone modification by chamber geometry (this document)} \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verification script for all calculations \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\vspace{4mm}
+
+
+% ============================================================
+\section{The Chamber as Notch Filter --- Not an Amplifier}
+% ============================================================
+
+A common misconception: the chamber ``amplifies'' the tone, like the resonating body of a guitar. \textbf{The opposite is true.} Due to series coupling (Doc.\,0002 Ch.\,10, Doc.\,0003), the chamber draws energy from the reed at resonance --- it damps rather than amplifies.
+
+The chamber acts on the overtone spectrum like a \textbf{notch filter}: it creates a ``hole'' in the spectrum at $f_H$. The transfer function for the $n$-th overtone:
+\begin{equation}
+A_n(f_H) = \frac{1}{1 + \kappa_\text{eff} \cdot R_H(f_n)}
+\end{equation}
+
+At $f_n = f_H$, $R_H$ is maximal and attenuation is strongest. Far from $f_H$, $R_H \approx 0$ and $A_n \approx 1$ (unattenuated).
+
+\begin{keybox}
+\textbf{The chamber is not a resonating body, but a notch filter.} It creates a hole in the overtone spectrum at $f_H$. The reed itself generates all overtones --- the chamber filters some of them out. Which overtones are affected depends on $f_H$ (volume and opening, Doc.\,0007). How strongly they are affected depends on the coupling strength $\kappa_\text{eff}$.
+\end{keybox}
+
+
+% ============================================================
+\section{Amplitude Attenuation and Phase Shift}
+% ============================================================
+
+Doc.\,0005 shows: the real part $R_H(f)$ and imaginary part $X_H(f)$ of the chamber impedance are linked by the Kramers--Kronig relations. For the sound: \textbf{every amplitude attenuation is accompanied by a phase shift.}
+
+\subsection{Amplitude Attenuation (Real Part $R_H$)}
+
+$R_H(f)$ has the form of a Lorentzian curve, centred at $f_H$ with half-width $f_H/Q_H$. Overtones within this width are reduced in amplitude:
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{l p{30mm} p{65mm}}
+\toprule
+\textbf{Affected OT} & \textbf{Frequency-range} & \textbf{Tonal effect} \\
+\midrule
+$n = 2$ (octave) & $2f$ & Tone becomes \textbf{thin, hollow} -- 25\,\% energy missing \\
+$n = 3$ (twelfth) & $3f$ & Tone becomes \textbf{nasal, throaty} -- 11\,\% missing \\
+$n = 4$ (double octave) & $4f$ & Tone loses \textbf{clarity} -- 6\,\% missing \\
+$n = 5$--$6$ & $5$--$6f$ & Tone loses \textbf{brilliance} -- barely noticeable \\
+$n \geq 7$ & $\geq 7f$ & \textbf{Barely audible} -- amplitude $< 2\,\%$ anyway \\
+\bottomrule
+\end{tabular}}
+\caption{Tonal effect of overtone attenuation by overtone order}
+\end{table}
+
+\subsection{Phase Shift (Imaginary Part $X_H$)}
+
+$X_H(f)$ has the form of an S-curve (dispersion curve): below $f_H$ the phase is shifted \textbf{lagging}, above it \textbf{leading}:
+\begin{equation}
+\Phi_n = \arctan\!\left(Q_H \cdot \left(\frac{f_n}{f_H} - \frac{f_H}{f_n}\right)\right)
+\end{equation}
+
+The phase shift modifies the \textbf{waveform} of the tone without significantly changing individual amplitudes. The ear perceives this as a change in \textbf{sharpness} or \textbf{softness}. The effect is strongest when neighbouring overtones experience different phase shifts --- this distorts the waveform most noticeably.
+
+\begin{warnbox}
+\textbf{The phase shift explains why experienced instrument makers hear tonal differences that a spectrum analyser barely shows.} Amplitudes change by only a few percent, but phase relationships change significantly --- and this reshapes the waveform.
+\end{warnbox}
+
+
+% ============================================================
+\section{What the Variation Factors Change in the Sound}
+% ============================================================
+
+\subsection{Reducing Depth (Variants B, C, Ci): $f_H$ rises $\to$ notch shifts upward}
+
+When depth drops from 8 to 3\,mm, $f_H$ rises from 1500--1950\,Hz to 1500--3190\,Hz. The notch filter hole shifts from the 3rd--5th overtones up to the 5th--8th overtones.
+
+\textbf{Tonal effect:} The energy-rich low overtones (2nd, 3rd) are \textbf{released}. The tone becomes \textbf{fuller, richer in fundamental, warmer}. Brilliance is slightly reduced --- but the high overtones carry little energy anyway ($a_5^2 = 4\,\%$). The loss is barely audible.
+
+\subsection{Reducing Opening (Variants D, E, Ei): $f_H$ falls $\to$ notch shifts downward}
+
+When $\varnothing$ drops from 10 to 6\,mm, $f_H$ falls to 67\,\%. The notch hole shifts into the range of the 2nd--3rd overtones.
+
+\textbf{Tonal effect:} The energy-rich low overtones are \textbf{attenuated}. The tone becomes \textbf{thin, hollow, lifeless}. The 2nd overtone carries 25\,\% of the total energy --- when it is attenuated, the tone loses its ``body''. This is not just a deterioration of response, but also a \textbf{tonal impoverishment}.
+
+\subsection{$Q_H$: The Width of the Notch Filter}
+
+$Q_H$ determines how narrow the notch filter hole is. Quantitative analysis of the loss mechanisms shows that $Q_H$ is determined almost entirely by the \textbf{radiation losses at the opening} --- not by the wall shape:
+
+\begin{table}[H]
+\centering\footnotesize
+\resizebox{\linewidth}{!}{\begin{tabular}{l r r r p{42mm}}
+\toprule
+& $Q_\text{rad}$ & $Q_\text{visc}$ & $Q_\text{tot}$ & Dominant loss \\
+\midrule
+Treble (5\,cm$^3$, 1691\,Hz) & 43 & 88 & 29 & Radiation (67\,\%) \\
+Bass (180\,cm$^3$, 274\,Hz) & 263 & 113 & 79 & Wall friction (70\,\%) \\
+\bottomrule
+\end{tabular}}
+\caption{Decomposition of $Q_H$. Wall shape changes $Q_\text{visc}$ by $\pm 5$--$10\,\%$ (area), shifting $Q_\text{total}$ by at most $\pm 3\,\%$ (treble) to $\pm 7\,\%$ (bass) --- inaudible.}
+\end{table}
+
+\textbf{High $Q_H$} (large opening, little radiation): \textbf{Narrow, deep hole.} A single overtone is strongly attenuated. Musically: \textbf{sharp tonal colouring}.
+
+\textbf{Low $Q_H$} (small opening, much radiation): \textbf{Wide, shallow hole.} Several overtones lightly attenuated. Musically: \textbf{diffuse dullness}.
+
+\begin{keybox}
+$Q_H$ is determined almost entirely by the \textbf{opening geometry} (diameter, neck length), not by the wall shape. The audible difference between different partition wall shapes (Doc.\,0002 practical finding) does not run through $Q_H$ ($< 7\,\%$ change), but through the \textbf{unsteady impulse response} --- reflection patterns, position of the acoustic end, pressure pulse transport. These effects are real, but not calculable in the Helmholtz model.
+\end{keybox}
+
+
+% ============================================================
+\section{Tonal Character Across the Note Range}
+% ============================================================
+
+\textbf{Lower third (D3--C\#4):} $f_H$ far above the low overtones. Chamber ``invisible''. Tone full and natural. No difference between variants.
+
+\textbf{Middle third (D4--C\#5):} For variant A, the 3rd--5th OT approach $f_H$. Slight attenuation --- tone becomes somewhat ``nasal''. For C the attenuation is less.
+
+\textbf{Upper third (D5--C6):} For A, the 2nd OT hits $f_H$ --- the hole sits at the octave. Tone becomes \textbf{noticeably thinner}. For C, $f_H$ lies at the 3rd--4th OT --- tone remains fuller.
+
+
+% ============================================================
+\section{The Three Tonal Dimensions}
+% ============================================================
+
+\begin{table}[H]
+\centering\footnotesize
+\resizebox{\linewidth}{!}{\begin{tabular}{p{45mm} l p{35mm} p{35mm}}
+\toprule
+\textbf{Dimension} & \textbf{Physics} & \textbf{Determined by} & \textbf{Perceived sound} \\
+\midrule
+Position of the hole & $f_H$ & Volume $V$, opening $S$ & Which OT is missing \\
+Width of the hole & $Q_H$ & Opening geometry (67--70\,\%) & Sharp vs.\ diffuse \\
+Depth of the hole & $\kappa_\text{eff}$ & Gap area, volume & Strong vs.\ weak \\
+\bottomrule
+\end{tabular}}
+\caption{The three tonal dimensions. Position is the dominant lever.}
+\end{table}
+
+
+% ============================================================
+\section{Response, Loudness and Tone: The Same Optimum}
+% ============================================================
+
+Doc.\,0005 (Ch.\,10) shows: optimal chamber tuning improves response \textit{and} loudness (win-win through $R_H$). This document adds: \textbf{the tone also benefits.}
+
+All three suffer from the same source: $R_H(f)$. It draws energy ($\to$ response, loudness) \textbf{and} attenuates overtones ($\to$ tone). When $R_H$ is minimised, all three improve.
+
+\begin{keybox}
+\textbf{There is no trade-off between response, loudness and tone in chamber optimisation.} All three are served by the same optimum: $f_H/f \geq 3$, minimal volume, large opening. The only real trade-off lies in the \textbf{reed quality factor $Q_1$}: louder and richer in overtones, but slower. That is a reed decision, not a chamber decision.
+\end{keybox}
+
+
+% ============================================================
+\section{Summary}
+% ============================================================
+
+\begin{keybox}
+\textbf{The chamber is not a resonating body, but a notch filter.} It creates a hole in the overtone spectrum at $f_H$.
+
+\textbf{Which overtone is affected determines the tonal character:}\\
+$\bullet$ 2nd OT attenuated ($f_H/f \approx 2$): \textbf{thin, hollow} -- 25\,\% energy missing\\
+$\bullet$ 3rd OT attenuated ($f_H/f \approx 3$): \textbf{nasal} -- 11\,\% missing\\
+$\bullet$ 5th+ OT attenuated ($f_H/f \geq 5$): \textbf{barely changed} -- $< 4\,\%$ energy
+
+\textbf{Three tonal dimensions:} Position ($f_H$ via volume/opening --- dominant lever), width ($Q_H$ via opening geometry --- wall shape $< 7\,\%$), depth ($\kappa_\text{eff}$ via gap area).
+
+\textbf{The phase shift} (Kramers--Kronig) modifies the waveform --- even when amplitudes appear barely changed in a spectrum analyser. This explains why trained ears hear differences that instruments do not show.
+
+\textbf{Response, loudness and tone benefit from the same optimum:} $f_H/f \geq 3$, minimal volume, large opening. No trade-off in chamber optimisation.
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape The chamber does not create the sound --- it filters it. Less filter, more music.}
+\end{center}
+
+
+\end{document}

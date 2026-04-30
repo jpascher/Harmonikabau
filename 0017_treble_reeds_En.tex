@@ -1,0 +1,136 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+% == Document Metadata ====================
+\newcommand{\hbdoknr}{0017}
+\newcommand{\hbtitel}{Treble Reeds}
+\newcommand{\hbuntertitel}{Overtone Modes F3 to C6}
+\newcommand{\hbheadtext}{Doc.\,0017 --- Treble Reeds: Overtone Modes F3--C6}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0016}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+\begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
+\textbf{Note:} This document presents an explanatory model.
+The interpolated scale is an estimate --- real reed plates
+vary depending on the manufacturer.
+\end{tcolorbox}
+
+\noindent\textit{\small Calculation script: The complete FEM calculation with all tables
+is deposited in the same directory on GitHub:
+\textbf{pruefskript\_0017\_diskant.py} (W independence, uniform minimum thickness,
+calibrated profiling, $f_2$ vs.\ $f_H$, bass/treble comparison).}
+
+\noindent\textit{FEM calculation of the bending modes of treble reeds with variable
+scale (L = 37$\to$14\,mm, W = 3.7$\to$1.7\,mm). Calibrated thickness for each
+semitone. Comparison with the bass reeds from Doc.~0016.}
+
+\section{Width W Has No Effect on Pitch}
+
+For an Euler--Bernoulli cantilever:
+\begin{equation}
+f = \frac{\beta^2}{2\pi L^2} \times t \times \sqrt{\frac{E}{12\rho}}
+\end{equation}
+
+Width $W$ cancels out: $I = Wt^3/12$, $A = Wt$, so $I/A = t^2/12$.
+Pitch is determined solely by $t$ and $L$.
+$W$ influences mass ($\propto W$), volume flow ($\propto W$),
+loudness and torsional stiffness ($\propto W^3$) --- but not the pitch.
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{W determines loudness and response, not pitch.}
+Hence $W$ and $L$ decrease steadily from low to high ---
+the low notes require more volume flow.
+\end{tcolorbox}
+
+\section{Treble Scale: L and W Decrease Steadily, t is Profiled}
+
+Unlike the bass, in the treble both length and width vary continuously.
+The foot thickness ($t_0$) is always slightly greater than the theoretical
+minimum thickness --- profiling (thinning towards the tip) adjusts the pitch.
+
+\begin{center}
+\resizebox{\linewidth}{!}{\begin{tabular}{lcccccccc}
+\toprule
+Note & $f$ & $L$ & $W$ & $t_0$ & $t_\mathrm{tip}$ & Thin. & $f_2/f_1$ & $f_2$ \\
+\midrule
+F3 & 175 & 37.0 & 3.70 & 0.298 & 0.223 & 28\,\% & 5.32 & 348 \\
+C3 & 131 & 29.0 & 3.05 & 0.133 & 0.104 & 24\,\% & 5.33 & 697 \\
+C4 & 262 & 22.8 & 2.51 & 0.161 & 0.132 & 20\,\% & 5.45 & 1426 \\
+C5 & 523 & 17.9 & 2.06 & 0.197 & 0.169 & 16\,\% & 5.63 & 2947 \\
+C6 & 1047 & 14.0 & 1.70 & 0.244 & 0.217 & 12\,\% & 5.82 & 6094 \\
+\bottomrule
+\end{tabular}}
+\end{center}
+
+\begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
+\textbf{$f_2/f_1 = 5{.}3$--$5{.}8$} (profiled) --- lower than the 6.27
+of the uniform reed, because profiling compresses the modes.
+The light profiling in the treble (12--28\,\%) lowers the ratio
+less than in the bass (30--50\,\%).
+\end{tcolorbox}
+
+\section{Absolute $f_2$: Where Does Mode~2 Hit the Chamber Resonance?}
+
+In the bass the critical zone is A1--A2 ($f_2 = 345$--$689$\,Hz,
+$f_H$ bass $= 200$--$700$\,Hz). In the treble everything shifts upward:
+$f_2$ lies for C2--C3 at 410--820\,Hz --- \textbf{below} the treble chambers.
+Only from C4 ($f_2 \approx 1640$\,Hz) does $f_2$ begin to hit the treble chamber range.
+The critical zone in the treble is \textbf{C4--C5}
+($f_2 = 1640$--$3280$\,Hz).
+
+\section{Profiling in the Treble: Less Room for Adjustment}
+
+Treble reeds are lightly profiled: 12--25\,\% thinning
+(bass reeds: 30--50\,\%). The thinnest point is at the tip for the higher notes,
+and somewhat towards the middle for the lower ones. Profiling reduces
+$f_2/f_1$ by 0.4--0.9 (from 6.27 to 5.4--5.8). In the bass the reduction was
+1.0--2.3. Less room for adjustment with thinner reeds.
+
+\section{Stiffness and Mass}
+
+Stiffness increases exponentially: factor~100 from C2 (4.8\,N/m) to
+C6 (489\,N/m). Mass decreases from 117\,mg to 47\,mg. High notes:
+stiffer, lighter, higher threshold pressure, faster onset.
+
+\section{Comparison: Bass vs.\ Treble}
+
+\textbf{Common:} $f_2/f_1 = 6{.}27$ = constant. The cantilever physics
+are identical.
+
+\textbf{Difference 1 --- Scale:} In the bass, one reed length covers 2~octaves.
+In the treble, $L$, $W$ and $t$ all vary simultaneously.
+
+\textbf{Difference 2 --- Profiling:} Bass: 30--50\,\%, effect $-1{.}0$ to
+$-2{.}3$. Treble: 12--25\,\%, effect $-0{.}4$ to $-0{.}9$.
+
+\textbf{Difference 3 --- Critical zone:} Bass: A1--A2 ($f_2$ in the $f_H$ range
+of the bass chambers). Treble: C4--C5 ($f_2$ in the $f_H$ range of the treble chambers).
+The lower treble notes (F3--B3) are non-critical.
+
+\section{Summary}
+
+\begin{enumerate}
+\item \textbf{W has no effect on pitch.} $f \propto t/L^2$.
+  $W$ determines loudness and response.
+\item \textbf{$f_2/f_1 = 6{.}27$ (uniform) = identical to bass.}
+  Profiled: 5.3--5.8 depending on thinning depth.
+\item \textbf{Actual foot thickness $>$ minimum thickness.} Profiling
+  raises $f_1$ --- the tuner starts thicker and grinds down.
+\item \textbf{Critical zone: C4--C5.} $f_2 = 1400$--$3000$\,Hz hits
+  the treble chambers. Lower notes (F3--B3) non-critical.
+\item \textbf{Stiffness:} Factor~100 over 4~octaves.
+\end{enumerate}
+
+\bigskip
+\textit{Bass and treble obey the same physics.
+The scale changes the absolute frequencies --- the ratios remain.}
+
+
+\end{document}

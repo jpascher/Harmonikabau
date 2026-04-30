@@ -1,51 +1,27 @@
 \documentclass[11pt,a4paper]{article}
-\RequirePackage{fontspec}
-\usepackage[ngerman]{babel}
-\defaultfontfeatures{Ligatures=TeX}
-\usepackage{amsmath,amssymb}
-\usepackage{geometry}
-\geometry{left=18mm, right=18mm, top=25mm, bottom=18mm}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{xcolor}
-\usepackage{float}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\usepackage{hyperref}
-\usepackage{siunitx}
-\usepackage{tcolorbox}
+\usepackage{harmonikabau_preamble}
 
-\definecolor{darkblue}{HTML}{16213e}
-\definecolor{accentred}{HTML}{e94560}
-\definecolor{keygreen}{HTML}{2e7d32}
-\definecolor{warnred}{HTML}{c62828}
+% == Dokumentmetadaten ====================
+\newcommand{\hbdoknr}{0008}
+\newcommand{\hbtitel}{Klangveränderung durch Kammergeometrie}
+\newcommand{\hbuntertitel}{Die Kammer als Kerbfilter im Obertonspektrum}
+\newcommand{\hbheadtext}{Dok.\,0008 --- Klangver\"{a}nderung durch Kammergeometrie}
+\newcommand{\hbfoottext}{Querverweise: Dok.\,0002 $\cdot$ Dok.\,0005 $\cdot$ Dok.\,0007}
 
-\newtcolorbox{keybox}{colback=keygreen!8, colframe=keygreen!60!black, 
-  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
-\newtcolorbox{warnbox}{colback=warnred!8, colframe=warnred!60!black,
-  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\bfseries}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small Dok.\,0008 -- Klangveränderung durch Kammergeometrie}
-\fancyhead[R]{\small\thepage}
-\fancyfoot[C]{\small Querverweise: Dok.\,0002 $\cdot$ Dok.\,0005 $\cdot$ Dok.\,0007}
-
-\titleformat{\section}{\Large\bfseries\color{darkblue}}{Kapitel \thesection:}{0.5em}{}
-\titleformat{\subsection}{\large\bfseries\color{darkblue!80}}{}{0em}{}
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
 
 \begin{document}
+\hbmaketitle
 
-\begin{center}
-{\LARGE\bfseries\color{darkblue} Dok.\,0008: Klangveränderung durch Kammergeometrie}\\[6pt]
-{\large Die Kammer als Kerbfilter im Obertonspektrum}\\[4pt]
-\textcolor{accentred}{\rule{0.8\textwidth}{2pt}}
-\end{center}
 {\small\itshape Analysiert, wie die Kammergeometrie (Volumen, Öffnung) die Klangfarbe verändert. Die Kammer wirkt als frequenzabhängiger Kerbfilter (Notch): Sie dämpft Obertöne nahe $f_H$ und verschiebt deren Phase. Beide Effekte verändern die Wellenform und damit den Klangeindruck.}
 
 \vspace{2mm}
 \begin{center}\small
-\begin{tabular}{ll}
+\begin{tabularx}{\textwidth}{l X}
 \toprule
 Dok.\,0002 & Strömungsanalyse Bass-Stimmzunge 50\,Hz -- v8 \\
 Dok.\,0005 & Frequenzverschiebung als Indikator der Ansprache \\
@@ -54,7 +30,7 @@ Dok.\,0007 & Diskant-Stimmstock -- Kammerfrequenzen (7~Varianten) \\
 \midrule
 \href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verifikationsskript aller Berechnungen \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 \vspace{4mm}
 
@@ -89,9 +65,9 @@ $R_H(f)$ hat die Form einer Lorentz-Glocke, zentriert bei $f_H$ mit Halbwertsbre
 
 \begin{table}[H]
 \centering\small
-\begin{tabular}{l l l}
+\resizebox{\linewidth}{!}{\begin{tabular}{l p{30mm} p{65mm}}
 \toprule
-\textbf{Betroffener OT} & \textbf{Frequenzbereich} & \textbf{Klangeffekt} \\
+\textbf{Betroffener OT} & \textbf{Frequenz-bereich} & \textbf{Klangeffekt} \\
 \midrule
 $n = 2$ (Oktave) & $2f$ & Klang wird \textbf{dünn, hohl} -- 25\,\% Energie fehlt \\
 $n = 3$ (Duodezime) & $3f$ & Klang wird \textbf{nasal, kehlig} -- 11\,\% fehlt \\
@@ -99,7 +75,7 @@ $n = 4$ (Doppeloktave) & $4f$ & Klang verliert \textbf{Klarheit} -- 6\,\% fehlt 
 $n = 5$--$6$ & $5$--$6f$ & Klang verliert \textbf{Brillanz} -- wenig auffällig \\
 $n \geq 7$ & $\geq 7f$ & \textbf{Kaum hörbar} -- Amplitude ohnehin $< 2\,\%$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Klangeffekt der Obertondämpfung nach Oberton-Ordnung}
 \end{table}
 
@@ -138,15 +114,15 @@ Wenn $\varnothing$ von 10 auf 6\,mm sinkt, fällt $f_H$ auf 67\,\%. Das Kerbfilt
 $Q_H$ bestimmt, wie schmal das Kerbfilter-Loch ist. Die quantitative Analyse der Verlustmechanismen zeigt, dass $Q_H$ hauptsächlich durch die \textbf{Strahlungsverluste an der Öffnung} bestimmt wird -- nicht durch die Wandform:
 
 \begin{table}[H]
-\centering\small
-\begin{tabular}{l r r r l}
+\centering\footnotesize
+\resizebox{\linewidth}{!}{\begin{tabular}{l r r r p{42mm}}
 \toprule
-& $Q_\text{rad}$ (Strahlung) & $Q_\text{visc}$ (Wandreibung) & $Q_\text{total}$ & Dominanter Verlust \\
+& $Q_\text{rad}$ & $Q_\text{visc}$ & $Q_\text{tot}$ & Dominanter Verlust \\
 \midrule
 Diskant (5\,cm$^3$, 1691\,Hz) & 43 & 88 & 29 & Strahlung (67\,\%) \\
 Bass (180\,cm$^3$, 274\,Hz) & 263 & 113 & 79 & Wandreibung (70\,\%) \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Zerlegung von $Q_H$. Wandform ändert $Q_\text{visc}$ um $\pm 5$--$10\,\%$ (Fläche), was $Q_\text{total}$ um maximal $\pm 3\,\%$ (Diskant) bis $\pm 7\,\%$ (Bass) verschiebt -- nicht hörbar.}
 \end{table}
 
@@ -175,8 +151,8 @@ $Q_H$ wird fast ausschließlich durch die \textbf{Öffnungsgeometrie} bestimmt (
 % ============================================================
 
 \begin{table}[H]
-\centering\small
-\begin{tabular}{l l l l}
+\centering\footnotesize
+\resizebox{\linewidth}{!}{\begin{tabular}{p{45mm} l p{35mm} p{35mm}}
 \toprule
 \textbf{Dimension} & \textbf{Physik} & \textbf{Bestimmt durch} & \textbf{Klangeindruck} \\
 \midrule
@@ -184,7 +160,7 @@ Position des Lochs & $f_H$ & Volumen $V$, Öffnung $S$ & Welcher OT fehlt \\
 Breite des Lochs & $Q_H$ & Öffnungsgeometrie (67--70\,\%) & Scharf vs.\ diffus \\
 Tiefe des Lochs & $\kappa_\text{eff}$ & Spaltfläche, Volumen & Stark vs.\ schwach \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Die drei Klangdimensionen. Position ist der dominante Hebel.}
 \end{table}
 
@@ -226,5 +202,6 @@ $\bullet$ 5.+\,OT gedämpft ($f_H/f \geq 5$): \textbf{kaum verändert} -- $< 4\,
 \textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
 {\small\itshape Die Kammer erzeugt den Klang nicht -- sie filtert ihn. Weniger Filter, mehr Musik.}
 \end{center}
+
 
 \end{document}

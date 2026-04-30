@@ -1,0 +1,241 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+\newcommand{\hbdoknr}{0007}
+\newcommand{\hbtitel}{Treble Reed Block --- Chamber Frequencies D3--C6}
+\newcommand{\hbuntertitel}{Seven Variants with Practical Depth Constraint}
+\newcommand{\hbheadtext}{Doc.\,0007 --- Treble Reed Block: Chamber Frequencies D3--C6}
+\newcommand{\hbfoottext}{7 Variants: A (Ref.) / B,C,Ci (Depth) / D,E,Ei (Opening)}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape Complete analysis for 35~chambers (D3--C6). Seven variants: reference + three curve shapes each (linear, convex, concave) for depth and opening. Accounts for the practical constraint: chamber depth must not fall below the maximum reed amplitude. Amplitude-weighted evaluation ($a_n \sim 1/n$).}
+
+\vspace{2mm}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+Doc.\,0002 & Flow analysis of bass reed 50\,Hz -- v8 \\
+Doc.\,0004 & Frequency variation -- two-filter model \\
+Doc.\,0005 & Frequency shift as response indicator \\
+Doc.\,0006 & Symbol reference \\
+\textbf{Doc.\,0007} & \textbf{Treble reed block -- chamber frequencies (this document)} \\
+\midrule
+\href{berechnungen_verifikation.py}{berechnungen\_verifikation.py} & Verification script for all calculations \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\vspace{4mm}
+
+\section{Geometry and Starting Point}
+
+The treble reed block contains 35~chambers for the notes D3 (146.8\,Hz) to C6 (1046.5\,Hz). Each chamber is a rectangular box with constant width $W = 15{.}5$\,mm and a length that decreases linearly from 50\,mm (D3) to 30\,mm (C6). The outlet opening is circular with $\varnothing$\,10\,mm ($S_\text{neck} = 78{.}5$\,mm$^2$) and a physical neck height of 8\,mm (effective neck length $l_\text{eff} = 16{.}5$\,mm with end correction $0{.}85 \cdot d$).
+
+The Helmholtz frequency of each chamber depends on volume and opening:
+\begin{equation}
+f_H = \frac{c}{2\pi}\sqrt{\frac{S_\text{neck}}{V \cdot l_\text{eff}}}
+\end{equation}
+
+From Doc.\,0005 we know: response problems occur when the 2nd or 3rd overtone of a reed comes close to the chamber resonance $f_H$. This corresponds to $f_H/f < 3$. Above $f_H/f = 4$ the chamber is acoustically ``invisible'' --- coupling through higher overtones ($n \geq 5$) is energetically irrelevant ($a_n^2 < 4\,\%$).
+
+\section{The Practical Constraint: Reed Impact}
+
+The calculation shows that smaller chamber volumes push $f_H$ upward, thereby improving response. But chamber depth cannot be reduced arbitrarily: \textbf{the reed must have room to vibrate.}
+
+A free-beating reed swings down through the slot of the reed plate into the chamber at full volume. If the reed tip touches the chamber floor, the vibration is abruptly stopped --- the reed ``bottoms out''. This produces an ugly clicking sound, damages the reed over time, and limits loudness.
+
+\subsection{Maximum Reed Amplitude in the Treble}
+
+The maximum tip deflection depends on reed length and playing dynamics:
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{l r r r}
+\toprule
+\textbf{Note range} & \textbf{Reed length} & \textbf{Max.\ amplitude} & \textbf{Min.\ depth} \\
+\midrule
+D3 (lowest) & $\sim$35\,mm & $\sim$3.5\,mm & 4.0\,mm \\
+A3 & $\sim$28\,mm & $\sim$2.8\,mm & 3.3\,mm \\
+A4 (middle) & $\sim$18\,mm & $\sim$1.8\,mm & 2.3\,mm \\
+A5 & $\sim$10\,mm & $\sim$1.0\,mm & 1.5\,mm \\
+C6 (highest) & $\sim$8\,mm & $\sim$0.8\,mm & 1.3\,mm \\
+\bottomrule
+\end{tabular}}
+\caption{Estimated reed amplitudes and minimum depths (amplitude $\approx$ 10\,\% of reed length $+$ 0.5\,mm safety margin)}
+\end{table}
+
+Minimum chamber depth must decrease from about 4\,mm (D3) to 1.3\,mm (C6). The variants calculated here with a minimum depth of 3\,mm (C6) are \textbf{well above} the reed-impact limit.
+
+\begin{keybox}
+\textbf{Practical rule:} Chamber depth should be as small as possible (minimum volume $\to$ highest $f_H$ $\to$ best decoupling), but \textbf{never} below the maximum reed amplitude plus safety margin. For the lowest treble notes (D3--F3), 3\,mm could be tight --- 4\,mm would be safer.
+\end{keybox}
+
+\section{The Three Curve Shapes}
+
+Each geometric parameter (depth or opening diameter) can vary from its starting value $a$ to its final value $b$ in three different ways:
+\begin{align}
+\text{Linear:}\quad p(x) &= a + x\,(b - a) \\
+\text{Convex:}\quad p(x) &= a \cdot (b/a)^x \\
+\text{Concave:}\quad p(x) &= a + b - a \cdot (b/a)^{1-x}
+\end{align}
+
+All three connect \textbf{the same endpoints}: $p(0) = a$, $p(1) = b$. They differ in the \textbf{distribution} of the reduction across the note range:
+
+\textbf{Linear} distributes the reduction evenly: each semitone step changes the parameter by the same absolute amount (e.g.\ $-0{.}147$\,mm/semitone for $8 \to 3$\,mm).
+
+\textbf{Convex} (lies \textbf{below} the straight line) reduces faster at the beginning and slower at the end. In the middle range the parameter has a \textbf{lower} value than the linear curve. Example depth: at A4, convex gives 4.9\,mm vs.\ linear 5.5\,mm --- 0.6\,mm less.
+
+\textbf{Concave} (lies \textbf{above} the straight line) reduces slower at the beginning and faster at the end. In the middle range the parameter has a \textbf{higher} value than the linear curve. Example depth: at A4, concave gives $\approx$6.1\,mm vs.\ linear 5.5\,mm --- 0.6\,mm more.
+
+\begin{warnbox}
+\textbf{Which curve is better depends on which direction the parameter shifts $f_H$:}
+
+If \textbf{less} of the parameter \textbf{raises} $f_H$ (as with depth: less $V \to$ higher $f_H$), the curve that has less in the middle range is better $\to$ \textbf{convex wins}.
+
+If \textbf{more} of the parameter \textbf{raises} $f_H$ (as with opening: more $S \to$ higher $f_H$), the curve that has more in the middle range is better $\to$ \textbf{concave wins}.
+\end{warnbox}
+
+\section{The Seven Variants}
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{c p{28mm} p{28mm} p{30mm} p{32mm}}
+\toprule
+\textbf{Var.} & \textbf{Short name} & \textbf{Depth [mm]} & $\boldsymbol{\varnothing}$ \textbf{Opening [mm]} & \textbf{Effect on $f_H$} \\
+\midrule
+A & Reference & 8 constant & 10 constant & Reference \\
+\midrule
+B  & d linear & 8$\to$3 linear & 10 constant & $f_H$ rises ($V$ falls) \\
+C  & d convex & 8$\to$3 convex & 10 constant & $f_H$ rises more \\
+Ci & d concave & 8$\to$3 concave & 10 constant & $f_H$ rises less \\
+\midrule
+D  & $\varnothing$ linear & 8 constant & 10$\to$6 linear & $f_H$ falls ($S$ falls) \\
+E  & $\varnothing$ convex & 8 constant & 10$\to$6 convex & $f_H$ falls more \\
+Ei & $\varnothing$ concave & 8 constant & 10$\to$6 concave & $f_H$ falls less \\
+\bottomrule
+\end{tabular}}
+\caption{The seven variants. Upper group: depth varies. Lower group: opening varies.}
+\end{table}
+
+\subsection{Why Direction Decides}
+
+\textbf{Reducing depth} decreases chamber volume $V$. Since $f_H \propto 1/\sqrt{V}$, $f_H$ \textbf{rises}. This shifts $f_H/f$ upward --- away from the low overtones. This is the \textbf{right direction}.
+
+\textbf{Reducing opening} decreases neck area $S_\text{neck}$ and also the end correction ($l_\text{eff} = 8 + 0{.}85 d$ also falls). Net effect: $f_H \propto \sqrt{S/l_\text{eff}}$ \textbf{falls}. Quantitatively: $\varnothing$ from 10 to 6\,mm lowers $f_H$ to \textbf{67\,\%}. This shifts $f_H/f$ \textbf{downward} --- the \textbf{wrong direction}.
+
+\section{Main Result}
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{l r r r r r r r}
+\toprule
+& \textbf{A} & \textbf{B} & \textbf{C} & \textbf{Ci} & \textbf{D} & \textbf{E} & \textbf{Ei} \\
+\midrule
+$f_H$ at D3 [Hz] & 1513 & 1513 & 1513 & 1513 & 1513 & 1513 & 1513 \\
+$f_H$ at C6 [Hz] & 1953 & 3189 & 3189 & 3189 & 1315 & 1315 & 1315 \\
+$f_H/f$ min. & 1.9 & 3.0 & 3.0 & 3.0 & 1.3 & 1.3 & 1.3 \\
+\midrule
+Critical (OT $\leq 2$) & 7 & 0 & \textbf{0} & 0 & 12 & 13 & 12 \\
+Noticeable (OT $= 3$) & 7 & 7 & \textbf{5} & 8 & 5 & 5 & 5 \\
+Good (OT $\geq 4$) & 21 & 28 & \textbf{30} & 27 & 18 & 17 & 18 \\
+$\sum R_\text{eff}$ & 17.4 & 12.8 & \textbf{12.3} & 13.5 & 17.2 & 17.3 & 17.0 \\
+\bottomrule
+\end{tabular}}
+\caption{Main comparison. Bold: variant C (best result).}
+\end{table}
+
+\subsection{Ranking}
+
+\begin{enumerate}
+\item \textbf{C} (depth convex): 0~crit., 5~noticeable, 30~good. $\sum R = 12{.}3$
+\item \textbf{B} (depth linear): 0~crit., 7~noticeable, 28~good. $\sum R = 12{.}8$
+\item \textbf{Ci} (depth concave): 0~crit., 8~noticeable, 27~good. $\sum R = 13{.}5$
+\item \textbf{Ei} ($\varnothing$ concave): 12~crit., 5~noticeable, 18~good. $\sum R = 17{.}0$
+\item \textbf{D} ($\varnothing$ linear): 12~crit., 5~noticeable, 18~good. $\sum R = 17{.}2$
+\item \textbf{E} ($\varnothing$ convex): 13~crit., 5~noticeable, 17~good. $\sum R = 17{.}3$
+\item \textbf{A} (reference): 7~crit., 7~noticeable, 21~good. $\sum R = 17{.}4$
+\end{enumerate}
+
+\section{Analysis of the Depth Group}
+
+All three depth variants (B, C, Ci) eliminate critical resonances completely (0~critical notes). They differ only in the number of noticeable resonances:
+
+\textbf{C (convex, below the straight line):} 5~noticeable. The curve gives the middle notes less volume $\to$ higher $f_H$ $\to$ better decoupling. Example A4: depth 4.9\,mm, $f_H/f = 5{.}1$. \textbf{Best depth variant.}
+
+\textbf{B (linear):} 7~noticeable. Uniform reduction. A4: depth 5.5\,mm, $f_H/f = 4{.}8$.
+
+\textbf{Ci (concave, above the straight line):} 8~noticeable. The curve retains more volume in the middle range $\to$ lower $f_H$. Worst depth variant --- but still 0~critical.
+
+The difference between the three depth variants is \textbf{moderate} (12.3 vs.\ 12.8 vs.\ 13.5 in $\sum R_\text{eff}$). The \textbf{big jump} is from reference A (17.4) to any of the three depth variants --- depth reduction itself is much more important than the curve shape.
+
+\begin{keybox}
+\textbf{Practical significance:} The difference between convex and linear is 2~fewer noticeable resonances --- audible, but not dramatic. The difference between depth reduction and none (A vs.\ B/C/Ci) is 7~critical resonances --- this is the decisive step. \textbf{Reducing the depth achieves 95\,\% of the benefit. Curve shape is fine-tuning.}
+\end{keybox}
+
+\section{Analysis of the Opening Group}
+
+The three opening variants (D, E, Ei) make the situation worse compared to the reference --- they have \textbf{more} critical notes (12--13 vs.\ 7). The reason: $\varnothing$ from 10 to 6\,mm reduces $S_\text{neck}$ from 78.5 to 28.3\,mm$^2$ ($-$64\,\%) and $l_\text{eff}$ from 16.5 to 13.1\,mm ($-$21\,\%). Net effect: $f_H$ falls to \textbf{67\,\%}. $f_H/f$ drops to 1.3 at C6 --- there $f_H$ lies \textbf{below} the reed frequency itself.
+
+\textbf{Ei (concave):} 12~crit. --- least harmful, because the curve retains the larger openings in the middle range.
+
+\textbf{E (convex):} 13~crit. --- most harmful, because the curve reduces the opening most in the middle range.
+
+\begin{warnbox}
+\textbf{Conclusion, opening group:} None of the three opening variants is better than reference A. Reducing the opening from 10 to 6\,mm alone is \textbf{counterproductive}. Even the best opening variant (Ei) has 12~critical notes --- nearly twice as many as the reference (7). Varying the opening alone is the wrong approach.
+\end{warnbox}
+
+\section{Minimise Volume --- The Practical Optimisation Rule}
+
+The analysis yields a clear optimisation rule, consistent with the practical experience of instrument builders:
+
+\begin{keybox}
+\textbf{Optimisation rule: volume as small as the reed allows.}
+
+For each chamber, depth is chosen such that:
+\begin{enumerate}
+\item The reed does \textbf{not bottom out} at maximum volume (depth $\geq$ max.\ amplitude $+$ 0.5\,mm safety margin).
+\item Volume is \textbf{no larger} than required by condition (1).
+\item The opening remains \textbf{as large as possible} (10\,mm), because any reduction pushes $f_H$ in the wrong direction.
+\end{enumerate}
+\end{keybox}
+
+In practice: chamber depth follows reed amplitude --- short reeds (high notes) need less space, receive shallower chambers and automatically benefit from higher $f_H/f$. The convex depth profile (C) is slightly better than linear (B) because it reduces more aggressively in the middle range.
+
+The result agrees with instrument-building practice: experienced builders make chambers just deep enough for the reed not to bottom out, and no deeper. The calculation now shows \textbf{why} this works: less volume $\to$ higher $f_H$ $\to$ fewer overtone resonances $\to$ better response.
+
+\section{Summary}
+
+\begin{keybox}
+\textbf{Seven variants for the treble reed block D3--C6:}
+
+\textbf{Reducing depth} (B, C, Ci) raises $f_H$ --- right direction, 0~critical notes.\\
+\textbf{Reducing opening} (D, E, Ei) lowers $f_H$ --- wrong direction, 12--13~critical.
+
+Within depth: \textbf{convex $>$ linear $>$ concave} (12.3 vs.\ 12.8 vs.\ 13.5).\\
+Within opening: \textbf{concave $>$ linear $>$ convex} (17.0 vs.\ 17.2 vs.\ 17.3).
+
+In both cases, the curve wins that retains more of the parameter that pushes $f_H$ upward.
+
+\textbf{The big jump} lies in depth reduction itself (7~fewer critical), not in the curve shape (2~fewer noticeable). Reducing depth achieves 95\,\% of the benefit.
+
+\textbf{Practical rule:} Chamber depth $=$ maximum reed amplitude $+$ 0.5\,mm. No deeper. Opening as large as possible.
+
+Keep $f_H/f \geq 3$ $\to$ no 2nd OT hit $\to$ no critical problems.
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Minimum volume, maximum opening --- the chamber as small as the reed allows.}
+\end{center}
+
+
+\end{document}

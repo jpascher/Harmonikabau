@@ -1,0 +1,171 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+% == Document Metadata ====================
+\newcommand{\hbdoknr}{0010}
+\newcommand{\hbtitel}{Reed Quality Factor}
+\newcommand{\hbuntertitel}{Measurement, Material Influence and Clamping}
+\newcommand{\hbheadtext}{Doc.\,0010 --- Reed Quality Factor}
+\newcommand{\hbfoottext}{Cross-references: Doc.\,0002 $\cdot$ Doc.\,0012}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape The quality factor $Q$ of the reed determines response and tone (Doc.~0005, 0008). The energy of the vibrating reed leaves the system through two channels: (1)~air coupling --- the reed as an impulse generator in the gap, and (2)~mechanical clamping --- bending-zone hysteresis and contact friction at the rivet. Calculations show that the air channel accounts for more than 97\,\% of total losses. The mechanical clamping contributes less than 3\,\%. This explains why almost any combination of materials works --- and why the fit of the reed in the slot affects response far more than the plate material. Values are order-of-magnitude estimates.}
+
+\vspace{4mm}
+
+\section{Two Loss Channels}
+
+The reed is a mechanical oscillator driven by bellows pressure. The stored vibrational energy leaves the reed through two physically distinct channels:
+
+\textbf{Channel~1 --- Air coupling (dominant):} The reed swings through the gap in the reed plate, acting as an impulse generator. With each pass it pushes air through the gap. Losses consist of: (a)~acoustic short-circuit through the side gap (pressure equalisation around the reed), (b)~squeeze-film damping (viscous forces in the narrow gap), (c)~vortex shedding at the gap edges, (d)~sound radiation. This channel is material-independent --- it depends on gap geometry, not plate material.
+
+\textbf{Channel~2 --- Mechanical clamping (secondary):} The bending vibration of the reed creates periodic forces at the clamping point (rivet/screw). In the bending zones --- reed at the foot, plate under the rivet, reed block under the plate --- a fraction of the elastic energy is converted to heat each cycle through internal friction (hysteresis, $\tan\delta$). Contact friction at the rivet adds further losses. This channel depends on material and clamping quality.
+
+\section{Case A --- Plucked Reed Without Air Channel}
+
+To measure the mechanical channel in isolation, consider a reed that is plucked and allowed to ring down in still air --- without channel, without bellows pressure, without flow. Losses: only material hysteresis ($\tan\delta_\text{steel} = 0{.}0002 \to Q = 5000$) and viscous air friction on the reed surface.
+
+Result: $Q \approx 4000$--$4400$. In the instrument: $Q \approx 50$--$200$.
+
+\begin{keybox}
+\textbf{Proof:} $Q_\text{plucked} \approx 4000$ vs.\ $Q_\text{instrument} \approx 100$. The difference (factor 20--80) is the air channel. Practical test: pluck the reed and observe the decay --- the relative duration between different reeds shows the differences in $Q_\text{mech}$.
+\end{keybox}
+
+\textbf{Note on $\tau$:} The time constant $\tau = Q/(\pi f)$ is a system property. The actually audible ring-down time also depends on the initial energy: $t_\text{audible} = \tau \cdot \ln(A_\text{start}/A_\text{threshold})$. Plucking imposes a deflection $x$, not a controlled energy. Stored energy $E = \tfrac{1}{2} k x^2$, where $k \propto EI/L^3$ is the reed spring rate. A heavier reed (stiffer spring) stores more energy for the same deflection $\to$ louder start $\to$ audible longer --- even with the same $Q$. With bellows airflow in the instrument this is different: there the bellows pressure times area determines delivered power continuously, not a single energy impulse.
+
+\section{Case B --- Gap Width and Air Losses}
+
+In the second limiting case we assume ideal clamping ($Q_\text{mech} = \infty$) and consider only air losses. The side gap $s$ determines two opposing effects:
+
+\textbf{Narrow gap $\to$ less short-circuit $\to$ more drive} (good). The side gap has cross-section $A_\text{gap} = 2(L+W) \cdot s$ and Poiseuille resistance $R_\text{gap} = 12\,\mu\, h_\text{plate} / (2(L+W) \cdot s^3)$. Drive efficiency is the pressure divider:
+\begin{equation}
+\eta = \frac{R_\text{gap}}{R_\text{main} + R_\text{gap}}
+\end{equation}
+
+\textbf{Narrow gap $\to$ more squeeze damping $\to$ more braking} (bad). With each pass the reed displaces volume $Q = W \cdot t \cdot v_\text{tip}$, which must escape through the side gap. The Poiseuille resistance creates a back-pressure that brakes the reed.
+
+\textbf{Why high reed plates need narrower gaps:} The main opening $A_\text{main} = W \times x_\text{tip}$ decreases for smaller reeds (bass: 8\,mm$^2$, very high: 0.5\,mm$^2$). With the same side gap, the short-circuit ratio $K = A_\text{gap}/A_\text{main}$ would be much larger for small reeds --- the entire bellows pressure escapes through the side gap. Therefore $s$ must be proportionally smaller.
+
+\begin{warnbox}
+\textbf{Limitation:} The calculated optima are systematically higher than practical values. The squeeze-film formula overestimates the braking effect, because the reed bends during transit --- the gap is narrow only at the foot, wider at the tip. The qualitative statement --- narrower is better up to the squeeze limit --- remains valid.
+\end{warnbox}
+
+\section{Mechanical Clamping --- Lumped-Mass Model}
+
+Plate, reed block and test block are all $\ll \lambda$ (plate 40\,mm $\ll \lambda = 8$\,m at 440\,Hz in brass). No wave propagation in the plate --- the transmission coefficient model (plane waves at interfaces) is \textbf{incorrect}. Instead: \textbf{lumped-mass model} --- the plate acts as a concentrated mass.
+
+The impedance of a concentrated mass is $Z = j\omega M$ --- purely imaginary, lossless. An ideal mass reflects 100\,\% of the vibrational energy. Losses arise only from:
+
+\textbf{1.\ Bending-zone hysteresis:} In the zones where material is periodically deformed (reed at the foot, plate under the rivet, reed block under the plate), a fraction $\tan\delta$ of the elastic energy is converted to heat each cycle. The stiffer and more massive the clamping, the smaller the deformation, the less the loss.
+
+\textbf{2.\ Contact friction at rivet/screw:} The shear force at the clamping point ($F \approx 0{.}25$\,N for A4 at 1\,mm amplitude) causes micro-motion at the contact surface. Rivet (large area, firmly pressed): little motion. Screw (point contact): more micro-slip.
+
+\textbf{3.\ Transition zone:} Between the rivet and the free bending end there is a zone of $\approx 0{.}05$--$0{.}2$\,mm that is neither rigidly clamped nor freely vibrating. This zone is gradually freed through playing-in. Clamping quality and frequency are coupled through this zone: stiffer termination $\to$ sharper boundary $\to$ shorter $L_\text{eff}$ $\to$ slightly higher frequency.
+
+\begin{keybox}
+\textbf{Consequence:} The more massive and firm the clamping, the higher $Q_\text{mech}$. Ranking: test block $>$ vice $>$ reed plate on reed block $>$ hand.
+\end{keybox}
+
+\section{Material Comparison}
+
+Plate mass determines $Q_\text{mech}$: heavy plate $\to$ higher impedance $\to$ less deformation $\to$ less loss. With $Q_\text{air} \approx 100$: $Q_\text{total} = 1/(1/Q_\text{air} + 1/Q_\text{mech})$. The difference between brass and magnesium is less than 10\,\% in $Q_\text{total}$ --- inaudible.
+
+\section{The Test Block}
+
+The test block (5\,kg steel) is the most massive termination. Block (10\,cm) $\ll \lambda$ (11.6\,m at 440\,Hz) $\to$ lumped mass. $\tan\delta_\text{steel} = 0{.}0002$ $\to$ 50$\times$ less dissipation than wood. $Q_\text{mech}$ on the test block is the highest of all configurations.
+
+The tonal difference between test block and instrument comes \textbf{not} from the impedance chain, but from the absent chamber (no notch filter, Doc.~0008), the free radiation and the different flow conditions. Pitch remains identical. Response and timbre change because of the chamber, not the clamping.
+
+\section{Limits of the Calculation}
+
+\textbf{1.}~$Q_\text{air} \approx 100$ is estimated, not calculated. \textbf{2.}~The squeeze-film formula overestimates braking (reed bends). \textbf{3.}~Contact friction at the rivet and reed block coupling are empirical assumptions. \textbf{4.}~Plate resonances are omitted.
+
+\section{Surface Roughness of the Reed Plate Channel}
+
+Reed plate slots are now predominantly manufactured by wire EDM (electrical discharge machining). This process produces a characteristic surface with $R_a \approx 0{.}8$--$3{.}2\,\mu$m, depending on cutting speed and number of trim cuts. The question: does this roughness affect reed quality?
+
+\subsection{Roughness from Wire EDM}
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{l r r l}
+\toprule
+\textbf{Process} & $R_a$ [$\mu$m] & $k_s \approx 6 \cdot R_a$ [$\mu$m] & \textbf{Note} \\
+\midrule
+Main cut (1 pass) & 2.5--3.2 & 15--19 & Fast, economical \\
++ 1 trim cut & 1.2--1.8 & 7--11 & Standard quality \\
++ 2 trim cuts & 0.6--1.0 & 4--6 & Fine, $\pm 0{.}01$\,mm tolerance \\
++ 3 trim cuts (ultra-fine) & 0.3--0.5 & 2--3 & Maximum quality, expensive \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Roughness vs.\ Boundary Layer Thickness}
+
+In an oscillating flow, a viscous boundary layer of thickness $\delta = \sqrt{2\nu/\omega}$ forms at the wall. If $k_s \ll \delta$: hydraulically smooth (roughness invisible). If $k_s \approx \delta$: transition range. If $k_s \gg \delta$: hydraulically rough.
+
+For $R_a = 1{.}6\,\mu$m (standard EDM, 1 trim cut): $k_s \approx 10\,\mu$m $= 0{.}010$\,mm. Boundary layer thickness $\delta$ is 74--309\,$\mu$m depending on frequency. Ratio $k_s/\delta < 0{.}15$ at \textbf{all} frequencies --- surface is hydraulically smooth. Even $R_a = 3{.}2\,\mu$m (main cut only) gives $k_s/\delta < 0{.}3$ --- still in the smooth regime.
+
+\textit{Diagrams: see PDF (Figs.~6 and 7).}
+
+\subsection{Tolerance vs.\ Roughness}
+
+Squeeze damping depends cubically on the gap ($P_\text{squeeze} \propto 1/s^3$). A tolerance deviation of $\pm 0{.}01$\,mm at a nominal gap of $0{.}03$\,mm changes squeeze damping by a factor of 3.4. The same roughness ($k_s = 0{.}010$\,mm) changes it by less than $0{.}1\,\%$.
+
+\begin{keybox}
+\textbf{Summary:} Surface roughness from wire EDM ($R_a = 0{.}8$--$3{.}2\,\mu$m) is hydraulically smooth at all frequencies. Finer surfaces ($R_a < 0{.}8\,\mu$m) provide no acoustic benefit. Dimensional tolerance ($\pm 0{.}01$\,mm) determines response, not surface quality. Tolerance is 100$\times$ more important than roughness. Economically: 1~trim cut ($R_a \approx 1{.}6\,\mu$m) with tight tolerance is acoustically optimal.
+\end{keybox}
+
+\subsection{Aside: Why the Propeller Analogy Does Not Apply}
+
+For propellers, golf balls and sharkskin, a rough surface improves performance because roughness triggers boundary-layer turbulence earlier. A turbulent boundary layer has more kinetic energy near the wall, delays flow separation and reduces pressure drag.
+
+This does not apply in the reed plate channel. The propeller effect occurs at $\text{Re} > 10^5$. In the side gap $\text{Re} \approx 100$--$200$ --- purely laminar flow. With laminar flow, roughness has no effect on flow resistance as long as $k_s \ll s$. The Poiseuille formula $R \propto 1/s^3$ holds unchanged. The channel is straight and parallel --- no convex surface, no flow separation, no pressure drag.
+
+\textbf{The gap edge} at the inlet creates local vortices (90° deflection), but the inlet loss is only 2--5\,\% of the friction loss over the 3\,mm channel length --- also secondary.
+
+\textbf{The paradox:} Even if roughness increased gap resistance --- that would actually be \textbf{beneficial} for response, because high gap resistance reduces acoustic short-circuiting (Section~3). But at $\text{Re} = 100$--$200$, roughness does nothing.
+
+\section{Summary}
+
+\begin{warnbox}
+\textbf{Classification:} Explanatory model. The split into two channels is physically sound. Absolute $Q$ values and gap limits are order-of-magnitude estimates.
+\end{warnbox}
+
+\begin{keybox}
+\textbf{1.\ Two channels:} Air coupling $> 97\,\%$, clamping $< 3\,\%$. Proof: plucked reed $Q \approx 4000$, in instrument $Q \approx 50$--$200$.
+
+\textbf{2.\ Gap optimum:} Narrower $\to$ less short-circuit (good), but more squeeze (bad). Small reeds need narrower gaps (smaller $A_\text{main}$).
+
+\textbf{3.\ Clamping:} Lumped-mass. Firmer = better. Rivet $>$ screw. Test block has highest $Q_\text{mech}$.
+
+\textbf{4.\ Why almost anything works:} The air channel dominates and is material-independent. Doubling $Q_\text{mech}$ changes $Q_\text{total}$ by $< 3\,\%$.
+
+\textbf{5.\ Ranking:} 1.~Reed/slot gap (dominant). 2.~Chamber geometry (Doc.~0005--0008). 3.~Rivet vs.\ screw. 4.~Plate material (minor). 5.~Reed block (even less). 6.~$\tan\delta_\text{steel}$ (negligible).
+\end{keybox}
+
+\vspace{4mm}
+\textbf{Closing remark:} This document assigns each individual effect its share and classifies most as negligible. This is computationally correct --- but it underestimates the sum. Plate material 3\,\%, reed block 1\,\%, casing vibration 0.5\,\%, wax ageing 0.5\,\%, rivet quality 1\,\%, plate resonances 1\,\% --- each item individually justifies no attention. But ten such items sum to 10--30\,\%, and they do not sum linearly: like a butterfly effect, small couplings between the effects can amplify or diminish the result in ways that would not be recognised by examining each contribution alone.
+
+Additionally, this document does not address \textbf{ageing}. Wax changes its stiffness over years. Glue joints in the casing --- especially with hide glue --- gradually fail under the vibrations to which the casing is permanently subjected. Playing-in an instrument is not a myth: the transition zone at the clamping point is gradually freed (Section~4), glue joints settle, and the wood of the reed block and casing changes its damping properties under cyclic loading. An absolutely vibration-free casing does not exist --- it is part of the system.
+
+The margin between a good and an excellent instrument is small --- but perceptible. To say that the reed block or the vibration behaviour of the casing has no noticeable influence is probably an exaggeration. The calculation shows the ranking. The sum of the small things that no model captures individually makes the difference that the instrument maker hears and the player feels.
+
+This document provides orders of magnitude to assess the relevant factors. It does not replace the practice of the voicer and the trained ear. Comparing reed plates by listening reveals all the subtleties that would be practically impossible to capture metrologically with realistic effort. Experience and ear training are the key to success.
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape The reed gives its energy to the air --- not to the plate. The plate holds the reed. The air makes the sound.}
+\end{center}
+
+
+\end{document}

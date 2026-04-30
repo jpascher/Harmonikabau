@@ -1,0 +1,281 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{harmonikabau_preamble}
+
+\newcommand{\hbdoknr}{0009}
+\newcommand{\hbtitel}{Frequency Coupling of Multiple Reeds}
+\newcommand{\hbuntertitel}{Locking, Pulling and the Musette Effect}
+\newcommand{\hbheadtext}{Doc.\,0009 --- Frequency Coupling of Multiple Reeds}
+\newcommand{\hbfoottext}{Three-Zone Gradient Model}
+
+% Zone colours
+\colorlet{zone1blue}{hb@blue}
+\colorlet{zone2orange}{hb@orange}
+\colorlet{zone3red}{hb@warn}
+
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
+
+\begin{document}
+\hbmaketitle
+
+{\small\itshape When two or three reeds tuned with tremolo detuning ($\approx 1$\,Hz) sound into the same chamber or through the same opening, they influence each other's frequency. The extent depends on how strongly the chamber resonance couples the overtones. This document presents an explanatory model --- the three-zone gradient model --- that traces the observed phenomena (locking, ghost peaks, response loss) back to the chamber impedance in a physically plausible way. Numerical values are order-of-magnitude estimates based on simplified models and empirical calibration --- they provide qualitative understanding, not constructive specifications. Values refer to the treble reed block from Doc.~0007, variant~C (convex).}
+
+\vspace{4mm}
+
+\begin{table}[H]
+\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{l l}
+\toprule
+\textbf{Doc.} & \textbf{Title} \\
+\midrule
+0002 & Flow analysis of bass reed 50\,Hz --- v8 \\
+0004 & Frequency variation --- two-filter model \\
+0005 & Frequency shift as response indicator \\
+0007 & Treble reed block --- chamber frequencies (7 variants) \\
+0008 & Tone modification by chamber geometry \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{The Practical Observation}
+
+When tuning tremolo registers, the accordion builder observes three different effects that depend on the note range:
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{l c X}
+\toprule
+\textbf{Range} & $f_H/f$ & \textbf{Observation} \\
+\midrule
+Low notes (D3--G\#3) & $> 5$ & Two or three reeds tuned to $\approx 1$\,Hz beat lock onto a single frequency when sharing an opening. The tremolo disappears. With separate air supply, the effect does not occur. \\[4pt]
+Middle notes (A3--C\#5) & $3$--$5$ & The tremolo is audible, but the spectrum analyser shows additional ghost peaks beside the three expected peaks at equal spacing. Instead of three peaks, four or five appear. \\[4pt]
+High notes (D5--C6) & $2$--$3$ & The tremolo works, but response is sluggish and the tone thin. Coupling is strong, but manifests as energy loss, not frequency shift. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The key observation: these three effects are \textbf{not} binary (present/absent), but form a \textbf{gradient field}. Transitions are gradual, and a note can show characteristics of two zones simultaneously. The effects do not occur at exactly the notes whose overtones hit the chamber resonance, but at notes that come \textbf{close} to the critical coupling.
+
+\section{The Coupling Mechanism --- Chamber Resonance as Mediator}
+
+Coupling between multiple reeds runs \textbf{not} through the weak compliance air spring (shared chamber volume as spring), but through the \textbf{chamber resonance} itself. The mechanism is the same that explains response deterioration in Doc.~0005:
+
+\textbf{Step~1 --- Overtone hits chamber resonance:} Reed~A vibrates at $f_A$ and produces overtones $n \cdot f_A$. When an overtone lies close to $f_H$, it is amplified by the chamber resonance (impedance amplification $G$, Doc.~0004 and 0007).
+
+\textbf{Step~2 --- Resonantly amplified pressure couples to Reed~B:} The amplified overtone creates a pressure excess in the chamber that Reed~B ``sees'' as a periodic force. This force is proportional to $G(n \cdot f_A)$ and the overtone amplitude $a_n \propto 1/n$.
+
+\textbf{Step~3 --- Nonlinear amplification at full amplitude:} At full volume, the effective gap area $A_\text{eff}$ is not $2\,\text{mm}^2$ (rest position) but time-averaged $\approx 6\,\text{mm}^2$ (Doc.~0002 Ch.~8: gap opens 8$\times$ per cycle). Coupling strength scales with $A_\text{eff}^2$, giving a factor $(6/2)^2 = 9$ over the linear model.
+
+\subsection{Why the Linear Model Fails}
+
+The Helmholtz model from Doc.~0002--0008 calculates compliance coupling and obtains $\Delta f_\text{lock} < 0{.}01$\,Hz --- far too weak. Practice shows 0.5--1\,Hz. The missing factors are: (a)~resonant amplification $G \approx 3$--$7$ at overtones near $f_H$, and (b)~the nonlinear gap amplitude at full volume (factor~9). Together: $0{.}01 \times 5 \times 9 \approx 0{.}5$\,Hz --- consistent with observation.
+
+\begin{keybox}
+\textbf{Core statement:} Coupling between reeds is mediated by the same chamber impedance $Z_H(f)$ that determines response in Doc.~0005 and tone in Doc.~0008. Response, tone and tremolo coupling are three projections of the same physical quantity.
+\end{keybox}
+
+\section{The Adler Equation --- Injection Locking}
+
+The physics of coupled oscillators with small frequency differences is described by the Adler equation (1946). It applies universally to lasers, electronic oscillators, biological rhythms --- and reeds:
+\begin{equation}
+\frac{d\varphi}{dt} = 2\pi\,\Delta f - 2\pi\,\Delta f_\text{lock} \cdot \sin(\varphi)
+\end{equation}
+Here $\Delta f$ is the tuned frequency difference and $\Delta f_\text{lock}$ is the lock-in range.
+
+\subsection{Regime~1 --- Locking ($|\Delta f| < \Delta f_\text{lock}$)}
+The phase $\varphi$ converges to a fixed value. Both reeds vibrate at the same frequency. The tremolo disappears completely.
+
+\subsection{Regime~2 --- Pulling ($|\Delta f| > \Delta f_\text{lock}$)}
+The reeds vibrate at different frequencies, but the actual beat is less than tuned:
+\begin{equation}
+\Delta f_\text{eff} = \sqrt{\Delta f^2 - \Delta f_\text{lock}^2}
+\end{equation}
+For a 1\,Hz tremolo with $\Delta f_\text{lock} = 0{.}7$\,Hz (shared opening): $\Delta f_\text{eff} = \sqrt{1^2 - 0{.}7^2} = 0{.}71$\,Hz --- tremolo slows by 30\,\%. With separate openings ($\Delta f_\text{lock} \approx 0{.}1$\,Hz): $\Delta f_\text{eff} = 0{.}995$\,Hz --- practically unchanged.
+
+\subsection{Three Reeds (Musette)}
+
+With three reeds at $\Delta f = \pm 1$\,Hz, the effect intensifies. The middle reed ``sees'' two coupling sources and the effective lock-in range grows by factor $\approx \sqrt{2}$: $\Delta f_{\text{lock},3} \approx 1{.}4 \cdot \Delta f_{\text{lock},2}$. With a shared opening this can be enough to lock all three reeds.
+
+\section{The Three-Zone Gradient Model}
+
+The coupling strength $\Delta f_\text{lock}$ is not the same for all notes. It depends on how the overtones of each note relate to the chamber resonance $f_H$. Three zones with different dominant effects result:
+
+\subsection{\textcolor{zone1blue}{Zone~1: Locking Zone ($f_H/f > 5$, low notes)}}
+
+For the lowest notes (D3--G\#3, $f = 147$--$208$\,Hz), $f_H$ falls at the 7th--12th overtone. Each individual overtone couples weakly (energy fraction $a_n^2 = 1$--$4\,\%$), but the overtone grid is \textbf{dense}: the spacing between adjacent overtones is only $f_0$ (147--208\,Hz), and the resonance bandwidth $f_H/Q_H \approx 200$--$300$\,Hz is wide enough that \textbf{always} at least one overtone lies in the band.
+
+The sum of many weak couplings yields moderate total coupling. At full volume (nonlinear factor $\times 9$) this is sufficient to drive $\Delta f_\text{lock}$ to 0.5--1.5\,Hz --- enough for locking at 1\,Hz tremolo. Subjectively these are the notes where the tremolo ``locks in'' or ``blurs''.
+
+\subsection{\textcolor{zone2orange}{Zone~2: Ghost Peak Zone ($f_H/f \approx 3$--$5$, middle notes)}}
+
+In the middle of the range (A3--C\#5, $f = 220$--$554$\,Hz), the 3rd--5th overtone hits $f_H$. Each of these overtones carries 4--11\,\% energy --- significantly more than in Zone~1. But the overtone grid is wider (spacing 220--554\,Hz), so only one or two overtones lie in the resonance band simultaneously.
+
+Coupling is strong enough for \textbf{intermodulation}, but not for locking. The spectrum shows mixing products: when Reed~A vibrates at $f_A$ and Reed~B at $f_B = f_A + 1$\,Hz, the nonlinear coupling through the chamber resonance generates sidebands at $f_A \pm 2$\,Hz and $f_B \pm 2$\,Hz. With three reeds ($f-1$, $f$, $f+1$), peaks appear at $f-2$ and $f+2$ --- the observed ``fourth and fifth peaks''.
+
+\subsection{\textcolor{zone3red}{Zone~3: Response Zone ($f_H/f \approx 2$--$3$, high notes)}}
+
+In the upper third (D5--C6, $f = 587$--$1047$\,Hz), the 2nd or 3rd overtone falls on $f_H$. These overtones carry 11--25\,\% of total energy --- massive coupling. But the effect manifests primarily as \textbf{energy loss} ($R_H$ maximum, Doc.~0005), not frequency shift. The reed has a slow onset and sounds thin.
+
+Tremolo pulling is strongest, but secondary: the note already responds poorly, and at reduced amplitude the nonlinear amplification factor falls. In practice, the tuner notices the poor response rather than tremolo instability.
+
+\begin{table}[H]
+\centering\small
+\caption{Overview of the three zones}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l l c c c p{42mm} p{28mm}}
+\toprule
+\textbf{Zone} & \textbf{Notes} & $f_H/f$ & \textbf{Dom.~OT} & \textbf{Energy} & \textbf{Mechanism} & \textbf{Remedy} \\
+\midrule
+\textcolor{zone1blue}{1 Locking}
+  & D3--G\#3 & $> 5$ & 7--12 & 1--4\,\%
+  & Many weak OT sum. Locking at full volume.
+  & Separate openings \\[4pt]
+\textcolor{zone2orange}{2 Ghost peaks}
+  & A3--C\#5 & 3--5 & 3--5 & 4--11\,\%
+  & Individual medium-strength OT generate intermodulation.
+  & Tune tremolo wider \\[4pt]
+\textcolor{zone3red}{3 Response}
+  & D5--C6 & 2--3 & 2--3 & 11--25\,\%
+  & Few strong OT $\to$ energy loss dominates over $\Delta f$.
+  & Reduce chamber depth \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{warnbox}
+\textbf{Gradual boundaries:} The boundaries between zones are not sharp. A note like A3 (Zone~1/2 boundary) may still show locking with a shared opening, but ghost peaks with separate openings. The zone depends not only on $f_H/f$, but also on coupling strength (shared vs.\ separate) and playing volume (nonlinear factor).
+\end{warnbox}
+
+\section{Diagrams}
+
+\begin{flushleft}
+\small\itshape(See PDF version, generated with \texttt{build\_0009\_frequenzkopplung.py}:
+5~diagrams --- zone overview, ratio/overtone, Adler pulling, coupling landscape, spectrum comparison.)
+\end{flushleft}
+
+\section{Shared vs.\ Separate Openings --- Quantitative Comparison}
+
+Practice clearly shows: separate openings (each reed gets its own air supply with some spacing) drastically reduce all three coupling effects.
+
+With a shared opening, the reeds share the same acoustic resistance at the neck. The amplified overtone from Reed~A creates pressure in the chamber that Reed~B ``sees'' directly --- the chamber is the coupling medium. With separate openings, pressure from Chamber~A must travel through the bellows (large volume, very low impedance) to Chamber~B. The bellows volume (several litres) acts as a low-pass filter with cut-off frequency far below 1\,Hz --- acoustic coupling is weakened by factor $\approx 7$.
+
+\begin{table}[H]
+\centering\small
+\caption{Empirical comparison values: shared vs.\ separate openings (full playing volume)}
+\resizebox{\linewidth}{!}{\begin{tabular}{l r r r}
+\toprule
+\textbf{Parameter} & \textbf{Shared} & \textbf{Separate} & \textbf{Factor} \\
+\midrule
+$\Delta f_\text{lock}$ (2 reeds) & $\approx 0{.}7$\,Hz & $\approx 0{.}1$\,Hz & $7\times$ \\
+1\,Hz tremolo becomes & 0.71\,Hz ($-29\,\%$) & 0.995\,Hz ($-0{.}5\,\%$) & --- \\
+$\Delta f_\text{lock}$ (3 reeds, musette) & $\approx 1{.}0$\,Hz & $\approx 0{.}14$\,Hz & $7\times$ \\
+Ghost peaks at A4 & $-24$\,dB & $-41$\,dB & 17\,dB \\
+Locking boundary note & $\approx$ G\#3 (208\,Hz) & $\approx$ D3 (147\,Hz) & --- \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Practical Consequence --- Tuning Correction}
+
+When separate openings are not possible (design, space), the tremolo must be tuned \textbf{deliberately wider} to compensate for the pulling effect:
+\begin{equation}
+\Delta f_\text{tuning} = \sqrt{\Delta f_\text{target}^2 + \Delta f_\text{lock}^2}
+\end{equation}
+For a desired tremolo of 1\,Hz with $\Delta f_\text{lock} = 0{.}7$\,Hz:
+\begin{equation}
+\Delta f_\text{tuning} = \sqrt{1^2 + 0{.}7^2} = \sqrt{1{.}49} = 1{.}22\,\text{Hz}
+\end{equation}
+One tunes 22\,\% wider than desired. This correction value depends on the note --- larger in Zone~1 (low notes), smaller in Zone~2 (middle notes). In Zone~1 the correction can become so large that locking is unavoidable --- then only separate openings or a change in chamber geometry remain.
+
+\begin{table}[H]
+\centering\small
+\caption{Tuning compensation table (shared opening, full volume)}
+\resizebox{\linewidth}{!}{\begin{tabular}{l r r r l}
+\toprule
+\textbf{Note} & $\Delta f_\text{target}$ [Hz] & $\Delta f_\text{lock}$ [Hz] & $\Delta f_\text{tuning}$ [Hz] & \textbf{Note} \\
+\midrule
+D3 (147\,Hz) & 1.0 & $\sim$1.2 & 1.56 & Locking possible \\
+A3 (220\,Hz) & 1.0 & $\sim$0.8 & 1.28 & Strong pulling \\
+A4 (440\,Hz) & 1.0 & $\sim$0.5 & 1.12 & Moderate pulling \\
+D5 (587\,Hz) & 1.0 & $\sim$0.6 & 1.17 & Pulling + response \\
+A5 (880\,Hz) & 1.0 & $\sim$0.4 & 1.08 & Weak pulling \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\section{Connection to Single-Reed Physics (Doc.~0005)}
+
+The correlation between tremolo coupling and response is not coincidental --- it follows from the physics. Both effects are governed by the same complex chamber impedance $Z_H(f) = R_H + jX_H$ (Doc.~0005):
+
+\textbf{Real part $R_H$:} Determines energy loss. For the single reed this means poorer response (Doc.~0005). For multi-reed coupling it means: the chamber absorbs and re-emits energy --- exactly the mechanism that mediates coupling. \textbf{Large $R_H$ = poor response AND strong coupling.}
+
+\textbf{Imaginary part $X_H$:} Determines frequency shift. For the single reed, $X_H$ shifts the overtones (Doc.~0005). For multi-reed coupling, $X_H$ determines the phase relationship between coupled reeds --- and thus whether pulling or locking occurs.
+
+Since $R_H$ and $X_H$ are linked by the Kramers--Kronig relation (Doc.~0005 Ch.~3): \textbf{a note that has response problems (large $R_H$ at an overtone) simultaneously has strong tremolo pulling.} But the effect manifests differently: response deteriorates exactly at $f_H = n \cdot f$ ($R_H$ maximum, $X_H = 0$). Pulling is maximum \textbf{just beside} the resonance ($X_H$ maximum, $R_H$ falling). Therefore the strongest tremolo effects do not occur at exactly the same notes as the worst response --- but at the neighbouring notes. This is precisely the observation.
+
+\section{Why the Zones Show Different Effects}
+
+The different manifestations in the three zones follow from the structure of the overtone grid:
+
+\textbf{Zone~1 (low notes) $\to$ Locking:} The overtone grid is dense (spacing $= f_0 \approx 150$\,Hz). At $f_H \approx 1500$\,Hz, $\sim$10~overtones are within reach, at least one always in the resonance band. Coupling is broadband --- it acts at any detuning, not only at specific $\Delta f$ values. This favours locking, because the coupling force has no ``gaps''.
+
+\textbf{Zone~2 (middle notes) $\to$ Ghost peaks:} The overtone grid is wider (spacing $\approx 300$--$500$\,Hz). Coupling is narrowband --- it acts through only one or two overtones that fall in the resonance band. This selective coupling produces intermodulation products at discrete frequencies (sidebands), rather than broadband synchronisation. The result is ghost peaks in the spectrum, not locking.
+
+\textbf{Zone~3 (high notes) $\to$ Response:} The 2nd overtone (octave) lies on or near $f_H$. This overtone carries 25\,\% of total energy --- coupling is maximal, but manifests as massive energy absorption by the chamber ($R_H$ dominates). The reed loses so much energy to the chamber resonance that amplitude falls. At reduced amplitude the nonlinear amplification factor also falls --- the vicious circle favours energy loss over frequency shift.
+
+\section{Limits of the Model}
+
+The three-zone model explains the qualitative observations and provides quantitative guidelines. But it has clear limits:
+
+\textbf{1.\ Lock-in values are empirically calibrated.} The Adler equation describes the \textit{form} of coupling correctly (pulling curve, locking threshold), but $\Delta f_\text{lock}$ itself cannot be calculated from the Helmholtz model. The nonlinear amplification factor ($\times 9$ at full amplitude) is an estimate from Doc.~0002 Ch.~8, not from an FSI simulation.
+
+\textbf{2.\ Zone boundaries are geometry-dependent.} The values $f_H/f = 5$ and $3$ apply to the reed block calculated in Doc.~0007 (variant~C, $\varnothing$~10\,mm opening, $Q_H \approx 8$). With other geometries the boundaries shift.
+
+\textbf{3.\ Volume dependence is qualitative, not quantitative.} The nonlinear amplification factor scales with $A_\text{eff}^2$, and $A_\text{eff}$ depends on bellows pressure. At pianissimo a note in Zone~1 may be completely unproblematic --- at fortissimo it locks. This dynamics dependence is known in practice but not exactly calculable.
+
+\textbf{4.\ Aerodynamic near-field effects are absent.} With a shared opening, the airflows of two reeds can influence each other directly (Bernoulli interaction) before chamber resonance comes into play. This effect is not included in the Helmholtz model.
+
+\section{Summary}
+
+\begin{warnbox}
+\textbf{1.\ Classification:} This document is an explanatory model, not a design guide. The calculations provide at best a plausible physical explanation of the observed phenomena. The numerical values ($\Delta f_\text{lock}$, compensation table) are order-of-magnitude estimates --- they show the direction, not the destination. Design decisions still require practical tests and experience.
+\end{warnbox}
+
+\begin{keybox}
+\textbf{2.\ The coupling mechanism:} Multiple reeds couple through the chamber resonance, not through the weak compliance air spring. Overtones near $f_H$ are resonantly amplified and transfer energy between reeds. At full amplitude, coupling is $\approx 500\times$ stronger than the linear model predicts.
+\end{keybox}
+
+\begin{keybox}
+\textbf{3.\ The three-zone gradient model:}
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item \textcolor{zone1blue}{Zone~1} ($f_H/f > 5$, low notes): Dense overtones $\to$ broadband coupling $\to$ \textbf{locking}.
+\item \textcolor{zone2orange}{Zone~2} ($f_H/f \approx 3$--$5$, middle notes): Individual strong OT $\to$ selective coupling $\to$ \textbf{ghost peaks}.
+\item \textcolor{zone3red}{Zone~3} ($f_H/f \approx 2$--$3$, high notes): Octave/twelfth on $f_H$ $\to$ massive absorption $\to$ \textbf{response loss}.
+\end{itemize}
+Boundaries are gradual. Effects occur near the critical coupling, not exactly at the resonance notes.
+\end{keybox}
+
+\begin{keybox}
+\textbf{4.\ Remedies:}
+\begin{itemize}[leftmargin=5mm, itemsep=1pt]
+\item \textbf{Separate openings} weaken coupling by factor $\approx 7$ --- the most effective measure.
+\item \textbf{Tune tremolo wider:} $\Delta f_\text{tuning} = \sqrt{\Delta f_\text{target}^2 + \Delta f_\text{lock}^2}$ compensates pulling, but does not help against locking.
+\item \textbf{Reduce chamber depth} (Doc.~0007, variant~C) raises $f_H$ and shifts zone boundaries upward --- fewer notes are affected.
+\end{itemize}
+\end{keybox}
+
+\begin{keybox}
+\textbf{5.\ The unified physics:} Response (Doc.~0005), tone (Doc.~0008) and tremolo coupling (this document) are three projections of the same chamber impedance $Z_H(f)$. What improves response also improves tone and reduces tremolo coupling. There is no trade-off --- the optimum is the same: $f_H/f \geq 3$, minimum volume, large opening.
+\end{keybox}
+
+\vspace{3mm}
+\begin{center}
+\textcolor{accentred}{\rule{0.6\textwidth}{1pt}}\\[4pt]
+{\small\itshape Calculation says where to look. Practical testing says what you find. And experience from a thousand instruments says what matters.}
+\end{center}
+
+
+\end{document}

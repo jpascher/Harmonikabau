@@ -1,42 +1,47 @@
 #!/usr/bin/env python3
 """
 Harmonikabau — Gesamt-PDF im Kindle-Buchformat (6 × 9 Zoll)
+Zweiseitiges Layout mit KDP-konformen Rändern.
 
-Erzeugt ein einzelnes PDF mit:
-  - Einleitung (neu gesetzt in 6×9)
-  - Alle Einzeldokumente (skaliert auf 6×9)
-  - Schlusswort (neu gesetzt in 6×9)
+KDP-Anforderungen bei ~200 Seiten:
+  - Bundsteg (innen):  min. 12.700 mm (0.5")  → wir verwenden 16 mm
+  - Außenrand:         min.  6.350 mm (0.25")  → wir verwenden 10 mm
+  - Oben/Unten:        min.  6.350 mm (0.25")  → wir verwenden 10 mm
 
-Trennseiten zwischen den Dokumenten für klare Kapitelgrenzen.
+Ungerade Seiten (rechts): Bundsteg = links
+Gerade Seiten (links):    Bundsteg = rechts
 """
-import os, sys
-from io import BytesIO
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import mm, inch
+import os, shutil
+import fitz  # PyMuPDF — für Inhalts-Begrenzungsrahmen
+from reportlab.lib.units import mm
 from reportlab.lib.colors import HexColor, white
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
 from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer,
-                                 Table, TableStyle, PageBreak, KeepTogether)
+                                 Table, TableStyle, PageBreak)
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.fonts import addMapping
-from pypdf import PdfReader, PdfWriter, Transformation, PageObject
+# pypdf nicht mehr benötigt (fitz übernimmt PDF-Assemblierung)
 
-# ── Konstanten ──
-W_INCH, H_INCH = 6, 9
-W_PT, H_PT = W_INCH * 72, H_INCH * 72  # 432 × 648 pt
-# Zweiseitiges Layout: Bundsteg (innen) etwas größer als Außenrand
-MARGIN_INSIDE  = 11 * mm   # Bundsteg / Gutter (KDP min. 12.7mm bei 200 S. – Inhalt hat eigenen Rand)
-MARGIN_OUTSIDE =  6 * mm   # Außenrand (KDP min. 6.35mm)
-MARGIN_TB = 10 * mm        # Oben/Unten (KDP min. 6.35mm)
-# Für ReportLab-Seiten: symmetrisch setzen, nachher verschieben
-MARGIN_LR = (MARGIN_INSIDE + MARGIN_OUTSIDE) / 2
-PW = W_PT - MARGIN_INSIDE - MARGIN_OUTSIDE
-# Verschiebung pro Seite: 5mm Unterschied → 2.5mm Shift pro Richtung
-GUTTER_SHIFT = 2.5 * mm
+# ══════════════════════════════════════════════════════════
+# Konstanten
+# ══════════════════════════════════════════════════════════
+W_PT = 6 * 72    # 432 pt
+H_PT = 9 * 72    # 648 pt
 
-# ── Fonts ──
+GUTTER   = 16 * mm   # Bundsteg / innerer Rand (KDP min 12.7mm)
+OUTSIDE  = 10 * mm   # Äußerer Rand (KDP min 6.35mm)
+TOP      = 10 * mm   # Oben (KDP min 6.35mm)
+BOTTOM   = 10 * mm   # Unten (KDP min 6.35mm)
+
+# Für ReportLab: symmetrisch mit Gutter-Rand auf beiden Seiten (sicher)
+RL_MARGIN = GUTTER  # 16mm auf beiden Seiten — sicher für jede Position
+PW = W_PT - 2 * RL_MARGIN
+
+# ══════════════════════════════════════════════════════════
+# Fonts
+# ══════════════════════════════════════════════════════════
 pdfmetrics.registerFont(TTFont('DejaVu',  '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
 pdfmetrics.registerFont(TTFont('DejaVuB', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
 pdfmetrics.registerFont(TTFont('DejaVuI', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf'))
@@ -44,14 +49,15 @@ pdfmetrics.registerFont(TTFont('DejaVuBI','/usr/share/fonts/truetype/dejavu/Deja
 addMapping('DejaVu', 0, 0, 'DejaVu');  addMapping('DejaVu', 1, 0, 'DejaVuB')
 addMapping('DejaVu', 0, 1, 'DejaVuI'); addMapping('DejaVu', 1, 1, 'DejaVuBI')
 
-# ── Farben ──
+# ══════════════════════════════════════════════════════════
+# Farben & Styles
+# ══════════════════════════════════════════════════════════
 DB  = HexColor('#16213e')
 AR  = HexColor('#e94560')
 KG  = HexColor('#2e7d32')
 LG  = HexColor('#f5f5f5')
 KBG = HexColor('#e8f5e9')
 
-# ── Styles ──
 styles = getSampleStyleSheet()
 for sn in styles.byName:
     s = styles.byName[sn]
@@ -60,27 +66,18 @@ for sn in styles.byName:
         elif 'Italic' in s.fontName: s.fontName = 'DejaVuI'
         else: s.fontName = 'DejaVu'
 
-sT   = ParagraphStyle('T',   parent=styles['Title'],   fontSize=20, textColor=DB,
-                       spaceAfter=4, alignment=TA_CENTER, fontName='DejaVuB')
-sST  = ParagraphStyle('ST',  parent=styles['Normal'],  fontSize=11, textColor=DB,
-                       alignment=TA_CENTER, spaceAfter=2, fontName='DejaVu')
-sAb  = ParagraphStyle('Ab',  parent=styles['Italic'],  fontSize=8.5, textColor=HexColor('#555555'),
-                       spaceAfter=6, fontName='DejaVuI')
-sCh  = ParagraphStyle('Ch',  parent=styles['Heading1'],fontSize=12, textColor=DB,
-                       spaceBefore=12, spaceAfter=5, fontName='DejaVuB')
-sSCh = ParagraphStyle('SCh', parent=styles['Heading2'],fontSize=10.5, textColor=DB,
-                       spaceBefore=8, spaceAfter=3, fontName='DejaVuB')
-sB   = ParagraphStyle('Bo',  parent=styles['Normal'],  fontSize=9.5, leading=13,
-                       spaceAfter=5, alignment=TA_JUSTIFY, fontName='DejaVu')
-sBI  = ParagraphStyle('BI',  parent=sB, fontName='DejaVuI')
-sK   = ParagraphStyle('KB',  parent=sB, fontSize=9.5, backColor=KBG, borderPadding=5,
-                       borderColor=KG, borderWidth=1, spaceAfter=6, fontName='DejaVu')
-sTH  = ParagraphStyle('TH',  parent=sB, fontSize=8, fontName='DejaVuB', alignment=TA_CENTER, leading=10)
-sTL  = ParagraphStyle('TDL', parent=sB, fontSize=8, alignment=TA_LEFT, leading=10, fontName='DejaVu')
-
-# Trennseiten-Styles
-sTrT = ParagraphStyle('TrT', parent=sT, fontSize=16, spaceBefore=0, spaceAfter=4)
-sTrS = ParagraphStyle('TrS', parent=sAb, fontSize=9, alignment=TA_CENTER, spaceAfter=0)
+sT   = ParagraphStyle('T',  parent=styles['Title'],  fontSize=20, textColor=DB, spaceAfter=4, alignment=TA_CENTER, fontName='DejaVuB')
+sST  = ParagraphStyle('ST', parent=styles['Normal'], fontSize=11, textColor=DB, alignment=TA_CENTER, spaceAfter=2, fontName='DejaVu')
+sAb  = ParagraphStyle('Ab', parent=styles['Italic'], fontSize=8.5, textColor=HexColor('#555555'), spaceAfter=6, fontName='DejaVuI')
+sCh  = ParagraphStyle('Ch', parent=styles['Heading1'],fontSize=12, textColor=DB, spaceBefore=12, spaceAfter=5, fontName='DejaVuB')
+sSCh = ParagraphStyle('SCh',parent=styles['Heading2'],fontSize=10.5, textColor=DB, spaceBefore=8, spaceAfter=3, fontName='DejaVuB')
+sB   = ParagraphStyle('Bo', parent=styles['Normal'], fontSize=9.5, leading=13, spaceAfter=5, alignment=TA_JUSTIFY, fontName='DejaVu')
+sBI  = ParagraphStyle('BI', parent=sB, fontName='DejaVuI')
+sK   = ParagraphStyle('KB', parent=sB, fontSize=9.5, backColor=KBG, borderPadding=5, borderColor=KG, borderWidth=1, spaceAfter=6, fontName='DejaVu')
+sTH  = ParagraphStyle('TH', parent=sB, fontSize=8, fontName='DejaVuB', alignment=TA_CENTER, leading=10)
+sTL  = ParagraphStyle('TDL',parent=sB, fontSize=8, alignment=TA_LEFT, leading=10, fontName='DejaVu')
+sTrT = ParagraphStyle('TrT',parent=sT, fontSize=16, spaceBefore=0, spaceAfter=4)
+sTrS = ParagraphStyle('TrS',parent=sAb, fontSize=9, alignment=TA_CENTER, spaceAfter=0)
 
 def hr():
     return Table([['']], colWidths=[PW],
@@ -99,37 +96,27 @@ def mk_tbl(hdr, rows, cw=None):
         ('GRID',(0,0),(-1,-1),0.4,HexColor('#cccccc')),
         ('VALIGN',(0,0),(-1,-1),'MIDDLE'),
         ('TOPPADDING',(0,0),(-1,-1),2), ('BOTTOMPADDING',(0,0),(-1,-1),2),
-        ('FONTNAME',(0,0),(-1,-1),'DejaVu')]))
-    return t
+        ('FONTNAME',(0,0),(-1,-1),'DejaVu')])); return t
 
 
 # ══════════════════════════════════════════════════════════
-# TEIL 1: Einleitung als 6×9 PDF
+# ReportLab-Seiten
 # ══════════════════════════════════════════════════════════
 def build_einleitung(outpath):
-    pagesize = (W_PT, H_PT)
-    doc = SimpleDocTemplate(outpath, pagesize=pagesize,
-                            leftMargin=MARGIN_LR, rightMargin=MARGIN_LR,
-                            topMargin=MARGIN_TB, bottomMargin=MARGIN_TB)
+    doc = SimpleDocTemplate(outpath, pagesize=(W_PT, H_PT),
+                            leftMargin=RL_MARGIN, rightMargin=RL_MARGIN,
+                            topMargin=TOP, bottomMargin=BOTTOM)
     story = []
-
-    # Titelseite
     story.append(Spacer(1, 45*mm))
-    story.append(Paragraph('Harmonikabau',
-                 ParagraphStyle('BT', parent=sT, fontSize=28, spaceAfter=4)))
-    story.append(Paragraph('Technische Dokumentation',
-                 ParagraphStyle('BST', parent=sST, fontSize=14, spaceAfter=6)))
+    story.append(Paragraph('Harmonikabau', ParagraphStyle('BT', parent=sT, fontSize=28, spaceAfter=4)))
+    story.append(Paragraph('Akustik, Konstruktion und Praxis', ParagraphStyle('BST', parent=sST, fontSize=14, spaceAfter=6)))
     story.append(Spacer(1,2*mm)); story.append(hr()); story.append(Spacer(1,4*mm))
-    story.append(Paragraph('Akustik, Konstruktion und Praxis',
-                 ParagraphStyle('Sub', parent=sAb, fontSize=11, alignment=TA_CENTER)))
+    story.append(Paragraph('Von der Stimmzunge bis zum Gehäuse', ParagraphStyle('Sub', parent=sAb, fontSize=11, alignment=TA_CENTER)))
     story.append(Spacer(1, 35*mm))
-    story.append(Paragraph('Johann Pascher',
-                 ParagraphStyle('Au', parent=sST, fontSize=12, spaceAfter=3)))
-    story.append(Paragraph('Linz, Österreich — 2025',
-                 ParagraphStyle('Yr', parent=sAb, fontSize=9, alignment=TA_CENTER)))
+    story.append(Paragraph('Johann Pascher', ParagraphStyle('Au', parent=sST, fontSize=12, spaceAfter=3)))
+    story.append(Paragraph('Linz, Österreich — 2025', ParagraphStyle('Yr', parent=sAb, fontSize=9, alignment=TA_CENTER)))
     story.append(PageBreak())
 
-    # Einleitung
     story.append(Spacer(1, 4*mm))
     story.append(Paragraph('Einleitung', sCh))
     story.append(Paragraph(
@@ -142,7 +129,6 @@ def build_einleitung(outpath):
         'Die Dokumente richten sich an Harmonikabauer, Reparateure und alle, die verstehen '
         'wollen, warum ein Instrument klingt, wie es klingt – und was man daran ändern kann.', sB))
 
-    # Zum Autor
     story.append(Paragraph('Zum Autor', sCh))
     story.append(Paragraph(
         'Meine ersten Erfahrungen mit Harmonikas und deren Reparatur machte ich Anfang der '
@@ -160,7 +146,6 @@ def build_einleitung(outpath):
         'Erfahrung im Bau und in der Reparatur von Harmonikainstrumenten, möchte ich die '
         'dabei gewonnenen Erkenntnisse in dieser Dokumentensammlung weitergeben.', sB))
 
-    # Zur Entstehung
     story.append(Paragraph('Zur Entstehung der Dokumente', sCh))
     story.append(Paragraph(
         'Die einzelnen Dokumente sind unabhängig voneinander entstanden und behandeln jeweils '
@@ -179,11 +164,10 @@ def build_einleitung(outpath):
         'und empirischer Kalibrierung. Sie sollen ein qualitatives Verständnis der Zusammenhänge '
         'liefern – kein Ersatz für eigene Messungen am konkreten Instrument sein.', sB))
 
-    # Dokumentenübersicht
     story.append(Paragraph('Übersicht der Dokumente', sCh))
     story.append(Paragraph('<i>Die Sammlung gliedert sich in folgende Dokumente:</i>', sB))
-
     tcw = [14*mm, PW - 14*mm]
+
     story.append(Paragraph('Akustik und Strömung', sSCh))
     story.append(mk_tbl(['Dok.','Titel'], [
         ['0002','Strömungsanalyse Bass-Stimmzunge 50\u202FHz – Version 8'],
@@ -193,7 +177,6 @@ def build_einleitung(outpath):
         ['0006','Zeichenerklärung'],
     ], cw=tcw))
     story.append(Spacer(1, 2*mm))
-
     story.append(Paragraph('Kammer und Klang', sSCh))
     story.append(mk_tbl(['Dok.','Titel'], [
         ['0007','Diskant-Stimmstock – Kammerfrequenzen D3–C6'],
@@ -201,7 +184,6 @@ def build_einleitung(outpath):
         ['0009','Frequenzkopplung mehrerer Zungen'],
     ], cw=tcw))
     story.append(Spacer(1, 2*mm))
-
     story.append(Paragraph('Stimmzunge und Stimmplatte', sSCh))
     story.append(mk_tbl(['Dok.','Titel'], [
         ['0010','Güte der Stimmzunge'],
@@ -209,7 +191,6 @@ def build_einleitung(outpath):
         ['0012','Zungensteifigkeit'],
     ], cw=tcw))
     story.append(Spacer(1, 2*mm))
-
     story.append(Paragraph('Kopplung und Obertonmoden', sSCh))
     story.append(mk_tbl(['Dok.','Titel'], [
         ['0015','Akustische Kopplung und Impedanzanpassung'],
@@ -218,29 +199,26 @@ def build_einleitung(outpath):
         ['0018','Hörbarkeit der Biegemoden: Kammer-Saugkreis, Transiente, Torsion'],
     ], cw=tcw))
     story.append(Spacer(1, 2*mm))
-
     story.append(Paragraph('Stimmung und Tremolo', sSCh))
     story.append(mk_tbl(['Dok.','Titel'], [
         ['0019','Stimmung und Differenztöne'],
         ['0020','Tremolo: Schwebungsphysik, Typen und Stimmungspraxis'],
     ], cw=tcw))
     story.append(Spacer(1, 2*mm))
-
     story.append(Paragraph('Konstruktion und Material', sSCh))
     story.append(mk_tbl(['Dok.','Titel'], [
         ['0021','Stimmplatten: Qualität, Hersteller und Güteklassen'],
         ['0022','Balg: Querschnitt, Faltenzahl und Instrumentengröße'],
         ['0023','Gehäuse und Mechanik'],
+        ['0024','Praxishinweise: Kritische Handgriffe im Harmonikabau'],
     ], cw=tcw))
     story.append(Spacer(1, 2*mm))
-
     story.append(Paragraph('Spezialthemen', sSCh))
     story.append(mk_tbl(['Dok.','Titel'], [
         ['0500','Leitfaden zur ästhetischen Forensik bei Akkordeon-Gehäusen'],
     ], cw=tcw))
     story.append(Spacer(1, 4*mm))
 
-    # Hinweise
     story.append(Paragraph('Hinweise zur Lektüre', sCh))
     story.append(Paragraph(
         'Die Dokumente können grundsätzlich in beliebiger Reihenfolge gelesen werden. '
@@ -253,25 +231,18 @@ def build_einleitung(outpath):
         'nachzurechnen und mit eigenen Messungen zu vergleichen.', sB))
     story.append(Spacer(1, 8*mm))
     story.append(Paragraph('<i>Johann Pascher — Linz, 2025</i>', sBI))
-
     doc.build(story)
-    print(f'  ✓ Einleitung 6×9: {outpath}')
+    print(f'  ✓ Einleitung')
 
 
-# ══════════════════════════════════════════════════════════
-# TEIL 2: Schlusswort als 6×9 PDF
-# ══════════════════════════════════════════════════════════
 def build_schlusswort(outpath):
-    pagesize = (W_PT, H_PT)
-    doc = SimpleDocTemplate(outpath, pagesize=pagesize,
-                            leftMargin=MARGIN_LR, rightMargin=MARGIN_LR,
-                            topMargin=MARGIN_TB, bottomMargin=MARGIN_TB)
+    doc = SimpleDocTemplate(outpath, pagesize=(W_PT, H_PT),
+                            leftMargin=RL_MARGIN, rightMargin=RL_MARGIN,
+                            topMargin=TOP, bottomMargin=BOTTOM)
     story = []
     story.append(Spacer(1, 8*mm))
-    story.append(Paragraph('Dok. 9999', sST))
     story.append(Paragraph('Schlusswort', sT))
     story.append(Spacer(1, 2*mm)); story.append(hr()); story.append(Spacer(1, 4*mm))
-
     story.append(Paragraph(
         'Die Stimmzunge ist eines der ältesten und zugleich am wenigsten verstandenen '
         'Klangerzeugungsprinzipien der Musikinstrumente. Sie ist mechanisch einfach – '
@@ -306,20 +277,14 @@ def build_schlusswort(outpath):
         'Bedarf aktualisiert.', sB))
     story.append(Spacer(1, 3*mm)); story.append(hr()); story.append(Spacer(1, 4*mm))
     story.append(Paragraph('<i>Johann Pascher — Linz, 2025</i>', sBI))
-
     doc.build(story)
-    print(f'  ✓ Schlusswort 6×9: {outpath}')
+    print(f'  ✓ Schlusswort')
 
 
-# ══════════════════════════════════════════════════════════
-# TEIL 3: Trennseiten-PDF erzeugen
-# ══════════════════════════════════════════════════════════
 def build_separator(outpath, dok_nr, titel, untertitel=''):
-    """Erzeugt eine einzelne Trennseite im 6×9-Format."""
-    pagesize = (W_PT, H_PT)
-    doc = SimpleDocTemplate(outpath, pagesize=pagesize,
-                            leftMargin=MARGIN_LR, rightMargin=MARGIN_LR,
-                            topMargin=MARGIN_TB, bottomMargin=MARGIN_TB)
+    doc = SimpleDocTemplate(outpath, pagesize=(W_PT, H_PT),
+                            leftMargin=RL_MARGIN, rightMargin=RL_MARGIN,
+                            topMargin=TOP, bottomMargin=BOTTOM)
     story = []
     story.append(Spacer(1, 55*mm))
     story.append(Paragraph(f'Dok.\u202F{dok_nr}', sST))
@@ -333,141 +298,208 @@ def build_separator(outpath, dok_nr, titel, untertitel=''):
 
 
 # ══════════════════════════════════════════════════════════
-# TEIL 4: Seite auf 6×9 skalieren
+# Festes Body-Crop-Fenster — Kopf- und Fußzeilen ausblenden
 # ══════════════════════════════════════════════════════════
-def scale_page_to_6x9(page):
-    """Skaliert eine Seite proportional auf 6×9 Zoll.
-    Inhalt wird zentriert; die Bundsteg-Verschiebung erfolgt nachher global."""
-    SAFE_H = 10 * 72 / 25.4   # 10mm seitlich (Verschiebung kommt danach)
-    SAFE_V =  8 * 72 / 25.4   #  8mm oben/unten
-    target_w = W_PT - 2 * SAFE_H
-    target_h = H_PT - 2 * SAFE_V
+#
+# Alle LaTeX-Quelldokumente (A4, 595×842pt) haben:
+#   Kopfzeile: fitz y ≈ 36–45pt (sehr nahe Seitenoberrand)
+#   Fußzeile:  fitz y ≈ 807–815pt (sehr nahe Seitenunterrand)
+#   Body:      fitz x ≈ 55–540pt, y ≈ 65–800pt
+#
+# Das Crop-Fenster schließt Kopf- und Fußzeile aus und sorgt
+# für einen EINHEITLICHEN Skalierungsfaktor auf allen Seiten.
 
-    mb = page.mediabox
-    src_w = float(mb.width)
-    src_h = float(mb.height)
-    scale_x = target_w / src_w
-    scale_y = target_h / src_h
-    scale = min(scale_x, scale_y)
-    new_w = src_w * scale
-    new_h = src_h * scale
-    tx = (W_PT - new_w) / 2
-    ty = (H_PT - new_h) / 2
+# Body-Grenzen in fitz-Koordinaten (y von oben, A4 = 842pt hoch)
+BODY_X0          = 55    # linke Grenze Textbereich
+BODY_X1          = 540   # rechte Grenze Textbereich
+BODY_WIDTH       = BODY_X1 - BODY_X0   # 485pt → fixer Horizontalscale
+HEADER_END_FITZ  = 65    # LaTeX-Kopfzeile endet hier (y von oben)
+FOOTER_START_FITZ= 790   # LaTeX-Fußzeile beginnt hier (Dok 0002: y=793, andere: ≥802)
 
-    new_page = PageObject.create_blank_page(width=W_PT, height=H_PT)
-    op = Transformation().scale(scale, scale).translate(tx / scale, ty / scale)
-    page.add_transformation(op)
-    new_page.merge_page(page)
-    return new_page
+SAFETY = 8   # pt KDP-Sicherheitsabstand zur Randlinie (~3mm)
 
 
-def apply_gutter_shift(writer):
-    """Verschiebt alle Seiten für zweiseitiges Layout.
-    Ungerade Seiten (rechts): Inhalt nach rechts (Bundsteg links).
-    Gerade Seiten (links): Inhalt nach links (Bundsteg rechts)."""
-    shift = float(GUTTER_SHIFT)
-    for i in range(len(writer.pages)):
-        page = writer.pages[i]
-        if i % 2 == 0:  # Seite 1,3,5... (0-indexed gerade = ungerade Seitenzahl)
-            dx = shift    # nach rechts
-        else:            # Seite 2,4,6...
-            dx = -shift   # nach links
-        op = Transformation().translate(dx, 0)
-        page.add_transformation(op)
+def _page_body_rect(page) -> fitz.Rect:
+    """Tatsächlicher Inhaltsbereich dieser Seite (fitz-Koord.), ohne Kopf/Fußzeile.
+    Breite = BODY_WIDTH (fix), Höhe = nur soweit Inhalt vorhanden."""
+    rects = []
+    zone = fitz.Rect(BODY_X0, HEADER_END_FITZ, BODY_X1, FOOTER_START_FITZ)
+
+    for b in page.get_text('blocks'):
+        r = fitz.Rect(b[:4]) & zone
+        if not r.is_empty and r.width > 1 and r.height > 1:
+            rects.append(r)
+    for d in page.get_drawings():
+        raw = d.get('rect')
+        if raw:
+            r = fitz.Rect(raw) & zone
+            if not r.is_empty and r.width > 1 and r.height > 1:
+                rects.append(r)
+    for img in page.get_images(full=True):
+        for ir in page.get_image_rects(img[0]):
+            r = fitz.Rect(ir) & zone
+            if not r.is_empty and r.width > 1 and r.height > 1:
+                rects.append(r)
+
+    if not rects:
+        # Leere Seite: minimales Rechteck oben
+        return fitz.Rect(BODY_X0, HEADER_END_FITZ, BODY_X1, HEADER_END_FITZ + 20)
+
+    PAD = 3   # pt Randpuffer um den Inhalt
+    y0 = max(HEADER_END_FITZ, min(r.y0 for r in rects) - PAD)
+    y1 = min(FOOTER_START_FITZ, max(r.y1 for r in rects) + PAD)
+    return fitz.Rect(BODY_X0, y0, BODY_X1, y1)
 
 
 # ══════════════════════════════════════════════════════════
-# TEIL 5: Zusammenbauen
+# Zusammenbau
 # ══════════════════════════════════════════════════════════
 def main():
+    import subprocess
     basedir = os.path.dirname(os.path.abspath(__file__))
-    tmpdir = os.path.join(basedir, '_tmp_kindle')
+    tmpdir  = os.path.join(basedir, '_tmp_kindle')
     os.makedirs(tmpdir, exist_ok=True)
 
-    # 1) Einleitung und Schlusswort im 6×9-Format erzeugen
-    einl_path = os.path.join(tmpdir, 'einleitung_6x9.pdf')
-    schl_path = os.path.join(tmpdir, 'schlusswort_6x9.pdf')
+    einl_path = os.path.join(tmpdir, 'einleitung.pdf')
+    schl_path = os.path.join(tmpdir, 'schlusswort.pdf')
+    print('Erzeuge Rahmenteile ...')
     build_einleitung(einl_path)
     build_schlusswort(schl_path)
 
-    # 2) Dokumentliste mit Titeln (für Trennseiten)
     dokumente = [
-        ('bass_50hz_v8.pdf',                     '0002', 'Strömungsanalyse Bass-Stimmzunge 50\u202FHz', 'Version 8'),
-        ('0003_impedanz_vergleich_De.pdf',        '0003', 'Impedanzvergleich', 'Durchschlagzunge vs. Labialpfeife'),
-        ('0004_frequenzvariation_zwei_filter_De.pdf','0004','Frequenzvariation der Stimmzunge', 'durch Kammerkopplung'),
-        ('0005_ansprache_frequenz_kopplung_De.pdf','0005', 'Frequenzverschiebung', 'als Indikator der Ansprache'),
-        ('0006_zeichenerklaerung_De.pdf',         '0006', 'Zeichenerklärung', ''),
-        ('0007_diskant_kammerfrequenzen_De.pdf',  '0007', 'Diskant-Stimmstock', 'Kammerfrequenzen D3–C6'),
-        ('0008_klangveraenderung_De.pdf',         '0008', 'Klangveränderung', 'durch Kammergeometrie'),
-        ('0009_frequenzkopplung_mehrere_zungen_De.pdf','0009','Frequenzkopplung', 'mehrerer Zungen'),
-        ('0010_guete_stimmplatte_De.pdf',         '0010', 'Güte der Stimmzunge', ''),
-        ('0011_kanalgeometrie_De.pdf',            '0011', 'Kanalgeometrie der Stimmplatte', ''),
-        ('0012_steifigkeit_De.pdf',               '0012', 'Zungensteifigkeit', ''),
-        ('0015_kopplung_De.pdf',                  '0015', 'Akustische Kopplung', 'und Impedanzanpassung'),
-        ('0016_obertonmoden_De.pdf',              '0016', 'Obertonmoden der Basszunge', 'Profilierung und Inharmonizität'),
-        ('0017_diskant_De.pdf',                   '0017', 'Diskant-Stimmzungen', 'Obertonmoden F3 bis C6'),
-        ('0018_hoerbarkeit_De.pdf',               '0018', 'Hörbarkeit der Biegemoden', 'Kammer-Saugkreis, Transiente, Torsion'),
-        ('0019_stimmung_De.pdf',                  '0019', 'Stimmung und Differenztöne', ''),
-        ('0020_tremolo_De.pdf',                   '0020', 'Tremolo', 'Schwebungsphysik, Typen und Stimmungspraxis'),
-        ('0021_stimmplatten_De.pdf',              '0021', 'Stimmplatten', 'Qualität, Hersteller und Güteklassen'),
-        ('0022_balg_De.pdf',                      '0022', 'Balg', 'Querschnitt, Faltenzahl und Instrumentengröße'),
-        ('0023_gehaeuse_De.pdf',                  '0023', 'Gehäuse und Mechanik', ''),
-        ('0500_forensik_De.pdf',                  '0500', 'Ästhetische Forensik', 'bei Akkordeon-Gehäusen'),
+        ('bass_50hz_v8.pdf',                          '0002','Strömungsanalyse Bass-Stimmzunge 50\u202FHz','Version 8'),
+        ('0003_impedanz_vergleich_De.pdf',             '0003','Impedanzvergleich','Durchschlagzunge vs. Labialpfeife'),
+        ('0004_frequenzvariation_zwei_filter_De.pdf',  '0004','Frequenzvariation der Stimmzunge','durch Kammerkopplung'),
+        ('0005_ansprache_frequenz_kopplung_De.pdf',    '0005','Frequenzverschiebung','als Indikator der Ansprache'),
+        ('0006_zeichenerklaerung_De.pdf',              '0006','Zeichenerklärung',''),
+        ('0007_diskant_kammerfrequenzen_De.pdf',       '0007','Diskant-Stimmstock','Kammerfrequenzen D3–C6'),
+        ('0008_klangveraenderung_De.pdf',              '0008','Klangveränderung','durch Kammergeometrie'),
+        ('0009_frequenzkopplung_mehrere_zungen_De.pdf','0009','Frequenzkopplung','mehrerer Zungen'),
+        ('0010_guete_stimmplatte_De.pdf',              '0010','Güte der Stimmzunge',''),
+        ('0011_kanalgeometrie_De.pdf',                 '0011','Kanalgeometrie der Stimmplatte',''),
+        ('0012_steifigkeit_De.pdf',                    '0012','Zungensteifigkeit',''),
+        ('0015_kopplung_De.pdf',                       '0015','Akustische Kopplung','und Impedanzanpassung'),
+        ('0016_obertonmoden_De.pdf',                   '0016','Obertonmoden der Basszunge','Profilierung und Inharmonizität'),
+        ('0017_diskant_De.pdf',                        '0017','Diskant-Stimmzungen','Obertonmoden F3 bis C6'),
+        ('0018_hoerbarkeit_De.pdf',                    '0018','Hörbarkeit der Biegemoden','Kammer-Saugkreis, Transiente, Torsion'),
+        ('0019_stimmung_De.pdf',                       '0019','Stimmung und Differenztöne',''),
+        ('0020_tremolo_De.pdf',                        '0020','Tremolo','Schwebungsphysik, Typen und Stimmungspraxis'),
+        ('0021_stimmplatten_De.pdf',                   '0021','Stimmplatten','Qualität, Hersteller und Güteklassen'),
+        ('0022_balg_De.pdf',                           '0022','Balg','Querschnitt, Faltenzahl und Instrumentengröße'),
+        ('0023_gehaeuse_De.pdf',                       '0023','Gehäuse und Mechanik',''),
+        ('0024_praxishinweise_De.pdf',                 '0024','Praxishinweise','Kritische Handgriffe im Harmonikabau'),
+        ('0500_forensik_De.pdf',                       '0500','Ästhetische Forensik','bei Akkordeon-Gehäusen'),
     ]
 
-    # 3) Gesamt-PDF zusammenbauen
-    writer = PdfWriter()
+    # fitz als Haupt-Assembler
+    dst = fitz.open()
+    page_counter = 0
 
-    # Einleitung (bereits 6×9)
+    def add_full_pages(pdf_path, label=''):
+        """ReportLab-Seiten (bereits 6×9) vollflächig einbetten."""
+        nonlocal page_counter
+        src = fitz.open(pdf_path)
+        n   = len(src)
+        for i in range(n):
+            dp = dst.new_page(width=W_PT, height=H_PT)
+            # 1:1 – Seite ist bereits 6×9
+            dp.show_pdf_page(fitz.Rect(0, 0, W_PT, H_PT), src, i)
+            page_counter += 1
+        src.close()
+        if label:
+            print(f'  + {label} ({n} S., bis S. {page_counter})')
+
+    def add_source_pages(filepath, dok_nr):
+        """Quelldokument-Seiten einbetten:
+        - FESTER Horizontalscale (einheitliche Schriftgröße)
+        - PRO SEITE: Clip bis zum echten Inhaltsende (kein Leerraum durch A4-Whitespace)
+        - Header/Footer ausgeblendet
+        """
+        nonlocal page_counter
+        src = fitz.open(filepath)
+        n   = len(src)
+        for i in range(n):
+            page_counter += 1
+            is_odd = (page_counter % 2 == 1)
+            ml = GUTTER if is_odd else OUTSIDE
+            mr = OUTSIDE if is_odd else GUTTER
+
+            # Effektiver Zielbereich
+            eff_w = (W_PT - ml - mr) - 2 * SAFETY
+            eff_h = (H_PT - TOP - BOTTOM) - 2 * SAFETY
+
+            # Tatsächlicher Inhaltsbereich dieser Seite
+            body = _page_body_rect(src[i])
+
+            # FESTER Scale (Breite): gleich für alle Seiten → einheitliche Schrift
+            scale = eff_w / BODY_WIDTH        # ≈ 0.706, immer gleich
+            new_w = BODY_WIDTH * scale         # füllt Breite komplett
+            new_h = min(body.height * scale, eff_h)  # nur echter Inhalt, max eff_h
+
+            # Horizontal zentrieren (geringfügig, da new_w ≈ eff_w),
+            # vertikal OBEN ausrichten
+            tx = ml + SAFETY + (eff_w - new_w) / 2
+            ty = TOP + SAFETY                  # fitz: y von oben
+
+            target = fitz.Rect(tx, ty, tx + new_w, ty + new_h)
+
+            dp = dst.new_page(width=W_PT, height=H_PT)
+            dp.show_pdf_page(target, src, i, clip=body)
+
+        src.close()
+        print(f'  + Dok. {dok_nr}: {n} S., bis S. {page_counter}')
+
     print('Zusammenbau ...')
-    reader = PdfReader(einl_path)
-    for page in reader.pages:
-        writer.add_page(page)
-    print(f'  + Einleitung ({len(reader.pages)} Seiten)')
+    add_full_pages(einl_path, 'Einleitung')
 
-    # Einzeldokumente
     for filename, dok_nr, titel, untertitel in dokumente:
         filepath = os.path.join(basedir, filename)
         if not os.path.exists(filepath):
-            print(f'  ⚠ {filename} nicht gefunden — übersprungen')
+            print(f'  ⚠ {filename} nicht gefunden')
             continue
-
-        # Trennseite
         sep_path = os.path.join(tmpdir, f'sep_{dok_nr}.pdf')
         build_separator(sep_path, dok_nr, titel, untertitel)
-        sep_reader = PdfReader(sep_path)
-        for p in sep_reader.pages:
-            writer.add_page(p)
+        add_full_pages(sep_path)
+        add_source_pages(filepath, dok_nr)
 
-        # Dokumentseiten skaliert einfügen
-        doc_reader = PdfReader(filepath)
-        n = len(doc_reader.pages)
-        for page in doc_reader.pages:
-            scaled = scale_page_to_6x9(page)
-            writer.add_page(scaled)
-        print(f'  + Dok. {dok_nr}: {n} Seiten')
+    add_full_pages(schl_path, 'Schlusswort')
 
-    # Schlusswort (bereits 6×9)
-    reader = PdfReader(schl_path)
-    for page in reader.pages:
-        writer.add_page(page)
-    print(f'  + Schlusswort ({len(reader.pages)} Seiten)')
+    # Gerade Seitenzahl für KDP
+    if page_counter % 2 == 1:
+        dst.new_page(width=W_PT, height=H_PT)
+        page_counter += 1
+        print(f'  + Leerseite → {page_counter} S.')
 
-    # 4) Bundsteg-Verschiebung für zweiseitiges Layout
-    print('Bundsteg-Verschiebung (zweiseitig) ...')
-    apply_gutter_shift(writer)
+    # Speichern
+    outfile  = os.path.join(basedir, 'Harmonikabau_Kindle_6x9.pdf')
+    tmp_out  = outfile + '.tmp.pdf'
+    dst.save(tmp_out, garbage=4, deflate=True)
+    dst.close()
 
-    # 5) Schreiben
-    outfile = os.path.join(basedir, 'Harmonikabau_Kindle_6x9.pdf')
-    with open(outfile, 'wb') as f:
-        writer.write(f)
+    # Ghostscript: alle Schriften vollständig einbetten
+    gs_cmd = [
+        'gs', '-dNOPAUSE', '-dBATCH', '-dQUIET',
+        '-sDEVICE=pdfwrite',
+        '-dCompatibilityLevel=1.4',
+        '-dEmbedAllFonts=true',
+        '-dSubsetFonts=true',
+        '-dPDFSETTINGS=/prepress',
+        f'-sOutputFile={outfile}',
+        tmp_out
+    ]
+    result = subprocess.run(gs_cmd, capture_output=True, text=True)
+    if result.returncode == 0:
+        os.remove(tmp_out)
+        print('  Schriften eingebettet (Ghostscript)')
+    else:
+        os.rename(tmp_out, outfile)
+        print('  ⚠ Ghostscript nicht verfügbar')
 
-    total = len(writer.pages)
     print(f'\n✓ {outfile}')
-    print(f'  {total} Seiten, Format 6×9 Zoll ({W_PT}×{H_PT} pt)')
+    print(f'  {page_counter} Seiten, 6×9 Zoll, zweiseitig')
+    print(f'  Scale: {(W_PT-GUTTER-OUTSIDE-2*SAFETY)/BODY_WIDTH:.4f} (einheitlich, breitenbasiert)')
+    print(f'  Body-Crop: {BODY_WIDTH:.0f}pt breit, höhenadaptiv pro Seite')
 
-    # Aufräumen
-    import shutil
     shutil.rmtree(tmpdir, ignore_errors=True)
 
 

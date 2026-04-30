@@ -1,23 +1,21 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx,booktabs,xcolor}
-\usepackage[margin=25mm]{geometry}
-\usepackage{tcolorbox,hyperref}
+\usepackage{harmonikabau_preamble}
 
-\definecolor{darkblue}{HTML}{16213e}
-\definecolor{accentred}{HTML}{e94560}
-\definecolor{keygreen}{HTML}{2e7d32}
+% == Dokumentmetadaten ====================
+\newcommand{\hbdoknr}{0016}
+\newcommand{\hbtitel}{Obertonmoden der Basszunge}
+\newcommand{\hbuntertitel}{Profilierung, Inharmonizität und Klangcharakter}
+\newcommand{\hbheadtext}{Dok.\,0016 --- Obertonmoden der Basszunge}
+\newcommand{\hbfoottext}{Querverweise: Dok.\,0002 $\cdot$ Dok.\,0010}
 
-\title{\textcolor{darkblue}{Dok. 0016\\Obertonmoden der Basszunge: Profilierung und Inharmonizität}}
-\author{Harmonikabau --- Technische Dokumentation}
-\date{}
+\AtBeginDocument{%
+  \fancyhead[L]{\small\hbheadtext}%
+  \fancyhead[R]{\small\thepage}%
+  \fancyfoot[C]{\small\color{hb@darkgray}\hbfoottext}%
+}
 
 \begin{document}
-\maketitle
-
+\hbmaketitle
 \begin{tcolorbox}[colframe=red!60!black, colback=red!5!white]
 \textbf{Hinweis:} Dieses Dokument bietet ein Erklärungsmodell.
 Die FEM-Berechnung erfasst die Biegemoden eines idealisierten Balkens ---
@@ -71,7 +69,7 @@ Die Profilierung verändert die Masseverteilung und die lokale Biegesteifigkeit.
 Sechs Profile werden verglichen, alle mit $t_0 = 0{,}40$\,mm am Fuß.
 
 \begin{center}
-\begin{tabular}{lccccc}
+\resizebox{\linewidth}{!}{\begin{tabular}{lccccc}
 \toprule
 Profil & $t_\mathrm{Spitze}$ & Verdünnung & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
 \midrule
@@ -82,7 +80,7 @@ Linear 30\,\% & 0,12\,mm & 70\,\% & 77,5\,Hz & 4,07 & 9,94 \\
 Parabolisch 50\,\% & 0,27\,mm & 50\,\% & 77,9\,Hz & 5,01 & 12,89 \\
 Umgek. parabolisch & 0,20\,mm & 50\,\% & 61,8\,Hz & 4,97 & 13,00 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 \section{Obertonverhältnisse im Vergleich}
@@ -99,7 +97,7 @@ Stimmgewichte an der Spitze wirken \textbf{gegenteilig}: Sie senken $f_1$ stark,
 aber die höheren Moden weniger. $f_2/f_1$ \textbf{steigt} mit zunehmendem Gewicht.
 
 \begin{center}
-\begin{tabular}{lccccc}
+\resizebox{\linewidth}{!}{\begin{tabular}{lccccc}
 \toprule
 Gewicht & Masse & \% $m_Z$ & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
 \midrule
@@ -109,7 +107,7 @@ Ohne & 0\,g & 0\,\% & 66,8\,Hz & 6,27 & 17,55 \\
 0,40\,g & 0,40\,g & 22,9\,\% & 48,1\,Hz & 7,11 & 21,03 \\
 1,50\,g & 1,50\,g & 85,9\,\% & 31,4\,Hz & 9,89 & 30,84 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 \begin{tcolorbox}[colframe=keygreen, colback=green!5!white]
@@ -189,7 +187,7 @@ $f_2/f_1$ hat ein \textbf{Minimum bei $\approx 70\,\%$ Verdünnung}
 Verdünnung steigt $f_2/f_1$ wieder an.
 
 \begin{center}
-\begin{tabular}{lcccc}
+\resizebox{\linewidth}{!}{\begin{tabular}{lcccc}
 \toprule
 Verdünnung & $t_\mathrm{min}$ & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
 \midrule
@@ -200,7 +198,7 @@ Verdünnung & $t_\mathrm{min}$ & $f_1$ & $f_2/f_1$ & $f_3/f_1$ \\
 70\,\% & 0,12\,mm & 60,4\,Hz & 3,94 & 9,75 \\
 80\,\% & 0,08\,mm & 49,8\,Hz & 4,25 & 9,61 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 \section{Chromatische Analyse: 2 Oktaven, gleiche Mensur}
@@ -238,5 +236,6 @@ weit über $f_H$. Das erklärt, warum Geistertöne hauptsächlich bei tiefen Tö
 \bigskip
 \textit{Die Zunge schwingt inharmonisch. Der Klang ist harmonisch.
 Die Profilierung ändert die Ansprache --- die Obertöne macht die Luft.}
+
 
 \end{document}
