@@ -16,12 +16,12 @@
 
 % --- Sprache ---
 \RequirePackage{polyglossia}
-\setmainlanguage{english}
+\setmainlanguage[spelling=new]{german}
 
 % --- Mathematik ---
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{siunitx}
-\sisetup{locale=US, per-mode=fraction}
+\sisetup{locale=DE, per-mode=fraction}
 
 % --- Seitenlayout: direkt 6×9 Zoll mit KDP-konformen Rändern ---
 \RequirePackage{geometry}
@@ -38,8 +38,8 @@
   % Bei headheight=10pt, headsep=3mm=8.5pt: top >= 18+10+8.5 = 36.5pt = 12.9mm
   % Fußzeile: bottom - footskip muss >= 18pt
   % Bei footskip=4mm=11.3pt: bottom >= 18+11.3 = 29.3pt = 10.3mm
-  top         = 16mm,     % Sicherheitspuffer: Kopfzeile >= 0.25'' vom Rand
-  bottom      = 16mm,     % Sicherheitspuffer: Fußzeile >= 0.25'' vom Rand
+  top         = 14mm,     % Sicherheitspuffer: Kopfzeile >= 0.25'' vom Rand
+  bottom      = 14mm,     % Sicherheitspuffer: Fußzeile >= 0.25'' vom Rand
   headheight  = 10pt,
   headsep     = 3mm,
   footskip    = 4mm
@@ -50,6 +50,8 @@
 
 % --- Tabellen ---
 \RequirePackage{booktabs}
+\RequirePackage{colortbl}
+% Alle 	oprule-Zeilen bekommen automatisch hellblauen Hintergrund:
 \RequirePackage{array}
 \RequirePackage{tabularx}
 \RequirePackage{longtable}
@@ -78,6 +80,7 @@
 % ============================================================
 % Farben
 % ============================================================
+\definecolor{hb@headbg}{HTML}{dce8f5} % Hellblau Tabellenkopf
 \definecolor{hb@blue}{HTML}{16213e}
 \definecolor{hb@red}{HTML}{e94560}
 \definecolor{hb@green}{HTML}{2e7d32}
@@ -100,7 +103,7 @@
 
 \titleformat{\section}
   {\large\bfseries\color{hb@blue}}
-  {\thesection}{0.5em}{}
+  {Kapitel~\thesection:}{0.5em}{}
 \titleformat{\subsection}
   {\normalsize\bfseries\color{hb@blue!80}}
   {}{0em}{}
@@ -167,3 +170,11 @@
   boxrule=0.4pt, arc=2pt,
   left=3mm, right=3mm, top=1.5mm, bottom=1.5mm,
   fontupper=\small, #1}
+
+% ── Hellblauer Tabellenkopf (automatisch) ─────────────────────────────
+% Redefine \toprule to add light blue background for header row
+\newcommand{\hbtoprule}{%
+  \toprule
+  \rowcolor{hb@headbg}%
+}
+% Instruction: use \hbtoprule instead of \toprule in all tables
