@@ -1,0 +1,24 @@
+Als '''Gleichton''' wird beim [[Diatonisches Akkordeon|diatonischen Akkordeon]] der Knopf bezeichnet, der in beiden Zugrichtungen den gleichen Ton erzeugt.
+
+Im Zudruck erklingen bei diatonischen Instrumenten die Dreiklangstöne der jeweiligen Tonart, (Dur-Dreiklang der Tonika,) im Aufzug erklingen die dazwischen liegenden Töne (zugehöriger Dominant-Sept-Akkord). Da der 5. Ton der Tonleiter sowohl in der Tonika als auch in der Dominante vorkommt, ist wegen der leichteren Spielbarkeit dieser Ton in mittlerer Lage sowohl in Zug als auch in Druck eingebaut, wird also mit dem gleichen Knopf gespielt, mit Ausnahme der äußeren Reihe.
+
+Diese Taste (Knopf) erklingt somit [[gleichtönig]]. Die restlichen Tasten in der jeweiligen Reihe sind [[wechseltönig]]e Tasten.
+
+Die ersten diatonischen Instrumente hatten keine Knöpfe mit Gleichton, so wie dies auch bei vielen diatonischen Instrumenten heute noch der Fall ist ([[Wiener Modell]]).
+
+Der Gleichton liegt auf Stufe fünf der jeweiligen diatonischen Skala.
+Bei einer '''C-Dur''' Skala ist es somit die [[Dominante]] '''g''', die gleichtönig klingt.
+
+== Entwicklung ==
+Zuerst erhielten manche Instrumente in der dritten Reihe einen Gleichton. Heute haben alle [[steirische Harmonika|steirischen Harmonikas]] in der 2. bis zur 5. Reihe einen Gleichton.
+
+Der Gleichton ermöglicht das einfachere Greifen von Akkordfolgen ([[Kadenz (Musik)|Kadenzen]]), die die Folge I, V haben  [[Stufentheorie (Harmonik)|(Stufentheorie)]]. [[Alpenländische Volksmusik]] und Popmusik sind sehr stark von diesen Abfolgen und Harmoniemustern geprägt.
+
+In Holland wird noch eine andere Variante verwendet, wobei die entsprechende [[Stimmplatte]] am Stimmstock gewendet wird. Dies führt ebenfalls zu dem Effekt, dass auf Zug der [[Septakkord|Dominantseptakkord]] klingt. In Druckrichtung muss für die [[Tonstufe]] fünf jedoch auf die nächst-innere Reihe ausgewichen werden.
+
+== Quellen ==
+
+* [[Steirische Harmonika|Steirische Harmonika - Bauarten]]
+* [https://preissler-verlag.de/artikeldetails/JP-6600-Die-Steirische-Harmonika.aspx?WebPortalCmd=35758&WPParams=77BDA8D1BFDADBD9B1DBBCCAD5DAAAA5 Die Steirische Harmonika, Spielanleitung von Max Rosenzopf]
+
+[[Kategorie:Handzuginstrumentenbau]]

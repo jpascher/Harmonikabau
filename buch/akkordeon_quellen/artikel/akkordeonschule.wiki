@@ -1,0 +1,63 @@
+Eine '''Akkordeonschule''' ist ein [[Schule (Musikpädagogik)|Lehrwerk]] für den [[Akkordeon]]unterricht.
+
+Die ersten Akkordeonschulen wurden sehr bald nach der Erfindung des „Accordions“ durch [[Cyrill Demian]] geschrieben. Bereits 1828 hat ein anonymer Schreiber eine Anleitung zum Spielen verfasst. Im Jahre 1833 verfasste der bekannte Musiker [[Adolf Müller senior|Adolf Müller]] eine Accordion-Schule mit vielen Einzelheiten, welche die damals üblichen Instrumente beschreibt.<ref>Accordion-Schule, 1833: [[:Datei:Accordionschule1.JPG|Titelseite, Vorwort]] [[:Datei:Accordionschule2.JPG|Folgeseiten]] </ref>
+Auch in Paris wurden 1835, sofort, nachdem Instrumente gebaut wurden, Schulen dazu veröffentlicht. Nachdem aber die Tastenbelegung noch nicht in allen Fällen gleich war, unterschieden sich auch die diversen Schulen sehr.
+
+Die ersten Instrumente waren extrem klein und hatten sehr wenige Balgfalten, dadurch bedingt wenig Luftinhalt. Somit musste in erster Linie in einer Art gespielt werden, die rasche Druck-Zugwechsel verwendete.
+
+Die meisten Schriften verwendeten eine Art [[Tabulatur]], oder normale Notenschrift, die mit Angaben über die Zugrichtung und als Angabe der zu drückenden Taste mit Nummern ergänzt wurden. Auch für die deutsche [[Konzertina]] wurde ein ähnliches System verwendet. Die Tabulatur-Schreibweise ist bis heute bei [[Diatonik|diatonischen]] Instrumenten gebräuchlich.
+
+Im Laufe der Zeit wurden unzählige Schulwerke veröffentlicht. Schon um 1910 gab es mehr als 100 verschiedene Schulen. Das Buch von Walter Maurer ''Accordion'' listet auf elf Seiten Hunderte Verfasser von Schulwerken auf.
+
+== Schulen für die diatonische Harmonika ==
+Der Verlag Helbling ließ im Jahr 1916 eine Tabulatur für das zweireihige [[Diatonisches Akkordeon|diatonische Akkordeon]] patentieren. Diese verbreitete sich ziemlich schnell, da sie für jede Stimmung passte. In Notenschrift müsste man eigentlich für jede Bauart der Harmonika eine eigene Schule herausgeben; lernt ein Harmonikaspieler nach einer Schule in C-F, kann er nach Noten in D-Dur nicht mehr spielen.
+
+Anfangs, bis zum [[Zweiter Weltkrieg|Zweiten Weltkrieg]], gab es verschiedene Griffsysteme, vor allem in der Schweiz und in Deutschland, was die Weitergabe von Literatur sehr erschwerte.
+
+Für das ''[[Diatonisches Akkordeon#Club-Modell|Club-Modell]] (Diatonische Handharmonika)'' gibt es im Musikverlag Holzschuh in [[Manching]] als Lehrbehelf die ''Neue Holzschuh-Schule'' (gründlicher und leicht fasslicher Lehrgang für Handharmonika von Alfons Holzschuh).
+
+=== Griffschrift System Rosenzopf ===
+In den letzten Jahren hat sich für die [[Steirische Harmonika]] die Griffschrift ziemlich durchgesetzt. Max Rosenzopf (1937–2020),<ref>{{OeML|Rosenzopf_Max.xml|Rosenzopf, Max|EMH|Druckausgabe=nein}}</ref> ein Musiklehrer aus [[Bärnbach]] in der [[Steiermark]], adaptierte das ältere Helbling-System für die drei- und vierreihige Harmonika, nannte diese Tabulatur „Griffschrift“<ref>{{Internetquelle |url=https://steirischeharmonika-lernen.de/die-griffschrift/ |titel=Die Griffschrift |werk=steirischeharmonika-lernen.de |abruf=2023-03-20}}</ref><ref>{{Internetquelle |url=https://www.volksmusikschule.at/griffschriftlehre.htm |titel=Spiel auf der Steirischen Harmonika nach Griffschrift (Tabulatur) |werk=volksmusikschule.at |abruf=2023-03-20}}</ref> und gab 1975 im Verlag Preissler ein erstes Schulwerk nach diesem System heraus, das bis 1996 18 Auflagen erreichte. Alle anderen seither erschienenen Griffschriftsysteme bauen darauf auf.
+
+Ab der 3. Auflage 1977 erweiterte Rosenzopf seine Schule als bisher einziger um „Klangtabellen“ und „Notationsvergleiche Griffschrift/Klangschrift“, um auch in „Klangschrift“ (normalen Noten) notierte Stücke einstudieren zu können. Ab der 7. Auflage 1982 legte er die Übertragung aller Stücke „in den Violinschlüssel“ bei, gesetzt für eine in C-F-B gestimmte Harmonika.
+
+=== Notenschrift-Schulen für die Steirische Harmonika ===
+Der Musikschuldirektor Josef Peyer aus [[Stainz]] veröffentlichte 1983 eine „Schule in Notenschrift für Original Steirische Harmonika“. Er verwendete jedoch auch keine beliebigen Noten, sondern ausschließlich die Tonarten G-C-F, sowie für das diatonische Instrument bereits bearbeiteten Satz. Nach irgendwelchen Noten zu spielen ist auch mit diesem System nicht möglich. Vor allem ist es einer anders gestimmten Harmonika nicht möglich, nach diesen Noten mit anderen Instrumenten zusammenzuspielen. Interessanterweise verwendet Peyer den von Rosenzopf bekannten Unterstrich für die Zugrichtung, jedoch andersherum: Helbling, Rosenzopf und alle seitherigen Griffschriftschulen nehmen den Unterstrich für Zusammendruck, Peyer nimmt ihn für Aufzug.
+
+In letzter Zeit gibt es einige recht brauchbare Schulen in Notenschrift. Ein Unterstrich wird hier nicht mehr verwendet, sondern die auch für Akkordeon oder Gitarre bekannten Akkordsymbole. Alle aber beruhen darauf, dass man lernen soll, welcher Ton auf welcher Taste bei Druck und bei Zug angeblich erklingt. Da aber Harmonikas in vielen verschiedenen Tonarten gebaut werden, daher bei jeder andere Töne erklingen, und jede dieser Schulen nur drei Tonarten lehrt, ist ein Spiel nach irgendwelchen Noten noch immer nicht möglich.
+
+=== Traditionelle Lehrmethode ===
+Immer schon wurde das Harmonikaspiel nach Gehör gelehrt, mit Vorspielen-Nachspielen. Es gibt auch derzeit sehr viele Lehrer, die in dieser Art lehren, mit besten Erfolgen. Es ist allerdings etwas langwieriger, bis sich diese Erfolge einstellen.
+
+Eine Video-Schule nach dieser Methode ist unter „Weblinks“ aufgelistet.
+
+=== Spiel nach Noten ===
+Es gibt und gab immer schon Harmonikaspieler, die auch nach beliebigen Noten spielen konnten. Zwei Systeme sind dazu bekannt, die eigentlich auf demselben Gedanken aufbauen:
+* Man lernt eine beliebige Tonart (meist C-Dur) auf dem Instrument zu spielen und transponiert dann in Gedanken jedes Stück in diese Tonart. Zu schwierige Mehrstimmigkeit vereinfacht man dabei einfach.
+** Manchmal wird zusätzlich auch das Singen verwendet, man singt, eventuell in Gedanken, das Stück nach Noten und spielt dann das Gesungene.
+* Man transponiert ebenso, aber nicht in eine bestimmte Tonart, sondern in relative Tonstufen, vergleichbar der [[Solmisation#Das relative System|relativen Solmisation]].
+
+==== Farb-Notations-Lehre ====
+Die Farb-Notations-Lehre basiert auf didaktisch-theoretischen Überlegungen zur strukturell besseren Erfassung des Harmonieschemas der abendländischen Musiktradition. Hierbei geht man von der farblich eindeutigen Kennzeichnung der Tonstufen und/oder instrumentenspezifischen Tonarten aus. Dieses System lehrt ebenfalls das Spiel nach beliebigen Noten. Es ist aber noch nicht sehr verbreitet.
+
+== Andere Griffschriftsysteme ==
+Für die folgenden Harmonikainstrumente gibt es ebenfalls Griffschriftsysteme ([[Tabulatur]]en), die heute noch üblich sind:
+* [[Diatonisches Akkordeon#Club-Modell|Club-Modell]]
+* [[Schwyzerörgeli]]
+* [[Französisches Akkordeon|Französische diatonische Harmonika]]
+* [[Chromatisches Knopfakkordeon]] (C-Griff)
+Für diese Instrumente sowie für die [[Steirische Harmonika]] gibt es als Zusatz zum [[Capella (Software)|Capella]]-Notensatzprogramm Skripte, die aus Capella-Partituren die entsprechende Griffschrift erzeugen.
+
+* Auch das [[Bandoneon]] wird nach einer Art Griffschrift gespielt, dem ''Waschleinensystem''.
+
+== Weblinks ==
+* [https://www.volksmusikschule.at/griffschriftlehre.htm Erklärung der Griffschrift]
+* [https://www.volksmusikschule.at/harmonika_noten.htm Harmonikaspiel nach Noten]
+* [https://www.volksmusikschule.at/entwicklung.htm Entwicklung der Griffschrift seit 1916 mit Beispielen]
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Akkordeon|Schule]]
+[[Kategorie:Literarischer Begriff]]
+[[Kategorie:Sachliteratur (Musikpädagogik)]]

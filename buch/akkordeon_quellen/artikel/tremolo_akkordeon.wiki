@@ -1,0 +1,43 @@
+'''Tremolo''' ist beim [[Akkordeon]] ein akustisch erzeugter Klangeffekt, bei dem fortlaufend in kurzen Zeitabständen die [[Amplitude]] und somit die Lautstärke des musikalischen Signals moduliert wird.
+
+== Ursprung ==
+In Frankreich auch als Musette-Stimmung bekannt, da die Einführung auf eine französische Erfindung zurückgeht.
+
+== Beschreibung ==
+[[Datei:Beating Frequency.svg|mini|280px|Beispiel einer Schwebung zweier Frequenzen]]
+Der Effekt entsteht, wenn pro Ton mehrere Stimmzungen schwingen, die geringfügig unterschiedliche Tonhöhen aufweisen.
+
+Die Grundtonreihe ist dabei auf die jeweilige Stimmung eingestimmt. Sehr oft kommt dabei die [[Gleichstufige Stimmung|gleichstufig temperierte Stimmung]] oder bei diatonischen Instrumenten auch eine der [[Reine Stimmung|reinen Stimmung]] angenäherten Stimmung zum Einsatz. Pro Ton können zwei oder drei Stimmzungen zur Erzeugung der [[Schwebung|Schwebetöne]] (Differenztöne) beitragen. Sind zwei Töne daran beteiligt, kann die Schwebtonreihe über dem Grundton oder darunter eingestimmt sein, bei drei beteiligten Tönen ist ein Schwebeton über und einer darunter eingestimmt. Instrumente mit drei beteiligten Stimmplatten haben einen volleren und ausgeglicheneren Klang, es werden nicht zwei unterschiedliche Schwebetöne wahrgenommen, sondern eher ein volleres abgerundetes Tremolo. Instrumente mit zwei Stimmplatten pro Ton besitzen einen deutlicheren Schwebeton. Wird zum Beispiel ein Ton auf 440 Hz und der andere auf 443 Hz eingestimmt, ergibt sich eine Überlagerung beider Töne, die als Lautstärkenschwankung mit einer Frequenz von 3 Hz wahrgenommen wird. Die Schwebetöne liegen bei den meisten Instrumenten in einem Bereich, den man leicht durch Abzählen (Schätzen) der Lautstärkeschwankungen pro Sekunde ermitteln kann. Bei sehr wenig Schwebung zählt man auch über mehrere Sekunden. Es gibt aber auch moderne Stimmgeräte, die komfortabel mehrere Töne darstellen und Kurven über den gesamten Tonbereich generieren können. Diagramme, die eine Darstellung der Stimmung und des Tremolos überschaubar wiedergeben, sind aber eher nur für Dokumentationen geeignet, für den Stimmer sind sie nicht erforderlich.
+
+== Varianten ==
+Je nach Stärke der Schwebung spricht man von flacher, leichter, mittlerer oder kräftiger Schwebung. Bei weiteren Abstufungen fügt man den Wörtern „flach“ oder „kräftig“ Beifügungen bei wie „sehr flach“, „etwas flacher“, „etwas kräftiger“, „äußerst kräftig“ usw. Eine Normung ist nicht bekannt. Je kräftiger die Schwebung ist, desto lauter und schreiender wird der Ton. Bei starkem Tremolo tritt aber auch eine beträchtliche Verstimmung auf, die wiederum nicht von allen Menschen als sauber empfunden wird. Französische Musette-Musik verwendet Akkordeons, die ein kräftiges Tremolo besitzen, doch ist auch in letzter Zeit ein Trend zu flacheren Tremolos zu beobachten. Flache Schwebungen sind wesentlich aufwendiger zu stimmen als starke.
+Die Stärke der Schwebung kann auch oder wird in den meisten Fällen so eingestimmt, dass sie nicht über den gesamten Tonbereich gleich groß ist.<br />
+Da sich sowohl bei tiefen Tönen wie auch bei sehr hohen Tönen gewisse Probleme ergeben, würden die sich klanglich negativ auswirken. Je nach Stärke des Tremolos werden meist die tiefen Töne mit zunehmend geringerem Tremolo und die höheren Töne mit zunehmend stärkerem Tremolo eingestimmt, wobei meist im mittleren Bereich ein eher gleichmäßiger Verlauf vorgezogen wird. Das führt zu mehreren Möglichkeiten: Die Kurve kann  S-förmig oder ansteigend und linear sein, oder es kann sogar eine abgestufte Variante vorkommen.
+
+== Beispiele ==
+Im Normalfall bei einer starken Schwebung oder flachen Schwebung:
+
+{| class="wikitable"
+|-
+|
+! colspan="4"| Frequenz
+|-
+| Grundton || 220 Hz || 440 Hz|| 880 Hz || 1760 Hz
+|-
+| Schwebung stark || 2 bis 3 Hz || 4 bis 5 Hz|| 7 bis 8 Hz || 11-12 Hz
+|-
+| Schwebung flach || 0,5 Hz || … || … || 2,5 bis 3 Hz
+|-
+|}
+
+== Hinweis und Berechnung ==
+Zu  beachten wäre noch, dass Angaben in [[Cent (Musik)|Centwerten]] sehr irreführend sind, da diese wenig über die Stärke des Tremolos aussagen. Würden die Differenzwerte zwischen beiden Tönen in konstanten Centwerten je Ton beibehalten, wäre ein stark progressives Ansteigen des Tremolos die Folge.<br />
+Auch bei Centwerten für den höheren Ton und den unter dem Grundton liegenden Ton treten geringfügige Unterschiede bei exakt gleichen Schwebungen für Oberschwebung wie Unterschwebung auf.
+
+== Siehe auch ==
+{{Wiktionary|Tremolo}}
+*[[Amplitudenvibrato]]
+
+
+[[Kategorie:Akkordeon]]
+[[Kategorie:Musizierpraxis]]

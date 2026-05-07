@@ -1,0 +1,41 @@
+[[Datei:ButtonAccordeon.jpg|mini|Chromatisches Knopfakkordeon ([[Bugari]], Italien) mit B-Griff-System]]
+Das '''Chromatische Knopfakkordeon''' (im englischen Sprachraum: ''CBA'' für ''chromatic button accordion'') ist ein [[Akkordeon]]instrument. Die rechte Seite unterscheidet sich grundlegend von der des [[Pianoakkordeon]]s.
+
+Vorläufer dieses Instruments war die in Wien entwickelte [[Schrammelharmonika]] mit der ersten B-Griff-Anordnung auf der Diskantseite.
+
+Moderne Instrumente dieser Art entsprechen im Wesentlichen dem russischen [[Bajan]]. Es gibt Instrumente mit und ohne [[Cassotto]], einem zusätzlichen Resonanzraum am Diskant.
+
+Für den Bassteil (auf der linken Seite), gibt es unterschiedliche Konstruktionen, die auch beim modernen [[Pianoakkordeon]] verwendet werden, siehe [[Akkordeon#Bass-Systeme|Bass-Systeme]].
+
+== Griff-Systeme ==
+
+Man klassifiziert das chromatische Knopfakkordeon nach der Anordnung der Knöpfe in zwei Kategorien, je nachdem, ob die Halbtonschritte von außen (erste Reihe) nach innen ansteigen oder umgekehrt. Die Benennung der Systeme (C-Griff, B-Griff, G-Griff) erfolgt nach einem Ton, der jeweils nur in der ersten (und vierten) Reihe vorkommt.
+
+* Halbtonschritte von außen nach innen ansteigend: Bei ''C-Griff-Instrumenten'' (italienische oder schwedische Anordnung) ist das C in der ersten (und vierten) Reihe zu finden. Bei den in Finnland üblichen ''G-Griff-Instrumenten'' ist der Ton G in der ersten (und vierten) Reihe gelagert. Das C liegt folglich in der dritten Reihe. Spieltechnisch sind der C-Griff und der G-Griff sehr ähnlich, weil Akkordgriffmuster und relative Bezüge der Töne gleich liegen. Auch die Mechanik der Tastatur ist vollständig gleich.
+
+* Halbtonschritte von innen nach außen ansteigend: Bei den ''B-Griff-Instrumenten'' (genau genommen müsste es im deutschsprachigen Raum „H-Griff“ heißen), die auch unter der Bezeichnung „Norwegische Anordnung“ bekannt sind, ist das H in der ersten (und vierten) Reihe zu finden, und die Halbtonschritte steigen von innen nach außen an. Dieses Griffsystem ist vor allem in Russland, Norwegen, Serbien und Belgien verbreitet.
+
+Die Diskantseite ist heute meist mit fünf Knopfreihen aufgebaut, wobei die vierte und fünfte Reihe eine Wiederholung der ersten und zweiten Reihe darstellen. Weiße und schwarze Knöpfe entsprechen den weißen und schwarzen Tasten auf dem Klavier. Bei gleichfarbigen Knöpfen sind zur besseren Orientierung normalerweise die Knöpfe C und F markiert (z.&nbsp;B. mit einer rauen Oberfläche), manchmal auch C, G und D, oder, in Analogie zu den markierten Bassknöpfen, C, E und As. Kleine Instrumente beschränken sich manchmal auf drei Reihen.
+
+Gerade bei populärer Musik häufig zu sehende Ausnahmen sind C-Griff-Vierreiher in Frankreich und B-Griff-Sechsreiher auf dem Balkan.
+
+Die vierte Reihe vereinfacht das Greifen mancher Akkorde (die speziell bei C-Griff sonst unangenehm sind), die fünfte Reihe erlaubt prinzipiell die freie Transponierbarkeit mit gleichem Fingersatz von Passagen, die sonst in drei Reihen gespielt würden. Eine sechste Reihe vereint prinzipiell beide Vorteile. In der Praxis ist individuell verschieden, auf welche Weise die Reihen von den Spielern tatsächlich genutzt werden.
+
+{|
+| [[Datei:C-Griff.svg|mini|C-Griff-System mit 3 Haupt- und 2 Hilfsreihen]]
+||[[Datei:B-Griff.svg|mini|B-Griff-System mit 3 Haupt- und 2 Hilfsreihen]]
+||[[Datei:Accordion-pic-c type.jpg|mini|C-Griff-System mit markierten Tönen C und F]]
+|}
+Erwähnenswert ist auch das zurzeit noch nicht sehr verbreitete [[6-plus-6-Instrumente|6-plus-6]]-Akkordeon, bei dem die Töne auf 2 Reihen angeordnet sind, was den Vorteil der eindimensionalen Melodie-Führung mit sich bringt: Wie beim Klavier – und nicht wie bei den oben beschriebenen Knopf-Systemen – wird beim 6-plus-6-Akkordeon eine aufsteigende Tonfolge immer aufsteigend gespielt.
+Der Vorteil der freien Transponierbarkeit ist beim 6+6-Akkordeon jedoch im Unterschied zum Klavier ebenfalls vorhanden.
+Das [[6-plus-6-Instrumente|6-plus-6-System]] kann auch als Tasteninstrument gebaut werden. Es kann auch auf der Computertastatur gespielt werden.<ref>{{Internetquelle | url=http://www.gerd-r-hamann.de/ChromaKlav/Probieren.html | titel=Java-Applets zum Spielen auf der Tastatur | zugriff=2019-02-03}}</ref>
+
+== Spielpraxis ==
+
+Viele Akkordeonisten spielen überwiegend auf den ersten drei Reihen, die vierte und fünfte Reihe gelten als „Hilfsreihen“. Im fortgeschrittenen Spiel werden allerdings alle Reihen gleichermaßen bespielt, um ungünstige und unergonomische Fingerstellungen zu vermeiden. Fünf Reihen ermöglichen zudem eine Spieltechnik, die für alle Tonarten die gleichen Griffmuster ermöglicht, sofern man sich auf jeweils drei Reihen beschränkt. So ist es sehr leicht möglich, Musikstücke zu transponieren. Die invarianten Griffmuster ermöglichen dem erfahrenen Spieler auch eine sehr funktional orientierte Spielweise. So hat etwa ein Dur-Akkord immer das gleiche Griffmuster, egal auf welchem Grundton dieser aufgebaut ist. Auch [[Tonleiter]]n und [[Intervall (Musik)|Intervalle]] können stets mit gleichen Griffmustern gespielt werden.
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Handzuginstrument]]
+[[Kategorie:Tastatur (Musikinstrument)]]

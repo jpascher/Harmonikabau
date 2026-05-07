@@ -1,0 +1,162 @@
+[[Datei:Buenos Aires - Bandoneon tango player - 7435.jpg|mini|Bandoneon]]
+[[Datei:Bandoneón.ogg|mini|Hörbeispiel eines Bandoneons als Audiodatei]]
+[[Datei:Bandoneon-curved.jpg|mini|Bandoneon ''Cardenal'' (hergestellt von ELA für Hohner, vor 1939)]]
+
+Das Musikinstrument '''Bandoneon''', ursprünglich '''Bandonion''', ist ein von [[Heinrich Band]] konstruiertes [[Handzuginstrument]] aus der Gruppe der [[Harmonikainstrument]]e, das aus der [[Konzertina]] entwickelt worden ist.
+
+== Aufbau ==
+[[Datei:Bandoneon-inside-mechanism.jpg|mini|Knöpfe und Mechanik]]
+[[Datei:Bandoneon-inside.jpg|mini|Stimmstöcke mit Zungen]]
+
+Das Gehäuse des Bandoneons hat im Gegensatz zu dem des [[Akkordeon]]s meist einen quadratischen Querschnitt. Zwischen zwei Stirnstücken ist ein [[Blasebalg|Balg]] aus Balgkarton in Holzrahmen (Erlen- oder Ahornholz) und Ziegenleder montiert. Durch Aufziehen und Zusammendrücken des Balges entsteht in seinem Inneren ein Unter- oder Überdruck. Über mit den Fingern zu drückende Knöpfe an den beiden Stirnseiten (sowohl Diskant- als auch Bassteil) können für einzelne Töne Ventile geöffnet werden. Die dann durchströmende Luft bringt auf sogenannten Stimmstöcken angeordnete [[Durchschlagende Zunge|Metallzungen]] verschiedener Tonhöhen zum Schwingen.
+
+Die ''Oktavverdopplung'', das heißt, pro Ton schwingen zumeist zwei Zungen (zweichörig), sorgt für klangvolle, sanfte, aber auch scharfe, brillante Töne. Weitere Besonderheiten, wie das Klappern der Knöpfe sowie Luftgeräusche beim Spielen, bestimmen die unverwechselbare [[Klangfarbe]] gegenüber anderen [[Harmonikainstrument]]en. Im Unterschied zum [[Akkordeon]] hat das Bandoneon keine mechanisch voreingestellten Akkorde, sondern wie das Klavier nur Einzeltöne.
+
+== Tastatursysteme und Tonumfang ==
+Beim wechseltönigen Bandoneon sind die meisten Tasten bzw. Knöpfe [[wechseltönig]]. Wechseltönige Tasten erzeugen bei Druck und Zug des Balges einen unterschiedlichen Ton. Beim gleichtönigen Bandoneon erklingt dagegen der gleiche Ton bei Druck- und Zugspiel, somit entspricht die Anzahl verschiedener Töne auf einer Seite des Instrumentes ungefähr der Anzahl der Tasten dieser Seite. Insgesamt kann über fast fünf [[Oktave]]n gespielt werden. Es gibt diatonische und chromatische Instrumente.
+
+Die bekanntesten noch gespielten und hergestellten Bandoneontypen sind:
+'''Wechseltönig''', wird mit vier Fingern gespielt.
+* Rheinische / Argentinische Lage, Tonumfang 142 oder 152, nicht durchgängig [[Chromatik|chromatisch]] (es fehlen einige Töne). Die Anordnung der Tasten ist nicht bei allen Herstellern gleich.
+* Einheits-Bandoneon, Tonumfang 144. Tonbereich rechts: g bis a<sup>3</sup>, links: C bis b<sup>1</sup>. Die Fingersätze sind einfacher als bei der Rheinischen Lage.
+
+'''Gleichtönig''', wird mit vier Fingern gespielt.
+* Kusserow-Bandoneon
+* Manouri System (teilweise C-Griff), Tonumfang 148, 34 Tasten, Tonbereich C bis a<sup>1</sup> (34 Töne).
+* Peguri System (teilweise C-Griff), Tonumfang 146, 33 Tasten, Tonbereich Fis bis cis<sup>2</sup> (32 Töne).
+* Traditioneller C oder B-Griff: Tonumfang 154, 37 Tasten, Tonbereich B bis b<sup>1</sup> (37 Töne).
+* Hybrid-Bandoneon (C oder B-Griff) entsprechend dem Knopfakkordeon auch mit fünf Fingern spielbar. Die Anzahl der Tasten geht von 2 × 37 bis 2 × 39.
+
+Diese Reihe von Fotos zeigt die inneren Bausteine eines modernen Bandoneons:
+
+<gallery class="center">
+ BandoneonApart1.jpg|Mechanik
+ BandoneonApart2.jpg|In- und Exterior eines Seitenteils
+ BandoneonApart3.jpg|Balg, Lateralsicht
+ BandoneonApart4.jpg|Balg, Frontalsicht
+ BandoneonApart5.jpg|Balg, auseinandergezogen
+</gallery>
+
+== Geschichte ==
+[[Datei:C.F.Uhlig Bandoneon.jpg|mini|Bandoneon von ''F.&nbsp;Lange'' vorm. ''C.&nbsp;F.&nbsp;Uhlig'']]
+[[Datei:Kofferetikett C.F.Uhlig Harmonika Fabrik.jpg|mini|Kofferetikett ''F.&nbsp;Lange'' vorm. ''C.&nbsp;F.&nbsp;Uhlig'']]
+=== Erfinder ===
+Die Bauform des Bandoneons ist als erstes bei dem Instrumentenbauer [[Carl Friedrich Uhlig]] (* 23. April 1789 in [[Chemnitz]]; † 9. Juli 1874 in Chemnitz) belegt. Dieser begann um 1834 20-tönige, später 40-tönige und noch größere Konzertinas herzustellen. Das Tastatursystem des Bandoneons ist eine Erweiterung bzw. Abwandlung des Systems von Uhlig durch den [[Krefeld]]er Musiklehrer [[Heinrich Band]].<ref>Zu den Beziehungen Bands zu sächsischen Instrumentenbauern vgl. {{Literatur |Autor=Andreas Fasel |Titel=Was der Tango Krefeld verdankt |Sammelwerk=Die Welt |Datum=2020-05-27 |Online=https://www.welt.de/regionales/nrw/article208458565/Was-der-Tango-Krefeld-verdankt.html |Abruf=2020-06-04}}</ref> Es wird vermutet, dass Band bereits 1840 bei Uhlig in Chemnitz die 54-tönige Concertina erlernt hatte und sie für sein Krefelder Stadtorchester benutzte. Nachgewiesen ist, dass Band zunächst in [[Böhmen]] Konzertinas aufkaufte, an denen er als erster maßgebliche Veränderungen vornahm, weil er den geringen Tonumfang (54 Töne) der damaligen Konzertinas unzureichend fand. Band fertigte zuerst 64-tönige, später 88-tönige Instrumente, die rechts 23 und links 21 Tasten besaßen. Der Tonumfang reichte auf der Melodieseite von c bis e<sup>3</sup>, auf der Bassseite von D bis d′. Band verkaufte seine Instrumente ausschließlich in seinem Krefelder Musikaliengeschäft, das er von seinem Vater übernommen hatte. Mit den Erfahrungen seiner musikalischen Praxis im Krefelder Stadtorchester entwickelte er 1846 ein 100-töniges Instrument (vgl. Enkel Alfred Band, 1926).
+
+=== Namensgebung ===
+Heinrich Band nannte seine neuen Instrumente „Bandonion“. Wahrscheinlich orientierte er sich bei der Namensfindung am kommerziellen Erfolg des 1829 in Wien entwickelten [[Akkordeon|Accordions]]. Das ,Accordion‘ (damalige Schreibweise) wurde zu einer weitverbreiteten Instrumentenbezeichnung. Den auf C. F. Uhlig in [[Chemnitz]] zurückgehenden neuen Harmonika-Typ von 1834 nannte man anfangs „Accordion neuer Art“ oder einfach „Harmonika“. Vermutlich 1851, mit der [[Great Exhibition|Weltausstellung]] in [[London]], wandte [[Carl Friedrich Zimmermann]] aus [[Carlsfeld (Eibenstock)|Carlsfeld]] im Erzgebirge, in der Nähe des vogtländischen [[Musikwinkel]]s, erstmals den englischen Begriff ''Concertina'' auf das deutsche Instrument an. Weil es sich von dem englischen Instrument unterschied, nannte man es später etwas korrekter „deutsche Concertina“ bzw. „Konzertina“.
+
+Das von Band entwickelte ‚Bandonion‘ war eine Variante der seit zwanzig Jahren existierenden deutschen Concertina. Bei der Suche nach einem eigenen, unverwechselbaren Namen kombinierte Band seinen Namen mit der vom Accordion bekannte Endung ''-ion''. Vermutlich aus Gründen des Wohlklangs fügte er noch eine Silbe ein, und es entstand das „Bandonion“.
+
+Wann die Schreibweise von Bandonion in Bandoneon geändert wurde, ist unklar. Der Musikwissenschaftler [[Wieland Ziegenrücker|Ziegenrücker]] etwa nannte noch 1979<ref>Wieland Ziegenrücker: ''Allgemeine Musiklehre mit Fragen und Aufgaben zur Selbstkontrolle.'' Deutscher Verlag für Musik, Leipzig 1977; Taschenbuchausgabe: Wilhelm Goldmann Verlag, und Musikverlag B. Schott’s Söhne, Mainz 1979, ISBN 3-442-33003-3, S. 177.</ref> das Instrument „Bandonion“.
+
+Eine Anekdote: Als Band am 12. August 1855 erstmals in einer Tageszeitung für sein Instrument warb, unterliefen dem [[Schriftsetzer|Setzer]] zwei Fehler, so dass es hier als „Bandanino“ bezeichnet wurde.<!-- Beleg fehlt -->
+
+=== Weitere Entwicklung ===
+Das Bandoneon wurde sehr schnell über die Stadtgrenzen Krefelds hinaus in ganz [[Deutschland]] bekannt und geschätzt. Band verbesserte den Tonumfang von 106 auf 112, dann auf 128 und zuletzt auf 130 Töne. 1924 wurde vom Deutschen Konzertina- und Bandoneon-Bund ein sogenanntes „Einheitsbandoneon“ mit 72 Tasten und 144 Tönen festgelegt. Davon sind 20 Tasten nicht wechseltönig.
+
+Aus dem Bandoneon wurde ca. 1890 ein anderes Handzuginstrument, die [[Symphonetta]] entwickelt.<ref>Maria Dunkel: ''Bandonion und Konzertina.'' Ein Beitrag zur Darstellung des Instrumententyps. Berliner musikwissenschaftliche Arbeiten. Band 30. Katzbichel, München-Salzburg 1987, 1996, ISBN 3-87397-070-8.</ref>
+
+== Bandoneon-Spiel ==
+Zum Konzept des in seiner Größe praktischen, „einfachen“ und finanziell erschwinglichen Instrumentes gehörte auch die Entwicklung der Griffschrift (eine Art [[Tabulatur]]), um das Erlernen des Bandoneons zu vereinfachen. Dadurch konnten Bandoneonspieler das Instrument auch ohne Notenkenntnisse spielen. Allerdings müssen so musikalische Werke auf dieses sogenannte ''Waschleinensystem'' mit Zahlen und Notenwertangaben umgeschrieben werden.
+
+Um 1900 entstanden in Deutschland innerhalb der Arbeiterbewegung viele Bandoneonvereine (1939 gab es ca. 686 Vereine), die sich dem Zusammenspiel zumeist einfacher [[Volksmusik]] verschrieben hatten. Noch in den 1930er Jahren gehörte das Bandoneon zum Grundinstrumentarium der Tanz- und Unterhaltungskapellen. Nach 1950 gab es sehr viele Bandoneonvereine, in denen hauptsächlich im vierstimmigen Satz zusammen gespielt wurde.
+
+In Europa und Deutschland wurde das Bandoneon allmählich durch das einfacher spielbare [[Akkordeon]] verdrängt, u.&nbsp;a. auch, weil es dasselbe Hörgefühl erzeugte wie der hier bevorzugte Bandoneontyp mit schwingendem, vollem Ton und die mehrheitlich wechseltönigen Instrumente nach Noten (also ohne Griffschrift) nur schwer erlernbar sind.
+
+Das Bandoneon wird nicht umgehängt, sondern auf den Knien gehalten. Es wird bedingt durch die vielfältigen Klangmöglichkeiten als ausdrucksstarkes Soloinstrument und ebenso als Ensembleinstrument in verschiedenen Musikstilen eingesetzt.<ref>{{Webarchiv |url=http://www.eckstein-bandoneon.de/audio.htm |text=Hörbeispiele der Klangmöglichkeiten des Bandoneons, Homepage eckstein-bandoneon.de |wayback=20170118143133 |archiv-bot=2022-10-08 11:11:13 InternetArchiveBot}}</ref>
+Bandoneon kann in Europa in [[Paris]] und [[Rotterdam]] studiert werden.
+
+== Bandoneon und Tango ==
+Die größte Popularität des Instrumentes steht in unmittelbarem Zusammenhang mit dem [[Tango Argentino|Tango]]. Bereits im frühen 20. Jahrhundert war das Instrument ein prägender Bestandteil eines [[Orquesta Típica]]. Auch in späteren musikalischen Entwicklungen wie dem [[Tango Nuevo]] und auch dem [[Electrotango]] blieb der prägende Einfluss des Bandoneons erhalten. In vielen Tangos besungen, stiftet das Bandoneon mit dem Tango bis heute eine Identität und wird in Südamerika liebevoll auch als beste deutsche Erfindung gepriesen. Die Bandoneonisten in den dortigen [[Barrio]]s haben die Bandoneon-Spieltechnik und Stilistik seit vielen Generationen vorzüglich gepflegt und weiterentwickelt. Es wird nach Noten gespielt und gelehrt.
+
+Nach [[Argentinien]] und [[Uruguay]] gelangte das Bandoneon vermutlich zunächst über die USA. Der deutsche Einwanderer [[Wilhelm Seyffardt]] ließ sich 1855 von seinem Bruder in [[Krefeld]] ein „Accordion“ nach Amerika schicken, dies war auf jeden Fall ein „Bandonion“.
+Seeleute und vor allem um 1900 die vielen europäischen Einwanderer gaben dem Instrument in den Hafenkneipen und Bordellen von [[Buenos Aires]] und [[Montevideo]] ein neues Zuhause.
+
+Die Südamerikaner bevorzugten einen bestimmten Instrumententyp: 142-tönig (die „Rheinische Lage“), im Ton scharf bis sanft, schwermütig und mysteriös zugleich. Bautechnisch bedingte Eigenheiten wie das Klappern der Tasten und Luftgeräusche wurden positiv angesehen und organisch ins Spiel des Instrumentes integriert.
+
+Aus Argentinien ist das Bandoneon dann mit der neuen Spielweise und dem Tango zurück nach Europa gekommen.
+
+== Hersteller in Vergangenheit und Gegenwart ==
+[[Datei:Detail bandonéon AA.JPG|mini|Detail Bandonion AA]]
+Am berühmtesten sind die Instrumente aus der nicht mehr existierenden Fabrik von [[Alfred Arnold (Unternehmen)|Alfred Arnold]]<ref>{{Webarchiv |url=http://bandonionfabrik.de/bandonionfabrik/manufaktur/geschichte.html |text=''Geschichte des Bandonions und der Firma Alfred Arnold'' |wayback=20170223072638 |archiv-bot=2023-03-16 08:30:43 InternetArchiveBot}}</ref> in [[Carlsfeld (Eibenstock)]], einem kleinen Ort im [[Erzgebirge]].
+Von dort wurden bis ca. 1945 ungefähr 30.000 Bandoneons nach [[Argentinien]] und [[Uruguay]] exportiert.
+Mit dem Ende der Bandoneonproduktion um 1948 (durch [[Enteignung]] der Firma) verschwanden allerdings die Unterlagen für den dortigen Bandoneonbau. Arno Arnold, ein Neffe des Gründers Alfred Arnold, produzierte in der Rhein-Main-Gegend noch einige Jahre lang Bandoneons, die aber nicht mehr die Qualität der AA-Instrumente erreichten. Bei diesen Instrumenten aus den 50er Jahren waren die Stimmplatten meist aus Aluminium statt Zink. Weltweite Forschungen und Bauversuche erreichen bis heute nicht den unvergleichlichen Ton der alten Instrumente.<ref>Jens Glüsing: ''Klang des Heimwehs.'' In: ''[[Der Spiegel]].'' Hamburg 2009,2, 131. {{ISSN|0038-7452}}</ref>
+
+Heute gibt es nur noch eine Handvoll Bandoneonbauer, die meist individuell nach Bestellung bauen.
+Allerdings kann man sehr komplette Sammlungen in Deutschland besuchen, wie beispielsweise das Bandonium-Museum in [[Lichtenberg (Oberfranken)|Lichtenberg]]<ref>{{Internetquelle |autor=Bayerischer Rundfunk |url=https://www.br.de/mediathek/podcast/servus-musik-und-gaeste/bandonionmuseum-lichtenberg-interview-mit-kh-preuss-robert-matthes/1842962 |titel=Bandonionmuseum Lichtenberg – Interview mit KH Preuß & Robert Matthes – Servus! Musik und Gäste |sprache=de |abruf=2022-07-11}}</ref> und das Tango- und Bandoneonmuseum in [[Staufen im Breisgau]].<ref>{{Internetquelle |url=https://www.alemannische-seiten.de/deutschland/staufen_tango-und-bandoneonmuseum-staufen.php |titel=Tango- und Bandoneonmuseum Staufen |sprache=de |abruf=2022-07-11}}</ref>
+Seit 2007 gibt es in Carlsfeld wieder einen Meisterbetrieb für [[Handzuginstrument]]e, wo Bandonions neu gebaut und repariert werden.<ref>{{Webarchiv |url=http://www.eibenstock.de/fileadmin/portal/www.eibenstock.de/home/Bandonion10.pdf |text=Musikgeschichte des Bandonions |wayback=20160819034954}}</ref> In [[Klingenthal]] wurde 2003 die Bandonionfabrik Klingenthal GmbH gegründet, die Bandonions, inzwischen auch für Kinder, produziert und den Anspruch erhebt, in Aufbau, Klang und Qualität den legendären Instrumenten aus der [[Manufaktur]] von Alfred Arnold gleichzukommen.<ref>{{Internetquelle |autor=Anja Rockstroh |url=https://www.bandonionfabrik.de/ |titel=AA Bandonion |werk=www.bandonionfabrik.de |hrsg=Bandoniofabrik Klingenthal GmbH |datum=2018-10-10 |sprache=de |abruf=2019-12-10}}</ref>
+
+== Bekannte Solisten ==
+[[Datei:Enrique-telleria-ffm-004.jpg|mini|Enrique Telleria 2009]]
+* [[Henrik Albrecht]], deutscher Komponist und Bandoneonspieler
+* [[Claudio Constantini]], peruanischer Solist und Komponist, lebt in Spanien
+* [[Luis Di Matteo]], uruguayischer Solist, Komponist und Arrangeur, Tango-Literatur
+* [[Leopoldo Federico]], Solist, Komponist und Arrangeur, Tango-Literatur
+* [[Raúl Garello]], Solist, Komponist und Arrangeur, Tango-Literatur
+* [[Per Arne Glorvigen]], norwegischer Bandoneonsolist, der in Paris lebt
+* [[Klaus Gutjahr]], Bandoneonsolist und Hersteller
+* [[Bettina Hartl]] (* 1977), Bandoneonsolistin und Komponistin<ref>[https://www.tangobruecke.de/assets/files/pdf/Konzerte/091126_Noire_et_Blanc/Bettina_Hartl_Biographie.pdf ''Bettina Hartl – bandoneonista''] In: tangobruecke.de</ref>
+* Rocco Heins, Solist, vor allem Tango, auch Bandoneonunterricht, -stimmung und Restauration alter Instrumente
+* [[Lothar Hensel]], Solist, vor allem Tango; Komponist
+* [[Louise Jallu]], Solistin, auch in französischen Jazzbands
+* [[Jürgen Karthe]], Solist in div. deutschen Tangogruppen wie [[Tango Amoratado]], Autor eines Standardwerkes zur Geschichte des Bandoneons.
+* [[Carel Kraayenhof]], niederländischer Musiker
+* [[Pedro Laurenz]], Solist, Komponist und Arrangeur, Tango-Literatur
+* [[Pedro Maffia]], Solist, Komponist und Arrangeur, Tango-Literatur
+* [[Néstor Marconi]], Solist, Komponist und Arrangeur, Tango-Literatur
+* [[Alfredo Marcucci]], Solist, Tango und Folklore
+* [[Rodolfo Mederos]], Solist, Komponist und Arrangeur, Tango-Literatur
+* [[Hans Joachim Ment]], Solist, Komponist und Arrangeur
+* [[Gabriel Merlino]], Solist und Bandoneonlehrer
+* [[Juan José Mosalini]], Solist, Komponist und Arrangeur, Tango und Jazz
+* [[Klaus Paier (Musiker)|Klaus Paier]], Solist, Komponist, Jazz, Tango
+* [[Astor Piazzolla]], Solist, Komponist, Arrangeur und Begründer des [[Tango Nuevo]]
+* [[Mario Stefano Pietrodarchi]], Akkordeonist, Bandoneonist
+* [[Osvaldo Piro]], Solist, Komponist und Arrangeur, Tango-Literatur
+* [[Walter Pörschmann]], Solist und Komponist
+* [[Helena Rüegg]], deutsche Solistin und Komponistin
+* [[Dino Saluzzi]], Solist und Komponist, Tango, Jazz, World Music und Folklore
+* [[Luis Stazo]], Solist, Komponist und Arrangeur
+* Pit Therre, Leiter des [[TAM (Theater)|Theaters am Marienplatz in Krefeld]]
+* [[Aníbal Troilo]], Solist, Komponist und Arrangeur, Tango-Literatur
+* [[Miguel Varvello]], Solist, Komponist und Arrangeur, Tango-Literatur
+
+== Trivia ==
+
+In dem Roman ''Das Bernsteinmädchen'' von [[Hans Meyer zu Düttingdorf]] wird der Charakter des Bandoneons so gezeichnet:<ref>Hans Meyer zu Düttingdorf: ''Das Bernsteinmädchen''. Aufbau Verlag, Berlin 2021, ISBN 978-3-7466-3752-5.</ref>
+: „Das hier“, der Musiker klappte mit der flachen Hand auf das Instrument auf seinem Schoß, „das ist meine wahre Musik. Das ist Leidenschaft, das ist Schmerz, Freude, Gefühl. Klavier ist Schöngeisterei, wohl geformte Töne in kalkulierter Anordnung. Sauber und adrett, in ewig währender Monotonie, ohne Mut, aus dem vorgegebenen Raster auszubrechen. Aber das Bandoneon, das darf weinen und lachen, darf höflich sein und murren, darf sauber daherkommen wie ein Mädchen zur Kommunion oder angeschmutzt wie eine Straßendirne. Das Bandoneon ist wie das Leben, und der Tango füllt es mit Gefühl. Komm, setz dich zu mir, ich will es dir zeigen.“
+
+== Diskographie ==
+* Astor Piazzolla: ''Konzert für Bandoneon.'' [[Lothar Hensel]], [[Johannes Goritzki]] u. [[Deutsche Kammerakademie Neuss]]. Capriccio 1996. CD 10565
+* ''Tres movimientos tanguísticos porteños.'' Konzert für Bandoneon. Josep Pons und Orquestra de Cambra Teatre Lliure. Harmonia Mundi France 1996. HMC 901595 (CD)
+
+== Film ==
+* Film zum Tanztheater ''Bandoneón. [[Pina Bausch]] en Buenos Aires.'' Argentinien 1995; 45&nbsp;Minuten; Regie: Milos Deretich, Gabriela Schmidt, Gabriela Massuh. Produktion: [[Goethe-Institut]] [[Buenos Aires]]. Musik: Astor Piazzolla.
+* ''El último Bandoneón'' (''Das letzte Bandoneon''), Argentinien 2005; 79&nbsp;Minuten; Regie: Alejandro Saderman; mit Rodolfo Mederos, Marina Gayotto. Musik: Rodolfo Mederos u.&nbsp;v.&nbsp;a.
+* [[Klaus Wildenhahn]]: ''Bandoneon'', 2 Teile, 1981, 2. Teil mit [[Günter Westerhoff]], NDR
+
+== Literatur ==
+* Walter Pörschmann: ''Schule des modernen Bandoneonspiels.'' 2 Bde., Nr. 1540, 3. Auflage, Spezialverlag Pörschmann & Sohn, Leipzig 1925.
+* Peter Fries: ''Bandoneon-Schule.'' Studien und Etüden. Musikpartitur deutsch. Apollo Paul Lincke, Berlin/Mainz 1935, 1950, 1994 (Repr.).
+* Hans-Peter Graf: ''Entwicklung einer Instrumentenfamilie: Der Standardisierungsprozeß des Akkordeons.'' Verlag Peter Lang 1998, ISBN 3-631-32841-9.
+* Klaus Gutjahr: ''Bandoneonspielen leicht gemacht.'' 2 Bde., Proyecto Bango, Berlin 1998.
+* [[Jürgen Karthe]]: ''Von der Concertina zum Bandoneón: Chemnitz – die Wiege des Bandoneóns'', Papageno-Marketing-GmbH, Chemnitz 2024, ISBN 978-3-9813016-3-2.
+== Weblinks ==
+{{Wiktionary}}
+{{Commons}}
+* {{DNB-Portal|4197338-0|TEXT=Literatur zum Thema}}
+* [https://www.bandomecum.com.ar/ '''Proyecto Bandomecum'''] Bandoneon's Portal Page (span.)
+* [https://www.bandoneonist.ch/band/ ''Christian’s Bandoneon Page'' (englisch)]
+* [http://www.arosturk.org/Bandoneon.pdf Grafische Darstellung der verschiedenen Tastensysteme auf ''arosturk.org'']
+* [http://www.chemnitz-concertina.de/de/index.htm Chemnitzer Concertina]
+* [https://bandonioninfo.de/ Sammlung Oriwohl zur Entwicklungsgeschichte des Bandonions]
+* [https://rsd-dresden.com/label-juergen-karthe-der-tango-u-ich-argentino/#erzgebirge Jürgen Karthe und Fabian Klentzke: Vom Erzgebirge nach Buenos Aires – Wie der Tango zu seinem Instrument kam]
+* [https://www.lvz.de/Region/Grimma/Grimmaer-Bandoneonsammler-sucht-neues-Zuhause Grimmaer Bandoneonsammler sucht neues Zuhause – Jörg Albrecht sammelt die besonders in Argentinien immer noch beliebten Stücke, jetzt ist er auf Hilfe angewiesen]
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=s|GND=4197338-0}}
+
+[[Kategorie:Handzuginstrument]]

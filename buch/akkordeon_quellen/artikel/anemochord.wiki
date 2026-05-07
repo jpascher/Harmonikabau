@@ -1,0 +1,23 @@
+Das '''Anemochord''' (französisch ''Anémocorde''<ref>[[Erich Valentin (Musikwissenschaftler)|Erich Valentin]]: ''Handbuch der Musikinstrumentenkunde.'' Gustav Bosse, Regensburg 1954, S. 246.</ref>) ist ein mit dem [[Streichklavier]] verwandtes historisches Saiteninstrument mit Klaviertasten und fünf Oktaven Tonumfang. Durch Niederdrücken der Tasten öffnen sich die Windkanäle, die mit zwei [[Blasebalg|Blasebälgen]] in Verbindung stehen, und die Saiten wie bei einer [[Äolsharfe]] zum Vibrieren bringen. Es wurde von Johann Jakob Schnell 1789 in Paris erfunden.<ref>{{Literatur
+| Autor = Johann Heinrich Moritz von Poppe
+| Titel = Technologisches Lexicon oder: genaue Beschreibung aller mechanischen Künste, Handwerke, Manufakturen und Fabriken der dazu erforderlichen Handgriffe, Mittel, Werkzeuge und Maschinen mit steter Rücksicht auf die Bedürfnisse der neuesten Zeit, auf die wichtigsten Erfindungen und Entdeckungen, der dabey anzuwendenden geprüftesten chemischen und mechanischen Grundsätze und einer vollständigen Litteratur aller Zweige der Technologie, sammt Erklärung aller dort einschlagenden Kunstwörter
+| Jahr = 1816 |Seiten = 115 f
+| Online = {{Google Buch | BuchID = _bw-AAAAcAAJ | Seite = 115 | Linktext = Volltext | KeinText=Ja | Hervorhebung = Anemochord}}
+}}</ref>
+
+Zitat aus dem Almanach der Fortschritte (1804):
+„Schnell, Vater und Sohn in Paris, haben ein musikalisches Instrument erfunden, welches sie Anemochord nennen. Es ist etwa 9 Fuß lang und bis auf den Boden zugebaut. Inwendig ist ein Blasebalg, der den Wind zur Berührung der Saiten hergiebt, wodurch die Töne entstehen. Die Art, wie der Wind die Saiten berührt, ist ein Geheimniß. Dieses Instrument hat auf das Gehör eine ganz eigene, nicht zu beschreibende Wirkung. Das Sentimentale, Religiöse und Melancholische, lassen sich auf keinem andern Instrumente auf ähnliche Art ausdrücken.“<ref>{{Literatur
+| Autor = Heinrich Welcker von Gontershausen
+| Titel = Almanach der Fortschritte, neuesten Erfindungen und Entdeckungen in Wissenschaften, Künsten, Manufacturen und Handwerken, Volume 8
+| Jahr = 1804 |Seiten = 389–390 |Kommentar = Abschnitt: Schnell, Vater und Sohn, erfinden ein Anemochord
+| Online = {{Google Buch | BuchID = mhAuAQAAIAAJ | Seite = 389 | Linktext = Volltext | KeinText=Ja | Hervorhebung = Anemochord}}
+}}</ref>
+
+== Weblinks ==
+* [https://www.windmusik.com/html/animcord.htm ''Nachricht von dem Schnellschen Animo-Corde.''] In: ''Intelligenzblatt zur Allgemeinen Musikalischen Zeitung''. Breitkopf und Härtel, Leipzig, 3. Oktober 1798, S. 39–44
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Zitherinstrument]]
+[[Kategorie:Historisches Musikinstrument]]

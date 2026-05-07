@@ -1,0 +1,76 @@
+Eine '''Zunge''' ist ein an der Schwingungserzeugung beteiligtes Bauteil vieler [[Musikinstrument]]e. Sie ist ein einseitig befestigtes Blättchen aus flexiblem Material, das von einem Luftstrom zum Schwingen gebracht wird.
+[[Datei:Saxophone reeds-alto, tenor.jpeg|mini|Rohrblätter von [[Altsaxophon|Alt-]] und [[Tenorsaxophon]]]]
+
+== Grundtypen ==
+=== Rohrblatt ===
+{{Hauptartikel|Rohrblatt}}
+Zahlreiche [[Holzblasinstrument]]e haben Rohrblätter und werden daher auch Rohrblattinstrumente genannt. Diese Art der Zunge zeigt keine stark ausgeprägte Eigenfrequenz, sondern die Schwingungsfrequenz (Tonhöhe) wird von der Luftsäule im Instrument bestimmt. Da diese Luftsäule vom Spieler verändert werden kann, genügt ein einziges Rohrblatt am Instrument, um alle Tonhöhen innerhalb eines großen Bereiches (beispielsweise drei [[Oktave]]n) erzeugen zu können.
+
+=== Sonstige Stimmzungen ===
+Die Zunge im engeren Sinn (und zwar in der Ausprägung als Durchschlagzunge, siehe unten) wird beispielsweise in Harmonikainstrumenten wie der [[Mundharmonika]] und dem [[Akkordeon]] verwendet. Unter Normalbedingungen schwingt sie mit ihrer durch Material und Abmessungen gegebenen [[Eigenfrequenz]]. Vereinfacht beschrieben bringt jede Zunge daher nur eine einzige [[Tonhöhe]] hervor. Eine Luftsäule (Resonanzraum), die mit der Zunge in Verbindung steht, beeinflusst die Klangfarbe, aber Lautstärke und Tonhöhe werden nur geringfügig beeinflusst. Mit der Bezeichnung Zunge oder Stimmzunge ist in der Praxis meist dieser Grundtyp gemeint. Genauere Beschreibung siehe Hauptartikel: ''[[Durchschlagende Zunge]]''.
+
+Trotz dieses wesentlichen Funktionsunterschiedes werden beide Arten in der allgemein-musiktheoretischen Literatur oft unterschiedslos als Zungen oder auch ''Lamellen'' bezeichnet. In der Instrumentensystematik von Hornbostel und Sachs sind sowohl Zungen- als auch Rohrblattinstrumente [[Aerophon|selbstklingende Unterbrechungs-Aerophone]].
+
+== Bauformen ==
+Bei beiden Grundtypen gibt es drei mögliche Bauformen: als [[durchschlagende Zunge]], aufschlagende Zunge und Gegenschlagzunge.
+
+Die durchschlagende Zunge, auch als ''freischwingende Zunge'' oder ''Stimmzunge'' bezeichnet, kann durch eine zugehörige Öffnung hindurch schwingen. Die Schwingung entsteht, indem ein Luftstrom die Zunge durch die Öffnung drückt, so dass er passieren kann. Die federnde Zunge schwingt nun durch die Öffnung zurück, dabei wird die Öffnung kurz verschlossen, wodurch der Luftstrom unterbrochen wird. Der entstehende Staudruck drückt die Zunge wieder durch die Öffnung usw.
+
+Die ''aufschlagende'' Zunge –&nbsp;als Rohrblatt ''einfaches Rohrblatt'' genannt&nbsp;– ist auf einem Träger vor einer Öffnung angebracht und verschließt diese bis auf einen Spalt. Beim Anblasen strömt der Luftstrom durch die Öffnung, durch den von der Strömung erzeugten Unterdruck wird der Spalt verschlossen, der Luftstrom wird also unterbrochen, die Zunge schwingt dadurch in die Ausgangslage zurück, die Luft kann erneut durch die Öffnung streichen usw.
+
+Die ''Gegenschlagzunge'' –&nbsp;als Rohrblatt ''Doppelrohrblatt'' genannt&nbsp;– besteht aus zwei gleichen Zungen, die am Ende eines Luftrohres befestigt sind, einander spiegelbildlich gegenüberstehen und im Ruhezustand einen schmalen Spalt zwischen sich frei lassen. Die Luft strömt durch diesen Spalt in das Rohr. Der Unterdruck der Strömung lässt die Zungen gegeneinander schlagen und so den Spalt schließen. Die Federwirkung der Zungen öffnet den Spalt wieder usw.
+
+== Material von Rohrblättern ==
+{{Hauptartikel|Rohrblatt}}
+Die Einfach- oder Doppelrohrblätter von Holzblasinstrumenten werden aus [[Pfahlrohr]] hergestellt, das in Süd[[frankreich]], [[Spanien]] und [[Argentinien]] wächst. Daher stammt die Bezeichnung Rohrblatt. Musiker nennen das fertige Doppelrohrblattmundstück meist einfach Rohr.
+
+Für Doppelrohrblätter in Sackpfeifen wird heute auch [[Polystyrol]] verwendet. Das Material wird häufig aus den Seitenwänden von Joghurtbechern geschnitten, da das Material in diesem Fall bereits die notwendige Wölbung besitzt. Es gibt auch, beispielsweise für Übungszwecke, Oboen- und Fagott-Rohre aus Fiberglas.
+
+== Material für sonstige Zungen ==
+Für durchschlagende Zungen wird hauptsächlich Metall verwendet. Auch manche aufschlagenden Zungen bestehen aus Metall. Die Zungen für [[Akkordeon]]s wurden früher aus [[Bronze]] oder [[Messing]] angefertigt, heute vor allem aus [[Stahl]]. Die Stimmzungen für Mundharmonikas werden auch heute noch aus speziellen [[Legierung|Messinglegierungen]] angefertigt, weil Stahlzungen durch die feuchte Atemluft korrodieren (rosten) würden. Aber auch andere Materialien für Stimmzungen sind denkbar, zum Beispiel wurden Prototypen von Stimmzungen aus [[Titan (Element)|Titan]] angefertigt.
+
+In [[Sackpfeife (Musikinstrument)|Sackpfeifen]] wird heute auch [[Polystyrol]] oder [[glasfaserverstärkter Kunststoff]] für die aufschlagenden Zungen der [[Bordun]]pfeifen verwendet. Kindermundharmonikas aus Plastik haben meist Plastikstimmzungen.
+
+== Instrumente mit Rohrblatt ==
+[[Datei:Mouthpiece tenor saxophone.jpg|mini|hochkant|Rohrblatt-Mundstück für [[Tenorsaxophon]]]]
+=== Einfachrohrblatt ===
+{{Hauptartikel|Einfachrohrblattinstrument}}
+
+Von Musikern wird das Einfachrohrblatt kurz als „Blatt“ bezeichnet. Einfachrohrblätter werden an den [[Instrumentenmundstück|Mundstücken]] von [[Klarinette]]n und [[Saxophon]]en verwendet. Zu den ältesten Instrumenten mit Einfachrohrblatt gehören die heute noch verwendete [[Launeddas]] aus Sardinien und das [[Sipsi]] aus dem vorderen Orient.
+
+=== Doppelrohrblatt ===
+[[Datei:Bassoon Reeds.jpg|mini|hochkant|Doppelrohrblätter für [[Fagott]]]]
+{{Hauptartikel|Doppelrohrblattinstrument}}
+
+Von Musikern wird das Doppelrohrblatt kurz als „Rohr“ bezeichnet. Doppelrohrblätter werden an Schalmeiinstrumenten wie [[Oboe]], [[Fagott]], [[Suona]], [[Zurna]], [[Pi Chanai]], [[Pi Or]] und in den Spielpfeifen vieler [[Sackpfeife (Musikinstrument)|Sackpfeifenformen]] verwendet. Eines der ältesten Instrumente mit Doppelrohrblättern ist das [[Aulos]] aus Griechenland. Der Klang der antiken griechischen Auloi ist dem des im heutigen Armenien gespielten [[Duduk]] ähnlich.
+
+== Sonstige Instrumente mit Zungen ==
+=== Durchschlagende Zunge ===
+[[Datei:Stimmplatte.jpg|mini|hochkant|Harmonika-Stimmplatte mit durchschlagender Zunge]]
+{{Hauptartikel|Durchschlagende Zunge}}
+
+Zu den Instrumenten mit Durchschlagzungen gehören das [[Harmonium]], das [[Akkordeon]] und seine Varianten, die [[Mundharmonika]], die [[Ostasien|ost-]] und [[Südostasien|südostasiatischen]] [[Mundorgel]]n ([[Sheng (Instrument)|Sheng]], [[Shō (Instrument)|Shō]], [[Khaen]], [[Qeej]], [[Hulusi]]) und manche [[Orgelpfeife]]n. Die wie eine Flöte aussehende [[Bawu]] hat eine einzelne Durchschlagzunge, ihre Tonhöhe kann mittels Grifflöchern über etwa eine Oktave verändert werden; insofern steht es zwischen den Zungen- und den Rohrblattinstrumenten.
+
+Bei der [[Maultrommel]] wird die durchschlagende Zunge durch einen Finger angeregt. Der gleichzeitige Atemluftstrom verstärkt und verlängert nur den Ton, zur eigentlichen Tonerzeugung ist er konstruktionsbedingt selten verwendbar.
+
+=== Aufschlagende Zunge ===
+[[Datei:Rörblad svensk säckpipa.jpg|mini|hochkant|Aufschlagende Zunge der schwedischen [[Sackpfeife (Musikinstrument)|Sackpfeife]]]]
+Aufschlagende Zungen werden in den Bordunpfeifen vieler [[Sackpfeife (Musikinstrument)|Sackpfeifen]] und vor allem in den meisten [[Lingualpfeife]]n von Orgeln verwendet.
+
+=== Gegenschlagzunge ===
+Gegenschlagzungen gibt es in den Bordunpfeifen mancher Sackpfeifen.
+
+=== Einflüsse auf die Tonhöhe von Zungen ===
+Die [[Tonhöhe]] wird beeinflusst von den Dimensionen, dem Material und der Form der Zunge sowie bei aufschlagenden Zungen der Aufschlagsfläche und zu einem geringen Anteil vom [[Luftdruck]]. Die Höhe des entstehenden Tons ist von der Masseverteilung der Zunge abhängig. Eine durchschlagende oder aufschlagende Zunge kann höher gestimmt werden, indem man am freien Ende ein wenig Material abnimmt, wodurch sie an [[Trägheit]] verliert, oder tiefer, indem man dort etwas Material hinzufügt. Ebenso wird sie tiefer, wenn man in der Mitte Material wegnimmt. Im Allgemeinen reagieren durchschlagende Zungen weniger auf Luftdruckveränderungen als aufschlagende Zungen und Gegenschlagzungen.
+
+== Siehe auch ==
+* [[Instrumentenmundstück]]
+* [[Holzblasinstrument]]
+
+== Weblinks ==
+{{Commonscat|Reeds (music)|Reeds}}
+* [http://www.proreeds.de/fragen/index2.html Fragen zum Schilfholz – beantwortet]
+* [http://www.proreeds.de/rohre/index.html Herstellung beschrieben]
+
+[[Kategorie:Zungen-Aerophon|!]]
+[[Kategorie:Bauteil (Musikinstrument)]]

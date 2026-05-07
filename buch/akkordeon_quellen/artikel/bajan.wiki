@@ -1,0 +1,54 @@
+{{Dieser Artikel|beschreibt das Musikinstrument. Für andere Bedeutungen siehe [[Bajan (Begriffsklärung)]].}}
+[[Datei:Jupiter bayan accordion.JPG|mini|Bajan des russischen Herstellers ''Jupiter'']]
+Das '''Bajan''' ({{ruS|баян}}, [[Internationales Phonetisches Alphabet|IPA]]: {{IPA|bɐˈjan}}) ist die osteuropäische Form des [[Chromatisches Knopfakkordeon|Chromatischen Knopfakkordeons]]. Unterschiede zum [[Akkordeon]] bestehen in der Ausführung des Gehäuses und der Art der Stimmplatten. Die Stimmzungen eines Bajans sind üblicherweise in großen Gruppen zusammen auf einer Metallgrundplatte montiert.
+
+== Bauform ==
+
+=== Diskant ===
+Die Diskantseite ist nicht mit Tasten, sondern mit Knöpfen bestückt, was einen größeren Tonumfang ermöglicht. Der konstruktive Aufbau der Diskantseite unterscheidet sich von dem anderer moderner chromatischer Knopfakkordeons. Die Tastatur ist etwas weiter nach vorne versetzt, dadurch ist auch hinter der Tastatur ein kleineres Verdeck. Die Mechanik für die Klappen des hinteren Stimmstockes muss somit nach hinten umgelenkt werden.
+
+Das Bajan wird meist in Sitzhaltung gespielt, wobei die Spieler oft ein Tuch über die Knie legen, um den Balg und die Kleidung zu schonen. Ursprünglich wurde es wie die [[Schrammelharmonika]] auch nur mit einem Halteriemen gespielt. Die Tastatur ist bei Instrumenten aus Tula meist abgestuft, weil die traditionelle Spielweise ohne den Daumen der rechten Hand erfolgt, um die Tasten (hier Knöpfe) leichter erreichen zu können. Dreireihige Instrumente haben oder hatten eine offene Tastatur mit frei liegenden Hebeln, ähnlich wie bei der traditionellen [[Steirische Harmonika|Steirischen Harmonika]].
+
+=== Bass ===
+Nachdem in Deutschland neuere Basssysteme entwickelt wurden, baute man in Russland ebenfalls auf der Bassseite Basssysteme nach dem System von Tauscheck, Paul und Blumsteiner ein, die weitgehend dem heutigen Stradella-Bass entsprechen, nur hatten sie keine verminderten Septimakkorde. Heute gibt es auf der Bassseite wie bei anderen modernen chromatischen Akkordeons auch die Möglichkeit des [[Konverterbass|Melodiebasskonverters]]. Dieser hat den Vorteil, dass man zwischen [[Stradella-Bass|Standardbass]] und [[Melodiebass]] variieren kann und es so möglich ist, auch Literatur für andere Instrumente wie Klavier und Orgel zu spielen. Manche Instrumente wurden und werden mit extrem tiefen, kräftigen Bässen gebaut (32'), dies erhöht natürlich das Gewicht nicht unwesentlich.
+
+Die Anordnung des Melodiebasses ist beim russischen Bajan gespiegelt, bildlich gesehen stehen die Tasten/Töne somit auf dem Kopf, wenn man sie mit der gebräuchlichen westeuropäischen Anordnung vergleicht.
+
+=== Stimmplatten ===
+Die Stimmplatten mit den Stimmzungen eines Bajans sind in einem Stimmstock zusammengefasst.
+Dieses Konstruktionsmerkmal teilt sich das Bajan mit dem Bandoneon und den traditionellen russischen B-Griff-Akkordeons. Die Stimmzungen sind sehr oft noch immer fast vollständig in Handarbeit gefertigt. Stimmzungen und Stimmplatten werden vorgestanzt, die restlichen Arbeiten geschehen aber ausschließlich in Handarbeit durch Nieten und Feilen. 
+
+Beim Bajan wird üblicherweise sehr harter Stahl für die Stimmzungen verwendet, um den bevorzugten obertonreichen Klang zu erreichen. Auf den eigenständigen Klang wirken sich aber auch andere konstruktive Faktoren aus. Die Größe, Form und Art der Feilkontur sind wesentliche Faktoren neben dem Material für die Stimmzungen. Es werden aber auch Bajans mit normalen Einzelstimmplatten und maschinell gefertigten langen Stimmplatten angeboten.
+
+== Herkunft und Verbreitung ==
+Ein Vorläufer war die [[Schrammelharmonika]]. 1870 entwickelte in [[Tula]] [[Nikolai Iwanowitsch Beloborodow]] (1828–1912) eine dreireihige chromatische Harmonika, die aber vollständig dem Vorbild der Schrammelharmonika nachempfunden war. Tastenbelegung, Anzahl der Knöpfe und auch die Bassbelegung waren identisch. 1872 und 1875 wurden bereits die ersten Schulen für Bajan in Russisch herausgegeben. 
+
+Das Instrument wurde nach dem legendären Dichtersänger [[Boyan]] (11. Jahrhundert<ref>{{Literatur |Titel=Litopys rus'kyj |Verlag=Kladknyctko "Dnipro" |Ort=Kyı̈v |Datum=1989 |Reihe=Davn'orus'ki ta davni ukraı̈ns'ki litopysy |ISBN=978-5-308-00052-5 |Abruf=2024-04-20}}</ref>) benannt, der im mittelalterlichen altostslawischen Großreich der [[Kiewer Rus]] bekannt war.<ref>Galina Zyganenko: ''Etimologitscheski slowar russkowo jasyka''. Radjan. Schkola, 1989, ISBN 978-5-330-00735-6, S. 27</ref> Für das griechische Altertum würde man eine solche Person einen [[Rhapsode]]n oder für das keltische Mittelalter einen [[Barde]]n nennen.
+
+In Russland, in dessen ländlichen Gebieten Handzuginstrumente eine alte Tradition haben und auch heute noch sehr weit verbreitet sind, wird der Begriff Bajan vor allem für Akkordeons mit einer fünf- oder sechsreihigen linken Tastatur und einer drei- oder fünfreihigen rechten Tastatur verwendet. Damit entspricht der im osteuropäischen Raum verwendete Begriff Bajan sinngemäß dem im deutschen Sprachraum verwendeten Begriff Akkordeon.
+
+Dagegen werden hier mit dem Begriff Akkordeon im Unterschied zur deutschen Verwendung in erster Linie Ziehharmonikas mit einer Klaviertastatur auf der rechten Seite bezeichnet. Mit Harmonika werden im Allgemeinen alle Handzuginstrumente bezeichnet; differenzierter meint man damit in erster Linie die am leichtesten zu erlernende und für die slawische Dorfkultur traditionelle handliche Ziehharmonika, welche meistens (oft auch sehr individuell) mit traditionellen Naturmustern und Motiven verziert sowie mit einer bis drei Knopfreihen auf der rechten Seite und drei auf der linken ausgestattet ist. 
+
+Unter den Handzuginstrumenten ist das Bajan im heutigen Russland deutlich weniger verbreitet als Harmonikas oder Akkordeons, es wird vor allem von Berufsmusikern mit einer musikalischen Hochschulbildung in den Städten gespielt. Die Harmonika hingegen ist vorwiegend in ländlichen Gebieten verbreitet sowie unter Amateuren bzw. Autodidakten; (Klaviertastatur-)Akkordeons werden in Osteuropa dagegen in erster Linie mit der "Restaurant-" und "Chansonkultur" bzw. dem Hinterhof- und Kriminellen-Genre in Verbindung gebracht.
+
+== Komponisten ==
+[[Pjotr Iljitsch Tschaikowski]] besuchte 1883 Tula, darauf folgend komponierte er die Suite Nr. 2 C-Dur op. 53 (''Suite charactéristique''), er setzte vier Bajans als Klangfarbe bei dieser Komposition ein. 1907 übergab der russische Instrumentenbauer [[Pjotr J. Sterligow]] in [[Sankt Petersburg]] dem Musiker und Pädagogen [[Jakow F. Orlanski-Titarenko]] eine vierreihige, speziell für ihn gebaute Knopf-Harmonika, die er Bajan nannte. 20 Jahre später, im Jahr 1927, komponierte [[Hugo Herrmann (Musiker)|Hugo Herrmann]] in [[Trossingen]] seine sieben neuen Spielmusiken, um für das Volksmusikinstrument Akkordeon (Bajan) auch ein Werk in klassischer Musikform zur Verfügung zu stellen.
+
+In der Sowjetunion gab es viele Komponisten, die das Bajan auch im Orchester einsetzen. Der wohl bedeutendste Bajankomponist in der Sowjetunion war [[Wladislaw Andrejewitsch Solotarjow|Wladislaw Solotarjow]]. Auch die Komponistin [[Sofia Asgatowna Gubaidulina]] schrieb mehrere Werke für das Bajan. Heute gibt es einige klassische Musik, die speziell auf das Bajan zugeschnitten ist, von der [[Musik der Romantik]] bis zur [[Neue Musik|Neuen Musik]] (zum Beispiel [[Peter Machajdík]]s ''Concerto for two Bayans and Orchestra'' von 2008<ref>Peter Machajdík: [https://www.machajdik.com/BAYAN.html ''Concerto for two Bayans and Orchestra''.] machajdik.com/BAYAN.html</ref>).
+
+== Literatur ==
+* S. Wawilow u. a.: ''Bolschaja sowetskaja enziklopedija: Tom 4''. Isd-wo Bolschaja sowetskaja enziklopedija, Moskau 1953, S. 365.
+
+== Weblinks == 
+{{Commonscat|Bayan (accordion)|Bajan}}
+* Henry Doktorski: [http://free-reed.net/history/bayan.html ''The Classical Bayan.''] The Classical Free-Reed, Inc., 1998 
+* [http://enc-dic.com/enc_music/Bajan-727.html Eintrag] in der ''Enzyklopädie der Musik'' (russisch)
+* [https://www.youtube.com/watch?v=9SE222v1eyM ''Alexandr Hrustevich Vilnius 2013.''] Youtube-Video
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=s|GND=4432494-7}}
+
+[[Kategorie:Handzuginstrument]]
+[[Kategorie:Traditionelles russisches Musikinstrument]]

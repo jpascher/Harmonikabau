@@ -1,0 +1,19 @@
+Der '''Konverterbass''' erlaubt, die linke Tastatur eines [[Akkordeon|Akkordeons]] von [[Stradella Bass|Standard-Stradella-Bass]] (der auch als Manual II bezeichnet wird) auf  [[Melodiebass]] (Manual III) umzuschalten. 
+Dadurch wird es möglich, auf denselben Tasten statt Begleit-Akkorden Melodien zu spielen.  Umgeschaltet werden die Akkordknöpfe; die Einzelbässe bleiben erhalten.
+
+Beim Konverterbass sind gegenüber einem Standardbass zusätzliche Tasten zum Manualwechsel vorhanden.
+
+Vorteile und Nachteile gegenüber vorgelagerten Bässen sind:
+* Die Instrumente sind leichter, da weniger Knöpfe nötig sind. Bei den Stimmzungen wird aber nichts an Gewicht eingespart.
+* Auch ist dies günstig für Akkordeonspieler mit kurzen Fingern (Kinder), die noch schwer hinter die Grundbässe reichen.
+* Konverter haben eine redundante vierte Spielreihe, die die Fingersätze weiter vereinfacht.
+* Spieler mit langen Fingern können hingegen Probleme mit dem Daumenballen bekommen, da die Hand öfter über den Handballen rollt, welcher dann alleine den Balg zusammenschieben muss. Bei vorgelagerten Bässen liegt in der Regel die ganze Handfläche auf.
+* Ein weiterer Nachteil ist, dass sowohl in der russischen Literatur als auch bei Bajan-Literatur Wechsel zwischen Standard- und Melodiebass häufig ohne Pause stattfinden. Hier kann es problematisch werden, den Konverterschalter schnell genug zu drücken.
+
+== Siehe auch ==
+* [[Sonderformen der Bassbelegung]]
+
+== Literatur ==
+* Gotthard Richter: ''Akkordeon, Handbuch für Musiker und Instrumentenbauer'', VEB Fachbuchverlag Leipzig, 1990, ISBN 3-7959-0569-9
+
+[[Kategorie:Handzuginstrumentenbau]]

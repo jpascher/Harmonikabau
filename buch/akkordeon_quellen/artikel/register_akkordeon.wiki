@@ -1,0 +1,180 @@
+'''Register''' bezeichnet beim [[Akkordeon]] die verschiedenen Kombinationsmöglichkeiten der eingebauten [[Stimmplatten]]sätze, die auch als ''Chöre'' bezeichnet werden.
+
+== Diskantregister ==
+
+Bis zu maximal fünf Stimmplattensätze (Chöre) sind im [[Diskant]] üblich (vereinzelt auch sechs). In Analogie zu [[Register (Orgel)|Orgelregistern]] werden die [[Lagen]] auch mit 16′ (16 [[Fuß]], tiefe Lage), 8′ (mittlere Lage), und 4′ (hohe Lage) bezeichnet. 8′ bedeutet bei „normalen“ Pianoakkordeons (nicht [[Bassakkordeon]]s, „Sonderanfertigungen“ oder [[Knopfakkordeon]]s), dass das tiefste C dem c<sup>1</sup> entspricht; bei einem 16′-Register klingt beim tiefsten C das c<sup>0</sup>, beim 4′-Register das c<sup>2</sup> (die anderen Töne klingen dann auch entsprechend höher oder tiefer).
+
+Sind zwei Chöre in gleicher Lage (meistens 8′) eingebaut, ist oftmals ein Chor etwas verstimmt (jeweils minimal zu hoch), damit sich ein [[Schwebung]]seffekt, auch [[Tremolo]] genannt, ergibt, was vor allem in der [[Volksmusik]] sehr beliebt ist und den „typischen Akkordeon-Klang“ ausmacht. Es gibt auch Instrumente mit drei Chören in 8′-Lage. Hier sind zwei Chöre in gleicher Lage jeweils etwas zu hoch bzw. zu tief, wodurch eine stärkere Schwebung und ein kräftigerer Klang als bei nur einem „verstimmten“ Chor entsteht. Dies ist vor allem bei Instrumenten mit französischer [[Musette-Stimmung]] (die beiden verstimmten 8′-Chöre sind extrem „verstimmt“) der Fall. Als Sonderanfertigung sind auch Instrumente mit 4- oder 5-chörigen Tremolos möglich.
+
+Teilweise werden die verschiedenen 8′-Lagen auch gleich gestimmt. Dadurch wird der Klang kräftiger und eignet sich wegen des fehlenden Tremolos eher für klassische Musik.
+
+{| class=wikitable
+|-
+! Anzahl der Chöre !! übliche Chorzusammenstellung !! auch
+|-
+| 2-chörige (Anfänger-)Instrumente || 2 × 8′ (davon ein Chor gleichmäßig etwas verstimmt) || vereinzelt auch 8′ + 16′ oder 8′ + 4′
+|-
+| 3-chörige Instrumente || 2 × 8′ (davon ein Chor etwas verstimmt) + 16′ (eine Oktave tiefer) || vereinzelt auch 3 × 8′ oder 16′ + 8′ + 4′
+|-
+| 4-chörige Instrumente || 16′ + 2 × 8′ + 4' (eine Oktave höher) || 16′ + 3 × 8′, Letzteres bei Musette- und Volksmusik-Instrumenten
+|-
+| 5-chörige Instrumente || 16′ + 3 × 8′ + 4′ ||
+|}
+
+Einige Anfängerinstrumente haben keine Register, der Klang ist nicht verstellbar. Es klingen immer zwei 8′-Chöre.
+
+Als Sonderanfertigung, und sofern sich genug Platz im Instrument befindet, sind auch andere Kombination möglich (z. B. 2 × 16′ + 2 × 8′). Auch können auch [[Aliquotregister|Aliquoten]] (Mixturen) eingebaut werden. Dies sind Register, die nicht den Oktaven, sondern anderen Tönen der Naturtonreihe entsprechen, z. B. {{Bruch|2|2|3}}′ (Quintmixtur). Der 16′-Chor und ein 8′-Chor (vereinzelt auch der 4′-Chor) können in einem [[Cassotto]] (Tonkammer) verbaut werden. Chöre aus dem Cassotto klingen „dumpfer“, „edler“, nicht so „mundharmonikahaft“, da der Klang nicht „direkt“ abgestrahlt wird.
+
+== Registerwippen ==
+[[Datei:Akkordeonregister Hohner Lucia III P.jpg|mini|Registerwippen bei einem 3-chörigen Instrument in der Zusammenstellung 16′ + 8′ + 4′]]
+Für die Betätigung der Register hat sich ein System mit Wippschaltern durchgesetzt, die sich (vom Spieler aus gesehen) links von der Klaviatur befinden und somit ein schnelles Umschalten auf der Diskantseite ermöglichen. Hierbei sind Chorkombinationen über Wippschalter einstellbar, wobei beim Drücken eines Wippschalters die vorherige Kombination ausgeschaltet wird. Dieses System entspricht funktionell den [[Kombination (Orgel)#Feste Kombinationen|festen Kombinationen]] einer Orgel.
+
+Bei vielen neueren Instrumenten befinden sich auch einige Registerschalter (vom Spieler aus gesehen) oben, über der Diskanttastatur. Diese werden mit dem Kinn geschaltet. Auf diese Weise kann, ohne den Spielfluss zu unterbrechen, schnell umgeschaltet werden.
+
+== Notationen ==
+
+In der Akkordeonliteratur haben sich grafische Symbole zur Registrierung durchgesetzt. In einem dreigeteilten Kreis wird durch Punkte dargestellt, wie viele Chöre in der jeweiligen Tonhöhe klingen.
+
+Hier eine Tabelle mit den verbreitetsten Registern in der jeweiligen Notation:
+
+{| class="wikitable" 
+! Symbol
+! Buchstaben
+!
+! Zahlen
+! Fußtöne
+! Bemerkung
+|-
+| [[Datei:Akkordeonregister P.jpg|50px]]
+| P
+| H
+| 1/0/0
+| 4′
+| hohe Oktave
+|-
+| [[Datei:Akkordeonregister E.jpg|50px]]
+| E
+| M
+| 0/1/0 ''oder'' 1/0
+| 8′
+| einchörig, mittlere Oktave
+|-
+| [[Datei:Akkordeonregister O.jpg|50px]]
+| O
+| L
+| 0/0/1 ''oder'' 0/1
+| 16′
+| tiefe Oktave
+|-
+| [[Datei:Akkordeonregister OE.jpg|50px]]
+| OE
+| L+M
+| 0/1/1 ''oder'' 1/1
+| 16′ + 8′
+| einchörig, mittlere Oktave + tiefe Oktave
+|-
+|[[Datei:Akkordeonregister EP.jpg|50px]]
+| EP
+| M+H
+| 1/1/0
+| 8′ + 4′
+| einchörig, mittlere Oktave + hohe Oktave
+|-
+|[[Datei:Akkordeonregister OEP.jpg|50px]]
+| OEP
+| L+M+H
+| 1/1/1
+| 16′ + 8′ + 4′
+| einchörig, mittlere Oktave + hohe Oktave + tiefe Oktave<br>wird auch als ''Grundreihe'' bezeichnet
+|-
+| [[Datei:Akkordeonregister OP.jpg|50px]]
+| OP
+| L+H
+| 1/0/1
+| 16′ + 4′
+| tiefe Oktave + hohe Oktave
+|-
+|[[Datei:Akkordeonregister T2choerig.jpg|50px]]
+| T
+| M+MM
+| 0/2/0
+| 8′ + 8<sup>0</sup>
+| zwei gleiche Chöre (Tremolo)
+|-
+|[[Datei:Akkordeonregister OT2choerig.jpg|50px]]
+| OT
+| L+M+MM
+| 0/2/1
+| 16′ + 8′ + 8<sup>0</sup>
+| Tremolo + tiefe Oktave
+|-
+|[[Datei:Akkordeonregister TP2choerig.jpg|50px]]
+| TP
+| M+MM+H
+| 1/2/0
+| 8′ + 8<sup>0</sup> + 4′
+| Tremolo + hohe Oktave
+|-
+|[[Datei:Akkordeonregister OTP2choerig.jpg|50px]]
+| V
+| L+M+MM+H
+| 1/2/1
+| 16′ + 8′ + 8<sup>0</sup> + 4′
+| volles Werk (4-chöriger Diskant)
+|-
+| [[Datei:Akkordeonregister T.jpg|50px]]
+| T
+| M+MM+MMM
+| 0/3/0
+| 8′ + 8<sup>0</sup> + 8<sub>0</sub>
+| drei gleiche Chöre (Doppeltremolo)
+|-
+|[[Datei:Akkordeonregister OT.jpg|50px]]
+| OT
+| L+M+MM+MMM
+| 0/3/1
+| 16′ + 8′ + 8<sup>0</sup> + 8<sub>0</sub>
+| Doppeltremolo + tiefe Oktave
+|-
+| [[Datei:Akkordeonregister TP.jpg|50px]]
+| TP
+| M+MM+MMM+H
+| 1/3/0
+| 8′ + 8<sup>0</sup> + 8<sub>0</sub> + 4′
+| Doppeltremolo + hohe Oktave
+|-
+|[[Datei:Akkordeonregister OTP.jpg|50px]]
+| V
+| L+M+MM+MMM+H
+| 1/3/1
+| 16′ + 8′ + 8<sup>0</sup> + 8<sub>0</sub> + 4′
+| volles Werk (5-chöriger Diskant)
+|}
+
+Darüber hinaus findet man vor allem in älterer Literatur noch weitere Notationen.
+
+* Mit Buchstaben(-kombinationen); hier werden die zu schaltenden Chöre über den Notentext geschrieben, z. B. E oder OE. Dabei gilt:
+** P (Piccolo) bzw. H (high) für die hohe Lage (Ton klingt eine Oktave höher als notiert); entspricht 4′
+** E (einchörig) bzw. M (middle) für die mittlere Lage (Ton klingt wie notiert); entspricht 8′
+** O (Oktavregister) bzw. L (low) für die tiefe Lage (Ton klingt eine Oktave tiefer als notiert), entspricht 16′
+** T (Tremolo) / MM / MMM für mehrere Chöre in mittlerer Lage
+** V für „volles Werk“ - Tutti.
+
+* oder übereinander geschriebenen Ziffern: In diesem Fall werden meist zwei bis drei Ziffern übereinander geschrieben. Die jeweilige Ziffer sagt aus, wie viele Chöre in der jeweiligen Tonlage gespielt werden. So bedeutet 1/0/1: hohe Lage (1), keine mittlere Lage (0), tiefe Lage (1). Sind nur zwei Ziffern übereinander geschrieben, so „fehlt“ die hohe Lage.
+
+== Ausführung ==
+
+Die Registerschalter können als Kippschalter über der Diskantseite angeordnet sein oder als Hebel auf der Rückseite der Diskanttastatur. Es gibt auch sogenannte Kinnregister, die als Knöpfe ähnlich den Bassknöpfen ausgeführt sind und das schnelle Umregistrieren mit dem Kinn ermöglichen, ohne den Spielfluss unterbrechen zu müssen.
+
+== Bassregister ==
+
+Die Registerschalter für den Bass sind meist als größere Wippschalter zwischen Bassknöpfen und Balg angeordnet. Auch damit können verschiedene Kombinationen der Chöre ausgewählt werden. Die Bässe klingen dann – je nach Register – kräftig, tief oder „piepsig“ etc.
+
+Im Gegensatz zu den Diskantregistern sind im Standardbass ([[Stradella-Bass]]) sowohl die Oktavlagen der Einzelchöre als auch die Registerzusammensetzungen vom Einzelinstrument abhängig, ohne dass sich herstellerübergreifende Standards etabliert hätten. Viele Instrumente verzichten auf eine Bezeichnung der Register, und Komponisten verzichten meist auf Bassregisterangaben in ihren Stücken, soweit diese nicht mit Melodiebass zu spielen sind.
+
+== Siehe auch ==
+
+* [[Fuß (Einheit)]]
+
+[[Kategorie:Handzuginstrumentenbau]]
+[[Kategorie:Musikalisches Register]]

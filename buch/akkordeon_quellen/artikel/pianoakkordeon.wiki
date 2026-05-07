@@ -1,0 +1,27 @@
+[[Datei:The Childrens Museum of Indianapolis - Titano accordion.jpg|mini|250px|Ein Titano-Akkordeon aus den 1960er bis 1980er Jahren in der ständigen Sammlung des Children’s Museum of Indianapolis.]]
+Das '''Pianoakkordeon''' ist ein chromatisches [[Akkordeon]] mit einer [[Klaviatur]] auf der rechten Seite ([[Diskant]]).
+
+Für den Bassteil (auf der linken Seite) gibt es unterschiedliche Konstruktionen, die auch beim modernen [[Chromatisches Knopfakkordeon|chromatischen Knopfakkordeon]] verwendet werden, siehe [[Akkordeon#Bass-Systeme|Bass-Systeme]]. Im Handel sind unterschiedlich große Instrumente, die meist an der Anzahl der [[Akkordeon#Bass-Systeme|Bassknöpfe]] und der Anzahl der [[Register (Akkordeon)|Register]] unterschieden werden. Linkshändern ist es möglich, nach einer 180-Grad-Drehung des Instrumentes die Klaviatur mit der linken Hand zu spielen und den Bassteil entsprechend mit der rechten Hand. Die Tasten eines Pianoakkordeon sind etwas schmaler als beim [[Klavier]]. Zwölf weiße Akkordeontasten entsprechen in ihrer Breite etwa elf weißen Klaviertasten. Angehende Akkordeonisten, die bereits ein Instrument mit Klaviatur beherrschen, können vieles bezüglich der Spieltechnik im Diskant übertragen.
+
+== Geschichte ==
+
+{{Siehe auch|Akkordeon#Geschichte}}
+
+[[Datei:Klaviatur (Tasten).svg|mini|Pianoakkordeon (nur im Diskant)]]
+Handzuginstrumente mit durchschlagenden Zungen wurden relativ spät gebaut, jedoch war die Möglichkeit, Klaviertasten an Zuginstrumenten mit [[Durchschlagende Zunge|durchschlagenden Zungen]] zu verwenden, bereits vor der Erfindung des diatonischen Akkordeons bekannt. In Wien baute [[Anton Haeckl]] bereits im Jahr 1818 die sogenannte [[Physharmonika]], zwei von diesen kleinen Instrumenten, die im Jahr 1825 gebaut wurden, befinden sich im Technischen Museum in Wien, Exponat Inv. Nr. 19.480 (20 weiße Tasten) und Inv. Nr. 38.956. Die Physharmonika sah so ähnlich aus wie die kleinen Handharmoniums, die noch in Indien beliebt sind. Sie hatte eine Klaviertastatur. Die kleinere Variante des Instruments ruhte auf dem linken Arm und wurde mit der rechten Hand gespielt. Der Tonumfang dieser kleinen Variante der Physharmonika war von H bis g’’.
+
+In einer Anzeige vom 14. April 1821 in der ''Allgemeinen Musikalischen Zeitung'' findet sich unter anderen der Satz: {{"|Auch in einem ganz kleinen Formate fertigt der Meister davon Exemplare die bequem im linken Arm liegen, indess die rechte Hand spielt.}}
+
+Ein Patent (Privilegium) erhielt Haeckl für derlei Instrumente am 8. April 1821. Sehr frühe Instrumente, die in Frankreich gebaut wurden, sahen aus wie ein etwas überdimensioniertes modernes Klavierakkordeon, nur wurden sie wie ein Klavier aufgestellt und mit beiden Händen auf einem Manual gespielt. Der Balg wurde mit den Füßen über Seilzüge bewegt. Das Instrument hatte keinen Bassteil. Es sah aus wie ein Akkordeon, wird aber als Vorläufer des Harmoniums betrachtet. Ein Instrument aus dem Jahr 1880 mit der Inv. Nr. 15.289 befindet sich als „Busson Brevete“ (Paris) im Technischen Museum in Wien. [[Anton Reinlein]], ein Spieluhrenfabrikant aus Wien, meldete eine Verbesserung zu derartigen Instrumenten an. Irrtümlich findet man sehr häufig dieses Patent für die Erfindung der Mundharmonika angegeben.
+
+Am 10. Februar 1824 erhielten [[Anton Reinlein]] und sein Sohn [[Rudolph Reinlein]] das Patent dafür. Es hatte ebenfalls durchschlagende Zungen „nach chinesischer Art“, und einen Handbalg. Es wurde als ''Harmonika'' bezeichnet. Das Amtsblatt der Wiener Zeitung berichtet am 24. März 1824 darüber.<ref>[https://anno.onb.ac.at/cgi-content/anno?apm=0&aid=wrz&datum=18240324&seite=11&zoom=2 Amtsblatt der Wiener Zeitung vom 24.&nbsp;März 1824]</ref>
+
+[[Matthäus Bauer]], ein Instrumentenbauer aus Wien, baute chromatische Instrumente. 1851 baute er ein Instrument, welches zwei Knopfreihen in der Anordnung wie beim Klavier hatte. 1854 bei der deutschen Industrieausstellung in Wien stellte Matthäus Bauer ein Instrument mit 22 weißen und 15 schwarzen Tasten aus und eines mit drei Reihen Knöpfen in [[Chromatisches Knopfakkordeon#Griff-Systeme|B-Griff]] Anordnung. Das Bildarchiv der Fa. Hohner, Zeitungsberichte und Werbeprospekte, die erhalten sind, stützen diese Behauptung. Die Originale befinden sich in der Österreichischen Nationalbibliothek. Matthäus Bauer experimentierte mit allen möglichen Tastenbelegungen, so wurde eine frühe Variante des [[Melodiebass|Einzeltonmanuals]] von ihm gebaut. Ein Exponat ist im Technischen Museum in Wien zu sehen, Bassteil mit drei Stimmstöcken, Inv. Nr. 22.308.
+
+== Weblinks ==
+{{Commonscat|Piano accordions|Pianoakkordeon}}
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Handzuginstrument]]

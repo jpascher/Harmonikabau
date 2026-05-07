@@ -1,0 +1,43 @@
+'''Johann Wilhelm Rudolph Glier''' (* [[17. April]] [[1793]] in [[Untersachsenberg]]; † [[3. Mai]] [[1873]] in [[Klingenthal]]) war [[Holzblasinstrument]]enmacher, Musikalienhändler und der Begründer der [[Geschichte des Akkordeonbaus in Klingenthal|Klingenthaler Harmonika-Industrie]].
+
+== Leben ==
+
+Johann Wilhelm Rudolph Glier war der jüngste Sohn des Lohgerbermeisters und Mitbesitzers des Klingenthaler Waldgutes, Christian Gottfried Glier. Die Gliers stammten aus einem alten [[Vogtland|Vogtländischen]] Instrumentenbauergeschlecht. Auch mütterlicherseits lag ihm die Musik im Blut, denn der Bruder seiner Mutter war der Organist und erste Mägdleinschulmeister von [[Markneukirchen]], Georg Carl Liebel. Die beiden Paten des jungen Glier, Johann Georg Eschenbach und Johann Georg Otto, kunsterfahrene [[Blechblasinstrument|Messinginstrumentenmacher]] in Markneukirchen, könnten ebenfalls wesentlich Einfluss auf den aufgeweckten und fernendurstigen Johann Wilhelm Rudolph ausgeübt haben.
+
+Johann Wilhelm Rudolph Glier erlernte auf Anraten seines ältesten Bruders, Carl Friedrich, das Handwerk des Holzblasinstrumentenbauers, das kurz vor 1800 in Klingenthal eingeführt worden war. Im August 1810 (17-jährig), nach Abschluss seiner Lehre, wollte er nach Amerika ausreisen, um dort mit dem Bruder zusammen einen großen Instrumentenhandel aufzubauen. Wegen der von [[Napoléon Bonaparte|Napoleon]] verhängten [[Kontinentalsperre]] konnte er diese Reise jedoch nicht antreten. So trieb er Musikinstrumentenhandel. In [[Neubrandenburg]] unterhielt die Firma eine Niederlassung. Von dort unternahmen beide Brüder (Carl Friedrich und Johann Wilhelm Rudolph) Handelsreisen u.&nbsp;a. nach [[Tönning]] an der [[Eider]]-Mündung, [[Stettin]] sowie zur Insel [[Wolin|Wollin]], alles zu Fuß und mit einem Schubkarren voller Instrumente. 1811 versuchte Johann Wilhelm Rudolph erneut, eine Genehmigung zur Ausreise nach Amerika zu erhalten. Vergebens! Die Sperre war zu streng.
+
+Bereits 1814 betrieb er in [[Sankt Petersburg]] einen Musikalienhandel und vertrat zugleich die Firma seiner Brüder Carl Friedrich und Christian Ferdinand, die inzwischen neben der Musikinstrumentenherstellung auch die Herstellung und den Vertrieb von Holzkämmen übernommen hatten. Hierdurch wurde Johann Wilhelm Rudolph zu Reisen durch ganz Europa veranlasst.
+
+Als er im Jahre 1829 von Italien zurückkehrte und in [[Frankfurt am Main]] vom dortigen [[Physikalischer Verein|Physikalischen Verein]] eine [[Mundharmonika]] geschenkt bekam, ließ er bei seinem anschließenden Aufenthalt in Klingenthal das neue Instrument in der heimischen Werkstatt nachbauen. Die Gebrüder Glier erkannten offensichtlich die überaus großen wirtschaftlichen Möglichkeiten, die in der Massenanfertigung dieses kleinen und billigen Volksinstrumentes lagen und bauten neben dem elterlichen Wohnhaus zwischen der ehemaligen „Todtengasse“ (der heutigen Kirchstraße) und dem Gliersteig ein Fabrikhaus, in dem die ersten Klingenthaler Mundharmonikas hergestellt wurden.
+
+Wilhelm Rudolph Glier griff selbst in die Fertigung nicht ein. Er war weiterhin als Reisender unterwegs und kehrte 1836 nach Klingenthal zurück. Nach einem Bericht des Erzgebirgisch-Voigtländischen Kreisblattes aus dem Jahre 1837 gründete sich die Hoffnung auf einen Aufschwung des Klingenthaler Instrumentenbaus ''„auf Hrn. Glier jun., welcher 21 Jahre in Petersburg, [[Odessa]] und anderen Orten des Auslands sich auf hielt und dabei die Instrumenten-Fabrikation in ihrem vollkommensten Zustand praktisch zu erlernen volle Gelegenheit fand. Derselbe hat sich nach seiner neulichen Rückkehr ins Vaterland fest entschlossen, durch möglichste Ausführung und Anwendung seiner angeeigneten Wissenschaften diese Branche schnell zu heben und wird dazu Gehilfen aus Wien, Paris etc. benutzen, damit selbige nach und nach einen europäischen Ruf erhalte.“'' Zu einer Verwirklichung dieser Pläne kam es offenbar nicht, als „achtungsgebietende Persönlichkeit“ verbrachte Glier ([[Spitzname]]: „GlierRuss“) seinen Lebensabend in Klingenthal. Johann Wilhelm Rudolph Glier starb 80-jährig am 3. Mai 1873 und ruht auf dem Friedhof in Klingenthal, wo ein Grabmal an den verdienten Begründer der heimischen Industrie erinnert. Seinem Sohn Karl Gustav soll er die Geschäfte in Petersburg übertragen haben.
+
+== Literatur ==
+
+* Beilage zum Obervogtländischen Anzeiger, Nr. 91, 73. Jahrgang, Sonnabend/Sonntag, den 17./18. April 1943.
+* Karl August Wolf, Geschichtliche Nachrichten über das Klingenthaler Kirchspiel, Leipzig 1837, unveränderter Nachdruck 1990.
+* Karl August Wolf, Klingenthaler Kirchspiel, II. Heft, Eibenstock 1862, unveränderter Nachdruck 1990.
+* Dr. Enrico Weller, Der Blasinstrumentenbau im Vogtland von den Anfängen bis zum Beginn des 20. Jahrhunderts, Dissertation, Chemnitz 2002, Hrsg.: Verein der Freunde und Förderer des Musikinstrumenten-Museums e.&nbsp;V. Markneukirchen, Geiger-Verlag, Horb am Neckar, 2004, ISBN 3-89570-986-7.
+
+== Weblinks ==
+* [https://schnadt-web.de/index3.htm Genealogie der Familie Glier]
+
+{{Normdaten|TYP=p|GND=1168609720|VIAF=6088153954902605680001}}
+
+{{SORTIERUNG:Glier, Johann Wilhelm Rudolph}}
+[[Kategorie:Holzblasinstrumentenbauer]]
+[[Kategorie:Harmonikabauer]]
+[[Kategorie:Person (Klingenthal)]]
+[[Kategorie:Geboren 1793]]
+[[Kategorie:Gestorben 1873]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Glier, Johann Wilhelm Rudolph
+|ALTERNATIVNAMEN=
+|KURZBESCHREIBUNG=Holzblasinstrumentenmacher, Musikalienhändler
+|GEBURTSDATUM=17. April 1793
+|GEBURTSORT=[[Untersachsenberg]]
+|STERBEDATUM=3. Mai 1873
+|STERBEORT=[[Klingenthal]]
+}}

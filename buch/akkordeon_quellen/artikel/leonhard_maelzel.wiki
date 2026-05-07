@@ -1,0 +1,38 @@
+'''Leonhard Mälzel''' (* [[27. März]] [[1783]] in [[Regensburg]]; † [[17. August]] [[1855]] in [[Wien]]) war [[Pianist]], [[Erfinder]] und [[Mechaniker]] sowie Konstrukteur mechanischer Musikinstrumente.
+
+== Leben und Wirken ==
+Geboren als Sohn des Regensburger Orgelbauers und Mechanikers Johann Nepomuk Mälzel (1741–1797), genoss Leonhard Mälzel eine gute musikalische Ausbildung. Sein Bruder war der berühmte Mechaniker [[Johann Nepomuk Mälzel]]. Leonhard Mälzel übersiedelte wie sein Bruder nach [[Wien]] und erfand wie dieser ebenfalls Automaten. Ein Instrument, das er „Orpheus-Harmonie“ nannte, wurde in Wien im Jahr 1814 vorgeführt.<ref>''Allgemeine musikalische Zeitung, Band 17, Friedrich Rochlitz, 1815, Seite 48''[https://books.google.at/books?id=MxNDAAAAcAAJ&lpg=PA48&ots=-GndF2OHTd&dq=Leonhard+M%C3%A4lzel&hl=de&pg=PA48#v=onepage&q=Leonhard%20M%C3%A4lzel&f=false Online]</ref><ref>''Darstellung des Fabriks- und Gewerbswesens in seinem gegenwärtigen zustande, vorzüglich in technischer, mercantilischer und statistischer Beziehung. Herausgeber [[Stephan von Keeß]], 1824, Seite 176–181 ''[https://books.google.at/books?id=MG9RAAAAMAAJ&lpg=PA178&ots=g8uoCWagNR&dq=Leonhard+M%C3%A4lzel&hl=de&pg=PA180&output=embed Beschreibung der Flötenwerke, Drehorgeln, Orchestrien und des Metronoms Online]</ref>
+
+Leonhard Mälzel erhielt am 19. August 1823 ein Patent<ref>''Beschreibung der Erfindungen und Verbesserungen, für welche in den kaiserlich-österreichischen Staaten Patente ertheilt wurden, und deren Privilegiums-Dauer nun erloschen ist: ... welcher die Privilegien vom Jahre 1821-1835 enthält'', Band 1, Kaiserl. Königl. Hof- und Staats-Aerarial-Druckerei, 1841, Seite 279–283 ''[https://books.google.at/books?id=V75AAAAAcAAJ&dq=Leonhard+Maelzl&pg=PA281&hl=de Online]''</ref> für drei Jahre auf eine Verbesserung von Orchesterwerken und er baute 1825 eine Metall-Harmonika mit 53 [[Waldhorn|Waldhörnern]], [[Trompete]]n, [[Posaune]]n, und Clarinen und zwei [[Pauke]]n.<ref>''Systematische Darstellung der neuesten Fortschritte in den Gewerben und Manufacturen und des gegenwärtigen Zustandes derselben; als Fortsetzung und Ergänzung des in J. 1823 beendigten Werkes: Darstellung des Fabriks- un Gewerbswesens, &c. Mit besonderer Rücksicht auf den österreichischen Kaiserstaat'', 1830, Seite 9 ''[https://books.google.at/books?ei=Xl2rUI7YEIXHsgali4HABw&hl=de&id=eM1840-w7F8C&dq=Darstellung+des+Fabriks-+und+Gewerbswesens+im+%C3%B6sterreichischen+Kaiserstaate&jtp=9#v=snippet&q=M%C3%A4lzel&f=falsee Online]''</ref> Die Metall-Harmonika war somit ein relativ großer Automat. Leonhard Mälzel reiste 1825 mit dieser Erfindung der [[Physharmonika|Metall-Harmonika]] nach [[St. Petersburg]].
+
+Im August 1827 wurde Leonhard Mälzel durch [[Franz II. (HRR)|Kaiser Franz I.]] zum k. k. Hof-Kammer-Maschinisten ernannt.<ref>''[[Wiener Zeitung]]'', Nr. 183 vom 10. August 1827, S. 839 ([https://anno.onb.ac.at/cgi-content/anno?aid=wrz&datum=18270810&seite=1&zoom=33&query=%22Leonhard%2BMälzel%22&ref=anno-search Digitalisat])</ref> Am 13. Januar 1828 präsentierte er im [[Palais Niederösterreich|Saal der Niederösterreichischen Stände]], im Rahmen einer „Mittagsunterhaltung“, erneut drei der von ihm erfundenen Instrument.<ref>''Der Sammler'', Nr. 11 vom 24. Januar 1828, S. 44: „Herr Leonhard Mälzel, k. k. musikalischer Hof- und Kammer-Maschinist, veranstaltete am 13. Jänner im Saale der Nied. Österr. HH. Stände eine musikalische Mittagsunterhaltung, worin er seine Kunstmaschinen producirte.“ (Es folgt eine Beschreibung der einzelnen Instrumente, Metallharmonicon, Panharmonicon und Orpheusharmonie.) ([https://anno.onb.ac.at/cgi-content/anno?aid=sam&datum=18280124&seite=4&zoom=33 Digitalisat])</ref>
+
+Zuletzt lebte er in der [[Leopoldstadt]] Nr. 740 und starb am 17. August 1855 im [[Krankenhaus der Barmherzigen Brüder Wien|Krankenhaus der Barmherzigen Brüder]] „am Brechdurchfall“ ([[Cholera]]).<ref>''[[Wiener Zeitung]]'', Nr. 198 vom 21. August 1855, S. 2220 ([https://anno.onb.ac.at/cgi-content/anno?aid=wrz&datum=18550821&seite=10&zoom=33 Digitalisat])</ref>
+
+== Literatur ==
+* {{BLKÖ|Mälzel, Leonhard|16|250|251|}}
+* {{OeML|Maelzel_Brueder|Mälzel, Brüder|HKo}}
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=p|GND=13214834X|VIAF=47914923}}
+
+{{SORTIERUNG:Malzel, Leonhard}}
+[[Kategorie:Person um Ludwig van Beethoven]]
+[[Kategorie:Person (Regensburg)]]
+[[Kategorie:Erfinder]]
+[[Kategorie:Deutscher]]
+[[Kategorie:Geboren 1783]]
+[[Kategorie:Gestorben 1855]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Mälzel, Leonhard
+|ALTERNATIVNAMEN=
+|KURZBESCHREIBUNG=deutscher Erfinder und Mechaniker
+|GEBURTSDATUM=27. März 1783
+|GEBURTSORT=[[Regensburg]]
+|STERBEDATUM=17. August 1855
+|STERBEORT=[[Wien]]
+}}

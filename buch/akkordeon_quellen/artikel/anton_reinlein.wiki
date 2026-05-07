@@ -1,0 +1,70 @@
+'''Georg Anton Reinlein''' (ca. 1766 – [[9. August]] [[1834]] in [[Wien]]) war ein österreichischer Spieluhren-Fabrikant in Wien im 19. Jahrhundert. Er erhielt am 10. Februar 1824 ein Patent für die Verbesserung der [[Handharmonika]]. Diese hatte [[durchschlagende Zunge]]n ''nach chinesischer Art'' und einen Handbalg.
+
+== Quellen ==
+=== Patent ===
+[[Datei:Padent-reinlein.jpg|mini|Zeitungsausschnitt: das Amtsblatt der Wiener Zeitung berichtet am 24. März 1824]]
+Das Amtsblatt der [[Wiener Zeitung]] berichtete am 24.&nbsp;März 1824 über diese Verbesserung:
+{{Zitat
+ |Text=Ausschließende Privilegien.
+
+Se. k. k. Majestät haben mit Allerhöchster Entschließung vom
+10. Februar d. J. geruht, Folgenden Privilegien zu ertheilen:
+
+Erstens: […]
+
+Zweitens: Dem Anton Reinlein, bürgerl. Spieluhren-Fabrikanten,
+und dessen Sohn Rudolph Reinlein, zu Wien in der
+Vorstadt an der Wien Nr. 32, auf die >>Verbesserung in Verfertigung
+der Harmonika auf Chinesische Art, wornach dieselbe, obgleich
+das Instrument nur drey Fuß Länge, zwölf Zoll Tiefe und
+fünfzehn Zoll Breite habe, eine Tiefe von acht Fuß erhalte,
+mittelst einer Claviatur zum Spielen mit freyer Hand eingerichtet
+sey, den an sich starken Ton im Forte und Piano beliebig Ausdrücken,
+und nebst den einer Harmonika ohnehin eigenen Adgio-Stücken auf jedes Allegro mit Expression ausführen lasse; übrigens
+sich nie verstimme,<< ein Privilegium auf die Dauer von fünf Jahren; […]}}
+
+=== Zeitungs Anzeige 1816 ===
+[[Datei:Anzeige von23 11 1816.jpg|mini|Anzeige über Flötenspiele von Reinlein]]
+Eine Anzeige in der Wiener Zeitung von 23. November 1816 legt Zeugnis über die Existenz der Fa. Reinlein ab.
+
+{{Zitat
+ |Text=Flötenspiele.
+
+Bey G. A. Reinlein, Bürgerl. Groß- und Spieluhren-Fabrikanten an der Wien Nr. 32 sind für Musik–Freunde große und kleine Flötenspiele, Piano oder Forte spielend, im Mahony–Sekretar, auch mit der Hand zum spielen eingerichtet, worunter eines mit einem ganz besondern Ein- und Aufsatz versehen, um billige Preise zu haben.}}
+=== Zeitungs Anzeige 1828 ===
+[[Datei:Anzeigeaolharmonika.jpg|mini|Anzeige für Musikfreunde von Reinlein]]
+
+{{Zitat
+ |Text=Anzeige für Musikfreunde.
+
+G.A. Reinlein und Sohn, Bürger und Spieluhren–Fabrikanten, dann Besitzer eines ausschließlenden Privilegiums auf die von ihnen erfundene Aeol–Harmonika, nächst den Theater an der Wien Nr. 32, zeigen hiermit an, dass sie eine Auswahl derselben von 3 bis 6 Octaven vorhanden haben, worunter auch eine, die von selbst spielt; ferner eine von ihnen neu erfundene Art Mund-Harmonika von zwey Oktaven, worauf man nicht nur allein Accorde, sondern alles Beliebige vortragen kann.}}
+
+== Siehe auch ==
+
+Spätere Ausprägungen der selbst spielenden Zungeninstrumente waren die [[Spieldose#Harmoniumspieldosen|Harmoniumspieldosen]].
+
+== Weblinks ==
+* '''[https://anno.onb.ac.at/cgi-content/anno?aid=thz&datum=18250201&query=%22Hand%22+%22Harmonika%22&ref=anno-search&seite=3 Wiener Theater-Zeitung (Bäuerles Theaterzeitung) 1. Februar 1825]'''
+* [https://anno.onb.ac.at/cgi-content/anno?apm=0&aid=wrz&datum=18240324&seite=11&zoom=2 Das Amtsblatt der Wiener Zeitung berichtet am 24. März 1824 über das Patent]
+* [https://anno.onb.ac.at/cgi-content/anno?apm=0&aid=wrz&datum=18161123&seite=6&zoom=2 Das Amtsblatt der Wiener Zeitung berichtet am 23. November 1816 über Flötenspiele]
+* [https://anno.onb.ac.at/cgi-content/anno?apm=0&aid=wrz&datum=18280925&seite=6&zoom=2 Das Amtsblatt der Wiener Zeitung berichtet am 25. September 1828 über Mundharmonika]
+
+{{Normdaten|TYP=p|GND=|GNDfehlt=ja|GNDCheck=2023-07-27}}
+
+{{SORTIERUNG:Reinlein, Anton}}
+[[Kategorie:Uhrmacher]]
+[[Kategorie:Harmonikabauer]]
+[[Kategorie:Unternehmer (Kaisertum Österreich)]]
+[[Kategorie:Geboren im 18. Jahrhundert]]
+[[Kategorie:Gestorben 1834]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Reinlein, Anton
+|ALTERNATIVNAMEN=Reinlein, Georg Anton (vollständiger Name)
+|KURZBESCHREIBUNG=österreichischer Spieluhren-Fabrikant
+|GEBURTSDATUM=um 1766
+|GEBURTSORT=
+|STERBEDATUM=9. August 1834
+|STERBEORT=[[Wien]]
+}}

@@ -1,0 +1,32 @@
+Das '''Cassotto''' ist ein erweiterter Hohlraum auf der [[Diskant (Instrument)|Diskantseite]] eines [[Akkordeon]]s.
+
+==Technik==
+Der Cassotto-[[Hohlraum]] wirkt als passiver Filter, der bestimmte [[Frequenz]]en im höheren Tonbereich absenkt (leiser) und andere dafür verstärkt ([[Resonanz (Physik)|Resonanz]]). Der Klang eines Instrumentes mit Cassotto unterscheidet sich daher wesentlich vom Klang der Instrumente in normalen Ausführungen.
+
+Es ist üblich, nicht alle Chöre in den Cassotto-Raum einzubauen, sondern nur die tiefen Chöre 16' oder 8'. Die restlichen Chöre sind auf der Füllung des Diskants angebracht.
+
+Die Firma Öllerer baut ein diatonisches Instrument mit Cassotto, das keine Registerschalter besitzt und zweichörig mit zwei 8’ (M) Chören ist. Bei diatonischen Instrumenten ist der Einbau eines Cassottos schwieriger, da die Anordnung der Stimmstöcke stark abweicht.
+Bei chromatischen Instrumenten wirkt sich ein Cassotto nicht in gleichem Maße auf alle Töne aus. Die Töne der schwarzen Tasten liegen meist auf einem [[Akkordeon#Stimmst.C3.B6cke|Stimmstock]], der näher zur Oberkante der Füllung eingebaut ist. Dies führt dazu, dass für diesen Stimmstock der Cassottoeffekt geringer ausfällt.
+
+Cassotto-Register werden nur von einigen wenigen Akkordeonbauern angeboten. Besonders bekannt sind hier [[Beltuna]], [[Pigini]], [[Bugari]] und [[Georg_%C3%96llerer|Öllerer]]. Im traditionellen deutschen Akkordeonbau spielt das Cassotto kaum eine Rolle. Nur vereinzelt sind Cassotto-Register in deutschen Akkordeons zu finden, etwa bei [[Hohner]] oder [[Harmona]] ([[Klingenthal]]) in den Modellen Cassotta, Supra & Supita II.
+
+Bei der Weltmeister Cassotta (374 + 414) kommt eine Sonderkonstruktion, das sog. „Klingenthaler Spezialcassotto“ oder auch „Füllungscassotto“ genannt, zum Tragen. Hier liegen alle Chöre wie beim Normalakkordeon parallel zueinander angeordnet. Der Cassottoeffekt wird durch ein kleines „Vordach“ unter der Diskanthaube erzeugt, das den Cassottoraum bildet. Vorteil dieser Konstruktion ist die um einiges erleichterte (schnellere) Stimmbarkeit des Instruments.
+
+==Klang==
+Der Effekt eines Cassottos ist bei verschiedenen Instrumenten unterschiedlich stark ausgeprägt. Die klangliche Auswirkung ist daher auch nicht generell zu bewerten. Für jedes Instrument ist eine individuelle Beurteilung erforderlich. Oftmals wird der Cassotto-Klang als besonders warm und füllig beschrieben. Durch den Filtereffekt sind die [[Oberton|Obertöne]] weniger stark ausgeprägt.
+
+Zwischen der Art des verwendeten Stimmenmaterials und dem Cassotto besteht darüber hinaus eine gewisse Wechselwirkung.  
+
+[[Frequenz]]en zwischen 500 Hz und 1000 Hz werden im Allgemeinen verstärkt, jedoch nicht gleichmäßig. Manche Frequenzen treten mehr heraus als andere, über 1000 Hz wird alles eher gedämpft.
+
+Die herausragend gute klangliche Wirkung des Cassottos lässt sich auch so beschreiben:
+*die klangliche Beeinflussung tritt in Klangformaten auf, die dem gesprochenen „o“ oder „a“ entsprechen,
+*die gedämpften Bereiche liegen hingegen im Bereich der Umlaute. 
+
+==Literatur==
+* Gotthard Richter: ''Akustische Probleme bei Akkordeons und Mundharmonikas, Tl.1, Einführung in die allgemeinen Grundlagen.'' ISBN 3-925572-00-7
+* Gotthard Richter: ''Akustische Probleme bei Akkordeons und Mundharmonikas, Tl.2, Untersuchungen spezieller Phänomene.'' ISBN 3-925572-01-5 
+* Gotthard Richter: ''Akkordeon. Handbuch für Musiker und Instrumentenbauer.'' 3. Auflage 2003, ISBN 3-7959-0569-9
+
+[[Kategorie:Bauteil (Musikinstrument)]]
+[[Kategorie:Handzuginstrumentenbau]]

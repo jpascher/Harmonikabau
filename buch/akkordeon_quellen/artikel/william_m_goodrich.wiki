@@ -1,0 +1,37 @@
+'''William M. Goodrich''' (* [[21. Juli]] [[1777]] in [[Templeton (Massachusetts)|Templeton]], [[Worcester County (Massachusetts)|Worcester County]], [[Massachusetts]]; † [[15. September]] [[1833]]) war einer der ersten [[Orgelbauer]] in den [[Vereinigte Staaten|USA]].
+
+Sein Vater ''Ebenezer Goodrich'' war Farmer in Templeton. Er erwarb sich seine Kenntnisse im Selbststudium und eignete sich zuerst Fertigkeiten eines Goldschmiedes an. Dann beschäftigte er sich mit der Reparatur von Uhren. Er bekam bald den Ruf, alles instand setzen zu können. Kurze Zeit arbeitete er bei ''Mr. Pratt, of Winchester, N. H.'', der zu der Zeit auch Orgeln baute. Bereits 1804 erzeugte er mit seinem Bruder ''Ebenezer Goodrich'' eine Zimmerorgel und ein Pianoforte. 1806 stellte er die erste Kirchenorgel fertig. Ungefähr zur selben Zeit ging er eine Partnerschaft mit [[Thomas Appleton]] ein, der auch seine Schwester zur Frau nahm.
+
+Ab Juni 1811 kam [[Johann Nepomuk Mälzel]]s [[Panharmonikon]] aus Europa nach [[Boston]]. Goodrich wurde beauftragt, dieses zusammenzustellen und vorzuführen. Im September 1811 wurde dieses wieder abgebaut und erneut in [[New York City|New York]] aufgestellt, wo es erneut vorgeführt wurde; andere Städte folgten. Goodrich war daher bis zum 18. Juni 1812 nicht in Boston. Für diese Dienste wurde er nach seinen Angaben nie entlohnt und machte einen Außenstand von $600 aus. Er baute 38 Kirchenorgeln; die gesamte Zahl an Orgeln, die Zimmerorgeln nicht eingeschlossen.
+1823 kopierte er Mälzels Panharmonikon.
+Viele der späteren Orgelbauer in USA haben bei oder von ihm gelernt. Auch die Anfänge der „reed organs“ ([[Harmonium]]) gehen auf ihn zurück. Jedoch waren die ersten Instrumente kaum vergleichbar. Sein Bruder Ebenezer wird in der Biographie nur kurz erwähnt, wobei manche Zitate in neueren Publikationen sich auf diese Biographie beziehen und den Namen Ebenezer Goodrich an Stelle von William M. Goodrich verwenden. Ab 1807 hatte Ebenezer Goodrich seinen eignen Betrieb, der hauptsächlich Zimmerorgeln fertigte; 107 plus 10 in Arbeit waren es zu der Zeit, als der Bericht verfasst wurde. Sein Schwager Thomas Appleton arbeitete etwas länger mit William M. Goodrich zusammen, ging aber später auch eigne Wege, wobei auch dieser Orgelbauer blieb. Alle drei zusammen legten eine extrem bedeutende Grundlage für die nachfolgende Entwicklung im Orgel- und Harmonieumbau, wobei William M. Goodrich eindeutig derjenige, war der sich das erforderliche Wissen als erster aneignete und es bereitwillig an andere weitergab. Große finanzielle Gewinne hatten diese Pioniere des Orgelbaus in Amerika nicht damit erreicht oder vorrangig im Auge. Es ist empfehlenswert sich seine ausführliche Biographie insgesamt durchzulesen. Ein wichtiger Marktstein in seiner Entwicklung war ein Buch über Musiktheorie und Stimmpraxis, das ihm in die Hände fiel. Bemerkenswert ist auch noch, dass er auch als '''''Gesangslehrer''''' immer wieder nicht nur in Boston auftrat. Bevor er je eine Orgel baute, wird erwähnt, dass er sich mit seiner Geige und dem Buch über Stimmpraxis eine Woche zurückzog. Er legte äußerst großen Wert auf Harmonie und Wohlklang, raue Klänge, die später in Mode kamen, waren von ihm nicht erwünscht. Er selbst behauptete, dass in erster Linie die Stimmung einer Orgel ihre Qualität bestimmt.
+
+Wesentlich mehr Aufschluss findet sich in der Biographie selbst, einiges könnte möglicherweise etwas ungenau sein, da viele Aussagen sich direkt auf Äußerungen von William M. Goodrich beziehen.
+"* [...] Most of the dates, contained in this account of his life, were given by Mr. Goodrich to the writer, altogether from memory. It Is possible, therefore, that some portion of them may not be strictly persons, whose inclinations and pursuits corresponded with his own."<ref>The New-England Magazine, Band 6, von 1834, Seite 25–45, [https://books.google.at/books?id=ZN0XAQAAIAAJ&dq=William+Goodrich+organ&pg=PA25&hl=de#v=onepage&q=William%20Goodrich%20organ&f=false Online]</ref>
+
+== Einzelnachweise ==
+<references/>
+
+== Weblinks ==
+{{Wikisource|Biographical memoir of William M. Goodrich, Organ-builder|lang=en}}
+
+{{Normdaten|TYP=p|GND=|VIAF=|GNDfehlt=ja|GNDCheck=2019-06-30}}
+
+{{SORTIERUNG:Goodrich, William M.}}
+[[Kategorie:Orgelbauer (19. Jahrhundert)]]
+[[Kategorie:Orgelbauer (Vereinigte Staaten)]]
+[[Kategorie:Uhrmacher]]
+[[Kategorie:US-Amerikaner]]
+[[Kategorie:Geboren 1777]]
+[[Kategorie:Gestorben 1833]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Goodrich, William M.
+|ALTERNATIVNAMEN=
+|KURZBESCHREIBUNG=US-amerikanischer Orgelbauer
+|GEBURTSDATUM=21. Juli 1777
+|GEBURTSORT=[[Templeton (Massachusetts)|Templeton]], Massachusetts
+|STERBEDATUM=15. September 1833
+|STERBEORT=
+}}

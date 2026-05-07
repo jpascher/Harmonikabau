@@ -1,0 +1,239 @@
+'''Diatonik''' (von {{grcS|διάτονος|diátonos}} „durch Ganztöne gehend“,<ref>{{Riemann Musiklexikon |Lemma=Diatonik |Auflage=12 |Band=3 |Seite=224}}</ref><ref>In der [[Musiktheorie im antiken Griechenland|altgriechischen Musiktheorie]] wurde unter {{lang|grc|τόνος}} im engeren Sinne der Ganzton verstanden, deshalb {{lang|grc|διάτονος}}: „durch Ganztöne (gehend)“. Letzteres bezieht sich auf das ''diatonische'' Tongeschlecht bzw. den dafür maßgeblichen ''diatonischen'' [[Tetrachord]], der das Rahmenintervall einer reinen [[Quarte]] „durch Ganztöne gehend“ auszufüllen versucht, wobei aber ein Rest in Form eines Halbtons ([[Diesis]], später [[Limma]] genannt), übrigbleibt.</ref> zu {{lang|grc|διά}} „durch“ und {{lang|grc|τόνος}} „Anspannung, Ton“<ref>Die Interpretation kann auch vom Verb ausgehen: von griechisch {{lang|grc|δια}} „durch“ und {{lang|grc|τείνω}} „spannen, an-, ausspannen“. Wenn man unter „Spannen“ das Aufspannen und Stimmen von Saiten einer [[Lyra (Zupfinstrument)|Lyra]] oder [[Kithara]] versteht, so kann man {{lang|grc|διατείνω}} frei als „durch eine Stimmung“ bzw. „durch eine Tonart“ übersetzen.</ref>), ein meist adjektivisch verwendeter Begriff der [[Musiktheorie]], kennzeichnet bestimmte Tonbeziehungen in [[Tonsystem]]en<ref name="Riemann-Tonsystem" /><ref name="Herder" /> und [[Tonleiter]]n<ref name="Riemann-Tonleiter" />. [[#Diatonische Tonleiter|''Diatonische Tonleitern'']] etwa sind spezielle, aus [[Ganzton]]- und [[Halbton]]<nowiki />schritten zusammengesetzte, in der Regel siebenstufige Tonleitern. Seit dem frühen Mittelalter<ref>Zum Beispiel von [[Guido von Arezzo#Begründung des diatonischen Notensystems|Guido von Arezzo]] (992–1050) beschrieben.</ref> bildeten diatonische Tonleitern die Grundlage der abendländischen Musik, zunächst in Form der [[Kirchentonart]]en, später als [[Dur-Moll-Tonalität|Dur-Moll-System]]. Um die Wende zum 20. Jahrhundert löste sich ein Teil der Komponisten von der diatonischen Dur-Moll-Tonalität.<ref>Im Gegensatz Brahms – Wagner wurde ein erbitterter Streit ausgetragen. Wagner behält die Diatonik im Volkstümlichen und Historischen bei, findet aber zum Beispiel im Tristan die ihm eigene chromatische Tonsprache. Die „Brahmsianer“ halten dagegen die Diatonik mit Rückgriff auf die Kirchentonarten und den Kontrapunkt bei. Die ab 1906 von Arnold Schönberg entwickelten [[Zwölftontechnik]] steht schließlich in völligem Gegensatz zur Diatonik.</ref>
+
+Neben dem Begriff der ''diatonischen Tonleiter'' gibt es den des ''[[Komma (Musik)#Kleiner und großer Halbton, Diaschisma und kleine Diësis|diatonischen Halbtons]]''; man spricht vom ''diatonischen Halbton'' d-es im Gegensatz zum ''[[Chromatik|chromatischen Halbton]]'' d-dis. Des Weiteren gibt es ''diatonische [[Tetrachord]]e'', welche definiert sind als Viertonfolgen, bestehend aus zwei [[Ganzton]]<nowiki />schritten und einem [[Halbton]]<nowiki />schritt.
+
+== Diatonische Tonleiter ==
+=== Definition über Stammtöne ===
+[[Datei:Klaviatur.PNG|mini|250px|Die [[Stammton]]reihe c-d-e-f-g-a-h entspricht den weißen Tasten der [[Klaviatur]]. Es sind die Töne der [[C-Dur]]-Tonleiter.]]
+[[Datei:Beispiele.Diatonik1.jpg|mini|250px|Für die meisten Tonarten werden auch schwarze Tasten benötigt, z.&nbsp;B. bei f-Moll (oben im Bild) die schwarzen Tasten für as, b, des, es. Unten zum Vergleich C-Dur.]]
+
+''Eine diatonische Tonleiter ist eine siebenstufige ([[Heptatonik|heptatonische]]) [[Tonleiter]], die den [[Oktave|Oktav]]<nowiki/>raum in fünf Ganz- und zwei Halbtonschritte aufteilt und folgende Eigenschaften hat:''
+* ''Alle Tonleiterstufen sind von verschiedenen [[Stammton|Stammtönen]] abgeleitet, was sich äußerlich darin spiegelt, dass ihre Bezeichnungen alle mit verschiedenen Buchstaben anfangen.''
+* ''Zwischen benachbarten Stufen treten keine [[Intervall (Musik)|übermäßigen oder verminderten Intervalle]] auf.''
+
+Zum Beispiel:
+* '''C-D-E-F-G-A-H'''
+* '''H'''-'''C'''''is''-'''D'''''is''-'''E'''-'''F'''''is''-'''G'''''is''-'''A'''''is''
+* '''D'''''es''-'''E'''''s''-'''F'''-'''G'''''es''-'''A'''''s''-'''B'''-'''C'''
+* '''D'''-'''E'''-'''F'''''is-'''''G'''-'''A'''-'''H'''-'''C'''''is''
+Keine diatonische Tonleiter nach dieser Definition wäre (da zweimal der Stammton '''G''' benutzt wird):
+* '''D'''-'''E'''-'''G'''''es-'''''G'''-'''A'''-'''H'''-'''C'''''is''-'''D'''
+
+Man beachte, dass bei dieser Definition die Existenz von Stammtönen, d.&nbsp;h. Notennamen, vorausgesetzt wird.
+
+=== Klassische Definition ohne Stammtöne ===
+''Eine diatonische Tonleiter ist eine siebenstufige Tonleiter, die den Oktavraum in fünf Ganz- und zwei Halbtonschritte aufteilt, so dass die Halbtonschritte maximal weit voneinander entfernt sind (also durch zwei oder drei Ganztonschritte voneinander getrennt sind).''
+
+Gleichwertig dazu ist:
+
+''Eine diatonische Tonleiter ist eine siebenstufige Tonleiter, die den Oktavraum in fünf Ganz- und zwei Halbtonschritte aufteilt, und zwei diatonische Tetrachorde enthält.''
+
+Im Unterschied zur Definition über Stammtöne werden keine Notennamen vorausgesetzt. Offensichtlich erfüllen die „klassischen“ diatonischen Tonleitern ([[Dur]], [[Moll]] und die [[Kirchentonart]]en) die Bedingungen.
+
+=== Erweiterte Auffassungen ===
+In Erweiterung dieser ursprünglichen strengen Definition werden heute manchmal auch solche Tonleitern als diatonisch bezeichnet, die lediglich die Bedingung erfüllen, die Oktave in fünf Ganz- und zwei Halbtöne zu unterteilen. Beispiele hierfür sind die [[Akustische Skala|akustische]] und die [[alterierte Skala]].
+
+Außerdem können nach heutigem Verständnis auch Tonleitern als diatonisch angesehen werden, die weniger als sieben Töne enthalten, wie z.&nbsp;B. die [[Pentatonik#Anhemitonische Pentatonik|anhemitonisch-pentatonischen]] Leitern, welche den Oktavraum in drei Ganztonschritte und zwei [[Terz (Musik)|Terzen]] aufteilen.<ref>Marc Honegger, Günther Massenkeil (Hrsg.): ''Das große Lexikon der Musik.'' Band 2: ''C – Elmendorff.'' Aktualisierte Sonderausgabe. Herder, Freiburg im Breisgau u.&nbsp;a. 1987, ISBN 3-451-20948-9, S. 312.</ref>
+
+=== Beispiele ===
+Die bekanntesten und wichtigsten diatonischen Tonleitern sind heute die [[Dur]]- und die ([[Moll#Natürliches Moll|natürliche]]) [[Moll]]tonleiter: [[Datei:Dur moll.png]]<br />
+mit folgender Verteilung von Ganz- und Halbtonschritten:
+{| class="wikitable" style="text-align:center;"
+! C-Dur
+! colspan="2"| c′
+! colspan="2"| d′
+! colspan="2"| e′
+! colspan="2"| f′
+! colspan="2"| g′
+! colspan="2"| a′
+! colspan="2"| h′
+! colspan="2"| c"
+|-
+|colspan="2" style="text-align:left"| Tonschritt
+|colspan="2"| [[Ganzton]]
+|colspan="2"| Ganzton
+|colspan="2"| [[Halbton]]
+|colspan="2"| Ganzton
+|colspan="2"| Ganzton
+|colspan="2"| Ganzton
+|colspan="3"| Halbton
+|-
+! c-Moll
+! colspan="2"| c′
+! colspan="2"| d′
+! colspan="2"| es′
+! colspan="2"| f′
+! colspan="2"| g′
+! colspan="2"| as′
+! colspan="2"| b′
+! colspan="2"| c"
+|-
+|colspan="2" style="text-align:left"| Tonschritt
+|colspan="2"| Ganzton
+|colspan="2"| Halbton
+|colspan="2"| Ganzton
+|colspan="2"| Ganzton
+|colspan="2"| Halbton
+|colspan="2"| Ganzton
+|colspan="3"| Ganzton
+|}
+
+Zu den diatonischen Tonleitern im engeren Sinne („klassische“ diatonische Tonleitern) gehören außerdem die [[Kirchentonarten|Kirchentöne]] und die heute auf sie zurückgreifenden [[Modale Tonleitern|modalen Tonleitern]].
+
+Im weiteren Sinne (vgl. oben unter „Definition“) sind auch diese Tonleitern diatonisch:
+* die [[Moll#Melodisches Moll|melodische Molltonleiter]] aufwärts
+* die vor allem im Jazz verwendete [[alterierte Skala]]
+* die [[akustische Skala]]
+* die [[Pentatonik#Anhemitonische Pentatonik|anhemitonisch-pentatonischen]] Leitern
+
+=== Abgrenzung ===
+Diese Tonleitern sind nicht diatonisch oder nicht vollständig diatonisch:
+* die [[Zigeunertonleiter]]n, da sie durch ihre übermäßigen Sekunden Intervalle enthalten, die größer als der diatonische Ganztonschritt sind
+* die [[Ganztonleiter]], deren Struktur ausschließlich aus Ganztönen besteht
+* die [[chromatische Tonleiter]], die nur aus Halbtonschritten besteht
+* die [[Modi mit begrenzten Transpositionsmöglichkeiten]] von [[Olivier Messiaen]]
+
+== Diatonische Intervalle ==
+Diatonische [[Intervall (Musik)|Intervalle]] sind solche, die in einer diatonischen Tonleiter leitereigen enthalten sind. Im Einzelnen sind dies: reine [[Prime]], [[Quarte]], [[Quinte]] und [[Oktave]], kleine und große [[Sekunde (Musik)|Sekunden]], [[Terz (Musik)|Terzen]], [[Sexte]]n und [[Septime]]n. Der [[Tritonus]] ist zwar auch Bestandteil diatonischer Leitern, wird aber als übermäßige Quarte, also als chromatische Variante der reinen Quarte bestimmt und nicht zu den diatonischen Intervallen gerechnet.
+
+Im Unterschied zu chromatischen (also übermäßigen oder verminderten) Intervallen gelten in der [[Tonalität (Musik)|tonalen]] Musik diatonische Intervalle als unmittelbar verständlich. Für die Unterscheidung von diatonischen und chromatischen Intervallen spielt es keine Rolle, ob die beteiligten Töne [[Versetzungszeichen]] haben oder nicht. Entscheidend ist allein, ob das betreffende Intervall Bestandteil einer diatonischen Skala ist oder nicht.
+
+Beispiele:
+* Die kleine Terz c-es ist ein diatonisches Intervall, das unter anderem in c-Moll, Es-Dur oder B-Dur leitereigen vorkommt. Bei enharmonischer Umdeutung des es zum dis wird daraus ein chromatisches Intervall: die übermäßige Sekunde c-dis, die in keiner diatonischen Skala enthalten ist.
+* Die kleine Sekunde c-des ist diatonisch, die übermäßige Prime c-cis ist dagegen chromatisch. Die kleine Sekunde wird auch ''diatonischer Halbton'', die übermäßige Prime ''chromatischer Halbton'' genannt.
+
+Die Unterscheidung zwischen chromatischen und diatonischen Intervallen ist nur bei Verwendung reiner Stimmungen akustisch real, bei der heute üblichen [[Gleichstufige Stimmung|gleichstufigen Stimmung]] –
+ein Kompromiss in der [[Intonation (Musik)|Intonation]] – dagegen verschwindet der hörbare Unterschied. Er existiert dann nur noch im Notenbild, ist aber zum Verständnis musikalischer Zusammenhänge in der [[Dur-Moll-Tonalität]] unverzichtbar.
+
+{{Hauptartikel|Chromatik#Diatonische und chromatische Tonstufen im Notenbild|titel1=Diatonische und chromatische Tonstufen im Notenbild|Chromatik#Diatonische und chromatische Halbtöne|titel2=Diatonische und chromatische Halbtöne}}
+
+== Herleitungsverfahren ==
+[[Datei:Circle of fifths rundgang de.svg|mini|[[Quintenzirkel]], ausgehend von C]]
+
+Die Bezeichnung ''diatonisch'' stellt lediglich eine Abgrenzung zur Chromatik dar; wie die Tonleitern konstruiert sind, ist damit noch nicht bestimmt. Diese können distanziell, harmonisch oder melodisch hergeleitet werden. Eine genauere engere Begriffsabgrenzung ist abhängig von der Betrachtungsweise des jeweiligen Musiktheoretikers.
+
+=== Herleitung über Quintenschichtung ===
+Eine der möglichen Herleitungen beruht auf Quintschritten im [[Quintenzirkel]], man spricht auch von ''Quintenschichtung'' (oder ''Quintschichtung''). Ausgehend von C gelangt man im Quintenzirkel bei einem Schritt abwärts (gegen den Uhrzeigersinn) zu F. Aufwärts (im Uhrzeigersinn) gelangt man nacheinander zu G, D, A, E, H (siehe Bild rechts). Das sind insgesamt alle Töne der [[C-Dur]]-Tonleiter.
+
+Diese Herleitung entspricht der pythagoreischen Stimmung (s.&nbsp;u.).
+
+=== Herleitung über drei Dreiklänge ===
+Eine andere, harmonisch begründete Herleitung ist die Vereinigung von Dreiklängen auf Tonika, Subdominante (Quarte) und Dominante (Quinte). Beispielsweise ist die C-Dur Tonleiter die Vereinigung der drei Dur-Akkorde C-Dur (Tonika), F-Dur (Subdominante) und G-Dur (Dominante).
+
+Diese Herleitung entspricht der reinen Stimmung (s.&nbsp;u.) bei Verwendung von reinen Dur-Akkorden (mit reiner Terz 5:4).
+
+=== Herleitung über Festlegung der beiden Halbtonschritte ===
+[[Datei:C-Dur.png|mini|links|Die C-Dur-Tonleiter]]
+
+Eine weitere gängige Herleitung geht von einer bestimmten Folge von Ganz- und Halbtonschritten aus, z.&nbsp;B. bei Dur: Ganzton – Ganzton – Halbton – Ganzton – Ganzton – Ganzton – Halbton (siehe Bild links).
+
+Unbefriedigend bei dieser Herleitung ist die Tatsache, dass keine harmonische Begründung für die Lage der Halbtonschritte gegeben wird.
+
+[[Hermann Grabner]]s (1886–1969)<ref>Hermann Grabner: ''Allgemeine Musiklehre.'' Bärenreiter, Kassel 2004, ISBN 3-7618-0061-4.</ref> Definition wie auch die Definition von [[Johann Georg Sulzer]]<ref>Textlog: [https://www.textlog.de/2460.html Johann Georg Sulzer: Diatonisch], gesehen am 16. September 2010.</ref> (1771) sind wesentlich ausführlicher.
+== Stimmungen ==
+In enger Beziehung zu den Herleitungsverfahren stehen die Stimmungen der siebenstufigen diatonischen Dur-Tonleiter.
+
+Die ''[[pythagoreische Stimmung]]'' ergibt sich durch Quintenschichtung und ist die Stimmung mit den Tonstufen Q<sup>0</sup>, Q<sup>2</sup>/O, Q<sup>4</sup>/O<sup>2</sup>, Q<sup>−1</sup>O, Q<sup>1</sup>, Q<sup>3</sup>/O, Q<sup>5</sup>/O<sup>2</sup>, wobei O die Oktave und Q die Quinte bezeichnen.
+
+Die ''[[reine Stimmung]]'' ist diejenige Stimmung, bei der die Tonstufen die Frequenzverhältnisse 1:1, 9:8, 5:4, 4:3, 3:2, 5:3, 15:8 haben.
+
+Die ''[[gleichstufige Stimmung]]'' ist diejenige Stimmung, bei der die Tonstufen die Frequenzverhältnisse H<sup>0</sup>, H<sup>2</sup>, H<sup>4</sup>, H<sup>5</sup>, H<sup>7</sup>, H<sup>9</sup>, H<sup>11</sup> haben, wobei H die 12. Wurzel aus 2 bezeichnet.
+
+== Geschichtliches ==
+=== Antike ===
+In der [[Musiktheorie im antiken Griechenland|Musik des antiken Griechenlands]] traten als Tongeschlechter (wohl wegen der ausschließenden Einstimmigkeit) neben der Diatonik auch die [[Chromatik]] und die [[Enharmonik]] auf. Bei [[Aristoxenos]] sind diatonische Skalen solche, bei denen zwischen den beiden Halbtönen immer abwechselnd zwei und drei Ganztöne liegen.<ref>Walter Bühler: ''Rechnen mit musikalischen Intervallen, Skalen und Stimmungen.'' PL Academic Research, 2014, ISBN 978-3-631-65059-2, §17.1.</ref> Einige der ältesten Quellen über die Diatonik gehen auf griechische Philosophen und Mathematiker zurück. Siehe dazu auch:
+* [[Philolaos]], Abschnitt [[Philolaos#Musiktheorie|Musiktheorie]]
+* [[Archytas von Tarent|Archytas]], Abschnitt [[Archytas von Tarent#Musik|Musik]]
+* [[Aristoxenos]], Abschnitt [[Aristoxenos#Harmonik|Harmonik]]
+* [[Euklid]], Abschnitt [[Euklid#Musiktheorie|Musiktheorie]]
+
+In der Spätantike beschreibt [[Boëthius]] (um 500) die pythagoreische Tonfolge, bezeichnete aber noch oktavverwandte Töne mit verschiedenen Buchstaben.
+
+=== Mittelalter ===
+[[Datei:Odos-tonleiter.jpg|mini|Zitat aus ''Micrologus Guidonis''. Tonleiter mit verschiedenen Buchstaben. Guido von Arezzo]]
+
+[[Odo von Cluny]] (878 bis 942) vereinfachte die Schreibweise. [[Guido von Arezzo]] (um 1025) schrieb diese folgendermaßen.<ref>Mich. Hermesdorff (Hrsg.): ''Micrologus Guidonis de disciplina artis musicae, d. i. Kurze Abhandlung Guido’s über die Regeln der musikalischen Kunst.'' Grach, Trier 1876, S. 17 ({{archive.org|micrologusguido00hermgoog|Blatt=n23}}).</ref>
+
+{| class="wikitable" style="text-align:center;"
+! Schreibweise nach Odo
+| Γ
+| A
+| B
+| C
+| D
+| E
+| F
+| G
+| a
+| {{Musik|b}}
+| {{Musik|♮}}
+| c
+| d
+| e
+| …
+|-
+! heutige Schreibweise
+| G
+| A
+| H
+| c
+| d
+| e
+| f
+| g
+| a
+| b
+| h
+| c′
+| d′
+| e′
+| …
+|}
+
+Es handelt sich hier um die pythagoreische Tonfolge, bei welcher der (pythagoreische) [[Ganzton]] das Frequenzverhältnis 9:8 (204 [[Cent (Musik)|Cent]]) hat und der [[Halbton]] (Quarte – 2*pyth. Ganzton), auch [[Limma|Leimma]] genannt, das Frequenzverhältnis von 256:243 (90 Cent).<ref>Mich. Hermesdorff (Hrsg.): ''Micrologus Guidonis de disciplina artis musicae, d. i. Kurze Abhandlung Guido’s über die Regeln der musikalischen Kunst.'' Grach, Trier 1876, S. 21. Zitat: „Aus diesen Längenmaßen ergeben sich für die in der Tonreihe eingeschlossenen Intervalle folgende Verhältnisse: Kleine Secunde B-C E-F = 243:256; Große Secunde Γ-A, A-B u.s.w. 8:9; kleine Terz A-C, D-F u.s.w. = 27:32; große Terz C-E, F-a = 64:81; reine Quart Γ-C, C-F u.s.w. = 3:4; reine Quinte Γ-D, C-G u.s.w. = 2:3; kleine Sexte E-C = 81:128; große Sexte Γ-E, C-a u.s.w. = 16:27; kleine Septime Γ-F =9:16; große Septime C-{{Musik|♮}} =128:243; Oktav Γ-G = 1:2; große Quart F-{{Musik|♮}} =512: 729; kleine Quinte (als Umkehrung des Tritonus) = 729:1024.“</ref><ref>Der Ton Γ – eine Oktave unter G – diente zur Bestimmung der Quarte von Γ nach C. Damit umging man die Konstruktion des praktisch unmöglich auszuführenden Verhältnisses c:A = 32:27 oder gar c:H = 256:243. ({{archive.org|micrologusguido00hermgoog|Blatt=n27/mode/1up}}).</ref>
+
+Die Kirchentonarten zum Beispiel dorisch: ''D E F G a h c'' umfassten dann sieben Töne einer Oktave. Guido von Arezzo (um 1025) legte dafür die Grundlage, indem er Notenlinien und die [[Solmisation]] einführte (siehe [[Guidonische Hand]]).
+
+=== Weltweite Verbreitung ===
+Die diatonischen Tonleitern in der Erweiterung auf zwölf Halbtöne pro Oktave setzten sich weltweit stärker durch als andere; so auch in Ägypten, Indien und China, während [[Klassische arabische Musik#Tonsystem|arabische Musik mit 24 Intervallen pro Oktave]], [[Indische Musik#Shrutis (mikrotonale Struktur)|indische mit 66 oder 22 Mikrotönen pro Oktave]] und [[Chinesische Musik#Tonsystem|pentatonische chinesische]] kaum im Westen zu hören ist.
+
+[[Michael Schmidt-Salomon]] führt das mit einer [[Evolutionärer Humanismus|evolutionär-humanistischen]] Begründung auf ''innenmusikalische'' Gründe zurück. Die höhere Verbreitung sei nicht die Folge von [[Kulturimperialismus]], sondern eines Selektionsvorteils der pythagoreischen Skala, vor allem, seit das System im 17ten Jahrhundert mit der [[Wohltemperierte Stimmung|wohltemperierten]], bzw. [[Gleichstufige Stimmung|gleichstufigen Stimmung]] noch einmal verbessert wurde. Damit eigne sie sich besonders, um neue Stile hervorzubringen, während andere Systeme nur begrenzt ausbaufähig seien.<ref>[[Michael Schmidt-Salomon]]: ''[[Hoffnung Mensch|Hoffnung Mensch. Eine bessere Welt ist möglich.]]'' Piper Verlag, München 2014, S. 199–200.</ref>
+
+Der Musikwissenschaftler Robert Jourdain beschreibt es folgendermaßen:
+{{Zitat
+ |Text=Die Einteilung des Tonraums in zwölf Abschnitte ist offenbar genau richtig: zusätzliche Töne könnte das Gehirn nicht mehr ohne Mühe kategorisieren, und mit weniger könnte man kein differenziertes harmonisches System aufbauen.
+ |ref=<ref>Robert Jourdain: ''Das wohltemperierte Gehirn: Wie Musik im Kopf entsteht und wirkt.'' Spektrum Verlag, Heidelberg 1998, S. 110.</ref>}}
+
+Andere Musikwissenschaftler halten diese Vereinfachung auf 12 Halbtöne für eine grobe Missachtung der [[Intonation (Musik)|Intonation]].
+
+Ross W. Duffin<ref>Ross W. Duffin: ''How Equal Temperament Ruined Harmony (And Why You Should Care). s.30'' [[W. W. Norton & Company]], New York NY 2007, ISBN 978-0-393-06227-4 (Excerpt: https://kilchb.de/rein_duffin.php).</ref> schreibt dazu:
+{{Zitat|Text=Unbeschadet, wie meisterhaft die heutigen Musiker sind, sie hören nicht mehr die schlechte [[Reine Stimmung#Die große Terz|große Terz]] der gleichstufigen Stimmung.}}
+
+Und der Cellist [[Pau Casals|Pablo Casals]] gibt den Ratschlag:<ref>[https://www.amazon.com/Way-They-Play-Book/dp/0876664370 The Way They Play] (1972).</ref>
+{{Zitat|Erschrick nicht, wenn Du eine andere Intonation als das Klavier hast. Das liegt am Klavier, das verstimmt ist. Das Klavier mit seiner gleichstufigen Stimmung ist ein Kompromiss in der Intonation.}}
+
+== Diatonische Handzuginstrumente ==
+Der Begriff „diatonisch“ wird häufig im Zusammenhang mit [[Handzuginstrument]]en verwendet, die beim Ziehen und Drücken unterschiedliche Töne erzeugen. Treffender wäre in diesem Zusammenhang jedoch die Bezeichnung [[wechseltönig]], da nicht alle wechseltönigen Instrumente diatonisch sind – ein Beispiel hierfür sind chromatische [[Bandoneon]]s. Umgekehrt gilt jedoch: Alle diatonischen Handzuginstrumente sind wechseltönig, wie etwa die [[Steirische Harmonika]].
+
+== Literatur ==
+* [[Zsolt Gárdonyi]], Hubert Nordhoff: ''Harmonik.'' Möseler, Wolfenbüttel 2002, ISBN 3-7877-3035-4, S. 242–243.
+
+== Weblinks ==
+{{Commonscat|Diatonic scales|Diatonik}}
+
+== Einzelnachweise und Anmerkungen ==
+<references>
+<ref name="Riemann-Tonsystem">
+{{Riemann Musiklexikon |Lemma=Tonsystem |Auflage=12 |Band=3 |Seite=970}}
+</ref>
+<ref name="Herder">
+Marc Honegger, [[Günther Massenkeil]] (Hrsg.): ''Das große Lexikon der Musik.'' Band 8: ''Štich – Zylis-Gara.'' Aktualisierte Sonderausgabe. Herder, Freiburg im Breisgau u.&nbsp;a. 1987, ISBN 3-451-20948-9, S. 148&nbsp;f.
+</ref>
+<ref name="Riemann-Tonleiter">
+{{Riemann Musiklexikon |Lemma=Tonleiter |Auflage=12 |Band=3 |Seite=968}}
+</ref>
+</references>
+
+{{Normdaten|TYP=s|GND=4212082-2}}
+
+[[Kategorie:Tonleiter]]

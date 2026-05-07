@@ -1,0 +1,57 @@
+{{österreichbezogen}}
+[[Datei:Cyrill Damian with the first accordion he built.jpg|mini|300px|Unbekannter Mann mit Akkordeon sowie Auszug aus der Patentschrift für Cyrill Demian]]
+'''Cyrill Demian''' (* [[1772]] oder [[1774]] in [[Silivaș (Cluj)|Silwasch]], [[Siebenbürgen]] im heutigen Rumänien; † [[1. November]] [[1847]] in [[Wien]]) war ein österreichischer [[Orgel]]- und [[Klavier]]bauer mit [[Armenien#Staatswerdung|armenischen]] Wurzeln. Er gilt als Erfinder des [[Akkordeon]]s.
+
+== Leben ==
+Laut den Eintragungen zu seiner Berufstätigkeit wohnte er in Wien, [[Mariahilfer Straße]] 43.<ref>{{ANNO|lbz|27|08|1829|6|Gubernial-Verlautbarung. Neuntens|NAME=Laibacher Zeitung|HERVORHEBUNG=Mariahilfer&#32;Straße,&#32;Nr.&#32;4Z}}</ref> 1805 beantragte er ein Privileg (Meisterrecht), und 1810 erhielt er eine unbeschränkte Befugnis als [[Klavier- und Cembalobauer|Klavierbauer]].<ref name="OeML">{{OeML|Demian_Familie|Demian, Familie|RHo}}</ref><ref>''Darstellung des fabriks- und gewerbswesens in seinem gegenwärtigen zustande: vorzüglich in technischer, mercantilischer und statistischer beziehung, Stephan von Keess, 1824, Seite 203 ''[https://books.google.at/books?id=MG9RAAAAMAAJ&pg=PA203&hl=de Online]</ref> Er erhielt am 23. Mai 1829 zusammen mit seinen Söhnen Carl (* 6. Juli 1807 Wien; † zwischen 2. und 5. Jänner 1870 in Wien in der [[Gumpendorfer Straße|Gumpendorferstraße]] 74 „an [[Tuberkulose|Lungentuberculose]]“<ref>{{ANNO|nfp|08|01|1870|19|Verstorbene zu Wien vom 2. bis 5. Januar|HERVORHEBUNG=Demian&#32;Karl,&#32;Klavierstimmer}}</ref>) und Guido (* 24. November 1811 Wien; † 20. Jänner 1848 in Wien als „Qua-Feldwebel von [[k.u.k. Infanterieregiment „Hoch- und Deutschmeister“ Nr. 4|Hoch- und Deutschmeister Infanterie-Regiment Nr. 4]]“ in einem Militärspital „an der [[Auszehrung]]“<ref>{{ANNO|wrz|28|01|1848|3|Verstorbene zu Wien. Den 20. Januar|HERVORHEBUNG=Gnido&#32;Demian}}</ref>) ein Privilegium (Patent) für die Erfindung des [[Akkordeon]]s zugesprochen:
+
+{{Zitat|S. 37.  Stahlharmonica. Der Orgel- und Claviermacher Cyrill Demian und seine Söhne Carl und Guido, in Wien erh. d. 23. May 1829 ein 2jähr. Priv. auf die Erfindung eines neuen Instrumentes, Accordion genannt, welches die Form eines kleinen Kästchens hat, worin Federn auf Stahlplatten samt einem Blasebalg angebracht sind, und zwar dergestalt, daß es bequem eingesteckt werden kann. Es können auf demselben Arien, Märsche &c., selbst von Nichtkennern der Musik, nach kurzer Übung, und die lieblichsten 3-, 4-, 5- und mehrtönigen Accorde nach der Einrichtung des Instrumentes gespielt werden.
+ |Autor=[[Stephan von Keeß]]/[[Wenzel Carl Wolfgang Blumenbach]] (Hg.), Systematische Darstellung der neuesten Fortschritte in den Gewerben und Manufacturen und des gegenwärtigen Zustandes derselben. Als Fortsetzung und Ergänzung des im J. 1823 beendigten Werkes: Darstellung des Fabriks- und Gewerbswesens &c. Mit besonderer Rücksicht auf den österreichischen Kaiserstaat, 1830, Seite 795, [https://archive.org/details/bub_gb_eM1840-w7F8C/page/794/mode/2up]
+}}
+
+Am 28. Jänner 1831 wurde das Privilegium um drei Jahre verlängert.<ref>{{ANNO|wrz|28|02|1831|7|Privilegiums-Verlängerung|HERVORHEBUNG=drey&#32;Jahre}}</ref> Erfolg und Konstruktion des Instrumentes wurde von Zeitgenossen wie folgt beschrieben:
+{{Zitat
+ |Text=Die Handharmonica, ein musikalisches Instrument, auf welchem sich Jedermann ohne Anstrengung zu einem Virtuosen emporschwingen kann, hat in neuester Zeit eine solche Beliebtheit und Verbreitung gefunden, daß man allenthalben, besonders in den Abendstunden, die accordähnlichen Töne auf den Straßen und Promenaden vernehmen kann. Erfinder dieses, unter dem Namen Accordion bekannten Instrumente-, ist Hr. Demian, Orgel- und Claviermacher in Wien, welcher mit seinen beiden Söhnen Karl und Guido im Jahre 1829 ein mehrjähriges Privilegium auf die Verfertigung erhielt. Die ersten Exemplare hatten 5 Tasten, womit 10 fünftönige Accorde hervorgebracht, und die Hymne: »Gott erhalte [[Franz II. (HRR)|Franz]], den Kaiser,« nebst einer Anzahl kleiner Melodien gespielt werden konnten. Die nachfolgenden Instrumente hatten schon 10 Tasten und 20 Accorde aufzuweisen, und da diese Harmonica in der Hauptstadt und in den Provinzen eine überaus günstige Aufnahme gefunden, so wurde im Jahre 1831 auch eine [[Variante (Produkt)|Mutation]] beigegeben, welche an den Leib gedrückt, die Akkorde zum Schweigen bringt, und nach Erforderung nur einfache Töne hören läßt. Später wurden noch die halben Töne für die [[Chromatik|chromatische]] Scala, hierauf 6 bis 10 Baßtöne auf abgesonderten Tastaturen beigefügt, welche mit der zweiten Hand zu spielen sind. Bei dieser größeren Vervollkommnung mißt die Handharmonica 4 [[Zoll (Einheit)#Andere Zollmaße|Zoll]] in die Breite und 15 Zoll in die Länge,<ref group="Anm.">Das entspricht etwa 10,5&nbsp;cm Breite und 31,6&nbsp;cm Länge.</ref> und umfaßt 4 Oktaven mit 20 Accorden, 10 Baßtöne und die chromatische Scala mit 25 halben Tönen, und es können auf demselben, wie auf einem Clavier, die anziehendsten Compositionen vorgetragen werden.
+ |Quelle=Bericht in der ''Allgemeinen Theaterzeitung und Originalblatt für Kunst, Literatur, Musik, Mode und geselliges Leben'' vom 11. Oktober 1834
+ |ref=<ref>{{ANNO|thz|11|10|1834|4|Telegraph von Wien. Die Handharmonica|NAME=Allgemeine Theaterzeitung und Originalblatt für Kunst, Literatur, Musik, Mode und geselliges Leben|HERVORHEBUNG=Die&#32;Handharmonica»}}</ref>
+}}
+
+Eines seiner Accordions wurde Ende der 1820er Jahre von der schwedischen Prinzessin [[Margareta Brahe]] an den Musikinstrumentenbauer Johannes Dillner in Schweden verschenkt und befindet sich heute in Privatbesitz.<ref>Mette Müller, Lisbet Torp (red.): ''Musikkens tjenere. Forsker, Instrument, Musiker.'' Musikhistorisk Museums, København 1998, ISBN 978-87-7289-466-9. (Serie: Meddelelser fra Musikhistorisk Museum og Carl Claudius Samling {{ISSN|0900-2111}} - 100 års Jubilæumsskrift)</ref>
+
+Von Cyrill Demian stammt auch eine Modifikation der [[Physharmonika]], durch die „nunmehr auch Tonstücke in rascher Beweglichkeit und rapider Figuration mit dem glänzendsten Erfolge ausgeführt werden“ konnten.<ref>{{ANNO|thz|20|06|1836|4|Aus der Musikwelt|NAME=Allgemeine Theaterzeitung und Originalblatt für Kunst, Literatur, Musik, Mode und geselliges Leben|HERVORHEBUNG=Physharmonika}}</ref><ref name="OeML" />
+
+Am 7. Februar 1832 verstarb Cyrill Demians Ehefrau Josepha im Alter von 53 Jahren in Wien „an der Auszehrung“.<ref>{{ANNO|wrz|11|04|1832|3|Verstorbene zu Wien. Den 7. April|HERVORHEBUNG=Eheweib&#32;Josepha,&#32;alt&#32;53&#32;Jahr}}</ref>
+
+== Weblinks ==
+* {{OeML|Demian_Familie|Demian (Damian, Dämian), Familie|RHo}}
+* [https://www.ksanti.net/free-reed/essays/dillner_interview.html Interview with Fredrik Dillner about possibly the world's oldest accordion] (englisch)
+* Kopien der Original-Handschriften des Privilegs: [https://www.ksanti.net/free-reed/images/history/demian/demian1.jpg Seite 1], [https://www.ksanti.net/free-reed/images/history/demian/demian2.jpg Seite 2], [https://www.ksanti.net/free-reed/images/history/demian/demian3.jpg Seite 3], [https://www.ksanti.net/free-reed/images/history/demian/demian4.jpg Seite 4], [https://www.ksanti.net/free-reed/images/history/demian/demian5.jpg Seite 5]
+* [https://www.britannica.com/art/accordion#ref266061 Eintrag zu Accordion] in der [[Encyclopædia Britannica|Encyclopedia Britannica]] (englisch)
+
+== Einzelnachweise ==
+<references />
+
+== Anmerkungen ==
+<references group="Anm." />
+
+{{Normdaten|TYP=p|GND=1036377741|VIAF=304755305}}
+
+{{SORTIERUNG:Demian, Cyrill}}
+[[Kategorie:Klavierbauer]]
+[[Kategorie:Harmonikabauer]]
+[[Kategorie:Person (Wien)]]
+[[Kategorie:Person (Habsburgermonarchie vor 1804)]]
+[[Kategorie:Person (Kaisertum Österreich)]]
+[[Kategorie:Geboren im 18. Jahrhundert]]
+[[Kategorie:Gestorben 1847]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Demian, Cyrill
+|ALTERNATIVNAMEN=
+|KURZBESCHREIBUNG=österreichischer Orgel- und Klavierbauer
+|GEBURTSDATUM=1772 oder 1774
+|GEBURTSORT=[[Silwasch]], [[Siebenbürgen]]
+|STERBEDATUM=1. November 1847
+|STERBEORT=[[Wien]]
+}}

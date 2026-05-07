@@ -1,0 +1,260 @@
+{{Dieser Artikel|bezieht sich auf das Instrument, zu weiteren Bedeutungen siehe unter [[Harmonium (Begriffsklärung)]].}}
+{{Infobox Musikinstrument
+| Name= Harmonium
+| Sprachen= {{enS|reed organ, harmonium}} / {{frS|harmonium}}
+| Bild= [[Datei:Harmonium2.jpg|150px]]
+| Bildtext= 
+| Klassifikation= [[Aerophon]]<br />[[Tasteninstrument]]
+| Tonumfang= 
+| Klangbeispiel= 
+| Verwandte Instrumente= [[Akkordeon]], [[Mundharmonika]], [[Orgel]]
+| Musiker= 
+}}
+Das '''Harmonium''' ([[Plural]] ''Harmonien'' oder ''Harmoniums'') ist ein [[Tasteninstrument]], bei dem der Ton durch verschieden lange [[Durchschlagzunge]]n erzeugt wird, die von Luft umströmt in Schwingung versetzt werden. Damit gehört das Harmonium zu den [[Harmonikainstrument]]en.
+
+Eine Blüte erlebte das Harmonium gegen Ende des 19. und zu Beginn des 20. Jahrhunderts, als es als eine Art [[Heimorgel]] und Hausinstrument des bürgerlichen Mittelstands, als Ersatz für [[Orgel|Pfeifenorgeln]] in kleineren [[Kirchengebäude|Kirchen]], sowie auch als veritables Konzertinstrument entdeckt wurde. In der westlichen Welt wurden zeitweise doppelt so viele Harmonien wie [[Klavier]]e verkauft.
+
+== Systeme ==
+[[Datei:Harmonium Sint Jacobs Gent.JPG|mini|Ein Druckwindharmonium mit geöffneter Rückwand. Unten sieht man die beiden Schöpfbälge, darüber den Magazinbalg, dann die Windlade mit der Zungenkammer]]
+
+Grob lassen sich zwei Systeme beim Harmonium unterscheiden: das ''französische System'' ([[Druckwindharmonium]]) und das ''amerikanische System'' ([[Saugwindharmonium]]). Bei beiden Systemen wird das Gebläse mit den Füßen durch abwechselndes Niedertreten zweier nebeneinander liegender sogenannter Tretschemel (auch: Schöpfpedale) betätigt.
+
+* Beim ''französischen System'' betätigen die Schemel Blasebälge, die Schöpfbälge, die direkt oder über den Kanal einen Druckspeicher, das Windmagazin, aufpumpen. Das Windmagazin (Magazinbalg) steht mit der [[Windlade]], einem luftdichten Holzkasten, in Verbindung, deren oberer Deckel das ''Zungenbrett'' bildet, an dessen Löchern die auf Metallplatten befestigten Zungen liegen. Die Spielventile oder Tonventile verschließen die Löcher im Zungenbrett und stehen mit den Tasten des Manuals in mechanischer Verbindung, mit denen sie geöffnet werden können. Durch den in der Windlade entstandenen Überdruck strömt die Luft nach außen, muss dabei an den Zungen vorbei und versetzt diese in Schwingung, was den Ton erzeugt. Der Magazinbalg kann durch ein Register (Expression) abgeschaltet werden, so dass der Spieler über die Schöpfbälge die Lautstärke des Tones ([[Dynamik (Musik)|crescendo]]/[[decrescendo]]) direkt beeinflussen kann.
+* Das ''amerikanische System'' funktioniert entgegengesetzt: Mit Hilfe der Schöpfbälge wird Luft aus dem Windmagazin und der Windlade herausgepumpt, also ein Unterdruck erzeugt. Öffnet man jetzt ein Tonventil, strömt Luft ein und versetzt die Zungen in Schwingung.
+
+Sowohl beim französischen als auch beim amerikanischen System sind die Zungen freischwingend in einem Metallrahmen befestigt. Während beim französischen System eine ganze Reihe von Zungen auf einer Platte befestigt sein können, liegen beim amerikanischen System die Zungen in einzelnen Kanzellen. Diese Bauweise erleichtert die Reinigung der Zungen, die beim Saugluftsystem eher verstauben. Weltweit und anzahlmäßig durchgesetzt hat sich nur das einfacher zu produzierende amerikanische System: Auch in Deutschland waren die meisten seit Ende des 19. Jahrhunderts angefertigten Harmonien Saugwind-Instrumente.
+
+Eine besondere Rolle spielt das ''[[Kunstharmonium]]''. Bei diesen Instrumenten wurden in Deutschland und Frankreich vor allem die Druckwindsysteme verwendet. Das Kunstharmonium erfüllt gehobene künstlerische Ansprüche. Für dieses Instrument komponierten u.&nbsp;a. [[César Franck]], [[Sigfrid Karg-Elert]], [[Max Reger]], [[August Reinhard]], [[Karl Kämpf (Komponist)|Karl Kämpf]]. Karg-Elert war es auch, der in seiner Harmoniumschule, op.&nbsp;99, den Begriff ''Harmonist'' für Virtuosen auf dem Harmonium einführte. Allerdings ist die Großzahl der Kompositionen für Harmonium nicht für das Kunstharmonium geschrieben.
+
+Im englischen Sprachgebrauch heißt das Saugwindharmonium (also das Harmonium des amerikanischen Systems) für gewöhnlich ''reed organ'' (auch ''pump organ'' oder ''parlor organ''), während sich der Name ''harmonium'' im [[Englische Sprache|Englischen]] normalerweise speziell auf (die im englischsprachigen Bereich seltenen) Druckwindharmonien bezieht. In Frankreich und Deutschland wird der Name „Harmonium“ für beide Systeme verwendet.
+
+== Bauform ==
+Das Harmonium besteht aus folgenden Hauptbestandteilen: dem Gehäuse, das als tragendes Element fungiert, dem Spielwerk und dem Gebläse. Prinzipiell sind alle Harmonien nach dem gleichen Schema aufgebaut: In der Mitte des Gehäuses sitzt horizontal eine stabile Grundplatte. Darauf ist oben das Spielwerk und darüber die Registriereinrichtung montiert. Unterhalb der Grundplatte befinden sich die Bälge.
+
+Je nach Bauweise öffnet man die Windlade, in der sich die Zungen finden, verschieden. Treten bei einem Saugwindharmonium mit den Ventilen Probleme (zum Beispiel Heuler) auf, so muss die gesamte Mechanik darüber ausgebaut werden. Beim Druckwindharmonium hingegen kann die Windlade einfach aufgeklappt werden. Dies erleichtert Wartung und Reparatur erheblich.
+
+<gallery widths="150" heights="150" mode="packed">
+   Harmonim 1.jpg|Grundplatte für Spielwerk. Sichtbar sind die Öffnungen zu der Balganlage
+   Harmonium 2.jpg|Montiertes Spielwerk mit Tastatur. Sichtbar sind unterhalb der Tasten die befilzten Klappen, die eine Registrierung (Klangwahl) ermöglichen
+   Harmonium 3.jpg|Aufbau mit Spielwerk und Registriereinrichtung
+</gallery>
+
+== Register ==
+Je nach Größe des Harmoniums befinden sich an der Taste ein oder mehrere Ventile, die beim Drücken der Taste je nach Auswahl der Register ein bis mehrere Zungen zum Klingen bringt. Daraus ergeben sich gegebenenfalls [[Register (Musik)|verschiedene mögliche Klangfarben]]. Wie bei einer Orgel können [[Register (Orgel)|Register]] einzeln oder gemeinsam gezogen werden und auch Spielhilfen wie [[Oktavkoppel]]n sind vorhanden. Die Disposition der Harmonien sind weitestgehend standardisiert, so dass Komponisten sehr genaue Klangvorstellungen auf notieren konnten. Die Register reichen in der Regel von 32′ bis 2′. Der 32′ (eingeführt von Mustel mit dem Namen ''Baryton'') allerdings nur als Diskantregister. Das 2′-Register repetiert zumeist in der obersten Oktave, nur selten ist es komplett ausgebaut (z.&nbsp;B. die legendäre „Waldflöte“ von Mannborg).
+
+Bei wenigen Instrumenten, deren Klaviaturen mit F<sub>1</sub> beginnen, repetieren die 16′-Register nicht in der untersten Oktave (wie bei der Mehrzahl der Instrumente), sondern sind akustisch bis zum F<sub>2</sub> ausgebaut ([[Mason & Hamlin]], Liszt-Organ, F-Scale, Estey, Philharmonic; [[Cornish & Co.]], Modell Corniscean; Karn, 6-oktavige Modelle; [[Harmoniumfabrik Kotykiewicz]], ''Konzertharmonium Nr.&nbsp;20''). Bei wenigen Pedalharmoniums ist ein 32′-Pedalregister vorhanden (Mason & Hamlin, Style 1200; Instrumente von John Holt und von [[Balthasar Florence]]).
+
+In von der [[Orgelbewegung]] beeinflussten und als Orgelersatz ausgelegten Instrumenten kommen teils auch Aliquotregister ({{Bruch|1|1|3}}′, {{Bruch|2|2|3}}′) oder Mixturen vor (z.&nbsp;B. späte [[Mannborg]], [[O. Lindholm]], [[Ed. F. Köhler]]). Diese Register werden zum Teil auch [[Register (Orgel)#Geteilte Register|geteilt]] ausgeführt, so dass im Bass und Diskant verschiedene Registrierungen möglich sind.
+
+Genaue Dispositionen sind in den Artikel [[Kunstharmonium]] und [[Saugwindharmonium]] zu finden.
+
+''Siehe auch [[Register (Orgel)]]''
+
+== Geschichte ==
+{{Hauptartikel|Durchschlagende Zunge#Geschichte|titel1=Geschichte der durchschlagenden Zunge}}
+
+=== Vorläufer und Entstehung ===
+[[Christian Gottlieb Kratzenstein]] entwickelte 1780 als erster Europäer [[durchschlagende Zunge]]npfeifen,<ref>Robert Willis: [http://robertwillis2016.org/Library/pdf/1832_Willis_Uber_Vocaltone_und_Zungenpfeifen_OCR.pdf ''Über Vocaltöne und Zungenpfeifen.''] (PDF; 27&nbsp;MB) In: ''Annalen der Physik und Chemie'', 1832, Band 3, S. 397–437, hier S. 402.</ref> wohl nach chinesischen Vorbildern. Noch vor 1800 entstanden erste Tasteninstrumente wie [[Klavier|Pianoforte]]s und [[Orgel]]n, die derartige Rohrwerke verwendeten. [[Georg Joseph Vogler|Abbé Vogler]] ließ nach 1786 beginnend in Petersburg, München, Paris, Wien, Prag und in Dutzenden andern Städten viele Orgeln auf seine Kosten umbauen<ref>{{ADB|40|169|177|Vogler, Georg Joseph|Robert Eitner|ADB:Vogler, Georg Joseph}}</ref>. 1796 trat er mit seiner umgebauten transportablen Orgel, die er [[Orchestrion]] nannte, in Stockholm das erste Mal auf.<ref>Waldo Selden Pratt: ''The History of Music''. New York 1927, § 149, S. 354.</ref> Der [[Sankt Petersburg]]er Orgelbauer Kirschnigk baute um 1788 „freischwingende Pfeifen“ (d.&nbsp;h. Durchschlagzungen) in ein Orgelklavier (Kombination aus Hammerklavier und Orgel) ein. Vogler spornte alle Orgelbauer an, Neuerungen umzusetzen. Wahrscheinlich ging auch eine Inspiration vom [[Sheng (Instrument)|Sheng]] aus, das damals von einem Künstler mit dem Namen Johann Wilde in St.&nbsp;Petersburg gespielt wurde.
+
+Die direkten Vorläufer des Harmoniums sind allerdings die Instrumente mit Namen [[Aeoline (Musikinstrument)|Aeoline]] und [[Physharmonika]]. Bei beiden handelte es sich um Instrumente mit zwei Schöpfpedalen, einer Tastatur von vier bis fünf [[Oktave (Musik)|Oktaven]] Umfang und in der Regel nur einer Reihe durchschlagender Zungen. Die Aeoline wurde um 1810 von [[Bernhard Eschenbach]] zusammen mit seinem Cousin [[Johann Caspar Schlimbach]] entwickelt, die sich von der [[Maultrommel]] anregen ließen.
+
+Zur gleichen Zeit, um 1810, schuf der französische Orgelbauer [[Gabriel Joseph Grenié]] (1756–1837) seine ''orgue expressif''. Die Bezeichnung „expressiv“ (= ausdrucksvoll) spielt darauf an, dass man bei diesem Instrument die Lautstärke durch die Windgebung beeinflussen konnte.
+
+In den [[Vereinigte Staaten|USA]] baute der Orgelbauer Ebenezer Goodrich nach 1812 das erste harmoniumartige Durchschlagzungen-Instrument, angeregt durch seinen Kontakt mit [[Johann Nepomuk Mälzel]].
+{{Zitat
+ |Text=In June 1811 a curiose instrument called a Pan Harmonicon was brought to Boston. It was invented by Maelzel, whose name is usually linked with the Metronome. William Goodrich was employed to set up and exhibit the Pan Harmonicon in New York and other cities. He […] traveled with the instrument from September 1811 until June 1812.
+ |Sprache=en
+ |Autor=Orpha Caroline Ochse
+ |Quelle=The History of the Organ in the United States
+ |Übersetzung=Im Juni 1811 wurde ein eigenartiges Instrument mit dem Namen Pan-Harmonicon nach Boston gebracht. Sein Erfinder war Maelzel, der normalerweise mit dem Metronom in Verbindung gebracht wird. William Goodrich wurde von ihm beauftragt, das Pan-Harmonicon aufzustellen und in New York und andern Städten vorzuführen. Er […] reiste mit dem Instrument von September 1811 bis Juni 1812.
+ |ref=<ref>Orpha Caroline Ochse: ''The History of the Organ in the United States''. Indiana University Press, Bloomington / London 1975, S. 77, [https://books.google.at/books?id=WZwGUS_iam4C&lpg=PP1&ots=N8c2YxyvuU&dq=The%20History%20of%20the%20Organ%20in%20the%20United%20States%20%20Von%20Orpha%20Caroline%20Ochse&pg=PA77#v=onepage&q=Maelzel&f=false books.google.at]</ref>}}
+
+Die Physharmonika wurde 1821 in Wien von [[Anton Haeckl]] patentiert.
+
+Greniés Landsmann, der bedeutende französische Orgelbauer [[Aristide Cavaillé-Coll]] (1811–1899) schuf um 1833 ein harmoniumartiges Instrument für den kammermusikalischen Gebrauch, die sogenannte „Poikilorgue“ (von {{grcS|ποικίλος|poikílos|prefix=1}} „mannigfaltig, vielgestaltig“, der Name bedeutet also so viel wie „Orgel mit mannigfaltigen dynamischen Möglichkeiten“).<ref>Cécile und Emmanuel Cavaillé-Coll: ''Aristide Cavaillé-Coll. Seine Herkunft, sein Leben, sein Werk.'' Deutsche Übersetzung von Christoph Glatter-Götz. Schwarzach 1982, S. 26.</ref> Alle wesentlichen Merkmale des heutigen Harmoniums finden sich schließlich in einem Instrument vereint, das der französische Orgelbauer [[Alexandre-François Debain]] (1809–1877) 1842 unter dem Namen Harmonium patentieren ließ, womit diese Bezeichnung das erste Mal erscheint.
+
+Debains Harmonium war ein Druckwindinstrument, welche bis in die 1870er Jahre die Harmoniumlandschaft dominierten. Das einfachere Saugwind-System war bereits 1836 von dem Berliner Physharmonika-Bauer [[Christian Friedrich Ludwig Buschmann]] erfunden worden, hatte sich jedoch zunächst in Europa nicht durchsetzen können. In den USA wurde seit den 1860er Jahren die Entwicklung des Saugwindsystems vorangetrieben; als Erfinder der Saugwindbälge gilt dort James Cahart. Die amerikanische Firma ''Mason & Hamlin'' stellte 1861 ihr erstes Saugwindinstrument vor und gewann 1867 bei der Weltausstellung in [[Paris]] den ersten Preis mit einem solchen Instrument. Damit begann der weltweite Siegeszug der Saugwind-Harmonien.
+
+[[Datei:Pedalharmonium 1.jpg|mini|Pedalharmonium (Lindholm, 1928) mit 30-tönigem Orgelpedal sowie Tretschemeln oder wahlweise elektrischem Gebläse]]
+Seit ca. 1860 wurden auch ein- und zweimanualige Harmonien mit [[Pedal (Orgel)|Orgelpedal]] produziert und als ''Pedalharmonium'' (auch: ''Orgelharmonium'') bezeichnet. Sie wurden vor allem als Orgelersatz in Sakralräumen oder als häusliches [[Übungsinstrument]] für Organisten verwendet. Später (nach 1900), mit dem Siegeszug der elektrischen Stromversorgung, erhielten vor allem diese Pedalharmonien elektrische Gebläse, da man nur schlecht gleichzeitig mit den Füßen die Tretschemel betätigen und Orgelpedal spielen kann; dafür entfiel jedoch dann die Möglichkeit, den Winddruck durch die Geschwindigkeit des Schemeltretens nuancieren zu können.
+
+=== Blütezeit und Nachleben ===
+Eine Blüte erlebte das Harmonium gegen Ende des 19. und zu Beginn des 20. Jahrhunderts. Damals wurde es als eine Art Heimorgel und Hausinstrument des bürgerlichen Mittelstands sowie als Ersatz für Pfeifenorgeln in kleineren [[Kirchengebäude|Kirchen]], aber auch als vollwertiges Konzertinstrument entdeckt. Auch „[[Salonorchester]]“ nutzten regelmäßig das Harmonium. In der westlichen Welt wurden zeitweise (um 1900) doppelt so viele Harmonien wie Klaviere verkauft.
+
+In religiösen Versammlungen spielte das Harmonium eine Rolle (beispielsweise im [[Pietismus]]), weil es dem Klang der Orgel nahekam, aber billiger war und auch in kleineren Räumen aufgestellt werden konnte. In manchen pietistischen Gruppierungen ist der vom Harmonium begleitete Gesang religiöser Lieder geradezu zu einem Charakteristikum geworden, was zu der scherzhaft-abfälligen Bezeichnung „Halleluja-Pumpe“ führte. In Deutschland wurde das Harmonium ebenfalls vor allem in kleineren Kirchen oder Kapellen beider christlicher Konfessionen verwendet, wenn der Platz und/oder die finanziellen Mittel für eine Pfeifenorgel nicht ausreichten.
+
+Zur Benutzung in Feldgottesdiensten im [[Erster Weltkrieg|Ersten Weltkrieg]] wurden kleine, robuste und vor allem leichte Kriegsharmonien gebaut.<ref>{{Internetquelle |autor=Christian Walf |url=http://www.garnisonmuseum-ludwigsburg.de/app/download/5801411650/LKZ_20140624_2Seiten.pdf |titel=Kriegsharmoium: Ein Instrument für Frontmusik |werk=[[Ludwigsburger Kreiszeitung]] |datum=2014-06-24 |format=PDF; 2,1&nbsp;MB |abruf=2020-02-09 |kommentar=wiedergegeben auf garnisonmuseum-ludwigsburg.de}}</ref>
+[[Datei:RoscheiderhofReedOrganHörügelH7a.jpg|mini|Saugwindharmonium der Firma Hörügel]]
+
+Von den deutschen Harmoniumbau-Firmen sind viele Millionen Instrumente hergestellt worden. Die wichtigsten deutschen Harmoniumproduzenten waren folgende Firmen (sortiert nach Gründungsdatum):
+
+* ''Pianofortefabrik Schiedmayer'' in [[Stuttgart]], gegründet 1853, produzierte bis in die 1950er Jahre zahlreiche Harmonien anfänglich in herausragender Klangqualität unter Verwendung ausgesuchter Materialien. Besonders das Schiedmayer Dominator, ein riesiges Kunstharmonium mit [[Celesta]], genoss weltweit einen herausragenden Ruf.
+* ''Philipp Trayser'' in Stuttgart, gegründet 1853, aufgelöst 1906; Firma ''Ernst Hinkel'' in [[Ulm]], gegründet 1880, Harmoniumproduktion bis ca. 1975
+* Firma ''[[Theodor Mannborg]]'' in Leipzig-[[Lindenau (Leipzig)|Lindenau]], gegründet 1889 in Borna, 1961 mit der Firma ''Lindholm'' vereinigt
+* Firma ''Hörügel'' in Leipzig-[[Leutzsch]], gegründet 1893, erloschen 1952
+* Firma ''Magnus Hofberg'' in [[Borna]], gegründet 1894, 1930 von Firma ''Lindholm'' übernommen
+* Firma ''[[Olof Lindholm]]'' in Borna, gegründet 1894, Harmoniumproduktion 1990 eingestellt, aber heute noch Reparatur von Harmonien
+* Firma ''Bongardt'' in [[Wuppertal]], gegründet 1897, Tochterfirma ''Bongardt & Herfurth'' in [[Wiehe]] gegründet 1920, aufgelöst 1991
+
+In Österreich befand sich in [[Wien]] die Firma von [[Harmoniumfabrik Kotykiewicz|Teofil Kotykiewicz]], die ausnahmslos Druckwindinstrumente herstellte.
+
+Diverse Firmen wie Hinkel (Ulm) kauften ihre Zungen bei der bedeutenden Firma Esteve in Frankreich. Welches somit bedeutet, dass diese denselben Klang haben wie die der hochgelobten Firma [[August Victor Mustel]].
+
+Zu einem aus der Not geborenen Aufleben des Harmoniums kam es in den Jahren unmittelbar nach dem [[Zweiter Weltkrieg|Zweiten Weltkrieg]], als aufgrund der zerstörten Kirchen eine Vielzahl von Gemeinden auf das Harmonium zurückgriff, um die musikalische Begleitung des Gemeindegesanges zu gewährleisten. Meist galt das Harmonium aber nur als Notbehelf und wurde so bald wie möglich durch eine „richtige“ Orgel ersetzt.
+
+Mitte der 1950er Jahre begannen die Mundharmonikahersteller [[Hohner]] und [[Koestler (Musikinstrumente)|Koestler]] damit, kleine elektrifizierte Harmoniumvarianten unter Bezeichnungen wie Organetta oder Harmophon in ihre Produktpaletten aufzunehmen; in der [[Deutsche Demokratische Republik|DDR]] wurden ähnliche Instrumente unter dem Namen „Harmona“ bis in die 1970er Jahre in [[Klingenthal]] produziert.
+
+Mit dem Aufkommen elektronischer Klangerzeugung und spätestens seit der Verbreitung der elektronischen Orgeln ist das Harmonium aus dem Musikleben weitgehend verdrängt. Dazu haben sicherlich in erster Linie die vielfältigeren Klangmöglichkeiten der elektronischen Instrumente beigetragen. Sucht man beim Harmonium selbst nach Ursachen, lässt sich an das oft relativ laute Geräusch denken, das beim Treten des Gebläses entsteht, auch der Klang abgenutzter und ungepflegter Harmonien ist keine Werbung für das Instrument. Ein anderer Grund dürfte sein, dass vor allem die tiefen Zungen im Bassbereich relativ lange brauchen, um einzuschwingen, und daher in ihrer Ansprache leicht verzögert sind. Diesem Nachteil ist man aber bei Druckwindharmonien damit begegnet, dass häufig ein sogenanntes „Perkussionsregister“ eingebaut wurde, das mit kleinen Hämmerchen, die auf die Zungen schlagen, diese präzise zum Erklingen bringt (bei Saugwindharmonien war der Einbau von Perkussionsregistern jedoch zu aufwendig).
+
+Auf dem [[Antiquitäten]]markt sind Harmonien wegen ihrer weiten Verbreitung und der großen seinerzeit produzierten Stückzahl noch häufig anzutreffen. Da kleinere Instrumente heutzutage nicht besonders gefragt sind, haben sie meist keinen großen Handelswert, zumal eine fachgerechte Restaurierung beschädigter oder auch nur abgenutzter Exemplare recht aufwendig und damit teuer sein kann. Allerdings besitzen viele Instrumente aufwendig gearbeitete Gehäuse im Stil des [[Historismus]] oder des [[Jugendstil]]s, so dass sie sehr dekorativ sind.
+
+{{Belege fehlen}}
+In der Populärmusik des 20. Jahrhunderts hat das Harmonium nur vereinzelt Gebrauch gefunden. Am intensivsten genutzt wurde es durch die deutsche Sängerin [[Nico (Sängerin)|Nico]] (1938–1988), deren Hauptinstrument es war, aber auch jüngere Bands wie [[Kaizers Orchestra]] verwenden es. Zudem erlebt das Harmonium nach der Jahrtausendwende zumindest in Fachkreisen eine gewisse Renaissance. Wenn Komponisten wie [[Robert Schumann|Schumann]], [[Johann Strauss (Sohn)|Strauss]] oder [[Pjotr Iljitsch Tschaikowski|Tschaikowski]] im Orchestersatz ein Harmonium vorgesehen haben, besteht mittlerweile oft das Bestreben zur stilechten Aufführung, da hier die Nutzung einer Kirchenorgel den vorgesehenen Klang der Komposition verfälscht. Immer noch selten aufgeführt werden die Werke für das Duo Harmonium/Klavier oder Harmonium/Gesang, obwohl es einige gibt.
+
+=== Das Harmonium in der Volksmusik ===
+Als Instrument zur Interpretation traditioneller Musik hat das Harmonium zeitweise einen wichtigen Platz in den Haushalten gehabt, da es günstiger als ein Klavier war. Es existieren zahlreiche Notenbücher für Harmonium, in denen beispielsweise Volksmusik für das Harmonium bearbeitet wurde.
+
+Man geht davon aus, dass sich in den Jahren 1900 bis 1940 mehr Harmonien als Klaviere in den privaten Haushalten befanden. In manchen Regionen der britischen Inseln war es im 19. Jahrhundert üblich, Volksweisen damit zu begleiten.
+
+In den nordeuropäischen Ländern hält sich diese Praxis bis heute, inspirierte sogar einige moderne Folkbands, es in ihr Instrumentarium aufzunehmen (z.&nbsp;B. ''[[Triakel]]''). Als Begleitinstrument zur Geige für traditionelle keltische Tanzmusik wird es gelegentlich immer noch in einigen Gegenden der kanadischen Atlantikküste verwendet (Prince Edward Island, [[Traditionelle Musik auf Cape Breton]]-Island).
+
+Auch in der [[Musik der Mittelalterszene]] beginnt es sich zu verbreiten, wie beispielsweise bei den Gruppen [[Faun (Band)|Faun]] aus Deutschland und Sandragon aus England. In vielen Altenheimen ist es heute noch Tradition deutsche Volkslieder in Gesangsstunden zu begleiten.
+
+=== Das Harmonium in Indien ===
+[[Datei:Harmonium.jpg|mini|hochkant|Indisches Harmonium]]
+Das Harmonium (je nach Region ''baja'' oder ''peti'' genannt) ist aus der [[Indische Musik|indischen Musik]] heute nicht mehr wegzudenken. Ursprünglich brachten es englische Missionare nach Indien, die damit als Orgelersatz über Land zogen. Daher rührt der Name „Missionarsorgel“. Alexandre Debains Modell von 1842 mit Fußbetrieb wurde zunächst hauptsächlich von Missionaren in Indien verbreitet. 1875 entwickelte der Instrumentenbauer Dwarkanath Ghose in [[Kalkutta|Calcutta]] daraus ein Harmonium mit Handbetrieb, das für die indischen Bedürfnisse besser geeignet war und von einem am Boden sitzenden Musiker bedient wird.
+
+In den folgenden Jahrzehnten verschwand allmählich das europäische Harmonium vom indischen Markt und Dwarkanaths Harmonium wurde zum Standardmodell für Indien. Bis 1913 hatte sich Indien zum weltgrößten Produzenten für Harmonien entwickelt. Im Prinzip ist das indische Harmonium ein halbes [[Akkordeon]], dessen Blasebalg mit einer Hand bedient wird, während die freie Hand die Melodie spielt. Seine einfache Handhabung hat es nicht nur zu einem populären Instrument in der volkstümlichen und der religiösen Musik aller Religionsgemeinschaften Indiens gemacht, sondern ihm auch einen festen Platz als Gesangsbegleitung in gewissen Genres der klassischen und halbklassischen nordindischen Musik wie [[Khyal]] und [[Thumri]] verschafft. Dort hat das Harmonium die Rolle der Streichlaute [[Sarangi]] übernommen. Dies trotz aller Einwände, die gegen das Harmonium vorgebracht wurden.
+
+Besonders Anfang des 20. Jahrhunderts, als die Unterschiede zwischen indischer und westlicher Musik als unüberwindbar galten, gehörte das Harmonium zu den fremden, also unindischen Instrumenten. Ein zweiter Einwand ist, dass das Harmonium keine sanften Übergänge durch Zwischentöne spielen kann. Die Spieler arbeiten dieser, bei der korrekten Aufführung von [[Raga]]s hinderlichen Beschränkung durch das Auslassen bestimmter Raganoten und feine ornamentale Verzierungen der Melodie entgegen. Der dritte Einwand, das Harmonium sei für die indische Musik falsch gestimmt, konnte durch entsprechende Anpassungen weitgehend entkräftet werden.<ref>Matt Rahaim: ''That Ban(e) of Indian Music: Hearing Politics in The Harmonium.'' In: ''The Journal of Asian Studies,'' Vol. 70, No. 3, August 2011, S. 657–682, hier S. 658 f.</ref>
+
+=== Mobiles Tropenharmonium von Fischer ===
+
+Das '''mobile Tropenharmonium''', entwickelt in den späten 1920er Jahren von Johannes Karl Fischer in [[Schorndorf]], war eine speziell für die [[Missionar|Missionsarbeit]] konzipierte Variante des Harmoniums. Ziel war es, ein tragbares, robustes und klimabeständiges Instrument zu schaffen, das den schwierigen Bedingungen in [[Tropen|tropischen Regionen]] standhalten konnte. Es wurde besonders von der [[Basler Mission]] und der [[Liebenzeller Mission]] eingesetzt, um Gottesdienste und Choräle musikalisch zu begleiten.
+
+Das Tropenharmonium war aus widerstandsfähigen Materialien gefertigt: Der Korpus bestand aus [[Buche]] und [[Eiche]], während die Tasten aus langsam wachsender [[Fichten|Fichte]] hergestellt wurden, um eine Verformung im feuchten Klima zu verhindern. Weiße Tasten wurden mit [[Kunststoff]] beschichtet, schwarze Tasten aus [[Ebenholz]] gefertigt. Ein aus [[Ziegenleder]] bestehender Blasebalg wurde durch Pedaltreten betrieben, wodurch Luft durch die [[Zunge (Tonerzeuger)|Klangzungen]] strömte. Mit einem Gewicht von unter 80 Pfund (ca. 36 Kilogramm) entsprach das Instrument den Anforderungen der Missionare, da es von Trägern transportiert werden konnte, ohne ihre Belastungsgrenze zu überschreiten.
+
+Zwischen 1928 und 1939 wurden über 2800 Exemplare produziert und weltweit exportiert, darunter an prominente Nutzer wie [[Albert Schweitzer]]. Das Tropenharmonium ermöglichte es, westliche [[Kirchenmusik]] auch in entlegene Regionen zu bringen. Es gilt als ein Beispiel für die Verbindung von technischer [[Innovation]] und religiöser Praxis. Heute befinden sich einige Exemplare in [[Museum|Museen]] oder privaten Sammlungen. Fischer erhielt später für diese Erfindung einen Innovationspreis der [[Industrie- und Handelskammer]].<ref>{{Internetquelle |url=https://www.piano-fischer.de/welt-der-88-tasten/geschichte |titel=Geschichte |werk=Piano-Fischer |abruf=2024-11-19}}</ref><ref>{{Internetquelle |autor=Michaela Kölbl |url=https://www.zvw.de/lokales/schorndorf/tropenharmonium-exot-mit-schwarz-weißen-tasten_arid-100987 |titel=Tropenharmonium: Exot mit schwarz-weißen Tasten |werk=Zeitungsverlag Waiblingen |datum=2016-06-23 |abruf=2024-11-19}}</ref>
+
+=== Sonderformen ===
+* Besondere Bauformen sind das [[Reinharmonium]] mit zwei [[Manual (Musik)|Manualen]] oder beim [[Orthotonophonium]] mit 72 oder 53 Tönen pro Oktave.
+* Enharmonicum (Enharmonium) vom japanischen Physikers [[Tanaka Shōhei]] mit 20 Tasten und 26 Tonhöhen je Oktave.
+
+== Harmonium-Museen ==
+Harmoniummuseen gibt es in<ref>{{Internetquelle |url=https://harmonium.gdo.de/recherchen/museen#c1168 |titel=Harmonium-Museen |hrsg=[[Gesellschaft der Orgelfreunde#Arbeitskreis Harmonium|Arbeitskreis Harmonium der Gesellschaft der Orgelfreunde]] |datum=2018-12-08 |abruf=2020-02-09 |archiv-datum=2020-08-03 |archiv-url=https://web.archive.org/web/20200803201002/https://harmonium.gdo.de/recherchen/museen#c1168 |offline=ja |archiv-bot=2025-06-19 14:31:38 InternetArchiveBot }}</ref>
+* [[Liestal]] ([[Kanton Basel-Landschaft]], Schweiz)
+* [[Emmen (Drenthe)|Emmen]] (Barger-Compascuum) im [[Veenpark]] ([[Provinz Drenthe]], Niederlande)
+* [[Schelle (Belgien)|Schelle]] ([[Provinz Antwerpen]], Belgien)
+* [[Brattleboro]] ([[Vermont]], USA)
+* [[Woodville (Neuseeland)|Woodville]] (Region [[Manawatū-Whanganui]], Neuseeland).
+Ferner befindet sich in der Kirche „St. Spiritus“ in [[Groß Germersleben]] eine Sammlung von 64 Harmonien aus verschiedenen Epochen.<ref>Claudia Crodel: ''Ein Hoch auf das Harmonium.'' In: ''[[Glaube und Heimat (Zeitung)|Glaube und Heimat]]'', 3. Oktober 2021, S. 8</ref>
+
+Das [[Freilichtmuseum Roscheider Hof]] besitzt eine Reihe Harmonien. Spielbare Instrumente stehen beispielsweise im [[Trauzimmer]] und in der Museumsschule.
+
+== Siehe auch ==
+* Andere [[Aerophon]]e mit Tastatur, bei denen Zungen angeblasen werden, sind zum Beispiel die [[Melodica]], die [[Harmonetta]], die [[Triola]], das [[Couesnophon]], das [[Regal (Musikinstrument)|Regal]] und die [[Orgel]].
+* [[Liste von Harmoniumkomponisten]]
+
+== Literatur ==
+* L. Hartmann (Hrsg.): ''Das Harmonium. umfassend die Geschichte, das Wesen, den Bau und die Behandlung des Druck- und Saugwindharmoniums nebst einer Abhandlung über das Harmoniumspiel''. Bernh. Friedr. Voigt (Staatliches Institut für Musikforschung), Leipzig 1913, [http://vlp.mpiwg-berlin.mpg.de/library/data/lit38223 mpiwg-berlin.mpg.de]
+* [[Christian Ahrens (Musikwissenschaftler)|Christian Ahrens]], Gregor Klinke: ''Das Harmonium in Deutschland. Bau, wirtschaftliche Bedeutung und musikalische Nutzung.'' Frankfurt am Main 2001, ISBN 3-923639-48-1.
+* Martin Geisz: ''Kulturerbe Harmonium''. Berlin 2015, ISBN 978-3-86573-959-9
+* Martin Geisz: ''Musik im Gottesdienst „Pour orgue ou harmonium“''. Berlin 2015, ISBN 978-3-7375-1766-9.
+* Martin Geisz: ''Harmonium – ein Instrument in Missionsstationen. Ein kurzer Seitenblick in die Missionsgeschichte zwischen Kolonialisierung, missionarischer Verkündigung und Inkulturation.'' Wissenschaftlicher Verlag Berlin, Berlin 2018, ISBN 978-3-96138-046-6
+* Klaus Gernhard, Hubert Henkel: ''Orgelinstrumente – Harmoniums''. Breitkopf & Härtel, 1984, ISBN 3-7651-0201-6.
+* Georg Kinsky: ''Musikhistorisches Museum von Wilhelm Heyer in Cöln Kleiner Katalog der Sammlung alter Musikinstrumente''. Leipzig 1913, {{archive.org |musikhistorische01heye |Blatt=336}} [allgemeine Informationen zur Geschichte des Harmonium mit Katalogteil]
+* Robert F. Gellerman: ''The American Reed Organ and the Harmonium: A Treatise on its History, Restoration and Tuning, with descriptions of some outstanding Collections, including a Stop dictionary and a directory of Reed Organs.'' 2. Auflage. New York 1997, ISBN 1-879511-12-6.
+* Gero Christian Vehlow: ''Studien zur Geschichte der Musik für Harmonium.'' Köln 1998, ISBN 3-7649-2635-X.
+
+== Weblinks ==
+{{Commonscat|Harmoniums|Harmonium}}
+{{Wiktionary}}
+* [https://harmonium.gdo.de/ Arbeitskreis Harmonium] der [[Gesellschaft der Orgelfreunde]] (GdO)
+* {{Internetquelle
+   |autor=Ulrich Averesch
+   |url=http://www.harmoniumservice.de/downloads/grundwissen-print.PDF
+   |titel=Grundwissen zum Harmonium
+   |werk=harmoniumservice.de
+   |datum=2010-03-20
+   |format=PDF; 642&nbsp;kB
+   |abruf=2020-02-06
+   |abruf-verborgen=1}}
+* {{Internetquelle
+   |autor=Martin Geisz
+   |url=http://weltkulturerbe-info.de/harmonium.html
+   |titel=Kulturerbe Harmonium
+   |werk=weltkulturerbe-info.de
+   |datum=2018-02-16
+   |abruf=2020-02-06
+   |abruf-verborgen=1}}
+* {{Internetquelle
+   |url=https://www.reedsoc.org/index.php/rosdb/ros_search?showOrg=1&showROS=1&showGel=1&showTrCrd=1&showCat=1&showDoc=1&nm=1&ctry=1&ser=1&info=1&mklc=1&modl=1
+   |titel=ROS Database Search
+   |hrsg=Reed Organ Society
+   |sprache=en
+   |abruf=2020-02-06
+   |abruf-verborgen=1
+   |kommentar=u.&nbsp;a. Harmoniumhersteller}}
+* {{Internetquelle
+   |autor=Klaus Langer
+   |url=http://www.harmonium-werkstatt.de/harmoniumrestaurierung.html
+   |titel=Einblick. Restaurierung: Harmonium von Schürer (1960)
+   |werk=harmonium-werkstatt.de
+   |datum=2009-09
+   |abruf=2020-02-06
+   |abruf-verborgen=1}}
+* {{Internetquelle
+   |autor=Ulrich Averesch
+   |url=http://www.harmoniumservice.de/klangbeispiele.htm
+   |titel=Harmoniummusik muß man hören, um das Harmonium zu verstehen
+   |werk=harmoniumservice.de
+   |datum=2013-03-24
+   |abruf=2020-02-06
+   |abruf-verborgen=1
+   |kommentar=Klangbeispiele, Einspielungen von Ryoko Morooka}}
+* {{Internetquelle
+   |autor=[[Martin Geisz]]
+   |url=http://www.harmonium.gdo.de/fileadmin/ak_harmonium/veroeff/e-Publications/Geisz_Synagoge_2015/Geisz_Harmonium-in-der-Synagoge.pdf
+   |titel=Harmonium – Instrumente in Synagogen – Musik für Harmonium in Synagogen
+   |werk=[[Gesellschaft der Orgelfreunde#Arbeitskreis Harmonium|harmonium.gdo.de]]
+   |datum=2015-11-10
+   |format=PDF; 1,7&nbsp;MB
+   |abruf=2020-02-09
+   |abruf-verborgen=1}}
+* {{Internetquelle
+   |autor=Ralf Bei der Kellen
+   |url=https://www.deutschlandfunkkultur.de/geliebt-und-verwuenscht-das-harmonium-und-der-indische.1278.de.html?dram:article_id=399392
+   |titel=Geliebt und verwünscht – Das Harmonium und der indische Hinduismus
+   |werk=[[Deutschlandfunk Kultur|Deutschlandfunk-Kultur]]-Sendung „Religionen“
+   |datum=2017-10-29
+   |abruf=2020-02-06
+   |abruf-verborgen=1}}
+* {{Internetquelle
+   |autor=Matthias Müller
+   |url=http://www.harmoniumservice.eu/
+   |titel=Infos, Musik und Weiteres zum Harmonium
+   |werk=harmoniumservice.eu
+   |datum=2023-06-20
+   |abruf=2023-06-20
+   |abruf-verborgen=1}}
+* {{Internetquelle
+   |autor=Ralf Bei der Kellen
+   |url=http://podcast-mp3.dradio.de/podcast/2020/02/02/jener_fluch_der_indischen_musik_harmonium_und_drk_20200202_1435_000eee82.mp3
+   |titel=„Jener Fluch der indischen Musik“ – Harmonium und Hinduismus
+   |werk=Deutschlandfunk-Kultur-Sendung „Religionen“
+   |datum=2020-02-06
+   |format=mp3-Audio; 6,1&nbsp;MB; 6:37&nbsp;Minuten
+   |abruf=2020-02-06
+   |abruf-verborgen=1}}<!-- identisch zum vorherigen Link, aber mit Klang -->
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=s|GND=4159135-5}}
+
+[[Kategorie:Tastenharmonika]]
+[[Kategorie:Balginstrument]]
+[[Kategorie:Übungsinstrument]]
+[[Kategorie:Musik (Indien)]]
+[[Kategorie:Musik (Afghanistan)]]
+[[Kategorie:Harmonium| ]]

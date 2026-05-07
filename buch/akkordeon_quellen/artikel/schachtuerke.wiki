@@ -1,0 +1,145 @@
+[[Datei:Racknitz - The Turk 3.jpg|miniatur|Kupferstich von [[Joseph Friedrich von Racknitz|Racknitz]] (1789), der zeigt, wie dieser sich das Innenleben des Schachtürken vorstellte. Racknitz irrte sich jedoch sowohl in Bezug auf die Position des Operators als auch hinsichtlich der Maße des Automaten.<ref name=":0">{{Literatur |Autor=Tom Standage |Titel=The Turk: the life and times of the famous eighteenth-century chess-playing machine |Verlag=Walker & Co |Ort=New York |Datum=2002 |ISBN=978-0-8027-1391-9 }}</ref>]]
+Der '''Schachtürke''', auch kurz „Türke“ genannt, war ein scheinbarer Schachautomat des 18. Jahrhunderts. Er wurde 1769 von '''Wolfgang von Kempelen''', einem österreichisch-ungarischen Hofbeamten und Mechaniker, konstruiert und gebaut. Das Gerät wurde häufig als „mechanischer Schachspieler“ bezeichnet und erweckte bei seinem Publikum den Eindruck, eigenständig Schach zu spielen.
+
+Die Apparatur bestand aus einer lebensgroßen, orientalisch gekleideten Figur, die hinter einem Schachbrett saß. Unter dem Brett befand sich ein großer Holzkasten mit scheinbar komplexer Mechanik aus Zahnrädern und Hebeln. Vor Beginn einer Partie öffnete der Vorführer mehrere Türen des Kastens, um dem Publikum die vermeintliche Technik im Inneren zu zeigen. Dadurch sollte der Eindruck entstehen, es handle sich um einen vollständig automatisierten Mechanismus.
+
+Tatsächlich befand sich im Inneren des Kastens ein menschlicher Schachspieler, der die Züge ausführte. Mithilfe eines ausgeklügelten Systems aus Magneten, Hebeln und beweglichen Sitzvorrichtungen konnte sich die versteckte Person im Gehäuse so positionieren, dass sie bei den Vorführungen nicht entdeckt wurde. Die Figur bewegte die Schachsteine über eine mechanische Vorrichtung, die mit dem Bediener im Inneren verbunden war.
+
+Die erste öffentliche Präsentation erfolgte 1770 in '''Wien''' am Hof von '''Maria Theresia'''. In den folgenden Jahrzehnten wurde der Schachtürke in zahlreichen europäischen Städten vorgeführt und erregte großes öffentliches Interesse sowie vielfältige Spekulationen über seine Funktionsweise. Nach von Kempelens Tod übernahm '''Johann Nepomuk Mälzel''' den Apparat und setzte die Vorführungen fort, unter anderem auch außerhalb Europas.
+
+Die Inszenierungen trugen wesentlich zur Faszination für Automaten und mechanische Apparate im späten 18. und frühen 19. Jahrhundert bei. Obwohl der Schachtürke kein tatsächlicher Automat war, gilt er als eines der bekanntesten Beispiele für eine technisch aufwendig gestaltete Illusion dieser Zeit.
+
+== Konstruktion ==
+[[Datei:Tuerkischer schachspieler windisch4.jpg|rechts|mini|Kupferstich des Schachtürken, welcher die offenen Schranktüren und die Mechanik zeigt. Ein Lineal in der unteren rechten Ecke dient zur Maßstabangabe. [[Wolfgang von Kempelen|Kempelen]] war ein geschickter [[Graveur]] und hat dieses Bild möglicherweise selbst erstellt.]]
+[[Datei:Turk-engraving4.jpg|rechts|mini|250x250px|Ein Kupferstich des Schachtürken aus [[Karl Gottlieb von Windisch]]s Buch von 1784.]]
+[[Datei:Turk-engraving-figure.jpg|rechts|mini|Eine Illustration der Funktionsweise des menschlichen Modells. Die verschiedenen Teile wurden von einem Operator im Inneren über Hebel und Mechanik gesteuert. Die Darstellung basiert auf [[Joseph Friedrich von Racknitz|Racknitz]]’ Berechnungen und gilt aufgrund der Proportionen der tatsächlichen Apparatur als unmöglich.<ref name=":0" />]]
+
+=== Funktionsweise ===
+Die Maschine bestand aus einem lebensgroßen Modell eines menschlichen Kopfes und Oberkörpers mit schwarzem Bart und grauen Augen, welcher in [[Osmanisches Reich|osmanische]] Gewändern und einen [[Turban]] gekleidet war, laut dem Journalisten und Autor [[Tom Standage]] „die traditionelle Kleidung eines orientalischen Zauberers“.<ref name=":0" /><ref>{{Literatur |Autor=Stephen P. Rice |Titel=Minding the Machine: Languages of Class in Early Industrial America |Auflage=1 |Verlag=University of California Press |Datum=2004 |ISBN=978-0-520-22781-1 |DOI=10.1525/j.ctt1pntnn }}</ref> Der linke Arm hielt im Ruhezustand eine lange osmanische [[Tabakpfeife]], während der rechte Arm auf einem großen Schrank lag, der etwa 1,10 Meter lang, 61 cm breit und 76 cm hoch war. Auf der Oberseite des Schranks befand sich ein [[Schachbrett]] mit einer Seitenlänge von 46 cm. Die Vorderseite des Schranks bestand aus drei Türen, einer Öffnung und einer Schublade, die geöffnet werden konnte, um ein Schachspiel aus rotem und weißem [[Elfenbein]] zu enthüllen.<ref name=":0" />
+
+Das Innere der Maschine war äußerst komplex gestaltet und sollte Beobachter täuschen.<ref name=":1">{{Literatur |Autor=Ricky Jay |Titel=The Automaton Chess Player, the Invisible Girl, & the Telephone |Verlag=R. Jay and W & V Dailey |Datum=2000 |Online=https://books.google.de/books/about/The_Automaton_Chess_Player_the_Invisible.html?id=fkppYgEACAAJ&redir_esc=y |Abruf=2025-07-23}}</ref> Beim Öffnen der linken Seite wurden [[Zahnrad|Zahnräder]] und [[Uhrmacher|Uhrwerkmechanismen]] sichtbar. Dieser Bereich war so konstruiert, dass man durch die gesamte Maschine hindurchsehen konnte, wenn gleichzeitig auch die hinteren Türen geöffnet wurden. Die rechte Seite des Schranks enthielt keine Mechanik, sondern ein rotes Kissen, einige herausnehmbare Teile und [[Messing]]strukturen. Auch dieser Bereich erlaubte freie Sicht durch die Maschine. Unter den Gewändern des osmanischen Modells befanden sich zwei weitere, versteckte Türen, die ebenfalls Uhrwerkmechanik zeigten und eine ähnliche Durchsicht ermöglichten. Das Design erlaubte es dem Vorführer, alle vorhandenen Türen öffentlich zu öffnen und so die Illusion aufrechtzuerhalten.<ref name=":0" />
+
+Weder das sichtbare Uhrwerk auf der linken Seite noch die Schublade mit dem Schachspiel reichten bis ganz an die Rückwand des Schranks, sie nahmen nur etwa ein Drittel der Tiefe ein. Zusätzlich war im Inneren ein verschiebbarer Sitz installiert, der es dem versteckten Operator ermöglichte, sich innerhalb des Schranks zu bewegen und so dem Blick des Publikums zu entgehen, während der Vorführer verschiedene Türen öffnete. Gleichzeitig bewegten sich Attrappen-Mechanismen an die Stelle des Sitzes, um die Anwesenheit des Operators weiter zu verbergen.<ref name=":0" />
+
+Das Schachbrett auf dem Schrank war dünn genug für eine [[Magnet|magnetische]] Verbindung. Jede Schachfigur hatte einen kleinen, starken Magneten an ihrer Unterseite. Wenn sie auf das Brett gestellt wurden, zogen sie jeweils einen darunter befestigten Magneten an, der mit einer Schnur verbunden war. So konnte der Operator im Inneren erkennen, wenn Figuren bewegt wurden.<ref name=":0" /> Die Unterseite des Schachbretts war mit den Zahlen 1 bis 64 markiert, wodurch der Operator ebenfalls zuordnen konnte, von und zu welchem Feld die Figuren bewegt wurden.<ref>{{Literatur |Titel=Fraser's Magazine for Town and Country |Verlag=James Fraser |Datum=1839 |Kapitel=Anatomy of the Chess Automaton |Online=https://archive.org/details/bub_gb_3VrPAAAAMAAJ/page/717/mode/1up |Abruf=2025-07-23}}</ref> Die internen Magneten waren so positioniert, dass sie nicht durch äußere Magnetfelder beeinflusst wurden. Kempelen ließ deshalb oft demonstrativ einen großen Magneten neben dem Brett liegen, um zu zeigen, dass die Maschine davon unbeeinflusst war.<ref>{{Literatur |Autor=Thomas L. Hankins, Robert J. Silverman |Titel=Instruments and the imagination |Auflage=2nd print |Verlag=Princeton Univ. Press |Ort=Princeton, NJ |Datum=1999 |ISBN=978-0-691-00549-2 }}</ref>
+
+Als weitere Ablenkung diente eine kleine, sargähnliche Holzkiste, die der Vorführer auf den Schrank stellte.<ref name=":1" /> Während [[Johann Nepomuk Mälzel]], ein späterer Besitzer der Maschine, diese Kiste nicht benutzte,<ref name=":2">{{Literatur |Autor=Gerald M. Levitt |Titel=The Turk, chess automaton |Verlag=McFarland & Co |Ort=Jefferson, N.C |Datum=2000 |ISBN=978-0-7864-0778-1 }}</ref> blickte [[Wolfgang von Kempelen|Kempelen]] während des Spiels häufig hinein, um den Eindruck zu erwecken, dass die Kiste eine Funktion habe.<ref name=":1" /> Einige Zuschauer maßen der Kiste sogar übernatürliche Kräfte zu – [[Karl Gottlieb von Windisch]] schrieb 1784 über eine Zuschauerin: „eine alte Dame aber, die vielleicht die ersten Eindrücke von guten und bösen Geistern durch ihre Amme erhalten hatte, schlug ein Kreuz, mit einem andächtigen Seufzer vor sich, und schlich an ein etwas entferntes Fenster, um dem bösen Feind, den sie unfehlbar bei oder in der Maschine vermutete, nicht so nahe zu sein“.<ref>{{Literatur |Autor=Windisch, Karl Gottlieb |Titel=Briefe über den Schachspieler des Hrn. von Kempelen: nebst drey Kupferstichen, die diese berühmte Maschine vorstellen |OCLC=6662330}}</ref><ref>{{Literatur |Autor=Karl Gottlieb von Windisch |Titel=Inanimate Reason, Or a Circumstantial Account of that Astonishing Piece of Mechanism, M. de Kempelen's Chess-player; Now Exhibiting at No. 8 Saville-Row, Burlington Gardens |Verlag=Bladon |Datum=1784 |Online=https://books.google.de/books/about/Inanimate_Reason_Or_a_Circumstantial_Acc.html?id=mvVdAAAAcAAJ&redir_esc=y |Abruf=2025-07-23}}</ref>
+
+Im Inneren der Maschine befand sich außerdem ein Steckbrett-Schachfeld, das über eine [[Pantograf|pantographenartige]] Hebelmechanik mit dem linken Arm des Modells verbunden war. Ein metallener Zeiger auf dem Pantographen bewegte sich über das innere Schachbrett und übertrug diese Bewegung auf den Arm des Schachtürken über dem äußeren Brett. Die Mechanik erlaubte es, den Arm auf und ab zu bewegen, und ein Drehen des Hebels öffnete und schloss die Hand, sodass die Figuren gegriffen und bewegt werden konnten.<ref name=":2" /> Dem Operator war dies alles mithilfe einer einfachen Kerze sichtbar, für die ein Belüftungssystem im Inneren des Modells integriert war. Weitere Mechanismen sorgten dafür, dass beim Zug des Türken zur Verstärkung des Effekts ein Uhrwerk-Geräusch zu hören war und dass der Türke verschiedene Gesichtsausdrücke zeigen konnte.<ref>{{Literatur |Autor=George Atkinson |Titel=Chess and Machine Intuition |Verlag=Intellect |Datum=1998 |ISBN=978-1-871516-44-9 |Online=https://books.google.de/books?id=ZuTvVo4zo6oC&printsec=frontcover&redir_esc=y |Abruf=2025-07-23}}</ref> Nach dem Erwerb durch Mälzel wurde ein Sprachmodul hinzugefügt, das der Maschine erlaubte, während einer Partie „Échec!“ (französisch für „Schach!“) zu sagen.<ref>{{Literatur |Titel=Southern literary messenger; devoted to every department of literature and the fine arts. / Volume 2, Issue 5 |Kapitel=Maelzel's Chess-Player |Online=https://name.umdl.umich.edu/acf2679.0002.005 |Abruf=2025-07-23}}</ref>
+
+Der Operator hatte zudem Hilfsmittel zur Kommunikation mit dem Vorführer außerhalb der Maschine. Zwei gegenüberliegende Messingscheiben mit Zahlen – eine innen, eine außen – konnten mithilfe eines Stabs auf bestimmte Nummern gedreht werden und dienten so als codiertes Kommunikationssystem zwischen beiden.<ref name=":0" />
+
+=== Zeitgenössische Beschreibung ===
+{{Zitat|Text=Die Maschine stellet einen Mann von natürlicher Größe vor, der [[Osmanisches Reich|Türkisch]] gekleidet ist, und vor einem Tische sitzet, auf welchem ein Schachbrett stehet. Dieser Tisch, der beyläufig drey und einen halben Schuh lang, und zween und einen halben breit ist, stehet auf vier Füßen, die unten kleine Rollen haben, damit man ihn desto bequemer von einer Stelle zur andern führen kann, welches der Herr Erfinder auch von Zeit zu Zeit thut, um allen Verdacht, einer Gemeinschaft unter dem Tische, zu vermeiden. In einiger Entfernung von dieser Maschine befindet sich ein gewöhnlicher kleiner Tisch, auf welchem ein versperrtes Kästchen stehet, welches aber mit der Maschine nicht die geringste Gemeinschaft hat. Sowol der Tisch, als die Maschine selbst, sind voller Räder, Hebel und Springfedern. |Quelle=Beschreibung im ''Reichs-Postreuter'' vom 12. August 1773 |ref=<ref>{{ANNO|rpr|12|08|1773|2|Beschreibung einer Maschine, welche schach spielt, in einem Briefe, D. wien, den 26sten Julius|NAME=Beytrag zum Reichs-Postreuter|HERVORHEBUNG=Die&#32;Maſchine&#32;ſtellet&#32;einen&#32;Mann}}</ref>}}
+
+== Geschichte ==
+[[Datei:Kempelen-charcoal.jpg|links|mini|Ein signiertes Kohle-Selbstporträt von [[Wolfgang von Kempelen|Kempelen]], dem Konstrukteur des Schachtürken]]
+
+=== Von Kempelens Vorführungen ===
+
+[[Wolfgang von Kempelen]] ließ die Figur gegen viele bekannte Schachspieler der damaligen Zeit spielen. Meistens gewann der „Schachtürke“. Er begann immer die Partie, hob den linken Arm, bewegte die [[Schachfigur]] und legte den Arm wieder auf ein Polster zurück. Bei jedem Zug des Gegners blickte er auf dem Brett umher. War der Zug falsch, schüttelte er den Kopf und korrigierte die Position der Figur. Bei [[Gardez (Schach)| Gardez]] nickte er zweimal, bei [[Schachgebot|Schach]] dreimal mit dem Kopf. Alle Bewegungen waren von einem Geräusch ähnlich dem eines ablaufenden [[Uhrwerk]]s begleitet. Von Kempelen stand während des Spiels etwas abseits und blickte in einen kleinen Kasten, der auf einem Tisch stand. Er ließ unausgesprochen die Möglichkeit offen, dass eine Übermittlung durch einen Menschen an das Gerät erfolgte, lehnte es jedoch stets ab, einen Hinweis auf das zugrunde liegende Funktionsprinzip zu geben. Jedoch zeigte er jedem, der es sehen wollte, das Innere der Maschine und ihre Mechanik.
+
+Die Schachmaschine erregte zur damaligen Zeit großes Aufsehen, da sie scheinbar der erste Automat war, der Schach spielen konnte. Über eine mögliche [[Magnetismus|magnetische]] Übertragung der Zugbefehle wurde seitens der Betrachter ebenso gerätselt wie über die Möglichkeit, die Maschine könne eigenständig bzw. zumindest für einen Abschnitt von mehreren Zügen ohne jede menschliche Einwirkung die Berechnungen ausführen. Ihr Erfinder Kempelen konnte sich der vielen Besucher nur erwehren, indem er später verkündete, er habe die Maschine zerstört oder sie sei vorübergehend nicht funktionsbereit.
+
+1781 führte Kempelen die Maschine in Wien [[Joseph II.|Kaiser Joseph]] und dem [[Paul I. (Russland)|Großfürsten Paul von Russland]] vor. 1783/84 unternahm er eine ausgedehnte Reise nach Paris, London und in verschiedene deutsche Städte, auf der er vor allem den ''Mechanischen Schachspieler'', aber auch seine [[Wolfgang von Kempelen#Sprechmaschine|Sprechmaschine]] vorführte. In Paris verlor der „Türke“ eine Partie gegen [[François-André Danican Philidor]], den damals weltbesten Spieler. Wie aus einem Artikel im ''Journal des Savants'' (September 1783) hervorgeht, versuchten mehrere Wissenschaftler der [[Académie française]] erfolglos, die Funktionsweise der Maschine zu ergründen. Von Kempelen starb im Jahr 1804.
+=== Im Besitz Johann Mälzels ===
+
+1804 kam der Automat in den Besitz des in Regensburg geborenen und später in Wien als Bürger lebenden Mechanikers Johann Nepomuk Mälzel, der ihn Kempelens Sohn abkaufte und größere Reisen damit unternahm. Bernhard zu [[Sachsen-Weimar-Eisenach]] berichtete, dass er den Schachtürken zum ersten Mal 1812 in [[Mailand]] bei [[Eugène de Beauharnais]] gesehen habe. Er beschrieb auch den Besuch einer Vorstellung bei Mälzel in New York.<ref>Reise Sr. Hoheit des Herzogs Bernhard zu Sachsen-Weimar-Eisenach durch Nord-Amerika in den Jahren 1825 und 1826, Wilhelm Hoffmann, 1828, S. 255. [http://books.google.at/books?id=HjsVAAAAQAAJ&dq=M%C3%A4lzel%20Mailand&pg=RA1-PA255&ci=111%2C502%2C750%2C496&source=bookclip Online]</ref>
+
+Mälzel gelangte 1819 nach [[London]] und reiste 1826 mit fast allen seinen Maschinen  in die [[USA|Vereinigten Staaten]]. Aus dieser Phase ist eine Anzahl von Originalpartien erhalten. Diese wurden teilweise mit [[Vorgabepartie|Vorgabe]] gespielt. Über die Maschine und die Zeit, in der sie Mälzel in den USA einsetzte, ist eine ausführliche Biografie in englischer Sprache vorhanden.<ref>The Book of the first American Chess Congress: Containing the Proceedings of that celebrated Assemblage, held in New York, in the Year 1857, Von Daniel Willard Fiske, S. 420–483. [http://books.google.at/books?id=HrBAAAAAcAAJ&dq=Mr.%20Maelzel%20often&pg=PA420#v=onepage&q=Maelzel&f=false Online]</ref>
+
+In London wies nach Kempelens Besuch [[Robert Willis (Ingenieur)|Robert Willis]] mit Zeichnungen zuerst nach, dass in dem Automaten ein Mensch versteckt sein könne. Seine Entdeckung beschrieb er in dem Artikel „The attempt to analyse the automaton chess player“ im [[The Edinburgh Philosophical Journal]]. Aber erst 1838 teilte [[Thournay]] in der ''Revue mensuelle des echécs, Bd. 1,'' mit, dass wirklich Menschen darin versteckt waren. Wer diese Helfer Kempelens waren, ist <!--bis heute -->nicht vollkommen geklärt. Es gibt Berichte, die behaupten, dass seine Tochter bis zu ihrer Erkrankung dafür eingesetzt wurde. Mälzel setzte den Deutschen [[Johann Baptist Allgaier]], in Paris die Franzosen [[Boncourt (Schachspieler)|Boncourt]] und [[Jacques François Mouret]], in London den Schotten [[William Lewis (Schachspieler)|William Lewis]] und später den [[Elsass|Elsässer]] [[Wilhelm Schlumberger]] ein. Die oft zu lesende Behauptung, es habe sich bei den Spielern um [[Kleinwuchs|Kleinwüchsige]] gehandelt, ist nachweislich falsch.
+
+Der amerikanische Schriftsteller [[Edgar Allan Poe]] besuchte 1835 als junger Journalist eine Vorführung des Automaten in Virginia und formulierte anschließend 17 Argumente dafür, dass in ihm ein Mensch agiere. Sein Essay „Maelzel’s chess player“ wurde von vielen Zeitungen veröffentlicht.<ref>[[Dirk Liesemer]]: ''Die getürkte Maschine. Der Automat aus Holz und Metall scheint zu leben, er spielt Schach wie ein Profi. Kaiser und Könige rätseln: Was ist sein Geheimnis?'' In: ''[[P.M. (Zeitschrift)|P.M.]]'', Nr. 08/2020, S. 44–49, hier S. 48.</ref>
+
+Andere Quellen berichten, dass das Geheimnis erstmals gelüftet wurde, als bei einer Vorführung auf einem Jahrmarkt ein Zuschauer „Feuer, Feuer“ rief. Mälzel öffnete daraufhin den Kasten, um den Spieler herauszulassen. Ein anderer Bericht besagt, dass die Brüder Walker, die den Automaten auch nachbauten, beobachteten, wie nach einer Veranstaltung im Hinterhof Schlumberger aus dem Kasten kletterte und auf den Schultern Mälzels verschwitzt weggetragen wurde.
+
+=== Verbleib des Schachtürken ===
+
+Nach Johann Nepomuk Mälzels Tod gelangte der Schachtürke über einen Zwischenhändler in den Besitz des schachbegeisterten Arztes [[John Kearsley Mitchell|John K. Mitchell]]. Dieser schenkte den Automaten nach einigen privaten Vorführungen im Jahr 1840 dem Peale’s Museum in [[Philadelphia]]. Nach vierzehn Jahren als Ausstellungsstück verbrannte der türkische Schachspieler am 5. Juli 1854 bei einem Feuer im Museum.
+
+== Legenden um Friedrich den Großen und Napoleon ==
+
+In Berlin soll der „Türke“ 1785 angeblich eine Partie gegen [[Friedrich II. (Preußen)|Friedrich den Großen]] gespielt und ihn besiegt haben. Friedrich soll Kempelen für die Aufdeckung des Geheimnisses eine große Geldsumme geboten haben und, nachdem dies geschehen war, außerordentlich enttäuscht gewesen sein. Seitdem soll der „Türke“ unbeachtet in einer Abstellkammer im [[Schloss Sanssouci|Potsdamer Schloss]] gestanden haben, bis [[Napoléon Bonaparte|Napoleon]] 1806 dorthin gekommen sein soll und sich seiner erinnerte. Auch er soll angeblich gegen den Automaten gespielt und verloren haben. Diese Version der Geschichte beruht auf einem Artikel, der 1834 in der Zeitschrift ''Magazine pittoresque'' erschien und als Basis für weitere Artikel in [[Le Palamède]] 1836 und ''Fraser’s magazine'' 1839 diente, nach heutigem Stand der Forschung jedoch für unzutreffend gehalten wird. Eine andere Quelle soll belegen, dass Napoleon sehr wahrscheinlich erst 1809 (nach Kempelens Tod) auf [[Schloss Schönbrunn]] in Wien gegen den „Türken“ gespielt habe.<ref>The Book of the first American Chess Congress, S. 424. [http://books.google.at/books?id=HrBAAAAAcAAJ&dq=Mr.%20Maelzel%20often&pg=PA424&ci=127%2C296%2C771%2C581&source=bookclip Online]</ref>
+
+== Nachbauten und Fortleben im 19. Jahrhundert ==
+
+Der erste echte Nachbau gelang während der Reisen Mälzels durch Amerika. Die Brüder Walker führten im Mai 1827, nachdem Mälzel nach [[Baltimore]] weitergezogen war, in New York ihren [[American Chess Player]] vor. Nachdem Mälzel davon erfahren hatte, reiste dieser kurz zurück nach New York, besuchte die Veranstaltung der Walkers und machte das Angebot, ihren Automaten für 1000 Dollar zu kaufen und den Brüdern einen Arbeitsvertrag zu geben. Die Brüder lehnten ab. Ihre Vorführungen waren jedoch auf längere Sicht erfolglos, obwohl nur der halbe Eintrittspreis verlangt wurde. Daher mussten sie die Veranstaltungen einstellen.<ref>The Book of the first American Chess Congress: Containing the Proceedings of that celebrated Assemblage, held in New York, in the Year 1857, Von Daniel Willard Fiske, S. 456. [http://books.google.at/books?id=HrBAAAAAcAAJ&dq=Mr.%20Maelzel%20often&pg=PA456&ci=133%2C242%2C727%2C1086&source=bookclip Online]</ref>
+[[Datei:Ajeeb.jpg|miniatur|Werbeplakat für Ajeeb]]
+Eine im Wesentlichen ähnliche Figur wurde zwischen 1865 und 1868 von Charles Hooper (1825–1900) aus [[Bristol]] gebaut und erhielt den Namen ''Ajeeb'' (von [[Arabische Sprache|arabisch]] عجيب ''ˤaǧīb'' „erstaunlich“). Das als ''Schachautomat'' bezeichnete Gerät wurde in London zunächst im Polytechnicum und dann seit etwa Anfang 1869 im [[Crystal Palace (Gebäude)|Kristallpalast]] gezeigt.<ref>{{ANNO|szb|||1869|153|Der Schachautomat im Krystallpalaste zu Sydenham bei London|anno-plus=ja}}</ref> 1885 gelangte das Gerät in die USA. Dort wurde es im New Yorker ''Eden Museum'' ausgestellt und war eine Publikumsattraktion. Zu den Bedienern bei Vorführungen zählten einige der besten Spieler des Landes wie [[Harry Nelson Pillsbury]] und Constant Ferdinand Burille. 1929 wurde es auf [[Coney Island]] durch einen Brand zerstört.
+
+Der Fabrikant [[Charles Godfrey Gümpel]] baute 1878 den [[Mephisto (Schachautomat)|''Mephisto'']]. Dieser elektromagnetisch über Kabel ferngesteuerte Automat wurde unter anderem von [[Isidor Gunsberg]] und [[Jean Taubenhaus]] bedient.
+
+== Rezeption im 20. und 21. Jahrhundert ==
+
+[[Datei:Schachtuerke.jpg|miniatur|hochkant|Nachbau des Schachtürken im ''Café Roland'' in Bratislava]]
+
+Von [[Walter Benjamin]] wird der Schachtürke in seinem Text ''[[Über den Begriff der Geschichte]]'' als [[Allegorie]] auf das Verhältnis von [[Marxismus]] und [[Theologie]] genommen:<ref>[https://www.textlog.de/benjamin-begriff-geschichte.html ''Über den Begriff der Geschichte'']</ref>
+
+{{Zitat
+| Text=Gewinnen soll immer die Puppe, die man ‚[[Historischer Materialismus|historischen Materialismus]]‘ nennt. Sie kann es ohne weiteres mit jedem aufnehmen, wenn sie die [[Theologie]] in ihren Dienst nimmt, die heute bekanntlich klein und hässlich ist und sich ohnehin nicht darf blicken lassen.
+| Autor=[[Walter Benjamin]]
+| Quelle=Gesammelte Schriften I.2, S. 693.
+}}
+
+Mehr als zwei Jahrhunderte nach dem Bau des Türken gehören [[Schachcomputer]] beziehungsweise [[Schachprogramm]]e mit „übermenschlicher“ Spielstärke zur Realität. Das Interesse an der Geschichte des Schachtürken stieg mit dem Aufkommen der modernen [[Computertechnik]] erneut an. So ist eine moderne Rekonstruktion des Schachtürken heute Teil einer Dauerausstellung im [[Heinz Nixdorf MuseumsForum]] in Paderborn. Im [[Technisches Museum Wien|Technischen Museum in Wien]] konnten Besucher eine Zeit lang gegen eine holografische Version des Schachtürken antreten. In das Programm [[Fritz (Schachprogramm)|Fritz]] wurde seit Version 9 ein Schachbrett mit animierter [[3D]]-Darstellung des Schachtürken integriert.
+
+Das seit 2006 bestehende Unternehmen [[Amazon Web Services]] bietet als zusätzliche Funktion [[Amazon Web Services#Sonstiges|''Amazon Mechanical Turk'']] (nach der englischen Bezeichnung des Schachtürken) an.
+
+Das Heinz Nixdorf MuseumsForum und der Schachverein SK Blauer Springer Paderborn richten seit 2004 den [[Schachtürken-Cup]] als internationales Schachturnier aus.<ref>[http://www.schachtuerken-cup.de/ Paderborner Schachtürken-Cup], abgerufen am 2. April 2024</ref>
+
+== Siehe auch ==
+* „etwas [[Türken (Verb)|türken]]“, alternativ „einen Türken bauen“
+
+== Literatur ==
+
+;Zeitgenössische Berichte
+
+* {{Literatur |Hrsg=[[Christian von Mechel]]|Autor=[[Karl Gottlieb von Windisch]] |Titel=Briefe über den Schachspieler des Hrn. von Kempelen |TitelErg=Nebst drey Kupferstichen die diese berühmte Maschine vorstellen |Verlag=Mechel'scher Kunstverlag |Ort=Basel |Datum=1783 |Seiten= |Online={{Google Buch | BuchID=RtpdAAAAcAAJ }}|Abruf=2024-07-05 }}
+* [[Johann Erich Biester]]: [http://www.ub.uni-bielefeld.de/netacgi/nph-brs?s1=&s2=Biester$&s5=berlmon&s3=1784&Sect5=AUFK&Sect6=HITOFF&Sect4=AND&l=20&d=AUFK&p=1&u=/diglib/aufklaerung/suchmaske.htm&r=16&f=G ''Schreiben über die Kempelischen Schachspiel- und Redemaschinen'']. In: ''[[Berlinische Monatsschrift]]''. 1784, S. 495–514.
+* [[Carl Friedrich Hindenburg]]: [http://books.google.de/books?id=9vAWAAAAYAAJ&printsec=frontcover ''Über den Schachspieler des Herrn von Kempelen. Nebst einer Abbildung und Beschreibung seiner Sprechmaschine'']. Müller, Leipzig 1784.
+* [[Joseph Friedrich von Racknitz]]: ''Über den Schachspieler des Herrn von Kempelen und dessen Nachbildung''. Breitkopf, Leipzig 1789.
+* [http://anno.onb.ac.at/cgi-content/anno?aid=vlb&datum=18190731&seite=1&zoom=33 ''Die wiedererstandene von Kempelen'sche Schachmaschine'']. In: ''Vaterländische Blätter für den österreichischen Kaiserstaat''. 31. Juli 1819, S. 1–4.
+* Robert Willis: [http://books.google.de/books?id=N7kUAAAAYAAJ&printsec=frontcover&dq=subject:chess&lr=&as_brr=1 ''An attempt to analyse the automation chess player of Mr. de Kempelen'']. Booth, London 1821.
+* [http://anno.onb.ac.at/cgi-content/anno?aid=adl&datum=18410701&seite=5&zoom=33 ''Das Geheimnis des berühmten Schach-Automaten.'']. In: ''Der Adler''. 1. Juli 1841, S. 5–7.
+* {{ANNO|szb|||1869|153|Der Schachautomat im Krystallpalaste zu Sydenham bei London|anno-plus=ja}}
+
+;20. und 21. Jahrhundert
+* Jiri Veselý: ''Die berühmteste Erfindung Wolfgang von Kempelens''. In: ''Blätter für Technikgeschichte''. Band 36/37. 1974/75, S. 25–46.
+* Marion Faber (Hrsg.): ''Der Schachautomat des Baron von Kempelen''. Harenberg, Dortmund 1983, ISBN 3-88379-367-1, Reprint der Ausgabe Joseph F. zu Racknitz: ''Über den Schachspieler des Herrn von Kempelen''.
+* Gerald M. Levitt: ''The Turk, chess automaton''. McFarland, Jefferson, N.C. 2000, ISBN 0-7864-0778-6.
+* [[Robert Löhr]]: ''Der Schachautomat. Historischer Roman''. Piper, München 2004, ISBN 3-492-04796-3.
+* Brigitte Felderer, [[Ernst Strouhal]]: ''Kempelen – Zwei Maschinen. Texte, Bilder und Modelle zur Sprechmaschine und zum schachspielenden Androiden Wolfgang von Kempelens''. Sonderzahl, Wien 2004, ISBN 3-85449-209-X.
+* [[Tom Standage]]: ''Der Türke. Die Geschichte des ersten Schachautomaten und seiner Abenteuerlichen Reise um die Welt''. BVT, Berlin 2005, ISBN 3-8333-0317-4.
+
+== Weblinks ==
+{{Commonscat|The Turk|Schachtürke}}
+{{Wikisource|Schachtürke}}
+* {{Chessgames|77026}}
+* [http://www.chess.at/geschichte/kempelen.htm Baron von Kempelens Schach-„Automat“], ''www.chess.at'', 2001
+* André Schulz: {{Webarchiv | url=http://www.chessbase.de/spotlight/spotlight2.asp?id=11 | wayback=20070210044420 | text=Der erste Schachcomputer war keiner}}
+* [[Heinz Nixdorf MuseumsForum]]: [https://www.hnf.de/dauerausstellung/ausstellungsbereiche/die-mechanisierung-der-informationstechnik/fruehe-automaten-faszination-schachtuerke.html ''Frühe Automaten – Faszination Schachtürke.'']
+* Daniel Meßner, Richard Hemmer: ''[https://www.geschichte.fm/podcast/zs251/ Der Schachtürke] (Podcast),'' In: ''[[Geschichten aus der Geschichte (Podcast)|Geschichten aus der Geschichte]].'' 15. Juli 2020
+* Hoaxilla der skeptische Podcast: ''[https://hoaxilla.com/hoaxilla-298-schachturke/ Der Schachtürke]'',  29. Juni 2022
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=s|GND=4699952-8}}
+{{Gesprochener Artikel
+|artikel      = Schachtürke
+|dateiname    = De-Schachtürke-article.ogg
+|dauer        = 12:12
+|größe        = 5,58 MB
+|sprecher     = Agkrippa
+|geschlecht   = männlich
+|dialekt      = Hochdeutsch
+|oldid        = 185213795
+|artikeldatum = 2019-02-27
+}}
+
+{{SORTIERUNG:Schachturke}}
+[[Kategorie:Schachgeschichte]]
+[[Kategorie:Kleinkunst]]
+[[Kategorie:Sprechmaschine]]
+[[Kategorie:Orientalismus (Kunst)]]

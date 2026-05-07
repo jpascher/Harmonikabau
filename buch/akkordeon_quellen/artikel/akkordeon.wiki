@@ -1,0 +1,493 @@
+{{Begriffsklärungshinweis|Zum deutschen Künstler siehe [[Pètrus Akkordéon]].}}
+{{Infobox Musikinstrument
+| Sprachen= [[Englische Sprache|englisch]]:&nbsp;''Accordion'', [[Französische Sprache|französisch]]:&nbsp;''accordéon'', [[Italienische Sprache|italienisch]]:&nbsp;''Fisarmonica''
+| Bild= [[Datei:A converter free-bass piano-accordion and a Russian bayan.jpg|230px|Pianoakkordeon und Chromatisches Knopfakkordeon]]
+| Bildtext= [[Pianoakkordeon]] und [[Chromatisches Knopfakkordeon]]
+| Klassifikation= [[Aerophon]], [[Tasteninstrument]], [[Handzuginstrument]]
+| Tonumfang= vom Instrument abhängig
+| Klangbeispiel= 
+| Verwandte Instrumente= [[Bandoneon]], [[Konzertina]], [[Harmonium]], [[Mundharmonika]]
+| Musiker= 
+}}
+Das '''Akkordeon''' (von französisch ''accordéon''), auch '''Ziehharmonika''', ''' Handharmonika''' oder '''Schifferklavier''' genannt, ist ein [[Handzuginstrument]], bei dem der [[Ton (Musik)|Ton]] beim Öffnen oder Schließen eines Balges durch freischwingende, [[durchschlagende Zunge]]n erzeugt wird und das nicht nur Einzeltöne hervorbringt, sondern auch (in seiner Version als Standardbassinstrument) (mechanisch voreingestellte) [[Akkorde]]. Der Name ''Akkordeon'' geht zurück auf den Wiener [[Handzuginstrumentenmacher|Instrumentenbauer]] [[Cyrill Demian]], der sein [[Handbalginstrument]] durch Hinzufügen von Akkordtönen zu den wechseltönigen Melodietönen veränderte und unter dem Namen ''Accordion'' (1829) patentieren ließ.<ref>[https://www.dwds.de/wb/etymwb/Akkordeon Etymologie Akkordeon.] dwds.de</ref>
+
+Das Akkordeon zählt somit zu den selbstklingenden Unterbrechungs-[[Aerophon]]en. Alle Handbalginstrumente, die auf der (aus Sicht des Spielers) rechten Seite, dem Diskant (Diskantteil, Melodieseite), die Tastatur ([[Klaviatur]] oder Knöpfe) in einer abgewinkelten Form angebracht haben, werden zu den diversen Akkordeonarten gezählt. Diese Anordnung der Tastatur geht auf die ersten Wiener oder die ersten französischen Instrumente zurück.<ref name=":0">{{Internetquelle |url=https://www.tonika-musikschule.de/akkordeon |titel=Akkordeon {{!}} tonika Musikschule |sprache=de |abruf=2026-02-02}}</ref>
+
+Die verschiedenen Typen der [[Konzertina]], wie das [[Bandoneon]], weisen im Gegensatz zum Akkordeon keine abgewinkelte Tastatur und keine voreingestellten Akkorde auf.<ref name=":0" />
+
+Das Akkordeon wurde zum [[Instrument des Jahres]] 2026 gekürt.<ref name=":1">{{Internetquelle |url=https://www.swr.de/kultur/musik/akkordeon-ist-musikinstrument-des-jahres-100.html |titel=Akkordeon ist Musikinstrument des Jahres – Genial einfach und deshalb erfolgreich |datum=2026-01-05 |sprache=de |abruf=2026-02-02}}</ref>
+
+== Terminologie ==
+
+Es gibt eine Reihe von regionalen, teilweise umgangssprachlich-humoristischen Bezeichnungen für das Akkordeon oder spezielle Bauformen, wie:
+* ''Handklavier'',  ''Maurerklavier'', 
+* ''Ziehorgel'',  ''Handorgel'' (schweizerisch), ''[[Schweineorgel]]''<ref name="Christina Appert" />
+* ''Zugin'', ''Ziach'' (bairisch), ''Zerrwanst'', ''Treckfidel'' ([[niederdeutsch]] für "Zieh-Fiedel")
+* ''Quetschkommode'', ''Quetschn'' (österreichisch), ''Quetschebüggel'' (rheinisch)<ref>{{Internetquelle |autor=Ingrid |url=https://www.der-kultur-blog.de/eine-kurze-story-ueber-das-akkordeon/ |titel=Eine kurze Story über das Akkordeon |werk=DER KULTUR BLOG |datum=2026-01-08 |sprache=de |abruf=2026-02-02}}</ref>
+Die vielfältigen Begriffe und besonders „Akkordeon“ und „Harmonika“ werden synonym, aber auch abgrenzend verwendet.  Die regionalen Unterschiede in Bauart, Spielweise und Bezeichnung sind derart komplex, dass die folgende Darstellung lückenhaft bleibt.
+
+Anfangs waren „Harmonika“ die größeren Handzuginstrumente, die immer mit der rechten Hand gespielt wurden, also die kleinere Bauart der [[Physharmonika]]. Sprachlich ist im Laufe der letzten beiden Jahrhunderte ein gewisser Tausch der Bezeichnungen eingetreten, so wird eher das Akkordeon als die große Variante der Harmonika betrachtet, eine scharfe Begriffsabgrenzung gibt es nicht. Die Harmonika war ursprünglich chromatisch. Siehe dazu Geschichte des [[Pianoakkordeon#Geschichte|Pianoakkordeons]].
+
+Im volkstümlichen Bereich werden Begriffe exklusiv für bestimmte Sonderformen verwendet. Häufig wird von „Akkordeon“ gesprochen, wenn es sich um teurere, hochwertige und schwerere Produkte handelt, die auch für konzertantes Spiel verwendet werden. Der Begriff „Harmonika“ wird dagegen für leichtere Ausführungen verwendet. Es gibt Ausnahmen: so wurden in Wien gerade die größeren Instrumente als „Harmonika“ bezeichnet. Regional gibt es sprachliche Unterschiede in der Benennung. Grob kann gesagt werden, dass in Österreich Harmonika tatsächlich für das Akkordeon Verwendung findet, häufig aber auch als Kurzbezeichnung für die [[Steirische Harmonika]], oft in der Form von Ziehharmonika. In der Schweiz wird eher der Ausdruck Handorgel verwendet. Im deutschsprachigen Raum wurde in letzter Zeit ein neuer Ausdruck geprägt, nämlich Zuginstrument oder in der verkürzten Form einfach Zugin oder Ziach (vor allem in Westösterreich und Bayern).<ref name=":2">{{Internetquelle |url=https://mueller-akkordeon.de/geschichte/ |titel=Geschichte – Akkordeon kurz erklärt |sprache=de |abruf=2026-02-02}}</ref>
+
+Unterscheidet man die Regionen genauer, kommen umgangssprachlich viele weitere Bezeichnungen hinzu. Es ist daher natürlich, dass Personen aus verschiedenen deutschsprachigen Regionen die verschiedenen Bezeichnungen für derartige Instrumente mit unterschiedlichen Instrumentvarianten verknüpfen. So sind die Benennungen für das Instrument in den verschiedenen Sprachen der Erde oft von Harmonika oder Akkordeon abgeleitet. Im englischen Sprachraum wird Accordion als Oberbegriff verwendet.<ref name=":2" />
+
+Um die regionalen Unterschiede in der Terminologie zu umgehen, wird im Artikel in erster Linie der Begriff „Akkordeon“ verwendet.<ref name=":2" />
+
+== Bauarten ==
+[[Datei:Wiki loves Music - Hamburg-5701.jpg|mini|Ein einfach gebautes Akkordeon]]
+Ein Akkordeon besteht wie fast alle Handbalginstrumente aus zwei Teilen ([[Diskant]] und [[Bass (Akustik)|Bass]]), die durch einen [[Blasebalg#Akkordeon|Balg]] miteinander verbunden sind. Durch das Auseinanderziehen und Zusammendrücken der beiden Teile wird die Luft im Balg durch die ''Stimmstöcke'' in den beiden Seitenteilen geführt. Je nachdem, ob beim Öffnen und Schließen des Balges die gleichen Töne erklingen, kann grundsätzlich zwischen [[wechseltönig]]en und [[gleichtönig]]en Instrumenten unterschieden werden. Ein wesentlicher Unterschied bei den gleichtönigen Instrumenten besteht in der Struktur der Bassseite: Wenn über deren Knopftastatur ausschließlich Basstöne (Grundbässe) und Akkorde angesteuert werden, handelt es sich um ein [[Standardbassakkordeon]]. Wenn zusätzlich oder ausschließlich auch Einzeltöne über mehrere Oktaven gespielt werden können, handelt es sich um ein [[Einzeltonakkordeon]]. Weiterhin ist eine Klassifikation nach Art der Tastenbelegung im Diskant möglich. Neben den hier aufgezählten sind noch zahllose weitere Varianten bekannt. Die Vielfalt der Akkordeons in Gruppen einzuteilen, ist schwierig. Bei praktisch allen Klassifikationssystemen zeigen sich Vor- und Nachteile sowie mehr oder weniger zahlreiche Ausnahmen.<ref name=":2" />
+
+'''wechseltönig'''
+* einreihig
+** ''[[Cajun Accordion]]'' (Louisiana)
+** ''[[Sanfona]]'' (Brasilien)
+** ''Melodeon''
+** Langnauerli, Diskant und Bass wechseltönig diatonisch
+* mehrreihig
+** ''[[Wiener Modell]]'' (ursprünglich Wien)
+** ''[[Diatonisches Akkordeon#Club-Modell|Club-Modell]]'' modifiziertes Wiener Modell mit zusätzlicher Hilfstonreihe (Deutschland)
+** ''[[Steirische Harmonika]]'' (Österreich, Südtirol, Tschechien, Slowenien und Bayern)
+** ''[[Organetto (Akkordeon)|Organetto]]'' (Italien)
+** ''[[Heligonka]]'' (Tschechien)
+** ''[[Schwyzerörgeli]],'' Diskant wechseltönig diatonisch, Bass gleichtönig diatonisch (weniger als zwölf Grundbässe) oder chromatisch (zwölf Grundbässe)
+** ''[[Schottisches Akkordeon]],'' Wiener Modell mit Stradella-Bass
+** ''[[Irisches Akkordeon]],'' Diskant chromatisch
+** ''[[Trikitixa]]'', Baskische Harmonika, Diskant diatonisch, Bass gleichtönig
+** ''[[Französisches Akkordeon]]''
+
+'''gleichtönig'''
+* ''[[Knopfakkordeon]]''
+** ''[[Schrammelharmonika]]'' (Vorläufer des chromatischen Knopfakkordeons)
+** ''[[Chromatisches Knopfakkordeon]]'' (CBA) und sein russisches Pendant, das ''[[Bajan]]''
+** ''[[Garmon]]'' (russisches Knopfakkordeon mit diatonischem Diskant)
+* ''[[Pianoakkordeon]]'' (PA) mit Klaviatur, sowie dessen Bass-Variante, das ''[[Bassakkordeon]]''
+
+== Baugruppen ==
+
+=== Balg ===
+Der [[Blasebalg|Balg]] ist das stilbildende Element eines Akkordeons. Er befindet sich zwischen dem rechten und dem linken [[Manual (Musik)|Manual]] und besteht aus gefalteten Lagen von Stoff und Pappe, denen Leder und Metall beigefügt sind. Er dient der Erzeugung von Über- oder Unterdruck, wodurch Luft über die [[Stimmzunge]]n getrieben wird und deren Vibrationen den Luftstrom periodisch unterbrechen, wodurch Schall erzeugt wird. Die Lautstärke eines Tones wird von der Intensität des Luftdrucks bestimmt. Die Tasten eines Akkordeons sind nicht [[Anschlagsdynamik|anschlagsdynamisch]] wie bei einem Klavier.<ref name=":3">{{Internetquelle |autor=admin |url=https://musiknerd.org/musikinstrumente/akkordeon/ |titel=Akkordeon: Geschichte, Tonerzeugung, Hersteller - MUSIKNERD |datum=2023-12-19 |sprache=de |abruf=2026-02-02}}</ref>
+
+Die Steuerung der Lautstärke ist allerdings nicht die einzige Funktion des Balgs. Sondern durch die Möglichkeit des Balgwechsels (Änderung der Richtung von Druck oder Zug auf den Balg) bietet der Balg ein Artikulationsmittel, das mit dem Wechsel der [[Strich (Streichinstrument)|Strichrichtung]] des [[Bogen (Streichinstrument)|Bogens]] einer [[Violine|Geige]] verglichen werden kann. Die Wiederholung eines gleichen Tones kann also auf zwei unterschiedliche Arten erfolgen. Einerseits durch erneutes Betätigen bzw. Drücken der jeweiligen Taste des Instrumentes. Andererseits aber auch durch Halten der Taste und Änderung der Zugrichtung des Balges (Bellowshakes). Die Balgtechnik<ref>[[Curt Herold]]: ''Schule der Balgtechnik.'' Josef Preissler Musikverlag, ISMN 979-0-2014-0380-9.</ref>, d. h. der gezielt eingesetzte Balgwechsel, ist ein prägendes Charakteristikum akkordeonspezifischer Spieltechnik.<ref name=":3" />
+
+=== Stimmstöcke ===
+[[Datei:Stimmstoeke.jpg|mini|Geklebte Stimmstöcke]]
+
+Ein Stimmstock ist die Zusammenfassung von [[Kanzelle]]n zu einer Gruppe. Die Kanzellen können direkt im [[Musikinstrument]] mit dem Gehäuse verleimt sein. Werden sie jedoch zu Stimmstöcken zusammengefasst, sind sie meistens mit dem Gehäuse verschraubt und ausbaubar.<ref name=":3" />
+
+Die Kanzellen sind meistens aus Holz gefertigt, andere Instrumente verwenden aber auch Spritzguss-Polymer-Stimmstöcke. Holz spielt beim Stimmstockbau als traditionell verwendetes Material eine große Rolle. Bei der Verarbeitung kommen im Wesentlichen zwei Verfahren zum Einsatz: Entweder werden die Trennwände der Kanzellen als Einzelteile mit einer Trennwand verleimt oder ein vorbereiteter Holzblock wird mittels [[Computerized Numerical Control|CNC]]-[[Fräsmaschine]] in die gewünschte Form gebracht. Die obere Leiste ist meistens aus einem härteren Holz, die Grundplatte (Sohle) mit den Schallöffnungen ebenfalls. In manchen Instrumenten kommen auch Stimmstöcke zum Einsatz, die bereits die Registerschieber im Stimmstockfuß beinhalten. Polymer-Stimmstöcke bieten den Vorteil hoher Maßhaltigkeit bei gleichzeitig sicherer Befestigung der Stimmplatte und Unempfindlichkeit gegenüber Klimaschwankungen. Da in allererster Linie die Form der Kanzelle und die Qualität der Stimmplatten an der Tonbildung beteiligt sind, lässt sich daher ein Klangunterschied zwischen Polymer- und Holz-Stimmstock bei modernen Instrumenten subjektiv nicht mehr feststellen; Polymer- und Holzstimmstöcke können sogar problemlos in einem Instrument zusammen eingesetzt werden. Nachteilig bei Kunststoffstimmstöcken ist die Tatsache, dass das Wachs nicht so gut haftet wie bei Holzstimmstöcken. Die Anordnung der [[Durchschlagende Zunge|Stimmplatten]] auf den Stimmstöcken variiert sehr stark in Abhängigkeit von der jeweiligen Instrumentenvariante. Fast immer sind sie aber im Diskant an einem Ende kleiner als am anderen, aufgrund der kleiner werdenden Stimmzungen. Die Tonlöcher sind oft rechteckig ausgeführt, um den Einsatz von [[Register (Akkordeon)|Registerschiebern]] zu ermöglichen. Die Stimmplatten sind bei den meisten Instrumenten auf den Stimmstöcken mit einer speziellen Wachsmischung, meist Naturwachs, aufgeklebt. Bei modernen französischen Konzertinstrumenten und bei alten Wiener Instrumenten findet man eine Befestigung mit Schrauben, Haken und/oder Nägeln, dabei wird die Stimmplatte mit einer Abdichtung aus Leder oder Kork auf den Stimmstock aufgelegt. Teilweise entfällt eine Zwischenlage. Besonders bei der französischen [[Musette (Walzer)|Musette]]-Stimmung wird eine obertonreiche Klangfarbe erwünscht und durch die spezielle Art der Befestigung und Konstruktion der Stimmstöcke gefördert. Bassstimmstöcke bedürfen einer besonderen Aufmerksamkeit.
+
+Stimmstöcke für Bassakkordeons sind meist auf eine besondere Art konstruiert (Faltung), damit die Ansprache und das Klangbild optimiert werden. Bei alten Instrumenten wird das Wachs hart und Stimmplatten können locker werden, was zum Rattern des Tones führt.
+
+=== Stimmplatten und Ventile ===
+Stimmplatten und Ventile sind ein wesentlicher Bestandteil des Akkordeons und sind in erster Linie maßgeblich für die erreichbare Tonqualität in Bezug auf Lautstärke, Klangfarbe, Dynamik und Tonhaltigkeit. In den meisten Instrumenten kommen Stimmplatten aus maschineller Fertigung zum Einsatz. Für höchste Ansprüche werden „Handgemachte Stimmplatten“ verwendet. Für Konzertinstrumente und „Bayans“ werden oft durchgehende Stimmplatten verwendet, wo alle Stimmzungen auf einer einzigen Platte genietet oder geschraubt sind. Durchgehende Stimmplatten haben den Vorteil der höheren Stabilität und Tonfestigkeit aufgrund der größeren, vibrationsärmeren Masse. Die gängige Stimmplatte ist aus dem Material Aluminium (Duraluminium) gefertigt, oft bestehen Piccolo-Stimmplatten auch aus Messing. Die Stimmzunge wird aus Federstahl gestanzt. Die Qualität der Stimmplatte hängt von Faktoren wie z.&nbsp;B. den Spaltmaßen der Stimmzunge auf der Stimmplatte ab. Spaltmaße von bis zu 0,2 mm genügen einfachen Ansprüchen, Spaltmaße bis zu 0,02 mm gewährleisten eine hervorragende Tonansprache und Klangqualität. Bei Spaltmaßen bis 0,02 mm stößt man jedoch schon an fertigungstechnischen Grenzen, da durch die verschiedenartige Wärmeausdehnung von Aluminium und Stahl die Tonzunge zum Blockieren neigt. Oft werden hochwertige Tonzungen zusätzlich egalisiert, um einem Tonzungenbruch vorzubeugen. Bei den verwendeten Ventilen wird hauptsächlich zwischen Kunststoffventilen und Lederventilen unterschieden. Stimmplatten mit Kunststoffventilen klingen hell und obertonreich. Stimmplatten mit Lederventilen hingegen erzeugen einen obertonärmeren Klang. Die Oberfläche der Ventile hat entscheidenden Einfluss auf den Klang, deshalb werden bei vielen Instrumenten in den tiefen Tonlagen Ventile aus Leder, in den hohen Tonlagen Ventile aus Kunststoff verwendet. Je nach Wunsch können auch nur Kunststoffventile oder nur Lederventile eingesetzt werden.
+{{Siehe auch|Durchschlagende Zunge|Steirische Harmonika#Stimmplatten-Qualität}}
+
+=== Register ===
+Auf der linken Seite (Bassteil, Begleitseite) wie auf der rechten Seite (Diskantteil, Melodieseite) gibt es die Möglichkeit, die Klangfarben durch Zuschalten von bis zu sieben Chören (Stimmstöcken mit Stimmplatten und Zungen) durch sogenannte ''[[Register (Akkordeon)|Register]]'' stark zu variieren. Bei diatonischen Instrumenten werden Register nur selten verwendet; eine Ausnahme ist das [[Cajun Accordion]]. Sehr einfache Instrumente besitzen keine Register. Zum Verschließen der Schallöffnungen für einzelne Stimmplattensätze dienen ''Registerschieber''.
+
+=== Korpus ===
+Die beiden Gehäuseteile des rechts eingebauten Diskants mit der [[Klaviatur]] (Klaviertasten) oder der [[Tastatur (Musik)|Tastatur]] (Knöpfe) und des links eingebauten Basses mit der [[Bassmechanik]] erfüllen hauptsächlich die Aufgabe, die nötige mechanische Basis für die eingebauten Teile bereitzustellen, aber sie schließen auch den eingeschlossenen Luftraum dicht zur Umgebung ab, solange keine Ventile (Klappen) geöffnet werden. Zur klanglichen Komponente eines Instrumentes trägt die Art der Konstruktion nur bedingt bei. Wohl hat die Größe des freien inneren Volumens einen gewissen Anteil auf die Tonqualität in Beziehung auf Lautstärke und Klangfarbe, wie das verwendete Material einen kleinen Beitrag leistet. Vorrangig ist aber, dass der Korpus möglichst stabil und leicht ist. Traditionell wurde Fichtenholz, aber auch andere Massivholzarten verwendet. Bald hat aber die Verwendung von Mehrschichtholz Einzug gehalten, was zu guten akustischen Ergebnissen führt. Beim Akkordeon gilt der Grundsatz, dass die Korpusteile möglichst nicht vibrieren sollen ähnlich wie bei Lautsprecherboxen. Somit ist ein leichtes Instrument oft akustisch schlechter als ein etwas schwereres. Es verwundert daher auch nicht, dass Einzelanfertigungen aus Plexiglas den Spieler klanglich zufriedenstellen. Allerdings ist Plexiglas doppelt so schwer wie Mehrschichtholz. Hingegen haben ansonsten Kunststoffmaterialien einen negativen Einfluss auf das Klangverhalten. Mit Erfolg wurden auch Gehäuseteile aus Aluminium und Magnesium gebaut. Aluminium wird oft für die Füllung (der Boden, auf dem die Klappen aufliegen) und für die Mechanik verwendet.
+
+=== Oberflächen ===
+Die Oberflächen wurden ursprünglich wie andere Gegenstände aus Holz behandelt, jedoch kam in den 1920er Jahren mit den ersten Kunststoffen die Beschichtung mit [[Zelluloid]] auf. Viele Hersteller ersetzen diese Verfahren bereits mit einer umweltfreundlichen speziellen Mehrschichtlackierung. Der neueste Trend auch bei Konzertinstrumenten sind aber wieder Instrumente in Massivholzlook mit Klarlackoberflächen. Heutige Mainlineprodukte aus China und Europa sind meist mit abgerundeten Gehäusen ausgeführt. Für abgerundete Gehäuse in Naturlook lässt sich Mehrschichtholz aber schlecht einsetzen.
+
+=== Diskant- und Basskonstruktion ===
+Die Konstruktionen des Diskants und des Basses unterscheiden sich je nach Hersteller relativ stark, obwohl sehr viele Zulieferteile Verwendung finden.
+
+==== Beeinflussung der Art der Konstruktion durch den Hersteller ====
+Die zwei französischen Erzeuger, die Firma Cavagnolo in Lyon und die Firma Maugein in Tulle, fertigen fast alle Teile von chromatischen Akkordeons bis auf die Stimmplatten selbst. Auch die Firma Harmona mit dem Markennamen Weltmeister fertigt alles bis auf die Stimmplatten selbst. Ähnliches gilt für Instrumente aus Russland ([[Tula]]) und die tschechischen Instrumente mit dem Namen Delica. 
+
+Instrumente aus Italien sind unter vielen Markennamen bekannt, aber es existieren nur mehr wenige selbständige, unabhängige Produzenten, die stark miteinander kooperieren, daher ähneln sich die Instrumente in Konstruktion und bei den mechanischen Einbauten sehr. Meist kommen Luxusinstrumente aus Italien, vieles wird aus China importiert, wie dies auch bei Schülerinstrumenten von Hohner der Fall ist. Jedoch ist bei Hohner die Entwicklung, Fertigstellung und Kontrolle in Trossingen.
+
+==== Beeinflussung der Art der Konstruktion durch die Ausstattung ====
+Im Diskant werden bis zu fünf Chöre eingebaut. Das Verdeck kann mit einer Jalousie ausgestattet sein; manche Instrumente wurden mit in Sektionen verschließbarem Verdeck gebaut. Die Ausführung des Verdecks wirkt relativ stark als klanglicher Filter und beeinflusst das Klangbild nicht unwesentlich. Der Einbau eines [[Cassotto]]s ist eine Variante, die relativ oft vorkommt. Die Qualität der Gelenke im Diskant variiert erheblich; billigere Instrumente kommen oft ohne zusätzliches Gelenk aus. Für die Führungen der Tasten und die Gelenke kommt oft Teflon zum Einsatz, aber auch Kugelgelenke werden zum Teil verwendet. 
+
+Die Klappen sind ebenfalls teilweise recht unterschiedlich ausgeführt, sie sind daher nicht immer gleich dicht und geräuschlos. Nicht jeder Spieler hat die gleichen Bedürfnisse bezüglich Mechanik. Der erforderliche Druck, um die Tasten zu bewegen, kann ebenfalls variieren, wie auch der Hub der Tasten bei verschiedenen Instrumenten nicht immer gleich ist. Die Basskonstruktionen unterscheiden sich bei der Mechanik in ähnlicher Weise wie im Diskant. Sehr wesentliche Unterschiede gibt es bei den möglichen Einbauten. Auch wenn sich an der Anzahl der Tasten rein optisch kein Unterschied bemerken lässt, kann doch der erzeugte Ton und Klang äußerst verschieden ausfallen. Für die meisten Instrumente ist jedoch eine relativ einfache, fast standardisierte Ausstattung anzutreffen (siehe auch [[#Bass-Systeme|Bass-Systeme]]). 
+
+Der Einbau der Stimmstöcke im Bass ist nicht generell einheitlich. Es gibt auch die Möglichkeit, einfache Helikonstimmplatten im Bass eines chromatischen Akkordeons zu integrieren, dabei werden zwölf einfache Platten über dem Akkordstimmstock eingebaut. Dieser darüberliegende Stimmstock mit den Helikonstimmplatten ist mit einem Luftkanal nach unten zum Bassboden angebunden. Die dazugehörende Oktave-Stimmplatte pro Ton ist im stehenden Luftkanal eingebaut. Somit sind bei dieser Variante drei Stimmplatten, davon zwei Begleitstimmplatten, am Begleitstimmstock stehend montiert. 
+
+Eine ähnliche Montageform des Stimmplatteneinbaus im Bass verwendet Hohner für die Spitzenklasse. Nur werden keine Helikonstimmplatten eingebaut, sondern die üblichen Bariton-Abmessungen. Der verlängerte Luftkanal bei dieser Art des Einbaus führt auch bei Verwendung gleicher Stimmplatten zu einer besseren Ansprache (Reaktion) der Töne und insgesamt zu einer besseren Tonqualität in Bezug auf Lautstärke und Klang. Ein Erzeuger von chromatischen Instrumenten aus Italien (Stradella) hatte in manchen Modellen alle Stimmplatten in zwei Etagen liegend im Bass eingebaut. Dies führt zu sehr guten Ergebnissen, ist aber äußerst schwierig zu realisieren. Die Firma hat den Betrieb eingestellt.
+
+== Chromatisches Akkordeon ==
+[[Datei:Akkordeon-2.jpg|mini|Pianoakkordeon]]
+Das ''chromatische Akkordeon'' ist eine Bauform des Akkordeons. Zu unterscheiden sind Instrumente mit [[Klaviatur]] (''[[Pianoakkordeon]]'') oder [[Tastatur (Musik)|Knopfgrifftastatur]] (''[[chromatisches Knopfakkordeon]]'') auf der Diskantseite.
+
+Die [[Schrammelharmonika]] ist der Vorläufer des chromatischen Knopfakkordeons.
+
+=== Griff-Systeme ===
+==== Knopfgriff ====
+
+Die Instrumente werden mit bis zu fünf Reihen (oder sechs Reihen bei der serbischen Dugmetara speziell für die Balkan-Musik von Beltuna) gefertigt, wobei die inneren zwei (bzw. drei) Reihen eine Wiederholung von bereits vorhandenen Reihen darstellen. Es gibt B-Griff- und C-Griff-Systeme. Dabei sind die Reihen von innen nach außen beim C-Griff gegenüber dem B-Griff getauscht.
+
+==== Die ''Von-Jankó-Tastatur'' ====
+
+Diese Tastenbelegung wurde vor 1900 von [[Paul von Jankó]] erfunden, sie wird im deutschen Sprachraum auch unter „[[Johannes Beyreuther|Beyreuther]]“,<ref>[http://www.beyreuther-musikprinzip.de/ Webpräsenz des Beyreuther Musikprinzip]</ref> [[6-plus-6-Instrumente|„6-plus-6“]] oder vom Klingenthaler Unternehmen HARMONA AKKORDEON GMBH als Logicordion<ref>[https://manualzz.com/doc/4553161/anleitung-logicordeon-zum-downloaden Anleitung zum Logicordeon von Weltmeister]</ref> geführt. Die [[Jankó-Klaviatur]] hat beim Akkordeon wenig Verbreitung gefunden, es tauchen aber von Zeit zu Zeit auch gebrauchte Instrumente auf dem Markt auf. Bei Sonderanfertigungen müssen meist zehn Stück abgenommen werden. Die Tastatur kann sowohl mit Knöpfen als auch mit Tasten aufgebaut sein. Einige Instrumente wurden mit prismaförmigen Tasten angeboten, so ergibt sich eine bienenwabenartige Optik aus schwarzen und weißen Tasten. Eine Pianotastatur kann durch einfaches Überstülpen einer weiteren Tastaturebene sehr einfach an dieses System angepasst werden, dies ist aber aus baulichen Gründen eher bei Pianos möglich. Grundsätzlich kommt diese Tastenbelegung mit zwei Tastenreihen aus, jedoch sind meist Wiederholungsreihen (Kopplungen) vorhanden. Drei oder vier Reihen sind üblich. Bereits bei einer dreireihigen Ausführung ergibt sich gegenüber der Pianotastenanordnung ein einheitliches Griffmuster für alle Akkordtypen unabhängig von der Tonart, daher ähnliche Vorteile wie beim C- oder B-Griff. Die Oktave liegt um eine Tastenbreite dichter beieinander als bei der Klaviertastatur. Daher ist diese Tastatur als eine Art Hybrid beider Systeme zu sehen.
+
+=== Bass-Systeme ===
+Es gibt zwei grundlegende Bass-Systeme.
+
+Unter ''[[Stradella-Bass]]'', (auch ''Manual-II-Bass'' oder ''Standardbass'' genannt) versteht man die Anordnung der Basstöne in [[Quinte]]n in vertikaler Richtung mit den am häufigsten gebrauchten Dur-, Moll-, Sept- und verminderten Septakkorden in horizontaler Anordnung. Der Tonumfang ist hier auf eine Oktave beschränkt, wobei jedoch, je nach Bauart und Register, bei den Basstönen bis zu fünf Oktaven gleichzeitig und bei den Akkorden bis zu drei Oktaven gleichzeitig ertönen. Es werden fast alle Akkordeons mit diesem ''Stradella-Bass'' gebaut.
+
+Im Gegensatz dazu verfügt der ''[[Melodiebass]]'' (auch ''Manual-III-Bass'') nicht über Akkordknöpfe, hat dafür aber einen Tonumfang von bis zu fünf Oktaven und ermöglicht dadurch das tonhöhenrichtige Melodiespiel. Der Melodiebass (drei bis vier Reihen) ist entweder dem Standardbass vor- oder nachgelagert oder kann alternativ (durch Umschalten der hinteren vier Reihen des Standardbasses durch zusätzliche Tasten) auf Melodiebass auf denselben Knöpfen gespielt werden. Ein solcher sogenannter [[Konverterbass]] ist in erster Linie bei höherwertigen Instrumenten üblich. Wie beim Knopfakkordeon gibt es hier die Systeme mit C-Griff oder B-Griff.
+
+Des Weiteren sind auch noch „Free-Bass“-Systeme auf dem Markt.
+
+{{Siehe auch|Sonderformen der Bassbelegung}}
+
+Basskopplungen (verdoppelte Töne) mit eigenem Schalter findet man zusätzlich bei großen Konzertinstrumenten, zum Beispiel [[Bajan]].
+
+== Diatonisches Akkordeon ==
+[[Datei:Handharmonika.jpg|mini|Diatonische Handharmonika (wechseltönig)]]
+{{Hauptartikel|Diatonisches Akkordeon}}
+
+Ein diatonisches Akkordeon (in Deutschland oft nur als ''Handharmonika'' oder ''Wiener'' benannt) ist –&nbsp;im Gegensatz zum [[#Chromatisches Akkordeon|chromatischen Akkordeon]], aber ähnlich den diatonischen [[Mundharmonika]]s&nbsp;– [[wechseltönig]] und [[Diatonik|diatonisch]] aufgebaut. Bei Zug und Druck entsteht bei den meisten Tasten der Harmonika ein unterschiedlicher Ton. Es können zudem nicht alle Tonarten (bzw. -leitern) gleich einfach gespielt werden, sondern bevorzugt nur die für die jeweilige Reihe vorgesehenen. Dazu gibt es entsprechende [[Akkordeonschule|Griffschriftsysteme]] ([[Tabulatur]]en) in verschiedenen Ausprägungen mit einer auf das Instrument abgestimmten Notation.
+
+Die diatonischen Instrumente sind in vielfältiger Form auf dem Markt. Weite Verbreitung finden die sogenannte „[[Steirische Harmonika]]“ oder die tschechischen [[Heligonka]]-Instrumente. Sie weisen nur geringfügige Bauunterschiede auf. Auch die ursprünglichen [[Wiener Modell]]e ohne [[Gleichton]] sind weltweit sehr verbreitet. Die italienischen diatonischen Modelle entsprechen im Wesentlichen den ursprünglichen Wiener Modellen.
+
+Sehr verbreitet sind auch nach wie vor einreihige Instrumente, sogenannte [[Cajun-Akkordeon|Cajuninstrumente]]. Zweireihige Instrumente sind ebenfalls in weiten Teilen der Erde sehr beliebt. Eine Sonderform stellt die Zweireihige in Irland dar. Bei diesem [[Irisches Akkordeon|Irischen Akkordeon]] sind die beiden diatonischen Reihen nicht eine Quint voneinander entfernt, sondern nur einen Halbton. Damit entsteht ein Instrument, das eigentlich chromatisch ist, dabei trotzdem wechseltönig im Aufbau bleibt. Auch sind weitere Varianten der Tastenbelegungen in Verwendung.
+
+Die russische [[Garmon|Garmoshka]] (was übersetzt auch wieder Harmonika bedeutet) sieht ähnlich aus, ist aber gleichtönig. Die deutsche [[Konzertina]] und die [[Konzertina|Anglo Concertina]] sind äußerlich stark in ihrer Bauform abweichende, aber ebenfalls diatonische Instrumente.
+
+=== Griff-Systeme ===
+Die Knopfgriffinstrumente werden mit bis zu sechs Reihen gefertigt. Es gibt eine sehr große Vielfalt an Tastenbelegungen, die Variationen zum ursprünglichen [[Wiener Modell]] sind oft relativ gering, aber doch für die Spieltechnik von Bedeutung. Das [[Diatonisches Akkordeon#Club-Modell|Club-Modell]] und das [[Schwyzerörgeli]] belegen die dritte Diskantreihe mit Halbtönen.
+
+=== Bass-Systeme ===
+Grundsätzlich kann die Bassseite ähnlich oder gleich aufgebaut sein wie bei chromatischen Instrumenten. Dies kommt etwa beim [[Schottisches Akkordeon|Schottischen Akkordeon]] vor. Am häufigsten sind jedoch wechseltönige Bässe mit circa je vier Knöpfen pro korrespondierender Reihe am Diskant. Die Belegung und die Anordnung der Knöpfe variiert äußerst stark. Das grundlegende Muster der Belegung ist aber fast immer so, dass zumindest auf Druck Grundton und Begleiter der [[Tonika]] zur entsprechenden Reihe erklingen, auf Zug die [[Dominante]].
+
+Weitere Angaben siehe bei der Beschreibung der individuellen Instrumenttypen.
+{{Siehe auch|Sonderformen der Bassbelegung}}
+
+== Geschichte ==
+Ein Teil der Geschichte des Akkordeons ist in dem Film ''Die Geschichte und der Bau des Akkordeons'' von George Lindt dokumentiert, worin auch die Patenturkunde und der Herstellungsprozess detailliert dargestellt werden.
+
+=== Vorläufer ===
+{{Hauptartikel|Durchschlagende Zunge#Geschichte der Stimmzunge|titel1=„Geschichte der Stimmzunge“ im Artikel Durchschlagende Zunge}}
+
+Das älteste bekannte Instrument, das auf dem Prinzip der durchschlagenden Zungen basiert, ist die chinesische [[Sheng (Instrument)|Cheng]]. Außer dem Grundprinzip der Tonerzeugung hat die Cheng jedoch mit dem Akkordeon nahezu keine Gemeinsamkeiten.
+
+Es wird oft angenommen, dass die Mundharmonika die Vorläuferin der Handharmonika wäre. Zuerst erhielten Kirchenorgeln und Flügel (Piano Forte) Register mit durchschlagenden Zungen (siehe Vorläufer des [[Harmonium#Vorläufer und Entstehung|Harmoniums]]).<ref>Lit: MGG 4 (1996); NGroveD 10 (2001) [Harmonica];</ref>
+
+Die direkten Vorläufer des Harmoniums sind allerdings die [[Aeoline (Musikinstrument)|Aeoline]] und [[Physharmonika]] genannten Instrumente. Die Aeoline wurde um 1810 von [[Bernhard Eschenbach]] zusammen mit seinem Cousin [[Johann Caspar Schlimbach]] entwickelt, wobei sich die beiden von der [[Maultrommel]] anregen ließen. Die Physharmonika wurde 1821 in Wien von [[Anton Haeckl]] patentiert. 1824 bekam [[Anton Reinlein]] in Wien ein Patent für eine Verbesserung der Handharmonika.<ref>K. L. Röllig: ''Über die Harmonika.'' 1787.</ref><ref>F. K. Bartl: ''Nachrichten von der Harmonika.'' 1796.</ref><ref>F. K. Bartl: ''Abhandlung von der Tastenharmonika.'' 1798.</ref>
+{{Siehe auch|Handzuginstrument#Historischer Überblick 1800 bis 1830|titel1=„Historischer Überblick 1800 bis 1830“ im Artikel: Handzuginstrument}}
+
+Die Massenproduktion von Mundharmonikas setzte vor der Produktion der kleinen diatonischen Instrumente ein. In einer Druckschrift des [[Musikinstrumenten-Museum Berlin|Musikinstrumentenmuseums SIMPK in Berlin]], die anlässlich der Ausstellung „in aller Munde“ herausgegeben wurde, steht:
+
+{{Zitat
+ |Text=Unausrottbar scheint die Legende, der Thüringer [[Christian Friedrich Ludwig Buschmann|Friedrich Buschmann]] habe Mund- und Ziehharmonika erfunden. Einer Überprüfung hält diese These nicht stand. Denn der Musiker Buschmann spricht in einem Brief von 1828 von seiner soeben getätigten Erfindung. Jahre zuvor hatte schon die gewerbsmäßige Herstellung in Wien begonnen.}}
+
+{{Zitat
+ |Text=Nachweislich wurden „Mundharmonikas chinesischer Art“ 1825 in Wien verkauft.
+ |Quelle=In aller Munde
+ |ref=<ref>''In aller Munde''. ISBN 3-922378-20-X, S. 43.</ref>}}
+
+Bereits 1827/28 baute Christian Messner in Trossingen die ersten Mundharmonikas nach. 1829 ließ [[Charles Wheatstone]] das [[Symphonium]] patentieren, eine Art Luxusmundharmonika. Er verbesserte das deutsche Windinstrument. Zu dieser Zeit waren derartige Instrumente zumindest in wohlhabenden Kreisen oder unter Musikern bekannt. Auch Weltausstellungen waren bereits üblich, um dem Publikum neue technische Errungenschaften zu präsentieren.<ref>H.-P. Graf: ''Entwicklungen einer Instrumentenfamilie: Der Standardisierungsprozeß des Akkordeons.'' 1998.</ref><ref>H. Luck: ''Die Balginstrumente. Ihre historische Entwicklung bis 1945.'' 1997.</ref><ref>A. Mauerhofer. In:  ''Studia instrumentorum musicae popularis 7.'' 1981. Hopfner 1999.</ref><ref>W. Maurer: ''Accordion.'' 1983.</ref>
+
+=== Demians Patent ===
+Bei seinem Patentantrag vom 6. Mai 1829 – gewährt wurde es ihm am 23. Mai 1829<ref>[[Stephan von Keeß]]/[[Wenzel Carl Wolfgang Blumenbach]] (Hrsg.), ''Systematische Darstellung der neuesten Fortschritte in den Gewerben und Manufacturen und des gegenwärtigen Zustandes derselben. Als Fortsetzung und Ergänzung des im J. 1823 beendigten Werkes: Darstellung des Fabriks- und Gewerbswesens &c. Mit besonderer Rücksicht auf den österreichischen Kaiserstaat'', Wien 1830, S. 795.</ref> − verwendet [[Cyrill Demian]] in [[Wien]] zum ersten Mal die Bezeichnung „Accordion“ für sein neuartiges Instrument, da bei jeder Taste drei- bis fünftönige Akkorde eingebaut waren. Neu war die extrem kleine Ausführung. So wurde die einfachste Variante nur mit der linken Hand gespielt und war so ein reines Begleitinstrument. Dieses Instrument war [[wechseltönig]] (d.&nbsp;h., auf Zug und Druck klingen unterschiedliche Töne) und [[Diatonik|diatonisch]] (d.&nbsp;h., es können nur die Töne bestimmter Tonleitern pro Reihe gespielt werden). Diese Wechseltönigkeit war ebenfalls neu, da die zur selben Zeit gebauten großen Instrumente gleichtönig waren. Wegen seiner geringen Größe und des niedrigen Preises verbreitete sich das Instrument sehr rasch. So konnten auch Pilger das Instrument auf ihre Reisen mitnehmen, was mit großen Harmonikas nicht möglich war.
+
+Cyrill Demian und andere Instrumentenbauer in Wien bauten auch größere Instrumente in ähnlicher Art. Spielanleitungen für Melodieinstrumente sind bereits aus dem Jahre 1833 bekannt. Um 1856 waren bereits um 120 Harmonikabauer in Wien tätig. Eine Auflistung der bekanntesten ist im Artikel [[Schrammelharmonika]] enthalten.
+
+=== Vielfalt ===
+Im Jahr 1833 veröffentlichte der bekannte Wiener Komponist und Kapellmeister [[Adolf Müller senior|Adolph Müller]] eine Spielanleitung zum Selbsterlernen der diatonischen Harmonika.<ref>''Schule für Accordion'' von [[Adolf Müller senior|Adolph Müller]], eine Spielanleitung zum Selbsterlernen der diatonischen Harmonika</ref> Dem Text der Einleitung ist zu entnehmen, dass zu dieser Zeit bereits viele verschiedenartige Instrumente gebaut wurden. Er empfahl ein „vollkommenes Instrument“, welches sowohl Bassteil als auch Diskantteil besitzt. Diese Instrumente hatten bis zu drei Tastenreihen mit allen chromatischen Basstönen.
+
+{{Zitat
+ |Text=An großen vollständigen ACCORDIONS, mit 20 und mehr Tasten, sind am Boden des Instrumentes noch kleinere Claves angebracht, welche die in der oberen Lage fehlenden halben Töne und eine vollständige Oktave Basstöne geben, und, sowohl durch den Zug als Druck unverändert klingen.}}
+
+=== Weitere Entwicklung ===
+Die Instrumente in der einfachen Bauform fanden sehr rasch Verbreitung:
+
+* In Paris wurden kurz nach Demians Vorbild Instrumente als [[Französisches Akkordeon|französische Akkordeons]] nachgebaut und auch verändert. In der Musikzeitschrift „Le Menestrel“ aus dem Jahre 1834 wird berichtet, dass ein derartiges Instrument im Jahre 1831 nach Paris kam.
+* Auch [[Carl Friedrich Uhlig]] nahm von einer Reise nach Wien ein derartiges Instrument nach Chemnitz mit. Er veränderte es, hielt aber an der diatonischen und wechseltönigen Tastenbelegung fest. 1834 baute er sein erstes Instrument, das als „Deutsche Konzertina“ bekannt wurde.
+* [[Heinrich Band]] erweiterte den Tonumfang. In seiner Spielanleitung vom Jahre 1846 war sich Band selbst nicht sicher, wie er sein Instrument einordnen sollte. Er schreibt: „Accordionschule für 40- und 44-töniges Accordion, […] selbst […] auf den Accordion oder der Ziehharmonika zu lernen.“ (op. 1 Crefeld)
+* [[Paolo Soprani]] in Italien baute ebenfalls seine ersten Instrumente nach dem Vorbild Demians, 1863 entstand die erste Fabrik in Italien.
+* Ziehharmonika und Accordion waren also die üblichen Bezeichnungen in jener Zeit.
+
+=== Amerika ===
+* In [[Amerika]] entwickelt sich die Harmonium-Fabrikation sehr rasch, so gab es bereits 1840 vierzig [[Diatonisches Akkordeon|Melodeon (Orgel)]]-Erzeuger. Damit entwickelte sich dieses Instrument in Amerika praktisch zur selben Zeit wie in Wien und Paris. Aber auch ein Instrument nach dem Vorbild von Demian fand sehr rasch Anklang.
+
+{{Zitat
+ |Text=Melodeons were inexpensive, easy to move, and required a minimum of upkeep. These features were so attractive that by 1840 there were forty melodeon builders in the United States, with an annual product of $646,975, but reports listed only twenty pipe organ builders, with an annual product of $324,750 [13,p.132]
+ |Autor=Orpha Caroline Ochse
+ |Quelle=The History of the Organ in the United States
+ |ref=<ref>Orpha Caroline Ochse: ''The History of the Organ in the United States.'' S. 112, ([http://books.google.at/books?id=WZwGUS_iam4C&lpg=PP1&ots=N8c2YxyvuU&dq=The%20History%20of%20the%20Organ%20in%20the%20United%20States%20%20Von%20Orpha%20Caroline%20Ochse&pg=PA112#v=onepage&q=Melodeon%20builders&f=false books.google.at]).</ref>}}
+Unter anderem bezeugt ein Katalog von C. Bruno & Son aus dem Jahre 1881 umfangreiche Importe aus Europa. Dieser Katalog hat über hundert Abbildungen.<ref name="BrunoSon">{{Literatur |Autor=C. Bruno & Son |Titel=''musical instruments, strings …'' |Datum=1881 |Kommentar=Seite 24 bis 97 fehlen |Online={{archive.org |illustratedcat00cbru}}}}</ref>
+<ref name="BrunoSon2">{{Literatur |Autor=C. Bruno & Son |Titel=musical instruments, strings … |TitelErg=ca. 1890, mit vielen handcolorierten Abbildungen |Datum= |Seiten=69–102 |Online={{archive.org |illustratedcatal00cbru |Blatt=70}}}}</ref>
+
+=== Die deutsche Harmonika ===
+[[Datei:German button accordion.jpg|mini|Diatonische Handharmonika, Marke Lester]]
+==== Gera ====
+[[Heinrich Wagner (Harmonika)|Heinrich Wagner]]<ref name="Wagner-Spaethe" /> lernte in Wien bei seinem Schwager Joseph Resch den Bau von Mund- und Handharmonikas kennen. Ab 1836 verkaufte er noch Instrumente, die sein Schwager in Wien anfertigte, begann aber bald mit einer eigenen Produktion, indem er weitere Arbeiter aus Wien nach Gera brachte. „Zu seinen ersten Gehilfen zählten der Harmonikatischler Resch, der Balgbinder Auinger, der Plattenmacher Haberkamm und der Stimmer Volkmann.“<ref name="Wagner-Spaethe" /> Er stellte Lehrlinge und Arbeiter ein und beschäftigte schon 1852 etwa 100 Mitarbeiter. 1867 waren es bereits 380 Mitarbeiter. 1890 wurde die Firma aufgelöst, der Markenname wurde von der Fa. Buttstädt übernommen.
+
+==== Magdeburg ====
+Im Jahre 1845 gründete [[Fridrich Gessner]] eine Fabrik in [[Magdeburg]]. 1855 soll er bereits 150 Arbeiter beschäftigt haben. 1858 folgte noch die Fa. Traugott Schneider. Gessner wurde 1909 an die Fa. Hohner verkauft, Schneider an Dörfel in Brunndöbra. Es wurden in der folgenden Zeit viele weitere Betriebe gegründet, viele gaben aber nach dem Ersten Weltkrieg auf. Zu Beginn des Zweiten Weltkrieges waren es nur noch drei Betriebe: A. Pitzschler & Sohn, H. Buttstädt, F. Törfl.
+
+==== Berlin ====
+In [[Berlin]] entstanden, ebenfalls um 1860, die beiden Unternehmen ''Pietschmann & Sohn'' und ''Kalbe''. ''Kalbe'' wurde 1910 an ''Hohner'' verkauft, ''Pietschmann & Sohn'' wurde 1910 aufgelöst.
+
+==== Klingenthal ====
+{{Hauptartikel|Geschichte des Akkordeonbaus in Klingenthal}}
+[[Adolph Herold]] war Tischler bei der Fa. Fridrich Geßner in Magdeburg. Er brachte 1852 ein Instrument nach [[Klingenthal]] und baute es in der Werkstätte seines Vaters nach. Viele Mundharmonikaerzeuger aus dem Ort wurden dadurch angeregt, selbst Harmonikas zu bauen. Bereits 1862 gab es in Klingenthal und Umgebung (auch [[Musikwinkel]] genannt) 20 Fabriken mit 334 Arbeitern. Die Jahresproduktion belief sich damals auf 214.500 Stück<ref>''Vogtländischer Anzeiger'', 19. Juli 1860.</ref> Derartige Stückzahlen wurden nicht einmal später von der Firma Hohner erreicht.
+
+==== Altenburg und Siegburg ====
+Die Firma Kahnt & Uhlmann ([[Altenburg]]/Thüringen) fertigte „[[Cantulia]]“-Akkordeons und [[Bandoneon]]s seit 1880. Im Jahr 1937 erfolgte eine Neugründung als Akkordeonfabrik in [[Siegburg]] durch Walter Neuerburg. Markenzeichen des Cantulia-Akkordeons war das rote „C“ auf der C-Taste. Während des Zweiten Weltkriegs blieb die Fabrik geschlossen. Trotz erfolgreicher Produktionswiederaufnahme nach dem Krieg erlosch die Firma zum 31. Dezember 1957.
+
+==== Triptis – Oberpöllnitz ====
+Die Firma „Friedrich Töpel Harmonikafabrik“ wurde im August 1872 in Wittchenstein bei Triptis von dem Harmonikatischler Friedrich August Töpel als kleine Manufaktur im elterlichen Anwesen gegründet. 1877 wurde eine eigene Fabrik in Oberpöllnitz erbaut. 1907, nach dem Großbrand von 1905, wurde die Fabrikanlage um ein Drittel der Produktionsfläche erweitert, damit verbunden war ein Eigentümerwechsel. Im Jahre 1911 erfolgte eine Umfirmierung in die „Friedrich Töpel Harmonikafabrik AG“. Um 1935 wurden 100 Mitarbeiter beschäftigt. Unter der Betriebsleitung von Paul Biedermann, der auch Hauptaktionär war, stieg die Firma zur größten Akkordeonfabrik Thüringens auf. 1961, mit dem Tod von Paul Biedermann, wurde die Akkordeonproduktion am Standort Oberpöllnitz eingestellt. Die letzte Serie von Instrumenten wurde mit 34/80 Bässen für Weltmeister Klingenthal produziert. Der geschützte Markenname ist „SOLO“.
+
+==== Trossingen ====
+1903 begannen M. Hohner und A. Koch die Produktion von Handharmonikas. In [[Trossingen]] gab es vor dem Ersten Weltkrieg vier Großbetriebe: Matthias Hohner, Ands. Koch, Ch. Weiß, Chr. Messner & Co. 1907, nachdem viele andere Firmen bereits integriert worden waren, wurde die [[Hohner|Fa. Hohner]] zur größten Musikinstrumentenfabrik der Welt. Am Höhepunkt im Jahre 1939 beschäftigte sie 4000 Mitarbeiter.
+
+==== Selbstspielende Akkordeons ====
+Es gibt viele Varianten von selbstspielenden Akkordeons. Ein historisches Instrument ist das [[Magic Organa]].
+
+=== Maschinelle Fertigung ===
+Einen wesentlichen Beitrag zur maschinellen Fertigung machte Julius Bertold ab 1870. Er war Schlosser in Klingenthal und erfand und baute Maschinen, welche die Produktion von Stimmplatten und Akkordeons vereinfachten. Darunter waren Stanzen und Fräsen für Stimmzungen, Pressen für die Balgfertigung, Holzbearbeitungsmaschinen sowie Schneidemaschinen.
+
+Bekannte Akkordeonbauer waren damals: [[C. A. Seydel Söhne|C. A. Seydel]], I. C. Herold, G. A. Dörfel, Dörfel-Steinfelser & Co., [[F. A. Böhm]], Otto Weidrich, Karl Eschbach, Ernst Leiterd, [[F. A. Rauner]] A.&nbsp;G., Robert Mühlmann, Gebrüder Gündel.
+
+=== Siehe auch ===
+* Geschichte und Entwicklung der Akkordeonindustrie in [[Italien]] wird unter [[Organetto (Akkordeon)|Organetto]] beschrieben.
+* Geschichte und Entwicklung der Akkordeonindustrie in [[Frankreich]] wird unter [[Französisches Akkordeon]] beschrieben.
+* Geschichte zur Harmonika in [[Österreich]] wird unter [[Steirische Harmonika]] bzw. [[Schrammelharmonika]] beschrieben.
+* Geschichte und Entwicklung der Akkordeonindustrie in [[Russland]] wird unter [[Bajan]] beschrieben.
+* Geschichte und Entwicklung der Akkordeonindustrie in [[Tschechien]] wird unter [[Heligonka#Geschichte|Heligonka]] beschrieben.
+
+== Elektronische und digitale Akkordeons ==
+[[Datei:Von Bach bis Tango (ZMF 2016) jm12366.jpg|mini|Matthias Matzke mit elektronischem Akkordeon (2016)]]
+Ähnlich wie beim [[Klavier]] (z.&nbsp;B. [[E-Piano]]) kam es auch beim Akkordeon zu elektronischen Variationen, um dessen Klangvielfalt zu erweitern.
+
+Die ersten elektronischen Akkordeons wurden in den 1960er Jahren von der italienischen Firma [[Farfisa]] gebaut.<ref>Fabio G. Giotta: ''A Brief, Comprehensive History of the Cordovox and other Electronic Accordions.''</ref>
+In den 1970er Jahren war bei [[Alleinunterhalter]]n das vollelektronische Akkordeon ''Electravox'' der Firma [[Hohner]] populär, bei dem der Balg als Lautstärkeschweller diente.<ref>[https://www.yumpu.com/de/document/read/15405940/hohner-electravox-de-luxe-bedienungs-und-serviceanleitungpdf Hohner Electravox de luxe, Bedienung- und Serviceanleitung] In: yumpu.com</ref> Eine Weiterentwicklung waren in den 1980er Jahren Akkordeons der Serie ''Hohner Vox'', die einerseits normale Akkordeons, andererseits auch [[elektronische Orgel]]n waren. Der Klang der elektronischen Stimmen war damals noch sehr unnatürlich und am ehesten mit dem von [[Heimorgel]]n vergleichbar.
+
+In den 1990er Jahren wurde damit begonnen, übliche Akkordeons mit einem [[Musical Instrument Digital Interface|MIDI]]-Modul nachzurüsten. Diese Midi-Akkordeons sind Hybride, die neben normalem Spiel die Einspeisung von Midi-Signalen in externe [[Soundmodul]]e (Expander) ermöglichen.<ref>[http://www.accordionexpanders.com/miditech1.htm accordionexpanders.com]</ref>
+
+Als weitere Entwicklung brachte Mitte der 2000er Jahre die Firma [[Roland (Unternehmen)|Roland]] volldigitale Instrumente, sogenannte ''V-Akkordeons'', heraus.<ref>[https://www.rolandus.com/go/v-accordion/ V-accordion] In: rolandus.com</ref> Bei diesen Akkordeons werden Klang und Spielgefühl (u.&nbsp;a. die Balgfunktion) von herkömmlichen Akkordeons möglichst authentisch nachgeahmt. Durch [[Sampling (Musik)|Sampling]] werden nicht nur die [[Klangfarbe]]n verschiedener Akkordeons, sondern – wie bei modernen [[Synthesizer]]n – auch die Vielfalt der [[Klang|Sounds]] zahlreicher weiterer Musikinstrumente nachgebildet, wie z. B. Klarinette, Violine, Trompete und Orgel.
+
+Als weiterer Hersteller brachte 2024 die japanische Firma [[Korg]] ein volldigitales Akkordeon auf den Markt.<ref>[https://www.keyboards.de/equipment/news-korg-fisa-suprema-digitales-akkordeon/ ''News: Korg Fisa Suprema – digitales Akkordeon''] In: keyboards.de</ref>
+
+== Pädagogik ==
+Das Akkordeonspiel kann an Musikschulen gelernt werden.
+
+An den [[Hochschule]]n konnte sich das Instrument vor allem in der zeitgenössischen Kammermusik etablieren. Mehrere Institute in Deutschland – unter anderem in [[Bremen]], [[Trossingen]], [[Freiburg im Breisgau]], [[Würzburg]], Weimar, Hochschule Lausitz in Cottbus, [[Hannover]], [[Essen]], [[Wuppertal]] und [[Nürnberg]] – bieten entsprechend spezialisierte Studiengänge (KA, KP, Komposition, Lehramt) an. Eine interessante Sonderstellung nimmt das [[Hohner-Konservatorium]] in Trossingen (nicht zu verwechseln mit der [[Hochschule für Musik Trossingen|Musikhochschule]] am gleichen Ort) ein, wo unter anderem [[Dirigent]]en am aus den Mitstudierenden zusammengesetzten [[#Akkordeonorchester|Akkordeonorchester]] ausgebildet werden. Auch die diatonischen Instrumente haben Zugang zu den Hochschulen gefunden. An den Konservatorien in [[Linz]], [[Salzburg]], [[Graz]], [[Klagenfurt]], [[Innsbruck]] und München wird das Studium der Steirischen Harmonika gelehrt.
+
+== Hersteller ==
+[[Datei:Baltic Sea Child - Wacken Open Air 2015-0782.jpg|mini|Italienisches Akkordeon des Herstellers Brandoni]]
+Einer der größten Akkordeonhersteller ist die ''[[Hohner|Matthias-Hohner AG]]'' in [[Trossingen]]. Besonders die Solistenmodelle der Serien „Morino“ und „Gola“ und das Mittelklassemodell „Atlantic“ sind weltweit verbreitet. Ende der 1990er Jahre wurde die Matthias-Hohner AG an asiatische Investoren verkauft, sodass ein Teil der Instrumente und insbesondere die Komponenten in China gefertigt werden. In Trossingen ist nur noch ein kleiner Stamm von Mitarbeitern verblieben. Eine weitere deutsche Manufaktur ist in Klingenthal das Unternehmen „HARMONA AKKORDEON GMBH“ mit dem Markennamen ''Weltmeister''. Sie ist die älteste Akkordeonfabrik der Welt (seit ca. 1852), die nach der Wiedervereinigung aus dem ''[[VEB Klingenthaler Harmonikawerke]]'' „wieder“ entstanden ist. Hier werden immer noch Akkordeons mit einer Fertigungstiefe von bis zu 95 % in Deutschland entwickelt und hergestellt, siehe auch: ''[[Geschichte des Akkordeonbaus in Klingenthal]]''. Ein international bekanntes Meisterinstrument ist die „Supita“, die in ihrer aktuellen Version als Supita&nbsp;II in verschiedenen Varianten für den Orchestereinsatz wie für solistische Zwecke und Studioproduktionen gefragt ist. Handwerksbetriebe wie [[Georg Öllerer|Öllerer]], Schneeberg und Hartenhauer in Deutschland fertigen eine beträchtliche Zahl an Instrumenten.
+
+In Italien gibt es etwa 50 Akkordeonbauer alleine in [[Castelfidardo]] und Umgebung – bekannte Namen sind hier Dallape, Guerrini, Beltuna, [[Bugari]], Ballone Burini, Borsini, Brandoni (Familie Bompezzo, einer der Markennamen ist byMarco), Castagnari, Menghini (heutiger Firmenname Suani, mit den Markennamen Scandalli SEM, Paolo Soprani), Pigini und Victoria. In Finnland gibt es Lasse Pihlajamaa (heute Pigini) und andere, in osteuropäischen Staaten Jupiter, Tula. In Österreich werden ca. 20.000 [[Steirische Harmonika|diatonische Harmonikas]] im Jahr produziert ([[Peter Müller (Harmonikabauer)|Müller]], [[Steirische Harmonika#Ernst Strasser|Strasser]], [[Franz Schmidt (Harmonikabauer)|Schmidt]], [[Rupert Novak|Novak]], [[Josef Fleiß#Herfried Zernig|Jamnik]], [[Josef Fleiß#Herfried Zernig|Zernig]]).
+
+So vielfältig wie die Musiker sind auch die Meinungen über Qualität und Vorzüge der einzelnen Marken. Die Vielzahl der technischen Komponenten am Akkordeon bringt es mit sich, dass die Instrumente nur noch selten von den Herstellern komplett gefertigt werden. Auch große Marken greifen für Einzelkomponenten auf Zulieferer zurück. Daher ist es für die Beliebtheit der Instrumente nicht nur ausschlaggebend, um welche Marke und welches Modell es sich handelt, sondern darüber hinaus auch, in welcher Zeit es gebaut wurde.
+
+Hier eine Liste der gängigsten Akkordeonmarken. Viele der Hersteller existieren bereits nicht mehr, oder stehen bereits unter anderem Firmennamen.
+
+{{Mehrspaltige Liste |liste=
+* Artigiana (L'Artigiana)
+* Accordiola
+* Alpenklang
+* Akko
+* Ancona
+* Arabella
+* Ballone Burini
+* Baro
+* Barcarole
+* Beltuna
+* Brandoni
+* [[Bugari]]
+* Borsini (Bompezzo)
+* Borsini Sandi Jug
+* Cantonelli
+* Cantulia
+* Cavagnolo
+* Crucianelli
+* Dallape
+* Delicia
+* Dega
+* E. Soprani (Soprani)
+* Excelsior
+* Farfisa (Scandalli)
+* Fantini
+* Fisitalia
+* Fili Alessandrini
+* Fröhlich
+* Fratelli Crosio
+* Frintalini
+* Galanti
+* Galotta
+* Giulietti
+* Giustozzi
+* Guerrini
+* Hemgesberg
+* Hess
+* Hohner
+* Horch
+* Harmona (Weltmeister)
+* Jupiter
+* Kärntnerland
+* Kratt
+* Lanzinger
+* Lucchini Stradella
+* Lingatone
+* Mantovanelli
+* Marinucci
+* Marzioli
+* Meisterspiel
+* Mengascini
+* Menghini (Scandalli SEM..)
+* Melodija
+* Moreschi
+* Müller
+* Novak
+* Orchester
+* Öllerer
+* Paolo Soprani
+* Parrot
+* Paganini
+* Pigini
+* Piatanesi (Ottavianelli)
+* Piermaria
+* Roland
+* Rossini
+* Royal Standard
+* Settimio Soprani
+* Starkrainer
+* Startone
+* Soprani
+* Sonola
+* Solton
+* Schneeberg
+* Schober
+* Scandalli
+* Titano
+* Thomann
+* Tula
+* Universum
+* Victoria
+* Vignoni (Fisart)
+* Walther (Ballone Burini)
+* Weltmeister
+* Zero Sette
+* Zupan
+}}
+
+== Akkordeonmusik ==
+=== Literatur ===
+Die Akkordeonliteratur konnte sich entsprechend dem noch jungen Alter des Instruments erst im 20.&nbsp;Jahrhundert entwickeln. Inzwischen existiert eine große Palette zeitgenössischer Werke aller Genres und Schwierigkeitsgrade in unterschiedlichen Besetzungen vom Solo bis zur Integration in sinfonische Klangkörper, vor allem aber in der Kammermusik. Zusätzlich ist es möglich, auf dem Akkordeon mit [[Melodiebass]] –&nbsp;bei sorgfältiger Auswahl&nbsp;– Werke aus der Klavier- und Orgelliteratur zu spielen. Hier sind besonders barocke Werke geeignet (zum Beispiel von [[Johann Sebastian Bach]] und [[Domenico Scarlatti]]). Gleichzeitig wurden durch eine Fülle von Transkriptionen auch die vor der Erfindung des Instruments datierenden musikalischen Epochen erschlossen.
+
+Während des frühen 20.&nbsp;Jahrhunderts schuf eine Reihe von Free-Bass Akkordeon-Instrumentalisten auch anspruchsvolle Kompositionen, die für die Aufführung im Konzertsaal geeignet sind. In den 1950er Jahren komponierte [[John Serry senior]] seine ''American Rhapsody'' im „Orchestral-Jazz“-Stil für [[Stradella-Bass]]-Akkordeon.<ref>[https://www.esm.rochester.edu/sibley/files/John-J-Serry-Sr-Collection.pdf John J. Serry, Sr. Collection] (PDF; 0,5&nbsp;MB), S. 10, S. 11, S. 18 ''Americah Rhapsody'' auf esm.rochester.edu (englisch)</ref><ref>''American Rhapsody''. The Library of Congress Copyright Office. Hrsg.: Alpha Music Company, New York NY, Komponist: John Serry, 1957.</ref> Der Komponist transkribierte es 1963 für [[Melodiebass]]-Akkordeon. In den 1960er Jahren komponierte er sein ''Concerto in C Major for Bassetti Accordion''. Die Komposition wurde für das Giulietti-Melodiebass-Akkordeon geschrieben.<ref>[https://www.esm.rochester.edu/sibley/files/John-J-Serry-Sr-Collection.pdf John J. Serry, sr., collection] (PDF; 0,5&nbsp;MB), S. 10, S. 17. ''Concerto in C Major for Bassetti Accordion'' auf esm.rochester.edu (englisch)</ref><ref>''Concerto in C Major for Bassetti Accordion''. The Library of Congress Copyright Office. Komponist: John Serry, 4. Juni 1968, Copyright # EP247602</ref>
+
+Nur ein geringer Anteil von Originalliteratur und erhältlichen Akkordeonauszügen ist auf Tonumfang und/oder technische Möglichkeiten des [[Knopfgriffakkordeon]]s angewiesen. Der für das [[Pianoakkordeon]] mit 120 Bässen übliche Tonumfang von f-a′′′ hat sich als Standard etabliert, speziell auch für Orchesterstimmen mit Ausnahme der Bassstimme.
+
+Es ist bei Solisten gängige Praxis, Nichtoriginalliteratur (insbesondere für Orgel) in eigenen Fassungen zu spielen, die die individuellen Grenzen von Instrument und Spieler weiter als in Akkordeonauszügen üblich ausnutzen.
+
+=== Akkordeonkonzert ===
+Ein Akkordeonkonzert ist ein [[Instrumentalkonzert]] für Akkordeon als Soloinstrument und Orchester oder Kammerorchester.
+Mehrere Komponisten haben Solo-Konzerte für Akkordeon und Orchester geschrieben.
+
+Das erste solche Konzert stammt aus dem Jahr 1937, es wurde von [[Feodosiy Rubtsov]] (1904–1986) komponiert und in der Leningrader Philharmonie durch [[Pavel Gvozdev]] uraufgeführt. Das erste Akkordeonkonzert in Deutschland komponierte [[Hugo Herrmann (Musiker)|Hugo Herrmann]] im Jahr 1940 (Aladar Krikkay gewidmet), es folgten weitere von [[Fred Malige]] (1942), [[Hermann Zilcher]] (1947), Hugo Herrmann 2. Konzert (1948/49), [[Gerhard Mohr]] (1953) und [[Wolfgang Jacobi (Komponist)|Wolfgang Jacobi]] (1958).
+
+Ein für die Entwicklung des Akkordeons wichtiger Interpret war der Däne [[Mogens Ellegaard]], der mit dem dänischen Komponisten [[Ole Schmidt (Komponist, 1928)|Ole Schmidt]] zusammenarbeitete. Dessen Komposition „Symphonic Fantasy and Allegro“ op. 20 aus dem Jahr 1958 gilt als Meilenstein. Es folgten andere Komponisten aus Skandinavien, wie [[Torbjörn Lundquist]], [[Niels Viggo Bentzon]] (1963) und [[Per Nørgård]] (1968). [[Arne Nordheim]] komponierte das berühmte Konzert "Spur" für Ellegaard im Jahre 1975. Im Jahre 1959 schrieb [[Václav Trojan]] "Pohádky" (Märchen), das noch immer regelmäßig gespielt wird. In den Vereinigten Staaten komponierten in den 1960er Jahren [[Henry Cowell]], [[Alan Hovhaness]], [[Roy Harris]], [[Carmelo Pino]], [[Paul Creston]] und [[Carmine Coppola]] Akkordeonkonzerte. Im Jahre 1962 schuf [[Jean Wiener]] in Frankreich ein Konzert für diese Besetzung.
+
+Dank der Anstrengungen wichtiger Akkordeonisten wie [[Friedrich Robertowitsch Lips|Friedrich Lips]], [[Geir Draugsvoll]], [[Joseph Macerollo]], [[Italo Salizzato]], [[John Serry senior]],<ref>[https://www.esm.rochester.edu/sibley/files/John-J-Serry-Sr-Collection.pdf Eastman School of Music - University of Rochester - Sibley Music Library: John J. Serry Sr. Collection - ''Concerto in C Major for Free Bass Accordion (1967)'', Folder 15 & 16, S. 10. Die Musikkomposition ist unter archiviert: The University of Rochester - Eastman School of Music: Sibley Music Library - Special Collections. "John J. Serry Sr Collection" an esm.rochester.edu] (englisch)</ref>
+<ref>Marion S. Jacobson: ''Squeeze This – Eine kulturelle Geschichte des Akkordeons in Amerika.'' Universität von Illinois Presse, Urbana 2012, ISBN 978-0-252-08095-1, S. 61.</ref><ref>Irving Settel: ''Eine bildliche Geschichte des Radios''. Grosset & Dunlap, New York 1960 und 1967, S. 146, {{LCCN|67-23789}} (siehe Foto)</ref> [[Stefan Hussong]] und [[Teodoro Anzellotti]] wurde das Repertoire in den folgenden Jahren immer größer. Bekannte Komponisten wie [[Sofia Gubaidulina]], [[Jukka Tiensuu]], [[Kalevi Aho]], [[Gija Kantscheli]] und [[Toshio Hosokawa]] haben Akkordeonkonzerte komponiert.
+
+=== Akkordeonorchester ===
+[[Datei:Akkordeonorchester Viva la Musica – Ochsenmarkt Wedel 03.jpg|mini|Ein Akkordeonorchester (2014)]]
+{{Hauptartikel|Akkordeonorchester}}
+Beim Akkordeonorchester handelt es sich um einen Klangkörper, der nur aus Akkordeonspielern besteht.
+
+Am Anfang der Entwicklung stand die alleinige Verwendung von diatonischen Instrumenten im sogenannten Harmonikaorchester. Die ersten Orchester dieser Art wurden nach dem Ersten Weltkrieg etwa ab 1925 gegründet. Fortschritte im Instrumentenbau brachten es mit sich, dass das Akkordeon mit seinen schaltbaren Klangfarben immer mehr Eingang in Harmonikaorchester fand. So änderte das Bevorzugen des Piano- und auch des Knopfgriffakkordeons dessen innere Struktur. Das wurde schließlich bestimmend für die Literatur. Es waren damit die Voraussetzungen geschaffen, dass sich ein eigener Akkordeonorchester-Stil entwickeln konnte.
+
+Es gibt drei Arten des gemeinsamen, orchestralen Akkordeonspiels, die sich allerdings nicht streng voneinander abgrenzen lassen:
+* das große Akkordeonorchester (20 bis 30 Spieler)
+* das Akkordeon-Ensemble (je Stimme höchstens zwei Spieler)
+* die Akkordeon-Spielgruppe (zumeist als Quintett)
+Als Zusatzinstrumente werden Bass, [[Elektronium]] oder [[Keyboard]]s, [[Schlagzeug]], [[Perkussion (Musik)|Percussion]] und [[Pauke]]n verwendet. Zuweilen wird auch ein [[Kontrabass]] ergänzt.
+
+=== Akkordeon-Bigband ===
+''Siehe auch entsprechender Abschnitt in'': [[Big Band]]
+
+== Verbände ==
+Der ''[[Deutscher Harmonika-Verband|Deutsche Harmonikaverband e.&nbsp;V. (DHV)]]'' ist mit über 120.000 Aktiven einer der größten deutschen Laienmusikverbände. Die meisten Mitglieder sind in den über 1000 Mitgliedsvereinen organisiert, die neben der Aus- und Weiterbildung der Spieler auch einen Orchesterbetrieb und regelmäßige Veranstaltungen durchführen. Gegründet wurde der DHV auf Initiative des Harmonika-Herstellers HOHNER im Jahre 1931. Der Hauptsitz des Verbands ist in Trossingen. Präsident ist seit September 2025 [[Niko Reith]] (MdL BW)<ref>https://www.dhv-ev.de/delegiertenversammlung-des-deutschen-harmonika-verbands-jochen-haussmann-mdl-zum-ehrenpraesidenten-ernannt-delegierte-waehlen-niko-reith-mdl-zum-nachfolger/, abgerufen am 16. Januar 2026</ref>. Der Verein ist beim Amtsgericht in Spaichingen registriert und teilt sich in verschiedene Landesverbände auf (wie Landesverband Bayern), welche wiederum in mehrere Bezirke und Kreisvereinigungen untergliedert sein können (wie Bezirk Karlsruhe). Über 75 % der Mitglieder sind Jugendliche und daher spielte die Jugendarbeit beim DHV schon immer eine sehr wichtige Rolle. In Baden-Württemberg wurde aus diesem Grund im Jahre 1981 eine Jugendorganisation des Verbands gegründet, die [[Akkordeon-Jugend Baden-Württemberg]]. Sie bündelt die Interessen der jugendlichen Mitglieder und ist mit einem umfangreichen überfachlichen Angebot präsent. Der Vorsitzende der Akkordeon-Jugend ist seit 2020 Peter Huber. Der Dienstsitz liegt in Rheinstetten.
+
+== Rekorde und Ehrungen ==
+Das größte spielbare Akkordeon der Welt, das auch im [[Guinness-Buch der Rekorde]] erwähnt wird, befindet sich in [[Castelfidardo]]. Es ist 2,53 Meter hoch und 1,90 Meter lang, 85 Zentimeter tief und wiegt circa 200 Kilogramm. Gebaut wurde es von 2000 bis 2001 in Castelfidardo von Giancarlo Francenella in über 1000 Arbeitsstunden. Es verfügt über 45 Diskanttasten, 120 Bassknöpfe und 240 Stimmplatten.
+Bei dem Instrument handelt es sich um eine 5:1 Vergrößerung eines normalen Akkordeons.<ref>[https://www.guinnessworldrecords.com/world-records/largest-accordion guinnessworldrecords.com]</ref>
+
+Ein ähnlich großes Akkordeon befindet sich im [[Musikinstrumenten-Museum Markneukirchen]]. Es ist 1,80 Meter hoch, besitzt 128 Diskanttasten und 423 Bassknöpfe, davon 360 klingende und wiegt über 100 Kilogramm. Dieses Gewicht erforderte das Anbringen von Rädern, damit das Instrument bewegt werden konnte. Der [[Faltenbalg|Balg]] kann bis zu 2000 Liter Luft aufnehmen.
+Das Akkordeon wurde von der Firma [[Glaß und Schmidt]] gebaut. Die Konstruktion stellt eine handwerkliche Meisterleistung dar und war ein enormer Arbeitsaufwand. Aus diesem Grund wurden die im [[Zweiter Weltkrieg|Zweiten Weltkrieg]] ausgebauten Tonzungen nicht wieder eingesetzt, weshalb dieses Akkordeon nicht mehr spielbar ist. Die sechsköpfige weibliche Artistengruppe, die das Instrument zwischen 1938 und 1940 bespielte, hatte im Jahr 1938 Auftritte im Kristallpalast in [[Leipzig]], im Apollotheater [[Nürnberg]] und in der [[Scala (Berlin)|Berliner Scala]].<ref>[http://www.museum-markneukirchen.de/kurios.htm Webpräsenz des Musikinstrumenten-Museums Markneukirchen]</ref>
+
+Im Jahre 2024 wurde das Akkordeon von der Suchmaschine Google anlässlich des Patent-Jubiläums mit einem animierten Doodle zelebriert.<ref>{{Internetquelle |autor=Jens |url=https://www.googlewatchblog.de/2024/05/was-akkordeon-animiertes-google/ |titel=Was ist ein Akkordeon? Animiertes Google-Doodle ehrt das recht außergewöhnliche Musikinstrument |datum=2024-05-23 |sprache=de-DE |abruf=2024-05-23}}</ref>
+
+Das Akkordeon wurde von den deutschen Landesmusikräten zum Instrument des Jahres 2026 ernannt.<ref name=":1" />
+
+== Festivals ==
+* Kokkola Winter Accordion Festival (Finnland)<ref>[https://www.talviharmonikka.com/?lang=en/ Offizielle Homepage zum Festival]</ref>
+* Akkordeonfestival Wien (Österreich)<ref>[https://www.akkordeonfestival.at/ Offizielle Homepage zum Festival]</ref>
+* Festival Internazionale Castelfidardo (Italien)
+* [[Akkordeon-Akut-Festival]], Halle (Deutschland)<ref>[http://www.akkordeon-akut-festival.de/ Offizielle Homepage zum Festival]</ref>
+* Festival Accordeoes do Mundo, Torres Vedras (Portugal)<ref>[https://acordeoesdomundo.com/ Offizielle Homepage zum Festival]</ref>
+* International Accordion Festival Vilnius (Litauen)
+* 67. COUPE MONDIALE der Confédération Internationale des Accordéonistes (CIA) 27.&nbsp;Oktober bis 2.&nbsp;November 2014 in Salzburg (Österreich) (Veranstalter ist der [[Harmonikaverband Österreichs]] (HVÖ))<ref>[http://www.coupemondiale.org/2014/at_coupe_main.htm coupemondiale.org]</ref>
+* World Music Festival Innsbruck<ref>{{Internetquelle |url=http://www.dhv-ev.de/veranstaltungen/world-music-innsbruck/ |titel=World Music Festival Innsbruck |archiv-url=https://web.archive.org/web/20160823141722/http://dhv-ev.de/veranstaltungen/world-music-innsbruck/ |archiv-datum=2016-08-23 |abruf=2017-12-05}}</ref>
+* Akkordeon Café Dortmund (Deutschland) monatliche Open-Stage Veranstaltung und Austauschforum für Akkordeon-, Harmonika- und Mundharmonikaspieler, seit 2008<ref>[http://www.akkordeon-cafe-dortmund.de/ Akkordeon Café Dortmund]</ref>
+
+== Siehe auch ==
+* [[Liste von Akkordeonisten]]
+* [[Liste von Akkordeonkomponisten]]
+
+== Filme ==
+* ''Die Akkordeonspielerin''. Preisgekrönter Dokumentarfilm von Biljana Garvanlieva. [[Christian Beetz (Regisseur)|Christian Beetz]]. Deutschland 2006. 30 Minuten. [https://www.gebrueder-beetz.de/ Gebrüder Beetz filmproduktion] / 3sat „Mädchengeschichten“.
+* ''Schultze gets the Blues''. Ein Film von Michael Schorr. [http://www.schultzegetstheblues.de/ Offizielle Homepage zum Film]
+* ''Accordion Tribe''. Ein Dokumentarfilm über die gleichnamige Musikgruppe von Stefan Schwietert.
+* ''Das Akkordeon.'' Ein Dokumentarfilm über den Bau und die Geschichte des Akkordeons von George Lindt (Lieblingslied Records/DVD deutsch/englisch)
+
+== Literatur ==
+* Thomas Eickhoff: ''Kultur-Geschichte der Harmonika.'' Schmülling, Kamen 1991, ISBN 3-925572-05-8.
+* Wolfgang Eschenbacher: ''Musik und Musikerziehung mit Akkordeon.'' Band I–IV, Hohner, Trossingen 1993–1994, ISBN 3-920468-40-6, ISBN 3-920468-41-4, ISBN 3-920468-42-2, ISBN 3-920468-43-0.
+* Wolfgang Eschenbacher: ''Rudolf Würthner und das Orchester des Hauses Hohner''. Schott Music, Mainz 1998, ISBN 3-920468-46-5.
+* Giovanni Gagliardi: ''Kleines Handbuch des Akkordeonisten''. Aktualisierte und um den italienischen und französischen Text sowie um drei Briefe Gagliardis erweiterte Neuausgabe. Augemus, Bochum 2004, ISBN 3-924272-08-5 (= Texte zur Geschichte und Gegenwart des Akkordeons; Band 2).
+* Hans-Peter Graf: ''Entwicklungen einer Instrumentenfamilie. Der Standardisierungsprozeß des Akkordeons''. Lang, Frankfurt am Main 1998, ISBN 3-631-32841-9 (zugleich Dissertation, Universität Bremen, 1996)
+* ''Das Hohner-Konservatorium Trossingen.'' Druckerei und Verlag Springer, Trossingen 2000, ISBN 3-9802675-2-0.
+* C. Jacomucci (Hrsg.): ''Critical selection of accordion works composed between 1990 and 2010.'' Edizioni Tecnostampa, Loreto 2014, ISBN 978-88-87651-54-6.
+* Ralf Kaupenjohann: ''Das Akkordeon. Eine kurze Darstellung der heutigen, in der Bundesrepublik Deutschland gebräuchlichsten Instrumententypen''. Augemus, Bochum 1987, ISBN 3-924272-00-X (= Texte zur Geschichte und Gegenwart des Akkordeons; Band 1).
+* Gotthard Richter: ''Akkordeon. Handbuch für Musiker und Instrumentenbauer.'' 5. Auflage. Noetzel, Wilhelmshaven 2008, ISBN 3-7959-0569-9.
+* RIM Repertoirelijsten, deel 8 accordeon, Utrecht 1990 (Repertoire Informatie Centrum)
+* [[Erich Valentin (Musikwissenschaftler)|Erich Valentin]]: ''Handbuch der Musikinstrumentenkunde.'' Mit Zeichnungen von [[Franz Mazura]]. Gustav Bosse, Regensburg 1954, S. 376–383.
+* Christoph Wagner: ''Das Akkordeon oder die Erfindung der populären Musik. Eine Kulturgeschichte.'' Schott, Mainz 2001, ISBN 3-7957-2361-2.
+* Septimus Winner: ''Winner’s American instructor for the German accordion.'' Shaw, 1882 ([https://hdl.loc.gov/loc.music/sm1882.06991 Digitalisat])
+* Johan de With: ''Draagbaar, meerstemmig, expressief. Het accordeon en zijn verwanten.'' Uitgeverij KLANK, Stadskanaal 2006, ISBN 90-8721-001-9.
+
+== Weblinks ==
+{{Commons|Accordion|Akkordeon}}
+{{Wiktionary}}
+* {{DNB-Portal|4122772-4|TEXT=Literatur zum Thema}}
+* [https://www.accordions.com/ Informationen zu aktuellen Konzerterminen, Interpreten, Kompositionen.] Accordions Worldwide (englisch).
+* [https://drive.google.com/open?id=1VM7aDZ2h8--kvs8mV9GPpv8tkIY&usp=sharing Accordion Worldmap.] Weltkarte mit Akkordeon-Museen, Events, Herstellern
+* [https://accordionchords.com/ AccordionChords.com] Stradella Bass System & Piano Accordion Chord Charts
+
+== Einzelnachweise ==
+<references>
+<ref name="Christina Appert">
+„Es wird regelrecht zum Avantgarde-Instrument, obwohl immer noch nicht alle wissen, zu was das Akkordeon alles fähig ist.“ {{Literatur
+ |Autor=Christina Appert
+ |Titel=Das Akkordeon: Schweineorgel oder Avantgarde-Instrument?
+ |Datum=2010}}
+</ref>
+<ref name="Wagner-Spaethe">
+{{Literatur
+ |Autor=Emil Fischer
+ |Titel=Zur Geschichte der Harmonikaindustrie in Gera
+ |TitelErg=Teil 1
+ |Sammelwerk=Zeitschrift für Instrumentenbau
+ |Band=24
+ |Datum=1903-04
+ |Seiten=963–965}} [http://bildsuche.digitale-sammlungen.de/index.html?c=viewer&bandnummer=bsb00004250&pimage=1059&v=100&nav=&l=de digitale-sammlungen.de]
+</ref>
+</references>
+
+{{Navigationsleiste Instrument des Jahres}}
+{{Normdaten|TYP=s|GND=4122772-4|LCCN=sh85000385|NDL=00560141}}
+
+[[Kategorie:Handzuginstrument]]
+[[Kategorie:Akkordeon| ]]

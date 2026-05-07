@@ -1,0 +1,27 @@
+[[Datei:TrumpetPlayer,Kaufmann.jpg|mini|hochkant|Mechanischer Trompeter von Friedrich Kaufmann, 1810. Deutsches Museum]]
+Der '''mechanische Trompeter''' ist ein [[mechanischer Musikautomat]] aus dem frühen 19. Jahrhundert, der im [[Deutsches Museum|Deutschen Museum]] in [[München]] ausgestellt ist.
+
+Der mechanische Trompeter von [[Friedrich Kaufmann (Instrumentenbauer)|Friedrich Kaufmann]] ist auf das Jahr 1810 datiert. Von Johann Friedrich Kaufmann und seinem Vater [[Johann Gottfried Kaufmann]] wurden der mechanische Trompeter und das [[Panharmonikon]] des [[Johann Nepomuk Mälzel]] nachempfunden und verbessert. Mälzel führte seinen Trompeter 1807 in Nürnberg vor, außerdem 1808 in Paris, Wien und 1809 in München.<ref>„Im Jahre 1808 reiste Mälzel mit seinem berühmten Panharmonikon, und mit seinem musikalischen Automaten, dem Trompeter, nach Paris, wo er jenes um 100,000 Franken verkaufte; mit diesem aber einen beynahe noch größeren Beyfall, als mit dem Panharmonikon, bey allen Kunst, und Musik-Kennern erntete.“ In: ''Kunst- und Gewerbeblatt des Polytechnischen Vereins für das Königreich Bayern'', Band 4, 1818, S. 224, [http://books.google.at/books?id=wP1EAAAAcAAJ&dq=Panharmonikon&pg=PT104&ci=493%2C260%2C420%2C818&source=bookclip Google Books]</ref>
+
+Johann David Kaufmann erfand auch das [[Harmonichord]].<ref>[[Carl Maria von Weber]]: ''Der Trompeter''. In: ''Allgemeine musikalische Zeitung'', Band 14, 7. Oktober 1812, Nr. 41. [http://books.google.de/books?id=fxVDAAAAcAAJ&pg=PA663&dq=Allgemeine+musikalische+Zeitung+Der+Trompeter&hl=de&ei=miWLTazmJIKt4AbzsJmADg&sa=X&oi=book_result&ct=result&resnum=1&ved=0CDMQ6AEwAA Google Books]</ref>
+
+Aufwendige [[Spieluhr]]en mit mechanischen Programmabläufen werden heute als frühe Vorläufer des Computers und der Programmierung angesehen.
+
+Auf der Webseite des Deutschen Museums wird die Funktionsweise des mechanischen Trompeters grob beschrieben.<ref>{{Internetquelle|url=https://digital.deutsches-museum.de/item/4423/|titel=Trompeterautomat|werk=Deutsches Museum Digital|abruf=2024-02-20}}</ref> Demnach kamen für die Tonerzeugung aufschlagende [[Zunge (Tonerzeuger)|Zungen]] zur Anwendung.
+
+== Siehe auch ==
+* [[Belloneon]]
+* [[Orchestrion]]
+* [[Geschichte der Automaten]]
+* [[Tipus Tiger]]
+
+== Literatur ==
+*  [[s:Mälzels Vervollkommnung der Orgel oder des Panharmonikons|''Vervollkommnung der Orgel oder des Panharmonikons.'']] In: Johann Bartholomäus Trommsdorff (Hrsg.): ''Annalen der Fortschritte, neuesten Erfindungen und Entdeckungen in Wissenschaften, Künsten, Manufakturen, Fabriken und Handwerken.'' Band 1. Georg Adam Keyser, Erfurt 1809, S. 861; auf [[Wikisource]]. „4. Ebenderselbe (Mälzel) hat wieder ein musikalisches Kunstwerk vollendet.“
+*  Rebecca Wolf: ''Friedrich Kaufmanns Trompeterautomat. Ein musikalisches Experiment um 1810'' (= ''[[Archiv für Musikwissenschaft]].'' Beiheft 68). Stuttgart 2011, ISBN 978-3-515-09381-1.
+* Rebecca Wolf: [https://www.deutsches-museum.de/assets/Verlag/Download/Preprint/Preprint_005_2012.pdf ''Die Musikmaschinen von Kaufmann, Mälzel und Robertson. Eine Quellenedition.''] Preprint 5. Deutsches Museum, München 2012
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Mechanischer Musikautomat]]
+[[Kategorie:Museumsbestand (Deutsches Museum)]]

@@ -1,0 +1,44 @@
+{{Belege}}
+'''Josef Hlaváček''' (* [[1864]] in [[Louny]]; † [[1944]] ebenda) war ein [[Böhmen|böhmischer]] [[Harmonikabauer]]. Er und seine Firma hatten einen maßgeblichen Anteil an der Verbreitung von Harmonikas mit Helikon-Bässen ([[Heligonka]]).
+
+== Firmengeschichte ==
+''Josef Hlaváček'' erlernte das Handwerk des [[Harmonikabauer]]s im heutigen [[Österreich]], gemäß einen Gespräch mit Herrn Ladislav Titlbach, dem heutigen Geschäftsführer der Nachfolgefirma Harmonikas. Er gründete im Jahr 1885 in [[Louny]] eine Harmonikafirma.
+
+Sein Bruder ''Jan Hlaváček'' (†&nbsp;1895) gründete im Jahr 1888 ebenfalls eine Firma, deren Betrieb dann von seiner Mutter ''Antonie Hlaváčková'' (*&nbsp;1840 in Louny) vom frühen Tod ihres Sohnes Jan 1895 an bis 1900 weitergeführt wurde. Anschließend führte Jans Bruder ''Antonín Hlaváček'' (*&nbsp;1869 in Louny) ab 1900 das Unternehmen weiter. ''Frantisek Zíma'' (*&nbsp;1895 in Louny), der seit 1910 bei seinem Schwager Antonín Hlaváček in Louny und [[Prag]] arbeitete, machte sich im Jahr 1929 in Prag [[Selbständigkeit (beruflich)|selbständig]]; seine Firma bestand bis 1959.
+
+1922 erfolgte der  Umzug der Firma ''Josef Hlaváček'' von Louny nach Prag mit der ganzen Werkstatt und 20 Beschäftigten. Nach dessen Tod im Jahr 1944 führten seine Söhne das Unternehmen in Prag bis zur Enteignung weiter.
+
+Die Herstellung in Louny übernahm ''Jan Klasek'', welcher mit seiner Firma von [[Wien]] nach Louny übersiedelt war, wo er die Werkstatt von Antonin Hlaváček übernahm. Als erster begann er auch Harmonikabälge herzustellen, welche er auch an andere Hersteller und Reparaturwerkstätten verkaufte. Nach seinem Tod übernahmen ''Jan Pospísil'' und ''Frantisek Hlaváček'' seine Firma. Jan Pospísil arbeitete als Harmonikabauer von 1880 bis 1930 in Louny. Frantisek Hlaváček war nicht verwandt mit den Hlavacek-Brüdern.
+
+Am Standort Louny stellt die Fa. ''Harmonikas'' heute Stimmplatten her.
+
+== Weltgeltung ==
+Hlaváček's Harmonikas waren Anfang des 20. Jahrhunderts in der ganzen Welt bekannt, sie wurden u. a. nach Russland, Nordamerika, Frankreich, Deutschland, Österreich, Ungarn, Bulgarien, Serbien, Slowenien, Kroatien, Mexiko, Brasilien, Argentinien, Australien und auf den Kanarischen Inseln verkauft. Den Instrumenten lagen jeweils auch Harmonikaschulen bei.
+
+1910 begann die Fa. Hlavacek mit der Fertigung chromatischer Akkordeons mit 3 Reihen und 36 Knöpfen, mit Bässen, in Dur und Moll. Das Unternehmen Hlavacek stellte damals jährlich 500–600 Stück Harmonikas her, dies ist ungefähr die Größenordnung, die heute die Fa. [[Rupert Novak]] in Klagenfurt besitzt.
+
+== Lehrmaterial ==
+Im Jahr 1892 gab Josef Hlaváček eine Harmonikaschule für Autodidakten heraus (Cesko-slovanska skola pro samouky ku hre na dvouradovou 19-klapkovou harmoniku. Böhm.-slav. - boh. Laun, Venta 1892.) Um das Jahr 1910 gab Josef Hlaváček detailliertere Anleitungen für die Dreireiher-Typen der diatonischen Harmonikas heraus. Die Lehrhefte kamen in mehreren Ausgaben und richteten sich auch an völlige musikalische Anfänger, welche die Harmonika rein mit [[Tabulatur]] erlernten.
+Für die chromatischen Akkordeons gab er im Jahr 1914 ein umfangreiches Lehrbuch heraus, das auch einen umfangreichen theoretischen Teil enthält („Schulungsheft für das chromatische Akkordeon, besonders geeignet für Selbstlerner“).
+
+=== Cyrill Hlaváček ===
+Der Harmonikabauer ''Cyrill Hlaváček'' in [[Brünn]] war nicht mit den Hlavaceks aus Louny verwandt, er benutzte jedoch die Namensgleichheit zu unseriöser Werbung für seine Harmonikas. In der Werbung pries er sich als „Harmonikafabrikant und Lehrer“ an, im Jahr 1929 gab der Brünner Verleger ''J. Stozicky'' seine Harmonika-Lehrbücher heraus.
+
+{{Normdaten|TYP=p|GNDfehlt=ja|GNDCheck=2024-06-22}}
+
+{{SORTIERUNG:Hlavacek, Josef}}
+[[Kategorie:Harmonikabauer]]
+[[Kategorie:Person (Königreich Böhmen)]]
+[[Kategorie:Geboren 1864]]
+[[Kategorie:Gestorben 1944]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Hlaváček, Josef
+|ALTERNATIVNAMEN=
+|KURZBESCHREIBUNG=böhmischer Harmonikabauer
+|GEBURTSDATUM=1864
+|GEBURTSORT=[[Louny]], Böhmen
+|STERBEDATUM=1944
+|STERBEORT=[[Louny]], [[Reichsgau Sudetenland]]
+}}

@@ -1,0 +1,105 @@
+================================================================
+DAS AKKORDEON UND SEINE GESCHICHTE — Zwei-Band-Ausgabe
+================================================================
+
+INHALT DIESER LIEFERUNG:
+
+  Akkordeon_Band1_KDP_6x9.pdf       Druckfertig fuer KDP
+                                      (356 Seiten, 6"x9", 26 MB)
+
+  Akkordeon_Band1_Vorschau.pdf      Kleinere Datei zur Ansicht
+                                      (356 Seiten, 6"x9", 11 MB,
+                                       Bilder auf 200 dpi)
+
+  Akkordeon_Band2_KDP_6x9.pdf       Druckfertig fuer KDP
+                                      (324 Seiten, 6"x9", 19 MB)
+
+  Akkordeon_Band2_Vorschau.pdf      Kleinere Datei zur Ansicht
+                                      (324 Seiten, 6"x9", 10 MB)
+
+  zwei_baende.py                    Build-Skript fuer beide Baende
+  herunterladen.py                  Download-Skript (91 Artikel)
+  verarbeite_quellen.py             Bibliothek (vom zwei_baende.py
+                                      automatisch importiert)
+
+----------------------------------------------------------------
+INHALT BAND I  -  Konstruktion, Personen, Bauformen  (356 Seiten)
+----------------------------------------------------------------
+
+Teil I    Balginstrumente                      (3 Artikel)
+            Harmonikainstrument, Handzuginstrument, Akkordeon
+Teil II   Funktion und Geschichte der          (2 Artikel)
+            durchschlagenden Stimmzunge
+            Zunge (Tonerzeuger), Durchschlagende Zunge
+Teil III  Personen Durchschlagzunge           (14 Artikel)
+            Kratzenstein bis Paolo Soprani
+Teil IV   Helikonbass-Harmonikabauer           (9 Artikel)
+            Hlavacek, Lubas, Fleiss, Mervar, Stachl,
+            Novak, Otto Ludwig, Gombotz, Othmar Kuehn
+Teil V    Balginstrumente und Vorlaeufer       (8 Artikel)
+            Maultrommel, Sheng, Aeoline, Physharmonika,
+            Symphonium, Schrammelharmonika, Konzertina, Bandoneon
+Teil VI   Diatonische Bauformen               (10 Artikel)
+            Diatonisches Akkordeon, Wiener Modell, Organetto,
+            Franzoesisches/Schottisches/Irisches Akkordeon,
+            Heligonka, Steirische Harmonika, Trikitixa, Schwyzeroergeli
+
+----------------------------------------------------------------
+INHALT BAND II -  Automaten, Foerderer, Glossar  (324 Seiten)
+----------------------------------------------------------------
+
+Teil VII  Chromatische und weitere Bauformen   (6 Artikel)
+            Chromatisches Knopfakkordeon, Garmon, Bajan,
+            Pianoakkordeon, Bassakkordeon, Harmonium
+Teil VIII Mechanische Automaten                (6 Artikel)
+            Orchestrion, Panharmonikon, Apollonicon,
+            Belloneon, Mechanischer Trompeter, Schachtuerke
+Teil IX   Foerderer der Durchschlagzungen      (8 Artikel)
+            Vogler, Kempelen, J.N. Maelzel, L. Maelzel,
+            Friedrich Kaufmann, Kober, Weinrich, Leppich
+Teil X    Andere Instrumente                   (7 Artikel)
+            Harmonichord, Terpodion, Aerophon, Mundharmonika,
+            Glasharmonika, Aeolsharfe, Anemochord
+Teil XI   Weiterfuehrende Informationen       (16 Artikel)
+            Glossar zu Akkordeonschule, Bass-Systemen,
+            Stimmungen, Diatonik usw.
+Teil XII  Produktionszentren                   (2 Artikel)
+            Klingenthal, Castelfidardo
+
+Insgesamt 91 Wikipedia-Artikel, 258 Bilder eingebettet.
+
+----------------------------------------------------------------
+KDP-UPLOAD
+----------------------------------------------------------------
+
+Beide Baende sind im exakten Trim 6" x 9" (152.4 x 228.6 mm)
+gehalten, mit Bundzugaben gemaess KDP-Spezifikation:
+
+   Innenrand (Bund):     19 mm
+   Aussenrand:           14 mm
+   Oben/Unten:           18 mm
+
+Beide Baende liegen unter der KDP-Seitengrenze und sind
+direkt im KDP-Dashboard hochladbar.
+
+Empfehlung fuer Cover: am besten die zwei Baende optisch
+zusammengehoerig gestalten (gleiche Schriftart, Hauptfarbe,
+auf Rueckseite Hinweis "Band 1 von 2 / Band 2 von 2").
+
+----------------------------------------------------------------
+ANPASSUNGEN
+----------------------------------------------------------------
+
+Aufruf zum Neuerzeugen beider Baende auf einmal:
+
+    python3 zwei_baende.py
+
+Voraussetzungen:
+  - pandoc
+  - LuaLaTeX
+  - Inter-Schrift
+  - akkordeon_quellen/ (vom Download-Skript erstellt)
+
+Das Skript zwei_baende.py liegt neben verarbeite_quellen.py
+und importiert dieses fuer die Konvertierungs-Funktionen.
+

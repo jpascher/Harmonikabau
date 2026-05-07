@@ -1,0 +1,40 @@
+'''Otto Ludwig''' (* [[1880]] in [[Klingenthal|Klingenthal/Sa.]]; † nach 1959) war ein [[deutscher]] [[Musikinstrumentenbau|Instrumentenbauer]] und Musiker.
+
+== Leben und Wirken ==
+Ludwig ist in [[Brunndöbra]], einem heutigen Ortsteil Klingenthals im [[Musikwinkel]], aufgewachsen und entstammt der Familie Ludwig, die unter dem Namen [[Geschichte des Akkordeonbaus in Klingenthal#Bekannte Unternehmen|Gebrüder Ludwig]] seit 1844 eine Harmonika-Manufaktur betrieb. Otto Ludwig zog 1919 von Brunndöbra nach [[Immenstadt im Allgäu]].
+
+Von 1926 bis 1959 ist sein Betrieb dort als Akkordeonbauer gemeldet.<ref>Stadtarchiv - Gewerbekartei Immenstadt</ref> Er baute Harmonikas aller Art, hauptsächlich aber das [[Wiener Modell]] und die [[Steirische Harmonika]].
+
+Otto Ludwig ist besonders in Bezug auf die Entwicklung und die Verbreitung von Instrumenten mit [[Helikonstimmplatten|Helikonbass]] in Bayern von Bedeutung. Er entwickelte bei der Steirischen Harmonika oder Ziach, wie sie in Bayern gerne genannt wird, einen sehr eigenständigen Stil. So veränderte er die Diskantseite sehr auffällig, indem er ein [[Cassotto]] ausformte, das bis jetzt seinesgleichen sucht. Das Verdeck wurde im Bereich seitlich der Tastatur hochgezogen, dadurch entstand ein Hohlraum, der wie ein Cassotto wirkt. Auch in der Wahl der Tonzusammensetzung wichen seine Steirischen von der üblichen dreichörigen Ausstattung ab, indem bevorzugt ein Stimmplattensatz mit tieferen Tönen ausgestattet wurde. [[Register (Akkordeon)|Register]] sind bei Steirischen unüblich, aber man könnte dies auch als fixes Register bezeichnen. Pro Note oder Ton erklangen auf der Diskantseite zwei Stimmzungen in mittlerer Lage und eine um eine Oktav tiefer (LMM). Hingegen waren bei historischen dreichörigen Wiener Instrumenten sehr häufig zwei Töne in mittlerer Lage und ein Ton in hoher Lage (MMH) eingebaut.
+
+== Erhaltene Instrumente ==
+* Das Musikhaus Öllerer in [[Freilassing]] besitzt eine Harmonika aus Otto Ludwigs Produktion.
+
+== Weblinks ==
+* {{Webarchiv |url=http://www.ziach.de/images/Histrorisch.jpg |wayback=20070928055442 |text=Bild einer historischen Otto-Ludwig-Harmonika}}, abgerufen am 13. April 2021
+* {{Webarchiv |url=http://www.ziach.de/images/Alte.jpg |wayback=20070928055451 |text=Bild einer historischen Otto-Ludwig-Harmonika, Vorderansicht}}, abgerufen am 13. April 2021
+* {{Internetquelle |url=https://akkordeon-museum.ch/otto-ludwig-immenstadt/ |titel=18 Bilder einer historischen Otto-Ludwig-Handharmonika |abruf=2021-03-25 |autor=Hans Hold |werk=Sammlung „Historische Handharmonika 1830-1945“ |hrsg=Beat Zimmermann |datum=1957}}
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=p|GNDfehlt=ja|GNDCheck=2024-05-07}}
+
+{{SORTIERUNG:Ludwig, Otto}}
+[[Kategorie:Harmonikabauer]]
+[[Kategorie:Person (Klingenthal)]]
+[[Kategorie:Deutscher]]
+[[Kategorie:Geboren 1880]]
+[[Kategorie:Gestorben im 20. Jahrhundert]]
+[[Kategorie:Mann]]
+[[Kategorie:Person (Immenstadt im Allgäu)]]
+
+{{Personendaten
+|NAME=Ludwig, Otto
+|ALTERNATIVNAMEN=
+|KURZBESCHREIBUNG=deutscher Instrumentenbauer und Musiker
+|GEBURTSDATUM=1880
+|GEBURTSORT=[[Klingenthal|Klingenthal/Sa.]]
+|STERBEDATUM=nach 1959
+|STERBEORT=
+}}

@@ -1,0 +1,8 @@
+'''Wechseltönig''' bedeutet bei [[Musikinstrument]]en mit [[Zunge (Tonerzeuger)|Zungen]], dass abhängig von der Richtung des hindurchströmenden Luftstroms unterschiedliche Töne entstehen.
+Wechseltönige Musikinstrumente sind das [[Diatonisches Akkordeon|diatonische Akkordeon]] und die [[Mundharmonika#Diatonische Mundharmonika|diatonische Mundharmonika]]. Die häufigsten Bautypen von [[Konzertina]]s und [[Bandoneon]]s sind ebenfalls wechseltönig.
+
+Das Gegenteil von „wechseltönig“ ist „[[gleichtönig]]“.
+
+{{SORTIERUNG:Wechseltonig}}
+[[Kategorie:Stimmung (Musik)]]
+[[Kategorie:Handzuginstrumentenbau]]

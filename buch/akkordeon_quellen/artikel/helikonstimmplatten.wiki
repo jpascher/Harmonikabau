@@ -1,0 +1,37 @@
+[[Datei:Helikon.jpg|mini|Alte Helikonstimmplatte]]
+Als '''Helikonstimmplatte''' wird allgemein die Stimmplatte bezeichnet, die für den Grundbass in der [[Steirische Harmonika|Steirischen Harmonika]] Verwendung findet. Aber auch [[Chromatisches Akkordeon|chromatische Akkordeons]] sind am Markt, die im Bassteil diese übergroßen Stimmplatten verwenden.
+
+Benannt wurden Helikonstimmplatten nach dem sonoren Klang, der an das Blasbassinstrument [[Helikon (Musikinstrument)|Helikon]] erinnerte.
+
+== Konstruktion und Fertigung ==
+
+[[Datei:Helikonvonoben.jpg|mini|Alte Helikonstimmplatte von unten gesehen]]
+Es gibt einfache und doppelte Stimmplatten. Auf der einfachen sind nur die Grundbassstimmzungen vorhanden. Auf der doppelten sind zusätzliche Stimmzungen angebracht, die um eine Oktave höher klingen. Für Konstruktion und Funktion gilt im Wesentlichen das gleiche wie bei normalen [[Stimmplatte]]n.
+
+Die Fertigung unterscheidet sich davon geringfügig. Der Stimmplattenrahmen wird gegossen und nachbearbeitet. Rahmenmaterial ist heute meist [[Duraluminium]]. Die Stahlstimmzungen sind auf den Rahmen mit zwei Schrauben aufgeschraubt. Für sehr tiefe Töne sind am beweglichen Zungenende meist Messinggewichte aufgelötet.
+
+== Eigenschaften ==
+
+=== Tonhöhe ===
+Die Tonhöhe der Grundbasszunge ist meist im Bereich Kontra-G (G<sub>1</sub> bis G, 48 Hz bis 98 Hz), in manchen Fällen auch tiefer bis zum Kontra-C (C<sub>1</sub>, 32,7 Hz). Jedoch ist bereits der Ton Kontra-E (E<sub>1</sub>, 41,2 Hz) problematisch, da er starke Rückwirkungen auf den Diskant hat. Es entsteht eine Lautstärkemodulation ([[Amplitudenmodulation]]) des gleichzeitig gespielten Tons auf der Diskantseite.
+
+=== Lautstärke ===
+[[Datei:Helikonseitenansicht.jpg|mini|Alte Helikonstimmplatte von der Seite gesehen]]
+Von der Seite gesehen ist die Helikonstimmplatte keilförmig, die größte Dicke hat sie am freien Ende der Stimmzunge. Diese Dicke steht im Zusammenhang mit der maximal erreichbaren Lautstärke ohne wesentliche Tonhöhenabsenkung.
+
+=== Abmessungen ===
+* Rahmenaußenabmessung: 13 mm × 50 mm × 95 mm
+* Grundbassstimmzunge: Schlitzlänge 70 mm
+* Grundbassstimmzunge: Schlitzbreite 8 mm
+* Oktavestimmzunge: Schlitzlänge 53 mm
+* Oktavestimmzunge: Schlitzbreite 7,5 mm
+* einfache Helikon-Stimmplatte: Breite 33 mm
+
+== Klang ==
+Damit Helikonstimmplatten einwandfrei funktionieren, muss die Tonkammer ([[Tonkanzelle]]) gefaltet werden. Querschnitt und Volumeninhalt der Tonkammer tragen ebenfalls zum Klangbild bei.
+
+== Weblinks ==
+{{Commonscat}}
+
+[[Kategorie:Handzuginstrumentenbau]]
+[[Kategorie:Bauteil (Musikinstrument)]]

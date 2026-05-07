@@ -1,0 +1,109 @@
+Die '''Vallotti-Stimmung''' ist eine ungleichstufige [[Temperierte Stimmung|Temperatur]] von [[Tasteninstrument]]en beziehungsweise ein ungleichschwebendes Stimmungssystem nach [[Francesco Antonio Vallotti]].
+
+== Charakteristik ==
+Zur Charakteristik der Vallotti-Temperatur tragen noch relativ reine, aber schon deutlich schwebende [[Terz (Musik)|große Terzen]] in den Tonarten mit wenigen Vorzeichen bei, insbesondere F-Dur, C-Dur und G-Dur. Die großen Terzen der Tonarten steigen dabei gleichmäßig bis zu maximal pythagoräischen Werten an, wobei Es-G und A-Cis ebenso groß sind wie in der gleichstufigen Temperatur. Pythagoräische große Terzen kommen in den entfernten Tonarten H-Dur, Fis-Dur und Des-Dur vor.<ref>Als pythagoräische Intervalle werden solche Intervalle bezeichnet, die durch eine Folge reiner Quinten aufgebaut werden. Eine große Terz, die durch vier reine Quinten aufgebaut wird, ist um ein [[syntonisches Komma]] (ca. 22 Cent) größer als rein. In der Vallotti-Temperatur ist dies z.&nbsp;B. bei der großen Terz '''H'''—'''Dis''' der Fall, die durch die Folge vier reiner Quinten '''H'''—Fis—Cis—Gis—'''Dis''' gebildet wird.</ref>
+
+Die sechs temperierten Quinten der Vallotti-Temperatur sind mit ihrer gut vernehmbaren Schwebung deutlich näher an der mitteltönigen Quinte (696,6 Cent) als an der [[Gleichstufige Stimmung|gleichstufig temperierten]] Quinte (700 Cent).
+
+== Stimmung ==
+Vallottis Temperatur besteht aus sechs um 1/6 [[Komma (Musik)|pythagoräisches Komma]] temperierten Quinten von 698 Cent (F–C–G–D–A–E–H) und aus sechs reinen Quinten, die 702 Cent entsprechen (H–Fis–Cis–Gis/As–Es–B–F).
+
+Die Centwerte der großen Terzen betragen:
+
+* F–A, C–E, G–H 392 Cent
+* B–D, D–Fis, 396 Cent
+* Es–G, A–Cis 400 Cent (gleich der großen Terz der gleichschwebenden Temperatur)
+* E–Gis, As–C 404 Cent
+* H–Dis, Fis–Ais, Des–F 408 Cent (pythagoräische große Terz)
+(Zum Vergleich die reine große Terz: 386 Cent.)
+
+{| class="wikitable"
+| '''Ton'''                        
+|| C  || Cis || D   || Es  || E   || F   || Fis  || G  || Gis || A   || B    || H    || C
+|-
+| '''[[Cent (Musik)|Centwert]]'''  
+|| 0  || 94  || 196 || 298 || 392 || 502 || 592 || 698 || 796 || 894 || 1000 || 1090 || 1200
+|}
+
+{| class="wikitable"
+| '''[[Intervall (Musik)|Quinte]]'''                        
+||   c–g  ||   g–d  
+||   d–a  ||   a–e    
+||   e–h  ||   h–fis  
+|| fis–cis  || cis–gis 
+|| gis–es  ||  es–b     
+||   b–f  ||   f–c    
+|- 
+| '''[[Cent (Musik)|Centabstand]]''' 
+|| 698 || 698 || 698 || 698 || 698 || 702 || 702 || 702 || 702 || 702 || 702 || 698
+|}
+
+{| class="wikitable"
+! |Dreiklang
+|c–e–g
+|des–f–as<br />cis–eis–gis
+|d–fis–a
+|es–g–b
+|e–gis–h
+|f–a–c
+|fis–ais–cis<br />ges–b–des
+|g–h–d
+|align="center"|as–c–es<br />gis–c–dis
+|a–cis–e
+|b–d–f
+|h–dis–fis
+|c–e–g
+|-
+! |Große Terz (c–e usw.) in Cent
+|align="center"|392
+|align="center"|408
+|align="center"|396
+|align="center"|400
+|align="center"|404
+|align="center"|392
+|align="center"|408
+|align="center"|392
+|align="center"|404
+|align="center"|400
+|align="center"|396
+|align="center"|408
+|align="center"|392
+|-
+!|Quinte (c–g usw.) in Cent
+|align="center"|698
+|align="center"|702
+|align="center"|698
+|align="center"|702
+|align="center"|698
+|align="center"|698
+|align="center"|702
+|align="center"|698
+|align="center"|702
+|align="center"|698
+|align="center"|702
+|align="center"|702
+|align="center"|698
+|}
+
+== Verbreitung ==
+Es ist nicht gesichert, inwieweit diese Temperatur in Vallottis Zeit überhaupt Verbreitung genoss: Sein Traktat ''Della Scienza Teoretica e Prattica della Moderna Musica'', in dem er die Temperatur erstmals beschrieb, ist auf 1779 datiert, ein Jahr vor seinem Tod, und es erschien erst 1950 im Druck. Für welche Musik außerhalb Vallottis Kreises sie einmal Bedeutung gehabt haben kann, ist ebenfalls unbekannt. Gleichwohl wird diese Temperatur heute im Bereich der [[Historische Aufführungspraxis|historischen Aufführungspraxis]] vielfach verwendet, und zwar u.&nbsp;a. für die Aufführung von Werken, die sich zeitlich und stilistisch weit von Vallottis musikalischem Umfeld unterscheiden.<ref>Zum Beispiel (Stand Februar 2012) wurde bei der Aufführung von Motetten [[Johann Sebastian Bach]]s des [[Kammerchor Stuttgart|Kammerchors Stuttgart]] unter Frieder Bernius die Truhenorgel in der Temperatur Vallottis eingestimmt.</ref>
+
+== Traktate ==
+* Francesco Antonio Vallotti: ''Trattato delle musica moderna.'' 1770.
+* Francesco Antonio Vallotti: ''Della Scienza Teoretica e Pratica della Moderna Musica''. Manuskript Padova 1779 (publiziert 1950; vgl. Literaturangaben).
+
+== Literatur ==
+* Francesco Antonio Vallotti: ''Della Scienza Teoretica e Pratica della Moderna Musica [Ms. 1779]''. Il messaggero di S. Antonio, Basilica del Santo, Padova 1950.
+* [[Mark Lindley]]: ''La „pratica ben regolata“ di Francesco Antonio Vallotti.'' In: ''Rivista Italiana di Musicologia.'' 16, 1981, {{ISSN|0035-6867}}, S. 45–95.
+* Carl Sloane, Matthew J. Redsell: ''The Vallotti Tuning.'' In: ''Continuo.'' 8, Mai 1985, S. 7.
+
+== Anmerkungen ==
+<references />
+
+== Weblinks ==
+* {{Webarchiv | url=http://www.music.indiana.edu/som/piano_repair/temperaments/V6cf.html | wayback=20100312230333 | text=Stimmung beschrieben, am Beispiel für Piano}}
+* [[Ibo Ortgies]]: [http://www.hetorgel.nl/n2002-05c.htm ''Vallotti in Groningen: over het restaureren van temperaturen.'' (Abstract)]. In: ''[[Het orgel]].'' 98, 2002 (ndl.)
+
+{{Navigationsleiste Stimmungen (Musik)}}
+
+[[Kategorie:Stimmung (Tasteninstrumente)]]

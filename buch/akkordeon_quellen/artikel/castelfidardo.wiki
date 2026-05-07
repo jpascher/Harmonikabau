@@ -1,0 +1,54 @@
+{{Infobox Gemeinde in Italien
+| nomeComune         = Castelfidardo
+| regione            = Marken
+| provincia          = Ancona
+| linkStemma         = Castelfidardo-Stemma.svg
+| map                = 
+| siglaRegione       = MAR
+| siglaProvincia     = AN
+| latitudineGradi    = 43
+| latitudineMinuti   = 28
+| latitudineSecondi  = 0
+| longitudineGradi   = 13
+| longitudineMinuti  = 33
+| longitudineSecondi = 0
+| mappaX             = 171
+| mappaY             = 122
+| altitudine         = 199
+| superficie         = 32
+| cap                = 60022
+| prefisso           = 071
+| istat              = 042010
+| nomeAbitanti       = Fidardensi
+| patrono            = [[Victor und Corona]]
+| sito               = [https://www.comune.castelfidardo.an.it Gemeinde Castelfidardo]
+ | panorama = Map of comune of Castelfidardo (province of Ancona, region Marche, Italy).svg
+| didascalia = Lage der Gemeinde Castelfidardo in der Provinz Ancona
+}}
+
+'''Castelfidardo''' ist eine [[Italienische Gemeinden|italienische Gemeinde]] in der Region [[Marken]], in der [[Provinz Ancona]], mit {{EWZ|IT|042010}} Einwohnern (Stand {{EWD|IT|042010}}).
+
+Bekannt ist der Ort vor allem durch die Herstellung von [[Akkordeon]]instrumenten. Ein Akkordeon-Museum zeugt von der Entwicklung dieser Instrumente. Ausgehend von der traditionellen Akkordeonherstellung werden in Castelfidardo wie auch im Umland bis hin nach Ancona seit den 1960er Jahren auch [[elektronische Orgel]]n hergestellt ([[Farfisa]], GEM, [[Orla]], [[ELKA Rhapsody|Elka]], [[Pari]], Antonelli/S.I.E.L., [[Bontempi (Musikinstrumente)|Bontempi]] und [[Crumar]]). <!-- Gibt es ein Festival? Wo und wann wird der Castelfidardo-Preis (Premio) verliehen, auf den sich Klaus Paier beruft? -->
+
+Orte in der näheren Umgebung sind [[Loreto (Marken)|Loreto]], [[Osimo]] und [[Ancona]]. Der Ort befindet sich auf einem 199 Meter hohen Hügel, acht Kilometer von der Küste entfernt. Die Stadt geht auf eine Kirche mit Schlossanlage zurück.
+
+[[Gemeindepartnerschaft|Partnerstadt]] ist seit 2003 [[Klingenthal]] im Erzgebirge.
+
+Am 18.&nbsp;September 1860 schlugen die piemontesischen Truppen des Generals [[Enrico Cialdini]] in der [[Schlacht von Castelfidardo]] die päpstlichen Truppen der Generale De Pimodan und [[Louis Juchault de Lamoricière|Lamoricière]].
+
+== Kandidatur Rad-Weltmeisterschaft 2011 ==
+Gemeinsam mit der Nachbargemeinde [[Loreto (Marken)|Loreto]] bewarb sich Castelfidardo um die Ausrichtung der [[UCI-Straßen-Weltmeisterschaften 2011]], verlor aber den Zuschlag gegen [[Kopenhagen]].
+
+== Castelfidardo in der Literatur ==
+Der Roman ''Das grüne Akkordeon'' von [[Annie Proulx]] beginnt mit der Geschichte eines süditalienischen Kleinbauern, der im Kapitel ''Die Welt ist eine Treppe'' sein Dorf nach Norden verlässt. Dort findet er ''Arbeit in den Akkordeonwerkstätten von Castelfidardo''.
+
+== Weblinks ==
+{{Commonscat}}
+
+== Einzelnachweise, Fußnoten ==
+<references />
+
+{{Navigationsleiste Gemeinden Provinz Ancona}}
+
+[[Kategorie:Ort in den Marken]]
+[[Kategorie:Weinbauort in Italien]]

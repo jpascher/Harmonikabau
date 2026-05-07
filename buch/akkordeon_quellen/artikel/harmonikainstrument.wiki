@@ -1,0 +1,29 @@
+'''Harmonikainstrumente''', auch '''Harmonikas''' oder '''Harmoniken''', sind [[Durchschlagzungeninstrument]]e. Diese werden mit der Atmung des Spielers oder über einen [[Blasebalg]] mit dem nötigen Luftstrom versorgt, sind somit also [[Aerophon]]e.
+
+== Übersicht ==
+Die Bezeichnung „Harmonikainstrument“ geht auf die 1761 von [[Benjamin Franklin]] erfundene [[Glasharmonika]] zurück, die jedoch kein Durchschlagzungeninstrument, sondern ein Reib[[idiophon]] ist.
+
+Zu den Harmonikainstrumenten gehören:
+* [[Mundharmonika]]s und [[Mundorgel]]n, mit dem Mund angeblasen
+* Blasharmonikas mit Klaviatur, wie [[Melodica]], [[Triola]], [[Harmonetta]], mit dem Mund angeblasen
+* Ziehharmonikas ([[Handzuginstrument]]e), wie die [[Akkordeon]]s (Handharmonikas) und das [[Bandoneon]], von einem Balg mit Luft versorgt
+* [[Physharmonika]] und [[Harmonium]], den Orgeln ähnliche Konzertinstrumente, von einem Balg mit Luft versorgt
+
+== Funktion ==
+Harmonikainstrumente werden angeblasen, um vermittels des [[Gesetz von Bernoulli|Bernoulli-Effektes]] die vom Mund (reine [[Blasinstrument]]e) bzw. durch Drücken einer Taste (Tastenharmonika, also [[Tasteninstrument]]e) angeblasene [[Stimmzunge]] oder [[durchschlagende Zunge]] zum Klingen zu bringen.
+
+Dabei sind die Zungen in [[Kanzelle]]n angeordnet, zu deren einer Öffnung der Luftstrom herein oder herausströmt und deren zweite Öffnung im Ruhezustand von einer Stimmzunge fast völlig bedeckt ist, die aber durch den benannten Effekt in Schwingung versetzt wird, was zu den tonerzeugenden charakteristischen Luftdruckschwankungen der durchströmenden Luft führt.
+
+== Literatur ==
+* Thomas Eickhoff: ''Kultur-Geschichte der Harmonika.'' Schmülling, Kamen 1991, ISBN 3-925572-05-8.
+* Josef Focht, Herbert Grünwald (Hrsg.): ''Konzertina, Bandonion, Akkordeon. Die Entwicklung der Harmonika-Instrumente und ihr Spiel in Bayern.'' Mit Beiträgen von Dieter Krickeberg und Kari Oriwohl (=&nbsp;''Volksmusiksammlung und -Dokumentation in Bayern.'' Nr. E&nbsp;12). Bayerischer Landesverein für Heimatpflege e.&nbsp;V., München 1999.
+* Hans Commenda (Kommentar), Karl M. Klier: ''Volkstümliche Musikinstrumente in den Alpen.'' In: Institut für Landeskunde von Oberösterreich (Hrsg.): ''[[Oberösterreichische Heimatblätter]].'' Jahrgang 12, Heft 1/2, Jänner–Juni 1958, S. 74–79 ({{OoeGeschichte |pdf=hbl1958_1_2_74-79.pdf}}).
+* {{OeML|Harmonika-Instrumente|Harmonika-Instrumente|HKo}}
+* Karl-Georg Schroll: ''Bandonionvereine. Vereint – beliebt – vergessen. Arbeitermusik zwischen „Lust & Leben“ und „Profitum“.'' blattFuchs-Verlag, Wiltingen 2020, ISBN 978-3-946652-26-7 (480 Seiten).
+
+== Weblinks ==
+{{Wiktionary|Harmonika}}
+
+{{Normdaten|TYP=s|GND=4123343-8}}
+
+[[Kategorie:Harmonikainstrument| ]]

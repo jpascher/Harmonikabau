@@ -1,0 +1,27 @@
+{{Belege fehlen}}
+
+'''Roman Gombotz''' (* [[1911]]; † unbekannt) war ein [[österreich]]ischer [[Musikinstrumentenbau]]er, Musikant und [[Kapellmeister]].
+
+Er gründete im Jahr 1948 eine Fertigung für Harmonikas in [[Köflach]]. Außerdem handelte er mit Musikinstrumenten. Die Kenntnisse für die Erzeugung [[Steirische Harmonika|Steirischer Harmonikas]] hat er über Umwege erlangt. Ein enger Freund von [[Peter Stachl]] in [[Graz]] mit dem Namen Valentin Mörth aus [[Mureck]] lehrte Roman Gombotz in der Zeit von 1933 bis 1938 die nötigen Fertigkeiten.
+
+Nur 88 Instrumente wurden insgesamt gefertigt. Ab 1981 wurde die Harmonikaerzeugung vom Sohn ''Roman'' und vom Enkel ''Ulfried Gombotz'' weitergeführt. Ulfried Gombotz wurde bei [[Peter Müller (Harmonikabauer)|Peter Müller]] ausgebildet. Diese Angaben stammen von Ulfried Gombotz. Erhaltene Instrumente sind ebenfalls ein Beleg dafür.
+
+Die Harmonikaerzeugung wurde 1991 eingestellt.
+
+{{SORTIERUNG:Gombotz, Roman}}
+[[Kategorie:Harmonikabauer]]
+[[Kategorie:Musikinstrumentenbauer (Österreich)]]
+[[Kategorie:Gestorben im 20. oder 21. Jahrhundert]]
+[[Kategorie:Geboren 1911]]
+[[Kategorie:Österreicher]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Gombotz, Roman
+|ALTERNATIVNAMEN=
+|KURZBESCHREIBUNG=österreichischer Musikinstrumentenbauer, Musikant und Kapellmeister
+|GEBURTSDATUM=1911
+|GEBURTSORT=
+|STERBEDATUM=nach 1948
+|STERBEORT=
+}}

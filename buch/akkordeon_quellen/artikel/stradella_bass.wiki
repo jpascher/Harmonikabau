@@ -1,0 +1,179 @@
+Unter dem '''Stradella-Bass-System''' (auch MII oder Manual-II-Bass) versteht man im [[Akkordeon]]bau die Anordnung der Basstöne in [[Quinte]]n in vertikaler Richtung mit den am häufigsten gebrauchten [[Dur]]-, [[Moll]]- und [[Septakkord]]en in horizontaler Anordnung. Der Tonumfang ist hier auf eine große [[Septime]] beschränkt, wobei jedoch, je nach Bauart und Register, bei den Basstönen bis zu fünf [[Oktave]]n gleichzeitig und bei den [[Akkord]]en bis zu drei Oktaven gleichzeitig ertönen.
+
+Das Stradella-Bass-System verwendet Knopfreihen, die im Abstand gemäß dem [[Quintenzirkel]] angeordnet sind. So hat jeder Knopf(-Ton) (als [[Tonika]] interpretiert) benachbart (oberhalb) seine [[Dominante]] und (unterhalb) seine [[Subdominante]].
+
+Die Bezeichnung geht vermutlich zurück auf den italienischen Ort [[Stradella (Lombardei)|Stradella in der Lombardei]], einem frühen Zentrum des Akkordeonbaus, in dem unter anderem Mariano Dallapé Akkordeoninstrumente entwickelte.<ref>{{Internetquelle |autor=Beat Zimmermann |url=https://akkordeon-museum.ch/dallape-mariano-fabbricatore-stradella/ |titel=Dallape Mariano, Fabbricatore, Stradella ca 1885 (?) (388) |werk=AKKORDEON MUSEUM – "Sammlung historische Handharmonika 1830 – 1945" |sprache=de |abruf=2025-01-24}}</ref><ref>{{Internetquelle |url=http://www.infopointstradella.it/musica-maestro/la-fisarmonica-di-stradella |titel=La fisarmonica di Stradella |werk=infopoint stradella |sprache=it |abruf=2025-01-24}}</ref>
+
+== Ausführung ==
+[[Datei:Stradella-Bass, Prinzipskizze.png|mini|600x600px|Prinzipskizze: 120 Bässe mit Akkordreihen parallel zu den Grundbässen. Terzbässe sind eine verschobene Kopie der Grundbassreihe, um ferne Töne leichter greifen zu können. Der Grundbass C im Zentrum ist wie E und As zur besseren Orientierung meist markiert. Nach oben und unten sind andere Tonarten im Quintabstand angeordnet. Der Übergang zwischen Kreuz- und B-Tonarten erfolgt am oberen und unteren Ende des Griffbretts. Kleinere Instrumente verzichten auf die äußeren Knopf- oder Akkordreihen, die kleinsten umfassen nur die Nachbarschaft um das C herum, einige Ton- und Akkordarten fehlen dann ganz. Abweichungen und Sonderformen sind möglich, siehe Artikel.]]
+        ''Oben''
+        ...     f   fm   f<sup>7</sup>   f<sup>v7</sup>
+ ''B''      <u>E</u>   C   c   cm   c<sup>7</sup>   c<sup>v7</sup>
+ ''A''      <u>H</u>   G   g   gm   g<sup>7</sup>   g<sup>v7</sup>
+ ''L''      <u>F<sup>#</sup></u>  D   d   dm   d<sup>7</sup>   d<sup>v7</sup>
+ ''G''      <u>C<sup>#</sup></u>  A   ...
+        ''Unten''
+
+Die erste vertikale Reihe ist die [[Terz (Musik)|große Terz]] zum Grundton, der sogenannte Terzbass. Die zweite Reihe ist der Grundton selbst (Grundbass). Bauartbedingt liegt der Terzbass bei vier der zwölf Grundbässe eine kleine [[Sexte]] tiefer als der Grundbass (dies entspricht aber harmonisch einer großen Terz). In den folgenden Reihen erklingen dann die Akkorde: Zuerst der [[Dur]]-Akkord, dann der [[Moll]]-Akkord, gefolgt vom [[Septakkord]] und vom [[Septakkord|verminderten Septakkord]].
+
+=== Tastenumfang ===
+* ''12-Bass'': 6 × 2 Knöpfe, Grundbass-Noten von B bis A (nur die 8. bis 13. Spalte der in der Abbildung sichtbaren Tastenreihen ist ausgeführt) und der Grundbass kann nur mit Dur-Akkorden begleitet werden.
+* ''24-Bass'': 8 × 3 Knöpfe, Grundbass-Noten von Es bis E (nur die 7. bis 14. Spalte ist ausgeführt), es gibt Grundbass, Dur- und Moll-Akkorde.
+* ''32-Bass'': 8 × 4 Knöpfe, Grundbass-Noten von Es bis E, es gibt Grundbass, Dur-, Moll- und Septakkorde.
+* ''40-Bass'': 8 × 5 Knöpfe, Grundbass-Noten von Es bis E, es gibt Terzbass, Grundbass, Dur-, Moll- und Septakkord.
+* ''48-Bass'': 8 × 6 Knöpfe, Grundbass-Noten von Es bis E, es gibt Terzbass, Grundbass, Dur-, Moll-, Sept- und verminderte Septakkorde.
+* ''60-Bass'': 12 × 5 Knöpfe, Grundbass-Noten von Des bis Fis (nur die 5. bis 16. Spalte ist ausgeführt), es gibt Terzbass, Grundbass, Dur-, Moll- und Septakkord.
+* ''72-Bass'': 12 × 6 Knöpfe, Grundbass-Noten von Des bis Fis, es gibt Terzbass, Grundbass, Dur-, Moll-, Sept- und verminderte Septakkorde.
+* ''80-Bass'': 16 × 5 Knöpfe, Grundbass-Noten von Ces bis Gis (nur die 3. bis 18. Spalte ist ausgeführt), es gibt Terzbass, Grundbass, Dur-, Moll- und Septakkord.
+* ''96-Bass'': 16 × 6  Knöpfe, Grundbass-Noten von Ces bis Gis, es gibt Terzbass, Grundbass, Dur-, Moll-, Sept- und verminderte Septakkorde.
+* ''120-Bass'': 20 × 6 Knöpfe, Grundbass-Noten von A bis Ais (alle Spalten sind ausgeführt), es gibt Terzbass, Grundbass, Dur-, Moll-, Sept- und verminderte Septakkorde.
+* ''140-Bass'': 20 × 7 Knöpfe, Grundbass-Noten von A bis Ais (ist in der Abbildung nicht dargestellt), es gibt Terzbass (moll), Terzbass (dur), Grundbass, Dur-, Moll-, Sept- und verminderte Septakkorde.
+
+=== Basstöne ===
+Bässe werden aus einem bis sechs (gleichnamigen) Tönen in gegebenenfalls verschiedenen Oktavlagen gebildet, abhängig von der Anzahl der [[Chor (Musik)|Chöre]] und des [[Register (Akkordeon)|Registers]].
+
+=== Akkorde ===
+Grundsätzlich bestehen die Akkorde immer aus drei Noten. Die Septakkorde und die verminderten Septakkorde erklingen ohne Quinte. Die Akkord-Chöre sind an die jeweils tongleichen Basschöre angehängt.
+* Die Dur-Akkorde ({{Taste|c}}) werden gebildet durch: Grundton + große Terz + Quinte.
+* Die Moll-Akkorde ({{Taste|cm}}) werden gebildet durch: Grundton + kleine Terz + Quinte.
+* Die Septakkorde ({{Taste|c<sup>7</sup>}}) werden gebildet durch: Grundton + große Terz + kleine Septime.
+* Die verminderten Septakkorde ({{Taste|c<sup>v7</sup>}}) werden gebildet durch: Grundton + kleine Terz + verminderte Septime (entspricht enharmonisch verwechselt einer großen Sexte; somit ist der c<sup>v7</sup> auch gleichzeitig ein cm<sup>6</sup>, da die verminderte Quinte nicht erklingt. Aufgrund deren Fehlen hört das Ohr je nach harmonischem Kontext entweder das eine oder das andere. Somit haben die verminderten Septakkordknöpfe eine Zwitterfunktion)
+
+Akkorde werden je nach Anzahl der Chöre und des Registers mit 1 bis 3 × 3 Tönen gebildet. Ein C-Dur-Akkord kann aus g – c<sup>1</sup> – e<sup>1</sup> bestehen, aber auch aus g<sup>1</sup> – c<sup>2</sup> – e<sup>2</sup>, gegebenenfalls sogar noch aus g<sup>2</sup> – c<sup>3</sup> – e<sup>3</sup> und den jeweiligen Kombinationen daraus, vereinzelt sind auch Töne doppelt vorhanden (g – c<sup>1</sup> – c<sup>1</sup> – e<sup>1</sup> – e<sup>1</sup>).
+
+=== Alternative Ausführungen ===
+In der [[Schweiz]] existiert eine spiegelverkehrte Anordnung unter der Bezeichnung „Schweizer Bass“. Hier liegt die [[Dominante]] oberhalb und die [[Subdominante]] unterhalb der Tonika.
+
+        ''Oben''
+        ...
+ ''B''      <u>F<sup>#</sup></u>  D   d   dm   d<sup>7</sup>   d<sup>v7</sup>
+ ''A''      <u>H</u>   G   g   gm   g<sup>7</sup>   g<sup>v7</sup>
+ ''L''      <u>E</u>   C   c   cm   c<sup>7</sup>   c<sup>v7</sup>
+ ''G''      ...
+        ''Unten''
+Für einige Länder sind Ausführungen typisch, bei denen die Septakkorde weggelassen werden und die quintfreien verminderten Akkorde um eine Reihe verschoben sind. So wird z. B. {{Taste|g<sup>v7</sup>}} (bestehend aus G, B und Fes=E) in der C-Reihe funktionell als C<sup>7</sup> (ohne Grundton) einsetzbar:
+
+        ''Oben''
+            ... f   fm   c<sup>v7</sup>
+ ''B''      <u>E</u>   C   c   cm   g<sup>v7</sup>
+ ''A''      <u>H</u>   G   g   gm   d<sup>v7</sup>
+ ''L''      <u>F<sup>#</sup></u>  D   d   dm   a<sup>v7</sup>
+ ''G''      <u>C<sup>#</sup></u>  A   ...
+        ''Unten''
+Speziell in Frankreich ist das 3+3-System weit verbreitet. Hier wird eine dritte Bassreihe (mit dem Mollterzbass) ergänzt, dafür wird auf die verminderten Akkorde verzichtet:
+
+        ''Oben''
+                ... f   fm   f<sup>7</sup>
+ ''B''      <u>A<sup>♭</sup></u>  E   C   c   cm   c<sup>7</sup>
+ ''A''      <u>E<sup>♭</sup></u>  H   G   g   gm   g<sup>7</sup>
+ ''L''      <u>B</u>   F<sup>#</sup>  D   d   dm   d<sup>7</sup>
+ ''G''      <u>F</u>   C<sup>#</sup>  A   ...
+        ''Unten''
+
+Es sind auch vereinzelt Varianten im Gebrauch, die eine etwas veränderte Anordnung der Tasten besitzen. Diese Tastenanordnung wird teilweise auch als belgisches System bezeichnet:
+
+        ''Oben''
+            ... f   fm   f<sup>7</sup>   f<sup>v7</sup>
+ ''B''      <u>A</u>   F   c   cm   c<sup>7</sup>   c<sup>v7</sup>
+ ''A''      <u>E</u>   C   g   gm   g<sup>7</sup>   g<sup>v7</sup>
+ ''L''      <u>H</u>   G   d   dm   d<sup>7</sup>   d<sup>v7</sup>
+ ''G''      <u>F<sup>#</sup></u>  D   ...
+        ''Unten''
+
+== Mechanische Ausführung ==
+
+Eine verbreitete Ausführung ist eine vierchörige Bass-Seite. Diese ist unterteilt in vier Basschöre und zwei Akkordchöre mit jeweils 12 Tönen von G bis fis<sup>0</sup> (auch E – dis<sup>0</sup>, auch C – H; je nach Ausführung). Mit diesen 48 Tönen (eines in der Bass-Seite vierchörigen Instruments) werden in der Stradella-Mechanik bis zu 120 Bass- und Akkordknöpfe belegt (vereinzelt auch bis zu 140). Sind Register auf der Bassseite des Akkordeons vorhanden, können verschiedene Chöre stummgeschaltet werden.
+
+Bei einem vierchörigen Bass besteht der C-Bass z. B. aus C, c<sup>0</sup>, c<sup>1</sup> und c<sup>2</sup>; bei einem Akkord, der ein C enthält, z.&nbsp;B. C, Fm, Am, D<sup>7</sup>, A<sup>°7</sup>, werden bei den benötigten c<sup>1</sup> bzw. c<sup>2</sup> die gleichen Stimmzungen aktiviert wie beim C-Bass.
+Bei einigen älteren Instrumenten klingt beim Sept-Akkord auch noch die Quinte mit; beim verminderten Septakkord klingt gegebenenfalls auch noch die verminderte Quinte mit.
+Einige Instrumente haben den Septimen-Akkord ohne Grundton, dafür aber mit Quinte. So entspricht dort der C<sup>7</sup>-Akkord dem G<sup>°7</sup>-Akkord.
+
+== Kombinationen ==
+Beim fortgeschrittenen Spiel ist es üblich, mit dem vorhandenen Material an Grundtönen und Akkorden auch neue, nicht direkt implementierte Akkorde zu erzeugen. Hierbei wird sich zunutze gemacht, dass Septakkorde (wie {{Taste|c<sup>7</sup>}}) keine reine Quinte und die verminderten Septakkorde (wie {{Taste|c<sup>v7</sup>}}) keine verminderte Quinte enthalten. Enharmonisch verwechselte Töne (z. B. Fis=Ges) klingen grundsätzlich gleich. Oftmals werden verminderte Septakkorde enharmonisch verwechselt geschrieben (C<sup><s>5</s>°7</sup> = C – Es – A anstatt „Heses“). Übermäßige Akkorde wie C<sup>+</sup> (C + E + Gis) sind nicht darstellbar, gegebenenfalls kann C<sup>7♯5</sup> mit {{Taste|<u>Gis</u>}} + {{Taste|c<sup>7</sup>}} (schwer zu greifen) verwendet werden, wenn die zusätzliche Septime und die übermäßige Quinte im Bass nicht stört.
+
+=== Auf Dur-Basis ===
+
+{| class="wikitable"
+|-
+! [[Akkordsymbol]] !! Töne !! Tastenkombination
+|-
+| C<sup>6<s>5</s></sup> oder
+Am/C
+| C – E – A || {{Taste|C}} + {{Taste|am}}
+|-
+|  C<sup>6</sup> || C – E – G – A || ({{Taste|C}} +) {{Taste|c}} + {{Taste|am}}
+|-
+| C<sup>7</sup> ohne Grundton || E – G – B || {{Taste|g<sup>v7</sup>}}
+|-
+| C<sup>Δ</sup> || C – E – G – H || {{Taste|C}} + {{Taste|em}} oder {{Taste|c}} + {{Taste|em}}
+|-
+| C<sup>9</sup> || C – E – G – B – D || {{Taste|C}} + {{Taste|c}} + {{Taste|gm}} oder {{Taste|c}} + {{Taste|gm}}
+|-
+| C<sup>7♭9</sup> ohne
+Grundton
+
+und Terz
+| E – B – Des || {{Taste|b<sup>v7</sup>}}
+|-
+| C<sup>7♭9</sup> || C – E – G – B – Des || ({{Taste|C}} +) {{Taste|c}} + {{Taste|b<sup>v7</sup>}}
+|-
+| C<sup>Δ9</sup> || C – E – G – H – D || {{Taste|C}} + {{Taste|c}} + {{Taste|g}} oder {{Taste|c}} + {{Taste|g}} (letzterer klingt etwas problematisch, da der Grundton nicht unten liegt)
+|-
+| C<sup>7♭5</sup> || Ges – C – E – B || {{Taste|<u>Fis</u>}} - {{Taste|c<sup>7</sup>}}
+|-
+| C<sup>7♯5</sup> || Gis – C – E – B || {{Taste|As}} (oder {{Taste|<u>Gis</u>}}) + {{Taste|c<sup>7</sup>}} (schwer zu greifen)
+|-
+| C<sup>7♭5</sup> || C – E – Ges – B || {{Taste|<u>C</u>}} + {{Taste|ges<sup>7</sup>}} oder {{Taste|<u>His</u>}} + {{Taste|fis<sup>7</sup>}}
+|-
+| C<sup>79♯5</sup> || C – E – Gis – B – D || {{Taste|c<sup>7</sup>}} + {{Taste|e<sup>7</sup>}}
+|-
+| C<sup>7♯9</sup> || C – E – G – B – Dis || {{Taste|c}} + {{Taste|es}}
+|-
+| C<sup>sus</sup> || C – F – G || ist nicht korrekt darstellbar, aushilfsweise funktionieren nicht selten {{Taste|<u>C</u>}} + {{Taste|f}} (= C6<sup><s>5</s>sus4</sup>) oder {{Taste|<u>C</u>}} + {{Taste|b}} (= C9<sup><s>5</s>sus4</sup>). Darüber hinaus gibt es zahlreiche weitere Akkord-Kombinationen mit {{Taste|<u>C</u>}}, welche anstelle der Terz die Sekunde und/oder Quarte bieten, also sus-Charakter haben (z.&nbsp;B. alle Akkorde der D-Reihe), allerdings immer auch Spannungstöne aufweisen, die i. d. R. nicht in den harmonischen Kontext passen (manchmal aber schon - ausprobieren lohnt sich)
+|}
+
+=== Auf Moll-Basis ===
+{| class="wikitable"
+|-
+! [[Akkordsymbol]] !! Töne !! Tastenkombination
+|-
+| Cm<sup>6<s>5</s></sup> || C – Es – A || {{Taste|c<sup>v7</sup>}}
+|-
+| Cm<sup>6</sup> || C – Es – G – A || {{Taste|cm}} + {{Taste|c<sup>v7</sup>}}
+|-
+| Cm<sup>7♭5</sup> || C – Es – Ges – B || {{Taste|esm}} + {{Taste|es<sup>v7</sup>}}
+|-
+| Cm<sup>j7♭5</sup> || C – Es  – Ges – H || {{Taste|<u>His</u>}} + {{Taste|h}} oder {{Taste|dis<sup>v7</sup>}} + {{Taste|h}} (schwer zu greifen)
+|-
+| C°<sup>7</sup> || C – Es – Ges – Heses || {{Taste|c<sup>v7</sup>}} + {{Taste|es<sup>v7</sup>}} oder {{Taste|c<sup>v7</sup>}} + {{Taste|a<sup>v7</sup>}} oder {{Taste|fis<sup>v7</sup>}} + {{Taste|a<sup>v7</sup>}} (klanglich jeweils völlig identisch)
+|-
+|C°
+|C – Es – Ges
+|{{Taste|C}} + {{Taste|es<sup>v7</sup>}}
+|-
+| Cm<sup>7</sup> || C – Es – G – B || {{Taste|cm}} + {{Taste|es}} oder {{Taste|C}} + {{Taste|es}}
+|-
+| Cm<sup>79</sup> || C – Es – G – B – D || ({{Taste|C}} +) {{Taste|cm}} + {{Taste|gm}}
+|-
+| Cm<sup>7♭9</sup> || C – Es – G – B – Des || ({{Taste|C}} +) {{Taste|cm}} + {{Taste|b<sup>v7</sup>}}
+|-
+| C (Neapolitaner) || C – Es – As || {{Taste|<u>C</u>}} + {{Taste|as}}
+|}
+
+== Notation ==
+
+Der Basston wird meist in der großen [[Oktave]] (C bis c), der Akkord wird etwa zwischen es<sup>0</sup> und f<sup>1</sup> im [[Bassschlüssel]] notiert, wobei die geschriebene Lage des Akkordes bei einem Akkordeon mit Stradella-Bass-System nicht immer richtig gespielt werden kann. Der einfacheren Lesbarkeit wegen werden die Noten zusätzlich mit Akkordbezeichnungen versehen. Die Akkorde werden gemäß der [[Akkordsymbol]]ik in kleinen Buchstaben notiert (über oder unter den Akkord im Notentext geschrieben; c = C-Dur; cm = c-Moll; c7 = C-Dur-Septakkord, cv bzw. cv7 = Verminderter C-Akkord). Der Grundbass wird in Großbuchstaben, der Terzbass in unterstrichenen Großbuchstaben angegeben.
+
+Im russischsprachigen Raum werden die Akkorde ausnotiert (alle drei klingenden Akkordbestandteile als Noten), in Klammern steht jedoch der Grundton (als Note, ohne Notenhals) darunter, darüber als Buchstabe, ob es sich um einen Dur-, Moll-, Sept- oder verminderten Akkord handelt. '''[[Б]]''' steht für einen Dur-, '''[[М]]''' für einen Moll-, '''7''' für einen Septakkord und '''[[У]]''' für den verminderten Akkord. Bässe werden dort nicht angegeben. - Folgt auf einen Bass ein Akkord mit gleichem Grundton, wird der in Klammer geschriebene Grundton beim Akkord weggelassen.
+
+Im englischsprachigen Raum werden die Akkorde nur mit dem Grundton notiert (z. B. als c<sup>1</sup> im Bass-Schlüssel); darüber steht ein '''M''', für - in diesem Fall C-Dur (major), '''m''' für c-Moll (minor), '''7''' für C-Septakkord oder '''d''' für den verminderten Septakkord (diminished). Bässe werden dort nicht angegeben. Daneben wurden vereinzelt in den USA Akkorde ausnotiert, der Grundton jedoch dick, die Terz, Quinte und gegebenenfalls die Septime dünn gedruckt. So konnte der Spieler sofort den Grundton des Akkordes erkennen. Darüber stand ein '''M''', '''m''', '''7''' oder ein '''d'''. Diese Notation hat sich jedoch nicht durchgesetzt, ist jedoch bei einigen alten Noten aus den USA noch zu finden.
+
+== Weblinks ==
+* [http://www.sackpfeyffer-zu-linden.de/Akkordeon.html Infos zum Akkordeon mit Stradella-Bass, Tabelle für die Bildung zusätzlicher Akkorde mit dem Stradella-Bass]
+* [http://www.ac-pfister.com/aufbau.htm Ansichten eines geöffneten Akkordeon mit Stradella-Bass]
+* [http://www.accordions.com/index/art/stradella.shtml Infos zur Stradella-Bass Musik-Theorie]
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Handzuginstrumentenbau]]

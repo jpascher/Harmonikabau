@@ -1,0 +1,331 @@
+[[Datei: Page 674 (A Dictionary of Music and Musicians-Volume 1).jpg|mini|Illustration einer Glasharmonika (~1900)]]
+[[Datei:Glass Harmonica at Poncan Theatre.jpg |mini| Glasharmonika im ''Poncan Theatre'' in [[Oklahoma]] (2011)]]
+Die '''Glasharmonika''' ist ein 1761 von [[Benjamin Franklin]] entwickeltes [[Idiophon]], bei dem ähnlich einer [[Glasharfe]] Töne durch Reiben mit den Fingern erzeugt werden. Das heute weitgehend vergessene Instrument besteht aus unterschiedlich großen, ineinandergeschobenen [[Glas]]glocken, die auf einer gemeinsamen waagerechten Welle lagern, die wiederum durch ein Pedal in Rotation versetzt werden kann. Zur Tonerzeugung berührt der Musiker die Glockenränder mit angefeuchteten Fingern. Der Tonumfang der [[Chromatische Stimmung|chromatisch gestimmten]] Glasharmonika beträgt zweieinhalb bis vier [[Oktave (Musik)|Oktaven]]. Eine Variante ist die [[Klavierharmonika]], die mit einer Tastatur nebst Mechanik zum Streichen der Gläser ausgestattet ist.
+
+== Klangerzeugung ==
+Es gibt zwei bekannte Möglichkeiten, Trinkgläser oder glockenförmige Gefäße aus anderen spröden Materialien wie Porzellan zum Klingen zu bringen: durch Anschlagen (als Aufschlagidiophon) oder durch Reiben mit den angefeuchteten Fingerspitzen am oberen Rand (als Reibidiophon). Solche Idiophone sind vielfach aus Asien bekannt (vgl. ''[[jaltarang]]'' in Indien). Der früheste Beleg für angeschlagene Trinkgläser in Europa ist ein Holzschnitt in [[Franchinus Gaffurius|Franchino Gaffurios]] ''Theorica musicae'' (Mailand, 1492). Darauf werden mit [[Glocke]]n und Gläsern die von [[Pythagoras]] festgestellten Gesetze der Tonbildung demonstriert.<ref>Alec Hyatt King: ''Musical glasses''. In: ''Grove Music Online'', 2001</ref> 
+
+== Herkunft ==
+[[Datei:Schwenter - Deliciae physico-mathematicae oder Mathemat. und philosophische Erquickstunden, 1636 - 4696404.tif|mini|''Deliciae physico-mathematicae'', 1636]]
+
+Das erste bekannte vollwertige Musikinstrument aus Glas ist 1596 im Inventar der Sammlung von [[Schloss Ambras]] in Innsbruck aufgeführt: [[Alois Primisser]] beschrieb „ain Instrument von Glaswerch“ in einem schön verzierten kleinen Kästchen mit einem chromatischen Tonumfang von drei Oktaven und einer [[Terz (Musik)|Terz]] (F–a″).
+
+Auch [[Athanasius Kircher]] beschrieb 1673 in seiner ''Neuen Hall- und Thonkunst'' ein „Glasspiel“. Die Form der abgebildeten, wassergestimmten Gläser würde eine Betätigung durch Reiben zulassen; Anordnung und geringe Anzahl der Gläser lässt jedoch eher auf eine Versuchsanordnung schließen als auf ein bestimmtes Musikinstrument.
+
+Den ersten eindeutigen Beleg für die Klangerzeugung mit ''geriebenen'' Gläsern findet man 1636 bei [[Georg Philipp Harsdörffer]] in dessen ''Deliciae physico-mathematicae''.
+
+Unklar ist die von [[Carl Ludwig Weißflock]] († 1747) 1731 angewendete Spieltechnik. Sein „Klavier von auserlesenen Gläsern durch drey Octaven, worauf er, ohne irgend eine Dämpfung, nach Gefallen piano und fort ausdrücken konnte“ hatte den Fürsten von [[Fürstentum Anhalt-Zerbst|Anhalt-Zerbst]] immerhin so beeindruckt, dass er Weißflock als Hofmusiker auf Lebenszeit am [[Schloss Zerbst#Die Residenz des Hauses Anhalt-Zerbst|Zerbster Hofe]] anstellte. 
+
+[[Johann Gottfried Walther]] erwähnt 1732 in seinem ''Musicalischen Lexicon'' unter dem Stichwort „Verrillon“ ein „Glas-Spiel“ (französisch ''verre'' – Glas) und nennt als Virtuosen den Schlesier [[Christian Gottfried Helmond]]. Im Jahre 1738 berichtet [[Johann Philipp Eisel]] in seinem ''Musicus autodidactus'' ebenfalls von einem „Verrillon“. In Böhmen wurden die Gläserspiele als ''Verrophone'' bis ins 20.&nbsp;Jahrhundert hinein hergestellt und in Katalogen angeboten.
+
+Walther und Eisel beziehen sich nur auf angeschlagene Gläser, obwohl die Tonerzeugung durch Reibung längst bekannt war und die Gläser allgemein immer bessere Materialqualitäten aufwiesen.
+
+Unabhängig davon verbreitete der Ire [[Richard Pockrich]] die ''Musical Glasses'' zunächst in [[Dublin]] und später in ganz Großbritannien. Pockrichs 1741 erfundene ''Angelick Organ'' findet sich später in ''The Real Story'' von [[John Carteret Pilkington]] wieder. Pockrich war eine sehr vielseitige Persönlichkeit, als er mit über 40&nbsp;Jahren seine Konzertkarriere begann: Er besaß zeitweilig eine Brauerei, die später Bankrott machte, hatte eine große Gänsezucht, entwickelte –&nbsp;von der damaligen Marine verspottet&nbsp;– unsinkbare eiserne Schiffe, erdachte ''wings for human flight'', war zweimal erfolglos Kandidat für das Parlament und unterrichtete im Spielen auf seinen Gläsern.
+
+Als der berühmteste unter den vielen Nachahmern von Pockrich gilt [[Christoph Willibald Gluck]], der 1745 nach [[London]] gekommen war. Neben den vermehrten Nachrichten über das öffentliche Auftreten von Musikgläser-Künstlern kündigte er am 23.&nbsp;April 1746 im ''General Advertiser'' ein Konzert mit einer neuen Komposition auf 26 wasserabgestimmten Gläsern in Begleitung eines Kammerorchesters im Londoner Little Haymarket Theatre an. Wie Pockrich nutzte er die beiden möglichen Spieltechniken, die Gläser anzureiben und anzuschlagen, und versprach –&nbsp;in enthusiastischer Übertreibung&nbsp;– alles ausführen zu können, was auf einer Violine oder einem Cembalo möglich sei. Gemessen an der Höhe der Eintrittspreise, spielte er vor einem sehr erlesenen Publikum. Dieses Konzert wiederholte er 1749 und 1750 auf [[Schloss Charlottenborg]] bei [[Kopenhagen]] und leistete dadurch einen wichtigen Beitrag zur Anerkennung der Musikgläser als Instrument.
+
+Eine der Schülerinnen von Pockrich war [[Ann Ford]], die 1761 die ''Instructions for playing on the Musical Glasses'' veröffentlichte, wohl das erste Schulwerk für Glasinstrumente. Am 27.&nbsp;Oktober 1761 spielte sie das erste uns überlieferte Duo für zwei Musical Glasses mit einem Mr. Schumann, einem der vielen Nachahmer von Pockrich.
+
+== Entwicklung ==
+=== Erfindung von 1761 ===
+1761 konzertierte auch [[Edward Delaval]], von Pockrich inspiriert und Mitglied der [[Royal Society]], auf den ''Musical glasses''. Durch Delaval lernte Benjamin Franklin nach eigener Aussage diese Art der Musik kennen. Dieses Erlebnis regte ihn zu einer Erfindung an, der Glasharmonika. Durch den Mailänder Physiker [[Giovanni Battista Beccaria]] erhoffte sich Franklin Unterstützung bei der Verbreitung seiner neuen Erfindung. Da Italien zu dieser Zeit die musikalisch führende Nation Europas war, sollte sich die Erfindung –&nbsp;unter dem von Franklin erdachten neuen italienischen Namen ''Armonica''&nbsp;– leichter verbreiten. Anfang 1762 war sein Instrument in London bereits als ''Glassy-Chord'' bekannt geworden. Franklins Wahl von Beccaria als Fürsprecher war nicht die günstigste, da Beccaria mehr Naturwissenschaftler als Musiker war.
+
+Franklin geht in seiner fragmentarischen Autobiographie über seine frühen Jahre in Europa nicht auf den genauen Hergang seiner musikalischen Erfindung ein. Die Spieltechnik war durch die Musical glasses schon eingeführt, und auch die Anbringung einzelner etwa halbkugelförmiger Glasschalen mit einem Halsansatz beziehungsweise Loch im Zentrum ihrer Wölbung mittels Korkstopfen auf einer horizontalen Welle war schon 1741 von Glockenspielen und später auch von Uhrenglockenspielen bekannt. Franklin wird allgemein die Idee zuerkannt, die auf einer gemeinsamen Welle befindlichen Glasschalen mit einem Fußantrieb in Drehung zu versetzen. Durch die geringen Abstände der einzelnen ineinander montierten Schalen, deren Durchmesser zu den hohen Tönen hin abnimmt, ergeben sich mit Tasteninstrumenten vergleichbare spieltechnische Möglichkeiten. Aus den technischen Einzelheiten bezüglich des Schleifens und Stimmens der Glasschalen, die wir Franklins Brief entnehmen können, geht hervor, dass er intensiv an der Herstellung der ersten Instrumente, die zunächst von g bis g″ reichten, beteiligt war. Seine ersten Instrumente baute er in London zusammen mit Charles James, der schon Musical glasses hergestellt hatte. Zurück in Amerika arbeitete Franklin weiter an seiner Erfindung, wobei unklar ist, ob er gestimmte Glasschalen aus London mitbrachte oder in Amerika bei einem Glasmacher in Auftrag gab.
+
+=== 18. Jahrhundert ===
+==== Anfänge der Verbreitung ====
+Das erste Konzert auf der neuen Harmonika (wie die franklinsche Armonica seit ihrer Verbreitung im deutschsprachigen Raum genannt wurde) gab [[Marianne Davies]], eine Verwandte von Franklin, schon Anfang 1762 im Great Room in [[Spring Gardens]]. Durch den Erfolg ermutigt ging sie anschließend auf Tournee und trat in [[Bristol]], London und [[Dublin]] auf. In Amerika spielte [[Stephen Forrage]] im Dezember 1764 in den Assembly Rooms in Lodge Alley/[[Philadelphia]] als erster die Harmonika in einem öffentlichen Konzert. Marianne Davies unternahm 1768 zusammen mit ihrer Schwester, der Sängerin [[Cecilia Davies (Sängerin)|Cecilia Davies]], erneut eine Konzertreise durch Europa und insbesondere durch Italien. Franklin hatte Marianne Davies eigens ein Instrument dafür überlassen. Cecilia wurde als „l'Inglesina“ in Italien und Europa bald berühmt, während Marianne Davies zu ihren Schülern sogar die Tochter der Kaiserin [[Maria Theresia]], die spätere französische Königin [[Marie-Antoinette]], zählte. Beide Schwestern sollen sich mit Glucks Hilfe am Wiener Hof etabliert haben. Dort wohnten sie bei [[Johann Adolph Hasse]], der 1769 für Marianne und Cecilia die ''Cantata pour soprano, harmonica e orchestre'' komponierte. Vorlage dafür war eine Ode [[Pietro Metastasio]]s, die dieser anlässlich der Vermählung der Erzherzogin [[Maria Amalia von Österreich (1746–1804)|Maria Amalia]] mit dem spanischen Infanten [[Ferdinand (Parma)|Ferdinand von Bourbon]], Herzog von Parma verfasst hatte.
+
+==== Zahlreiche Nachbauten ====
+Weitere Harmoniken wurden alsbald in großer Anzahl besonders in den damals deutschsprachigen Gebieten von zahlreichen Herstellern angefertigt. In diesen Regionen waren die zur Glasherstellung notwendigen Rohstoffe reichlich vorhanden und die Techniken der Glasverarbeitung weit entwickelt.
+
+[[Joseph Aloys Schmittbaur]], Kapellmeister der [[Badische Staatskapelle Karlsruhe|Badischen Hofkapelle]] erweiterte in [[Karlsruhe]] als erster den Tonumfang seiner Harmonika von c bis f″ (später c bis c″′) und unterrichtete neben seinen Töchtern Therese und Lisette auch die weitgehend erblindete [[Marianne Kirchgeßner]]. Als Mäzen übernahm der Reichsfreiherr [[Joseph Anton Siegmund von Beroldingen]] für Kirchgeßner alle anfallenden Unterrichtskosten. Der Domherr von Speyer und Hildesheim protegierte junge Talente und wollte auch mit [[Wilhelm Heinse]] zusammenarbeiten. Eine weitere Schülerin Schmittbaurs war [[Ernestine von Geusau]].
+
+Zitat aus dem Buch ''Ausbrüche musikalischer Dichterwut, Empfindsamkeit in der Musik'', Gilde 2004, von Andreas Hoffmann-[[Kröper]]:
+Die Suche nach dem esoterischen Ton brachte Instrumente hervor, die sich ohne das Phänomen der Empfindsamkeit wohl nie durchgesetzt hätten. So die Glasharmonika, „diess tief rührende melancholische Instrument“ (199), wie es [[Christian Friedrich Daniel Schubart|Christian Schubart]] nennt, die eine technische Verbesserung des Spielens auf Weingläsern darstellt. Gerade bei der Glasharmonika trifft man heute immer wieder auf das Argument, es handle sich um einen Versuch, der eine Einzelerscheinung darstellt. Das mag angesichts der wenigen erhaltenen Instrumente so aussehen, ein Blick auf die Musizierpraxis dieser Zeit lehrt uns ein anderes. Zwar war es den Anhängern der [[Iatromusik]] ein Dorn im Auge, dass der Spieler aufgrund des ständigen direkten Nervenreizes der auf den sich drehenden Glasschalen ruhenden Fingern einem ständigen Gesundheitsrisiko ausgesetzt sei, doch an einem Blick auf Prag sei die dortige Vorliebe für dieses Instrument bewiesen, was darin zum Ausdruck kam, dass jede Verbesserung an der Glasharmonika in Prag augenblicklich im periodischen Druck referiert wurde. Einer der Gründe ist sicher die Tatsache, dass gerade in Prag Anton Renner die Antriebsmechanik der Glasharmonika verbesserte, um diese vom Takt unabhängig zu machen und die Geschwindigkeit der sich drehenden Glasglocken beeinflussen zu können, was die dynamischen Möglichkeiten des Instrumentes förderte, „folglich einen anwachsenden, fallenden, oder immer gleich starken Laut hervorgebracht werden konnte“ (200), wie die ''Kaiserl. Königl. Prager Oberpostamts-Zeitung'' am 19.&nbsp;Mai 1781 berichtet. Dieselbe Quelle berichtet am 7.&nbsp;September 1784, dass Kapellmeister Schmittbauer in Karlsruhe den Umfang auf mehr als drei Oktaven erweitert habe. Die ''Prager interessanten Nachrichten'' berichten am 8.&nbsp;März 1787, dass in Berlin im Oktober des Vorjahres Professor Burja eine Glasharmonika vorgestellt habe, die mit zwei, in beiden Händen zu haltenden Violinbögen gespielt wurde. Und am 5.&nbsp;April 1797 berichtet die gleiche Zeitung von einer Verbesserung der Glasharmonika durch den Wiener Mathematikprofessor Konrad Bartl, die im Zufügen einer Klaviatur bestand, wodurch, wie der Zeitungsbericht hervorhebt, gerade die Basstöne, die „für eine unbeschreibliche und nie gehörte Schönheit gehalten“ (201) wurden, gewannen. Die Tastatur trage zudem zur vollkommenen Gleichheit aller Töne bei. Ziel dieser Erfindungen war es auch, das Spieltempo des an und für sich nur zum [[Adagio (Musik)|Adagio]]<nowiki/>spielen geeigneten Instrumentes zu erhöhen.
+
+Ein gefeierter Virtuose auf der Glasharmonika war der Prager Pianist und Komponist [[Vincenc Mašek|Vincenz Maschek]], der dieses Instrument auch in das Prager Konzertleben einführte. Vielleicht hatte er all jene Eigenschaften, die Schubart von einem Spieler der Glasharmonika fordert:
+
+„Der gefühlvolle Spieler ist für dieses Instrument ganz geschaffen. Wenn Herzblut von den Spitzen seiner Finger träuft; wenn jede Note seines Vortrags Pulsschlag ist; wenn er Reiben, Schleifen, Kitzeln übertragen kann, dann nähere er sich diesem Instrument und spiele.“ (202)
+
+Der offenbar nicht nur zum Ausdruck der Empfindungen, sondern auch zum Mitreißen der Zuhörer geeignete Ton der Glasharmonika wurde schon 7. September 1782 in den ''Prager interessanten Nachrichten'' beschrieben:
+
+„Der Ton ist für jeden, der nur das mindeste musikalische Gefühl hat, beim schwächsten Piano so durchdringend sanft, und reisst im allmählichen Wachsen bis zum Fortissimo das Gefühl so mit sich fort, dass sich niemand wird erinnern können einen ähnlichen, und so angenehmen Ton jemals gehört zu haben. […] da hingegen der Ton der Glocke in einer Harmonika unzählige Modifikationen von Crescendo und Decrescendo ausdrückt, und augenblicklich neue Bewegungen in der Seele des aufmerksamen Zuhörers verursacht.“
+
+Schubart ergänzt: „der ewig heulende, klagende Gräberton – machen das Instrument zu einer schwarzen Tinte, zu einem grossen Gemählde, wo in jeder Gruppe sich die Wehmut über einen entschlafenen Freund beugt.“
+
+==== Mozart ====
+Im Januar 1791 trat Marianne Kirchgeßner zusammen mit ihrem künftigen Begleiter und Förderer, dem einflussreichen Musikverleger [[Heinrich Philipp Bossler]], und dessen Gattin ihre erste Konzertreise durch Europa an. Ihr Harmonikakonzert in Wien am 10.&nbsp;Juni 1791 veranlasste [[Wolfgang Amadeus Mozart]], ein [[Adagio und Rondo KV 617|Quintett für Harmonika, Flöte, Oboe, Viola und Cello (KV&nbsp;617)]] und ein Solo-Adagio (KV&nbsp;617a = KV&nbsp;356) für sie zu komponieren. Am 19.&nbsp;August folgte die Uraufführung von KV&nbsp;617, das zur Grundlage ihrer zehnjährigen außergewöhnlich erfolgreichen Virtuosenreise werden sollte.
+
+Sie spielte an Adelshöfen und gab Privatkonzerte. Sie lernte beinahe alle in ihrer Zeit lebenden berühmten Komponisten kennen, von denen viele sie und ihr Instrument eigens mit Werken bedachten. Aufgrund ihres außergewöhnlichen musikalischen Gedächtnisses war es ihr zwar möglich, die Kompositionen allein durch Vortrag am Klavier aufzunehmen, doch sie besaß keine Handdruckerei oder Notensetzmaschine für Blinden-(noten-)schrift, wie etwa die ebenfalls blinde Pianistin [[Maria Theresia Paradis]]. Deshalb ist manche Komposition für die Harmonika nicht überliefert (nicht zuletzt auch infolge verschiedener Plünderungen ihrer Residenz in Gohlis bei [[Leipzig]] sowohl durch preußische als auch durch französische Soldaten). Lediglich während ihres Aufenthaltes in London (1794–1796) erlangte Marianne Kirchgeßner durch die Behandlung des Augenarztes Fiedler kurzzeitig ein geringes Sehvermögen.
+
+==== Glasharmonikavirtuosen ====
+Andere Harmonikaspieler und -komponisten reisten, ihrem Beispiel folgend, konzertierend durch Europa. Unter ihnen waren: [[Friederike Charlotte Bause|Friederike Bause]], Christian Gottlieb Breitkopf, [[Jan Ladislav Dusík]], Johann Baptist Kucharz, das Ehepaar Johanna und [[Vincenc Mašek]], Vincenc Mašeks Bruder [[Pavel Mašek]], Johann Christian Müller, [[Johann Gottlieb Naumann]], Johann Friedrich Naumann, [[Johann Friedrich Reichardt]], [[Nicolas-Joseph Hüllmandel]], [[Carl Leopold Röllig]] und [[Johann Abraham Peter Schulz]].
+
+Marianne Kirchgeßner blieb zwar die bekannteste Harmonikaspielerin, aber Pavel Mašek soll den Kritiken zufolge mindestens ebenso virtuos gewesen sein, während [[Carl Schneider (Musiker)|Carl Schneider]] aus [[Gotha]] als der bei weitem genialste Harmonikavirtuose beschrieben wird.
+
+==== Effekte für die Oper, Eingang in die Dichtung ====
+Neben den zahlreichen Solo- und Kammermusikwerken entstanden auch immer mehr Orchesterstücke mit Glasharmonika für Opern. Die Glasharmonika fungierte in den kleineren Theatern oft als Orgelersatz und wurde in bedeutenden Inszenierungen solistisch in dramaturgischen Schlüsselszenen eingesetzt, um mit ihrer Klangfarbe die besondere Stimmung der jeweiligen Szene zu unterstreichen, wie zum Beispiel in der ''Wahnsinns-Szene'' von [[Gaëtano Donizetti]]s [[Lucia di Lammermoor]]. Auch viele zeitgenössische Schriftsteller, wie [[Johann Wolfgang von Goethe]], [[Johann Gottfried Herder]], [[E. T. A. Hoffmann]], [[Jean Paul]], [[Friedrich Schiller]], [[Christian Friedrich Daniel Schubart]], [[Christoph Martin Wieland]] oder der Philosoph [[Georg Wilhelm Friedrich Hegel]] äußerten sich in ihren Werken zu dem bemerkenswerten Klangcharakter der Harmonika.
+
+[[Adam Mickiewicz]] lässt in seinem Drama ''Der Abend der Vorfahren'' der Harmonika in einer Schlüsselszene, den Visionen des Protagonisten Konrad, eine bedeutende metaphorische Rolle zukommen. Auch in Russland war die Harmonika sehr bekannt und [[Alexander Sergejewitsch Puschkin]] hörte in den „zauberhaften Klängen […] etwas Überirdisches“. [[Franz Liszt]] verglich das Klavierspiel [[Frédéric Chopin]]s unter anderem mit dem Spiel der Glasharmonika. [[Horst Wolfram Geißler]] schrieb einen Roman mit dem Titel: ''Die Glasharmonika''.
+
+==== Gegner eines „esoterischen“ Instruments ====
+Eine Gegenbewegung ging hauptsächlich von Gegnern des Wiener Arztes und Gelehrten [[Franz Anton Mesmer]] aus, der die Harmonika in seinen Therapien ebenso verwendete wie zur eigenen Erbauung. Nach einem gesellschaftlichen Abend bei Mesmer schrieb [[Leopold Mozart]] am 12.&nbsp;August 1773 an seine Frau [[Anna Maria Mozart|Anna Maria]] nach [[Salzburg]]: „weist du das der H: v Messmer recht gut die Harmonica der Miß Devis [Anm: Marianne Davies (1743/44–1818)] spielt? er ist der einzige der es in Wienn gelernt hat, und hat eine viel schönere Gläser Machine als die Miß Devis hatte. der Wolfg: hat auch schon darauf gespielt, wenn wir nur eine hätten“.
+
+Über Mesmer wurde berichtet, dass er auf der Glasharmonika zu seiner angenehmen Tenorstimme improvisiert habe. Auch [[Joseph Haydn]] und [[Christoph Willibald Gluck]] zählten zu seinen Freunden, wobei Gluck, oft durch Mesmers Harmonikaspiel begeistert, ihm das Versprechen abnahm, „niemals anders als so, nämlich blos phantasierend, ohne Noten und künstliche Stücke diese Tonglocken zu berühren“. Erstaunlicherweise findet sich kein Hinweis darauf, dass Gluck Mesmer von seinen eigenen, fast 40&nbsp;Jahren zurückliegenden Erfahrungen mit den Musical glasses berichtet hat. Eigentlich berühmt wurde Mesmer mit seiner Theorie des [[Animalischer Magnetismus|animalischen Magnetismus]], die heute in den alternativmedizinischen Bereich fällt. Da er in seinen magnetischen Behandlungen auch die Glasharmonika gelegentlich zur „Nachbehandlung und Entspannung“ der Patienten einsetzte, geriet sie in die Kritik derer, die in Mesmer einen Scharlatan sahen. Sie behaupteten, dass die Schwingungen der Harmonika das Nervensystem „enervierten“ und „zerrütteten“ und der Bleigehalt der Gläser Krankheiten verursache. Zwar wurde beidem ebenso heftig widersprochen, aber Diskussionen dieser Art um Wirkung und Auswirkung der ''gläsernen Töne'', wie sie genannt wurden, waren der Etablierung der Harmonika als Solo- oder auch als Orchesterinstrument abträglich. Trotz einiger Behandlungserfolge Mesmers und seiner Schüler, beispielsweise Dr.&nbsp;[[Karl Christian Wolfart]]s (in den Berliner Kriegslazaretten) lehnte auch Franklin, der sich eigens von Mesmers fertigem Harmonikaspiel in Paris überzeugte, dessen Lehren ab.
+
+=== 19. Jahrhundert ===
+==== Bekannte Glasharmonikaspieler ====
+Unter den Harmonikaspielern des 19. Jahrhunderts waren die wichtigsten nach dem Tode von Marianne Kirchgeßner Carl Schneider, die Schauspielerin [[Sophie Friederike Krickeberg]], die E. T. A. Hoffmann mit dem Instrument bekannt machten, der Schweizer Komponist und Musikpädagoge [[Franz Xaver Schnyder von Wartensee]] und der Hofbibliothekar und Kammermusikus [[Carl Ferdinand Pohl]]. [[Gottfried Keller]] erwähnt begeistert in seinen Memoiren ein Privatkonzert Schnyder von Wartensees und auch [[Niccolò Paganini]] ließ sich von diesem vorspielen und äußerte sich ähnlich bewegt.
+
+Die Familie Pohl aus [[Kreibitz]] in Nordböhmen stellte fünf Generationen lang, in den Jahren 1785 bis 1945, Harmoniken her. Unter ihnen wurde Carl Ferdinand Pohl (1781–1869) der bekannteste, da die Fürstin Luise von Anhalt-Dessau in [[Darmstadt]] selbst Harmonika spielte und den „Kammermusikus Pohl als Harmonicaspieler“ in den Jahren 1818 bis 1830 in der Hofkapelle beschäftigte.
+
+==== Niedergang ====
+Ab etwa 1830 geriet die Glasharmonika mehr und mehr in Vergessenheit, da andere Instrumente mit ähnlicher dynamischer Ausdrucksfähigkeit existierten; zum Beispiel die [[Physharmonika]] [[Anton Haeckl]]s; ihr Name wurde aus Werbegründen der Glasharmonika entlehnt und ihre spätere Vervollkommnung: das [[Harmonium]] (1842 Patentanmeldung durch den Pariser Orgelbauer [[Alexandre-François Debain]]). Diese neuartigen „Harmonika“-Instrumente machten den Zusatz ''Glasharmonika'' (eng.: glass harmonica, fra.: harmonica, ita.: armonica) notwendig. Zusammen mit dem aufkommenden [[Hammerklavier]] waren diese Instrumente nicht so teuer, weniger zerbrechlich und für eine breite Schicht musikalisch vielseitiger einzusetzen. Der immer gewaltigere Orchesterklang und die Tendenz zu expressiver solistischer Virtuosität verdrängten schließlich die stillere Kammermusik und die Glasharmonika als ein typisches Instrument dieses Genres. Ein großes Problem bestand für die Harmonika auch in den sich ständig und nicht einheitlich wandelnden Orchesterstimmungen, denn es ist sehr aufwändig, kostspielig und riskant, die Schalen nachträglich durch Schleifen abzustimmen, um sie an örtliche Stimmungen anzupassen. Daran wird auch [[Felix Mendelssohn Bartholdy]] auf seiner Suche nach einer Harmonika, nebst Spieler, für eines seiner symphonischen Werke gescheitert sein.
+
+=== 20. Jahrhundert ===
+==== Wiederentdeckung ====
+Der gerade achtzehnjährige [[Carl Orff]] fordert 1913 für das Orchester seiner ersten, zu Lebzeiten unaufgeführten, Oper ''Gisei'' eine Glasharmonika. Praktisch erst [[Richard Strauss]] nahm 1919 für seine Oper ''[[Die Frau ohne Schatten]]'' große Mühen und Kosten auf sich, um die Glasharmonika im Finale des Werkes im 3.&nbsp;Akt einsetzen zu können. [[Franz Schalk]], der Dirigent der Uraufführung, wurde mit der Besorgung der Harmonika beauftragt und sah sich dabei großen Widrigkeiten ausgesetzt.
+
+==== Elliot Goldenthal ====
+Der US-amerikanische Komponist [[Elliot Goldenthal]] (geboren 1954) verwendet das Instrument heute regelmäßig in seinen Film- und Bühnenmusiken. Der bemerkenswerteste Einsatz einer Glasharmonika in Goldenthals Œuvre ist in seinem [[Ballett]] ''Othello'' (1998) zu hören: das Instrument spielt eine das Stück einleitende [[Sarabande]]-Melodie. Auf der beim Label Varèse Sarabande erschienenen CD wird die Glasharmonika von Dennis James gespielt. Aber auch in der [[Oscar]]-prämierten Musik zu Julie Taymors Film ''[[Frida (2002)|Frida]]'' und in der [[Broadway (Theater)|Broadway]]-Theaterproduktion ''The Green Bird'', basierend auf einem Text von [[Carlo Gozzi]], setzt Goldenthal die Glasharmonika ein.
+
+==== Carl Ferdinand Pohl der Jüngere ====
+Carl Ferdinand Pohl der Jüngere (1860–1945), der Urenkel des gleichnamigen Harmonikabauers C. F. Pohl (siehe oben), der bis dahin als letzter Harmonikaspieler die Mozartwerke für Glasharmonika bei den [[Salzburger Festspiele]]n 1924 interpretieren sollte, fertigte schließlich drei spezielle Instrumente an, je eines für die [[Semperoper|Sächsische Staatsoper]] (Dresden), die [[Bayerische Staatsoper]] (München) und die [[Wiener Staatsoper]], insgesamt aber 30 Instrumente.<ref name="ZfI1941">[http://daten.digitale-sammlungen.de/~db/bsb00004288/images/index.html?id=00004288&fip=eayayztsewqeayaxssdasyztsqrseayaxs&no=&seite=17 Zeitschrift für Instrumentenbau, Bd.: 62, Leipzig, 1941–42, Nr 2, 15. Oktober 1942, S. 11 u. 12].</ref> Ob die Instrumente je in der ''Frau ohne Schatten'' eingesetzt worden sind, konnte nicht nachgewiesen werden, da das Instrument der Uraufführung mit verbogener Achse eintraf und die Instrumente aus Dresden und München noch 1941 zu Pohl nach Kreibitz zur Reparatur geschickt wurden, von wo sie vermutlich kriegsbedingt nicht mehr zurückkamen.
+
+Wie 1995 noch lebende Angehörige der Familie Pohl berichteten, schickte der NSDAP-Vorsitzende der Reichskulturkammer [[Joseph Goebbels]] noch Schüler zu Carl Ferdinand Pohl, doch starb mit diesem im Flüchtlingslager in [[Zittau]] eine Tradition, die unmittelbar bis zur Musik Mozarts zurückreichte, denn der Verbleib seiner Schüler ist bis heute ungewiss.
+
+1956 versuchten die Firma [[Corning (Unternehmen)|Corning Glass]], das [[Massachusetts Institute of Technology]] und der Orgelbauer [[Herman Schlicker]] zusammen mit dem Organisten [[Edward Power Biggs]] zum Gedenken an den 250sten Geburtstag Franklins und zum 200sten Geburtstag Mozarts, eine (Tastatur-)Glasharmonika neu zu bauen, da die Museumsinstrumente unspielbar waren. Trotz immenser finanzieller Aufwendungen scheiterte das Projekt, da die Töne zu schlecht ansprachen und auf dem entstandenen Instrument nur kleinere Solostücke zu verwirklichen waren. Erst ab 1983 etwa gelang es wieder, für anspruchsvolle Harmonikawerke zu gebrauchende Glasharmoniken herzustellen, und seit der zeitgleichen Gründung der Gesellschaft ''Glass-Music-International'' in [[Loveland (Colorado)|Loveland]], [[Colorado]], gibt es heute weltweit etwa zehn Harmonikaspieler und etwa 130 Glasmusiker.
+
+==== Bekannte Glasharmonikaspieler ====
+Weitere bekannte Glasharmonikaspieler des 20. Jahrhunderts sind [[Thomas Bloch]], [[Sascha Reckert]], Dennis James, Philipp Alexander Marguerre, William Zeitler, Bruno Kliegl, Martin Hilmer, Christa und Gerald Schönfeldinger und Jean-Claude Chapuis.
+
+== Herstellung und Akustik der Glasharmonika ==
+=== Herstellung der Glasschalen ===
+Traditionell werden die Schalen aus Kristallglas in Holzformen mundgeblasen. Der früher höhere Bleianteil wird heute durch andere Zusätze weitgehend ersetzt. Vergleiche zu erhaltenen Instrumenten in verschiedenen Museen haben gezeigt, dass der Klang des heute verwendeten Glases trotzdem dem der alten Harmoniken entspricht. Der Klang wird eher durch die Wandstärke und Form des Glases beeinflusst. Durch dickere Wandstärken erhält man bei gleichem Durchmesser höhere Frequenzen als bei dünnen Wandungen. Dickwandige Schalen haben im Vergleich zu dünnwandigen mehr Nachhall, Klangkraft und Brillanz, doch sprechen sie gleichzeitig schwerer an und lassen sich nicht mehr [[Mensur (Musik)|engmensuriert]] montieren. Da man aus einer bestimmten Holzform durch verschiedene Wandstärken der hineingeblasenen Schalen Unterschiede von mehr als zwei Oktaven erhalten kann, muss oft vor dem Stimmen aus 30 bis 100 Schalen pro Ton sorgfältig ausgewählt werden. Durch Schleifen am oberen offenen Rand wird der Ton höher, durch Schleifen am unteren Boden beziehungsweise Halsansatz tiefer.
+
+Zwischen dem Glas und der eisernen Spindel wurde ein Zapfen aus Kork exakt so in den Halsansatz eingepasst, dass die jeweilige Schale fest auf der Achse sitzt und zentrisch rotiert. Zur Kennzeichnung der verschiedenen Töne hat Franklin die den weißen Klaviertasten entsprechenden Schalen in sieben Prismenfarben und die Zwischentöne weiß einfärben lassen. Später wurde durch Röllig und Schmittbaur die Kennzeichnung der den schwarzen Klaviertasten entsprechenden Schalen mit einem eingebrannten Goldrand üblich. Der Tonumfang wurde manchmal auf fünf Oktaven erweitert, doch der klanglich und spieltechnisch günstigste Bereich liegt zwischen f und f″′, für schnelle Passagen eher c′–f″′.
+
+=== Stimmung ===
+Um die gewünschte Stimmung der Schalen im montierten Zustand zu erreichen, ist besonders die geplante Mensur zu berücksichtigen. In ''Die Frau ohne Schatten'' sind zum Beispiel achtstimmige Akkorde zu spielen, welche die Erreichbarkeit einer Oktave mit einer Hand in der Mittellage bedingen. Der Abstand von Schalenrand zu Schalenrand beträgt dann nur noch 1,5–1,6&nbsp;cm. Durch den äußerst geringen Raum zwischen den Schalen dämpfen sie sich gegenseitig, was die Nachhallzeit der montierten Schalen auf ein musikalisch sinnvolles Maß reduziert. Gleichzeitig vermindert sich die Frequenz jedes Tones im Vergleich zur Frequenz vor der Montage. Im Bass beispielsweise senkt sich die Frequenz der Schalen nach der Montage aller Töne bis zu einem Viertelton. Beim Stimmen muss man diesen Effekt berücksichtigen und meist die Harmonika nach vollständiger Montage noch einmal zur Feinstimmung zerlegen und die noch abweichenden Schalen nachschleifen. Dies wurde bei anfallenden Reparaturen der heutigen Museumsinstrumente wohl selten berücksichtigt, so dass die meisten alten Harmoniken heute eine unsaubere Stimmung aufweisen.
+
+Die oft kunstvoll geschnitzten Gehäuse sind reine Halterung der Achse und Dekoration, da sich durch etwaige Resonanzräume nur eine kaum wahrnehmbare Verstärkung bewirken lässt. Ebenso ist es unmöglich, die Glasschalen durch eine Art Wasserbecken rotieren zu lassen, da sich die Frequenzen durch geringfügiges Eintauchen in Wasser unregelmäßig verändern und die Schalen kaum noch ansprechen. Die Auskleidungen der Gehäuse von innen mit verschiedenen Metallen sind eher auf die Intention zurückzuführen, die wertvollen Hölzer vor den von Fingern und Gläsern beim Spiel herunterfallenden Tropfen zu schützen.
+
+== Historische Instrumente in Museen ==
+Erhaltene Instrumente finden sich in den großen Musikinstrumentensammlungen von Berlin, Eisenach, Goslar, Gotha, Halle, Zittau, Leipzig, Moritzburg, Hof, Bamberg, Nürnberg<ref>[http://objektkatalog.gnm.de/objekt/MI408 Glasharmonika im Germanischen Nationalmuseum]</ref>, München, Stuttgart, Frankfurt am Main, Poznań, Nieborów, Salzburg, Wien, Rom, Zürich, Basel, Brüssel, Den Haag, London, Colmar, Kopenhagen, Stockholm, New York, Boston, Princeton und Pittsburg.
+
+== Weiterentwicklungen ==
+=== Klavierharmonika ===
+Durch Anbringung einer Tastatur, mit der zum Beispiel befeuchtete Lederpolster gegen die rotierenden Glasschalen gedrückt wurden, erhoffte man sich eine einfachere Handhabung. Dies erwähnt bereits [[Gustav Schilling]] 1835 in seiner ''[[Musiklexikon|Encyclopädie]]''. [[Johann Nikolaus Forkel]] schreibt in seiner ''Musikalisch-kritischen Bibliothek'' die Erfindung der Harmonika dem Abt [[Mazzuchi]] im Jahr 1779 zu, „… bei welcher die Glasglocken mit einem Violinbogen gespielt werden …“. [[Wilhelm Hessel]], ein deutscher Mechaniker in [[Sankt Petersburg]], erfand 1785 eine von ihm benannte Klavierharmonika, in der drei Schichten Glocken nebeneinander angebracht waren. Für die gleiche Bauweise entschied sich 1798 der Preßburger Musikprofessor und Komponist [[Heinrich Klein (Komponist)|Heinrich Klein]], der auch ein Schüler [[Johann Philipp Kirnberger]]s war. 1786 versah Röllig eine einachsige Harmonika –&nbsp;nach franklinscher Bauweise&nbsp;– mit einer Tastatur in der Art, dass man sie auch ohne spielen konnte.
+
+Er bereiste für seine Versuche die meisten Glashütten in Ungarn, Böhmen und Deutschland, so dass er häufig als der eigentliche Erfinder genannt wird. Vor Röllig hatte 1784 der Hoforganist [[David Traugott Nicolai]] in [[Görlitz]] eine Tastaturharmonika gefertigt und ungefähr 15&nbsp;Jahre später beschrieb dies der Mathematikprofessor [[Franz Konrad Bartl]] aus [[Olmütz]] in einer ausführlichen Abhandlung. Technische Hilfsmittel dieser Art und auch Zusätze im Wasser erzeugen eine unangenehm näselnde Klangfarbe; dies bemängelte auch [[Johann Christian Müller (Musiker)|Johann Christian Müller]] bereits 1788 in seiner Anleitung zum Selbstunterricht.
+
+=== Euphon und Clavicylinder ===
+In den Jahren 1789 bis 1800 erfand der Physiker [[Ernst Florens Friedrich Chladni]] auf der Grundlage seiner akustischen Forschungen unter anderem über längs- und transversalschwingende Saiten und Klangstäbe das [[Euphon]] und den [[Clavicylinder]]. Das Konstruktionsprinzip beider Instrumente ist ähnlich dem von Vibraphonplatten, in deren Mitte jeweils ein massiver Glasstab in ein entsprechendes Loch eingeklebt wurde. Reibt man einen Stab mit feuchten Fingern auf und ab, entsteht ein orgelähnlicher, voller Ton. Beim Euphon ist zu diesem Zweck für jeden Ton jeweils ein Glasstab mit einer abgestimmten Metallplatte verbunden. Die Glasstäbe ragen aus dem Gehäuse hervor und liegen wie bei einer Klaviatur vor dem Spieler nebeneinander, die dann vor- und zurückgerieben werden. Der Clavicylinder verfügt über eine Cembalotastatur, wobei jeder Tastenhebel nach hinten verlängert ist und sich auf diesem hinteren Ende jeweils eine schmale abgestimmte und an ihren Knotenpunkten befestigte Klangplatte befindet. Jede Klangplatte ist an einem Ende mit einem kleinen Stück Filz beklebt, und bei Tastenniederdruck wird sie an eine über allen Platten befindliche, durch Fußantrieb in Rotation versetzte und vorher befeuchtete Glaswalze gedrückt, wodurch sie in Schwingung gerät. Besonders das Euphon zeichnet sich durch extrem leichte Ansprache in allen Tonlagen aus. Der mögliche Tonumfang beider Instrumente reicht bis in die Subkontraoktave und ist im Diskant etwa auf f″′ begrenzt.
+
+Chladni führte beide Instrumente auf seinen Vortragsreisen mit großem Erfolg vor, doch urteilten E. T. A. Hoffmann und andere Zeitzeugen, dass das Euphon von geringerer Lautstärke sei als die Glasharmonika. Der Clavicylinder war klangstärker, wurde jedoch ganz einfach zu spät erfunden, um sich noch gegen das Hammerklavier durchzusetzen. Er teilte damit das Schicksal der Unmenge an aufkommenden Friktionsinstrumenten, deren Entwicklung Chladni mit seinen Arbeiten ausgelöst hatte.
+
+=== Weitere ===
+Auch die „Neue Harmonika“ von [[Christian Friedrich Quandt]], ein Instrument aus gläsernen Stimmgabeln, die an dem einen abgeknickten Schenkel durch Reibung in Längsrichtung zum Klingen gebracht wurden, geriet bald wieder in Vergessenheit.
+
+Eine nicht exakt datierbare Kombination aus Musical glasses und Glasharmonika wird von [[Frederick Willis]] in ''A Book of London Yesterdays'' beschrieben: Auf drehenden kleinen Tellern waren Gläser montiert, die nur noch mit befeuchteten Fingerspitzen berührt werden mussten.
+
+Das [[Terpodion]] oder Uranium von [[Christian Friedrich Ludwig Buschmann]] gehört zu den Friktionsinstrumenten, unterschied sich jedoch in erster Linie bezüglich des rotierenden Zylinders, da dieser aus lackbeschichten Holz bestand. Es besaß eine Klaviatur.
+
+Das [[Harmonichord]]<ref>Friedrich Rochlitz: [http://books.google.de/books?id=SxVDAAAAcAAJ&pg=PA1039&dq=Allgemeine+musikalische+Zeitung+Harmonichord&hl=de&ei=8geLTejFA83j4gax-5zIDg&sa=X&oi=book_result&ct=result&resnum=2&ved=0CDMQ6AEwAQ Allgemeine musikalische Zeitung], Band 12, S. 1935–1038, Dezember 1810.</ref> von [[Friedrich Kaufmann (Instrumentenbauer)|Friedrich Kaufmann]] aus Dresden war eine Kombination eines Saiteninstruments und einer Glasharmonika mit Klaviatur.
+
+=== Glasharfe ===
+: ''Hauptartikel: [[Glasharfe]]''
+
+Ab 1929 stellte der Stuttgarter [[Bruno Hoffmann]] zur Wiedergabe der Harmonikaliteratur ein Glasspiel zusammen, dessen Aufbau dem ''Glasspiel'' entsprach und auch genauso gehandhabt wurde. Sascha Reckert zufolge erreichte er mit zahlreichen Aufführungen und zahlreichen durch das [[Goethe-Institut]] organisierten Konzertreisen in alle Welt „eine gewisse Allgemeinbekanntheit“ des Begriffes Glasharfe, was dazu führte, dass heute noch selbst in Fachkreisen die Glasharmonika oft fälschlicherweise als Glasharfe bezeichnet wird.
+
+=== Crystal ===
+: ''Hauptartikel: [[Cristal Baschet]]''
+
+Die Brüder [[Bernard Baschet|Bernard]] und [[François Baschet]] entwickelten in [[Paris]] circa 1955 ihre Metallskulpturen aus Blechen und Eisenstäben, an denen sie teilweise Glasstäbe befestigten, zu einem Musikinstrument weiter, dem Crystal, das im Wesentlichen der Klangerzeugung von Chladnis Euphon entspricht, jedoch durch großflächige Blechresonatoren größere Lautstärken und Nachhallzeiten aufweist.
+
+== Neue Instrumente klassischer Bauart ==
+[[Datei:BlochGlassHarmonica.jpg|mini|Zeitgenössische Glasharmonika aus der Werkstatt Finkenbeiner]]
+
+Seit 1981 baut der amerikanische Glasbläser [[Gerhard Finkenbeiner]] in Boston, Massachusetts wieder Harmoniken. Er verwendet Quarzglas, dessen Klang leicht bis in die viergestrichene Oktave reicht und in den hohen Tonlagen schnell anspricht, jedoch im Bass bis f herunter in der erforderlichen Größe problematisch und sehr kostenaufwendig herzustellen ist. Finkenbeiner erhält seine Schalen, indem er Quarzrohre an einer Glasbläserdrehbank erhitzt und manuell in die gewünschte Form bringt, was eine große handwerkliche Geschicklichkeit verlangt, um auf diese Weise einen komplett ineinanderpassenden Schalensatz für ein Instrument zu erhalten. Die Glasharmonikas aus der Werkstatt von Sascha Reckert werden aus mundgeblasenen Glasschalen gebaut. Hierbei wird für jede Schale eine andere Form benötigt, was die Fertigung ebenfalls sehr aufwändig gestaltet.
+
+=== Verrophon ===
+1985 erfand der Glasmusiker [[Sascha Reckert]] das Verrophon. Senkrecht in einem Holzkorpus stehende Glasröhren werden an ihren oberen offenen Rändern genauso gespielt wie die Musical glasses, jedoch nimmt nicht der Durchmesser, sondern nur die Länge zum Bass hin zu. Dadurch sind je nach Lage selbst sechs- bis achtstimmige Akkorde greifbar. Die gesamte Literatur für Harmonika ist auf dem (Röhren-)Verrophon spielbar. Es findet bereits wegen seiner außergewöhnlichen Klangintensität Verwendung im symphonischen Bereich, als Orchester- und Soloinstrument, und in der zeitgenössischen Oper.
+
+=== Glasharmonika ===
+Im Jahr 1986 nahm Reckert schließlich die Tradition der Familie Pohl wieder auf und stellte zusammen mit der [[Glashütte Eisch]] in [[Frauenau]], [[Bayerischer Wald]] zur originalgetreuen Wiedergabe der Mozartwerke und der Opernliteratur, wieder Harmoniken aus mundgeblasenem Kristallglas her. Reckert verwirklichte 1992 bei den Salzburger Osterfestspielen mit den Berliner Philharmonikern und bei den Salzburger Festspielen mit den Wiener Philharmonikern, jeweils unter Sir [[Georg Solti]], die Erstaufführung der vollständigen Glasharmonikastimme in [[Die Frau ohne Schatten]] mit dem von Strauss ursprünglich vorgesehenen Instrument.
+
+== Literatur für Glasharmonika ==
+=== Abhandlungen und Lehrwerke ===
+* A. Ford: ''Instructions for Playing on the Musical glasses''. In: ''Public Advertiser''. London 1761.
+* [Artikel] ''Musique des Verres''. In: [[Denis Diderot]] (Hrsg.): ''Encyclopédie''. Paris 1765.
+* Karl Leopold Röllig: ''Über die Harmonika. Ein Fragment''. Berlin 1787.
+* Johann Christian Müller: ''Anleitung zum Selbstunterricht auf der Harmonika''. Leipzig 1788.
+* Franz Konrad Bartl: ''Abhandlung von der Tastenharmonika''. Haller, Brünn 1798.
+* G. von Graubenfeld: ''Aesthetische Gedanken über Bartl's Tastenharmonika''. Wien 1798.
+* J. E. Franklin: ''Introduction to the Knowledge of the Seraphim or Musical glasses''. s.n., London 1813.
+* David Ironmonger: ''Instructions for the Double and Single Harmonicon Glasses''. London 1840.
+* Francis Hopkinson Smith: ''Instructions for the Grand-Harmonicon''. Baltimore 1829.
+* James Smith: ''A Tutor for the Musical glasses''. Edinburgh 1829.
+* Jared Sparks (Hrsg.): ''The Works of Benjamin Franklin''. Volume 1–10, Kelley, New York 1910.
+* Carl Ferdinand Pohl: ''Zur Geschichte der Glasharmonika''. Wien 1862.
+
+=== Kompositionen für Glasharmonika ===
+==== Solowerke ====
+* Philipp Joseph Frick: ''Balletto''
+* Vaclav Vincenc Mašek: ''11 Stücke und 7 Variationen'' (zirka 1790–1800)
+* Wolfgang Amadeus Mozart: ''Adagio C'', KV 617a = 356
+* [[Johann Christian Müller (Musiker)|Johann Christian Müller]]: ''Anleitung zum Selbstunterricht auf der Harmonika'', Leipzig 1788
+* Johann Gottlieb Naumann: ''Six Sonates pour l'harmonica qui peuvent servir aussi pour le piano forte'' (insgesamt 12 Sonaten), Stockholm 1950
+* Johann Friedrich Reichardt: ''Grazioso'' (zirka 1786)
+* Karl Leopold Röllig: ''Kleine Tonstücke für die Harmonika oder das Pianoforte nebst einigen Liedern für das letztere'', Leipzig 1789
+* Joseph Schlett: ''2 Sonaten'', München 1804
+* Joseph Alois Schmittbaur: ''Cinque Préludes et un rondo pour l'armonica ou pianoforte'', Wien 1803
+* Johann Abraham Peter Schulz: ''Largo für die Harmonika'', in: ''AmZ'' 1799/1800
+* Wenzel Johann Tomášek: ''Fantasie für die Harmonica am Grabe der um dieses Instrument so sehr verdienten Demoiselle Kirchgessner'', in: ''AmZ'', Beilage vom 8.&nbsp;März 1809
+* Gerald Schönfeldinger: ''Abendschatten – moment musicale''
+* Gerald Schönfeldinger: ''Poem für die Glasharmonika''
+* Christa Schönfeldinger: ''Nürnberger Skizzen''
+
+==== Kammermusik ====
+* Gotthelf Benjamin Flaschner: ''Abendlied'' und ''An ein Vergissmeinnicht für Glasharmonika'', Stuttgart
+* [[Richard Graf]]: ''Sekunden zur Ewigkeit'' für Glasharmonika und Verrophon (Wiener Glasharmonika Duo)
+* Paul Lambert Mašek: ''Benedictus für Glasharmonika'', Stuttgart (Str. Divertissement für Glasharmonika, Hf., hr.)
+* Wolfgang Amadeus Mozart: ''Adagio und Rondo für Glasharmonika'', Fl., Oboe, Va., Vc. (KV 617), Wien 23.&nbsp;Mai 1791; Fragment eines Adagio (Fantasia) C (KV Anh. 92) für dieselbe Besetzung, Wien 1791 (vermutlich die erste Skizze des Adagio KV 617)
+* Johann Gottlieb Naumann: ''Duo für Glasharmonika und Laute'' (nach einer Arie aus Naumanns Oper ''Cora'' für Gustav III.), D-b (1779); Quartett C (Andante-Grazioso) für Glasharmonika, Fl., Va., Vc. (1789)
+* Johann Friedrich Reichardt: ''Rondeau b für Glasharmonika'', Streichquintett
+* Thomas Daniel Schlee: ''Reine Gegenwart'' (Besetzung: Glasharmonika, Verrophon)
+* Gerald Schönfeldinger: ''Abendschatten'' (Besetzung: Glasharmonika, Verrophon – Wiener Glasharmonika Duo),
+* Gerald Schönfeldinger: ''Aglaopheme – Die Glanzstimmige'' (Besetzung: Glasharmonika, Verrophon, Stimme),
+* Gerald Schönfeldinger: ''Bleioxyd'' (Besetzung: Glasharmonika, historisches Gläserspiel),
+* Gerald Schönfeldinger: ''Devas Tanz'' (Besetzung: Glasharmonika, Verrophon),
+* Gerald Schönfeldinger: ''Drumming on the edge of glass'' (Besetzung: Glasharmonika, Verrophon),
+* Gerald Schönfeldinger: ''Wesenlos – Eine Klangverklärung'' (Besetzung: Glasharmonika, Verrophon),
+* Gerald Schönfeldinger: ''Amphitryon'' (Besetzung: Glasharmonika, Verrophon),
+* Gerald Schönfeldinger: ''Bärentaler Kontratänze'' (Besetzung: Glasharmonika, Verrophon),
+* Gerald Schönfeldinger: ''Ballade Notee'' (Besetzung: Glasharmonika, Verrophon),
+* Gerald Schönfeldinger: ''Ehe die Erde Töne kannte'' (Besetzung: Glasharmonika, Verrophon),
+* Gerald Schönfeldinger: ''Tor zur Seele'' (Besetzung: Glasharmonika, Verrophon),
+* Gerald Schönfeldinger: ''Tränen des Leoparden'' (Besetzung: Glasharmonika, Verrophon),
+* Franz Xaver Schnyder von Wartensee: ''Duett für die Harmonika und das Pianoforte'' (Der durch Musik überwundene Wütherich – Allegro furioso – Andante) für Harmonika und Kl. oder Streichquintett und Kl., Frankfurt/M. zirka 1825
+
+==== Orchesterwerke ====
+* [[Hector Berlioz]]: ''Glasharmonika-Part'' im Autograph des Satzes ''Fantaisie sur la Tempête de Shakespeare'' aus: ''Lélio ou Le Retour à la vie'' (1831/32)
+* [[Johann Adolph Hasse]]: ''Kantate L'Armonica für Glasharmonika'', s, Oboe, hr., Streicher, Wien 1769
+*[[Anders Hillborg]]: ''Sound Atlas'' (2018); mit wichtigem Glasharmonika-Part
+* [[Anton Reicha]]: ''Grand solo pour harmonica et l'orchestre'', Wien 1806; ''Abschied der Johanna d’Arc'', nach Friedrich Schiller für Glasharmonika, Sprecherin, Orchester, 12.&nbsp;März 1806, F-Pc, 12045
+* [[Carl Leopold Röllig]]: ''6 Konzerte für Glasharmonika'', hr., Holzbläser, Streicher beziehungsweise für Glasharmonika, Streicher, zirka 1790
+* [[Camille Saint-Saëns]]: ''[[Karneval der Tiere|Le Carnaval des animaux]]'' (1886), Glasharmonika in Nr. 7 (Aquarium) und Nr.&nbsp;14 (Finale)
+* [[Carl Maria von Weber]]: ''Adagio e Rondo F'' für Glasharmonika, Orchester (in Originalpartitur und Briefen ausdrücklich für Glasharmonika bestimmt; letzte Fassung für Harmonichord/Harmonium, 1811, J&nbsp;115).
+*[[Jörg Widmann]]: ''Armonika'' (Auftragswerk Int. Mozartwoche UA 2007)
+
+==== Opern- bzw. Bühnenmusik ====
+* [[Jörg Widmann]]: ''[[Babylon (Oper)|Babylon]]'' – Oper in 7 Bildern (UA München 2012 / Revision Berlin Staatsoper 2019)
+* [[David August von Apell]]: ''Il trionfo della musica'', Part für Glasharmonika, Hf., St. (1808)
+* [[Ludwig van Beethoven]]: Melodram für Sprechstimme, Glasharmonika, Nr.&nbsp;3 aus der Bühnenmusik zu Fr. Dunckers Drama ''Leonore Prohaska'' von 1815
+* [[Ferruccio Busoni]]: Glasharmonika-Part in Fragment der Oper ''[[Doktor Faust (Busoni)|Doktor Faust]]'', Dresden 1925
+* Stepan J. Davïdov: Glasharmonika-Part in der Oper ''Rusalka'', St. Petersburg 1803
+* [[Gaetano Donizetti]]: Glasharmonika-Part (Wahnsinnsszene) in der Oper ''[[Lucia di Lammermoor]]'', Neapel 1835
+* [[Michail Iwanowitsch Glinka|Michail Glinka]]: Glasharmonika-Part in der Oper ''[[Ruslan und Ljudmila (Oper)|Ruslan und Ljudmila]],'' St. Petersburg 1842
+* [[Franz Grillparzer]] (komp. wahrscheinlich von [[Friedrich Ludwig Seidel]]): Glasharmonika-Klänge in dem Trauerspiel ''Die Ahnfrau'', Wien 1817
+* [[Heinz Holliger]]: Glasharmonika-Part in der Oper ''[[Schneewittchen (Oper)|Schneewittchen]]'' (1997/98)
+* [[Johann Friedrich Reichardt]]: ''Der Tod des Herkules'' (1801) für Glasharmonika, Sprecher; Scena dell' opera Didone abbandonata für Glasharmonika, s, Fl., Oboe, Fagott, hr., Streichquintett (zirka 1779; UA 1784)
+* Karl Leopold Röllig: Scena und Aria ''Io consorte d'Augusto'' für Glasharmonika, s, 2 Fl. oder 2 Oboen
+* [[Giuseppe Sarti]]: Scena dell'opera ''[[Didone abbandonata (Sarti, 1762)|Didone abbandonata]]'', Kopenhagen 1762; ''Io tradir l'idol mio'' für Glasharmonika, s, Fl., Oboe, hr., Streicher
+* [[Johann Abraham Peter Schulz]]: Glasharmonika-Zwischenspiele in ''Minona oder Die Angelsachsen'', Tragisches Melodram in 4 Aufzügen, Hamburg 1786
+* [[Carl David Stegmann]]: Silphen Gesang mit Glasharmonika, 4 Frauenstimmen aus der Feenoper ''Der Triumph der Liebe oder Das kühne Abentheuer'', Hamburg 1796
+* [[Richard Strauss]]: Glasharmonika-Part in ''[[Die Frau ohne Schatten]],'' 3. Akt, Wien 1919
+
+==== Werke für Musical glasses (Verrophon, Glasharfe) ====
+* J. Duda: Quartett für Verrophon, Fl., Va., Vc.; Duo für Verrophon und Hf. oder 2 Verrophone (1995); Konzertstück für 2 Verrophone und Orchester (1995)
+* Harald Genzmer: Variationen über ein altes Volkslied für Glasharfe, Fl., Va., Vc. (1946); Adagio und Allegro Moderato (Solo; 1983)
+* Hans Werner Henze: Glasstimme in Voices (1973) für 2 Singstimmen und Instrumentalgruppe
+* [[Nikolaus Heyduck]]: Slow Motion – Repeats of Breaking Glass für vier Spieler und Zuspielung (1992)
+* Hans Ulrich Humpert: Novalis: Märchen für eine Sopranstimme, Verrophone und Streichtrio (2001)
+* Olga Neuwirth: live-elektronisch im Raum bewegte Glasklänge im Musiktheater ''Bählamms Fest'' (1997–1999)
+* Luigi Nono: Glasklänge in ''[[Prometeo]]'', 1984
+* Carl Orff: Gläsertöne in ''[[Der Mond (Oper)|Der Mond]]'', München 1939; ''[[Astutuli]]'', München 1953; ''Oedipus der Tyrann'', Stuttgart 1959; ''[[Ludus de nato Infante mirificus]]'', Stuttgart 1960; ''[[Prometheus (Orff)|Prometheus]]'', Stuttgart 1966
+* Fred Schnaubelt: verschiedene Glas-Soli, Elegie und Caprice in der Mozart-Quintett-Besetzung von KV&nbsp;617 (1994); Concertino für Glasinstrumente und Orchester (1960)
+* Gerhard Stäbler: ''Bittersüß'' – Bagatelle für Gitarre, Glasspiel (1994)
+* Simon Stockhausen: ''Musik für ein Glashaus'' (1994)
+* Andreas H.H. Suberg: Lineamente für 6 Spieler, Glasinstrumentarium, Live-Elektronik und Tonband (1990); Glace für 6 Spieler, Glasinstrumentarium, Live-Elektronik, Synthesizer (Sampler), elektroakustische Klänge und Tonband (1991); „1791“ – Paraphrasen über ein Adagio für Glasharmonika von Wolfgang Amadeus Mozart für Sampling-Keyboard, Live-Elektronik und Tonband (1994); Was dir dein Sehnen aus den Scherben schmolz für Countertenor, Glasinstrumente und Live-Elektronik und elektroakustische Klänge (1997)
+* Bernd Alois Zimmermann: Glas-Part im Cellokonzert, 1965/66
+* Walter Zimmermann: Erde-Wasser-Luft-Töne für Glasspiel, Pos., Kl.; Selbstvergessen, für s, Glasspiel, Fl., Git.; Glaspart in Hyperion. Eine Briefoper (1989/90).
+
+==== Werke für Verrophon ====
+* Sabine Dobbertin: Choral – Miniaturen für Verrophon solo, op. 13 (2012)
+* Sabine Dobbertin: Introduktion für Verrophon solo, op. 37,1 (2013)
+* Wolfram Graf: Klanglichter für Verrophon solo, Op. 193: I Ruheklang – II Farbspiel – III Lichtlied (2012)
+
+==== Chormusik ====
+* Sabine Dobbertin: Kommt her zu mir alle, die ihr mühselig und beladen seid – Kleine Motette für vierstimmigen Chor und Verrophon, op. 15,1 (2012)
+* Sabine Dobbertin: Abend wird es wieder – Kleine Motette für gem. Frauenchor und Verrophon, op. 35,1 (2013)
+
+==== Erwähnte, bislang verschollene Werke ====
+* Luigi Cherubini: Sonaten-Solo
+* Christoph Willibald Gluck: Komposition für Musical glasses
+* Joseph Augustin Gürrlich: Concertino
+* [[Adalbert Gyrowetz]]: Symphonie für Glasharmonika und Orchester
+* Jan Kucharž: Stücke für Glasharmonika und Mandoline
+* Vaclav Vincenc Mašek: Soli und Kammermusik mit Glasharmonika, Orchesterstücke
+* A. J. Mertlick: Großes Konzert für die Harmonica in G, und Variationen für die Harmonika in Es mit Quartett-Begleitung
+* Johann Gottlieb Naumann: Quartette
+* Ignaz Josef Pleyel: Symphonie für Glasharmonika und Orchester
+* Anton Reicha: Fantasien für Marianne Kirchgeßner (Solo) und mit Orchester
+* Anton Rubinstein: Part in ''Der Dämon'', St. Petersburg 1875
+* Jacques Salomon: Sonata-Solo
+* Carl Schneider: Andante mit Variationen-Solo
+* B. A. Weber: Monolog aus der ''Jungfrau von Orléans'' (1801) für Glasharmonika, Sprecherin, 2 hr., Vc., b.
+* Paul Wranitzky: Soli
+
+== Sekundärliteratur ==
+* Alexander Buchner: ''Die Glasharmonika''. In: ''Das Musikinstrument''. Ausgabe 19, 1970, S. 773–737, S. 1182–1185.
+* Alexander Buchner: ''Die Glasharmonika''. In: ''Das Musikinstrument''. Ausgabe 20, 1971, S. 38–40.
+* Ernst F. Chladni: ''Entdeckungen über die Theorie des Klanges''. Zentralantiquariat der DDR 1980 (Repr. d. Ausg. Leipzig 1787, 1817 und 1821).
+* Johann Philipp Eisel: ''Musics autodidactos oder der sich selbst informierende Musicus''. Zentralantiquariat der DDR, Leipzig 1976 (Reprint der Ausgabe Erfurt 1738).
+* Ann Ford: ''Instructions for playing on the musical glasses''. London 1761.
+* Franchino Gaffori: ''The theory of music''. Yale University Press, 1993, ISBN 0-300-05497-1.
+* Athanasius Kircher: ''Neue Hall- und Thonkunst oder mechanische Geheim-Verbindung der Kunst und Natur''. Schäfer, Hannover 1983, ISBN 3-88746-072-3 (Reprint der Ausgabe Ellwangen 1684).
+* Georg Harsdörffer: ''Deliciae physico-mathematicae oder mathematische und philosophische Erquickungsstunden''. Keip, Frankfurt/M 1990 (Reprint der Ausgabe Nürnberg 1636).
+* A. Hyatt King: ''The musical glasses and glassharmonika''. In: ''PRMA''. Nummer 72, 1945/46, S. 97 ff.
+* Franz Liszt: ''Frédéric Chopin''. Levi, Paris 1990, ISBN 2-86746-063-8.
+* Wilhelm Luethge: ''Die Glasharmonika, das Instrument der Wertherzeit''. In: ''Der Bär''. 1925, S. 98 ff.
+* P. Lynton, K. L. Loewenstein: ''Musical glasses''. In: ''News and renews''. 1951, S. 2 ff.
+* B. Matthews: ''The David Sisters, J. C. Bach and the glass harmonica''. In: ''ML''. Ausgabe 56, 1975, S. 150–169.
+* David J. O’Donoghue: '' An Irish musical genius (Richard Pockrich). The inventor of the musical glasses, etc.'' Gill, Dublin 1899.
+* Antonio Pace: ''Benjamin Franklin and Italy''. American Philosophical Society, Philadelphia 1958.
+* Marianne R. Pfau: ''[[Johann Adolph Hasse|Hasses]] Glasharmonika: »Musica Coelestis« oder »Teufelswerk«?''. In: ''[[Lichtwark-Heft]]'' Nr. 65. Verlag HB-Werbung, Hamburg-Bergedorf, 2004. {{ISSN|1862-3549}}.
+* John Carteret Pilkington: ''The real story''. Hoey, London 1760.
+* Walter B. Pohl: ''Tönendes Glas. Erzählung''. Selbstverlag, Freudenberg 1960.
+* [[Alois Primisser]]: ''Die kaiserlich-königliches Ambraser Sammlung''. ADEVA, Graz 1872 (Reprint der Ausgabe Wien 1819).
+* Sascha Reckert: ''Glasharmonika''. In: ''[[Die Musik in Geschichte und Gegenwart]]'', 1995, und: ''MGG Online'', November 2016 ([https://www.mgg-online.com/mgg/stable/393049 Vorschau])
+* Conny Sibylla Restle: ''Richard Strauss und die Glasharmonika''. In: ''musica instrumentalis''. 1998, S. 24–46.
+* Karl L. Röllig: ''Über die Harmonika. Ein Fragment''. Berlin 1787.
+* Hans Schneider: ''Der Musikverleger Heinrich Philipp Bossler (1744–1812) mit bibliographischen Übersichten und einem Anhang „Marianne Kirchgeßner und Bossler“''. Schneider, Tutzing 1985, ISBN 3-7952-0500-X.
+* Janka Schröder: ''Eine Glasharmonika um 1800 von Franz Ferdinand Pohl aus dem Besitz des Stiftes Heiligenkreuz'' (Diplomarbeit an der Hochschule für angewandte Wissenschaft und Kunst, Hildesheim 2004).
+* M. Schuler: ''Musik im Messmerismus''. In: ''Freiburger Universitätsblätter''. Nummer 25, 1986, Heft 93, S. 23–67.
+* Peter Sterki: ''Klingende Gläser. Die Bedeutung idiophoner Friktionsinstrumente mit axial rotierenden Gläsern, dargestellt an der Glas- und Tastenharmonika.'' Dissertation, Bern 2000, ISBN 3-906764-60-5.
+* [[Hermann Josef Ullrich]]: ''Die blinde Glasharmonikavirtuosin Marianne Kirchgeßner und Wien''. Schneider, Tutzing 1971, ISBN 3-7952-0113-6.
+* Till G. Waidelich: ''Die Glasharmonika in den Artikeln der AmZ''. Berlin, Druck in Vorbereitung.
+* Johann Gottfried Walther: ''Musicalisches Lexicon oder musicalische Bibliothec''. Bärenreiter, Kassel 2001, ISBN 3-7618-1509-3 (Reprint der Ausgabe Leipzig 1732).
+* ''Auf singendem Glas spielt Meister Pohl''. In: ''Dresdner Aktuelle Nachrichten''. Nr. 3, 1941.
+* ''Einiges über die Glasharmonika''. In: ''Deutsche Instrumentenbau-Zeitung''. 1903/04.
+
+== Weblinks ==
+{{Commonscat|Glass harmonicas}}
+{{Wiktionary}}
+* Noten und Audiodateien für Mozarts Werke für Glassharmonika [http://imslp.org/wiki/Adagio_and_Rondo_in_C_minor,_K.617_%28Mozart,_Wolfgang_Amadeus%29 Adagio in C-Moll KV 617] und [http://imslp.org/wiki/Adagio_in_C_major,_K.356/617a_%28Mozart,_Wolfgang_Amadeus%29 Adagio in C-Dur KV 617a(KV356)] auf IMSLP
+* [https://www.youtube.com/watch?v=jeeQQLoxHfw YouTube,] Mozart: Adagio und Rondo C-moll für Glasharmonika (KV 617) – Video, 10:27&nbsp;min.
+* [http://www.glasharmonika.at/ Wiener Glasharmonika Duo] www.glasharmonika.at
+* [http://www.glasharmonika.de/ Martin Hilmer: Glasmusik] www.glasharmonika.de
+* [http://www.glassarmonica.com/armonica/index.php ''The Glass Armonica.''] www.glassarmonica.com
+* [http://www.armonica.de/ ''Die Glasharmonika.''] www.armonica.de
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=s|GND=4603491-2}}
+
+[[Kategorie:Reibidiophon]]
+[[Kategorie:Glasprodukt]]
+[[Kategorie:Benjamin Franklin]]

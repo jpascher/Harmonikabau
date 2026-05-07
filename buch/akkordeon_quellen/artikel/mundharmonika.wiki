@@ -1,0 +1,292 @@
+{{Infobox Musikinstrument
+ | Sprachen = {{enS|Harmonica}} (ugs.: ''Harp'')<br />{{itS|Armonica a bocca}}<br />{{frS|Harmonica}}<br />{{esS|la Armónica}}
+ | Klassifikation = [[Aerophon]]<br />[[Durchschlagzungeninstrument]]<br />(Selbstklingendes Unterbrechungs-Aerophon mit durchschlagender Zunge)
+ | Tonumfang = meist drei Oktaven
+ | Klangbeispiel = {{Audio|Harmonica-pumping.ogg|Pumping sound on a Hohner Marine Band}}
+ | Verwandte Instrumente = [[Akkordeon]], [[Shō (Instrument)|Shō]], [[Sheng (Instrument)|Sheng]]
+ | Musiker = [[Larry Adler]], [[Norton Buffalo]], [[Paul Butterfield]], [[Carlos del Junco]], [[Bob Dylan]], [[Big Walter Horton]], [[Howard Levy]], [[Jason Ricci]], [[Sonny Terry]], [[Toots Thielemans]], [[Little Walter]], [[Sonny Boy Williamson II]], [[Stevie Wonder]]<br />[[Liste von Mundharmonikaspielern]]
+}}
+[[Datei:Mundharmonika.jpg|mini|Diatonische Mundharmonikas, hier: Oktav- und Richtermundharmonika]]
+
+Die '''Mundharmonika''' ist ein [[Musikinstrument]] aus der Gruppe der [[Harmonikainstrument]]e mit [[Durchschlagzunge]]n aus Metall in parallel angeordneten Luftkanälen. Die Luftkanäle werden direkt mit dem Mund angeblasen.
+
+Eine besondere Stellung nimmt die Mundharmonika in der europäischen [[Volksmusik]], im [[Blues]] (mit der [[Richter-Harmonika|Blues Harp]]) und in der [[Old-Time Music]] ein – in der [[Klassische Musik|klassischen Musik]] dagegen ist das Instrument nur eine Randerscheinung.
+
+Die Mundharmonika ist im Vergleich zu den meisten anderen Musikinstrumenten klein, kostengünstig und weniger empfindlich.
+
+== Geschichte ==
+Zur technischen Vorgeschichte siehe:
+* [[Durchschlagende Zunge#Geschichte|Geschichte der Stimmzunge]]
+* [[Harmonium#Geschichte|Geschichte des Harmoniums]]
+* [[Akkordeon#Geschichte|Geschichte der Handharmonika]]
+
+=== Erfindung der Mundharmonika ===
+Aus der Geschichte der durchschlagenden Stimmzunge ergibt sich, dass Orgelbauer, Mechaniker oder Spieluhrenbauer wie [[Friedrich Kaufmann (Instrumentenbauer)|Friedrich Kaufmann]] in Dresden oder andere vergleichbare Mechaniker zum Beispiel in Nürnberg, Paris, Wien und Prag um 1800 bereits die nötigen Kenntnisse und Voraussetzungen dafür hatten, um auch [[Aeoline (Musikinstrument)|Aeolinen]] oder Mundharmonikas anzufertigen. Im Blickfeld standen jedoch die Maschinen und Orgeln, mit denen eine größere Aufmerksamkeit zu erreichen war. Daher besteht die Möglichkeit, dass erste Exemplare vor den 1820er-Jahren angefertigt wurden. Obwohl Beweise vollständig fehlen, könnte der fünfzehnjährige, in vielen Schriften als Erfinder dargestellte [[Christian Friedrich Ludwig Buschmann]] schon im Jahr 1820 ein ähnliches Instrument angefertigt haben – sehr wahrscheinlich ist dies aber nicht. Letztlich bleibt ungeklärt, wer als erster die Idee der Vermarktung als Nebenprodukt hatte oder ob mehrere an verschiedenen Orten ähnliche Produkte in Umlauf brachten, und es gibt aus heutiger Sicht keine Einzelperson, die als Erfinder der Mundharmonika bezeichnet werden kann. Vor allem scheint die Mundharmonika anfangs keine besondere Aufmerksamkeit erhalten zu haben, da aus der Anfangszeit keinerlei spezielle Patente für die Mundharmonika bekannt sind und die musikalischen Zeitungen im deutschsprachigen Raum aus der Zeit von 1800 bis 1824 auch keinerlei Hinweise auf das Instrument enthalten. Einzig von Auftritten mit der Mundharmonika wird mehrfach berichtet, wobei es sich aber nicht um die heutige Mundharmonika handelt; gemeint ist die [[Maultrommel]] oder – wie die Maultrommel damals noch bezeichnet wurde – das Brummeisen. In Wien trat nach 1810 bis 1822 der prominente Chorleiter [[Franz Xaver Gebauer]] mit der Mundharmonika (Maultrommel) auf.<ref>Eduard Hanslick: ''Geschichte des Concertwesens in Wien.'' Band 1. 1869, S. 185 ([http://books.google.at/books?id=wDQ9AAAAcAAJ&dq=mundharmonika%20wien&pg=PA185&ci=95%2C1276%2C768%2C126&source=bookclip books.google.at]).</ref><ref>Eduard Bernsdorf (Hrsg.): ''Neues Universal-Lexikon der Tonkunst.'' Band 2. 1857, S. 122 ([http://books.google.at/books?id=BZRRAAAAYAAJ&dq=mundharmonika%20Franz%20Xaver%20Gebauer&pg=PA122&ci=147%2C704%2C804%2C718&source=bookclip books.google.at]).</ref>
+
+=== Gesicherte Berichte ===<!-- Bei Änderung der Abschnittsüberschrift bitte den Link auf der BKS ''Fotzenhobel'' entsprechend anpassen -->
+In den frühen 1820er Jahren tauchten Mundharmonikas erstmals auf und verbreiteten sich dann im deutschsprachigen Raum. 1823 erwarb [[Geschichte des Akkordeonbaus in Klingenthal#Schwarzmeisel und Langhammer|Johann Georg Meisel]] auf der [[Braunschweiger Messe]] eine Mundharmonika. Für Wien ist der Verkauf von Mundharmonikas ab 1825 belegt.
+
+Im Jahr 1825 erweiterte [[Anton Reinlein]] seine Befugnis und nannte sich dann „bürgerlicher Spieluhrenfabrikant und Mundharmonikaerzeuger“.
+1826 baute [[Ignaz Hotz]] in [[Knittlingen]] Mundharmonikas nach.
+1827 war die Mundharmonika bereits ein Modeartikel in Wien; hoch gerechnet wurden im Jahr 1827 500.000 Stück der „Ohrenquäler“ verkauft.<ref>Österreichischer Gewerbeverein (Hrsg.): ''Wochenschrift,'' Bände 1–4, Vienna, 1840, S.&nbsp;29 ([http://books.google.at/books?id=r1E1AAAAMAAJ&dq=Stimmzungen%20wien&pg=RA1-PA29&ci=22%2C486%2C762%2C347&source=bookclip books.google.at]).</ref>
+1827 wurde das Instrument auch in [[Kraslice|Graslitz]] ([[Klingenthal]]) von [[Geschichte des Akkordeonbaus in Klingenthal#Schwarzmeisel und Langhammer|Johann Georg Meisel]] gemeinsam mit [[Geschichte des Akkordeonbaus in Klingenthal#Schwarzmeisel und Langhammer|Johann Langhammer]] nachgebaut. 1829 erhielt [[Johann Wilhelm Rudolph Glier]] vom physikalischen Verein in [[Frankfurt am Main]] eine Mundharmonika zum Geschenk und baute kurz darauf die Instrumente nach.
+Ein Privilegium (Patent) direkt für eine Mundharmonika ist nicht bekannt.<ref>''Beschreibung der Erfindungen und Verbesserungen, … die Privilegien vom Jahre 1821–1835 enthält.'' ([http://books.google.de/books?id=V75AAAAAcAAJ&pg=PA280&dq=Beschreibung+der+Erfindungen+und+Verbesserungen+Anton+H%C3%A4kl&hl=de&ei=g_KITdnlH8aaOr6j4KQO&sa=X&oi=book_result&ct=result&resnum=1&ved=0CDIQ6AEwAA books.google.de]).</ref> 1829 erhielt Jakob Kissling die erste Gewerbeberechtigung Wiens, in der direkt die Mundharmonika genannt wird. Im Jahr 1834 wurde in Wien die Mundharmonikafabrik von [[Friedrich Wilhelm Thie|Fridrich Wilhelm Thie]] (1803–1869), der aus [[Rathenow]] stammte, gegründet, die bis 1922 bestand. Von zwei Mundharmonika-Machern wurde im Jahr 1836 in Nürnberg berichtet.<ref>''Monatsschrift für deutsches Städte- und Gemeindewesen.'' Band 3, S.&nbsp;298 ([http://books.google.de/books?id=VHUAAAAAcAAJ&pg=PA298&dq=Mundharmonikamacher&hl=de&ei=dfCJTaP9JKeJ4gbWj9WCDg&sa=X&oi=book_result&ct=result&resnum=8&ved=0CGIQ6AEwBw books.google.de]).</ref>
+
+Im Jahr 1830 erschien ein Buch mit dem Titel ''Systematische Darstellung der neuesten Fortschritte in den Gewerben''; darin findet sich ein Hinweis, dass die Mundharmonika ''neuerlich'' in Württemberg erfunden wurde, ohne irgendeinen Beleg dafür anzuführen.<ref>[[Stephan von Keeß]], [[Wenzel Carl Wolfgang Blumenbach]]: ''Systematische Darstellung der neuesten Fortschritte in den Gewerben&nbsp;….'' Band&nbsp;2, 1830, S.&nbsp;37: „Die neuerlich in Württemberg erfundene Mundharmonika besteht aus zwey Blechen, in welchen über Quere schmale längliche Ausschnitte sich befinden. Über jeden solchen Ausschnitt läuft eine aus Silber und einem andern Metall legierte Feder, welche an einer Seite an dem Metallblech befestigt ist, so daß noch eine sehr schmale Öffnung bleibt. Jede dieser Federn gibt einen andern Ton, der jenem der Physharmonica gleichkommt. Die Töne lassen sich vom sanftesten Piano bis zum stärksten Forte darauf hervorbringen. Eine solche Mundharmonica kostet in Wien 36 kr. biß 4&nbsp;fi. 24 kr. E.&nbsp;M.“ ({{Google Buch |BuchID=eM1840-w7F8C |Seite=37}}).</ref>
+Im Jahr 1832 gründete im württembergischen [[Trossingen]] [[Christian Messner]] die erste Werkstätte, in der Mundharmonikas gefertigt wurden. Dies erfolgte, nachdem er im Jahr 1830 eine aus Wien mitgebrachte Mundharmonika nachgebaut hatte. Das Unternehmen wurde später von der [[Hohner|Matthias Hohner AG]] übernommen.
+
+Innerhalb kürzester Zeit erreichte der Instrumentenbau enorme Stückzahlen, und sie gilt heute als das meistgebaute Instrument.<ref name="Austria Lexikon">Edgar Niemeczek: ''Musik aus der Rocktasche.'' In: ''Schaufenster Volkskultur.'' Nr. 3/2007, Atzenbrugg; ''In aller Munde.'' Ausstellungskatalog Technisches Museum Wien, 2002, zit. n. ''[http://www.austria-lexikon.at/af/Wissenssammlungen/ABC_zur_Volkskunde_%C3%96sterreichs/Tascheninstrumente Tascheninstrumente].'' In: ''ABC zur Volkskunde Österreichs.'' [[Austria-Lexikon]].</ref>
+
+Im Jahr 1833 waren in Wien bereits sieben Mundharmonikamacher nachweisbar (Jakob Kissling, Wilhelm Schütz, Joseph Forstinger (Uhrmacher), Michal Harig, Johann Fell, Vincenz Fischer, Johann Klein (Klappenharmonikamacher)). 1856 gab es bereits 120 aufgelistete Mund- oder Handharmonikamacher in Wien.<ref>{{Internetquelle |autor=B. F. Gottfried Sekretär und Expeditor des kaiserlich königlichen privilegirten Großhandlungs Gremiums |url=https://books.google.at/books?id=cslcAAAAcAAJ&dq=preis&hl=de&pg=PA163#v=onepage&q=preis&f=false |titel=Handels- und Gewerbs-Schematismus von Wien und dessen nächster Umgebung 1856 |werk= |hrsg=Im Verlage des nieder österreichischen Gewerb Vereins |datum=1856 |abruf=2018-08-14}}</ref>
+
+In Böhmen war 1839 ein Mundharmonika-Macher behördlich registriert.<ref>[[Johann Gottfried Sommer]]: ''Mundharmonika-Macher, Das Königreich Böhmen.'' Band: ''Budweiser Kreis.'' 1841, S.&nbsp;5: „Die Gewerbs-Industrie wird hauptsächlich von den Bewohnern der Stadt [[Budweis]] und des Städtchens [[Rudolfov|Rudolfstadt]] betrieben. Auf den Dörfern findet man nur die unentbehrlichsten Handwerke. Am 1.&nbsp;Juli 1839 beschäftigten sich in der Stadt und den übrigen Ortschaften … 1&nbsp;Mundharmonika-Macher&nbsp;…“ ([http://books.google.de/books?id=4KMxAQAAIAAJ&pg=PA5&dq=Mundharmonikamacher&hl=de&ei=dfCJTaP9JKeJ4gbWj9WCDg&sa=X&oi=book_result&ct=result&resnum=7&ved=0CF0Q6AEwBg books.google.de]).</ref> Die beiden in Deutschland heute noch bestehenden Hersteller von Mundharmonikas begannen 1847 ([[C. A. Seydel Söhne|C.&nbsp;A.Seydel, CASS]], Klingenthal) und 1857 ([[Hohner|Matthias Hohner]], Trossingen) mit der Herstellung.
+
+Im deutschen Sprachraum, wo sie als Tascheninstrument neben Ziehharmonika ([[Konzertina]]) und [[Okarina]] ''(Gänschen)'' sehr schnell Beliebtheit fand, hieß die Mundharmonika anfangs ''Mundharmonika chinesischer Art''&nbsp;– in Abgrenzung zur [[Maultrommel]] (Brummeisen), die seinerzeit auch „Mundharmonika“ genannt wurde&nbsp;– oder volkssprachlich bildhaft bayer.-österr. ''Fotz(en)hobel'' ({{barS|[[Fotze#Bayern|Fotzn]]}} ‚Mund, Maul, Gosche‘).<ref name="Focht">Josef Focht: ''Fotzhobel, Maultrommel und Harmonika in frühen volksmusikalischen Quellen.'' In: Josef Focht, Herbert Grünwald (Hrsg.): ''Konzertina, Bandonion, Akkordeon. Die Entwicklung der Harmonika-Instrumente und ihr Spiel in Bayern.'' Mit Beiträgen von Dieter Krickeberg und Kari Oriwohl. Bayerischer Landesverein für Heimatpflege e.&nbsp;V. (Volksmusiksammlung und -Dokumentation in Bayern Nr. E&nbsp;12), München 1999, S.&nbsp;5–10.</ref><ref name="Austria Lexikon" />
+
+== Bestandteile ==
+[[Datei:Gaita Palhetas2.jpg|mini|Stimmplatte auf dem Kanzellenkörper einer diatonischen Mundharmonika montiert]]
+[[Datei:Gaita partes1.jpg|mini|Kanzellenkörper und zwei Stimmplatten]]
+[[Datei:Gaita palhetas.jpg|mini|Stimmplatte]]
+[[Datei:Mundharmonika schematisch.jpg|mini|Mundharmonika]]
+
+Die Grundbestandteile einer Harmonika sind der Kanzellenkörper, die Stimmplatten mit den Stimmzungen sowie die (Klang-)Deckel.
+
+=== Kanzellenkörper ===
+Der Kanzellenkörper ist zentraler Bestandteil des Instruments. Volkstümlich wird er auch „Kamm“ genannt aufgrund seiner Ähnlichkeit mit einem echten Kamm. Ursprünglich wurde er aus Holz gefertigt, heute aber häufig auch aus [[Kunststoff]] ([[Acrylnitril-Butadien-Styrol|ABS]]) oder [[Metall]]. Der Kanzellenkörper unterteilt das Instrument in [[Kanzelle]]n. Das sind Luftkammern (Windkanäle), welche die Atemluft zu den Stimmzungen kanalisieren.
+
+=== Stimmplatte und Stimmzungen ===
+Die Stimmplatten werden oben und unten auf dem Kanzellenkörper befestigt und durch Deckel aus Blech verkleidet. Die [[Stimmzunge]]n (Tonzungen) sind auf die Stimmplatten genietet, so dass sie frei durch die darunter liegenden Ausschnitte in den Stimmplatten –&nbsp;die Tonlöcher&nbsp;– hindurchschwingen können. Die Abmessungen lassen einen definierten Luftspalt zwischen Tonloch und -zunge frei. Die längeren Stimmzungen erzeugen die tieferen [[Ton (Musik)|Töne]]. Damit die Zunge durch die Blasluft anschwingen kann, muss sie ein wenig nach oben gebogen sein.
+An jeder Kanzelle sind jeweils eine nach innen gerichtete Druck- und eine nach außen gerichtete Sogzunge angeordnet, die entsprechend durch Blasen oder Saugen angeregt werden. Die jeweils inaktive Tonzunge hat beim normalen Spielen keinen Einfluss auf die Klangentstehung und verbleibt in Ruhelage.
+
+Für eine gleichmäßigere Verteilung der Biegespannung verjüngen sich die Querschnitte der Zungen zum freien Ende hin. Bei tiefen Tönen kann die Profilierung jedoch auch anders aussehen, wobei sich die dünnste Stelle nicht mehr am Zungenende befindet. Um die Kerbwirkung an der Einspannstelle der Zunge zu vermindern, soll der Querschnittsverlauf frei von Unstetigkeiten sein.
+
+== Typen ==
+Durch die im 19.&nbsp;Jahrhundert auch in [[Diatonisches Akkordeon|diatonischen Akkordeonen]] eingesetzte [[Richter-Harmonika|Richterstimmung]] eignen sich die [[Diatonik|diatonischen]] Mundharmonikas dazu, einfache Melodien gleichzeitig mit [[Begleitung (Musik)|Begleit]]<nowiki />akkorden zu unterlegen; dafür sind nicht alle [[Chromatik|chromatischen]] Töne verfügbar. Die später entwickelten chromatischen Instrumente verfügen zwar über alle chromatischen Töne, erlauben aber in der Regel keine Begleitakkorde mehr.
+
+=== Chromatische Mundharmonika ===
+[[Datei:Chromonica.jpg|mini|Chromatische Mundharmonika]]
+[[Chromatik|Chromatische]] Mundharmonikas erlauben es, über einen eingebauten Schieber alle Halbtöne der westlichen Musik abzudecken. Somit stehen ihnen alle Musikstile offen.
+
+{| class="wikitable"
+|+ Chromatische Mundharmonika
+! style="text-align:left;"| Kanzelle (Öffnung):  !! 1 !! 2 !! 3 !! 4 !! 5 !! 6 !! 7 !! 8 !! 9 !! 10 !! 11 !! 12
+|-
+| '''Blastöne:''' || C || E || G || C || C || E || G || C || C || E || G || C
+|-
+| '''Blastöne mit gedrücktem Schieber:''' || C# || F || G# || C# || C# || F || G# || C# || C# || F || G# || C#
+|-
+| '''Ziehtöne:''' || D || F || A || H || D || F || A || H || D || F || A || H
+|-
+| '''Ziehtöne mit gedrücktem Schieber:''' || D# || F# || A# || C || D# || F# || A# || C || D# || F# || A# || C
+|}
+
+Die Kanzellen 1–4 und 5–8 umfassen demnach bereits sowohl eine vollständige C-Dur-Tonleiter als auch bei gedrückt gehaltenem Tonschieber eine vollständige C#-Dur-Tonleiter, die [[Enharmonische Verwechslung|enharmonisch verwechselt]] auch als Db-Dur-Tonleiter benannt werden kann. In einer Kanzelle befinden sich also vier durch Plastikventile abgedichtete Stimmzungen.
+
+Die chromatische Mundharmonika wird zumeist –&nbsp;wie andere Blasinstrumente&nbsp;– eintönig gespielt. Die bei anderen Mundharmonika-Modellen oft praktizierte rhythmisierende Zungenschlagtechnik wird bei der chromatischen Mundharmonika aus harmonischen Gründen eher nicht angewendet.
+
+Es gab auch eine chromatische Mundharmonika mit zwei Schiebern, die Hohner Chordomonica&nbsp;II, die auf einer Erfindung von [[Chamber Huang]] basiert. Sie soll in den 80er Jahren, nach anderen Angaben 60er Jahren, außer Produktion genommen worden sein.
+
+Chromatische Mundharmonikas anderer Bauart ermöglichen das chromatische Spiel ohne Schieber (z.&nbsp;B. ''Tombo Violin Scale, Tombo Chromatic Single''). Dazu tragen sie zwei Tonreihen übereinander, die um genau einen Halbton verschieden voneinander sind. Dadurch wird es möglich, die von einem Gestell gehaltene Mundharmonika chromatisch parallel zur Gitarre zu spielen. Für einen Halbton muss man lediglich kurz in die andere Lochreihe wechseln. Manche chromatische Schieber-Mundharmonikas können auch leicht zu schieberlosen umgebaut werden.
+
+=== Diatonische Mundharmonika ===
+Anders als bei der chromatischen Mundharmonika sind auf der [[diatonisch]]en Mundharmonika ausschließlich solche Stimmzungen vorhanden, die leitereigene Töne der Tonart erzeugen, in der die Mundharmonika gestimmt ist. Eine diatonische C-Dur-Mundharmonika hat also nur die Töne C, D, E, F, G, A und H.
+
+==== Richter-Mundharmonika ====
+[[Datei:SolistPro.jpg|mini|Bluesmundharmonika mit Holzkanzellen]]
+{{Hauptartikel|Richter-Harmonika}}
+
+Eine [[diatonisch]]e Mundharmonika hat in ''Richter''-Ausführung 10 Kanzellen (Blasöffnungen). Sie ist in der sogenannten „Richterstimmung“ gestimmt. Die Tonhöhen-Änderungen, die sich auf- oder abwärtslaufend ergeben, sind nicht chromatisch, also nicht in Halbtonschritten. Der Volksmusikant ''Joseph Richter'' aus [[Nový Bor|Haida]] in Böhmen legte um 1825 die Tonanordnung fest, die sich in der zunächst ausschließlich diatonisch gestimmten ''Richterharp'' durchgesetzt und bis heute behauptet hat.<ref>[https://harmonicarocks.com/mundharmonika-geschichte Die Geschichte der Mundharmonika, Überblick]</ref>
+
+Indem Richter im Bereich der tiefen Töne (linke Seite des Instrumentes) beim Blasen die Harmonie des Grunddreiklangs (Tonika) und beim Ziehen die Töne der [[Dominante|Oberdominante]] zur rhythmischen Untermalung seiner im rechten Mundwinkel erzeugten Töne zur Gestaltung von Melodien nutzte, initiierte er neben anderen Spielern seiner Zeit eine nunmehr weltweit praktizierte Spieltechnik, die ''Zungenschlag-Spieltechnik''.
+
+Der [[Subdominante|Unterdominant-Dreiklang]] (die Subdominante) lässt sich auf der Mundharmonika nicht erzeugen, weswegen viele Mundharmonikaspieler gleichzeitig mehrere, nämlich in anderen Tonarten gestimmte Instrumente gleicher Bauweise in den Händen halten und je nach Erfordernis beim Musizieren abwechselnd an den Mund führen.
+
+Dennoch lässt sich die diatonische Richterharmonika mit ihren zehn Tonkanälen unter Anwendung der Bending und Overbending-Spieltechniken vollchromatisch spielen, was jedoch vorher ein meist langwieriges Üben erfordert. Die metallenen Stimmzungen lassen sich nämlich durch bestimmte Technik durch Veränderung der Zungenstellung und des Mund-Rachenraums beim Ziehen bis zu drei Halbtonschritten (kleine Terz) sowohl herabziehen als auch durch Blasen bis zu einem ganzen Ton (Sekunde) herabdrücken.<ref>{{Literatur |Autor=Steve Baker |Titel=The harp handbook |Auflage=4. überarb. und ergänzte deutsche |Verlag=Bosworth |Ort=Berlin |Datum=2006 |ISBN=3-86543-052-X |Seiten=}}</ref> Auch ein Hochbiegen des eingebauten Tones durch ein entsprechendes Ziehen ''({{lang|en|overdraw}})'' und durch ein besonderes Blasen ''({{lang|en|overblow}})'' kann in einem dann sehr anspruchsvoll vortragbaren Spiel realisiert werden. Das macht das Spiel und den dabei entstehenden Klang auf der auch ''Bluesharp'' genannten kleinen Mundharmonika für viele aktive sowie zuhörende Freunde dieses Genres besonders reizvoll.
+
+Die Besonderheit des Spiels der typischen Blues-Skala liegt darin, dass man für einen Blues in G-Dur eine in C-Dur gestimmte Richter-Harmonika benutzen muss. Um die richtige Rock-, Blues- oder Country-Tonart zu finden, benutzt man eine Mundharmonika, die in der Tonart des Dominant-Akkords gestimmt ist.<ref>{{Internetquelle |url=https://harmonicarocks.com/blog/mundharmonika-tonarten |titel=Alles über Mundharmonika-Tonarten |abruf=2023-01-08}}</ref>
+
+{| class="wikitable"
+|+Der Tonaufbau einer in C-Dur gestimmten<br /> ''Richter''-Mundharmonika
+! style="text-align:left;"| Kanalloch-Nummer: !! 1 !! 2 !! 3 !! 4 !! 5 !! 6 !! 7 !! 8 !! 9 !! 10
+|-
+| '''Blastöne:''' || c || e || g || c || e || g || c || e || g || c
+|-
+| '''Ziehtöne:''' || d || g || h || d || f || a || h || d || f || a
+|}
+
+Die zu erzielenden Halbtonschritt-Töne sind hier zugunsten einer einfachen Übersicht nicht angegeben worden.
+
+==== Sonderstimmung ====
+{{Hauptartikel|Sonderstimmung (Mundharmonika)}}
+
+Eine Sonderstimmung besitzt eine vom Standard abweichende Aufteilung der Töne. Dabei werden je nach Sonderstimmung verschiedene Ziele verfolgt. Eigentlich müsste es ''Sondertonanordnung'' heißen, da es sich nicht um die Aufteilung der Oktave in Töne handelt, sondern um die Anordnung der verschiedenen Töne auf dem Instrument. Allerdings hat sich die Bezeichnung ''Sonderstimmung'' im allgemeinen Sprachgebrauch durchgesetzt. Die Standard-Mundharmonika orientiert sich in ihrer Aufteilung nach den gebräuchlichen [[Dur]]-Tonarten, während bei Sonderstimmungen das Instrument oft in ethnischer Musik Verwendung finden soll, es bessere Bendingmöglichkeiten aufweisen muss, Spezialeffekte erzielt werden sollen u.&nbsp;v.&nbsp;m.
+
+=== Tremoloharmonika ===
+[[Datei:Suzuki Humming.png|mini|Tremoloharmonika]]
+{{Hauptartikel|Tremoloharmonika}}
+
+Das entscheidende Merkmal einer Tremolo-Mundharmonika (auch Wiener Stimmung genannt) ist, dass sie zwei Stimmzungen pro Ton besitzt, von denen eine wenig höher, die andere wenig tiefer intoniert ist als die Zielnote, was durch den [[Schwebung]]seffekt einen einzigartigen welligen oder trällernden Klang erzeugt. Die asiatische Version, die alle Noten umfasst, findet in der ostasiatischen Unterhaltungsmusik Verwendung.
+
+{{Audio|Wiener Tremolo Mundharmonika.ogg|Hörbeispiel}}
+
+=== Oktavmundharmonika ===
+[[Datei:Octave harmonica.jpg|mini|Oktavharmonika]]
+{{Hauptartikel|Oktavharmonika}}
+
+Oktavharmonikas (auch Knittlinger-Stimmung genannt) haben zwei Stimmzungen pro Blasloch, welche um genau eine Oktave verschoben intoniert sind. Viele sind von der Bauweise mit der einer Tremoloharmonika (wie oben beschrieben) identisch, basieren also auf dem „Wiener System“.
+
+{{Audio|Knittlinger Oktav Mundharmonika.ogg|Hörbeispiel}}
+
+=== Weitere Typen ===
+* Begleit-Mundharmonikas
+** Akkord-Mundharmonika
+** Bass-Mundharmonika
+* Wender-Mundharmonika (besteht aus zwei Mundharmonikas, eine an der Vorderseite, die andere an der Rückseite)
+* {{Anker|Kreuzwender}}Kreuzwender (ist aus mehreren Mundharmonikas zusammengesetzt; seitlich betrachtet sieht er wie ein Kreuz aus, da er vier oder sechs Einzelinstrumente beinhaltet, und jedes Einzelinstrument besitzt eine andere Tonart)
+
+== Spieltechnik und Theorie ==
+=== Einzeltonspiel ===
+Um auf der Mundharmonika saubere, einzeln isolierte Töne zu spielen, werden im Wesentlichen zwei Spieltechniken angewandt. Beide Spieltechniken basieren auf der Gestaltung der Arbeit mit dem Mund und sind daher anfänglich gewöhnungsbedürftig.
+
+==== Spitzmund-Technik ====
+Die geläufigste Technik zum Erzeugen von Einzeltönen, ist das Spiel mit dem „gespitzten Pfeifmund“. Wie beim Pfeifen eines Liedes wird das Loch zwischen Ober- und Unterlippe so stark verkleinert, dass die Atemluft nur einen einzigen Tonkanal bedient. Der Name ist insofern irreführend, da er nahelegt, dass hierbei die Mundharmonika mit der Außenseite der Lippen gespielt wird. Damit ist jedoch keine gute Tonbildung möglich. Stattdessen wird die Mundharmonika mit der Innenseite der Lippen gespielt.
+
+==== Spielen mit abgedeckter Zunge ====
+Diese Spieltechnik wird auch als „Tongue-Blocking“ bezeichnet. Hierbei wird die Zunge auf das Mundstück gelegt und (je nach individueller Spielart und Mundgröße) mehrere Tonkanäle ständig abgedeckt, so dass im rechten Mundwinkel eine Kanzelle zur Erzeugung des Melodietones offen gelassen wird. Der Vorteil dieser Spielweise ist, dass dadurch fortgeschrittene Effekte erzeugt werden können.
+
+=== Zungenschlag-Spieltechnik ===
+Die Zungenschlagtechnik ist eine Variante des Spielens mit abgedeckter Zunge. Vereinfacht gesagt, hebt der Spieler dabei die auf dem Mundstück liegende Zunge je nach Taktform (3/4-, 4/4-Takt etc.) meist für die Dauer eines 1/4-Taktschlages ab, führt sie dann kurz wieder auf das Mundstück zurück, um dann diesen Vorgang vielfach bis zum Ende des Liedes zu wiederholen. Durch die Zungenschlagtechnik ist es dem Spieler möglich, gleichzeitig sowohl Melodie als auch Begleitung zu spielen.
+
+=== Spielen von Akkorden ===
+Die folgenden Beispiele sind auf eine Richter-Harmonika in C-Dur bezogen.
+
+* Geblasene Akkorde
+** Bläst man durch mindestens drei aneinanderliegende Kanzellen gleichzeitig, ertönt immer ein C-Dur-Akkord: ''C'' (C&nbsp;E&nbsp;G).
+
+* Gezogene Akkorde
+** Zieht man an Kanzelle 1–4 gleichzeitig, so ertönt der Dur-Akkord ''G'' (D&nbsp;G H&nbsp;(D))
+** Zieht man an Kanzelle 3–5 gleichzeitig, so ertönt der verminderte Akkord ''H°''&nbsp;(H D&nbsp;F)
+** Zieht man an Kanzelle 4–6 gleichzeitig, so ertönt der Moll-Akkord ''dm''&nbsp;(D F&nbsp;A).
+
+Damit ermöglicht die Richterstimmung eingeschränkte Akkordbegleitung. Die oberen Kanzellen eignen sich wegen der Tonhöhe weniger zur Akkordbegleitung. Eine etwas anspruchsvollere Anwendung der Akkorde ist zum Beispiel, in einem Lied nach manchen Melodietönen den passenden Akkord anzuspielen und anschließend mit der Melodie fortzufahren.
+
+=== Bending ===
+{{Hauptartikel|Bending}}
+Durch die Anordnung von einem Blaston und einem Ziehton pro Kanzelle kann durch Veränderung des Mundraumes beim Spielen die Tonhöhe abweichend von ihrer eigentlichen Stimmung verändert werden; z.&nbsp;B. kann dadurch beim Atem-Ziehen durch die Kanzelle auch die Blaston-Stimmzunge in Bewegung versetzt werden (Überziehen). Daraus ergibt sich eine Tonhöhenveränderung um mindestens einen Halbton.
+
+Somit hat ein geschickter Mundharmonikaspieler auf seiner diatonischen Bluesharp mehr Töne zur Verfügung, die ohne diese Effekte (genannt: blas/zieh Bending und blas/zieh Overbend) in der Richter-Stimmung nicht zur Verfügung ständen.
+
+Das Bending (englisch für „biegen“) ist eine besonders bei [[Blues]]-Musikern verbreitete Spielweise, da nicht nur mit den von der Tonleiter zur Verfügung stehenden Tönen (chromatisch) gespielt werden kann, sondern ein gleitender Ton-zu-Ton-Übergang und das Spielen mit [[Blue Note|Bluenotes]] und anderen speziellen Leittönen, wie es beim Blues üblich ist, möglich wird.
+
+==== Blas-/Zieh-Bending ====
+Das Blas- und Zieh-Bending wird durch die Beeinflussung des Luftstroms erzeugt, nur die Luftrichtung unterscheidet sich.
+Durch Heben des hinteren Teils der Zunge wird der Luftstrom am Gaumen eingeengt. Die Zunge muss dabei vorn entspannt bleiben. Das Bending funktioniert nicht auf allen Kanzellen, aber dafür auf manchen um mehrere Halbtöne (siehe Grafik). Der Blaston muss beim Bending um mindestens einen Ganzton höher sein als der Ziehton. Je größer dieses Verhältnis ist, umso tiefer kann der Spieler benden.
+
+{{Audio|Bending Mundharmonika.ogg|Hörbeispiel}}
+
+==== Blas-/Zieh-Overbend ====
+Blastechnisch werden Overbends (Overblows/Overdraws) mit demselben Ansatz erzeugt wie das Bending, nur auf anderen Kanzellen (siehe Grafik). Physikalisch unterscheiden sich die Bendings und Overbends grundlegend. Am Beispiel Overblow Kanzelle (6), mit dem man anfangen sollte:
+Bläst man normal in (6), erklingt wie gewohnt der Blaston G. Hebt man dazu die Zunge wie bei einem starken Bending, schließt zuerst die Blaszunge und bei noch stärkerem Bending fängt die Ziehzunge an zu schwingen. Dies geschieht aber nur, wenn die Stimmzungen recht nahe an den Stimmplatten anliegen, aber nicht zu nahe, sonst spricht die Stimmzunge nicht mehr an. Sowohl die Blasstimmzunge als auch die Ziehstimmzunge müssen dazu optimal eingestellt sein.
+
+==== Erreichbare Töne einer Blues-Harmonika in C-Dur ====
+Unter Anwendung aller Techniken sind jetzt alle Halbtöne erreichbar. Auffallen sollte auch, dass die Trennung der Spieltechniken zwischen der 6. und 7. Kanzelle liegen, wo die Blastöne höher als die Ziehtöne werden.
+
+                           '''Overblows        Blas-Bendings'''
+                                                      Bb
+                        D#       D# F# A#       Eb Gb H
+                        C  E  G  C  E  G     C  E  G  C    ←  Blastöne
+ '''Kanzelle :     →      (1)(2)(3)(4)(5)(6)   (7)(8)(9)(10)'''
+ (Blasöffnung)          D  G  H  D  F  A     H  D  F  A    ←  Ziehtöne
+                        Db Gb Bb Db    Ab    C#    G# C#
+                           F  A
+                              Ab
+                          '''Zieh-Bendings       Overdraws'''
+'''Interessante Zusammenhänge bezüglich des Bendings:'''
+
+(BT = Blaston; ZT = Ziehton; HTS = Halbtonschritt)
+
+ Kanzelle  1: ZT "D" liegt 2 HTS höher als BT "C" → Bending: Db
+ Kanzelle  2: ZT "G" liegt 3 HTS höher als BT "E" → Bending: Gb, F
+ Kanzelle  3: ZT "H" liegt 4 HTS höher als BT "G" → Bending: Bb, A, Ab
+ Kanzelle  4: ZT "D" liegt 2 HTS höher als BT "C" → Bending: Db
+ Kanzelle  5: ZT "F" liegt 1 HTS höher als BT "E" → Bending: - (da kein Halbton dazwischen)
+ Kanzelle  6: ZT "A" liegt 2 HTS höher als BT "G" → Bending: Ab
+             Schemawechsel: (Ziehbending → Blasbending)
+ Kanzelle  7: ZT "H" liegt 1 HTS tiefer als BT "C" → Bending: - (da kein Halbton dazwischen)
+ Kanzelle  8: ZT "D" liegt 2 HTS tiefer als BT "E" → Bending: Eb
+ Kanzelle  9: ZT "F" liegt 2 HTS tiefer als BT "G" → Bending: Gb
+ Kanzelle 10: ZT "A" liegt 3 HTS tiefer als BT "C" → Bending: H, Bb
+
+'''Interessante Zusammenhänge bezüglich des Überblasens:'''
+
+(OB = Overblow; OD = Overdraw)
+
+ Kanzelle  1: OB "D#" liegt 1 HTS höher als ZT "D"
+ Kanzelle  2: -
+ Kanzelle  3: -
+ Kanzelle  4: OB "D#" liegt 1 HTS höher als ZT "D"
+ Kanzelle  5: OB "F#" liegt 1 HTS höher als ZT "F"
+ Kanzelle  6: OB "A#" liegt 1 HTS höher als ZT "A"
+             Schemawechsel: (Overblow → Overdraw)
+ Kanzelle  7: OD "C#" liegt 1 HTS höher als BT "C"
+ Kanzelle  8: -
+ Kanzelle  9: OD "G#" liegt 1 HTS höher als BT "G"
+ Kanzelle 10: OD "C#" liegt 1 HTS höher als BT "C"
+
+== Verbreitung ==
+Eine besondere Stellung nimmt die Mundharmonika in der europäischen [[Volksmusik]], im [[Blues]] (mit der [[Richter-Harmonika|Blues Harp]]) und in der [[Old-Time Music]] ein.
+
+=== Klassische Musik ===
+In der [[Klassische Musik|klassischen Musik]] ist das Instrument eine Randerscheinung mit nur wenigen größeren Auftritten: Der [[Brasilien|brasilianische]] [[Komponist]] [[Heitor Villa-Lobos]] schrieb ebenso wie [[Malcolm Arnold]] und [[Alexander Tscherepnin]] ein ''[[Instrumentalkonzert|Konzert]] für Mundharmonika und [[Orchester]]'', außerdem gibt es von [[Ralph Vaughan Williams]] eine ''Romanze für Mundharmonika und [[Streichinstrument|Streicher]]''.
+
+=== Soundtracks ===
+Einen ihrer bekanntesten Auftritte in der modernen Popkultur hatte die Mundharmonika in [[Ennio Morricone]]s Soundtrack zu dem Film ''[[Spiel mir das Lied vom Tod]]'' (1968). Das berühmte Hauptthema ist auch heute noch populär und wird gerne in Werbung, Fernsehen und Film eingesetzt, besonders für die szenische Darstellung von Westernthematik, Duellen und im Allgemeinen bei drohender Gefahr. Aus musiktheoretischer Betrachtungsweise ist das Thema genauso simpel wie genial; es besteht zumeist lediglich aus den zwei Tönen E und Dis (die das sehr spannungsgeladene dissonante Intervall einer kleinen Sekunde bilden), welche im Wechsel gespielt werden.
+
+Daneben gibt es auch mehrere Verwendungen in Fernsehmusiken, wie etwa in der Titelmusik zu ''[[Ein Grieche erobert Chicago]]'', oder im deutschsprachigen Raum in der Titelmusik zu der Serie ''[[Der Landarzt]]''.
+
+== Bekannte Hersteller ==
+=== Aktuell ===
+* [[C. A. Seydel Söhne]]
+* [[Hering (Mundharmonikaproduzent)|Hering]]
+* [[Hohner]]
+* [[Huang (Mundharmonikaproduzent)|Huang]]
+* [[Suzuki (Mundharmonikaproduzent)|Suzuki]]
+* Tombo – [[Lee Oskar]]
+
+=== Historisch ===
+* [[F. A. Böhm]]
+* [[F. A. Rauner]]
+* Koch
+* [[Koestler (Musikinstrumente)|Köstler]]
+* [[Magnus Harmonica Corporation]] (USA)
+* Spranger
+* Thie
+* [[Thorens]]
+* Weiss<ref>[https://www.metmuseum.org/art/collection/search/501241 ''Harmonica Ch. Weiss ca. 1895.''] ''The Metropolitan Museum of Art'', New York.</ref>
+
+== Philatelistisches ==
+In Anerkennung der Popularität des Instruments vertrieb die [[Deutsche Post AG]] mit dem [[Erstausgabetag]] 1. April 2021 ein vom [[Bundesministerium der Finanzen]] herausgegebenes [[Sonderpostwertzeichen]] im [[Nennwert]] von 190 Eurocent. Der Entwurf stammt von der Grafikerin Julia Neller aus Berlin.<ref>[https://www.bundesfinanzministerium.de/Content/DE/Pressemitteilungen/Briefmarken/2021/2021-03-30-PM-sonderpostwertzeichen-mundharmonika.html ''Sonderpostwertzeichen „Mundharmonika“.''] Bundesministerium der Finanzen, 30. März 2021.</ref>
+
+== Literatur ==
+* Art. ''Harmonikainstrumente.'' In: [[Laurenz Lütteken]] (Hrsg.): ''[[Die Musik in Geschichte und Gegenwart]].'' Kassel / Stuttgart / New York 1996/2016 (zuerst veröffentlicht 1996, auf [[Die Musik in Geschichte und Gegenwart#MGG Online|MGG Online]] veröffentlicht 2016; [https://www.mgg-online.com/article?id=mgg15463&v=1.0&rs=mgg15463 Inhaltsverzeichnis des Artikels] – Zugang zum Online-Artikel nur nach Anmeldung oder über eine Institution).
+* Sören Birke: ''Maulhobel, Zauberharfe, Schnutenorgel: Eine Kulturgeschichte der Mundharmonika''. Arkadien-Verlag, Berlin 2011, ISBN 978-3-940863-14-0.
+* Kim Field: ''Harmonicas, Harps, and Heavy Breathers. The Evolution of the People’s Instrument.'' Cooper Square Press, New York 2000, ISBN 0-8154-1020-4.
+* [[Conny Restle]] (Hrsg.): ''In aller Munde. Mundharmonika, Handharmonika, Harmonium: Eine 200-jährige Erfolgsgeschichte.'' Staatl. Institut für Musikforschung, Berlin 2003, ISBN 3-922378-20-X ([https://www.dropbox.com/scl/fi/du7mshqb8dyint0a5nj3a/In-aller-Munde-Mundharmonika-Handharmonika-Harmonium-Eine-200-j-hrige-Erfolgsgeschichte-2002.pdf?rlkey=p4314b6ssd6u6b0nla0qbuk9n&dl=0 online]).
+* [[Christoph Wagner (Musikjournalist)|Christoph Wagner]] (Hrsg.): ''Die Mundharmonika. Ein musikalischer Globetrotter.'' Transit, Berlin 1996, ISBN 3-88747-110-5.
+
+== Weblinks ==
+{{Commonscat|Harmonicas|Mundharmonika}}
+{{Wiktionary}}
+* [http://mundharmonika.harmopoint.com/ HarmoPoint] – Lernkonzept mit virtueller Mundharmonika (diatonisch, C-Dur. Abgerufen am 11. Februar 2012)
+* [http://www.angelfire.com/music/HarpOn/ ''Harp On! Chromatic Harmonica Reference.''] angelfire.com
+* [http://harmonicarocks.com/mundharmonika ''Mundharmonika – Überblick über das Musikinstrument.''] harmonicarocks.com 
+* Klaus Rower: [http://www.klausrohwer.de/privat/hobbies/muha/index.htm ''Hobby: Mundharmonika.''] (Technik, Verwendungszwecke, Mundharmonikasorten)
+* [http://www.patmissin.com/ffaq/q31.html ''How is my Hohner Chordomonica tuned?'']  patmissin.com (Hohner Chordomonica II mit zwei Schiebern)
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=s|GND=4123805-9}}
+
+[[Kategorie:Harmonikainstrument]]
+[[Kategorie:Mundharmonika| ]]

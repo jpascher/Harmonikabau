@@ -1,0 +1,348 @@
+Unter '''Stimmung''' versteht man in der Musik die Festlegung der [[Tonhöhe]]n ([[Frequenz]]en) von Schallquellen, insbesondere von [[Musikinstrument]]en. In der Praxis genügt hierzu oft (etwa bei einigen [[Blasinstrument]]en) die Festlegung der ''absoluten'' Tonhöhe durch Abgleich mit einer vorgegebenen Frequenz, z.&nbsp;B. mit dem [[Kammerton]] (a<sup>1</sup> = 440&nbsp;Hz) oder dem [[Cornettton]].  Vor allem bei [[Saiteninstrument|Saiten-]] und [[Tasteninstrument]]en müssen außerdem die Frequenz''verhältnisse'' der Saiten oder der einzelnen Töne untereinander eingestellt werden.
+
+Die meisten [[Streichinstrument]]e, etwa die [[Violine]], können innerhalb eines weiten Bereichs grundsätzlich jede beliebige Tonhöhe erzeugen, insbesondere z. B. jedes [[Intervall (Musik)|Intervall]] ''[[Reine Stimmung|rein]]'' spielen (Eine [[reine Stimmung]] beruht auf dem Tonmaterial der [[Oberton#Obertonreihe|Obertonreihe]]). Dagegen werden bei Tasteninstrumenten zwölf Halbtöne pro [[Oktave]] im Allgemeinen fest eingestimmt. Eine in allen [[Tonart]]en zugleich reine Stimmung mit nur zwölf Tonstufen gibt es nicht; daher müssen Kompromisse eingegangen werden (siehe [[Temperierte Stimmung]], [[Wohltemperierte Stimmung]], [[Reine Stimmung bei Tasteninstrumenten]]).
+
+Viele [[Blasinstrument]]e können nicht alle verwendbaren Tonstufen (üblicherweise zwölf) innerhalb der Oktave gleichmäßig leicht und rein erzeugen, sondern haben bevorzugte [[Diatonik|diatonische]] Tonleitern. Auch dies wird meist einfach als die „Stimmung“ des Instruments bezeichnet, bei [[Blechblasinstrument]]en manchmal genauer als [[Grundstimmung (Blasinstrument)|Grundstimmung]]. Unabhängig davon ist der oben genannte Abgleich der absoluten Tonhöhe auf einen Stimmton, z. B. den Kammerton, für das Zusammenspiel mit anderen Instrumenten außerdem nötig.
+
+== Kammerton ==
+{{Hauptartikel|Kammerton}}
+Eine Angabe wie „''Stimmung'' 440 [[Hertz (Einheit)|Hz]]“ nennt die Frequenz eines bestimmten Stimmtons, üblicherweise des a’ (''eingestrichenes a'', auch [[Kammerton]] genannt). Heutige Instrumente werden beispielsweise auf a<sup>1</sup> = 440 oder 442&nbsp;Hz gestimmt. Um 1900 herum war 435&nbsp;Hz üblich. In früheren Jahrhunderten waren, lokal abhängig, verschiedenste Stimmhöhen, auch deutlich höhere als 440&nbsp;Hz, gebräuchlich (→ [[Cornettton]]). Heute wird bei historischen Instrumenten häufig ein Kammerton von 415&nbsp;Hz verwendet, der ziemlich genau einen Halbton tiefer als 440&nbsp;Hz ist (→ [[Orgelton|Chorton]]). {{Audio|440hz sinus.ogg|Anhören 440&nbsp;Hz Sinuston}}
+
+== Grundtonleiter und transponierende Instrumente ==
+{{Hauptartikel|Grundstimmung (Blasinstrument)}}
+Mit der ''Stimmung'' eines Instruments ist manchmal seine ''Grundtonleiter'' oder deren Grundton gemeint, wie zum Beispiel F-Dur bzw. der Ton f<sup>1</sup> bei der [[Blockflöte|Altblockflöte]]; siehe [[Holzblasinstrument]].
+
+Manchmal ist mit der ''Stimmung'' eines Instruments der Ton gemeint, der bei Verwendung von speziell für dieses Instrument geschriebenen Noten an Stelle eines geschriebenen C erklingt (siehe [[Transponierendes Musikinstrument]]). Dieses ist bei manchen Instrumenten, z.&nbsp;B. der [[Trompete]], zugleich der Grundton (siehe oben), bei anderen aber nicht; z.&nbsp;B. ist bei der „in B gestimmten“ [[Klarinette]] eher F-Dur als Grundtonleiter anzusehen.
+
+Mit „C-Stimmung“ kann dementsprechend gemeint sein, dass für das betreffende Instrument Noten in wirklicher Tonhöhe üblich sind.
+
+== Stimmungssysteme ==
+
+Ein '''Stimmungssystem''' ist die Art, wie bei einem Instrument die genauen Frequenzverhältnisse der spielbaren Töne innerhalb einer [[Oktave]], also in den meisten Fällen die zwölf [[Halbtonschritt]]e des gewählten [[Tonsystem]]s gestimmt sind. Eine andere Bezeichnung dafür (insbesondere bei [[Tasteninstrument]]en) ist [[Temperierte Stimmung|Temperatur]] oder ''Temperierung''. Die Stimmungssysteme machen nur Aussagen über die Frequenzverhältnisse der einzelnen [[Ton (Musik)|Töne]] zueinander. Es wird keine Aussage über die absolute Tonhöhe bzw. die [[Frequenz]] selbst gemacht. Die absolute Tonhöhe wird durch die Angabe der Frequenz des Anfangstons oder des Tons a<sup>1</sup> festgelegt.
+
+=== Frequenzverhältnisse im Tonsystem ===
+
+Jeder Ton kann an beliebigen Positionen einer [[Tonleiter]] vorkommen. Z.&nbsp;B. ist das E in der E-Dur-Tonleiter der [[Grundton]], in der C-Dur-Tonleiter der dritte Ton (die [[Terz (Musik)|Terz]]) und in der A-Dur- sowie der a-Moll-Tonleiter der fünfte Ton (die [[Quinte]]). In reiner Stimmung und anderen nichtgleichstufigen Stimmungen hängt das Frequenzverhältnis zweier Töne von ihren Positionen in der jeweiligen Tonleiter ab. Auf fest gestimmten Instrumenten müssen die Frequenzverhältnisse aller Töne zueinander aber so angeglichen werden, dass sie in allen gewünschten [[Tonart]]en gespielt werden können.
+
+Stimmtechnische Bedeutung haben dabei vor allem die Diskrepanzen zwischen [[Pythagoräisches Komma|Oktav- und Quintreihen]], zwischen [[Diësis|Oktav- und Terzreihen]] sowie zwischen [[Syntonisches Komma|Quint- und Terzreihen]]. So weichen die Frequenzverhältnisse [[Mitteltönige Stimmung|mitteltöniger]] Intervalle, die aus ganzzahligen Teilungen oder Vielfachen reiner großen Terzen (5:4) bestehen, um [[Mikrointervall]]e von denen der gleichnamigen [[Pythagoreische Stimmung|pythagoräischen]], aus reinen Quinten (3:2) gebildeten Intervalle ab. Um bspw. sämtliche Ausprägungen einer großen Sexte auf einem festgestimmten Instrument wiedergeben zu können, wären weit mehr als die üblichen zwölf Tonstufen pro [[Oktave]] erforderlich. Solche [[Mikrotonale Musik|mikrotonalen]] Instrumente sind jedoch aufgrund ihrer speziellen Spieltechnik und geringen Adoption musikalischen Nischen vorbehalten. Das zwölfstufige Tonsystem muss daher Kompromisse eingehen: Je reiner eine bestimmte Tonart gestimmt wird, umso unreiner klingen andere Tonarten. Besonders auffällig wird dieses Problem in [[Mehrstimmigkeit|mehrstimmiger]], [[Modulation bei reiner Stimmung|modulationsreicher]] Musik.
+
+In der [[Klassische indische Musik|klassischen indischen Musik]] basiert die Struktur der Melodie auf den [[Raga]]s, deren Skala jeweils aufsteigend und absteigend festgelegt ist. Er drückt eine bestimmte emotionale Stimmung (''[[Rasa (Kunst)|rasa]]'') aus, die in [[Ragamala]]s bildlich umgesetzt wurde. Die in der westeuropäisch geprägten Musikästhetik umgangssprachlich benutzte Begriff von der „Stimmung eines Musikstückes“ erfährt in der indischen Ästhetik eine reale und bewusst erlebte Konkretisierung.
+
+=== Überblick über die Stimmungssysteme ===
+Es gibt eine Vielzahl von Systemen, die Töne des Tonsystems für eine 12-stufige Tastatur einzustimmen. Die wichtigsten Stimmungssysteme sind:
+* [[Pythagoreische Stimmung]] (alle Quinten außer einer [[Wolfsquinte]] sind rein, Terzen sind dissonant)
+* [[Reine Stimmung]] oder ''Natürlich-harmonische Stimmung'' (In allen Tonarten reine Terzen und Quinten)
+* [[Mitteltönige Stimmung]]en (Möglichst reine Terzen, nur in wenigen Tonarten möglich.)
+** [[Mitteltönige Stimmung#Aufbau|die 1/4-Komma mitteltönige Stimmung]] (die Basistonarten B-, F-, C-, G-, D-, A-, E-Dur enthalten reine Terzen.)
+** [[Silbermann-Sorge-Temperatur]] (sie kann als 1/6-Komma mitteltönige Stimmung bezeichnet werden)
+* [[Wohltemperierte Stimmung|Wohltemperierte (Temperierte) Stimmung]] (alle Tonarten sind akzeptabel spielbar)
+** [[Werckmeister-Stimmung]]
+** [[Kirnberger-Stimmung]]
+** [[Vallotti-Stimmung]]
+** [[Johann Georg Neidhardt|Neidhardt]]-Temperatur
+* [[Gleichstufige Stimmung]] (Die Oktave ist in 12 gleiche Halbtöne geteilt)
+
+Die geeignete Wahl der Stimmung hängt davon ab, welche Musik gespielt werden soll. Die heute überwiegend verwendete [[gleichstufige Stimmung]] ist im Allgemeinen für Musik nach [[1800]] geeignet. Frühere Musik oder außereuropäische Musik ([[Weltmusik]]) lebt sehr stark von der [[Intonation (Musik)|Intonationsreinheit]] oder von verschiedenartigen [[Tonartencharakter|Tonartcharakteren]]. Diese Anforderungen kann die gleichstufige Stimmung nicht erfüllen. Im Rahmen der [[Historische Aufführungspraxis|Historischen Aufführungspraxis]] [[Alte Musik|Alter Musik]] werden daher ältere Stimmungssysteme wieder verstärkt erforscht, um adäquate Wiedergaben zu ermöglichen.
+
+=== Geschichte ===
+==== Antike ====
+[[Datei:Gaffurio Pythagoras.png|mini|Pythagoras mit verschiedenen in Quinten gestimmten Instrumenten (eingezeichnete Intervallverhältnisse 16:12:9:8:6:4).<br />Aus: Franchino Gaffurio: ''Theorica musicae'', 1492 (1480?)]]
+Einer Legende nach beschrieb der [[Philosoph]] und [[Mathematiker]] [[Pythagoras]] erstmals ein Stimmungssystem auf mathematisch-theoretische Weise ([[Legende]] von [[Pythagoras in der Schmiede]]). Pythagoras war der Auffassung, dass der gesamte [[Universum|Kosmos]] nach bestimmten Zahlenverhältnissen geordnet und die Musik Abbild der kosmischen Ordnung sei. Der Überlieferung nach untersuchte Pythagoras auf dem [[Monochord]] die [[Intervall (Musik)|musikalischen Intervalle]] zwischen Saitenteilen mit ganzzahligen Längenverhältnissen. Beispielsweise klingt eine Saite, wenn sie in der Hälfte geteilt wird, eine Oktave höher als in ihrer vollen Länge; das zugehörige Zahlenverhältnis ist also 1:2. So habe Pythagoras die natürlichen [[Intervall (Musik)|Intervalle]] beschreiben, die aus der [[Oberton]]reihe bekannt sind. Das nächsteinfache Zahlenverhältnis ist 2:3, das einer [[Reine Stimmung|reinen]] Quinte entspricht. Pythagoras soll eine siebentönige Skala auf der Grundlage der reinen Quinte eingeführt haben. Die Töne werden dabei von einem Anfangston ausgehend durch Quintschritte ermittelt und in eine gemeinsame Oktave [[Transposition (Musik)|transponiert]]. Das Ergebnis ist die [[Pythagoreische Stimmung]].
+
+Mit der Pythagoreische Stimmung befasste sich später die [[Euklid#Musiktheorie|Musiktheorie des Euklid]]. Von [[Euklid]] stammt die erste genaue Berechnung der Frequenzproportion des [[Pythagoreisches Komma#Geschichte|pythagoreischen Kommas]]. Im 1. Jahrhundert v. Chr. führte der Musiktheoretiker [[Didymos der Musiker|Didymos]] die „Naturterz“ (Frequenzverhältnis 5:4) in sein [[Musiktheorie im antiken Griechenland|enharmonisches Tongeschlecht]] ein. Eine andere Tradition geht auf [[Aristoxenos]] zurück, der die Ungenauigkeiten älterer Untersuchungen mit dem Monochord herausstellte und eine alternative Tonskalenberechnung begründete.
+
+==== Mittelalter ====
+Das Tonsystem des Pythagoras wurde von den Römern und im [[mittelalter]]lichen [[Europa]] übernommen. [[Monochord]]e, [[Glocke]]n (vgl. Abbildung) und [[Orgelpfeife]]n wurden [[Pythagoreische Stimmung|pythagoreisch]] gestimmt und in der [[Gregorianischer Choral|gregorianischen]] Musizierpraxis verwandt. Die Harmonik der frühen Mehrstimmigkeit bevorzugte die in der pythagoreischen Stimmung tatsächlich reinen Intervalle (die Komplementärintervalle [[Quinte]] und [[Quarte]] sowie [[Prime]] und [[Oktave]]).
+
+==== Renaissance ====
+In der Renaissance gab es vor allem zwei für das Tonsystem wichtige Entwicklungen:
+* Die zunehmende [[Chromatik]] in der Vokalpolyphonie erweiterte den Tonvorrat endgültig auf zwölf Töne.
+* Das [[Dissonanz]]empfinden veränderte sich. Die Terz, im Mittelalter noch als dissonant eingestuft, wurde zum Harmonieträger im entstehenden Dur-Moll-System. Unterstützt wurde dieses Dissonanzempfinden allerdings dadurch, dass die Terz in der im Mittelalter verwendeten pythagoreischen Stimmung (Frequenzverhältnis 81:64) auch aus heutiger Sicht dissonant klingt; die reine große Terz (Frequenzverhältnis 5:4) kam erst mit dem Wechsel zur reinen Stimmung in das System.
+
+Die neue Orientierung an der Terz und der Bedarf einer chromatischen Tonleiter führte zu Problemen mit der quintbasierten pythagoreischen oder auch der reinen Stimmung:
+* Zwölf aufeinander geschichtete Quinten ergeben keinen geschlossenen Quintenzirkel. Der 13. Ton ist um das [[Pythagoreisches Komma|pythagoreische Komma]] höher als der Ausgangston. (Physikalisch ist er 7 Oktaven plus das pythagoreische Komma höher; bei der musikalischen Betrachtung von Tonleitern und Intervallen werden aber Töne im Abstand von Oktaven als gleichwertig angesehen.)
+* Vier aufeinander geschichtete Quinten (z.&nbsp;B. C — G — D — A — E) ergeben keine [[Reine Stimmung|reine]] große Terz. Der fünfte Ton ist um das [[Syntonisches Komma|syntonische Komma]] höher als eine reine große Terz auf dem Ausgangston. {{Audio|Terzen pythagoreisch - mitteltoenig.ogg|Terz C-E in pythagoreischer Stimmung und rein. (Ggf. mehrmals anhören.)}} {{Audio|C2e2 pyth dann rein.ogg|Dasselbe zwei Oktaven höher und obertonreich}}
+
+Man wählte, dem neuen Klangideal entsprechend, die reine große Terz (mit dem nach Quinte und Quarte nächsteinfacheren Frequenzverhältnis 5:4) als neues Stammintervall und entwickelte, da die [[reine Stimmung]] auf den üblichen Tasteninstrumenten nicht verwirklicht werden konnte, die sogenannte [[mitteltönige Stimmung]]. Dabei führte man, um dem [[Syntonisches Komma|syntonischen Komma]] aus dem Weg zu gehen, leicht verkleinerte Quinten ein, von denen vier aufeinandergeschichtet eine reine große Terz bilden.
+
+Durch die Folge von elf mitteltönigen Quinten
+<div align="center">Es — B — F — C — G — D — A — E — H — Fis — Cis — Gis</div>
+erhielt man die zwölf Töne unseres abendländischen Tonsystems.
+
+{{Audio|Dreiklaenge Pythagoreisch - Mitteltoenig.ogg|C-Dur-Dreiklang pythagoreisch und mitteltönig}} {{Audio|Ceg pyth rein.ogg|Dasselbe obertonreich}}
+
+So erhielt man acht große Terzen wie gewünscht rein. (z.&nbsp;B. C — E durch vier mitteltönige Quinten C — G — D — A — E); vier Terzen mussten unrein bleiben (z.&nbsp;B. H-Dis, da Dis als Es eingestimmt ist und Dis deshalb nicht vier mitteltönige Quinten über H liegt, sondern acht mitteltönige Quinten unter H; vgl. obige Quintfolge).
+
+Die [[mitteltönige Stimmung]] war jedoch auch ein Kompromiss und in mancher Hinsicht nicht zufriedenstellend. Theorie und Praxis:
+* Durch dieses System entstanden viele Intervalle, die sich nicht durch ganzzahlige Brüche ausdrücken lassen, was einen Widerspruch zur pythagoreischen Auffassung der Musik darstellte. Die Ursache dafür sind die zugunsten der Terzreinheit eingeführten mitteltönigen Quinten, für die ein Saitenlängenverhältnis von <math>1:\sqrt[4]{5}</math> gilt, das keine [[rationale Zahl]] ist.
+* Zwölf aufeinandergeschichtete mitteltönige Quinten ergeben einen Ton, der um die so genannte [[Diësis|kleine Diësis]] tiefer ist als der Ausgangston (vgl. Problematik der [[Pythagoreische Stimmung|pythagoreischen Stimmung]]).
+* Die Quinte As — Es bzw. Gis — Dis ist um die kleine Diësis zu groß, da das As „alias Gis“ nicht als mitteltönige Quinte unter Es gestimmt wird, sondern elf mitteltönige Quinten über Es liegt (vgl. obige Quintfolge). Diese so genannte [[Wolfsquinte]] klingt sehr unrein. In der mitteltönigen Stimmung klingen daher Tonarten, die diese Quinte enthalten (z.&nbsp;B. Es-Dur oder Cis-Dur), extrem dissonant und sind allenthalben zur Darstellung bestimmter [[Affektenlehre|Affekte]] brauchbar.
+{{Audio|Kadenzen Mitteltoenig C - Des.ogg|Vergleich: Mitteltönige Kadenzen in C-Dur und Des-Dur}}
+
+Dennoch setzte sich die mitteltönige Stimmung durch. Modulatorische Entwicklung, wie sie später üblich wurde, war in der Renaissance wenig gebräuchlich. Man kam deshalb zunächst mit dem gut klingenden Tonartenbereich aus. Um auch weitere Tonarten in der mitteltönigen Stimmung spielbar zu machen, wurden Tasteninstrumente mit z.&nbsp;B. 31 Tönen in der Oktave gebaut, die sich aber nicht durchsetzen konnten.
+
+==== Barock ====
+Im Laufe des 17. Jahrhunderts wurde diese Beschränkung auf zentrale Tonarten zunehmend als störend empfunden. Um in der Wahl der Tonarten freier zu werden, begann man, Stimmungssysteme zu entwickeln, in denen alle Tonarten spielbar sind, wenn auch nicht alle in gleicher Qualität. Dafür mussten Abstriche in der Reinheit der Terzen hingenommen werden. Diese Stimmungen wurden „[[Wohltemperierte Stimmung]]en“ oder „Gute Temperaturen“ genannt, im Gegensatz zur nun als „schlecht“ empfundenen mitteltönigen Stimmung. Beispiele hierfür sind die Stimmungen von [[Andreas Werckmeister]] [[Werckmeister-Stimmung|Werckmeister III-VI]], ({{Audio|Kadenzen Werckmeister C - Des.ogg|Kadenzen in C- und Des-Dur}}) oder die Stimmungen des Orgelbauers [[Gottfried Silbermann]].
+
+Allerdings gab es keine Temperatur, die sich universell durchsetzte wie vormals die mitteltönige Stimmung (die mit den neuen Temperaturansätzen übrigens nicht einfach verschwand). Am Beispiel Werckmeisters kann man sehen, dass zunächst auch nicht unbedingt angestrebt wurde, eine einheitliche Stimmung zu etablieren. Er beschreibt in seinem wichtigsten Werk ''Musicalische Temperatur'' verschiedene Temperaturen, die je nach Bedürfnis mehr oder weniger geeignet sein können.
+
+Grundsätzlich kann man (bei Werckmeister und anderen) zwei Ansätze unterscheiden:
+* Einige Systeme strebten danach, die Tonarten mit wenigen Vorzeichen möglichst klar klingen zu lassen, aber auch diejenigen mit vielen Vorzeichen, wenn auch mit getrübterem Klang, spielbar zu machen. (Beispiel: Die Werckmeister-II-Temperatur.)
+* Andere Systeme versuchten, alle Tonarten möglichst gut spielbar zu machen (Beispiel: Die Werckmeister-III-Temperatur). Dieser Ansatz führte am Ende der Entwicklung zur heute gebräuchlichen [[Gleichstufige Stimmung|gleichstufigen Temperatur]]. Bei diesem Ansatz muss man allerdings einen – im Gegensatz zu den zentralen Tonarten im oben beschriebenen Ansatz – relativ matten Klang aller Tonarten in Kauf nehmen.
+
+==== Gleichstufige Temperatur ====
+: ''Siehe auch Hauptartikel: [[Gleichstufige Stimmung]]''
+Bereits in der Renaissance suchte man nach Methoden, die [[Laute]] gleichstufig zu stimmen. Da es nicht möglich ist, auf Bundinstrumenten jeden Ton einzeln einzustimmen, kommt es zu Problemen. (Weil z.&nbsp;B. in der mitteltönigen Stimmung nicht alle großen Terzen gleich sind, müsste auf der A-Saite der vierte Bund die Saite für die große Terz Cis auf {{Bruch|4|5}} der Länge verkürzen, auf der H-Saite soll Dis „alias“ Es jedoch nicht als große Terz eingestimmt werden. Die Saite müsste hier in der mitteltönigen Stimmung auf {{Bruch|25|32}} der Länge verkürzt werden.)
+
+Da die Möglichkeiten der Wurzelrechnung zu dieser Zeit noch beschränkt waren, konnte man den gleichstufigen Halbton mit dem Verhältnis <math>1:\sqrt[12]{2}</math> noch nicht berechnen. Dennoch konnte man ein gleichstufiges Griffbrett bauen, da man geometrische Methoden zur näherungsweisen Konstruktion einfacher Wurzelverhältnisse zur Hand hatte. Der venezianische Musiker und Musiktheoretiker [[Gioseffo Zarlino]] beschreibt schon [[1558]] eine solche Methode.
+
+Der Lautenist [[Vincenzo Galilei]], Vater des [[Galileo Galilei]], gab die einfachen ganzzahligen Verhältnisse dennoch nicht auf. Er verkürzte die Saite pro Bund auf {{Bruch|17|18}}  der Länge. In der Theorie kommt er dabei mit dem zwölften Halbton zwar nicht ganz bei der Oktave an, in der Praxis ist das Ergebnis aber recht brauchbar, da der Ton durch das Drücken und den dabei überwunden Abstand von Bund und Saite (die Saite wird länger) und durch den Fingerdruck auf die Saite (Saitenspannung erhöht sich) noch ein wenig erhöht wird. Die Saitenlänge kann auch nach der Konstruktion des Griffbretts durch die Umpositionierung des Stegs noch minimal korrigiert werden, so dass das Ergebnis noch besser wird.
+
+Mathematiker und Musiktheoretiker versuchten sich in den folgenden knapp 200 Jahren daran, mit unterschiedlichen Methoden genauere Zahlenwerte für die gleichstufige Temperatur zu ermitteln. Im [[19. Jahrhundert]] setzte sich die gleichstufige Temperatur schließlich allgemein durch.
+
+Heute gibt es wieder Diskussionen darüber, wie beispielsweise Orgeln gestimmt werden sollten. Viele historische Kompositionen gehen von unterschiedlichen Klangeigenschaften verschiedener Tonarten und Akkorde aus, die auf gleichstufig gestimmten Instrumenten nicht reproduzierbar sind. Dies ist insbesondere für die [[Historische Aufführungspraxis]] von Bedeutung.
+
+=== Vergleich der Stimmungssysteme ===
+[[Datei:Vergleich.Stimmungen.png|mini|hochkant=2.2|Grafischer Vergleich der pythagoreischen und mitteltönigen Stimmung mit der wohltemperierten Stimmung nach Werckmeister (III) und der gleichstufigen Stim&shy;mung. In vertikaler Richtung sind die jeweiligen Tonhöhen der Grundtöne angegeben.<br />Die [[Pythagoras in der Schmiede|vier pythagoreischen Töne]] C, F, G und C sind in allen Stimmsystemen praktisch identisch. Bei den [[Leitton|Leittönen]] nach oben (Cis, Dis, E, Fis, Gis und H) ist die pythagoreische Stimmung immer hoch und die mitteltönige Stimmung immer tief; bei den Leittönen nach unten (Des, Es, As und B) ist die pythagoreische Stimmung immer tief und die mitteltönige Stimmung immer hoch. Die Werckmeister-Stimmung gleicht die Differenzen aus und nähert sich der gleichstufigen Stimmung an.]]
+
+Hinweis: Reine Intervalle sind durch einfache ganzzahlige Frequenzverhältnisse charakterisiert, temperierte Intervalle haben auch irrationale Frequenzverhältnisse. Deshalb erfolgt der Größenvergleich hier mit der Einheit [[Cent (Musik)|Cent]], wobei 1 Oktave = 1200 Cent.
+
+Die folgende Tabelle gibt die Höhe der Tonstufen einer [[Dur]]-[[Tonleiter]] verschiedener Stimmungen in Cent (gerundet) an:
+
+{| class="wikitable"
+|- style="line-height:120%"
+| '''Stimmung''' || [[Prime]] || große<br>[[Sekunde (Musik)|Sekunde]] || große<br>[[Terz (Musik)|Terz]] || [[Quarte]] || [[Quinte]] || große<br>[[Sexte]] || große<br>[[Septime]] || [[Oktave (Musik)|Oktave]]
+|-
+|[[Reine Stimmung]] || 0 || 204/182 || 386 || 498 || 702 || 884 || 1088 || 1200
+|-
+|[[Pythagoreische Stimmung]] || 0 || 204 || 408 || 498 || 702 || 906 || 1110 || 1200
+|-
+|[[Mitteltönige Stimmung|1/4-Komma-mitteltönige Stimmung]] || 0 || 193 || 386 || 503 || 697|| 890|| 1083 || 1200
+|-
+|[[Gleichstufige Stimmung]] || 0 || 200 || 400 || 500 || 700 || 900 || 1100 || 1200
+|}
+
+Bemerkung: Bei der [[Reine Stimmung|reinen Stimmung]] gibt es den großen Ganzton (In C-Dur zum Beispiel C-D) mit 204 Cent und den kleinen Ganzton (in C-Dur zum Beispiel D-E) mit 182 Cent. Beides wird als große Sekunde bezeichnet. In der mitteltönigen Stimmung werden die beiden Ganztöne gemittelt zu je 193 Cent. Zusammen ergeben sie die reine Terz mit 386 Cent.
+
+Anhand der folgenden Tabellen lässt sich abschätzen, wie weit welche Quinten und Terzen in verschiedenen Stimmungen von den reinen Intervallen abweichen. Daran kann man ermessen, wie stark „verstimmt“ entsprechende Dur-Akkorde in den verschiedenen Tonarten erklingen. (Die fett markierten Zahlen zeigen die [[Wolfsquinte]] oder analog die Wolfsterz; auffällig: die vier fast reinen Terzen in der pythagoreischen Stimmung.)
+{| class="wikitable"
+|- style="line-height:120%; white-space:nowrap"
+| '''Quinten in Cent'''
+|align="center"|C–G
+|align="center"|Des–As<br />Cis–Gis
+|align="center"|D–A
+|align="center"|Es–A<br />Dis–Ais
+|align="center"|E–H
+|align="center"|F–C
+|align="center"|Fis–Cis<br />Ges–Des
+|align="center"|G–D
+|align="center"|As–Es<br />Gis–Dis
+|align="center"|A–E
+|align="center"|B–F
+|align="center"|H–Fis
+|align="center"|C–G
+|-
+| [[Mitteltönige Stimmung|1/4-Komma-mitteltönige Stimmung]]
+|align="center"|697
+|align="center"|697
+|align="center"|697
+|align="center"|697
+|align="center"|697
+|align="center"|697
+|align="center"|697
+|align="center"|697
+|align="center"|'''738'''
+|align="center"|697
+|align="center"|697
+|align="center"|697
+|align="center"|697
+|-
+|[[Wohltemperierte Stimmung|Werckmeister III-wohltemperiert]]
+|align="center"|696
+|align="center"|702
+|align="center"|696
+|align="center"|702
+|align="center"|702
+|align="center"|703
+|align="center"|702
+|align="center"|696
+|align="center"|702
+|align="center"|702
+|align="center"|702
+|align="center"|696
+|align="center"|696
+|-
+|[[gleichstufige Stimmung]]
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|align="center"|700
+|-
+|[[pythagoreische Stimmung]]
+|align="center"|702
+|align="center"|702
+|align="center"|702
+|align="center"|702
+|align="center"|702
+|align="center"|702
+|align="center"|702
+|align="center"|702
+|align="center"|'''679'''
+|align="center"|702
+|align="center"|702
+|align="center"|702
+|align="center"|702
+|-
+|}
+
+Zum Vergleich: [[Reine Stimmung|reine]] = [[pythagoreische Stimmung|pythagoreische]] Quinte = 702 Cent, [[Gleichstufige Stimmung|gleichstufige]] Quinte = 700 Cent, [[Mitteltönige Stimmung|1/4-Komma-mitteltönige]] Quinte = 697 Cent.
+
+{| class="wikitable"
+|- style="line-height:120%; white-space:nowrap"
+|'''Große Terz in Cent'''
+|align="center"|C-E
+|align="center"|Des–F<br />Cis–Eis
+|align="center"|D–Fis
+|align="center"|Es–G
+|align="center"|E–Gis
+|align="center"|F–A
+|align="center"|Fis–Ais<br />Ges–B
+|align="center"|G–H
+|align="center"|As–C<br />Gis–His
+|align="center"|A–Cis
+|align="center"|B–D
+|align="center"|H–Dis<br />Ces–Es
+|align="center"|C–E
+|-
+|[[mitteltönige Stimmung|1/4-Komma-mitteltönige Stimmung]]
+|align="center"|386
+|align="center"|'''427'''
+|align="center"|386
+|align="center"|386
+|align="center"|386
+|align="center"|386
+|align="center"|'''427'''
+|align="center"|386
+|align="center"|'''427'''
+|align="center"|386
+|align="center"|386
+|align="center"|'''427'''
+|align="center"|386
+|-
+|[[wohltemperierte Stimmung|Werckmeister III-wohltemperiert]]
+|align="center"|390
+|align="center"|408
+|align="center"|396
+|align="center"|402
+|align="center"|402
+|align="center"|391
+|align="center"|408
+|align="center"|396
+|align="center"|408
+|align="center"|402
+|align="center"|397
+|align="center"|402
+|align="center"|390
+|-
+|[[gleichstufige Stimmung]]
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|align="center"|400
+|-
+|[[pythagoreische Stimmung]]
+|align="center"|408
+|align="center"|384
+|align="center"|408
+|align="center"|408
+|align="center"|408
+|align="center"|408
+|align="center"|384
+|align="center"|408
+|align="center"|384
+|align="center"|408
+|align="center"|408
+|align="center"|384
+|align="center"|408
+|-
+|}
+
+Zum Vergleich: [[Reine Stimmung|reine]] = [[mitteltönige Stimmung|1/4-Komma-mitteltönige]] große Terz = 386 Cent, [[Gleichstufige Stimmung|gleichstufige]] große Terz = 400 Cent, [[pythagoreische Stimmung|pythagoreische]] große Terz = 408 Cent.
+
+Ein unmittelbarer akustischer Vergleich der vorstehend genannten und weiterer Stimmungen ist mit geeigneter Software wie z.&nbsp;B. [[GrandOrgue]], [[Hauptwerk (Software)|Hauptwerk]] oder an entsprechend disponierten Keyboards<ref>z.&nbsp;B. Roland Classic C-200 oder Yamaha P-155 oder Korg X-50</ref> mit deren [[Preset|"Presets"]] oder durch sogenanntes „user scale tuning“<ref>http://www.farago.info/hobby/stimmungen/Tuning.htm Musikalische Stimmungen gestern und heute</ref> möglich. Für den Einsatz am realen Instrument gibt es [[Stimmgerät]]e mit vorprogrammierten historischen Stimmungen.
+
+== Stimmen von Instrumenten ==
+
+Als '''Stimmen''' von [[Musikinstrument|Instrumenten]] bezeichnet man die Einstellung der [[Tonhöhe]]. Ein [[Blasinstrument]] wird als Ganzes gestimmt, bei Saiteninstrumenten ([[Streichinstrument]]e, [[Gitarre]], [[Harfe]]) jede Saite einzeln. Bei [[Klavier]]en und [[Orgel]]n sind sogar für jeden einzelnen Ton mehrere Saiten bzw. Pfeifen zu stimmen. Einige Instrumente werden sogar in „Lagen“ gestimmt; dazu gehört zum Beispiel das Einstellen der [[Oktavreinheit (Saiteninstrument)|Oktavreinheit]] bei Gitarren.
+
+Die meisten Instrumente lassen sich innerhalb gewisser baulich vorgegebener Grenzen stimmen, aber es gibt auch Instrumente, die aufgrund ihrer Bauweise nicht oder nur sehr aufwendig stimmbar sind. Hierzu zählen vor allem Instrumente aus dem Bereich [[Perkussion (Musik)|Perkussion]] und der [[Idiophon]]e, z.&nbsp;B. Glockenspiele.
+
+Beim Stimmen von Instrumenten kann man drei Aufgaben unterscheiden:
+* die Stimmung eines Instruments „in sich“ (wichtig bei den Tasten- und Saiteninstrumenten)
+* die Abstimmung mehrerer Instrumente miteinander
+* die Stimmung eines Instruments auf absolute Tonhöhen
+
+Der manuelle Vorgang des Stimmens ist von Instrument zu Instrument verschieden. Bei Blasinstrumenten erfolgt dieses meistens durch Veränderung der Rohrlänge, bei Streichinstrumenten durch die Veränderung der Saitenspannung. Bei Tasteninstrumenten muss meistens jeder einzelne Ton gestimmt werden. Die Stimmung eines Ensembles erfolgt in der Regel nach dem unflexibelsten Instrument, meistens sind das die Tasteninstrumente. Im [[Orchester]] gibt die [[Oboe]] aufgrund ihres [[Oberton|obertonreichen]] Klangs das a’ als [[Kammerton]] vor. Steht kein Referenzinstrument zur Verfügung, kann eine [[Stimmgabel]], eine [[Stimmpfeife]] oder ein elektronisches [[Stimmgerät]] als Hilfe genutzt werden. Elektronische Musikinstrumente müssen aufgrund der verwendeten Tonerzeugung „in sich“ nicht gestimmt werden, oftmals können sie aber insgesamt in kleinen bis hin zu [[Transposition (Musik)|transponierenden]] Abstufungen verändert werden.
+
+Durch die Häufigkeit des Stimmvorganges haben viele routinierte Instrumentalisten eine Art [[Absolutes Gehör]] für ihre Stimmtöne (Grundtöne bei Bläsern, Leersaiten bei Streichern) entwickelt.
+
+== Siehe auch ==
+* [[Oberton|Teiltonreihe]]
+* [[Tonstruktur (mathematische Beschreibung)]]
+* [[Klavierstimmer|Klavierstimmung]]
+* [[Streckung (Musik)|Streckung]]
+* [[Tonsysteme im subsaharischen Afrika]]
+* [[Offene Stimmung]]
+* [[Stimmen einer Gitarre]]
+
+== Literatur ==
+* [[Ernst Kochsiek]]: ''Konzertstimmungen. Erlebnisse und Begegnungen mit berühmten Pianisten.'' Mit Audio-CD. Edition Bochinsky, 2001, ISBN 978-3-923639-46-5.
+* Klaus Lang: ''Auf Wohlklangswellen durch der Töne Meer – Temperaturen und Stimmungen zwischen dem 11. und 19. Jahrhundert'', herausgegeben von Robert Höldrich, Institut für Elektronische Musik (IEM) an der Universität für Musik und darstellende Kunst in Graz (1990), ([https://phaidra.kug.ac.at/open/o:131321 PDF]).
+* [[Gottfried Rehm]]: ''Einführung in alte Stimmungssysteme.'' In: ''Gitarre & Laute'' 4, 1982, 1, S. 12–14.
+* {{Literatur |Autor=[[Karlheinz Schüffler]] |Titel=Pythagoras, der Quintenwolf und das Komma. Mathematische Temperierungstheorie in der Musik |Verlag=Vieweg+Teubner |Datum=2012 |ISBN=978-3-8348-1920-8}}
+
+== Weblinks ==
+{{Commonscat|Musical tuning}}
+{{Wikibooks|Till Eulenspiegels lustige Serie/ Stimmung|Stimmung
+}}
+* [http://www.groenewald-berlin.de/Inhaltsverzeichnis.html Liste von Stimmungen mit detaillierten Informationen]
+* [http://www.robertschroeter.de/stimmungen.html Stimmungen]
+* [http://www.tonalsoft.com/enc/encyclopedia.aspx Encyclopedia of Microtonal Music Theory] (englisch)
+* [http://www.mozartpiano.com/en/articles/pitch.php Stimmtonhöhen anhand historischer Stimmgabeln] (englisch)
+* [https://bund-deutscher-orgelbaumeister.de/lexikon-der-stimmungen/ Bund Deutscher Orgelbaumeister: Lexikon der Stimmungen]
+
+=== Stimmungen in Musikgeschichte und -praxis ===
+* [http://www.fres.ch/bd/content/music/bach.html Entwicklung wohltemperierter Stimmungen unter Berücksichtigung von J. S. Bach – mit Hörbeispielen]
+* [http://www.robertschroeter.de/diplom.pdf Zur Stimmung von Tasteninstrumenten] (PDF-Datei; 443&nbsp;kB)
+* [http://www.robertschroeter.de/stimmungen.html Hierzu Hörbeispiel]
+* [http://www.sackpfeyffer-zu-linden.de/Musik.html Musiktheorie I], [http://kilchb.de/linkmusik.html Musiktheorie II]
+* [http://www.sengpielaudio.com/Rechner-centfrequenz.htm Intervall Umrechnung: Frequenzverhältnis nach Cent und Cent nach Frequenz (ratio)]
+* [http://www.sengpielaudio.com/EBS-Intervalle-Frequenzverhaeltnis.xls Umrechnung Cent in Frequenzverhältnis Ratio und zurück – in Excel]
+* [http://www.huygens-fokker.org/docs/measures.html Zusammenstellung logarithmischer Maßeinheiten zu Intervallgrößen] (englisch)
+* [http://www.sengpielaudio.com/Rechner-notennamen.htm Klaviatur – Frequenzen – Notennamen – Piano-Tastatur]
+
+== Einzelnachweise ==
+<references />
+
+{{Navigationsleiste Stimmungen (Musik)}}
+{{Normdaten|TYP=s|GND=4122368-8}}
+
+[[Kategorie:Stimmung (Musik)| ]]

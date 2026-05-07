@@ -1,0 +1,55 @@
+{{Dieser Artikel|behandelt das einfache diatonische Akkordeon. Für das nichtlineare dynamische System siehe [[Wiener-Modell]].}}
+[[Datei:Hochholzer.jpg|mini|Verdeck geschlossen]]
+Der Ausdruck '''Wiener Modell''' bezeichnet einfache [[Diatonisches Akkordeon|diatonische Akkordeons]].
+
+Auch heute werden derartige Modelle oft zwei- oder dreireihig angeboten. Wenn man von der [[steirische Harmonika|Steirischen Harmonika]] absieht, ist es das am weitesten verbreitete diatonische Instrument. In Wien selbst wird das Modell heute nicht mehr hergestellt.
+
+== Tastenbelegung ==
+Eine diatonische [[Dur#Durtonleiter|Dur-Tonleiter]] besteht aus sieben Tönen: Do, Re, Mi, Fa, So, La, Ti ([[Solmisation#Das relative System|relative Solmisation]]) bzw. den Tonstufen 1 bis 7.
+
+Auf Druck erklingt auf den Tasten immer ein Durdreiklang, die Tonstufen 1, 3 und 5 werden in mehreren Oktavlagen wiederholt. Auf Zug klingen die Tonstufen 2, 4, 6 und 7, auch diese werden in verschiedenen Oktavlagen wiederholt. Somit ist bereits auf einer Reihe bei Zug und Druckwechsel, ähnlich wie bei der diatonischen Mundharmonika, ein Tonleiter-Melodiespiel möglich, aber auch Akkorde können sehr einfach gebildet werden, indem nebeneinander liegende Knöpfe gleichzeitig verwendet werden. Dur wie Moll sind relativ einfach spielbar.
+
+Zu jeder Diskantreihe ist am Bassteil der passende Begleit-Dur-Akkord vorhanden. Druck 1. Stufe Dur, Zug 5. Stufe Dur (unvollständige [[Septime]]).
+* [[Diatonisch]], da pro Reihe jeweils nur die Töne einer bestimmten diatonischen Tonleiter vorkommen, und
+* [[Wechseltönig]], weil pro Knopf je zwei Töne erklingen, einer auf Druck und einer auf Zug.
+Die Diskanttasten sind von Reihe zu Reihe in Quintabständen gemäß dem [[Quintenzirkel]] angeordnet. Also bei einem dreireihigen Instrument je nach Stimmung A, D, G oder G, C, F und so weiter. Jede Kombination ist möglich, doch manche wurde bevorzugt gebaut. Die Reihenfolge wird üblicherweise von außen nach innen angegeben.
+
+Die Basstastenbelegung war immer in gewissen Grenzen variabel, wobei die äußere Reihe kaum verändert wurde. Die Tastenbelegung ist praktisch von den Anfängen des Akkordeons an bis heute im Wesentlichen gleich geblieben. Auch Halbtöne wurden sehr bald am unteren Ende der Tastenreihen eingebaut.
+
+== Beschreibung einer Wiener aus den 1920er Jahren ==
+Die meisten erhaltenen Instrumente stammen aus den 1920er- und 1930er-Jahren jedoch zählten die Wiener Harmonikabauer zu den ersten die derartige Instrumente bauten. Erwähnung im Amtlicher Bericht über die Allgemeine Deutsche Gewerbe-Ausstellung zu Berlin im Jahre 1844. "II. Harmonikas [...] '''August Schopp, in Wien''', zeigte durch die Einsendung einer Harmonika zu 30 Nthlrn. 20 Sgr., wie sehr auch dieses Instrument in den kürzen Jahren seines Entstehens sich hat vervollkommnen lassen, indem das Vorliegende, auf welchem von geübter Hand recht artige Musikstücke hervorzubringen sind, einen Umfang von etwa '''4 Oktaven''' hat. Das Aeußere des Instruments ist mit Perlmutter und sonstigen Verzierungen höchst elegant ausgestattet."<ref>Amtlicher Bericht über die Allgemeine Deutsche Gewerbe-Ausstellung zu Berlin im Jahre 1844, Band 3, K. Reimarus, 1845, S. 214–215. [https://books.google.at/books?id=EaJAAAAAIAAJ&dq=Friedrich+Sturm+in+Suhl&pg=PA213&ci=54,1380,857,126&source=bookclip&hl=de (online)]</ref>
+
+Dargestellt wird eine Wiener Harmonika von Edmund Hochholzer, Fasangasse 39, Wien III.
+[[Datei:Verdeckoffen.jpg|mini|Verdeck offen]]
+
+=== Äußere Erscheinung ===
+Wenig Verzierungen, Balg meist auf einer Seite mit Haken mit dem Diskantteil verbunden. Die Details hingen aber auch immer vom Kunden und vom jeweiligen Harmonikabauer ab. Bässe meist ohne Helikonstimmplatten. Das Diskantverdeck war eine flache Holzplatte, die Ausbrüche in Form von traditionellen Verzierungen zeigte. Die Tastatur (Klaviatur) konnte unterschiedlich ausführt sein, eher in der Art, wie die Steirische Harmonika gebaut wurde, mit offenen Klavishebeln und abgestuftem Griffbrett, meist aber mit verdeckten Hebeln, die gemeinsam auf einer Achse montiert sind. Oft sahen die Instrumente innen sauberer aus als außen. Meist waren sie zweichörig, aber auch jede nur mögliche Variante wurde gebaut. Registerschalter oder Registerschieber wurden nur selten eingebaut. Auch Oktav-Register wurden angeboten. Die Abmessungen waren eher klein und die Anzahl der Tasten pro Reihe war meist um die elf Knöpfe. Das Instrument musste günstig im Preis sein, damit es für das Zielpublikum auch erschwinglich war. Das Bild zeigt die Klaviatur und die Beschaffenheit der Diskantklappen.
+{{Absatz}}
+
+=== Innerer Aufbau ===
+[[Bild:Bassteilinnen.jpg|mini|links|300px]]
+Gehäuse geöffnet mit Sicht auf die Bassstimmplatten. Die Stimmplatten sind aus Messing mit Stahl-Stimmzungen. Die Ventilleder wurden durch moderne Kunststoffventile ersetzt. Die Stimmplatten sind mit Messinghaken befestigt und mit Lederunterlage abgedichtet.
+{{Absatz}}
+[[Bild:Diskantinnen.jpg|mini|links|300px]]
+Sicht auf die Stimmstöcke, Messingstimmplatten mit Stahlzungen. Die Ventilleder wurden durch moderne Kunststoffventile ersetzt. Die Stimmplatten sind mit Messinghaken befestigt und mit Lederunterlage abgedichtet. Die Stimmstöcke sind von oben über die komplette Länge gleich breit, Stimmstöcke aus italienischer Fertigung verjüngen sich üblicherweise in Richtung kleinerer Stimmplatten. Das Material des Stimmstockes besteht meist aus Weißbuche, Fichte oder Erle.
+{{Absatz}}
+
+== Unterschiede zur Steirischen Harmonika ==
+Das Wiener Modell unterscheidet sich in seiner äußeren Ausführung sowie im Klang von der [[steirische Harmonika|steirischen Harmonika]]. Auch besitzt es keine [[Helikonstimmplatten]] im Bassteil, dessen Tastenanordnung liegt meist optisch direkt über der ersten Reihe. Die Tastenbelegungen sind oft geringfügig an die Wünsche der Spieler angepasst und auch die Anzahl der Halbtöne, die am unteren Ende der Tastatur eingebaut sind, variieren sehr stark. Ein [[Gleichton]] ist aber grundsätzlich nicht eingebaut.
+
+== Heutiger Stand ==
+In Italien und Frankreich bevorzugen auch heute die meisten Musiker, die diatonische Instrumente spielen, diese Bauart. In Italien wird es als [[Organetto (Akkordeon)|Organetto]] bezeichnet. In Deutschland gibt es eine seit Jahren wachsende Anzahl von Musikern, die das Wiener Modell vor allem für Livemusik bei Volkstanzveranstaltungen („[[Bal Folk]]“, „Tanzhaus“) benutzen. Ursprünglich wurde diese Szene stark von Frankreich beeinflusst. Als übliche Stimmung der zweireihigen Instrumente hat sich weitgehend G/C in Deutschland durchgesetzt. Regelmäßige Kurse zum Erlernen des Spiels auf dem Wiener Modell werden u.&nbsp;a. von der Akademie [[Burg Fürsteneck (Eiterfeld)|Burg Fürsteneck]] angeboten.
+
+=== Hersteller ===
+Einer der bekanntesten Hersteller dieser modernen Instrumente ist die Fa. Castagnari in [[Recanati]]. Etwa zehn weitere Hersteller in [[Castelfidardo]] bieten [[Organetto (Akkordeon)|Organetti]] an. In Deutschland baut die HARMONA Akkordeon GmbH und einige kleine Handwerksbetriebe bis heute „Wiener Modelle“.
+
+Karl Macourek. Eine Wiener Knopfharmonika entsteht von Lisl Waltner,<ref>Lisl Waltner: ''Eine Wiener Knopfharmonika entsteht.'' Institut für Volksmusikforschung und Ethnomusikologie Universität für Musik und darstellende Kunst Wien 2014, ISBN 978-3-902153-03-6.</ref> und sind nur im Buch weil sich Karl Macourek bei seinen Erzählungen auf dies Firmen bezog. Diese Angaben wurden aber zusätzlich in den noch vorhandenen Gewerbebüchern recherchiert.
+
+Die Wiener Modelle der Fa. Hohner werden mittlerweile in Asien gefertigt.
+
+In Frankreich gibt es ebenfalls Harmonikabauer, die derartige Instrumente herstellen, darunter Bertrand Gaillard, Saltarelle, Maugein und Bernard Loffet. Einen Harmonikabauer gibt es in Australien, „Hyde“. In Tschechien wurden bis vor kurzem von der Firma Delica derartige Instrumente gebaut, nach einer kurzen Unterbrechung wird die Produktion jetzt unter anderen Besitzern mit verminderter Menge wieder weitergeführt.
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Handzuginstrument]]

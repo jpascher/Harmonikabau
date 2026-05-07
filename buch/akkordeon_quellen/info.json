@@ -1,0 +1,254 @@
+{
+  "buch": "Das Akkordeon und seine Geschichte",
+  "quelle": "Wikipedia:Bücher/Das_Akkordeon_und_seine_Geschichte",
+  "lizenz": "CC-BY-SA 4.0",
+  "abgerufen_am": "2026-05-06",
+  "kapitel_struktur": [
+    {
+      "teil": "Balginstrumente",
+      "artikel": [
+        "Harmonikainstrument",
+        "Handzuginstrument",
+        "Akkordeon"
+      ]
+    },
+    {
+      "teil": "Funktion und Geschichte der durchschlagenden Stimmzunge",
+      "artikel": [
+        "Zunge (Tonerzeuger)",
+        "Durchschlagende Zunge"
+      ]
+    },
+    {
+      "teil": "Personen in Bezug zur Geschichte der Durchschlagzunge",
+      "artikel": [
+        "Christian Gottlieb Kratzenstein",
+        "Bernhard Eschenbach",
+        "Johann Caspar Schlimbach",
+        "Carl Friedrich Voit",
+        "Friedrich Sturm (Instrumentenbauer)",
+        "Anton Haeckl",
+        "Anton Reinlein",
+        "Christian Friedrich Ludwig Buschmann",
+        "Cyrill Demian",
+        "Charles Wheatstone",
+        "William M. Goodrich",
+        "Adolf Müller senior",
+        "Johann Wilhelm Rudolph Glier",
+        "Paolo Soprani"
+      ]
+    },
+    {
+      "teil": "Bedeutende Harmonikabauer (Helikonbässe)",
+      "artikel": [
+        "Josef Hlaváček",
+        "Lubas & Sohn",
+        "Josef Fleiß",
+        "Anton Mervar",
+        "Peter Stachl",
+        "Novak Harmonikas",
+        "Otto Ludwig (Harmonikabauer)",
+        "Roman Gombotz",
+        "Othmar Kühn"
+      ]
+    },
+    {
+      "teil": "Balginstrumente und Vorläufer",
+      "artikel": [
+        "Maultrommel",
+        "Sheng (Instrument)",
+        "Aeoline (Musikinstrument)",
+        "Physharmonika",
+        "Symphonium",
+        "Schrammelharmonika",
+        "Konzertina",
+        "Bandoneon"
+      ]
+    },
+    {
+      "teil": "Diatonische Bauformen",
+      "artikel": [
+        "Diatonisches Akkordeon",
+        "Wiener Modell",
+        "Organetto",
+        "Französisches Akkordeon",
+        "Schottisches Akkordeon",
+        "Irisches Akkordeon",
+        "Heligonka",
+        "Steirische Harmonika",
+        "Trikitixa",
+        "Schwyzerörgeli"
+      ]
+    },
+    {
+      "teil": "Chromatische und weitere Bauformen",
+      "artikel": [
+        "Chromatisches Knopfakkordeon",
+        "Garmon",
+        "Bajan",
+        "Pianoakkordeon",
+        "Bassakkordeon",
+        "Harmonium"
+      ]
+    },
+    {
+      "teil": "Mechanische Automaten mit durchschlagenden Zungen",
+      "artikel": [
+        "Orchestrion",
+        "Panharmonikon",
+        "Apollonicon",
+        "Belloneon",
+        "Mechanischer Trompeter",
+        "Schachtürke"
+      ]
+    },
+    {
+      "teil": "Förderer der Durchschlagzungen",
+      "artikel": [
+        "Georg Joseph Vogler",
+        "Wolfgang von Kempelen",
+        "Johann Nepomuk Mälzel",
+        "Leonhard Mälzel",
+        "Friedrich Kaufmann (Instrumentenbauer)",
+        "Ignaz Kober",
+        "Johannes Weinrich (Volkskünstler)",
+        "Franz Leppich"
+      ]
+    },
+    {
+      "teil": "Andere Instrumente",
+      "artikel": [
+        "Harmonichord",
+        "Terpodion",
+        "Aerophon",
+        "Mundharmonika",
+        "Glasharmonika",
+        "Äolsharfe",
+        "Anemochord"
+      ]
+    },
+    {
+      "teil": "Weiterführende Informationen",
+      "artikel": [
+        "Handzuginstrumentenmacher",
+        "Kanzelle",
+        "Cassotto",
+        "Register (Akkordeon)",
+        "Tremolo (Akkordeon)",
+        "Stradella-Bass",
+        "Konverterbass",
+        "Melodiebass",
+        "Helikonstimmplatten",
+        "Gleichton",
+        "Wechseltönig",
+        "Wechselbass",
+        "Akkordeonschule",
+        "Diatonik",
+        "Stimmung (Musik)",
+        "Vallotti-Stimmung"
+      ]
+    },
+    {
+      "teil": "Produktionszentren",
+      "artikel": [
+        "Geschichte des Akkordeonbaus in Klingenthal",
+        "Castelfidardo"
+      ]
+    }
+  ],
+  "erfolgreich_abgerufen": [
+    "Harmonikainstrument",
+    "Handzuginstrument",
+    "Akkordeon",
+    "Zunge (Tonerzeuger)",
+    "Durchschlagende Zunge",
+    "Christian Gottlieb Kratzenstein",
+    "Bernhard Eschenbach",
+    "Johann Caspar Schlimbach",
+    "Carl Friedrich Voit",
+    "Friedrich Sturm (Instrumentenbauer)",
+    "Anton Haeckl",
+    "Anton Reinlein",
+    "Christian Friedrich Ludwig Buschmann",
+    "Cyrill Demian",
+    "Charles Wheatstone",
+    "William M. Goodrich",
+    "Adolf Müller senior",
+    "Johann Wilhelm Rudolph Glier",
+    "Paolo Soprani",
+    "Josef Hlaváček",
+    "Lubas & Sohn",
+    "Josef Fleiß",
+    "Anton Mervar",
+    "Peter Stachl",
+    "Novak Harmonikas",
+    "Otto Ludwig (Harmonikabauer)",
+    "Roman Gombotz",
+    "Othmar Kühn",
+    "Maultrommel",
+    "Sheng (Instrument)",
+    "Aeoline (Musikinstrument)",
+    "Physharmonika",
+    "Symphonium",
+    "Schrammelharmonika",
+    "Konzertina",
+    "Bandoneon",
+    "Diatonisches Akkordeon",
+    "Wiener Modell",
+    "Organetto",
+    "Französisches Akkordeon",
+    "Schottisches Akkordeon",
+    "Irisches Akkordeon",
+    "Heligonka",
+    "Steirische Harmonika",
+    "Trikitixa",
+    "Schwyzerörgeli",
+    "Chromatisches Knopfakkordeon",
+    "Garmon",
+    "Bajan",
+    "Pianoakkordeon",
+    "Bassakkordeon",
+    "Harmonium",
+    "Orchestrion",
+    "Panharmonikon",
+    "Apollonicon",
+    "Belloneon",
+    "Mechanischer Trompeter",
+    "Schachtürke",
+    "Georg Joseph Vogler",
+    "Wolfgang von Kempelen",
+    "Johann Nepomuk Mälzel",
+    "Leonhard Mälzel",
+    "Friedrich Kaufmann (Instrumentenbauer)",
+    "Ignaz Kober",
+    "Johannes Weinrich (Volkskünstler)",
+    "Franz Leppich",
+    "Harmonichord",
+    "Terpodion",
+    "Aerophon",
+    "Mundharmonika",
+    "Glasharmonika",
+    "Äolsharfe",
+    "Anemochord",
+    "Handzuginstrumentenmacher",
+    "Kanzelle",
+    "Cassotto",
+    "Register (Akkordeon)",
+    "Tremolo (Akkordeon)",
+    "Stradella-Bass",
+    "Konverterbass",
+    "Melodiebass",
+    "Helikonstimmplatten",
+    "Gleichton",
+    "Wechseltönig",
+    "Wechselbass",
+    "Akkordeonschule",
+    "Diatonik",
+    "Stimmung (Musik)",
+    "Vallotti-Stimmung",
+    "Geschichte des Akkordeonbaus in Klingenthal",
+    "Castelfidardo"
+  ],
+  "fehlend": [],
+  "bilder_anzahl": 258
+}

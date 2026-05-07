@@ -1,0 +1,29 @@
+[[Datei:Garmon Khromka.jpg|thumb| Garmon]]
+
+Das '''Garmon''' ({{RuS|гармонь}}) ist eine russische Spielart des [[Knopfakkordeon]]s.
+Die Garmoschka oder das Garmon ist auch noch als Tula-Akkordeon (russisch: {{lang|ru|Тульская гармонь}}), Garmoschka (russisch: {{lang|ru|гармошка}}), Garmonika (russisch: {{lang|ru|гармоника}}) und Hromka (russisch: {{lang|ru|Хромка}}/''Chromka'') bekannt.
+
+== Tastenbelegung ==
+Das Garmon hat 25 Diskanttasten, verteilt auf zwei Reihen. Diese umfassen drei Oktaven sowie einige [[Halbton|Halbtöne]], und 25 Basstasten in drei Reihen inkl. einer Reihe Melodiebasstöne. Die Bilder zeigen die [[C-Dur]]-Belegung, üblicherweise sind die meisten Instrumente in [[A-Dur]] gestimmt, die relative Tastenbelegung bleibt aber gleich.
+[[Datei:Garmondiskantbelegung-c.jpg|thumb| Diskantbelegung]]
+
+=== Diskant ===
+Das Garmon ist ein zweireihiges Instrument. Auf den beiden Reihen befinden sich die Noten einer [[Diatonik|diatonischen Skala]]. Die Verteilung der Noten ist relativ einfach, es befindet sich jeweils abwechselnd eine Note in der einen und die nächste in der anderen Reihe. Halbtöne sind nur am unteren Ende der Tastatur vorhanden. Alle Töne sind gleichtönig, geben somit beim Ziehen wie auch beim Drücken den gleichen Ton von sich. Ältere Tastenbelegungen haben oft am unteren Ende einige Töne, die wechseltönig sind. Diese Belegung der Tasten ermöglicht, dass gleichzeitig relativ einfach viele Akkorde gegriffen werden können, auch Moll-Akkorde.
+[[Datei:Garmonbassbelegung-c.jpg|thumb| Bassbelegung]]
+
+=== Bass ===
+Die Bassseite unterscheidet sich von allen anderen Harmonikainstrumenten; sie ist dreireihig und ebenfalls gleichtönig.
+
+In der ersten Reihe sind die [[Dreiklang|Dur-Dreiklänge]] und am unteren Ende ein [[Septime]]-Akkord angeordnet. Die in der Volksmusik vorkommenden Progressionen können somit relativ einfach verwendet werden. Die erste Reihe lässt auch noch das Vorbild der diatonischen Harmonika erkennen. Die Anordnung der Tastenbelegung in Zugrichtung ist beinahe gleich.
+
+In der zweiten Reihe befinden sich zwei Moll- und zwei weitere Septime-Akkorde.
+
+Die dritte Reihe stellt acht Melodie-Grundbässe bereit. Somit ist auch ein Melodiespiel auf der Bassseite in bescheidenem Ausmaß möglich. Es gibt ältere Instrumente mit weniger Tasten am Bassteil.
+[[Datei:Harmoschka-bass-alt.jpg|thumb| Bassbelegung alte Instrumente]]
+
+== Weblinks ==
+{{Commonscat}}
+* [http://russian-garmon.ru/hromka Russian Garmon] Russische Website mit vielen Bildern
+* [http://www.saratov-kultura.ru/garmonika.html Die Saratower Harmonika]
+
+[[Kategorie:Handzuginstrument]]

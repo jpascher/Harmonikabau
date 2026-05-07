@@ -1,0 +1,128 @@
+[[Datei:conlach.JPG|mini|Lachenal English Concertina, ca. 1896]]
+Eine '''Konzertina''' (auch '''Concertina''') ist ein [[Gleichtönig|gleichtöniges]] oder [[Wechseltönig|wechseltöniges]] [[Handzuginstrument]] mit vier-, sechs- oder achteckigem Gehäuse. Im Gegensatz zum [[Akkordeon]] hat eine Konzertina keine fest verbauten Akkorde, sondern durchgängig Einzeltöne.
+
+== Englische Konzertina ==
+
+Im Jahr 1844 patentierte [[Charles Wheatstone]]<ref> [http://www.concertina.com/wheatstone/Wheatstone-Concertina-Patent-No-10041-of-1844.pdf Charles Wheatstone, Patent vom Jahr 1844] (PDF; 2,2&nbsp;MB) </ref> seine [[gleichtönig]]e Englische Konzertina, nachdem ihm bereits am 19. Juni 1829 ein Patent für den Vorläufer der Konzertina, das [[Symphonium]], erteilt worden war. Die Englische Konzertina zeichnete sich durch eine durchgängige, auf der linken und rechten Seite verteilte [[Chromatik|chromatische]] Tonfolge aus. Aufgrund der Tastenverteilung eignete sie sich vor allem als Melodieinstrument, meist mit Klavierbegleitung. Die chromatische Tastenanordnung und die Anordnung der Stimmplatten waren die eigentliche Neuerung.
+Charles Wheatstone war besonders an wissenschaftlicher Literatur in französischer Sprache interessiert, somit waren ihm die damaligen wissenschaftlichen Veröffentlichungen über Studien mit [[Durchschlagende Zunge|durchschlagenden Zungen]] bekannt oder zugänglich. Im Londoner Musikgeschäft seines Onkels wurden alle Arten von Musikinstrumenten angeboten, auch aus deutscher, französischer und österreichischer Produktion. Während seiner Lehre bei seinem Onkel hatte er die Möglichkeit, moderne [[Durchschlagzungeninstrument]]e zu erforschen. Er brach aber seine Lehre vorzeitig ab, da ihm nach Aussage seines Onkels die nötige handwerkliche Geschicklichkeit fehlte. Nach dem frühen Tod seines Onkels übernahm er mit seinem Bruder dessen Musikgeschäft wie auch das Geschäft seines Vaters. Später ließ sich Charles Wheatstone ein [[Sheng (Instrument)|Sheng]] aus St. Petersburg schicken. In späteren Jahren verbesserte er auch die Sprachmaschine von [[Wolfgang von Kempelen]].
+
+Im Gegensatz zum [[Chemnitz]]er [[Carl Friedrich Uhlig]] oder anderen zeitgenössischen Instrumentbauern in Wien oder Paris galt Wheatstones Interesse der Konzertina in erster Linie deshalb, weil sie die technische Möglichkeit zum Studium akustischer Phänomene bot. Er hatte kurz vorher eine Schrift veröffentlicht, die sich mit musiktheoretischen Gesetzmäßigkeiten beschäftigte.
+
+Dass seine Ideen letztlich auch vermarktet wurden, hatte Charles Wheatstone seinem Bruder zu verdanken. Auch die technische Weiterentwicklung hing nicht nur von Charles Wheatstone ab. Man holte sich sehr früh die nötigen Fachkräfte für die Produktion. So wurden der Schweizer Uhrmacher Louis Lachenal und [[John Crabb]] eingestellt. [[Lachenal (Familienname)|Lachenal]] war für die technische Ausführung und Crabb für das Design zuständig.
+
+Charles Wheatstone befasste sich aber wiederkehrend mit Berechnungen und Versuchen, die direkt in Zusammenhang mit der Konzertina standen. So suchte er nach Legierungen für Stimmzungen, die bessere Ergebnisse versprachen. Er wollte Stimmzungen, welche die Tonhöhe exakt beibehielten. Beim Symphonium waren die Stimmzungen zuerst aus Silber und später aus Gold, für die Englische Konzertina kam letztlich doch der gebräuchliche Stahl zum Einsatz.
+
+Die Englische Konzertina war in erster Linie ein Instrument für das gehobene Publikum. Dennoch erlebte sie sehr früh einen Boom in England. Bereits im Jahr 1850 existierten 100 Fabrikationsstätten für die Englische Konzertina. Die gefertigten Konzertinas wurden zum Teil luxuriös ausgestattet und beispielsweise mit Gold- oder Silberknöpfen verziert.
+
+Einer der führenden Virtuosen des Wheatstoneschen Typus der Concertina war [[Giulio Regondi]], der ebenfalls der führende Gitarrist seiner Zeit war. Regondi konzertierte auf der Konzertina im Rahmen seiner Konzertreise 1840/41 in Wien. Vermutlich hat er dort mit [[Johann Dubez]] (auch: Dubetz) Kontakt aufgenommen, der ebenfalls auf der Wheatstoneschen Konzertina konzertierte. Regondi und auch die zeitgenössischen Quellen zu Johann Dubez sprechen meist vom [[Melophon]], das zwar synonym mit dem Begriff der Konzertina verwendet wurde, jedoch ein Instrument anderer Bauart ist. Dubez Konzertreisen (u. a. auf den Balkan und nach Konstantinopel) und sein Wirken in Wien verschafften der Konzertina bis Ende der 1880er Jahre Aufmerksamkeit außerhalb Englands. In der englischen Folkszene zählt heute [[Rob Harbron]] zu den Meistern der englischen Konzertina.
+
+== Aufbau ==
+Eine besonders ausführliche Beschreibung verdanken wir einem Buch, das [[Hector Berlioz]] im Jahr 1839 verfasste (''Grande Traité d’instrumentation et d’orchestration modernes'' (1844), deutsche Übersetzung: Peters 1905). Dieses Handbuch wurde von [[Erich Doflein]] ins Deutsche übertragen und später noch von [[Richard Strauss]] überarbeitet. Er schreibt:
+:''„Dies ist ein kleines Instrument mit Metallplättchen, welche durch den Luftstrom in Schwingungen versetzt werden. Aus dem Accordion, welches einige Jahre als musikalisches Spielzeug diente, entstand die Concertina […] Die Concertina ist eine Art elastisches kleines Kästchen, welches man horizontal zwischen beide Hände hält; man spielt sie vermittels Knöpfchen, die man mit den Fingerspitzen drückt, und welche eine Klappe öffnen, die durch einen Blasbalg, der zwischen den beiden Seitenwänden des Kästchens befindet, zugeführte Luftsäule auf Blättchen oder Züngelchen aus Metall streichen lassen; […] es gibt eine Bass-, Alt- und Sopran-Concertina. […] Die Sopran Concertina ist fast die Einzige, welche in gebrauch ist. […] In ihren beiden chromatischen Tonleitern [links und rechts] […] bemerkt man, dass der Verfertiger […] in den ersten drei Oktaven enharmonische Intervalle zwischen As und dem Gis, und zwischen dem Es und dem Dis aufgestellt hat, indem er dem As und dem Es einen etwas höheren Klang als dem Gis und dem Dis zuteilwerden lässt, gemäß der Lehre der Akustiker [Charles Wheatstone verfasste ja dazu eine Schrift], welche ja so ganz der musikalischen Praxis widerspricht. Das ist eine sonderliche Anomalie. Es ist klar, dass da die Concertina ein Instrument mit festbestimmten Tönen wie das Pianoforte, die Orgel […] ist. Sie auch gleich diesen nach dem Temperaturgesetz gestimmt sein sollte. In Ihrem gegenwärtigen Zustande erlauben es ihr die enharmonischen Töne aber nicht, zusammen mit den eben erwähnten Instrumenten zu spielen, ohne Dissonanzen hervorzubringen, […] denn auf den Instrumenten mit temperierter Stimmung sind As und Gis sowohl Es und Dis identisch, auf der Concertina dagegen nicht. […]“''
+:(Hector Berlioz weitet dies Thema nun ausführlich aus. Über 3 Seiten kann man darüber im Original nachlesen.)
+:''„Nach dieser langen Abschweifung kehre ich jetzt wieder zur englischen Concertina zurück, deren barbarische Tonleiter in Beispiel 5) zu sehen ist. Die Concertina wird ungeachtet der in diesem Beispiel aufgestellten Anordnung auf einer einzelnen Linie und im Violinenschlüssel geschrieben. Der Triller ist auf allen Stufen der Tonleiter ausführbar, immerhin schwieriger indes in der Tiefe. Der Doppeltriller (in Terzen) ist leicht. Dieses Instrument gestattet die Ausführung diatonischer, chromatischer oder arpeggierter Stellen von ziemlicher Geschwindigkeit. Es ist möglich, der Hauptstimme, wenn auch nicht mehrere andere komplizierte Stimmen, wie beim Pianoforte und bei der Orgel, so doch wenigstens eine zweite Stimme, welche ungefähr parallel mit der Melodie geht, und Accorde zu vier bis sechs und noch mehr Tönen, hinzuzufügen.“''
+:''„Die deutsche, in England gleichfalls sehr verbreitete Concertina, ist nicht nach dem System der vorigen gebaut. Ihre Tonleiter, welche noch weiter in die Tiefe, bis zu C und B hinabreicht, enthält keine einharmonischen Intervalle; sie ist also nach dem Temperaturgesetz gebaut. Der Umfang der Concertina richtet sich nach der Anzahl der Klappen, Knöpfe oder Tasten, welche man ihm gibt, und diese Zahl wechselt nach Laune des Verfertigers.“''
+
+== Stimmung ==
+Wie aus dem obigen Text hervorgeht, war die Stimmung ursprünglich [[Mitteltönige Stimmung|mitteltönig]]. Heute sind die meisten Concertinas auf [[gleichstufige Stimmung]] umgestellt. Die Tonhöhe des Referenztones sind oft nicht die heute üblichen 440 Hz. Die Concertinas, welche die Heilsarmee verwendete, waren meist um einiges höher gestimmt.
+
+English-system-Concertinas waren mit reinen Quinten und Terzen gestimmt. Bei [[Gleichstufige Stimmung|gleichstufiger Stimmung]] sind manche Töne dann doppelt vorhanden (Dis/Es und Gis/As). Aber die traditionelle mitteltönige Stimmung war mit reinen Quinten und Terzen, dies führte dazu, dass diese Töne sich geringfügig in der Tonhöhe unterschieden. Bei den Tönen Dis und Es akkumulieren sich die Unterschiede auf 21,5 Cent (siehe [[Syntonisches Komma]]).
+
+Tonvorrat:
+:D, G, C, F, (Dis, Gis, Cis, Fis), H, E, A, (B, Es, As).
+
+Wesentlich ist, dass nicht alle Akkorde bei dieser Stimmpraxis gleich gut klingen.
+
+{| class="wikitable"
+!Rein klingende Akkorde
+|F-Dur
+|C-Dur
+|G-Dur
+|A-Dur
+|E-Dur
+|As-Dur
+|Es-Dur
+|Fis-Moll
+|Cis-Moll
+|Gis-Moll
+|A-Moll
+|E-Moll
+|F-Moll
+|C-Moll
+|G-Moll
+|-
+!Unrein klingende Akkorde
+|B-Dur
+|D-Dur
+|H-Dur
+|Dis-Dur
+|Gis-Dur
+|Cis-Dur
+|Fis-Dur
+|D-Moll
+|H-Moll
+|Dis-Moll
+|As-Moll
+|Es-Moll
+|B-Moll
+|
+|
+|}
+
+=== Schulen ===
+Die erste Schule für Concertina entstand um 1845 (Joseph Warren: ''Complete Instructions for the Concertina.'' London, 3. Auflage 1855, 9. Auflage 1905); 1848 schrieb Alfred B. Sedgwick eine Schule ''Complete System for the Concertina'' (Levesque, Edmeades and Co., London), 1852 E. Chesney seine ''New Instructions for the Concertina'' (E.&nbsp;Chesney, London); ebenfalls 1852 brachte J.&nbsp;Haskins sein ''Tegg’s Concertina Pre-Ceptor'' in London heraus. 1877 erschien eine Methode zum Lernen ohne Lehrer: Ch.&nbsp;Roylance: ''How to learn the English Concertina Without a Master'' (London).
+
+1848 lernte [[Frédéric Chopin]] das Instrument auf einer Reise nach Schottland kennen. Er empfand den Klang und die Art zu spielen nicht besonders positiv: „Es scheint so, als ob jedes dieser Geschöpfe (schottische Ladys, welche die Concertina spielten) losgeschraubt wäre. Welch seltsames Los! Gott behüte sie!“
+
+=== Heute ===
+Concertinas wurden sehr lange von den Firmen [[Marie Lachenal|Lachenal]] und Wheatstone in traditioneller Weise gefertigt. Sehr viele historische Instrumente sind nach wie vor gut erhalten und werden zu relativ hohen Preisen gehandelt. Anders als die billigeren Akkordeonarten im restlichen Europa sind die Instrumente gut dokumentiert. Meist ist auch eine Notiz über das exakte Produktionsdatum in den online verfügbaren originalen Produktionsaufzeichnungen vorhanden. Es gibt einige Museen, die sich speziell mit der Concertina beschäftigen. Kaum ein Instrument ist derart gut belegt und verfolgbar.
+
+Heute gibt es immer noch einige traditionelle Concertinabauer, zum Beispiel in England (Colin Dipper), Deutschland (Jürgen Suttner) und in den USA (Wim Wakker).
+
+Auch in den USA werden heute Concertinas nachgebaut, meist aber mit Standard-Akkordeonstimmplatten aus Italien. Auch billige Nachbauten aus China und Italien sind im Handel. Da aber die Konstruktion wesentlich von der traditionellen Ausführung abweicht, sind sie klanglich kaum vergleichbar. Es werden heute Stimmstöcke eingebaut ähnlich wie beim Akkordeon.
+
+== Deutsche Konzertina ==
+Der [[Chemnitz]]er Klarinettist und Instrumentenbauer [[Carl Friedrich Uhlig]] (1789–1874) machte auf einer Reise nach Wien mit einem [[Akkordeon]] aus der Fabrikation [[Cyrill Demian]]s Bekanntschaft, veränderte es, hielt aber an der diatonischen und wechseltönigen Tastenbelegung fest. Bereits Demian hatte vorweggenommen, dass sein Instrument auch aus zwei spiegelgleichen Kästen bestehen kann, was zur Verdoppelung der Töne führt, ob derartige Instrumente damals in Wien auch verkauft wurden, ist nicht klar.
+
+1834 konstruierte Carl Friedrich Uhlig, praktisch ohne von der englischen Konzertina zu wissen, da diese auch noch nicht produziert wurde, eine kleine [[wechseltönig]]e Konzertina, die schließlich 1924 auf bis 64 Tasten (128 Tönen) erweitert wurde. Er hatte mit diesem Instrument gute Geschäftserfolge, 1854 stellte er auf der Industrieausstellung in München aus und bekam eine Ehrenmünze.
+
+Auf beiden Seiten befinden sich nur einzelne Töne und keine Akkord- oder Bassmechanik, wie sie das [[Akkordeon]] bietet. Diese Instrumente sind ähnlich groß wie das [[Bandoneon]] und haben in der Regel ein quadratisches Gehäuse. Zusätzlich zu dieser ''Chemnitzer Konzertina'' gibt es die ''Carlsfelder Konzertina'', welche sich hauptsächlich in der Anordnung der Töne unterscheidet.
+
+Das ursprüngliche eher kleine Instrument mit rechteckigem Gehäuse (später mit sechseckigem Gehäuse), die ''Deutsche Konzertina'', hat parallel auch überlebt und findet heute, ebenso, wie die Englische Konzertina, rege Verbreitung, besonders in der [[Folk]]-Szene der [[Britische Inseln|Britischen Inseln]]. Wie das Bandoneon oder die [[steirische Harmonika]] ist auch sie wechseltönig, d.&nbsp;h., es erklingt auf einem Knopf auf Zug ein anderer Ton als auf Druck.
+
+== Anglo Concertina ==
+Die ''Deutsch-Englische Konzertina'' (engl. ''German Anglo concertina'' oder auch nur ''anglo'') wurde 1850 von George Jones entwickelt. Er verband die Deutsche mit der Englischen Konzertina zu einer ''Deutsch-Englischen Konzertina'' und übernahm die prägnante sechseckige Form der Englischen Konzertina. Zusätzlich erweiterte er das Instrument um eine Reihe weiterer Knöpfe, auf welchen hauptsächlich weitere Halbtöne, aber auch Grundtöne liegen, welche das Spiel erleichtern. Dies ermöglichte im Gegensatz zur Deutschen Konzertina ein chromatisches Spielen in allen Tonarten, wenn auch durch die Wechseltönigkeit dem Greifen von Akkorden gewisse Grenzen gesetzt sind, da manche Töne nur auf Zug und manche nur auf Druck vorhanden sind, sind nicht alle Tonkombinationen spielbar, wie z.&nbsp;B. auf Akkordeons mit Piano-Tastatur.
+
+== Weitere Konzertinatypen ==
+Eine weitere bekannte Weiterentwicklung der Deutschen Konzertina ist das [[Bandoneon]]<ref>{{Literatur |Autor=Andreas Fasel |Titel=Tango-Quetsche aus dem Rheinland |Datum=2002-09-28 |Online=https://www.welt.de/print-wams/article607475/Tango-Quetsche-aus-dem-Rheinland.html |Abruf=2019-07-16}}</ref>, das sich vor allem im südamerikanischen Raum weit verbreitet hat und in Europa in den 1950er-Jahren ein Revival mit dem Populärwerden der [[Tango (Musikrichtung)|Tango]]-Musik erlebte, deren populärster Vertreter wohl [[Astor Piazzolla]] war und ist.
+
+In England wurden weiters ''Duett-Konzertinas'' entwickelt. Diese haben wie die Uhlig’sche Konzertina eine Melodie- und eine Bassseite, sind jedoch gleichtönig. Eine besondere Stellung nimmt darunter die [[Wicki-Hayden-System|Hayden]]-Duett-Konzertina ein. Durch ihre verschobene [[6-plus-6-Instrumente|6-plus-6]]-Tastatur hat sie für alle Tonarten die gleiche Griffweise, soweit der Umfang der Knöpfe es zulässt.
+
+Alle hier erwähnten Konzertinatypen wurden in Hunderten von Varianten gebaut, da gegen Ende des 19. Jahrhunderts der Instrumentenbau insgesamt noch nicht so standardisiert und noch wesentlich experimenteller war als in der heutigen Zeit.
+
+== Verwendung im südlichen Afrika ==
+Die Konzertina ist das vorherrschende Soloinstrument in der [[Boeremusiek]], die in [[Südafrika]] und [[Namibia]] von [[Buren]] gepflegt wird. Allein im Jahr 1902 wurden 97.315 Concertinas aus Deutschland in die Region eingeführt.<ref>Dan Michael Worrall: ''The Anglo-German Concertina. A Social History. Volume 2.'' Dan Michael Worrall, Fulshear, Texas, 2009, ISBN 978-0-9825996-1-7, S. 29. [https://books.google.de/books?id=JKZO1aevsiIC&pg=PA1&dq=settees+dance&hl=de&source=gbs_toc_r&cad=3#v=onepage&q=settees%20dance&f=false Auszüge als Digitalisat]</ref> Auch die [[Famo (Musik)|Famo]]-Musik, die ihre Wurzeln in den [[Township (Südafrika)|Townships]] der Schwarzen hat, nutzte ursprünglich die Konzertina als Soloinstrument.
+
+== Literatur ==
+* Allan W. Atlas: ''The [[Charles Wheatstone|Wheatstone]] English Concertina in Victorian England''. Clarendon Press, Oxford 1996, ISBN 0-19-816580-3.
+* Volker Bäcker: ''Konzertina Schule. Alles über Spielweise und Handhabung''. Voggenreiter Verlag, Bonn 1995, ISBN 3-8024-0215-4.
+* Ingeborg Degelmann: ''Die Konzertina. Harmonie zwischen Perlmutt und Perloid'' (Oberfränkischer Schulanzeiger; Bd. 268). Regierung von Oberfranken, Bayreuth 2000.
+* Maria Dunkel: ''Accordion, Bandoneon, Concertina im Kontext der Harmonikainstrumente'' (Texte zur Geschichte und Gegenwart des Akkordeons; Bd. 6). Augenmus-Musikverlag, Bochum 1999, ISBN 3-924272-05-0.
+* Maria Dunkel: ''Accordion, Bandoneon. Harmonikainstrumente im Spiegel der Patente''. Europäisches Patentamt, Berlin 1998.
+* Maria Dunkel: ''Bandonion und Konzertina. Ein Beitrag zur Darstellung des Instrumententyps'' (Berliner musikwissenschaftliche Arbeiten; Bd. 30). 2. Aufl. Musikverlag Katzbichler, Salzburg 1996, ISBN 3-87397-070-8.
+
+== Quellenangaben ==
+
+<references />
+
+== Weblinks ==
+{{Commonscat|Concertinas}}
+* [http://www.concertina.com/chambers/michaelstein/ sehr gute Bilder, englischer Text, exakte Geschichte]
+* [http://www.konzertinanetz.de deutschsprachige Konzertinaseite]
+* [http://www.konzertina.org/ die Deutsche Konzertina mit Geschichte, Anleitung und Musikstücken] (nur noch Archiviert verfügbar)
+* [http://www.concertina.net/ englischsprachige; sehr populäre Website mit vielen aktuellen Informationen]
+* [http://www.chemnitz-concertina.de Concertina & Bandoneon]
+
+{{Normdaten|TYP=s|GND=4197339-2}}
+
+[[Kategorie:Handzuginstrument]]

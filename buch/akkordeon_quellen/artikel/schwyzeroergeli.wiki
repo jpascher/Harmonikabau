@@ -1,0 +1,77 @@
+<!--schweizbezogen-->
+[[Datei:Schwyzeroergeli.jpg|mini|Jugendlicher Schwyzerörgeli-Spieler]]
+Das '''Schwyzerörgeli''' ([[schweizerdeutsch]] für «kleine Schweizer Orgel» oder «kleine Schwyzer Orgel», vgl. Abschnitt [[#Geschichte|Geschichte]]), auch '''Handörgeli''', ist eine vorwiegend in der [[Ländlermusik|Schweizer Volksmusik]] verwendete Variante des [[Diatonisches Akkordeon|diatonischen Akkordeons]]. Der Bass ist [[gleichtönig]] und stellt den Vorläufertyp des [[Stradella-Bass]]es dar. Moderne Instrumente sind meist mit drei Tastenreihen im [[Diskant (Instrument)|Diskant]] ausgestattet. Obwohl der Diskant grundsätzlich [[wechseltönig]] ist und im Wesentlichen einer [[Diatonik|diatonischen]] Anordnung folgt, unterscheidet sich die Spielweise wesentlich von anderen diatonischen Handzuginstrumenten. Auch die Konstruktion weicht stark von einfachen diatonischen Instrumenten ab. Heute sind kompakte Bauweise mit [[Cassotto]] und ein Balg mit Ledereckschoner typische Merkmale dieses Instrumentes, und es gibt ein-, zwei- oder drei[[Register (Akkordeon)|chörige]] mit oder ohne [[Tremolo (Akkordeon)|Tremolo]].
+
+== Geschichte ==
+[[Datei:Langnauerörgeli.jpg|mini|Typisches Langnauerörgeli (Hermann Langnau)]]
+[[Datei:2-reihiges Örgeli aus Kröschenbrunnen.jpg|mini|Übergangsmodell zwischen Langnauerörgeli und Stöpselbass-Örgeli (Ulrich Zürcher Kröschenbrunnen)]]
+
+Die Vorläufer des Schwyzerörgelis waren die sogenannten ''Langnauerörgeli,'' die ab 1836 durch die Familie Hermann in [[Langnau im Emmental]] hergestellt wurden. Langnauerörgeli wurden zuerst nur mit einer Melodiereihe gebaut, später auch mit zwei, drei oder vier diatonisch angeordneten Melodiereihen. Die Hersteller nannten sich zuerst ''Harpfenmacher'' («Harpfe» altdeutsch für Harfe), später ''Harfenmacher'' und erst recht spät entstand der Begriff ''Harmonikafabrikant''.
+
+[[Datei:Schwyzerorgel.jpg|mini|Typisches Stöpselbass-Örgeli]]
+Das Langnauerli wurde kurz vor 1900 zum ''Stöpselbass-Örgeli'' weiterentwickelt, bevor dann die ersten Schwyzerörgeli in der heutigen Form gebaut wurden. Langnauerörgeli wie auch Stöpselbass-Örgeli hatten wechseltönige Bässe. Die heutige Form des Schwyzerörgelis hat 18 gleichtönende Bässe. Als einer der ersten Schwyzerörgelibauer galt Robert Iten (1859–1918) aus [[Pfäffikon SZ|Pfäffikon]] im Kanton Schwyz. Ob das Schwyzerörgeli daher seinen Namen vom [[Kanton Schwyz]] oder aber doch von der mundartlichen Form von ''Schweiz'' ([[schweizerdeutsch]]: ''Schwyz'') hat, ist letztlich nicht entscheidbar.
+
+== Hersteller ==
+[[Datei:Reist-Örgeli.jpg|mini|Typisches Schwyzerörgeli aus dem Emmental (Reist-Örgeli)]]
+[[Datei:Com L32-0091-0001-0004.jpg|mini|Schwyzerörgeli-Herstellung in Bülach 1983]]
+Zu den bekanntesten Schwyzerörgeli gehören jene von Josef Nussbaumer und alte Exemplare von Alois [[Eichhorn Schwyz|Eichhorn]]. Josef Nussbaumer wurde 1882 in Schwyz geboren und wird mitunter als «Stradivari des Schwyzerörgelibaues» bezeichnet. Er gehörte zusammen mit Alois Eichhorn und Ernst Salvisberg zu den Schwyzerörgeliherstellern der ersten Stunde. Seine Örgeli heben sich vor allem klanglich von anderen Instrumenten ab. Josef Nussbaumer stellte nicht nur Schwyzerörgeli her, sondern auch [[Akkordeon]] und acht-bässige Club-Modelle. Auch Spezialausführungen mit vier Melodiereihen wurden hergestellt. Die Geschichte der Firma Nussbaumer ist sehr bewegt, sie wechselte ein paarmal den Namen, den Standort und den Besitzer. Die Zeit von 1920 bis 1929 in [[Bachenbülach]]<ref>[https://www.bachenbuelach.ch/freizeit-kultur/veranstaltungen.html/236/event/1007/eventdate/596 Einmaliges Handörgeli-Erlebnis], Gemeinde Bachenbülach, 29. Oktober 2021</ref> gilt als Höhepunkt, was die Qualität der erstellten Instrumente betrifft. Die «Nussbaumer» sind daher bis heute begehrt.
+
+Von den drei genannten Herstellern der ersten Stunde überlebte lediglich der Betrieb von Alois Eichhorn bis ins 21. Jahrhundert. In den 1960er Jahren entstanden neue Werkstätten wie etwa die von Joseph Gwerder, Rudolf Reist und Rudolf Stalder. Auch aus Italien wurden Schwyzerörgeli importiert. Auch zahlreiche kleinere Betriebe produzierten Schwyzerörgeli, so beispielsweise Hermann Häusler, Paul Mauron, Ernst Wüthrich, Hansruedi Wittwer und Silvio Zanin.
+
+Heute gibt es eine Reihe von bekannten Schwyzerörgeli-Herstellern. Ott-Örgeli, Reist-Örgeli und Aemmitaler-Oergeli gehören zu den grössten Werkstätten. Egli-Örgeli, Zürcher-Örgeli, Spörri-Örgeli, Jeker-Örgeli und Theiler-Örgeli werden in Einmannbetrieben hergestellt, und nur wenige Instrumente verlassen jährlich die Werkstatt. Harry Pauli baute die Bülacher. Beat Kollegger in Graubünden baut das spezielle Stradivarius-Örgeli.<ref>{{Internetquelle |autor=Beat Kollegger |url=https://www.musik-kollegger.ch/index.php/presse-stimmen |titel=Presse-Stimmen Musikhaus Kollegger |werk=www.musik-kollegger.ch |datum=2021 |sprache=de |abruf=2025-03-30}}</ref>
+
+Andreas Tauscher aus Oberstdorf ist der einzige Schwyzerörgelibauer im benachbarten Deutschland.
+
+== Aufbau Schwyzerörgeli ==
+Das Schwyzerörgeli ist ein [[Diatonisches Akkordeon|diatonisches, wechseltöniges Akkordeon]] im Diskant mit gleichtöniger Anordnung im Bass. Der Diskant besteht meist aus 31 Knöpfen angeordnet in zwei Reihen für zwei Tonarten und einer dritten Reihe mit Ergänzungstönen, den sogenannten Kreuztönen. Im Unterschied zum Stöpselbassörgeli ist die Bassseite gleichtönig aufgebaut und umfasst typischerweise neun in Quinten angeordnete Grundtöne mit dem jeweiligen Dur-Akkord.
+
+Die Instrumente sind zwei- bis dreichörig ohne Register. Das heisst, pro Knopf werden zwei oder drei Töne gespielt, meist der Grundton und die Oktave darüber (gedoppelt). Die Chöre werden ohne Tremolo (Bernerton) oder leicht tremoliert (Innerschweizerton) gestimmt. Häufigste Tonarten der Instrumente sind B/Es, C/F und A/D.
+
+Als Besonderheit der Stöpselbass- und Schwyzerörgeli sind die [[Durchschlagende Zunge|Stimmplatten]] nicht in Stimmstöcken angeordnet. Stattdessen wird mit einem Resonanzkasten genügend Platz für die Stimmen geschaffen und über eine komplexe Mechanik mit der [[Klaviatur]] verbunden. Im Unterschied zu anderen [[Akkordeon]]typen befindet sich die Klaviatur direkt über, und nicht hinter den Stimmen. Dies führt dazu das die verschiedenen Knopfreihen unterschiedliche Klangfarben erhalten.
+
+=== Besondere Bauformen ===
+Die Diskantseite wird bei einigen Modellen mit einer vierten Knopfreihe um eine Tonart ergänzt.
+
+Bei den Schwyzerörgeli mit Wiener- und Halbwienerton (zwei- und dreichörig) werden die Stimmplatten auf Stimmstöcken verbaut und mit Tremolo gestimmt.
+
+Die Bassseite kann mit Reihen für Terzbässe, Sept- und Mollakkorden ergänzt werden oder ganz nach dem [[Stradella-Bass|Stradella-Bass-System]] aufgebaut sein.
+
+== Festivals und Feste ==
+Das ''[[Eidgenössisches Volksmusikfest]]'' wird alle vier Jahre vom [[Verband Schweizer Volksmusik]] (VSV) organisiert. Neben den traditionellen Musikgruppen mit Schwyzerörgeli gibt es seit den 1960er Jahren sogenannte Grossformationen mit zehn oder mehr Schwyzerörgeli und einem Kontrabass. Seit 1997 veranstalten diese alle vier Jahre das ''Eidgenössische Ländler-Grossformationen-Fest'' (ELGF).
+
+== Bekannte Schwyzerörgelispieler ==
+Bekannte Schwyzerörgelispieler waren oder sind u.&nbsp;a. [[Dominik Marty]], [[Rees Gwerder]], [[Josias Jenny]], [[Ernst Jakober]], [[Hitsch Jenny]], [[Peter Zinsli]], [[Hausi Straub]], [[Res Schmid (Musiker)|Res Schmid]], [[Willi Valotti]], [[Josef Stump]], [[Balz Schmidig]], [[Franz Schmidig]] sen., [[Arno Jehli]], [[Paul Lüönd]], [[Alois Lüönd]], [[Daniel Lüönd (Musiker)|Daniel Lüönd]], Kristina Brunner, Werner Gasser, Hansruedi Kappeler, [[Daniel Thürler]], [[Markus Flückiger]], [[Martin Schütz (Volksmusiker)|Martin Schütz]], [[Peter Grossen]], Werner Aeschbacher, Thomas Aeschbacher, Marcel Oetiker, Simon Dettwiler und [[Robin Mark]]. Unter den zahlreichen Ländlerkapellen werden viele als Schwyzerörgeliduett, -trio oder -quartett bezeichnet.
+
+== Das Schwyzerörgeli bei den Jenischen ==
+[[Datei:Jenischer Handörgeler ca. 1900.jpg|mini|Jenischer Handörgeler um 1900]]
+Die [[Jenische]]n in der Schweiz bevorzugen ebenfalls das Schwyzerörgeli für ihre Musik, in welcher sie ihre eigenen traditionellen Rhythmen und Melodien mit Schweizer Volksmusik bunt vermischen.
+
+[[Fränzli Waser]] (1858–1895) war einer der ersten, der im Bündnerland auch Handorgeln bzw. Schwyzerörgeli in die [[Kanton Graubünden|Bündner]] Volksmusik einführte.
+
+In der Westschweiz mischen Jenische heute auf ihren Schwyzerörgeli gerne auch Ländlermusik mit einer Stilrichtung französischen Ursprungs: der [[Musette (Walzer)|Musette]]. Bekannte Vertreter dieser Stilrichtung sind die Musiker aus den Familien Werro und Mülhauser. Joseph Mülhauser, bekannt auch unter dem Künstlernamen Counousse, stellt in seiner Musik Verbindungen her zwischen dem Ländler und der [[Musik der Roma|Musik der Roma und Sinti]], insbesondere auch dem [[Gypsy-Jazz|Zigeunerjazz]].
+
+Der Film ''unerhört jenisch'' (2017, Regie Karoline Arn, Martina Rieder) thematisiert den Einfluss der Jenischen auf die Ländlermusik, insbesondere in Graubünden. Neben und zusammen mit [[Stephan Eicher]] treten im Film die ''Bündner Spitzbueba'' (Patrick Waser und Peter Gehring Schwyzerörgeli, Martin Waser Kontrabass) auf. Weitere Protagonisten sind die Formationen ''Moser Buaba, Vazer Buaba, Obervazer Töbelifäzer,'' das ''Älplerchörli Obervaz'' und ''AlpTon''.<ref>{{Webarchiv|url=https://www.martinarieder.ch/filme/detail-dokfilme/?tx_ttnews%5Btt_news%5D=1&cHash=21d2030164669119d15b56078932ecaf |wayback=20181025190301 |text=Filmsynopsis auf der Homepage der Regisseurin Martina Rieder |archiv-bot=2024-05-07 03:56:16 InternetArchiveBot }}</ref><ref>[https://www.tagesanzeiger.ch/kultur/pop-und-jazz/die-unbekannten-wurzeln-des-laendlers/story/15693417 Filmkritik im ''Tages-Anzeiger,'' 18. Januar 2017]</ref>
+
+== Literatur ==
+* Ernst Roth: ''Schwyzerörgeli. Eine Instrumentenkunde und Wegleitung für Volksmusikliebhaber.'' AT-Verlag, Aarau 1993, ISBN 978-3-85502-104-8.
+* Ernst Roth: ''Schwyzerörgeli. Eine Kulturgeschichte und Instrumentenkunde.'' AT-Verlag, Aarau 1983, ISBN 978-3-85502-454-4.
+
+== Weblinks ==
+{{Commonscat|audio=0|video=0}}
+* [https://www.reist-oergeli.ch/ueber-s-oergeli.html Über's Örgeli], auf reist-oergeli.ch
+* [https://www.aemmitaler-oergeli.ch/index.asp?l=1&p=29 Die Geschichte des Ämmitaler-Örgeli], auf aemmitaler-oergeli.ch
+* [http://ott-oergeli.ch/blog/die-schwyzeroergeli-geschichte/ Die Schwyzerörgeli Geschichte und wie es entstanden ist], auf ott-oergeli.ch
+* [https://langnaueroergeli.ch/langnaueroergeli.html Langnauerörgeli], auf langnaueroergeli.ch
+* [https://balbuluz.blogspot.com/2011/05/ein-langnauerli-von-gottfried-herrmann.html Ein Langnauerli von Gottfried Herrmann], auf balbuluz.blogspot.com
+* [https://balbuluz.blogspot.com/ Das Orgeli von Alois Suter (Lisäbethler)], auf balbuluz.blogspot.com
+* [https://ukebert.wordpress.com/2012/05/30/inside-and-out-part-3-schwyzerorgeli/ Inside and Out Part 3 – The Schwyzerörgeli], Blog mit Bildern eines geöffneten Instruments, auf ukebert.wordpress.com
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=s|GND=4832781-5}}
+
+{{SORTIERUNG:Schwyzerorgeli}}
+[[Kategorie:Traditioneller Ländler (Schweiz)]]
+[[Kategorie:Volksmusikinstrument]]
+[[Kategorie:Handzuginstrument]]

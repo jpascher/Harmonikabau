@@ -1,0 +1,42 @@
+[[Datei:Querfloete diagonal.jpg|mini|Querflöte]]
+[[Datei:ButtonAccordeon.jpg|mini|Akkordeon]]
+
+'''Aerophone''' (von {{elS|ἀήρ}}, „Luft“ und φωνή „Klang“; wörtlich „Luftklinger“) werden in der [[Hornbostel-Sachs-Systematik]] von 1914 alle [[Musikinstrument]]e genannt, bei denen der [[Klang]] durch direkte Schwingungsanregung der Luft erzeugt wird. Sie werden eingeteilt in:
+* freie Aerophone, bei denen die schwingende Luft nicht durch das Instrument begrenzt wird, und
+* (eigentliche) [[Blasinstrument]]e, bei denen die schwingende Luft durch das Instrument begrenzt wird.
+
+Die Unterscheidung nach der [[Tonerzeugung]] folgt im Schema von Hornbostel und Sachs auf der nächsten Ebene.
+
+== Freie Aerophone ==
+=== Ablenkungs-Aerophone ===
+Dabei wird die vorbeiströmende Luft geteilt und so modifiziert, dass es zur Schallerzeugung kommt. Bei freien Ablenkungs-Aerophonen wird die durch Brechung der Luft hervorgerufene Schwingung nicht von einem Instrumentenkorpus begrenzt. Hierzu gehört die [[Peitsche (Musikinstrument)|echte Peitsche]].
+
+=== Unterbrechungs-Aerophone ===
+Bei Unterbrechungs-Aerophonen wird die vorbeiströmende Luft regelmäßig unterbrochen, wodurch es zur Schallerzeugung kommt.
+
+Die meisten Unterbrechungs-Aerophone sind ''selbstklingend'', das heißt, der Luftstrom bewegt selbst das Element, das den Luftstrom regelmäßig unterbricht. Hierzu gehören Zungen-Aerophone: Bei Instrumenten mit [[Zunge (Tonerzeuger)|Zungen]] wird die vorbeiströmende Luft durch die [[Schwingung]]en der Zunge regelmäßig unterbrochen. Es gibt Zungen-Aerophone mit [[durchschlagende Zunge|durchschlagender Zunge]], die [[Durchschlagzungeninstrument]]e, z.&nbsp;B. [[Akkordeon]], [[Mundharmonika]] und [[Mundorgel]]. Dagegen gehören [[Mirliton]]e, bei denen die strömende Luft eine Membran in Schwingung versetzt, zu den [[Membranophon]]en.
+
+Bei nicht selbstklingenden Unterbrechungs-Aerophonen wird das unterbrechende Element nicht vom Luftstrom selbst bewegt. Hierzu gehören das [[Schwirrholz]], der [[Schnurrer]] und die [[Sirene (Gerät)|Sirene]].
+
+=== Explosiv-Aerophone ===
+Die Luft wird dabei einmalig verdichtet. Ein Beispiel ist das Kinderspielzeug Knallbüchse. Auch bei einer [[Peitsche#Kinematik des Peitschenschlages|Peitsche]] entsteht der Knall durch Verdichtung der Luft am Riemenende. Die nach der Hornbostel-Sachs-Systematik den Aufschlagrohren (also [[Idiophon]]en) zugehörenden [[Stampfrohr#Klassifizierung|Stampfrohre]] werden gelegentlich ebenfalls als „Explosivaerophone“ bezeichnet.
+
+== Eigentliche Blasinstrumente ==
+* Luftblattinstrumente (Schneideninstrumente): Bei [[Flöte]]n wird ein Luftstrom über eine Kante geführt, die den Luftstrom teilt und so modifiziert, dass es zur [[Schallerzeugung]] kommt. Bei den [[Querflöte]]n ist die Kante die eines seitlichen Blaslochs, bei randgeblasenen Flöten, zu denen [[Panflöte]]n gehören, die Rohrvorderkante. Die [[Blockflöte]] verwendet Labialpfeifen mit feststehender Anblaskante im Luftstrom.
+* Rohrblattinstrumente mit [[Einfachrohrblatt]] (aufschlagender Zunge), z.&nbsp;B. [[Saxophon]] und [[Klarinette]]
+* Rohrblattinstrumente mit [[Doppelrohrblatt]] (Gegenschlagzunge), z.&nbsp;B. [[Oboe]] und [[Fagott]]
+* Trompeteninstrumente (Lippenton-Aerophone) oder [[Blechblasinstrument]]e. Bei ihnen bringt der Luftstrom die menschlichen [[Lippe]]n zum Schwingen und wird von ihnen regelmäßig unterbrochen. Beispiele sind der [[Zink (Musik)|Zink]] und die [[Trompete]].
+* Bei den [[Membranopipe]]s unterbricht eine Membran den Luftstrom. Die Membran lässt bei erhöhtem Luftdruck periodisch Luft durch eine Öffnung entweichen, die sie im Ruhezustand geschlossen hält.
+
+Nach ihrer Form gehören [[Sucked trumpet]]s zu den Trompeteninstrumenten, der Ton entsteht jedoch mit den Lippen durch Ansaugen von Luft. Membranopipes und Sucked trumpets sind in der ursprünglichen Hornbostel-Sachs-Systematik nicht enthalten.
+
+== Weblinks ==
+{{Commonscat|Aerophones}}
+* {{DNB-Portal|4130371-4}}
+* [[Erich Moritz von Hornbostel]], [[Curt Sachs]]: ''Systematik der Musikinstrumente. Ein Versuch.'' In: ''Zeitschrift für Ethnologie,'' Band 46, Nummer 4–5, 1914, S. 553–590 ({{archive.org|zeitschriftfre46berluoft|Ausgabe=DS|Blatt=553}})
+
+{{Navigationsleiste Klassifikation von Musikinstrumenten nach Art der Tonerzeugung}}
+{{Normdaten|TYP=s|GND=4130371-4}}
+
+[[Kategorie:Musikalische Akustik]]
+[[Kategorie:Aerophon| ]]

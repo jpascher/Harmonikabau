@@ -1,0 +1,487 @@
+[[Datei:Pappel.jpg|mini|Steirische Harmonika der Marke Kärntnerland]]
+Die '''Steirische Harmonika''' ist ein [[Diatonik|diatonisches]], [[wechseltönig]]es [[Handzuginstrument]] mit [[Knopfakkordeon|Knopf-Tastatur]]. Die ''Steirische Harmonika'' wird in der [[Volksmusik]] in [[Bayern]], [[Österreich]], [[Südtirol]], [[Tschechien]], [[Slowenien]] und in etlichen weiteren Ländern verwendet. Das Wort „steirisch“ hat nur wenig mit dem Land [[Steiermark]] zu tun. Diese Bauart des Akkordeons wurde in Wien erfunden. Der Unterschied zu anderen [[Diatonisches Akkordeon|diatonischen Akkordeons]] besteht in der Verwendung der stark klingenden ''[[Helikonstimmplatten|Helikonbässe]]'' und dem ''[[Gleichton]]''. Durch den diatonischen Aufbau ist sie besonders geeignet, alpenländische Volksmusik zu spielen, diese Musik wurde in Wien „steirisch“ genannt als Synonym für ländliche Musik, und daher wurde das neue Instrument ''Steirische'' genannt.
+
+Andere gebräuchliche Bezeichnungen für die Steirische Harmonika sind: ''Steirische'', ''Ziehharmonika'', ''Knöpferlharmonika'', ''Harmonika'', ''Harmonie'', ''Zugorgel'', im Dialekt ''Ziach'', ''Ziacha'', ''Ziachharmonie'', ''Ziachorgel'', ''Zugin'' und ''Quetschn'', scherzhaft auch ''Faltenradio'', ''Wanznpress'', ''Zerrwanst'' oder ''Heimatluftkompressor''.
+
+== Bauarten ==
+[[Datei:Steirische Harmonika Styria Austria Ziehharmonika Knöpferlharmonika.JPG|mini|Alte Dreireihige Ziehharmonika]]
+[[Datei:Michlbauer Novak Superium Kirsch blau.jpg|mini|Steirische Harmonika der Marke ''Michlbauer Novak'' mit 46 Melodietasten, 16 Bässen, X-Bass und H-Bass]]
+Gebaut werden Instrumente mit drei, oft vier, selten fünf, sehr selten mit sechs Reihen, wobei jede Diskant-Reihe eine [[Tonart]] bedeutet. Im Zudruck erklingen die [[Dreiklang]]stöne der jeweiligen Tonart ([[Dur]]-Dreiklang der [[Tonika]]), im Aufzug erklingen die dazwischen liegenden Töne (zugehöriger [[Dominant-Sept-Akkord]]). Da der fünfte Ton der Tonleiter sowohl in der Tonika als auch in der [[Dominante]] vorkommt, ist wegen der leichteren Spielbarkeit dieser Ton in mittlerer Lage sowohl in Zug als auch in Druck eingebaut, wird also mit demselben Knopf gespielt, mit Ausnahme der äußeren Reihe. Diese in den folgenden Reihen je einmal vorhandene Taste wird „[[Gleichton]]“ genannt. In der Melodie vorkommende Töne, die nicht in dieses Schema passen, werden in den anderen Reihen gedrückt. Durch diese Bauweise ist bei dazu passenden (alpenländischen) Melodien eine äußerst flüssige Spielweise möglich.
+
+Instrumente mit drei Reihen wären für Volksmusik ausreichend, sind auch leichter zu erlernen. Häufiger werden jedoch vierreihige Instrumente hergestellt, da die Spieltechnik für viele Griffe einheitlicher ist. Durch die zusätzliche vierte Reihe kommt ein hoher Ton pro Tonart und ein Halbton pro Oktave hinzu. Für jede Reihe im Diskant gibt es auf der äußeren Reihe der Bassseite einen Bassknopf und einen Akkordknopf, ebenfalls wechseltönig. Auf Druck erklingt die Tonika, auf Zug die Dominante.
+
+Die Bass-Tasten der inneren Reihe werden auf Druck meist mit Übergangsbässen (Terzbässen) belegt, auf Zug erklingt in der inneren Bassreihe oft die vierte Stufe, die auf Druck ohnedies vorhanden ist. Nur auf Wunsch werden Mollbässe eingebaut, in der überlieferten Bauart auf Zug, mittlerweile oft auf Druck. Eine Wechselbasstaste für die erste Reihe fehlt. Bei neueren Modellen ist oft ein Wechselbass für die erste Reihe vorhanden. In diesem Fall ist häufig die letzte Basstaste in der zweiten Reihe als Wechselbass ausgeführt. Ein Übergangsbass (Terz) ist dann für die erste Reihe nicht vorhanden, an der Stelle, wo der Übergangsbass wäre, liegt die Wechselbasstaste. Ist ein zusätzlicher X-Bass eingebaut, so gibt es eine weitere Taste in der ersten Basstastenreihe, die mit der Wechselbasstaste der zweiten Reihe gekoppelt ist. Es fehlt aber noch der Übergangsbass für die erste Reihe. Erst wenn ein H-Bass eingebaut wird, ist auch der Übergangsbass für die erste Reihe vorhanden. Die Bezeichnung H-Bass hat Florian Michlbauer aus [[Weyregg am Attersee]] eingeführt.
+
+Das Gewicht auf der Bassseite wird nur unwesentlich höher, wenn man drei- und vierreihige Instrumente vergleicht. Der größere Teil der Gewichtserhöhung entfällt auf die Diskantseite. Die Faustformel lautet: Je höher die Qualität der Stimmplatten, desto schwerer ist das Instrument. Die Gewichtsangaben der Hersteller sind oft nicht korrekt, doch sind Instrumente desselben Modells fast immer gleich schwer.
+
+== Spielweise ==
+Aufgrund der diatonischen Bauweise ist es zumindest für den Anfänger schwierig, nach Noten zu spielen. Der Verlag Helbling ließ darum 1916 eine [[Tabulatur]] für die zweireihige diatonische Harmonika patentieren. Max Rosenzopf (1937–2020),<ref>{{OeML|Rosenzopf_Max.xml|Rosenzopf, Max|EMH|Druckausgabe=nein}}</ref> ein Musiklehrer aus [[Bärnbach]] in der Steiermark, hat dieses ältere System für die drei- und vierreihige Harmonika adaptiert, „Griffschrift“ genannt,<ref>{{Internetquelle |url=https://steirischeharmonika-lernen.de/die-griffschrift/ |titel=Die Griffschrift |werk=steirischeharmonika-lernen.de |abruf=2023-03-20}}</ref><ref>{{Internetquelle |url=https://www.volksmusikschule.at/griffschriftlehre.htm |titel=Spiel auf der Steirischen Harmonika nach Griffschrift (Tabulatur) |werk=volksmusikschule.at |abruf=2023-03-20}}</ref> und 1975 im Verlag Preissler ein erstes Schulwerk nach diesem System herausgegeben, das bis 1996 18 Auflagen erreichte. Seither hat sich dieses Griffschriftsystem durchgesetzt, so dass sich kaum ein Harmonikaspieler mehr vorstellen kann, nach normalen Noten zu spielen. Durch das leichtere Erlernen hat seither die Verbreitung der Steirischen Harmonika wieder stark zugenommen.
+
+Bedingt durch die zunehmende Beliebtheit der Steirischen Harmonika gibt es inzwischen Versionen der Griffschrift. Jede größere Musikschule hat eine eigene Lehrmethode, die sich von den anderen oft nur geringfügig unterscheidet. Es gibt etliche Spieler und Schulen, die wie früher nach Noten oder nach Gehör spielen oder unterrichten. Details zu diesen Spielweisen und Lehrmethoden finden sich unter dem Lemma [[Akkordeonschule]].
+
+== Technische Beschreibung ==
+Das typische Aussehen ist das Markanteste, sieht man vom typischen Helikonbassklang ab. Die Art der Basskonstruktion teilt sich die Steirische mit der tschechischen [[Heligonka]].
+
+Es werden in [[Österreich]], [[Deutschland]], [[Italien]] und [[Slowenien]] diverse Modelle hergestellt. Hersteller in anderen Ländern einschließlich Italien kopieren die traditionellen Instrumente. In Österreich und Bayern wird in den letzten Jahrzehnten vermehrt eine Vielfalt an Modellen angeboten, unterschiedlich sind häufig nur die äußere Aufmachung und die Art der Verzierung. [[Intarsie|Holzintarsien]] wurden schon immer benutzt. Auch sehr frühe [[Wiener Modell]]e waren mit kunstvollen Verzierungen versehen. Zu den bekanntesten Marken gehören Kärntnerland, Jamnik, [[#Peter Müller|Müller]], Öllerer, Strasser, Novak (siehe weiter unten [[#Harmonikabauer für Steirische Harmonikas (Auswahl)|Harmonikabauer für Steirische Harmonikas (Auswahl)]]).
+
+=== Verdeck und Verzierung ===
+Traditionell wurden immer Metallverdecke und Metalldekorborten verwendet. Jeder Hersteller hat ein eigenes Muster, an dem er erkannt werden kann. In letzter Zeit werden bedingt durch die neuen technischen Möglichkeiten vermehrt Holzverdecke und Dekorbänder angeboten, die mit Laserschneidetechnik oder mit Wasserstrahlschneidetechnik maschinell vorgeschnitten sind. Gehäuseteile werden in vielen Holzarten und Lackierungen angeboten, auch gewachste Oberflächen sind bei manchen Erzeugern im Angebot. Hin und wieder werden auch farbige Zelluloidoberflächen gefertigt. Meist kommt aber eine Schleiflackoberfläche mit widerstandsfähigem Lack zum Einsatz. Die Fertigung der Schleiflackbeschichtung ist arbeitsintensiv, da mindestens sieben Lackschichten aufgetragen werden, wobei zwischendurch mehrfach die Oberfläche geschliffen und poliert werden muss. So entsteht die beständigste und strapazierbarste Beschichtung. Gewachste Oberflächen sind zwar wesentlich einfacher zu fertigen, aber weniger beständig. Instrumente mit gewachster Oberfläche weisen meist nach einigen Jahren irreparable Gebrauchsspuren am Gehäuse auf. Kleinere Beschädigungen können durch leichtes Anfeuchten und nachträgliches Überschleifen und anschließendes Wachsen behoben werden.
+
+=== Korpus ===
+Das Korpus wird meist aus Mehrschichtholz gefertigt, das mit der gewünschten Holzoberfläche furniert wurde. Es gibt einige Erzeuger, die für die äußeren Rahmen auf Wunsch Fichtenmassivholz verwenden (Jamnik, Schmidt, Novak, Zernig). Jamnik und Haglmo fertigen alle Modelle ausschließlich aus Massivholz (nicht nur Fichte). Novak-Gehäuse bestanden früher immer aus Fichtenholz, seit der letzten Fertigung allerdings nicht mehr. Ein Blick in das geöffnete Gehäuse kann Klarheit schaffen. Schmidt fertigt alle Modelle mit Fichtenholzrahmen. Ein Verziehen der Rahmen ist nicht zu befürchten, da das Holz handverlesen und gut abgelagert ist. Die Holzpfosten werden ähnlich vorgespalten wie für Dachschindeln. Dadurch wird erreicht, dass die Maserung gleichmäßig und im rechten Winkel zur Oberfläche ausgerichtet ist. Für die Böden (Füllung) verwendet Schmidt Buchenschichtholz, Jamnik Erlenvollholz. Strasser hat ein Modell im Programm, das Kirschvollholz für die Gehäuserahmen verwendet. Zernig baut zwei Modellreihen, eine aus Mehrschichtholz, die zweite aus Massivholz in Erle, Fichte, Birne und Nuss. Das für die Gehäuserahmen verwendete Material hat einen gewissen Einfluss auf den Klang, dies sollte aber nicht überschätzt werden. Dem verwendeten Holz kommt nicht die gleiche Bedeutung zu wie bei Streichinstrumenten. Vorrangige Eigenschaft ist, dass das Gehäuse wenig Eigenschwingungen ausführt und den mechanischen Anforderungen gerecht wird. Mit weichen Holzarten erreicht man einen weicheren Klang, auch wenn diese in Form von Mehrschichtplatten zur Anwendung kommen. Furniertes fünf Millimeter starkes Mehrschichtholz ist von den mechanischen Eigenschaften gut geeignet. Für das Korpus sind daher praktisch alle Materialien verwendbar. Kritischer sind die Materialien für den Stimmstock und die eingebauten Kammern im Bassteil. Mehr Masse wirkt in Richtung kräftiger, brillanter Klang. Jedes Instrument hat seinen individuellen Klangcharakter. Die Abweichungen im Klang sind gering und wurden zumindest für einige Zeit, als erste Tests veröffentlicht wurden, als unbedeutend angesehen. Darüber besteht unter den Harmonikabauern eine geteilte Meinung.
+
+=== Balg ===
+Der [[Blasebalg#Akkordeon|Balg]] wird bei einigen Erzeugern zum Teil selbst gefertigt oder stammt von einem Zulieferunternehmen aus Italien oder Tschechien. Im Wesentlichen unterscheiden sich die Bälge kaum. Bei allen Erzeugnissen wird darauf Wert gelegt, dass die Bälge leichtgängig und extrem dicht sind. Die Unternehmen Müller, Strasser und Zernig fertigen die Bälge selbst. Zum Teil werden Arbeiten in Heimarbeit vergeben. Bälge mit abgerundeten Ecken kommen normalerweise aus Italien. Die metallischen Eckschoner sind bei Bälgen aus Österreich meist gezackt, eckiger und breiter, was bei der gleichen Anzahl von Falten zu einem etwas breiteren Balg führen kann, der dafür aber flexibler ist als ein vergleichbarer Balg aus italienischer oder tschechischer Produktion. Die Eckschoner werden mitunter unter den verschiedenen Herstellern ausgetauscht beziehungsweise gehandelt, und daher kann an der Art der Ecken nicht garantiert werden, wo der Balg gefertigt wurde. Die Eckschoner werden in der Fertigung verpresst, daher kann die Gesamtbreite des Balges auch bei gleicher Art der Eckschoner unterschiedlich breit ausfallen. Karton, Leder, Leinen, Dekor und Eckschoner ergeben nach Verklebung und Vorpressung die Gesamtbreite.
+
+Um gleiche Ergebnisse zu erzielen, muss ein Balg mit stark abgerundeten Ecken einige Falten mehr aufweisen. Gute Bälge sind beweglich, dicht und geräuschlos. Für das Leder in den beweglichen Ecken kommt hauptsächlich geschärftes Schafleder zum Einsatz. Beim Schärfen des Leders werden die Kanten, mit einem Messer oder einem speziellen Lederhobel, nach außen hin verjüngt.<ref>[http://www.steirische-harmonika-online.de/der-balg/ Der Balg der Steirischen Harmonika]</ref>
+
+Früher war eher Ziegenleder in Verwendung. Ziegenleder ist zwar meist dünner, aber dafür nicht so dicht. Einen absolut dichten Balg gibt es nicht. Selbst wenn die Innenseite der Eckleder mit einer Silikon- oder Teflonbeschichtung versehen wird, ist der Balg nicht völlig dicht. Auch die Klappenabdichtungen können nur bis zu einem gewissen Grad dicht sein. Ein Instrument verliert immer etwas an Luft.
+
+=== Diskant ===
+==== Diskantmechanik ====
+Am Anfang wurden alle Harmonikas mit offenen Holzhebeln gebaut. Seit langem haben alle Hersteller die Mechanik verbessert, auch wenn diese im Aussehen noch an die traditionelle Bauweise erinnert.
+
+Die Hebel werden nicht mehr ausschließlich aus Holz gefertigt. Es wird ein faserverstärkter, farbiger Polyamidkunststoff verwendet, in dem meist Aluminiumteile eingegossen sind. Der unter dem Verdeck liegende, nicht sichtbare Teil des Hebels ist aus Aluminium. Früher bestanden diese Teile aus runden Stahldrähten, die insbesondere bei den längeren Hebeln zu Vibrationen beim Spielen neigten. Die Präzision ist beim Griffbrett höher, da die erforderlichen Bearbeitungsschritte mit CNC-Maschinen ausgeführt werden. Eine „Holzmechanik“ verwendet meistens zwei Griffbrettteile, die übereinander geschraubt werden. Bei vierreihigen Instrumenten trägt jeder Teil zwei Tastenreihen, deshalb werden zwei Achsen als Lagerung für die Tastenhebel verwendet. Jamnik setzt in den massiven Holzgriffstock einen Kunststoffblock ein, in dem die Tasten einzeln montiert werden, teflon- oder kugelgelagert. Haglmo hat eine Diskantmechanik entwickelt, bei der die Hebel für die vier Reihen an vier Achsen aufgefädelt sind, somit also in jeder Reihe gleich lang, was einen gleich starken Andruck auf allen Tasten ermöglicht. Im Griffbrett befindet sich unter jedem Hebel eine Feder zum Andrücken der jeweiligen Klappe. Auch wenn sich diese Art der Tastatur äußerlich bei den verschiedenen Herstellern sehr ähnelt, sind geringe Unterschiede zu beobachten. Öllerer baut die Tastenreihen etwas enger aneinander. Der Abstand der Tasten beträgt meistens 19&nbsp;mm. Nur das Unternehmen Beltuna in Italien baut die Tasten enger zusammen. Die Höhe der Abstufung von Reihe zu Reihe muss nicht bei allen gleich sein. Sogar bei gleichen Herstellern hängt es mitunter vom jeweiligen Mechaniker ab, ob die Tasten mehr oder weniger Hub aufweisen.
+
+Manche Hersteller bieten zwei Varianten von Diskantmechaniken an, andere nur eine Variante. Öllerer (mit Kunststoffhebel oder Lagerung) und Edler (Holzhebel mit Messingbuchsenlagerung) bauen nur traditionelle Diskantmechaniken, Jamnik Holzhebel mit Kunststoff, wobei Jamnik eine Variante mit Kugellagern im Programm hat. Haglmo (Holzhebel mit Messingbuchsenlagerung) baut sowohl eine Holz- als auch eine klassische Aluminiummechanik, wobei die Besonderheit der Holzmechanik ein eigens patentiertes, vierachsiges System ist. Schmidt und andere Hersteller bauen mehrere Varianten (abgedeckte oder offene Mechanik). Die Diskantmechanik hat Einfluss auf den Klang des Instrumentes, da die bei einer abgedeckten Mechanik entstehenden Hohlräume eine gewisse Filterwirkung bringen. Dieser Einfluss auf den Klang kann nicht überbewertet werden.
+
+Die zweite abgedeckte Variante der Diskantmechanik geht auf neuere chromatische Klaviaturen zurück, die in Italien und Deutschland gebaut wurden. In der Anordnung und Abstufung der Tasten unterscheidet sich diese abgedeckte Diskantmechanik nicht. Die Abdeckung ist meist aus Holz und abgestuft. Die Knöpfe haben wie bei der Holzmechanik Filzunterlagen, die auf die Abdeckung bei gedrückter Taste aufliegen. Die Ausnehmungen in der Abdeckung dienen auch als seitliche Führung der Tasten. Die Hebel sind komplett aus Aluminium und neigen im Knickbereich zu Einrissen, wenn bei der Verarbeitung nicht achtsam gebogen wurde. Unter den Tasten ist ein rundes, zylinderförmiges Kunststoffteil auf den Hebel aufgepresst, an das der jeweilige Knopf angeschraubt ist. Alle Hebel für vier Tastenreihen sind auf einer Achse montiert. Die Achse ist jedoch etwas dicker als bei einer traditionellen Tastatur, da sie lediglich einmal nach vier Hebeln abgestützt wird. Die Gelenke sind als Gleitlager ausgeführt. Ein auf den Aluhebel aufgenieteter Messingbügel stellt zwei Stützpunkte pro Hebel bereit. Dies bedingt geringe Gleitflächen, daher ist diese Mechanik reibungsarm. In der Werbung wird dies oft als „frei schwebend“ bezeichnet. Diese Aluminiumhebel können relativ einfach in die erforderliche Position gebogen werden, was in der Fertigung einen nicht unwesentlichen Arbeitsaufwand darstellt. Müller baut seit 2014 eine eigene Lagerung, die ein aufgespritztes Kunststoffteil als Lager verwendet. Rihard in Slowenien verwendet stabile in die gestanzte Alubügel eingeschraubte Messinglager. Rahmen und Abdeckung der Tastatur sind nicht unmittelbar miteinander verbunden. Der Tastaturrahmen mit Daumenleiste und die Abdeckung werden mittels CNC-Maschine gefräst und wie das restliche Gehäuse weiter bearbeitet. Die am stärksten abweichende Diskantmechanik, die mit kombinierten Holz- und Aluminiumbügeln aufgebaut ist, baut Haglmo in seine Patentmodelle ein.<ref>{{Patent| Land=EP| V-Nr=1909259| Code=B1| Titel=Harmonika oder Akkordeon| A-Datum=2007-10-08| V-Datum=2017-01-11| Anmelder=Haglmo GmbH & Co KG| Erfinder=Siegfried Haslbeck}}</ref> Vier Achsen, für jede Tastenreihe eine eigene, die Hebel sind mit Messingbuchsen gelagert. Der Diskantboden ist gestuft und hat zusätzliche Reflexionsschirme. Dadurch erreicht er, dass die Reaktionsfreudigkeit aller Reihen einheitlich ist, bedingt aber auch eine Änderung des Diskantklanges.
+
+Müller fertigt nahezu alle Teile für die Tastatur selbst und beliefert kleinere Harmonikabauer mit Zulieferteilen. Diskanttastaturen dieser Art werden von einigen Herstellern in Italien gefertigt. Autark kann kein Harmonikabauer mehr existieren, da sich bestimmte Maschinen nur bei hohen Produktionszahlen lohnen.
+
+Kunststoffspritzgussteile und zum Teil auch Stanzteile werden bei Zulieferunternehmen in Auftragsproduktion vergeben. Knöpfe und Stimmplatten kommen von Unternehmen, die sich darauf spezialisiert haben. Die Diskantklappen sind meist Kunststoffspritzteile. Novak, Müller und die meisten italienischen Harmonikabauer verwenden dieselbe Art Klappen. Strasser verwendet ebenfalls ein Spritzgussteil für die Klappen; dieses sieht aber anders aus, da Strasser die Hebel mit Heißkleber an den Klappen befestigt. Öllerer verwendet Aluminium-Pressteile für die Klappen, die mit einem beweglichen Gummiteil auf den Aluhebel aufgeschoben werden. Aber bei der ersten Tastenreihe werden Weißblechpressteile für die Klappen verwendet, da in diesem Bereich weniger Platz für die Klappenbefestigung vorhanden ist. Bei der ersten Reihe werden die Klappen an die Hebel gelötet. Strasser verwendet eine eigene Tastatur, die prinzipiell so aufgebaut ist wie die Alumechanik, nur sind die Tastenhebel Kunststoffspritzgussteile, in welche die Aluminiumverlängerungen zu den Klappen eingegossen sind. Für jede Reihe ist somit ein eigenes Spritzgussteil vorhanden. Strasser spricht von einem Konuslagerring. Jeder Hebel hat im Bereich der Lagerung seitlich je eine konusförmige Ausformung, die einem Gegenstück als Lagerbock entspricht. Die Hebel bewegen sich somit nicht auf der Achse, sondern in den seitlichen konischen Ausformungen. Damit dies möglich wird, ist zwischen je zwei Hebeln ein Kunststoffteil als Lagerbock vorhanden, darüber hinaus muss seitlich ein Druck auf die Lager wirken. Eine Feder, die an einem Ende der Tastatur auf die Achse aufgesetzt ist, liefert den nötigen seitlichen Druck. Die Fertigung der Tastatur ist wenig arbeitsintensiv, es bleiben relativ viele handwerkliche Tätigkeiten.
+
+Präzision und Genauigkeit werden bei allen Varianten der Tastatur großgeschrieben. Im Einzelfall ist eine objektive Beurteilung kaum möglich, persönliche Vorlieben spielen eine große Rolle. Die Klappen sind generell mit Filz- und Lederabdichtungen versehen, die sich bei allen Herstellern gleichen.
+
+==== Diskantregister ====
+[[Register (Akkordeon)|Register]] werden von ''Beltuna'', ''Zupan, Fismen und Munda'' in steirische Harmonikas eingebaut. Nur Öllerer baut ein zweichöriges Modell mit [[Cassotto]] im [[Diskant]]. Die Füllung wird oft auch als Resonanzboden bezeichnet und trägt wenig zum Klangbild des Instrumentes bei, geringe Einflüsse sind aber möglich. Manche italienische Harmonikabauer sowie Öllerer und Haglmo verwenden Aluminiumfüllungen. Alpengold und Risch verwenden Karbonböden. Vorteil von Aluminium- bzw. Karbonfüllung ist die geringe Dicke, somit ist es leichter, die problematischen höheren Töne und manche Töne in der vierten Reihe in den Griff zu bekommen. Meist wird aber Mehrschichtholz mit 5&nbsp;mm Dicke verwendet. Strasser verwendet ebenfalls Mehrschichtplatten, aber mit 7&nbsp;mm Dicke, Jamnik massives Erlenholz mit 4&nbsp;mm Stärke. Damit die kritischen Töne trotzdem einwandfrei arbeiten, ist bei manchen Tönen der Öffnungsquerschnitt erhöht.
+
+==== Diskantstimmstöcke ====
+Für die [[Akkordeon#Stimmstöcke|Diskantstimmstöcke]] werden in der Herstellung unterschiedliche Verfahren verwendet. Italienische Hersteller und das Unternehmen Öllerer verwenden die Klebetechnik. Jamnik, Strasser und Müller verwenden CNC-Maschinen. Das verwendete Holz ist nicht bei allen Erzeugern gleich. Jamnik verwendet eine weiche ([[Abachi-Baum|Abachi]], Fichte, [[Riesen-Lebensbaum|Rotzeder]], [[Nootka-Scheinzypresse|Gelbzeder]]) für den Kanzellenteil des Stimmstockes. Die italienischen Hersteller benutzen zum Teil Mahagoni. Strasser und Müller verwenden Fichtenholz für den mittleren Teil. Für die Fußleiste wird bei Müller Ahornholz verwendet, Strasser verwendet eine Mehrschichtplatte. Die Kopfleiste ist immer aus härterem Holz. Auch die Ausformung der Kammern ist unterschiedlich. Manche frühere italienische Produkte sind im Bereich der Kopfleiste konisch, österreichische und deutsche Erzeuger hingegen fertigen die Kopfleiste (Rücken) gleich breit über die gesamte Länge. Somit ist die Trennwand bei den Letzteren in Richtung höherer Töne dicker (Keil) oder die Kammern der höheren Töne werden unterschiedlich tief gefräst beziehungsweise ausgefüllt. Müller hat etwas größere Tonöffnungen als Strasser. Die Stimmstöcke sind bei manchen Herstellern wie Müller je nach Einbaureihe schräger gestellt, um mehr Platz für die schwingenden Zungen zu schaffen.
+
+Da der Stimmstock nach den Stimmplatten den größten Anteil an der klanglichen Qualität hat, sind wesentliche Unterschiede bei den diversen Herstellern zu erwarten. Grundlegende Unterschiede in der Gestaltung der Stimmstöcke sind nicht vorhanden. Abmessungen und Anordnung der Stimmstöcke sind beinahe bei allen Herstellern gleich. Die Außenabmessungen werden im Wesentlichen von der Anzahl der eingebauten Bassstimmplatten bestimmt.
+
+=== Bassteil ===
+[[Datei:Mengascini1.jpg|mini|Traditioneller Stufeneinbau 38 × 20&nbsp;cm Gehäuse]]
+[[Datei:Pustra-Bassteil.jpg|mini|Traditioneller Stufeneinbau mit Stockwerk – Doppelhelikon 38 × 20&nbsp;cm Gehäuse]]
+[[Datei:Kaiser-Bassteil.jpg|mini|Flacher Einbau in zwei Reihen – Doppelhelikon 38 × 21,3&nbsp;cm Gehäuse]]
+[[Datei:FISMEN4.jpg|mini|Gefalteter stehender Einbau – Einzelhelikon + Terzetti 38 × 20&nbsp;cm Gehäuse]]
+[[Datei:ORA-Bassteil.jpg|mini|hochkant|Abgewinkelter Einbau Einzelhelikon + Terzetti 38 × 20&nbsp;cm Gehäuse]]
+[[Datei:Johann Pascher Bassteil.JPG|mini|Kombinierter Einbau Gehäuseabmessungen 38 × 19 cm]]
+[[Datei:Zechner Bass.jpg|mini|Basseinbau einer chromatischen Zechner Harmonika aus dem Jahr 1913, 38 × 20 cm]]
+Bei vierreihigen Instrumenten werden meist vier doppelte und vier einfache [[Helikonstimmplatten]] eingebaut (38&nbsp;cm × 20,5&nbsp;cm). Dies ist die am weitesten verbreitete Bauart. Es gibt Sondermodelle von verschiedenen Herstellern, die acht und mehr doppelte Helikonbässe besitzen.
+
+Wird bei gleichen Abmessungen und Bauart ein H-Bass eingebaut, bedeutet dies aber, dass an einer weiteren Stelle im Gehäuse ein halber Helikonbass eingebaut sein muss, oder es wird ein weiterer doppelter Helikonbass durch zwei einfache Bassplatten ersetzt. Nachträglich ist ein derartiger Umbau nicht möglich. Auch das Ersetzen einer doppelten Bassplatte durch zwei einfache ist nicht ohne Kompromisse möglich, da zwei einfache Helikonstimmplatten mehr Platz brauchen als eine doppelte. Daher müssen die verbleibenden drei doppelten Helikonstimmplatten durch etwas schmälere doppelte Helikonbassplatten ersetzt werden.
+* In manchen Modellen sind auch nur drei doppelte und fünf einfache Helikonplatten eingebaut (36&nbsp;cm × 20,5&nbsp;cm).
+* Strasser baut ein Modell mit vier doppelten und fünf einfachen Helikonstimmplatten (38&nbsp;cm × 20&nbsp;cm).
+Die Strassersche Art des Bassteilaufbaus weicht von der traditionellen steirischen Bauweise ab und besitzt einen flachen Bassboden ohne Abstufung. Jedoch wurde in Klingenthal und Wien diese Ausführung schon immer verwendet. Ältere Strasser-Harmonikas waren im Bassteilaufbau traditionell steirisch. Die Helikonkammern bei dieser Bauweise sind etwas weniger tief, eine ebene Füllung erleichtert den Einbau der Bassmechanik. Erst durch diese ebene Füllung wird es leichter möglich, einen weiteren einfachen Helikonbass um 90° gedreht an der Vorderkante des Bassgehäuses einzubauen. Dieser Bass funktioniert schlechter als die restlichen einfachen Bässe und bleibt ein Kompromiss. Auch bei der traditionellen Bauweise gibt es die Möglichkeit, vorn im Bereich der Abstufung bis zu zwei einfache Helikonbässe einzubauen, allerdings ist der Einbau technisch nicht einfach.
+
+Die nachfolgenden Varianten, die von manchen Harmonikabauern angeboten werden, sind kein Kompromiss, aber führen zu nicht unwesentlich mehr Gewicht der Bassseite.
+* Öllerer baut ein Luxusmodell mit 10 doppelten Helikonstimmplatten mit maximal 20 Basstasten bei nahezu gleichen Abmessungen (38&nbsp;cm × 21&nbsp;cm). Dabei werden die Helikonstimmplatten aufgestellt und ragen in den Balg. Die Anzahl der Balgfalten ist bei diesen Modellen größer, um im Innenraum Platz für die stehenden Helikonstimmplatten zu haben. 12 doppelte Helikons im Sondermodell sind möglich, wobei die Abmessungen noch nicht bekannt sind.
+* Jamnik umgeht das Platzproblem, indem er die Basskanzellen etagenartig, in den Balgteil hineinragend, anordnet. Dadurch sind 10 Stimmplatten, d.&nbsp;h. 20 Bässe in zweichöriger Ausführung in ein 38 × 21&nbsp;cm Gehäuse einbaubar. Ein Sondermodell mit 12 doppelten Helikons und 23 Basstasten, davon drei Koppelungen, ist ebenfalls im Programm (42 × 20,5&nbsp;cm).<ref>{{Patent| Land=AT| V-Nr=402241| Code=B| Titel=Bassteil für eine Harmonika| A-Datum=1995-06-07| V-Datum=1997-03-25| Erfinder=Hermann Jamnik| Kommentar=Nach 20 Jahren im Jahre 2015 ausgelaufen}}</ref>
+* Pustra baut (lässt bei FISMEN bauen) bis 8 doppelte Helikonbässe in traditioneller Bauweise, ähnlich wie Jamnik mit Stockwerk, wobei die beiden doppelten Helikonbässe im Stockwerk um 90° gedreht sind und damit nicht dem Patent von Jamnik entsprechen. Die Begleiter sind nicht wie bei Jamnik eingebaut, sondern traditionell.
+* Alpengold baut eine neue Serie mit 10 doppelten Helikon-Bässen im 40 × 21&nbsp;cm großen Gehäuse. Einbau stehend, so ähnlich wie bei Öllerer, jedoch mit abweichendem Stimmstock.
+* Alpengold baut die Pixner-Serie, die auch Riesch, Fismen und ORA nachbaut, als einfache Helikonbässe mit Zusatzstimmplatte (Terzetti) im 38 × 20&nbsp;cm großen Gehäuse.
+* Martin Schaider und Kaiser bauen bis zu 10 doppelte Helikonbässe in einer Ebene 5 + 5 hintereinander im 38 × 21,3&nbsp;cm Gehäuse.
+* ORA baut bis zu 10 Helikonbässe mit Zusatzstimmplatte (Terzetti) im 38 × 20&nbsp;cm großen Gehäuse, wobei der Stimmstock (abgewinkelter Stimmstock mit Helikonbässen obendrauf) dem eines chromatischen Akkordeons mit Helikonbässen entspricht.
+* EDLER (Gerhard Grübel) hat eine Harmonika mit 12 doppelten Helikon-Bassplatten + 1 Doppelhelikonbass zusätzlich in einer Balgrichtung + 8 Akkorde + 2 Koppelungen (liegende Bassplatten ohne Bassstimmstock) gebaut, 50 Diskantknöpfe, 23 Bassknöpfe mit Gehäuseabmessung 34,4 × 19,7&nbsp;cm. Die Helikonstimmplatten haben etwas andere Abmessungen als üblich, jedoch mit den üblichen Zungenabmessungen.
+* Johann Pascher hat eine Harmonika mit 11 doppelten und einer einfachen Helikonstimmplatte mit 39 Bassknöpfen gebaut. Dabei sind 8 Durakkorde auf Druck, 5 Durakkorde auf Zug und 7 Mollakkorde auf Zug zur Begleitung vorhanden (37,5&nbsp;cm × 18&nbsp;cm). Weiters eine Harmonika mit 12 doppelten Helikonstimmplatten und 24 Begleitern mit je drei Tönen im 38 × 19&nbsp;cm großen Gehäuse mit einem Gewicht von 7&nbsp;kg. Der Diskant ist zweichörig und hat 55 Knöpfe und 48 Bassknöpfe, wovon 12 gekoppelt sind.
+* Franz Zechner aus Graz baute bereits 1913 eine Harmonika mit 12 Helikonstimmplatten und 48 Begleiterstimmplatten. Die Harmonika hatte 42 Bassknöpfe. Sieben Helikonstimmplatten hat er traditionell liegend und fünf stehend eingebaut. Der Raumbedarf war unwesentlich mehr.
+
+==== Bassmechanik ====
+[[Datei:Kaiser2 (1).jpg|mini|Italienische (slowenische Novak) Mechanik]]
+
+Es werden fast von allen Harmonikabauern Kunststoffgelenke verwendet. Die meisten sind ähnlich und funktionieren gut. Basstasten sind mit mehr Federdruck auf den Klappen ausgestattet. Dies ist notwendig, da auch die Tonöffnungen einen größeren Querschnitt aufweisen. Die Hebel werden aus Edelstahldraht gebogen, da Aluminiumdrähte zu weich wären und zu stark federn würden. Manche Teile werden in der Fertigung mit Pressen vorgebogen, die meisten Teile werden noch beim Einbau mit der Hand zurechtgebogen. Jamnik verwendet eine Konstruktion aus Stahldraht und verdrehfestem Messingrohr, teflon- oder kugelgelagert. Strasser hat auch für diesen Bereich weitgehend eine Vereinfachung in der Montage erzielt. Manche italienische Produkte waren nicht so leichtgängig und geräuschlos.
+
+Die Tasten sind mit Filzführungen ausgeführt. Sind die Klappen aus formgepresstem Weißblech, so sind sie direkt an die Hebel angelötet. Dies ist auch bei fast allen Herstellern gleich. Die Lederdichtungen und der Filz unter den Klappen sind auch so dick wie auf der Diskantseite. Öllerer verwendet bei den Luxusmodellen extra Leder auch auf der Gegenseite, wo die Klappen aufliegen. Dies führt zu einer Verminderung der Klappengeräusche. Vollständig können die Geräusche aber weder auf der Diskantseite noch auf der Bassseite vermieden werden. Allgemein sind kurze Hebel problemloser als lange. Sind übermäßige Geräusche wahrnehmbar, sind meist die Lager nicht in Ordnung. Bei neuen Instrumenten sind aber kaum Probleme zu befürchten. O.R.A und viele andere italienische oder slowenische Hersteller kopieren die traditionelle Bauweise fast komplett, oft sieht die Mechanik anders aus. Diese Unternehmen orientieren sich an einer gekoppelten Mechanik. Diese Mechaniken, die gemeinsame Lagerböcke für mehrere Achsen verwenden, sind bereits verbreitet. Die in diesen Mechaniken verwendeten Hebel und Achsen sind punktgeschweißt. Alle Längsachsen befinden sich „schwimmend“ in einem gemeinsamen Lagerbock und werden durch Überlager in Position gehalten. Dabei führen relativ viele Achsen über die komplette Länge des Bassteils. Die älteren Ausführungen hatten relativ hohe Reibung der Achsen gegeneinander. Oft bedingt diese Bauweise ein etwas höheres Gewicht als bei herkömmlichen Konstruktionen. Ein Vorteil dieser Konstruktion ist, wenn viele weit entfernte Tasten gekoppelt werden, oder bei größeren Bausystemen. Manche slowenische Fabrikate wie Ruthar und Rihard verwenden eine dritte Variante der Mechanik, die mit stabileren Messinglagern und kräftigen Aluminiumhebeln aufgebaut ist, die aber vorzugsweise nur in Basssystemen mit maximal sechzehn Knöpfen Verwendung findet.
+
+==== Bassverdeck ====
+Anordnung und Menge der Öffnungen im Bassverdeck beeinflussen den Klang sehr stark, hingegen wirken sich die Schalltrichter nur unwesentlich auf den Bassklang aus, sondern stellen in erster Linie ein dekoratives Element dar. Vergleiche sind nur unter gleichen Aufbauten möglich. Beim traditionellen Einbau der Helikonkammern wirkt das Verdeck im hinteren Bereich als [[Cassotto]], die Öffnungen im Verdeck befinden sich bei der traditionellen Bauweise mit Helikonbässen äußerst selten im hinteren Bereich der Abdeckung. Bei Aufbauten aus dem Hause Strasser, aber auch dem Einbau bei Öllerers Luxusmodellen oder Jamniks Patentmodellen oder anderen abweichenden Basseinbauten ist es unbedingt erforderlich, dass das Verdeck auch im hinteren Bereich Durchbrüche aufweist. Klanglich sind daher bei diesen Modellen Unterschiede vorhanden.
+
+==== Begleit-Stimmplatten und Stimmstock ====
+Die Begleittasten (Bassakkorde) sind normalerweise mit vier Stimmplatten (acht Stimmen – vier auf Zug und vier Druck) pro Akkord ausgeführt. Einige Erzeuger wie Alpengold oder Kaiser verwenden nur drei pro Akkord. Die Zusammensetzung der Töne ist nicht bei allen Akkorden identisch. Auch bei Instrumenten gleicher Stimmung gibt es je nach Erzeuger Abweichungen. Der Stimmstock ist traditionell in einem Stück und an der Vorderseite senkrecht vor den Bassplatten montiert, jedoch beim Jamnik-Patentmodell, Martin Schaiders Eigenentwicklung und Kaiser zweigeteilt und waagrecht oben und unten in Basskasten montiert.
+
+=== Belegung ===
+Für die erste Basstastenreihe ist die relative Belegung immer gleich. Für die zweite Basstastenreihe sind viele Varianten in Verwendung. (Siehe Link Tastenbelegung.)
+
+Die Diskantbelegung ist immer identisch. Nur manche Tasten am unteren (selten auch am oberen) Ende der Tastatur sind bei manchen Instrumenten mit unterschiedlichen Halbtönen belegt. Oft werden nur eine oder zwei Tasten der ersten Reihe durch Halbtöne ersetzt. Bei Modellen mit 50 Tasten ist pro Reihe am unteren Ende eine Taste mehr vorhanden (mit „unten“ sind die tiefer klingenden Tasten oben Richtung Kinn gemeint). (Siehe Link Tastenbelegung.)
+
+=== Stimmung ===
+Unter Stimmung wird die Grundtonart pro Reihe verstanden. Übliche Stimmungen sind: A, D, G, C – G, C, F, B – F, B, Es, As – B, Es, As, Des … Aber Stimmung bezieht sich auf die verwendete Skala „[[Stimmung (Musik)|temperiert]]“ oder „[[Stimmung (Musik)|rein]]“.
+
+Allgemein ist es üblich, die Drucktöne nicht exakt an der temperierten gleichstufigen Stimmung zu orientieren. Müller und Öllerer bringen gewisse Korrekturen an, Strasser stimmt eher temperiert. Auf das Rein-Stimmen von Instrumenten kann viel Zeit verwendet werden. Je höher die Qualität der Stimmplatten ist, desto genauer kann auch das Instrument gestimmt werden.
+
+=== Tremolo ===
+Meist wird angeboten, dass das [[Tremolo (Akkordeon)|Tremolo]] nach den Wünschen des Kunden eingestimmt wird. Es gibt aber Varianten, pro Ton sind meist drei (seltener zwei) Stimmplattensätze eingebaut, dies heißt dreichörige oder zweichörige Harmonikas. Ein Satz Stimmplatten wird exakt auf die jeweilige Skala gestimmt, der zweite nach oben hin in der Tonhöhe verstimmt. Somit ergibt sich ein [[Schwebungston]], der von kaum merklich bis zu sehr aufdringlich gewählt werden kann. Das gilt für den dritten Stimmplattensatz, nur wird dieser in der Tonhöhe unter den ersten Stimmplattensatz gelegt. Für Stubenmusik ist meist schwaches Tremolo in Verwendung, für Tanzmusik wird ein kräftigeres Tremolo bevorzugt, da damit die Lautstärke und die Hörbarkeit bei Hintergrundgeräuschen erhöht wird. Zwischen sehr kräftig bis fast keines sind viele Zwischenstufen möglich. Einen Standard gibt es nicht. (Tremolo beim Akkordeon siehe [[Tremolo (Akkordeon)|Tremolo]].) Das Tremolo wird in den meisten Fällen nach dem Gehör von Hand gestimmt. Ein Hilfsmittel ist der Rumberger Tremolo Generator. Dieser wurde 1995 von Peter Rumberger entwickelt. Er ermöglicht es, eine bestimmte gewünschte Schwebung zu erzeugen, sodass mehrere Instrumente mit dem exakt gleichen Tremolo gestimmt werden können oder ein einzelnes Instrument bei jedem Stimmen das gleiche Tremolo erhält.<ref>[http://www.musik-rumberger.de/rumberger-tremolo-generator/ Rumberger Tremolo Generator]</ref>
+
+=== Stimmplatten-Qualität ===
+* „Machina“ ist die niedrigste Qualität am Markt.
+* „Dural Export“ ist die nächsthöhere.
+* „Tipo a mano“ ist die nächsthöhere.
+* „A mano“ ist die höchste Qualitätsstufe am Markt, oft auch als „Professionell“ oder mit anderen Zusätzen bezeichnet.
+
+Diese Bezeichnungen sind verwirrend, da es keine Normen gibt, betrachte die Gegenüberstellung der drei größten Hersteller von Stimmplatten. Es gibt Akkordeonerzeuger, die nicht die vom Erzeuger verwendeten Bezeichnungen angeben, sondern eigene. Die Stimmplattenqualität unterscheidet sich in Bezug auf Fertigungstoleranzen, Dimension und Konstruktion wie auch in der Art der Fertigung. Die beste Qualität ist handgenietet. (Weitere Angaben siehe [[Stimmplatte]].)
+Verwirrend sind die verschiedenen Tonhöhenbezeichnungen in Deutsch, Englisch oder Italienisch<ref>''HARMONIKAS s.r.o. Vergleichstabelle ''{{Webarchiv |url=http://www.harmonikas.cz/admin/files/ModuleText/13-sortiment-tonumfang.pdf |text=Tabellen mit den Tonhöhen und Rahmengrößen |wayback=20140812210925 |archiv-bot=2024-05-16 22:27:52 InternetArchiveBot}} (PDF; 692&nbsp;kB)</ref>. Je nach Stimmplattengröße gibt es eine größere Anzahl von möglichen Tönen, das heißt, dass die meisten Töne auf verschiedenen Stimmplattengrößen möglich sind. Stimmplattensätze können unterschiedlich groß ausfallen und sind daher nicht ohne Weiteres ohne Eingriffe in die Stimmstöcke, auf denen die Stimmplatten montiert sind, austauschbar.
+Die drei wichtigsten Erzeuger von Stimmplatten, die in der steirischen Harmonika verwendet werden, sind die Firmen:
+VOCI ARMONICHE S.r.l.<ref>''Streetfew von der Firma VOCI ARMONICHE S.r.l., Via Filottrano 2, Osimo, AN 60027, Italy ''[https://www.google.at/maps?q=Voci+Armoniche+S.r.l.,+60027,+Osimo,+Ancona,+Italy&hl=en&ll=43.465177,13.458155&spn=0.005646,0.010568&sll=43.46317,13.464412&sspn=0.361322,0.676346&t=h&hq=voci+armoniche+srl&hnear=Osimo,+Province+of+Ancona,+Marche,+Italy&z=17&layer=c&cbll=43.465112,13.45814&panoid=DYfHn-L69ZwuXuHLDtixUA&cbp=13,312.62,,0,-6.86 Streetfew]</ref>
+Cagnoni s.p.a.<ref>''Streetfew von der Firma Cagnoni s.p.a., Via Recanati, 8, Osimo Ancona, Italy ''[https://www.google.at/maps/@43.4817293,13.4914436,3a,75y,199.6h,85.54t/data=!3m4!1e1!3m2!1snCgCyzoCy_xbT2xvYH-E8A!2e0?hl=en Streetfew]</ref>
+HARMONIKAS s.r.o<ref>''Webcam mit Blick auf HARMONIKAS s.r.o. Poděbradova 2506, Louny, Tschechische Republik ''[http://ol5q.nagano.cz/cam.html Webcam]</ref>
+{| class="wikitable"
+|-
+|
+! colspan="8"| Güteklasse
+|-
+| Erzeuger (Link zu Tabellen) || VIII || VII || VI || V || IV || III || II || I ||
+|-
+| Aluminiumrahmenhärte || 70 || 80 || 120–150 || 120–150 || 120–150 || 120–150 || 120–150 || 160 ||
+|-
+|Antonelli u. Salpa (VOCI ARMONICHE S.r.l.)<ref>''Antonelli u. Salpa (VOCI ARMONICHE) ''[https://www.vociarmoniche.it/media/1180/tavola-comparativa-voci-eng.pdf Informations PDF]</ref> || || Tipo c || ||Super Dural||Tipo a Mano Avional||Tipo a Mano||A Mano|| ||
+|-
+|Cagnoni s.p.a<ref>Cagnoni s.p.a [http://reeds.cagnoni.com/index.php?lng=en&page=11 Produkt Beschreibung]</ref> ||Economy Line||New Commercial Line||Export||Dural||Tipo a Mano Dural extra||Tipo a Mano||A Mano|| ||
+|-
+|HARMONIKAS s.r.o.<ref>''HARMONIKAS s.r.o. ''[https://www.harmonikas.cz/product/a-mano-nastrino/ Sortiment Tabellen]</ref> || || || || ||Klasse IV||Klasse III||Klasse II, Typo a Mano||Klasse I, A Mano ||
+|-
+|}
+
+== Fertigungsprozess ==
+Fertigungsprozess und Produktionsablauf ähneln sich bei verschiedenen Erzeugern. Beim Vergleich der beiden größeren Erzeuger in Österreich finden sich gewisse Unterschiede. Alle weiteren Betriebe in Europa sind von einer Größenordnung unter der von den Unternehmen Müller, Strasser und Öllerer einzuordnen, lediglich manche Unternehmen in Italien sind wohl größer, wie Beltuna. Jedoch erzeugt Beltuna in erster Linie chromatische Instrumente. Die meisten Betriebe sind noch kleine Familienbetriebe. Müller und Strasser beschäftigen zurzeit zusammengerechnet etwa 58 Mitarbeiter und produzieren im Jahr zusammengerechnet circa 2200 Instrumente.
+
+== Vergleich des Produktionsablaufs ==
+* Schmidt
+** Zuschnitt des massiven Fichtenholzes, bei dem die Jahresringe gerade durchlaufen (stehende Jahresringe)
+** Ganzer Korpus (Oberkasten, 2 Balgrahmen, Basskasten) wird in einem Stück verzinkt und verleimt
+** Aus einem, gesamten Korpus werden die einzelnen Teile (Oberkasten, 2 Balgrahmen, Basskasten) herausgearbeitet
+** Bereits vorgefertigte Diskantfüllung wird an den Oberkasten angebracht
+** Jede Seite wird extra furniert und/oder handbemalt bzw. mit Intarsien versehen
+** Fertiger Korpus wird glänzend oder seidenmatt lackiert
+** Montage der Stimmstöcke
+** Endmontage der Hebel und Klappen der Diskantmechanik
+** Vorstimmen der Stimmplatten am Stimmtisch und Aufwachsen der Stimmplatten auf den Stimmstöcken
+** Reinstimmen der Stimmplatten im fertigen Instrument
+* Müller
+** Gehäuseteilezuschnitt unfurniert inklusive Balgrahmen
+** Verleimen der Gehäuseteile mit der Füllung, die Füllung hat zu diesem Zeitpunkt noch keinerlei Bohrungen
+** Furnieren des Diskantteiles
+** Balgrahmen wird vom Diskantgehäuse abgetrennt
+** Bearbeiten des Diskantteils mit der CNC-Maschine – alle Bohrungen werden in die Füllung eingebracht
+** Schleiflackbeschichtung wird aufgebracht
+** Endmontage der Tastatur und der Klappen
+** Erste Montage der Stimmstöcke und neuerlicher Ausbau
+** Bestücken der Stimmstöcke mit Stimmplatten und Vorstimmen der Stimmplatten am Stimmstock
+** Einbau der Stimmstöcke in das mechanisch vollständig fertige Instrument und Reinstimmen des Diskantteils
+* Strasser
+** Gehäuseteilezuschnitt furniert inklusive Balgrahmen
+** Verleimen der Gehäuseteile ohne Füllung
+** Balgrahmen wird vom Diskantgehäuse abgetrennt
+** Schleiflackbeschichtung wird aufgebracht
+** Vorbereiten der Diskantfüllung, die Mehrschichtplatten für die Füllung werden schleiflacklackiert, zugeschnitten und mit der CNC-Maschine bearbeitet
+** Vorratshaltung für die diversen Modelle mit den unterschiedlichen Diskantbestückungen
+** Diskantfüllung wird in den lackierten Rahmen eingesetzt und verleimt
+** Endmontage der Tastatur und der Klappen
+** Diskantstimmstöcke werden auf Vorrat gebaut, um rasch auf Kundenwünsche reagieren zu können. Die bevorrateten Stimmstöcke sind vollständig mit Stimmplatten bestückt und vorgestimmt.
+** Einbau der Stimmstöcke in das mechanisch vollständig fertige Instrument und Reinstimmen des Diskantteils
+* Dabei treffen Aussagen zu Bassteil analog für den Diskantteil. Gewisse Unterschiede ergeben sich aus Unterschieden im Aufbau des Bassteils.
+** Müller, Schmidt und alle anderen Hersteller, welche die traditionelle Konstruktion verwenden, fertigen einen Block mit den Basskammern, der getrennt vom Bassgehäuse vorgefertigt wird. Dieser Helikonblock wird vor dem endgültigen Einleimen in das Bassgehäuse mit der Mechanik versehen. Nur die Tasten werden nach dem Einbau in das Bassgehäuse noch montiert. Dieser Block bildet die vollständigen Kammern und hat auch an der Rückseite eine Holzleiste. Die beiden Leisten, die zur Befestigung der Stimmplatten mit Haken dienen, sind breiter und aus Hartholz. Die Trennwände sind aus 5&nbsp;mm dicken Fichtenholz. Dieser Block beinhaltet auch den Aufbau für den Begleiterstimmstock. Die Anordnung des Begleiterstimmstockes variiert bei dieser Bauweise geringfügig je nach Harmonikabauer. Bei manchen ist er leicht schräg gestellt (Schmidt, Strasser alte Ausführung)
+** '''Jamnik''' setzt bei den Sondermodellen zwei Begleitstimmstöcke seitlich, im rechten Winkel zu den Bass-Stimmstöcken ein und baut die Mechanik auf einer Ebene auf, auf Wunsch ist diese kugelgelagert. Die Luftklappe kann auf Wunsch an der Innenseite montiert werden, um eine bessere Abdichtung bei druckvollem Spiel zu gewährleisten. Bei den Standard-Modellen sitzt der Begleiterstimmstock tiefer und die Mechanik ist auf einer Ebene aufgebaut, dadurch nähert sich Jamnik der moderneren Strasserbauweise an. Die Füllung ist mit einem ähnlichen Knick versehen wie bei der traditionellen Bauweise, nur um die Breite des Begleiterstimmstockes schmäler. Die Luftklappe ist in der Ebene, wie es auch bei der traditionellen Bauweise der Fall ist.
+** Strasser fertigt das Bassgehäuse komplett analog zum Diskant. Wohl werden Teile für die Helikonbasskammern vorher vorgeleimt, diese werden aber in den bereits lackierten Bassrahmen eingeleimt. Die für die Befestigung der Bassplatten dienende Holzleiste besteht aus Nussholz. Die Trennwände der Helikonkammern sind aus Fichtenholz. Die Mechanik wird erst eingebaut, nachdem alle Holzteile verleimt sind. Alle Hebel sind auf einer ebenen, frei zugänglichen Fläche aufgebaut. Zwei Kunststoffspritzteile werden auf die Bassfüllung eingeschraubt. In diese Teile werden die Lagerböcke für die erforderlichen Hebel eingeschnappt. Wenige Schrauben sind für die Befestigung der Bassmechanik erforderlich. Diese Variante kann mit Sicherheit rascher gefertigt werden, der Klang des Basses unterscheidet sich aber vom Klang bei der traditionellen Bauweise.
+
+== Historische Bauweise ==
+=== Allgemeine Fertigungsmerkmale ===
+Manche Fertigungsmerkmale sind bei modernen Modellen nicht mehr anzutreffen. Abgesehen von äußeren Ausführungsmerkmalen, die stark modebedingt sind, war die Vielfalt bis zum Zweiten Weltkrieg größer. Es gab eine größere Anzahl kleiner Unternehmen, die sehr individuell auf die Wünsche der Kunden eingingen. Manche Diskant- und Bass-Tonbelegungen sind nicht mehr anzutreffen. In Aufbau und Konstruktion wurden praktisch alle Möglichkeiten ausprobiert. Spricht man mit erfahrenen Harmonikabauern, so bekommt man oft die Antwort „alles bereits mal dagewesen“, viele Neuerungen, die patentiert oder ohne Patent umgesetzt werden, wurden in ähnlicher Form bereits früher verwendet. Die größte Verbreitung fanden früher dreireihige Instrumente, jedoch wurden auch vier- und fünfreihige Instrumente gebaut. Vergleicht man dreireihige Instrumente, die in der Zeit von 1914 bis 1930 gebaut wurden, mit nach 1990 gebauten, so sind die älteren Instrumente meistens etwas kleiner in den Abmessungen. Der Griffstock mit den Diskanttasten war immer schlanker. Der Bassteil klang fast immer weicher. Der Einbau der Helikonstimmplatten variiert im Detail je nach Hersteller etwas, weist jedoch bei den meisten Herstellern bisher große Übereinstimmungen auf. Die Mehrzahl der Hersteller, ausgenommen der Hersteller aus Sachsen, verwendeten für die meisten Modelle eine Bauweise, bei denen die Basskammern liegend im hinteren Teil eingebaut wurden und die Begleitstimmstöcke vorne in den Balg ragen. Diese Bauweise wird noch vorrangig von den meisten Herstellern verwendet. Sperrholz kam noch sehr selten zur Anwendung, fast immer wurden Gehäuseteile aus Fichtenholz mit Intarsien verziert. Die Helikonstimmplatten besaßen praktisch alle heutigen Merkmale. Noch frühere Instrumente unterscheiden sich auch in den Abmessungen der Helikonstimmplatten.
+
+Der verwendete Stahl für die Stimmzungen war etwas weicher. Heutige Stimmplatten sind in den meisten Fällen, wenn Spitzenqualität verwendet wird, genauer und klingen daher obertonreicher. Die Rahmen der Stimmplatten war bereits fast durchgängig aus Aluminium, einzelne historische Instrumente wurden jedoch auch mit Messingrahmen und in vielen Fällen, besonders bei den Begleitern und im Diskant, mit Zinkrahmen gefertigt.
+Man findet auch Helikonstimmplatten mit Hartholzrahmen. Diese Instrumente wurden während des Zweiten Weltkrieges gefertigt. Der Grund für die Verwendung von Hartholz für die Rahmen war, Metall war während des Zweiten Weltkrieges schwer verfügbar.
+
+=== Bassklang veränderbar ===
+Die Firma Lubas baute größere Modelle, bei denen der Bassteil innen eine zusätzliche Abdeckung über alle Stimmplatten besaß. Die Abdeckung hatte eine Öffnung, die Größe der Öffnung konnte variiert werden. Dies führte zu einem Filtereffekt, ähnlich wie das mit Diskantverdecken der Fall ist, die einen Schieber besitzen, der die Abdeckung mehr oder weniger stark schließt. Ähnliches war auch bei kleineren deutschen diatonischen Harmonikas manchmal üblich, dabei wurde der Balg in zwei Hälften geteilt und mit einer Trennwand versehen, die die beiden Hälften verbindet. Die Trennwand besaß eine Öffnung die mehr oder weniger geschlossen werden konnte.
+
+=== Tonarten umschaltbar ===
+''Hauptbeitrag'' → [[Peter Stachl#Patent|Peter Stachl Patent]]
+
+Das Unternehmen Peter Stachl fertigte bis 1926 nach eigenem Patent etliche drei- und vierreihige umschaltbare Harmonikas. Der Diskant ist bei diesen Modellen mit einem Knopf auf der Griffbrettrückseite umschaltbar von beispielsweise G-C-F auf B-Es-As, und zwar sind die Stimmstöcke verschiebbar. Die Bassknöpfe sind bei manchen Modellen in drei Reihen angeordnet. Die Instrumente sind nur unwesentlich schwerer als gleichwertige nicht umschaltbare Harmonikas, sie waren zu ihrer Zeit sehr gefragt, das Unternehmen kam mit der Produktion nicht nach.
+
+[[Datei:Hans-Peter Falkner TFF.JPG|mini|Hans-Peter Falkner von [[Attwenger]] mit einer elektronischen Steirischen von Limex]]
+== Sonstiges ==
+* Eine optimale Stimmenqualität ist auch für Anfänger wichtig. Eine dreichörige Ausführung ist hingegen nicht notwendig, sofern man nicht mehr Lautstärke wünscht. Einige Unternehmen bieten Lerninstrumente mit kleineren Abmessungen an. Diese Instrumente besitzen aber meist keine normalen Helikonbässe.
+* Ein Standard-Instrument ist für den Anfänger in jedem Fall vorzuziehen. Gehäuse mit 36&nbsp;cm Höhe sind ein guter Kompromiss. Man muss aber bedenken, dass diese Instrumente nur drei doppelte Helikonstimmplatten haben, die restlichen sind einfache Helikonstimmplatten. Da in der inneren Bass-Reihe aber eher weniger gespielt wird, ist auch dies ein vertretbarer Kompromiss.
+* Gelehrt wird die Steirische Harmonika meist nach dem [[Akkordeonschule#Griffschrift System Rosenzopf|Griffschriftsystem]].
+* Die österreichische Firma Limex baut Harmonikas zu stimmlosen [[MIDI]]-Instrumenten um, die von Bühnenmusikern wie [[Hans-Peter Falkner]] von [[Attwenger]] gespielt werden. Dabei werden die Stimmzungen aus dem Instrument entfernt und durch ein Midi-System mit Synthesizer und Sampler ersetzt.<ref>http://www.limex.eu/produkte.php?produkt=mpr4</ref>
+
+== Harmonikabauer für Steirische Harmonikas (Auswahl) ==
+* 1871–1960 [[Fidel Socin]] [[Bozen]] [[Südtirol|Südtyrol]], um 1937 gab es noch einen Katalog [http://www.provinz.bz.it/kunst-kultur/landesarchiv/archivale-des-monats.asp?news_action=4&news_article_id=527474]
+* seit 1874 [[Rupert Novak]], [[Klagenfurt]], erzeugte zuerst das [[Diatonisches Akkordeon#Wiener Modell|Wiener Modell]], erst etliche Jahre später Steirische Harmonikas
+* 1876–1941, [[Franz Zechner]], [[Graz]], erzeugte vom Anfang an Steirische Harmonikas, daher erster Erzeugungsbetrieb im heutigen Österreich
+* 1885–1940, [[Josef Hlaváček]], [[Böhmen]], jedoch noch viele weitere in [[Wien]] und [[Tschechien]]
+* 1888–1965, [[Lubas & Sohn]] [[Slovenj Gradec]] (Windischgraz, damals Steiermark)
+* 1890–1984, [[Peter Stachl]] (bis 1906 Untersteiermark) [[Graz]], zwei Generationen, seit 1975 Franz Schmid – Meister
+* 1893–1937, [[#Karl Christa|Karl Christa]], [[Freistadt]] Oberösterreich
+* 1900–1942, [[Anton Mervar]], [[Trifail]] (seit 1950 [[Trbovlje]]), ab 1912 [[Ohio]], US-amerikanischer Instrumentenbauer slowenischer Herkunft (damals [[Untersteiermark]])
+* 1900–1917, Franz Fuchs (Franz&nbsp;sen.: *&nbsp;26. Februar 1873, Gnas/St; † 15. Mai 1955, Judenburg, Sohn des Harmonikaerzeugers Franz (* 1852 Gnas; † 1908 Judenburg), Franz jun.: * 11. Jänner 1902 Judenburg; † 5. Juni 1988 Judenburg) [http://www.musiklexikon.ac.at/ml/musik_F/Fuchs_Familie_3.xml], [[Judenburg]]
+* 1900–1977, [[Alois Marx (Harmonikabauer)|Alois Marx]], [[Bezirk Deutschlandsberg|Otternitz]], St. Martin i. S. [[Steiermark]], Gewerbe gemeldet von 1923 bis 1948, baute seine letzte Harmonika mit 95 Jahren im Jahr 1977
+* 1911–1945, [[Franz Jost]], [[Graz]]
+* 1913–1953, [[Robert Zechner]], [[Graz]], Anton Strasser hat bei ihm gelernt
+* 1924–1944 [[Anton Železnik]], [[Slowenien]] [[Vrhnika]]<ref name="totter" />
+* 1926–1959, [[Otto Ludwig (Harmonikabauer)|Otto Ludwig]], [[Immenstadt]], [[Bayern]], geboren in [[Klingenthal]]
+* seit 1926 [[#Anton Strasser|Anton Strasser bzw. Ernst Strasser]], [[Graz]]
+* 1932–1974, [[Josef Fleiß]], [[Slowenien]] und [[Bad St. Leonhard im Lavanttal]], [[Kärnten]]
+* 1945–1989, [[Mengeš|Melodija Mengeš]], [[Slowenien]]
+* 1946–1976, Paul Haas, [[Judenburg]]
+* 1948–1991, [[Roman Gombotz]], [[Köflach]], 1991 Sohn Roman G. und Enkelsohn Ulfried G.
+* seit 1949 [[#Georg Öllerer|Georg Öllerer]], Harmonikaerzeugung seit 1972, [[Freilassing]], [[Bayern]]
+* seit 1951 [[#Valentin Zupan|Valentin Zupan]], [[Slowenien]]
+* seit 1952 [[Karl Macourek]], [[Wien]], zuletzt [[Altlengbach]], [[Niederösterreich]], verstorben am 25. November 2018, Karl Macourek Junior ist auch Harmonikamachermeister
+* seit 1974 [[#Albin Flatscher|Albin Flatscher]], [[Lofer]] [[Land Salzburg|Salzburg]], hat bei Georg Öllerer sen. gelernt
+* seit 1975 Harmonika Müller GmbH, [[#Peter Müller|Peter Müller]], [[Bad St. Leonhard im Lavanttal]], [[Kärnten]]
+* seit 1977 Karl Schwarz, [[Molln]], [[Oberösterreich]]
+* seit 1978 [[Franz Parz]], [[Bezirk Graz-Umgebung|Semriach]], [[Steiermark]]
+* seit 1979 [[#Ernst Spirk|Ernst Spirk]], [[Laxenburg]], [[Niederösterreich]], gelernter Orgelbauer
+* seit 1983 [[Hermann Jamnik]], [[Ehrenhausen]], [[Steiermark]]
+* seit 1984 [[#Franz Schmidt|Franz Schmidt]], [[Weinitzen]], [[Steiermark]]
+* seit 1985 [[Josef Fleiß#Herfried Zernig|Herfried Zernig]], [[Sebersdorf]], [[Steiermark]], hat bei Josef Fleiß gelernt
+* seit 1985 [[#Johann Herbst|Johann Herbst]], [[Unken (Salzburg)|Unken]], [[Salzburg]], Lehre bei Albin Flatscher, Meisterprüfung 1983
+* 1996–2007 [[#Othmar Kühn|Othmar Kühn]], St. Gertraud, [[Kärnten]], gelernter Harfenbauer, war lange Zeit bei Fa. Novak und Peter Müller
+* seit 1997 Udo Schneeberg, [[Zwota]], [[Sachsen]], [[Schneeberg-Harmonikabau]] – Meisterwerkstatt für Harmonikabau, Neuanfertigung, Reparatur und Restauration
+* seit 1998, [[Austria-Harmonika]], [[St. Pölten]], Werkstatt für Reparaturen, Stimmungen
+* seit 1998 [[Bayerland Harmonika]], [[Hemau]] / [[Pellndorf (Hemau)|Pellndorf]]; seit 1968 Reparatur aller Fabrikate
+* seit 2004 [[Martin Schaider]], [[Laufen (Salzach)|Laufen]], [[Bayern]], wurde bei Georg Öllerer ausgebildet
+* seit 1966–2020 [[Gernot Strassl]], Hall in Tirol, Innsbruckerstraße 48, derzeit Abverkauf von Handzuginstrumenten
+* seit 2006 Lanzinger Harmonika
+* seit 2007 [[Haglmo GmbH & Co. KG]]<ref>Haglmo GmbH & Co. KG, Hackl 1, 84163 Marklkofen, Persönlich haftende Gesellschaft: Haslbeck GmbH, Straubing HRB 11298, Geschäftsführung: Johann Haslbeck, Siegfried Haslbeck, Stimmmeister André Lorenz, aus Klingenthal, 2006 wurden Patente angemeldet; 2007 Firmengründung. 2008 Aufbau des Produktionsstandortes. 2009 wurde das erste Instrument verkauft.</ref>, [[Marklkofen]], Niederbayern, Deutschland
+* seit 2009 [[#Alpengold|Alpengold]] Harmonika LBL – GmbH, Alte Bundesstraße 39, A-5723 Uttendorf, Günther Lerch, Geschäftsführer, Manfred Lerch, Gehäusebau
+* seit 2009 [[EDLER Harmonikas GmbH]], St. Martin am Tennengebirge, Harmonikaerzeuger für handgefertigte Harmonikas nach Kundenwünschen, Reparatur, Se rvice
+* seit 2010 Herbst Irmgard, Unken, arbeitet mit Tochter Theresa, die 2022 die Gesellenprüfung ablegte. Alle Reparaturen und Stimmen. Lehre bei Albin Flatscher 1979.
+* seit 2011 Landerer-Harmonikas<ref>Verwendet werden vormontierte italienische Instrumente. Die Gehäuse fertigte eine Zeit lang Markus Bitzenauer in Serra di Conti. das Stimmen erfolgt durch Hans Krinner.</ref>, [[Bad Tölz]], Oberbayern, Deutschland
+* seit 2013 Ziach-Kaiser, Inh. Quirin Ignaz Kaiser, Dorfstraße 17, 85617 Niclasreuth
+* seit 2013 [[#Alois Riesch|Alois Riesch]], SteiRiesch Harmonikabau Alois und Florian Riesch, Am Weingarten 20, 83646 Bad Tölz
+* Stanček Rudolf [[Ottlýkovská]], 376/22 013 14 Kamenná Poruba (Okres Žilina), Slowakei<ref>[http://stancek.blogspot.co.at/ stancek.blogspot.co.at]</ref>
+* seit 2016 Pellegrina-Harmonika, Gartenstraße 20, 83301 Traunreut, Deutschland<ref>[http://pellegrina.harmonika.center/ pellegrina.harmonika.center]</ref>
+* seit 2019 Andi Nöss, Steingaden Tegelbergstraße, Lehre bei Öllerer 2017 Gesellenprüfung, 2019 Meisterprüfung
+* seit 2020 Ziachmanufaktur Wofala Michael Rohrmair, Wittelsbacherstr. 30a 86504 Merching
+* Seit 2023 [[#Sammer Harmonika|Sammer Harmonika]], Leibnitz
+
+Weitere Harmonikabauer, deren Firmen nicht mehr weiterbestehen und von denen keine weiteren Daten vorhanden sind:
+* Karl Frey, [[Amstetten]] Niederösterreich
+* Gottfried Kurnig, [[Deutschlandsberg]] Steiermark
+* Hans Polz, [[Schwertberg]] Oberösterreich
+* S. Gert, [[Voitsberg]] Steiermark
+* August Damm [[Eibiswald]] Steiermark
+* A. Steiner Tobaj Burgenland
+* Josef Hahslacher Möllbrücke Kärnten
+
+Im Beitrag [[Schrammelharmonika#Bekannte Harmonikabauer in Wien|Schrammelharmonika]] ist eine Liste von Wiener Harmonikamachern zu finden, die möglicherweise auch bereits ähnliche Instrumente fertigten.
+
+=== Karl Christa ===
+Im Archiv des [[Mühlviertler Schlossmuseum]]s in [[Freistadt]] gibt es einen Nachweis über den Instrumentenbauer Karl Christa, der von 1926 bis zu seinem Ableben 1937 in Freistadt gelebt und gearbeitet hat. Er ist von [[Enns]] zugezogen, wo er von etwa 1893 an ein Geschäft betrieben und vorwiegend Ziehharmonikas aber auch [[Zither]] gebaut hat.
+
+=== Albin Flatscher === <!-- Überschrift nicht verändern oder verschieben, da Links auf diesen Abschnitt bestehen-->
+Albin Flatscher ist ein [[österreich]]ischer [[Musikinstrumentenbau]]er und Musiker. Er erlernte den Beruf bei [[#Georg Öllerer|Georg Öllerer]] in Freilassing, schloss die Lehre als Harmonikabauer im Jahr 1969 ab. Im Jahr 1974 gründete er seinen eigenen Betrieb.
+
+Im Laufe der Jahre bildete Flatscher sechs Lehrlinge aus.
+* 1976 Herbst Johann
+* 1982 wurde Irmgard Schmuck beste Harmonikabauerin Österreichs
+* 1988 bis 1991 Reitner Franz (ehemaliger Kapellmeister in Unken), Andrea Zehentmayr
+* 1993 erlernte Michaela Hagn ebenfalls das Handwerk des Harmonikabauers in diesem Betrieb
+Somit war Albin Flatscher einer der wenigen Betriebe, die Lehrlinge in diesem Handwerk ausbildeten. Fachkräfte werden in diesem Gewerbe häufig nur für bestimmte Tätigkeiten geschult, aber selten für das komplette Handwerk.
+
+=== Sammer Harmonika ===
+Sammer Michael produzieren derzeit mit zwei Mitarbeitern und einem Lehrling die Harmonikas komplett selber. Hier sein Werdegang beschrieben von ihm: „Mein beruflicher Werdegang begann sozusagen mit meiner Lehre (2007) zum Harmonikamacher bei der Harmonikaerzeugung Parz, wo ich nach dreijähriger Lehrzeit in Wien an der Berufsschule die Lehrabschlussprüfung (2010) mit Auszeichnung absolvierte. 2013 wechselte ich zur Harmonikaerzeugung Strasser, wo ich für die Endkontrolle und Stimmung bis 2022 verantwortlich war. In dieser Zeit bei der Firma Strasser absolvierte ich auch die Meisterprüfung für den Harmonikabau. 2017 erfolgte die Anmeldung für das eigene Kleingewerbe (Reparatur und Stimmarbeiten für Harmonika und Akkordeon). Seit 2020 bin ich Beisitzer der „WKO Steiermark Prüfungskommission“ für Lehrabschluss/Meisterprüfungen für Harmonikamacher und ab 2022 darf ich mich auch als „Vorsitzender der WKO Wien Prüfungskommission“ für Lehrabschluss/Meisterprüfungen für Harmonikamacher bezeichnen. Seit Dezember 2022 bin ich im „Haus der Musik Stefan Maier“ in Leibnitz tätig und gründete zeitgleich „Sammer Harmonika“.“
+
+=== Martin Flatscher ===<!-- Überschrift nicht verändern oder verschieben, da Links auf diesen Abschnitt bestehen-->
+Martin Flatscher (* 30. Juli 1979), erlernte das Handwerk bei Peter Müller in [[Bad St. Leonhard im Lavanttal]]. Er übernahm 1999 die Unternehmensführung von seinem Vater Albin.
+
+Die allererste Altholzharmonika entstand im Hause Flatscher. Hiermit kam ein neuer Stil in die Volksmusikszene, welcher sich laufend weiterentwickelt.
+Die Herstellung, Entwicklung und Reparatur von steirischen Harmonikas und [[Akkordeon]]s aller Art wird im eigenen Haus durchgeführt. Es besteht oder bestand eine enge Zusammenarbeit mit Peter Müller und der Schaumanufaktur in [[Klingenthal]] bis zu deren Schließung.
+
+Bekannte Musikanten auf der Flatscher-Harmonika:
+* Aberger Richard (Maishofner Tanzlmusi)
+* Innerhofer Bert (Pinzgauer Tanzlmusi)
+* Haitzmann Simon (Mozarteum Salzburg)
+* Hofer Matthias (Leiblfinger Volksmusikanten)
+* Wohlfarth Ernst (Volkstanzmusik Wohlfarth, Wien)
+
+[[Datei:Alpenklang Harmonika 2.jpg|mini|Dreireiher Marke Alpenklang]]
+
+=== Johann Herbst === <!-- Überschrift nicht verändern oder verschieben, da Links auf diesen Abschnitt bestehen-->
+Johann Herbst (* 11. Oktober 1960) ist ein [[österreich]]ischer [[Musikinstrumentenbau]]er.
+
+Er erlernte das Handwerk bei Albin Flatscher von 1976 bis 1979 und absolvierte die Meisterprüfung im Jahr 1983. Seit 1985 führt er einen selbstständigen Meisterbetrieb namens „Musik Herbst“. Umfangreiche Kenntnisse eignete er sich mit der Reparatur von vielen verschiedenen Harmonikamarken an, dadurch zeichnen sich seine Harmonikas der Marke „Alpenklang“ durch ein sehr gutes Gesamtkonzept aus, die er in Zusammenarbeit mit dem Unternehmen Mengascini von 1990 bis 1999 ziemlich preisgünstig erzeugte. Ab 1999 konzentrierte sich Johann Herbst auf den Verkauf, Service und Reparatur aller gängigen Harmonikamarken. Als Besonderheit bietet der Betrieb auch den Umbau und Verkauf ''selbstspielender Harmonikas'' und anderer Instrumente.
+
+[[Datei:Kleinste Harmonika der Welt 3.jpg|mini|Kleinste Harmonika]]
+Durch die voll funktionsfähige Miniaturharmonika mit den Ausmaßen 19&nbsp;cm × 11&nbsp;cm × 7,5&nbsp;cm erfolgte 1993 der Eintrag als ''kleinste Harmonika der Welt'' ins [[Guinness-Buch der Rekorde]]. Der Rekord ist noch immer gültig.
+
+=== Othmar Kühn ===<!-- Überschrift nicht verändern oder verschieben, da Links auf diesen Abschnitt bestehen-->
+Othmar Kühn ist ein [[österreich]]ischer [[Musikinstrumentenbau]]er.
+
+Er lernte den Beruf eines Harfenbauers in Tirol bei Petuschnig. Danach arbeitete Othmar Kühn lange Zeit bei [[Rupert Novak|Rudolf Novak]] und Peter Müller. 1996 gründete er sein Unternehmen in [[Frantschach-St. Gertraud|St.&nbsp;Gertraud]] [[Kärnten]]. Er beschäftigte bis 2007 einen Mitarbeiter und erzeugte etwa 50 Harmonikas im Jahr in traditioneller Bauweise.
+
+[[Datei:Stimmer CIMG1986.JPG|mini|Stimmer bei Müller]]
+
+=== Peter Müller ===<!-- Überschrift nicht verändern oder verschieben, da Links auf diesen Abschnitt bestehen-->
+Peter Müller (* 2. September 1952 in Loben bei Bad St. Leonhard; † 20. August 2014 in Graz)<ref name="Müller" /> war Hersteller von Steirischen Harmonikas in [[Bad St. Leonhard im Lavanttal]], [[Kärnten]].
+
+Peter Müller übernahm im Jahr 1975 den Betrieb von Josef Fleiß. Nach seinem Tod 2014 übernahm seine Gattin Edith das Unternehmen mit ihren zwei Kindern Marcel und Janine. Harmonika Müller ist derzeit der größte Betrieb, der Steirische Harmonikas erzeugt. Die Jahresproduktion beträgt ca. 1300 Stück, er beschäftigt 45 Mitarbeiter (2016). Bevor Peter Müller sich selbständig machte, war er {{Bruch|2|1|2}} Jahre bei der Fa. [[Hohner]] als Konstrukteur und anschließend drei Jahre bei einem [[Schwyzerörgeli]]-Erzeuger tätig.
+
+Das Unternehmen ''Harmonika Müller GmbH'' wird derzeit von seiner Witwe geführt.
+
+Ein technischer Vergleich von Müller-Harmonikas mit anderen Produkten siehe unter [[#Technische Beschreibung|Technische Angaben]].
+
+=== Georg Öllerer ===
+1948 gründete ''Georg Öllerer sen.'' (* 1907; † 1991) eine Reparaturwerkstatt für Harmonikas und [[Akkordeon]]s in Freilassing. Der Betrieb Öllerer befand sich ursprünglich in der Ludwig-Zeller-Straße&nbsp;26, [[Freilassing]] und liegt in der Jägerndorferstraße&nbsp;1. 1950 begann sein Sohn ''Georg Öllerer jun.'' eine Lehre als Handzuginstrumentenmacher beim Vater.
+Er legte 1979 die Meisterprüfung im Fach Handzuginstrumentenmacher ab. 1989 wurde Georg Öllerer jun. von der Bayerischen Landesregierung eine Auszeichnung für hervorragende innovatorische Leistungen für die Entwicklung einer Tonkammer-Harmonika verliehen. 1978 erlernte ''Hans Kirchhofer'', der Neffe von Georg Öllerer jun., das Harmonikamacherhandwerk und legte 1990 seine Meisterprüfung mit Auszeichnung ab.
+
+Zuerst wurden nur Reparaturen an Akkordeons durchgeführt, aber bereits in den 1960er Jahren begann Georg Öllerer jun., halbfertige Instrumente der Hersteller [[Rupert Novak]] und Strasser zuzukaufen und fertigzustellen. Die Nachfrage für seine Harmonikas entwickelte sich sehr positiv. Das Zukaufen von Halbfertigprodukten in den 1970er Jahren wurde aber immer schwieriger, so begann man 1972 mit der Fertigung von kompletten Harmonikas.
+
+Viele der kleinen Veränderungen, die Produkte auszeichnen, wurden bei Georg Öllerer zuerst angewendet, wie:
+* Diskantklappen mit beweglichen Gummiteilen
+* Verwendung von Aluminium in Kombination mit Polyamid-Kunststoff für Diskanthebel
+* Diskantfüllung aus Aluminium
+* Abgerundete Gehäuseecken
+* Verbesserte Bassmechanikgelenke
+* Bassgehäusekonstruktionen werden in mehreren Varianten angeboten.
+Sehr viel Wert wird auf eine ausgezeichnete traditionelle [[Stimmung (Musik)#Stimmen von Instrumenten|Stimmung]] der Instrumente gelegt. Dafür kommt in den meisten Fällen, wenn vom Kunden nicht ausdrücklich anders erwünscht, eine Stimmpraxis zur Anwendung, bei der die Terzen abgesenkt werden. (Harmonische Stimmung)
+
+Am 30. September 2004 hat die Firma Öllerer ein Patent für ihre neue, konische Tastatur erhalten.<ref>{{Patent| Land=DE| V-Nr=19960833| Code=B4| Titel=Tastatur für eine diatonische Ziehharmonika| A-Datum=1999-12-16| V-Datum=2004-09-30| Anmelder=Georg Öllerer GmbH| Erfinder=Georg Öllerer sen. Franz Hillebrand}}</ref> Das Unternehmen zählt zu den renommiertesten der Branche.
+
+=== Franz Schmidt ===
+<!-- Überschrift nicht verändern oder verschieben, da Links auf diesen Abschnitt bestehen-->
+Das Unternehmen Harmonika Schmidt ist ein [[österreich]]ischer [[Musikinstrumentenbau]]er.
+
+Unter anderem war Franz Schmidt Senior von 1975 bis 1984 Meister und Leiter der Harmonikaerzeugung bei [[Peter Stachl|Stachl]]. Nachdem das Unternehmen Stachl die Produktion eingestellt hatte, gründete Franz Schmidt Senior 1984 seinen eigenen Betrieb mit Teilen der damaligen Belegschaft in [[Weinitzen]] bei Graz. Seit 2007 leitet sein Sohn, Franz Schmidt Junior, nun den Betrieb und legt genauso wie schon sein Vater zuvor, großes Augenmerk auf qualitativ hochwertige Instrumente.<ref>{{Literatur |Titel=Geschichte |Sammelwerk=Harmonika Erzeugung Schmidt |Datum= |Online=http://www.steirische-harmonika.at/unternehmen/geschichte/ |Abruf=2017-02-03}}</ref>
+
+Franz Schmidt Senior führte die traditionelle Bauweise von Peter Stachl großteils in derselben Weise weiter, wie dieser sie gebaut hatte. Es werden aber bei vielen Modellen auch moderne Metalldiskantmechaniken eingesetzt. Bei der Harmonika-Erzeugung verwendet Schmidt für die Rahmen der Gehäuse als weltweit einziger Harmonikabauer kein Sperrholz. Er ist somit der derzeit einzige Betrieb, der noch einen besonderen Aufwand bezüglich des Rohmaterials für die Gehäuse betreibt, wie er in den Anfangsjahren des Harmonikabaues allgemein üblich war. Das verwendete Fichtenholz stammt aus der näheren Umgebung und wird in ähnlicher Weise aufbereitet, wie dies für handgefertigte Dachschindeln üblich ist. Vor dem Spalten der Scheiter werden die Pfosten ein Jahrzehnt oder mehr luftgetrocknet. Vor der Aufbereitung zu Brettern werden die Pfosten handgespalten, dabei wird die Maserung des Holzes berücksichtigt. Anschließend werden die kurzen Bretter auf die erforderliche Dicke zugehobelt.
+
+Der Betrieb fertigt die meisten Teile einschließlich der Bälge und der traditionellen Diskantmechanik selbst an. Gestimmt werden die Instrumente von Hand unter anderem noch von einem ehemaligen Mitarbeiter des Unternehmens Stachl.
+
+==== Hirtion ====
+Ein Mitarbeiter von Schmidt Harmonika, Franz Hirt, hat ein neues Instrument entwickelt und es unter dem Markennamen '''Hirtion''' schützen lassen. Das Instrument ist leicht und hat nur eine Knopfreihe auf der Diskantseite. Diese Tasten bringen jede für sich einen Akkord auf Zug und einen auf Druck hervor. Jeder Akkord setzt sich aus mehreren Tönen und einem zusätzlichen Tiefton zusammen. Dur-Akkorde sind rein gestimmt. Der Klang ist ergreifend und durchdringend. Das Instrument ist in erster Linie zum Begleiten und in der Therapie in Verwendung. Das Instrument wird mit Spielanleitung geliefert, kann aber mit etwas Rhythmusgefühl auch ohne Anleitung praktisch von jedem intuitiv verwendet werden.
+<!-- Überschrift nicht verändern oder verschieben, da Links auf diesen Abschnitt bestehen-->
+
+=== Ernst Spirk ===
+[[Datei:Spirk3einhalb.JPG|mini|Ernst Spirk Harmonika]]
+[[Datei:Spirk3einhalbbass.JPG|mini|Ernst Spirk Harmonika]]
+[[Datei:Spirk3einhalb2.JPG|mini|Ernst Spirk Harmonika]]
+[[Datei:Spirk3einhalb4.JPG|mini|Ernst Spirk Harmonika]]
+Ernst Spirk ist ein [[Musikinstrumentenbau]]er, Komponist, Musiker und Musiklehrer in [[Laxenburg]], [[Niederösterreich]].
+* Biographie<br />Ernst Spirk ist seit seiner Kindheit Volksmusikant. Als Neunjähriger begann er, Hackbrett zu lernen, bald kamen Steirische Harmonika und Blechblasinstrumente dazu. Er gründete etliche Musikgruppen: Spirk-Trio, Lax-Blech, Pfefferkörndlmusi, Laxenburger Teufelsgeiger, Laxenburger Kirtagsmusi und andere. Als Komponist schrieb er viele in ganz Österreich bekannt gewordene Volksmusikstücke. Er arbeitet neben seinem Betrieb auch als Musiklehrer und Referent bei diversen Seminaren.
+* Betrieb<br />Spirk erlernte den Beruf des Orgelbauers. 1978 gründete er seinen Betrieb, in dem er neben [[Hackbrett]]ern und anderen Instrumenten auch Steirische Harmonikas baut.<br />Der Betrieb beschäftigte einige Zeit wenige Mitarbeiter. In dieser Zeit wurden Instrumente in Serie gefertigt. Spirk arbeitet nur mehr privat, die Markenrechte besitzt ein anderes Unternehmen.
+* Spirk Instrumente<br />Instrumente aus seiner Hand sind echte Unikate, obwohl er viele Zulieferteile aus Italien verwendet. Bälge ließ Spirk speziell in Italien anfertigen.
+** Abweichende Bauweise bei Steirischen Harmonikas<br />Seine Steirischen Harmonikas sind eine Besonderheit und weichen sowohl im äußeren Design wie auch in der Konstruktion in vielerlei Hinsicht von der traditionellen Bauweise ab.<br />Die zuletzt gefertigten Harmonikas zeichnen sich durch eine besonders massive Bauweise im Bereich der Gehäuserahmen aus. Es wird ausschließlich Massivholz verwendet.
+** Bassteil<br />Der Bassteil der zuletzt gefertigten Instrumente weicht sowohl äußerlich wie auch innen erheblich von der traditionellen Konstruktion ab. Es wird ein aufgesetzter abgestufter Gehäusekasten verwendet, der nach hinten eine Reihe runder Öffnungen aufweist.<br />In diesem Kasten befindet sich die Bassmechanik, der Hauptrahmen des Bassgehäuses enthält ein nach innen gestülptes Cassotto mit den Klappen. Es werden aber nur einfache Grundbässe eingebaut, die mit einer wesentlich kleineren zusätzlichen Stimmplatte im rechten Winkel zur Grundstimmplatte angeordnet sind. Durch diese gravierenden Änderungen in Abmessungen und Aufbau der Bassresonanzkammern ist ein stark veränderter Bassklang die Folge. Positiv wirkt sich die Veränderung auf den erforderlichen Luftverbrauch aus, da nur eine große Stimmplatte (halber [[Helikonstimmplatten|Helikon]]-Bass) pro Bassgrundton vorhanden ist. Auch die Begleitakkorde weichen klanglich stark vom gewohnten Höreindruck ab.
+** Diskant<br />Für die Diskant-Mechanik verwendet Ernst Spirk italienische Zulieferteile, somit ist diese in der Konstruktion ähnlich der von [[Peter Müller (Harmonikabauer)|Peter Müller]], auch wenn Spirk in den meisten Fällen nur 3&nbsp;½ Diskanttastenreihen einbaut.<br />Er persönlich zieht eine Tastenbelegung im Diskant vor, welche die vierte Reihe mit Halbtönen belegt.
+** Sondermodell<br />Spirk hat auch ein besonders großes Instrument gebaut, das in der Höhe verdoppelt wurde. Man könnte sagen, es beinhaltet zwei Instrumente, übereinander angeordnet.<br />Die Stimmung der oberen Hälfte ist G C F B, der unteren Hälfte B Es As Des.
+
+=== Anton Strasser ===
+Anton Strasser (* 1897; † 1959) kam nach dem Ersten Weltkrieg mit einer Kriegsverletzung nach Hause. Dadurch konnte er seinen Beruf als Forstarbeiter nicht weiter ausüben. Als 22-Jähriger begann er 1919 erneut eine Lehre als Harmonikabauer bei [[Robert Zechner]] in Graz.
+1926 machte er sich dann selbstständig. Sohn Ernst Strasser und Enkel Ernst Strasser wurden beide ebenfalls Harmonikabauer. 1930 Umstellung auf elektrobetriebene Maschinen. In der Zeit bis zum Zweiten Weltkrieg wurden alle Arten von Akkordeons produziert: Steirische, Wiener, Schrammelharmonikas und Pianotasten-[[Akkordeon]]s. Es wurde bis nach Holland und in die USA exportiert. Während des Zweiten Weltkriegs war die Produktion auf einem Tiefpunkt, da die Produktionsstätte durch Bombardierungen beschädigt wurde und Metalle nur eingeschränkt erhältlich waren. Ab 1949 produzierte Anton Strasser aber wieder mit zwei Mitarbeitern 150 Stück im Jahr.
+
+=== Ernst Strasser ===
+[[Datei:2015 Melissa Naschenweng - by 2eight - DSC1594.jpg|mini|[[Melissa Naschenweng]] mit einer Strasser-Harmonika]]
+[[Datei:Andreas Gabalier - 2023300201527 2023-10-27 Andreas Gabalier - Sven - 1D X MK II - 0254 - AK8I1445.jpg|mini|[[Andreas Gabalier]] mit einer Strasser-Harmonika]]
+Anton Strassers Sohn Ernst lernte beim Vater den Harmonikabau und war gerade mit der Lehre fertig, als Anton Strasser 1959 verstarb. Vorübergehend wurde der Betrieb von der Witwe weitergeführt, bis ihn dann Ernst Strasser sen. übernahm.
+* In den 1960er Jahren wurden circa 5 Mitarbeiter beschäftigt.
+* 1988 beschäftigte er 16 Mitarbeiter.
+* 2009 beschäftigte der Betrieb von Ernst Strasser jun. 21 Mitarbeiter, und es wurden knapp über 1000 Harmonikas im Jahr produziert (Interview mit Josef Thier). Damit ist er der zweitgrößte Betrieb nach [[Peter Müller (Harmonikabauer)|Peter Müller]] und vor [[Rupert Novak]].
+* 2014 wurden knapp über 1330 Harmonikas produziert.
+* 2018 beschäftigte der Betrieb 25 Vollzeitmitarbeiter
+Die Produktion ist stark modernisiert und findet in einem neuen Unternehmensgebäude statt. Es wurden Anstrengungen unternommen, eine neue Diskantmechanik herauszubringen. Die letzte Neuerung ist, dass diese Mechanik nun auch für fünfreihige Instrumente in einer etwas abgewandelten Form neu konstruiert wurde und auch gebaut wird. Zahlreiche bekannte Musiker der [[Volkstümliche Musik|volkstümlichen Musik]] spielen Strasser-Instrumente.<ref>{{Internetquelle |url=https://www.kleinezeitung.at/steiermark/graz/6288575/Naschenweng-Gabalier-Co_Die-Steirische-sorgt-sogar-in-Uebersee |titel=Naschenweng, Gabalier & Co.: Die Stars setzen auf die "Steirische" aus Graz-Umgebung |datum=2023-05-17 |sprache=de |abruf=2024-09-05}}</ref>
+
+=== Valentin Zupan ===
+Valentin Zupan (* 2. März 1936 in Selo bei [[Vodice (Slowenien)]]) kam als sechstes von sieben Kindern zur Welt. In der Musikinstrumentenfabrik Melodija in [[Mengeš]] machte er seine Ausbildung und baute 1951 sein erstes Akkordeon. 1956 wurde Zupan Chef der Entwicklungsabteilung. Parallel zu seiner Arbeit in der Musikinstrumentenfabrik gründete Zupan seine eigene Werkstatt, in der er begann, Akkordeons und Harmonikas zu konstruieren und zu fertigen.
+
+=== Alpengold ===
+LBL – GmbH, Österreich, Kirchenstraße 20, Uttendorf Im Pinzgau, 5723, Salzburg, Geschäftsführer ist Günther Lerch. (7. Juli 2009) Manfred Lerch fertigt Gehäuse für die diatonischen Luxusmodelle in Uttendorf. Der Gründer von Alpengold Hans Lapper ist noch als Produktmanager für Alpengold tätig. Kooperationen mit FISMEN sind seit Anfang 2014 nicht mehr gegeben. 2014 sind 14 Mitarbeiter an insgesamt drei Standorten in Österreich, Italien und Slowenien beschäftigt, die jährlich ca. 300 Instrumente produzieren. Günther Lerch und seine Frau Claudia, die selbst Italienerin ist, fassten im Herbst 2013 den Entschluss, in Castelfidardo eine Produktionsstätte aufzubauen. Mit seinen langjährigen Freunden und Partnern Samuele und Nello Menghini wurde die Firma Alpengold Sinova gegründet. Auch in Slowenien wurde eine Produktionsstätte eingerichtet. Der professionelle Partner ist Emil Kitek, welcher selbst eine Harmonikamarke hatte. Die Firma Alpengold produziert die Serie Stubach in Slowenien.
+
+=== Alpen Harmonika ===
+Alpen Harmonika D.O.O. ist eine Firma aus Slowenien, die bereits seit über 10 Jahren Harmonikas herstellt. Zu den Kunden zählen unter anderem namhafte deutsche Unternehmen.
+
+=== Alois Riesch ===
+SteiRiesch Harmonikabau Alois und Florian Riesch, Am Weingarten 20, 83646 Bad Tölz (seit 2013, an der Firmengründung wird zurzeit gearbeitet).
+[[Datei:Riesch 31123414.jpg|mini|Zusammenbau der Tastatur]] [[commons:Category:Riesch|Bildergalerie]]
+
+== Quelle ==
+Bezüglich Jahreszahlen bei den jeweiligen Harmonikabauern wird in erster Linie auf die folgende Magisterarbeit verwiesen:
+* Helmut Gutleder: ''Die Entwicklung der Harmonikaerzeugung in Österreich''. Magisterarbeit, Universität Mozarteum, Salzburg 2006.
+Dazu wurden viele persönliche Gespräche mit noch lebenden Harmonikabauern geführt.
+
+== Weltmeister auf der Steirischen Harmonika ==
+* 1987 Zoran Lupinc
+* 1988 [[Hermann Huber (Musiker)|Hermann Huber]]
+* 1988 Hermann Huber (im Ensemble mit Marion Huber und Georg Huber)
+* 1991 Denis Novato<ref name="novato" />
+* 1992 Denis Novato<ref name="novato" />
+* 1994 Denis Novato<ref name="novato" />
+* 1996 [[Toni Bartl]]
+* 1997 Jakob Bergmann<ref name="bergmann" />
+* 1998 Denis Novato<ref name="novato" />
+* 1999 [[Robert Goter]]<ref name="goter" />
+* 2001 [[Aleksander Pacek]]
+* 2007 Markus Oberleitner<ref name="oberleitner" />
+* 2009 Michael Rettig<ref name="retting" />
+* 2011 Rene Kogler<ref name="kogler" />
+* 2013 Alexander Pamer
+* 2015 [[Nejc Pačnik]]<ref name="Nejc Pačnik" />
+* 2017 Stefan Oberhofer
+
+== Weblinks ==
+{{Commonscat|Steirische Harmonika}}
+{{Commonscat|Müller Werksführung|Müller Werksführung}}
+{{Commons|Strasser Werksführung|Strasser Werksführung}}
+* Johann Pascher: [http://www.hyperbox.org/jpascher/ ''Der Bau einer diatonischen Harmonika''.] 2002
+* {{Webarchiv |url=http://members.yline.com/~arizona/harmonika/ |text=Tastenbelegungen |wayback=20210210211702}}
+* [https://www.volksmusikschule.at/fragen_steirische.htm Fragen und Liste der Erzeuger von Steirischen Harmonikas] volksmusikschule.at
+* [https://www.harmonikainfo.eu/ Nützliche Informationen rund um die steirische Harmonika inkl. Griffschrift] harmonikainfo.eu
+* {{Webarchiv |url=http://www.xsundasound.com/index.php?id=23 |text=Das Stieger-Harmonika-Museum |wayback=20081219203248}}
+
+'''Videos'''
+* [https://www.youtube.com/watch?v=vYG9WXbTSNE Harmonikabau Jamnik] (8:46)
+* [https://www.youtube.com/watch?v=7zOlBIMN874 Ohne Holz keine Musik – Herstellung einer Jamnik-Harmonika] (12:00)
+* [http://www.harmonika.at/uber-muller/film-fertigung-einer-muller Herstellung einer Müller-Harmonika] (2:02)
+* [https://www.youtube.com/watch?v=dcL8hGpPzuc Herstellung einer Novak-Harmonika] (1:31)
+* [https://www.youtube.com/watch?v=O-xhPnjoF9c Herstellung einer Novak-Harmonika] (8:48)
+* [https://www.youtube.com/watch?v=c1PtJwJZ6-4 Besuch bei Öllerer] (6:45)
+* [https://www.youtube.com/watch?v=qa7EVjbnpQA Besuch bei Öllerer NEU] (9:20)
+* [https://www.youtube.com/watch?v=7zOlBIMN874 Herstellung einer Öllerer-Harmonika] (9:20)
+* [https://www.youtube.com/watch?v=vh3lYEx2fW8 Video mit Franz Parz] (10:01)
+* [https://www.youtube.com/watch?v=XcUlJyGSjGo&feature=player_detailpage#t=33 Prototypenproduktion der Puschtra Harmonika] (8:56)
+* [https://www.youtube.com/watch?v=1jGqMk5PdM0 Fertigung bei RUTAR, mit interessanten Details] (11:00)
+* [https://www.youtube.com/watch?v=5dhwYqlfj5o Besuch bei Strasser Harmonika] (4:12)
+* [http://www.servustv.com/at/Medien/Fast-vergessen26 Fertigung einer Schrammelharmonika bei Herfried Zernig, Sebersdorf] (25:04)
+
+== Einzelnachweise ==
+<references>
+<ref name="Müller">
+{{Literatur
+ |Autor=
+ |Titel=''Totenazeige''
+ |Datum=2014}} [http://www.trauerhilfe.at/todesanzeigen/detail/uid/75148/verstorbener/90251/ Totenanzeige von Peter Müller Online]
+</ref>
+<ref name="totter">
+{{Webarchiv |url=http://www.totter-midi.si/nemsko/tm-de.html?p=0%7C21%7Cpodjetje%2Fzgodovina_slo.html |text=Harmonikabaugeschichte der Familie Železnik |wayback=20160304214416}}
+</ref>
+<ref name="bergmann">
+{{Webarchiv |url=http://www.jakob.bergmann.tirolspeed.com/biographie.htm |text=Weltmeister 1997 |wayback=20090828023750 |archiv-bot=2023-01-15 07:32:46 InternetArchiveBot}}
+</ref>
+<ref name="novato">
+{{Webarchiv |url=http://www.harmonikafestival.de/Seite/Denis_Novato_live_Muenchen.html |text=Weltmeister 1991, 1992, 1994, 1998 |wayback=20101114005801}}
+</ref>
+<ref name="goter">
+[http://www.robertgoter.com/index.php?option=com_content&task=view&id=19&Itemid=23&lang=de Weltmeister 1999]
+</ref>
+<ref name="oberleitner">
+{{Webarchiv |url=http://www.accordions.com/diatonic/TextD%20fuer%20Diatonic-Site.htm |text=Weltmeister 2007 |wayback=20140221232256}}
+</ref>
+<ref name="retting">
+{{Webarchiv |url=http://www.harmonikaverband.at/kanzian/wm_2009.htm |text=Weltmeister 2009 |wayback=20101205194141}}
+</ref>
+<ref name="kogler">
+Robert Engele: ''Weltmeister auf der Ziach''; in [[Kleine Zeitung]] vom 9. Juni 2011, Seite 15.
+</ref>
+<ref name="Nejc Pačnik">
+„Vom 20. bis 22. März 2015 fand in Portoroz die 9. Weltmeisterschaft für Knopfakkordeon statt. […] Die Teilnehmer kamen vor allem aus den Alpenländern, […] (Slowenien, Österreich, Deutschland, Italien und Kroatien). In der Kategorie Junior (14-21 Jahre) war eine sehr harte Konkurrenz, es gab 28 Kandidaten. In der Kategorie (über 21 Jahre) waren 7 Kandidaten. Die Ergebnisse JUNIOR: 1. Platz – Stefan Oberhofer (I) 2. Platz – Martin Harling (A) 3. – Michael Satler (A) Die Ergebnisse der Kategorie Weltmeister (über 21 Jahre) 1. Platz – Nejc Pačnik (SLO) 2. Platz – Mattia Demetz (I) 3. Platz – Andreas Schmiedhofer (I)“[http://www.narodnjak.si/scena/tekmovanja/nejc-pacnik-novi-svetovni-prvak]
+</ref>
+</references>
+
+{{Normdaten|TYP=s|GND=4541310-1}}
+
+[[Kategorie:Handzuginstrument]]
+[[Kategorie:Volksmusikinstrument]]

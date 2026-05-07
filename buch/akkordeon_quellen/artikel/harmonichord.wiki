@@ -1,0 +1,66 @@
+[[Datei:Harmonicórdio.jpg|mini|Harmonichord von Kaufmann, 1835. Falsche Farben. Musikinstrumentenmuseum der Universität Leipzig.]]
+Ein '''Harmonichord''' ist ein [[Tasteninstrument]], dessen Saiten nicht durch Hämmer, sondern wie bei einer [[Drehleier]] durch indirekt übertragene [[Reibung]] in [[Vibration]] versetzt werden. Es hat einen ähnlichen Klang wie eine [[Glasharmonika]], aber einen größeren Tonumfang.<ref>{{Herder-1854 |Lemma=Harmonichord |Band=3 |Seite=229 |zenoID=}}</ref> Es wurde um 1809 eingeführt. Das [[Terpodion]] war ähnlich konstruiert, hatte jedoch keine Saiten.
+
+Das Harmonichord ist eine Variante des [[Streichklavier]]s und ein Versuch des [[Dresden|Dresdner]] Instrumentenbauers [[Johann Gottfried Kaufmann]] und dessen Sohnes [[Friedrich Kaufmann (Instrumentenbauer)|Friedrich Kaufmann]], ein [[Klavier]] so zu verändern, dass wie bei einer [[Violine]] länger klingende Töne produziert werden können. Äußerlich hat das Instrument die Form des [[Giraffenklavier]]s. Das Harmonichord ist nicht mit dem französischen Harmonicorde und dem Piano harmonicorde zu verwechseln.
+
+== Bauform und Spielweise ==
+Der Raum unter den Tasten ist geschlossen. Die wesentlichen inneren Teile sind die Saiten, ein langer, wildlederüberzogener Holzzylinder oder -kegel und Holzstäbchen.
+
+Der Holzzylinder lässt sich durch ein Pedal in Rotation versetzen. Die Holzstäbchen werden durch Niederdrücken der Tasten derart mit dem einen Ende gegen den Kegel gepresst, dass die von dem rotierenden Kegel ausgeübte Reibung auf die Saiten übertragen wird. Einige Akkorde erforderten so viel Druck, dass die Kraft, die eine Person aufwenden konnte, nicht ausreichte, so dass zwei Pianisten nötig waren, um den Ton zu spielen. Dies war auch bei dem [[mittelalter]]lichen [[Orgelempore|Organistrum]] der Fall.
+
+[[Friedrich Theodor Kaufmann]] (1823–1872) war der Sohn von Johann Friedrich Kaufmann, der ebenfalls Musikautomaten (Orchestrien) baute.<ref>“From 1842 to 1844 Frederick Kaufmann, accompanied by his son Frederick Theodore Kaufmann (1823–1872), went on another tour.&nbsp;…”. In: ''The Jury'', 5, 1851, issue of ''The Illustrated London News'' presented this account: “On Saturday the 21st,&nbsp;…” [http://books.google.com/books?id=Q98IAQAAMAAJ&q=London+Illustrated+News+1851+Kaufmann&dq=London+Illustrated+News+1851+Kaufmann&hl=de&ei=0reRTbSoLIWJ5Abk04zDAg&sa=X&oi=book_result&ct=result&resnum=4&ved=0CEUQ6AEwAw books.google.com]</ref> Die Kaufmanns entwickelten auch den [[Mechanischer Trompeter|mechanischen Trompeter]].
+
+[[Carl Maria von Weber]] schrieb 1811 für das Harmonichord ein Konzert mit Orchesterbegleitung (Adagio & Rondo in&nbsp;F op.&nbsp;115).
+
+== Zeitgenössische Berichte ==
+Die Beschreibung eines Konzertes, das die Kaufmann-Familie am Samstag, dem 21. Juni 1851, in der ''St Martin’s Hall'' gab, wurde in der ''The Illustrated London News'' veröffentlicht und weitere Berichte folgten.
+
+Übersetzte Zitate:
+{{Zitat
+ |Text=Sein Sohn, Friedrich (1785–1866), erwarb sich sehr rasch einen guten Namen. Sie experimentierten mit mechanischer Musik.
+Im Jahr 1805 bauten sie ein Instrument, das sie ''[[Belloneon]]'' nannten.
+Dieses hatte 24 durchschlagende Zungen aus Metall und trompetenähnliche Resonatoren.
+Eine Begleitung mit zwei Trommeln.
+Diese durchschlagenden Zungen erlaubten sowohl laute wie auch leise Musikpassagen.
+Das Instrument war in einen Mahagoni-Holzgehäuse eingebaut.
+ |Quelle=The Illustrated London News}}
+
+{{Zitat
+ |Text=Die Herren Kaufmann, Senior und Junior von Dresden haben vier Instrumente ausgestellt, welche zusammen ein Orchester ersetzen,
+sie nennen diese Instrumente ''Belloneon, Cordulaudion, [[Mechanischer Trompeter|Automaten-Trompeter]], Harmonichord''.
+Der obere Teil des Belloneons präsentiert eine Kriegsstrophe, in der Mitte sind 24 Trompeten platziert; unten sind zwei Topftrommeln und die dazugehörigen Schlagstöcke eingebaut.
+Es spielt Tanzmusik und Märsche mit außergewöhnlicher Perfektion.
+Da es Windinstrumente enthält, kann es mit ''Mälzl’s [[Panharmonikon]]'', das vor einiger Zeit in London und Paris vorgeführt wurde, verglichen werden.
+Das Chordulaudion produziert zusammen und getrennt den Ton eines Pianoforte und vierer Flöten, welche mit einer solchen Genauigkeit und Präzision intonieren, dass die Illusion vollkommen ist.
+Die Automaten können zweistimmige Noten hervorbringen.
+Das total kuriose Instrument ist Nachfolger des Harmonichord’s.
+Das Harmonichord sieht aus wie ein aufrecht stehender Flügel.
+<!-- Was soll das heißen? Ein rotierender Zylinder ist unten sehr nahe an den Federn der Töne so wie die auch bei einem Piano vorhanden sind.-->
+Die Tastatur hat vier und eine halbe Oktave.
+Durch Drücken der Tasten wird die Friktion ausgelöst.
+Zwei Pedale dienen zum Dämpfen des Tones und zur Tempominderung,
+und um die Vibrationen schwächer oder stärker ausfallen zu lassen.
+In den Händen der Herren Kaufmann werden süßere Töne darauf hervorgebracht als auf der Glasharmonika, und noch dazu in vollkommener Harmonie.
+ |Quelle=American monthly magazine, 1817
+ |ref=<ref>H. Biglow, Orville Luther Holley (Hrsg.): ''The American monthly magazine and critical review''. Band 1. 1817, S. 383; {{archive.org |bub_gb_lS4CAAAAIAAJ |Blatt=n386}}.</ref>}}
+
+{{Zitat
+ |Text=Zwischen den Jahren 1842 und 1844 reiste die Kaufmann-Familie erneut, diesmal wurde er von seinem Sohn Friedrich Theodore Kaufmann (1823–72) begleitet. Sie nahmen fünf Instrumente auf ihre Reise mit.
+Nach einer sehr erfolgreichen Tournee passierte eine Katastrophe.
+Das Schiff, mit dem sie von Kopenhagen heimgereist sind, geriet in einen Sturm und dabei verloren sie alle Instrumente.
+<!-- Mit Sicherheit gingen sie daran neu und verbesserte Chordulaudion Symphonium, […] zu bauen -->
+ |Quelle=Barrel organ: the story of the mechanical organ and its repair
+ |ref=<ref>''Barrel organ: the story of the mechanical organ and its repair''. S. 169, 170.</ref>}}
+
+== Literatur ==
+* Curt Sachs: ''Reallexikon der Musikinstrumente''. 1913.
+* {{Britannica 1911 |Lemma=Harmonichord |Band=12 |Seite=958}}
+
+== Weblinks ==
+* [https://mimo-international.com/MIMO/doc/IFD/OAI_ULEI_M0000358 ''Harmonichord.''] Musical Instrument Museums Online (MIMO).
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Saitenklavier]]
+[[Kategorie:Streichinstrument]]

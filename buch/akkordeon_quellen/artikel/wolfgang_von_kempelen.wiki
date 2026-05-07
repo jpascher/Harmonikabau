@@ -1,0 +1,165 @@
+[[Datei:Kempelen-charcoal.jpg|mini|Selbstporträt Kempelens (Kohlezeichnung mit Signatur)]]
+
+'''Wolfgang von Kempelen''' ({{huS|Kempelen Farkas}}, {{skS|Ján Vlk Kempelen}}; * [[23. Januar]] [[1734]] in [[Bratislava|Pressburg]]; † [[26. März]] [[1804]] in der [[Alservorstadt]], heute [[Wien]]) war ein ungarischer Mechaniker, [[Erfinder]], [[Architekt]] und Staatsbeamter im [[Königreich Ungarn]] bzw. im [[Erzherzogtum Österreich]]. Er baute unter anderem 1791 den ersten funktionstüchtigen Sprechapparat.
+
+== Leben ==
+Wolfgang von Kempelen stammte aus einer angesehenen deutschsprachigen Familie vermutlich irischer Herkunft. Er war der jüngste Sohn des 1722 nobilitierten [[Hofkammerrat]]s Engelbert (von) Kemp(e)len und Bruder des Generalmajors [[Johann Nepomuk von Kempelen]], mit dem er in biografischer Hinsicht häufig verwechselt bzw. mit ihm gleichgesetzt wird (vgl. beispielsweise den Eintrag in [[Allgemeine Deutsche Biographie|ADB]].) So stehen beispielsweise der Namenszusatz ''de/von Pázmánd'' und der Rang eines Ritters des [[K.u. Sankt Stephans-Orden|St.&nbsp;Stephan-Ordens]] ausschließlich Johann Nepomuk und nicht Wolfgang von Kempelen zu.<ref>Alice Reiniger: ''Wolfgang von Kempelen – Eine Biografie.'' S. 25.</ref> Auch die Bezeichnung als ''Baron'' entspringt einem Irrtum, Engelbert K. war lediglich in den [[Deutscher Adel#Briefadel|Briefadel]] erhoben worden.
+
+Kempelen besuchte das Gymnasium in Pressburg (heute: [[Bratislava]]). Anschließend soll er in [[Wien]] [[Philosophie]] und [[Rechtswissenschaft]]en studiert haben, doch ist eine Immatrikulation dort nicht nachweisbar. Wahrscheinlich ist jedoch ein Besuch der Akademie in Raab ([[Győr]]), in der die Studenten gezielt auf eine Beamtenlaufbahn vorbereitet wurden. Kempelen beherrschte die Sprachen Deutsch, Ungarisch, Französisch, Italienisch und Latein, später lernte er wohl zusätzlich für seine Reisen mit dem [[Schachtürke]]n in den 1780er Jahren noch Englisch. Die Frage seiner Nationalitätszugehörigkeit ist aus heutiger Sicht strittig: Kempelen wird von postumen Autoren sowohl für die österreichische wie die ungarische oder slowakische Nationalität reklamiert und bisweilen sogar als Deutscher bezeichnet. Über seine eigene Sichtweise hierzu ist nichts bekannt.
+
+Nach ausgedehnten Reisen in Italien wurde er Mitglied einer Kommission, die den [[Codex Theresianus]], den lateinischen Entwurf eines bürgerlichen Gesetzbuches unter [[Maria Theresia]], ins Deutsche (nach anderen Angaben ins Ungarische) übertrug. Durch diese Arbeit empfahl er sich der Kaiserin, die ihn zum [[Konzipist|Concipisten]] der ungarischen [[Hofkammer]] und einige Jahre später zum Hofkammerrat beförderte. 1765 wurde er Beauftragter für das [[Speisesalz|Salzwesen]] und Siedlungswesen im [[Banat]], 1766 Beauftragter für die Sicherheit der Salzminen in Ungarn und 1767 Beauftragter für die Wiederbesiedlung des Banat.
+
+[[Datei:Preßburg, Donaugasse.jpg|mini|Ehemaliges Haus des Wolfgang von Kempelen in der Preßburger Donaugasse nach einer Zeichnung von [[Karl Frech]] (wurde abgerissen).]]
+In letzterer Funktion hatte er wesentlichen Anteil daran, die Besiedlung und Infrastruktur des durch Kriegszerstörungen und Naturkatastrophen verwüsteten Banat zu organisieren. Er war verantwortlich für die Ansiedlung von rund 37.000 Familien, beteiligte sich am Entwurf geeigneter Wohngebäude für die Siedler, führte den Anbau von [[Gemeiner Lein|Flachs]] ein und errichtete eine Seidenfabrik. In der Umgebung von [[Timișoara|Temeschburg]] im [[Banat]] ließ er Sümpfe trockenlegen, Straßen wiederherstellen und Schulen bauen, außerdem führte er eine Schulpflicht ein. In Anerkennung dieser Tätigkeit stattete die Kaiserin ihn 1771 mit einer jährlichen Leibrente von 1000 Gulden aus, die später durch ihren Sohn [[Joseph II. (HRR)|Joseph&nbsp;II.]] im Rahmen der allgemeinen Aufhebung von Vergünstigungen der Beamten wieder eingezogen wurde.
+
+1776 überzeugte er den Hof von der Notwendigkeit, die [[Universität Tyrnau (historisch)|Universität Tyrnau]] aus ihrem nicht mehr ausreichenden Gebäude in geeignetere Räumlichkeiten der [[Universität von Buda]] im [[Burgpalast|Schloss von Buda]] umzusiedeln. Er wurde persönlich mit der Leitung des Umzugs beauftragt und betreute dabei besonders die Überführung der Universitätsbibliothek.
+
+1786 wurde er zum [[Hofrat]] bei der vereinigten ''[[Ungarische Hofkanzlei|siebenbürgisch-ungarischen Hofkanzlei]]'' ernannt. [[1798]] ging er unter Beibehaltung seiner vollen Bezüge von 5000 Gulden in den Ruhestand. Der immer wieder kolportierte Verlust dieser Bezüge ist nicht zutreffend, ebenso wie die Behauptung, Kempelen sei bei seinem Tod verarmt und vergessen gewesen.<ref>Alice Reiniger: ''Wolfgang von Kempelen – Eine Biografie'', S. 28.</ref>
+
+Kempelen war zweimal verheiratet, aus seiner zweiten, 1762 geschlossenen Ehe gingen fünf Kinder hervor, von denen nur zwei das Erwachsenenalter erreichten.
+
+== Schaffen ==
+=== Schachtürke ===
+{{Hauptartikel|Schachtürke}}
+
+[[Datei:Racknitz - The Turk 3.jpg|mini|Schachtürke]]
+Europaweite Bekanntheit erlangte Kempelen durch die Konstruktion seines sogenannten ''[[Schachtürke]]n'' (siehe auch [[Schachcomputer]]), eines scheinbaren Schachautomaten, bei dem jedoch tatsächlich ein in dem Gerät verborgener menschlicher Schachspieler mit Hilfe einer kunstreichen Mechanik die Schachzüge einer türkisch gekleideten Puppe steuerte.
+
+1769 hatte Kempelen auf Einladung Maria Theresias einer Vorführung [[Magnetismus|magnetischer]] Experimente beigewohnt, mit der der Franzose Jean Pelletier am Wiener Hof auftrat. Kempelen äußerte sich der Legende nach abfällig über diese Vorführung und kündigte an, binnen eines halben Jahres eine wesentlich bessere Maschine konstruieren zu können. Zu einem nicht genau bezeugten späteren Zeitpunkt führte er dann tatsächlich seinen ''Mechanischen Schachspieler'' der Kaiserin in Wien vor.
+
+Der Schachtürke erregte in kurzer Zeit europaweites Aufsehen, das sich in einer lebhaften Berichterstattung niederschlug. Kempelen führte ihn daraufhin 1783/84 während einer zweijährigen Reise in deutschen und europäischen Städten vor. Nach seinem Tod 1804 wurde er zusammen mit anderen Gegenständen aus Kempelens Nachlass von [[Johann Nepomuk Mälzel]] erworben und 1824, also rund zwanzig Jahre nach dem Tod seines Erfinders, noch einmal weltweit vorgeführt. Durch Mälzel kam der Automat später in die USA, wo er 1854 bei einem Feuer im Peale’s Museum in Philadelphia verbrannte.
+
+Nach einer der verschiedenen Etymologien für den Ausdruck „[[Türken (Verb)|getürkt]]“ (gefälscht, vorgetäuscht) soll dieser sich von Kempelens Schachtürken herleiten. Hierbei ist jedoch zu beachten, dass die Identifizierung des Schachtürken mit einem [[Androide]]n von Kempelen selbst nie vorgenommen wurde, sondern der sensationshungrigen Berichterstattung entsprang (ebenso wie späterhin die Empörung über den vorgeblichen Betrug).
+
+=== Sprechmaschine ===
+[[Datei:KempelenscherSprechapparat.jpg|mini|Älteste Kempelen’sche Sprechmaschine, um 1800. [[Deutsches Museum]], München]]
+Während der Schachtürke eine vorwiegend zu Unterhaltungszwecken gedachte Erfindung war, ist Kempelens 1791 gebaute ''Sprechmaschine'' zur Hervorbringung menschlicher [[Menschliche Stimme|Sprachlaute]] eine auch wissenschaftsgeschichtlich bedeutende Leistung. Nicht zuletzt handelt es sich bei diesem, die wesentlichen Teile des menschlichen Vokalsystems imitierenden Sprechapparat<ref>[[George A. Miller]]: ''Wörter. Streifzüge durch die Psycholinguistik.'' Herausgegeben und aus dem Amerikanischen übersetzt von [[Joachim Grabowski]] und [[Christiane Fellbaum]]. Spektrum der Wissenschaft, Heidelberg 1993; Lizenzausgabe: Zweitausendeins, Frankfurt am Main 1995; 2. Auflage ebenda 1996, ISBN 3-86150-115-5, S. 88–89 (''Die ersten Sprechapparate'').</ref> um die erste grundsätzlich funktionstüchtige Konstruktion zur [[Sprachsynthese]] überhaupt.
+
+Spätestens ab 1769 stellte Kempelen erste Untersuchungen mit verschiedenen [[Musikinstrument]]en an, um die menschliche Stimme bzw. ihre Produktion durch artifizielle Artikulationsprozesse möglichst naturgetreu nachzubilden. Als hierfür besonders prädestiniert erschienen ihm [[Doppelrohrblattinstrument]]e, aufgrund einer gewissen Analogie des Doppelrohrblatts zu den menschlichen [[Stimmlippe]]n. In der Folgezeit ergänzte er seine mechanischen Beobachtungen durch eine gründliche autodidaktische Analyse menschlicher Sprache und [[Artikulation (Linguistik)|Artikulationsvorgänge]]. Die Ergebnisse seiner Forschungen, bei denen er unter anderem auf Vorarbeiten von [[Albrecht von Haller]], [[Dodart|Denis Dordat]] und [[Christian Gottlieb Kratzenstein]] zurückgreifen konnte, publizierte er 1791 in seiner Schrift ''Wolfgangs von Kempelen k. k. wirklichen Hofraths Mechanismus der menschlichen Sprache nebst der Beschreibung seiner sprechenden Maschine''.
+
+Während [[Christian Gottlieb Kratzenstein|Kratzenstein]] 1773 fünf mit speziellen Resonatoren versehene [[durchschlagende Zunge]]npfeifen vorstellte, mit denen jeweils nur ein bestimmter [[Monophthong]] (nämlich A, E, i, O, U) hervorgebracht werden konnte, erlangte Kempelen die Einsicht, dass natürlich klingende Sprache mit solchen Mitteln nicht hervorgebracht werden kann, weil die Artikulation eines jeden Sprachlauts fast immer von den ihn umgebenden Sprachlauten beeinflusst wird ([[Koartikulation]]). Findet dieses Phänomen bei einer Sprachsynthese keine Berücksichtigung, beeinträchtigt dies sowohl ihre Verständlichkeit wie auch die Authentizität der Synthese sehr stark. Daher konstruierte Kempelen seine Sprechmaschine weitgehend in Anlehnung an den menschlichen Sprechapparat. Die durch die manuelle Bedienung zwangsläufig hervorgerufene Trägheit und Variation in der Artikulation verstärkt diesen Effekt noch. Die wissenschaftliche Untersuchung der Koartikulation ist erst im 20. Jahrhundert wieder aufgegriffen worden.
+
+Die Funktionsweise der Sprechmaschine (je nach Quelle auch: ''Sprachmaschine'' oder ''sprechende Maschine'') basierte auf dem Konzept einer möglichst naturgetreuen Nachbildung der menschlichen [[Artikulation (Linguistik)#Artikulationsorgan|Sprechorgane]]. Dabei wird die Lunge durch einen Blasebalg, die Funktion der [[Stimmbänder]] durch ein aufschlagendes [[Rohrblatt]] aus Elfenbein,<ref>''Wolfgangs von Kempelen k. k. wirklichen Hofraths Mechanismus der menschlichen Sprache nebst der Beschreibung seiner sprechenden Maschine''. Wien, 1791.
+[Wusste von den Aufschlagzungen in Orgeln:]
+Seite 391,
+„Eben so wußt’ ich, daß man schon seit langer Zeit, besonders in Frankreich, die sogenannte Menschstimme, die eben aus solchen großen und kleinen Clarinetmundstücken besteht, in Orgeln angebracht hat; allein da diese die Menschenstimme nur sehr unvollkommen nachahmen, und daher ein betäubendes Geton verursachen, so fand ich sie für mein Vorhaben nicht tauglich.“
+[Haupterkenntnis, nicht die Tonhöhe, sondern die Formation ist wichtig:]
+Seite 397 398,
+„Dieses alles zusammen genommen, ist die Sprache oder Artikulation nichts anderes als Stimme, die durch verschiedene Öffnungen durchgeht. Dieser Satz bestätigte sich durch Versuche und Entdeckungen täglich mehr und wuchs bey mir bis zur mathematischen Gewißheit.“
+Seite 402,
+(*)
+[Beschaffenheit der Aufschlagzungen:]
+„Sowohl wie man die Pfeifen stimmen kann, als auch ihnen den rauhen Ton benehmen könne, wird unten gezeigt werden.“
+Seite 412,
+„Um diesen Stimmrohre die Rauigkeit und das hölzerne Schnarren zu benehmen, dagegen aber einen weicheren, und angenehmeren Ton zu geben, überziehe ich die Ränder der Rinne, als auch das elfenbeinerne Blättchen, oder die Zunge an der unteren Seite mit einem dünnen weichen Handschuhleder. Es wird nämlich ohne viel Umstände ein Stück Leder mit feinem Leim angeleimet, doch so, daß die glatte Seite des Leders auswendig kömmt, dann wird das überstehnde genau an der Kante des Elfenbeins weggeschnitten.“
+[https://digital.slub-dresden.de/ppn325235570 digital.slub-dresden.de]</ref><ref>Seite 392, 394, Einfachrohrblatt einer Sackpfeife oder eines Dudelsacks wurde für erste Versuche verwendet. [https://digital.slub-dresden.de/ppn325235570 digital.slub-dresden.de]</ref> die Nase durch einen Nasaltrakt mit zwei Nasenöffnungen und der Mund durch einen Gummitrichter simuliert. Dieser Gummitrichter ist jedoch vollkommen leer, weist also keine Repräsentationen für Zunge, Zähne, Lippen oder weichen Gaumen auf. Durch Veränderung der Abdeckung des Gummitrichters mit der Hand lassen sich sowohl einige unterschiedliche [[Vokal]]e als auch gewisse [[Konsonant]]en erzeugen. Die Nasenrohre werden stets mit den Fingern verschlossen, außer wenn [[Nasal (Phonetik)|Nasale]] oder [[Nasalvokal]]e hervorgebracht werden sollen.
+
+[[Datei:KEMPELEN Speaking Machine Replica 2017.png|mini|Replik der Sprechmaschine am [[Leibniz-Institut für Deutsche Sprache]], Mannheim]]
+Die objektiv eher mäßige Artikulationsqualität und -genauigkeit seiner Synthese, die nicht zuletzt aus dem Fehlen nahezu sämtlicher Artikulationsstellen und Artikulatoren (s.&nbsp;o.) und dem damit zusammenhängenden Mangel an Modulationsfähigkeit der [[Formanten]] resultierte, wusste Kempelen dadurch zu kaschieren, dass er ihr die Stimme eines kleinen Kindes gab, das ja seinerseits auch noch Schwierigkeiten mit den exakten Artikulationsabläufen hat.
+Faktisch in überzeugender Qualität darstellbar sind lediglich die Vokale {{IPA-Phon|a}}, {{IPA-Phon|ɛ}}, {{IPA-Phon|ɔ}} und mit einigen Einschränkungen {{IPA-Phon|ʊ}} sowie die Konsonanten {{IPA-Phon|p}} bzw. {{IPA-Phon|b}}, {{IPA-Phon|m}} und {{IPA-Phon|l}}.
+
+Das Original der ''Sprechmaschine'', auf dem mutmaßlich die in seinem 1791 erschienenen Buch abgedruckte Beschreibung basiert, gilt als verschollen. Es ist allerdings ohnehin fraglich, ob es die Sprechmaschine, so wie sie im ''Mechanismus der menschlichen Sprache&nbsp;…'' beschrieben wird, jemals gegeben hat: Eine 1784 (also deutlich ''vor'' der Veröffentlichung des ''Mechanismus'') in Leipzig unter Kempelens Mitarbeit angefertigte Beschreibung und Zeichnung der Sprechmaschine zeigt diese mit einem deutlich komplexeren Aufbau als im Buch beschrieben, der zugleich einige Funktionen ermöglicht, die mit der Buch-Version nicht darstellbar sind (bspw. die Veränderung der Tonhöhe während der Bedienung). Möglicherweise handelt es sich bei der Darstellung im ''Mechanismus'' also um eine idealisierte Fassung.
+
+Eine um 1906 vom k.k. Wiener Konservatorium unter bislang nicht vollständig geklärten Umständen an das [[Deutsches Museum|Deutsche Museum]] in [[München]] (DMM) gelangte Version der Sprechmaschine (teilweise als Kopie des Nachbaues von [[Charles Wheatstone]] bezeichnet) hat einen ebenfalls deutlich komplexeren technischen Aufbau, der in manchen Aspekten eher der Version von 1784 ähnelt als derjenigen aus dem ''Mechanismus''. Viele konstruktive Details sind erheblich anders konzipiert als es durch Kempelen selbst beschrieben wurde (beispielsweise die Konstruktion der Zungenpfeife und der Frikativgeneratoren).
+
+Woher und aus wessen Hand das Exemplar im Deutschen Museum ursprünglich stammt, ist bislang nicht völlig klar. Etliche Experten, darunter auch Prof. Bernd Pompino-Marschall ([[Humboldt-Universität zu Berlin|HU Berlin]]), vermuteten, dass die in München ausgestellten Teile nicht ursprünglich zusammengehörig sind, sondern aus einem relativ alten Torso mit neueren Ergänzungen bestehen. Diese These wurde von Fabian Brackhane, der das Exemplar 2008 detailliert untersuchen und vermessen konnte, zunächst unterstützt: Während die Windlade zusammen mit der Zungenpfeife sowie Mund und Nase recht alt zu sein scheint und (nicht zuletzt aufgrund der angewendeten Fertigungstechniken) durchaus zeitlich nahe an Kempelen heranreichen könnte, sind der äußere Resonanzkasten, die Fundamentplatte und der Blasebalg augenscheinlich neueren Datums. Auch an der Windlade und ihrer Technik wurden später deutlich sichtbare Änderungen und Ergänzungen vorgenommen.<ref>Fabian Brackhane: ''Die Sprechmaschine Wolfgang von Kempelens – Historischer Kontext, Konstruktion und Leistung''. (Magisterarbeit), Saarbrücken 2009</ref>
+
+Aktuelle Untersuchungen (2015f.) legen indessen einen anderen Befund nahe: Nach intensiven Quellenrecherchen und Untersuchungen mit modernen bildgebenden Verfahren durch das DMM erhärten sich die Indizien immer mehr, dass es sich beim dortigen Exemplar tatsächlich doch um eine Konstruktion aus Kempelens eigener Hand handelt.<ref>Fabian Brackhane: ''‚Kann was natürlicher, als Vox humana, klingen?‘ – Ein Beitrag zur Geschichte der mechanischen Sprachsynthese''. Dissertation. Saarbrücken: Inst. für Phonetik, Univ. des Saarlandes, 2015. (Phonus 18), S. 68 f.</ref> Auch die zunächst deutlich jünger erscheinenden Bauteile weisen Merkmale auf, die sie zum Originalbestand gehören lassen. Eine umfangreiche Publikation hierzu ist in Vorbereitung.
+
+Die häufig zu lesende Behauptung, diese Münchener Version sei ''die'' Sprechmaschine Kempelens, ist jedoch grundsätzlich nicht plausibel: Es ist sehr zu bezweifeln, dass Kempelen stets nur mit einem Exemplar seiner Synthesemaschine arbeitete. Eher dürfte er, wie es seine Äußerungen im ''Mechanismus'' nahelegen, mit mehreren Versionen parallel experimentiert haben. Der Münchener Apparat ist seit vielen Jahren nicht mehr funktionsfähig.
+
+Bereits unmittelbar nach dem Erscheinen von Kempelens ''Mechanismus'' wurden die ersten Nachbauten von dessen Sprechmaschine angefertigt; schon Goethe berichtet von einem solchen.<ref>[[Johann Wolfgang von Goethe]]: <!-- Und in welchem Kontext, Kapitel, Thema finden wir dort etwas? Damit wir die gleiche Stelle auch in einer anderen Werkausgabe nachschlagen dürfen? --> ''Goethes Werke''. Herausgegeben im Auftrage der Großherzogin Sophie von Sachsen, IV. Abtheilung, 12. Band. Weimar 1893, S. 154.</ref> Ein weiterer entstand in den 1830er Jahren durch den britischen Physiker Charles Wheatstone.<ref>Sir Charles Wheatstone: ''Reed organ-pipes, speaking machines, etc.'' In: ''The scientific papers of Sir Charles Wheatstone''; published by the Physical Society of London, London 1879</ref> In jüngerer Zeit entstand eine Reihe von Nachbauten der Sprechmaschine: So existieren neben einem künstlerisch freien Nachbau durch Jakob Scheid an der Universität für angewandte Kunst in [[Wien]] von 2004<ref>Brigitte Felderer, Ernst Strouhal: ''Kempelen – Zwei Maschinen'', Wien 2004</ref> u.&nbsp;a. drei jeweils streng an Kempelens Vorgaben orientierte Exemplare in [[Paris]] (Jean-Sylvain Liénard, Laboratoire d’Informatique pour la Mécanique et les Sciences de l’Ingénieur, 1968)<ref>Jean-Silvain Liènard: ''Reconstruction de la machine parlante de Kempelen''. In: IV. Budapest Akusztikal Konferencia, Budapest 1969</ref> sowie an den Universitäten von [[Budapest]] (Péter Nikléczy und Gábor Olaszy 2001)<ref>Péter Nicklécyz, Gábor Olaszy: ''A reconstruction of Farkas Kempelen’s speaking machine''. In: Eurospeech 2003 – Geneva</ref> und [[Saarbrücken]] (Lehrstuhl für Phonetik und Phonologie; Fabian Brackhane und Dominik Bauer 2007-09).<ref>Fabian Brackhane: ''Die Sprechmaschine Wolfgang von Kempelens – Historischer Kontext, Konstruktion und Leistung''. (Magisterarbeit), Saarbrücken 2009</ref> Weitere Nachbauten existieren in [[York]] (David Howard 1993), [[Utrecht]] (Marcel van den Broeke 1967)<ref>Marcel van den Broeke: ''Wolfgang von Kempelen’s Speaking Machine as a Performer''. In: Studies for Antonie Cohen, Foris Publications Dordrecht</ref> und [[Montluçon]] (Jean Jeltsch 2008), im [[Heinz Nixdorf MuseumsForum]] Paderborn und in der Historischen akustisch-phonetischen Sammlung (HAPS) der [[TU Dresden]] (beide Fabian Brackhane 2009) und im [[Leibniz-Institut für Deutsche Sprache]] Mannheim (Fabian Brackhane 2017).
+
+=== Hilfsmittel für den Blindenunterricht ===
+Im Jahr 1778 wurde Kempelen [[Maria Theresia Paradis]] vorgestellt, die eine begabte Sängerin, Komponistin und Pianistin war, aber wegen ihrer [[Blindheit]] [[Analphabet]]in geblieben war. Auf Bitten der Kaiserin erfand Kempelen als Hilfsmittel einen dreidimensional tastbaren [[Letter]]nsatz und brachte der Blinden damit das Lesen und Schreiben bei. 1779 baute er für sie eine Druckmaschine mit beweglichem Letternsatz und einen [[Setzkasten]], wofür sie ihm am 16. August 1779 in einem mit dieser Maschine geschriebenen Brief überschwänglich dankte.
+
+=== Bauten und mechanische Arbeiten ===
+Teils im Rahmen seiner Amtsführung, teils aus privater Neigung oder auf persönliche Bitten von Mitgliedern des Hofes, vollbrachte Kempelen zahlreiche Leistungen auf dem Gebiet der Architektur und Mechanik:
+* 1770: Entwurf einer [[Pontonbrücke]] über die Donau bei Pressburg.
+* 1772: Entwurf der selbstregulierenden [[Wasserpumpe]] für die Fontäne und die [[Kaskade (Wasserfall)|Kaskaden]] im [[Schloss Schönbrunn|Schlosspark Schönbrunn]].
+* 1774: Erfindung eines mobilen Bettes, in dem die Kaiserin während ihrer Genesung von einer [[Pocken]]erkrankung liegen, sitzen, schreiben und ihren Regierungsgeschäften nachgehen konnte.
+* 1777 und 1780: Bau zweier [[Dampfmaschine]]n, deren erste nahe dem Wiener [[Stubentor]] aufgestellt wurde und später für den Bau des Franzkanals eingesetzt wurde.
+* 1788 oder 1789: Erhalt eines kaiserlichen Patents für den Entwurf einer [[Dampfturbine]] zum Betrieb von [[Mühle|Mühlwerken]] und anderen Maschinen.
+* Beteiligung am Wiederaufbau des [[Burgpalast|Schlosses von Buda]] und Planung des Schlosstheaters, das am 25. Oktober 1790 eingeweiht wurde.
+
+=== Künstlerische und literarische Arbeiten ===
+Kempelen war ein begabter Zeichner und [[Radierung|Radierer]]. Er schrieb [[Epigramm]]e, Gedichte, Dramen und [[Singspiel]]e, zu denen er selbst die Musik komponierte. Seine Komödie ''Das Zauberbuch'' wurde 1767 in Pressburg aufgeführt, das ihm zugeschriebene Singspiel ''[[Andromeda und Perseus (Zimmermann)|Andromeda und Perseus]]'' erschien 1780 in Wien und wurde dort 1781 öffentlich aufgeführt. Seit 1789 war er Ehrenmitglied der [[Akademie der bildenden Künste Wien|Wiener Akademie der Künste]].
+
+== Nachleben ==
+1935 wurde die ''Kempelengasse'' in Wien-[[Favoriten]] nach dem Erfinder benannt.
+
+Anlässlich von Kempelens 200. Todestag gab es mehrere Versuche, seine berühmten Maschinen nachzubauen. Der Wiener Künstler [[Jakob Scheid]] schuf einen Nachbau der Sprechmaschine, der den Anweisungen Kempelens unter Einsatz von modernen Materialien folgt und tatsächlich sprachliche Laute von sich geben kann. Auch Teile des Schachtürken wurden von Scheid nachgebaut (beide in Felderer/Strouhal 2004). Ein vollständiger Nachbau des Schachtürken wurde vom [[Heinz-Nixdorf-Museumsforum]] in [[Paderborn]] vorgenommen.
+Von Kempelens Sprechmaschine existieren mittlerweile auch mehrere Nachbauten, die sich im Gegensatz zu der Arbeit [[Jakob Scheid|Scheids]] eng an die im ''Mechanismus'' beschriebene Konstruktion anlehnen (siehe oben unter 'Die Sprechmaschine').
+
+In jüngster Zeit wurde Kempelens Bedeutung als innovativer Erfinder gewürdigt. Im Jahr 2007 reflektierten Ausstellungen in [[Budapest]] und [[Karlsruhe]] das Thema ''Wolfgang von Kempelen - Mensch - (in der) Maschine''. So erscheint Kempelen aus moderner Sicht als „Prototyp des pragmatischen Genies im Zeitalter der Erfindung“.<ref>Oliver Jungen: ''Ritter und Düsentrieb passen zusammen.'' In: ''[[Frankfurter Allgemeine Zeitung]]'', 25. Juli 2007.</ref>
+
+== Werke ==
+* ''Mechanismus der menschlichen Sprache. Wolfgangs von Kempelen k. k. wirklichen Hofraths Mechanismus der menschlichen Sprache, nebst der Beschreibung seiner sprechenden Maschine''; Wien 1791. ({{DTAW|kempelen_maschine_1791}}, [http://digitalcollections.ohsu.edu/items/show/3849 Digitalisat] bei [http://digitalcollections.ohsu.edu/ Oregon Health & Science University Digital Collections])
+
+== Literatur ==
+; Zeitgenössische Quellen:
+* Wolfgang von Kempelen: ''Wolfgangs von Kempelen k.k. wirklichen Hofraths Mechanismus der menschlichen Sprache nebst der Beschreibung seiner sprechenden Maschine.'' Degen, Wien 1791 ({{DTAW|kempelen_maschine_1791}}), [http://digital.slub-dresden.de/fileadmin/data/325235570/325235570_tif/jpegs/325235570.pdf (Digitale Version)] (PDF; 123&nbsp;MB), Faksimileausgabe Stuttgart-Bad Cannstatt 1970; gleichzeitige französische Ausgabe: ''Le Mécanisme de la parole, suivi de la déscription d’une machine parlante et enrichi de XXVII planches.'' Bauer, Wien 1791.
+* ''Wolfgang von Kempelen: Der Mechanismus der menschlichen Sprache. / The Mechanism of Human Speech.'' Kommentierte Transliteration & Übertragung ins Englische / Commented Transliteration & Translation into English. Herausgegeben von Fabian Brackhane, Richard Sproat, Jürgen Trouvain. Dresden 2017; [https://www.coli.uni-saarland.de/~trouvain/Kempelen-Web_2017_07_31.pdf uni-saarland.de] (PDF; 28&nbsp;MB).
+* Wolfgang von Kempelen: ''Wolfgangs von Kempelen k.k. wirklichen Hofraths Mechanismus der menschlichen Sprache nebst der Beschreibung seiner sprechenden Maschine.'' V. Abtheilung - ''Von der Sprachmaschine.'' - [http://www.coli.uni-saarland.de/groups/WB/Phonetics/page.php?id=phonus16 Transliterierte und kommentierte Fassung]
+* Anonyme Besprechung der beiden Ausgaben von Kempelens Schrift. In: ''Allgemeine Literatur-Zeitung.'' 3. August 1792, Sp. 297–300 ([http://zs.thulb.uni-jena.de/receive/jportal_jparticle_00007461 Online-Version]).
+* {{BLKÖ|Kempelen, Wolfgang Ritter von|11|158|163}}
+* [[Johann Wolfgang von Goethe]]: <!-- Und in welchem Kontext, Kapitel, Thema finden wir dort etwas? Damit wir die gleiche Stelle auch in einer anderen Werkausgabe nachschlagen dürfen? Sollten wir unverzeihlicherweies 1893 nicht im Regal zu stehen haben? --> ''Goethes Werke.'' Herausgegeben im Auftrage der Großherzogin Sophie von Sachsen. IV. Abtheilung, 12. Band. Weimar 1893
+* Carl F. Hindenburg: ''Über den Schachspieler des Herrn von Kempelen.'' Müller, Leipzig 1784.
+* Joseph Friedrich von Racknitz: ''Ueber den Schachspieler des Herrn von Kempelen und dessen Nachbildung.'' Joh. Gottl. Immanuel Breitkopf, Leipzig / Dresden 1789.
+* [[Karl Gottlieb von Windisch]]: ''Briefe über den Schachspieler des Hrn. von Kempelen nebst drey Kupferstichen die diese berühmte Maschine vorstellen.'' Hrsg. Chr. von Mechel. Basel 1783.
+
+; Neuere Forschungsliteratur:
+* {{ADB|53|766|767|Kempelen de Pázmánd, Wolfgang Ritter von|[[Paul Aurich|W. Paul Aurich]]|ADB:Kempelen de Pázmánd, Wolfgang Ritter von}}
+* Fabian Brackhane: [http://www.coli.uni-saarland.de/groups/WB/Phonetics/page.php?id=phonus16 ''Die Sprechmaschine Wolfgang von Kempelens – Von den Originalen bis zu den Nachbauten.''] In: ''Phonus.'' 16 (= ''Forschungsberichte des Instituts für Phonetik der Universität des Saarlandes''). Universität des Saarlandes, Saarbrücken 2011.
+* Fabian Brackhane: [http://www.coli.uni-saarland.de/groups/WB/Phonetics/contents/phonus-pdf/phonus18/phonus_18_brackhane.pdf ''„Kann was natürlicher, als Vox humana, klingen?“ - Ein Beitrag zur Geschichte der mechanischen Sprachsynthese.''] (PDF) In: ''Phonus.'' 18 (= ''Forschungsberichte des Instituts für Phonetik der Universität des Saarlandes''). Dissertation. Universität des Saarlandes, Saarbrücken 2015.
+* Homer Dudley, T. H. Tarnoczy: ''The Speaking Machine of Wolfgang von Kempelen.'' In: ''The Journal of the Acoustical Society of America.'' 22(2), 1950, S. 151–166.
+* Marion Faber (Hrsg.): ''Der Schachautomat des Barons von Kempelen.'' Harenberg, Dortmund 1983, ISBN 3-88379-367-1
+* Brigitte Felderer, Ernst Strouhal: ''Kempelen – zwei Maschinen. Texte, Bilder und Modelle zur Sprechmaschine und zum schachspielenden Androiden Wolfgang von Kempelens.'' Sonderzahl, Wien 2004, ISBN 3-85449-209-X
+* Hans Grassegger: ''Von Kempelen and the Physiology of Speech Production.'' In: ''Grazer Linguistische Studien.'' 62, 2004, S. 37–49; [https://static.uni-graz.at/fileadmin/gewi-institute/Sprachwissenschaft/GLS_Download/GLS_62_-_Grassegger.pdf uni-graz.at] (PDF; 157&nbsp;kB).
+* Angéla Imre: ''On the personality of Wolfgang von Kempelen''. In: ''Grazer Linguistische Studien.'' 62, 2004, S. 61–64; [https://static.uni-graz.at/fileadmin/gewi-institute/Sprachwissenschaft/GLS_Download/GLS_62_-_Imre.pdf uni-graz.at] (PDF).
+* {{NDB|11|484||Kempelen de Pázmánd, Wolfgang Ritter von|Hans Jaeger|118561294}}
+* J.-S. Liénard: ''Reconstruction de la machine parlante de Kempelen.'' In: ''Proceedings of the 4th International Congress of Acoustics.'' Budapest 1967
+* Péter Nikléczy, Gábor Olaszy: ''Kempelen’s speaking machine from 1791: possibilities and limitations. (Recovering a 200 year-old technology).'' In: ''Grazer Linguistische Studien'', 62 2004, S. 111–120; [https://static.uni-graz.at/fileadmin/gewi-institute/Sprachwissenschaft/GLS_Download/GLS_62_-_Nikleczy.pdf uni-graz.at] (PDF; 306&nbsp;kB).
+* Bernd Pompino-Marschall: ''Von Kempelen’s contribution to the theory of acoustic articulation.'' In: ''Grazer Linguistische Studien.'' 64, 2004, S. 137–147; [https://static.uni-graz.at/fileadmin/gewi-institute/Sprachwissenschaft/GLS_Download/GLS_62_-_Pompino.pdf uni-graz.at] (PDF; 1,5&nbsp;MB).
+* Bernd Pompino-Marschall: ''Wolfgang von Kempelen und seine Sprechmaschinen.'' In: ''Forschungsberichte des Instituts für Phonetik und Sprachliche Kommunikation der Universität München.'' 29, 1991, S. 181–252
+* A. Reininger: ''Wolfgang von Kempelen. Eine Biographie.'' Dissertation. Universität für Angewandte Kunst, Wien 2003
+* T. Standage: ''Der Türke – Die Geschichte des ersten Schachautomaten und seiner abenteuerlichen Reise um die Welt.'' Campus Verlag, Frankfurt am Main / New York 2004.
+* Wheatstone, Sir Charles: ''Reed organ-pipes, speaking machines, etc.'' In: ''The scientific papers of Sir Charles Wheatstone.'' Physical Society of London, London 1879.
+
+; Biografischer Essay:
+* [[Theodor Heuss]]: ''Der künstliche Mensch. Das Leben des Wolfgang von Kempelen.'' In: Ders.: ''Schattenbeschwörung. Randfiguren der Geschichte.'' Wunderlich, Stuttgart/Tübingen 1947; Klöpfer und Meyer, Tübingen 1999, ISBN 3-931402-52-5.
+
+; Belletristik:
+* [[Robert Löhr]]: ''Der Schachautomat.'' Piper, München 2005, ISBN 3-492-04796-3.
+
+== Weblinks ==
+{{Commonscat|Johann Wolfgang von Kempelen|Wolfgang von Kempelen}}
+{{Wikisource|Wolfgang von Kempelen}}
+* {{DNB-Portal|118561294}}
+* [https://www.hnf.de/dauerausstellung/ausstellungsbereiche/die-mechanisierung-der-informationstechnik/fruehe-automaten-faszination-schachtuerke.html ''Frühe Automaten – Faszination Schachtürke.''] [[Heinz Nixdorf MuseumsForum]]
+
+* [https://www-itec.uni-klu.ac.at/KempelenPreis/home/index.html Wolfgang von Kempelen Preis für Informatikgeschichte]
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=p|GND=118561294|LCCN=nr91009922|VIAF=77107903}}
+
+{{SORTIERUNG:Kempelen, Wolfgang von}}
+[[Kategorie:Ingenieur, Erfinder, Konstrukteur]]
+[[Kategorie:Beamter (Habsburgermonarchie vor 1804)]]
+[[Kategorie:Schachgeschichte]]
+[[Kategorie:Person (Bratislava)]]
+[[Kategorie:Geboren 1734]]
+[[Kategorie:Gestorben 1804]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Kempelen, Wolfgang von
+|ALTERNATIVNAMEN=Kempelen de Pázmánd, Johann Wolfgang Ritter von (vollständiger Name)
+|KURZBESCHREIBUNG=Erfinder, Architekt und Staatsbeamter der Habsburgermonarchie
+|GEBURTSDATUM=23. Januar 1734
+|GEBURTSORT=[[Bratislava|Pressburg]]
+|STERBEDATUM=26. März 1804
+|STERBEORT=[[Alservorstadt]], heute [[Wien]]
+}}

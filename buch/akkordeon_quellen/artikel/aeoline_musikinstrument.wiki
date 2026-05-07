@@ -1,0 +1,40 @@
+'''Aeoline''' ist der Name mehrerer [[Musikinstrument]]e, die der [[Maultrommel]] nachempfundene durchschlagende [[Durchschlagende Zunge|Stimmzungen]] verwenden, die in beiden Windrichtungen Töne erzeugen. ''Aeoline'' ist auch der Name für Orgelstimmen mit freischwingenden, durchschlagenden Zungen die einen sehr zarten Klang haben. Der Instrumentenbauer [[Johann Caspar Schlimbach]] war 1810 der erste, der einen [[Querhammerflügel]] mit ''Aeoline'' baute, die Idee und vorangegangene Versuche wie auch die Namensgebung stammen von [[Bernhard Eschenbach]], der 1812 bereits eine etwas größere Klaväoline baute. Im [[Musikinstrumenten-Museum Berlin]] ist ein derartiges Instrument ausgestellt. ({{nowrap|Kat.-Nr. 5321}} „Querhammerflügel mit Aeoline, Johann Caspar Schlimbach, Königsofen, um 1815“).
+
+Ein sehr ausführlicher Bericht über die Klaveoline, die von Eschenbach selber gebaut wurde, findet sich  1815 im ''Wöchentlicher Anzeiger für Kunst- und Gewerb-Fleiß im Königreiche Bayern''.<ref>Bernhard Eschenbach: ''[[s:Klaväoline|Klaväoline]]''. In: ''Wöchentlicher Anzeiger für Kunst- und Gewerb-Fleiß im Königreiche Bayern''. Band 1, 28. Oktober 1815, S.&nbsp;227–234 ([[Wikisource]]).</ref>
+
+Im Jahr 1820 hatte „Der Schreiber … Gelegenheit, ''mehrere dieser Instrumente'' zu sehen und zu hören,&nbsp;…“
+
+Sein Bericht über die Erfindung:
+{{Zitat
+ |Text=Mit Hilfe des dortigen geschickten Instrumentenmachers, Hrn. Schlimmbach, wurde nun das erste Instrument dieser Art zu Stande gebracht, welches der Erfinder, wie er sagte, nach Anleitung des Wortes Violine, Aeoline nannte. Uneigennützig teilte er nun seine Erfindung einigen andern Künstlern mit, namentlich Herrn [[Voit (Orgelbauer)|Voit]] in Schweinfurt, der dann mehrere solcher Instrumente bauete, sie ''Aeolodikon'' nannte, und schon vor mehreren Jahren mit einem derselben eine Reise nach Frankfurt machte.
+ |Quelle=''Musikalische Zeitung'' vom 26. Juli 1820
+ |ref=<ref name="MZ30_1820" />}}
+
+{{Zitat
+ |Text=In der Tat hat der obengenannte Hr. Schlimmbach schon eine Orgel gebaut, in welcher mehrere Register mit dem Aeolodikon angebracht sind,&nbsp;…
+ |ref=<ref name="MZ30_1820" />}}
+
+Die Aeoline gehört wie die [[Melodika]] und die [[Physharmonika]] sowie das Aoelsklavier zu den Vorgängern des [[Harmonium]]s.<ref>[[Erich Valentin (Musikwissenschaftler)|Erich Valentin]]: ''Handbuch der Musikinstrumentenkunde.'' Mit Zeichnungen von [[Franz Mazura]]. Gustav Bosse, Regensburg 1954, S. 68 f. und 371 f.</ref>
+
+Die Bezeichnung ''Aeoline'' (so seit 1816, Eschenbach) wurde in der Folgezeit auch für weitere Instrumente mit Stimmplatten verwendet:
+* [[Christian Friedrich Ludwig Buschmann]], ebenfalls ein Instrumentenbauer, nannte seine frühen kleinen [[Physharmonika]]s Aeolinen. Diese Instrumente entstanden ungefähr ab 1829.
+* Bestimmte Mundharmonika-Vorläufer wurden ebenfalls Aeoline<ref>[http://www.patmissin.com/history/aeolina.html Abbildung] Die Bilder stammen aus einer deutschen Schule für Aeoline, die im Jahr 1830 von I.&nbsp;Willis und Co. herausgegeben wurde, der diese produziert und nach London exportierte. Die Abbildung zeigt, wie rudimentär die Instrumente waren: im Wesentlichen sind es nur einzelne Stimmplatten bzw. eine Platte mit einer Gruppe von Stimmzungen, die zu Akkorden oder Tonleitern zusammengefasst wurden. Es gibt auch ein chromatisches Modell, das kleine Abdeckungen (Klappen) für die Halbtöne hat und bei dem die Töne über 1½&nbsp;Oktaven reichen. Der unbekannte Verfasser dieser Broschüre schreibt, dass die Instrumente erstmals im Jahre 1827 nach London gebracht wurden. Es werden 32 verschiedene Modelle aufgelistet.</ref> genannt, manche davon wurden auch als ''Aura''<ref>[[Erich Valentin (Musikwissenschaftler)|Erich Valentin]]: ''Handbuch der Musikinstrumentenkunde.'' Mit Zeichnungen von [[Franz Mazura]]. Gustav Bosse, Regensburg 1954, S. 69 und 384.</ref> bezeichnet.
+* Ab 1820 wurden mehrere Varianten unter dem Namen ''[[Aeolodicon]]'' entwickelt.
+* Das Blasakkordeon wurde auch ''Aeoline mit Klappen'' genannt.
+* Zum [[Psallmelodikon]] siehe unter [[Durchschlagende Zunge#Ohne Rohrwerke|Durchschlagzungen]].
+* Die Maultrommel wurde noch um 1829 als Aeoline bezeichnet. [[Anemochord]] und [[Äolsharfe]] werden damit in Verbindung gebracht.<ref>Wilhelm Weber führt diese als eigenständiges Instrument an. „als z.&nbsp;B. die Aeolsharfe, die Aeoline, das Anemochord u. dergl., und dass also Zungenpfeifen überhaupt zu betrachten sein mögten“. ''Caecilia'', Band 11. S. Söhnen, 1829, S. 182 ({{Google Buch |BuchID=LtEqAAAAYAAJ |Seite=182}}).</ref>
+
+== Literatur ==
+* [[Sibyl Marcuse]]: ''Musical Instruments: A Comprehensive Dictionary. A complete, autoritative encyclopedia of instruments throughout the world.'' Country Life Limited, London 1966, S. 5f, s.&nbsp;v. „Aeoline“
+
+== Weblinks ==
+* [http://www.concertina.com/chambers/michaelstein/ Bilder der Aeoline]
+
+== Einzelnachweise ==
+<references>
+<ref name="MZ30_1820">
+''Musikalische Zeitung'', Nr. 30, 26. Juli 1820 ({{Google Buch |BuchID=Ht4qAAAAYAAJ |Seite=499}}).
+</ref>
+</references>
+
+[[Kategorie:Harmonikainstrument]]

@@ -1,0 +1,53 @@
+[[Datei:Adolf Müller senior, ca 1842.jpg|mini|hochkant|Adolf Müller sen., Lithographie von A. Decker, 1842]]
+[[Datei:Grab von Adolf Müller senior auf dem Wiener Zentralfriedhof.JPG|mini|hochkant|Grab von Adolf Müller]]
+'''Adolf Müller senior''' (eigentlich: '''Matthias Schmid'''; * [[7. Oktober]] [[1801]] in [[Tolna]] ([[Ungarn]]); † [[29. Juli]] [[1886]] in [[Wien]]) war ein [[österreich]]isch-[[Ungarn|ungarischer]] [[Schauspieler]] und [[Komponist]] und der Vater von [[Adolf Müller junior]].
+
+== Leben ==
+
+Müller nahm in [[Brünn]] sowohl Schauspiel- als auch Musikunterricht und hatte hiernach Engagements in [[Prag]], [[Lemberg]] und Brünn selbst, bevor er 1823 als Schauspieler und Sänger nach Wien ging.
+
+Er arbeitete seit 1825 als [[Kapellmeister]] mit wechselnden Schwerpunkten hauptsächlich an den drei [[Wiener Vorstadttheater]]n. Von den Theaterkapellmeistern wurde die Komposition von [[Ouvertüre]]n und Musikeinlagen für [[Posse]]n, [[Melodram (Theater)|Melodramen]], [[Pantomime]]n, [[Ballett]]e erwartet, die im damaligen Unterhaltungsbetrieb in rascher Folge herauskamen. Müller war mit über 650 nachweisbaren Bühnenwerken (deren [[Partitur]]en zum großen Teil in der [[Wiener Stadt- und Landesbibliothek]] erhalten sind) einer der mengenmäßig fruchtbarsten Komponisten des 19. Jahrhunderts. Viele damalige [[Schlager]] stammten von ihm, zum Beispiel das Wanderlied ''Wir wollen in die Stadt marschieren'' aus [[Johann Nestroy]]s Posse ''[[Der böse Geist Lumpazivagabundus|Lumpazivagabundus]]'' (1833), die sich weltweit verbreitete.
+
+Müller komponierte auch zahlreiche eigene [[Oper]]n oder [[Operette]]n. Im Jahr 1833 verfasste er zudem eine Schule für Akkordeon. An die [[Wiener Operette]] seit 1860, in der sich sein gleichnamiger Sohn profilierte, konnte er keinen Anschluss mehr finden. ''Heinrich IV.'' (1865), eine [[Jacques Offenbach]] nachempfundene Operette, hatte keinen Erfolg. Als 70-Jähriger wurde er jedoch noch um Bühnenmusik zu den [[Volksstück]]en von [[Ludwig Anzengruber]] gebeten und zeigte dort eine beachtliche Anpassungsfähigkeit an den gewandelten musikalischen Geschmack.
+
+Stilistisch erinnert Müllers Musik manchmal an [[Ludwig van Beethoven|Beethoven]] und manchmal an [[Johann Strauss (Vater)]]. In seinen Kompositionen überwiegen Tanzformen und liedhafte Vokalmusik. Er prägte das [[Wiener Couplet]]. Seine Bühnenlieder haben nicht mehr die biedermeierliche Intimität von [[Franz Schubert|Schuberts]] Liedern und noch nicht das Mondäne der Operettenschlager von [[Johann Strauss (Sohn)]].
+
+Müller war ein Komponist, der dem Ideal der „großen [[Autor]]enpersönlichkeit“ nicht entsprach, das für die Geistesgeschichte seit Ende des 19. Jahrhunderts bestimmend wurde. Hervorstechende Originalität war ihm schon von den Arbeitsumständen her nicht möglich und wurde auch nicht von ihm verlangt. Seine ungeheure Produktivität und Popularität machte ihn dennoch zu einer bedeutenden Gestalt im Musikleben Wiens. Sein [[Liste gewidmeter Gräber der Stadt Wien|Ehrengrab]] befindet sich auf dem [[Wiener Zentralfriedhof]] (Gruppe 32 A, Nummer 11).
+
+== Literatur ==
+Die Dissertation von Anton Bauer in der [[Wienbibliothek im Rathaus]] (''Die Musik Adolph Müllers in den Theaterstücken Johann Nestroys. Ein Beitrag zur Geschichte des volkstümlichen Theaters in Wien''. Diss. Wien 1935) bildet nach wie vor eine Grundlage. Des Weiteren sind nur einzelne Aufsätze zu Müllers Werken erschienen. Was die Vertonung von Stücken Johann Nestroys betrifft, finden sich zahlreiche Informationen über Müller in der neuen Nestroy-Gesamtausgabe.
+
+* {{NDB|18|341|342|Müller, Adolf|[[Otto Biba]]|103789928}}
+* {{Riemann Musiklexikon |Lemma=Müller, Adolf d. Ältere |Auflage=12 |Band=5 |Seite=239 }}
+* [[Peter Branscombe]]: ''Erstveröffentlichungen von Adolf Müllers Gesängen zu Nestroy-Stücken. Aus dem Verlagsverzeichnis Anton Diabelli & Co. (1824 bis 1840)'', in: ''Nestroyana'' 23 (2003), S. 101–105.
+* {{BLKÖ|Müller, Adolph (Vater)|19|328|338}}
+* Dagmar Zumbusch: ''Komponist oder Notensetzer? Ein musikalisches Intermezzo mit Instrumentalmusik Adolf Müllers sen.'' In: ''Nestroyana'' 15 (1995) S. 49–67.
+
+== Weblinks ==
+{{Wikisource}}
+{{Commonscat|Adolf Müller senior|audio=1|video=0}}
+* {{Austriaforum|AEIOU/Müller,_Adolf_senior}}
+* {{DNB-Portal|103789928|TEXT=Werke von und über}}
+* {{DDB|Person|103789928}}
+* [http://www.desisklassisch.at/ ''Die schwarze Frau'' – Wiener Opernparodie nach Boieldieu]
+
+{{Normdaten|TYP=p|GND=103789928|LCCN=no92007580|VIAF=79201726}}
+
+{{SORTIERUNG:Muller, Adolf Senior}}
+[[Kategorie:Komponist (Österreich)]]
+[[Kategorie:Komponist (Operette)]]
+[[Kategorie:Theaterschauspieler]]
+[[Kategorie:Geboren 1801]]
+[[Kategorie:Gestorben 1886]]
+[[Kategorie:Mann]]
+[[Kategorie:Person (Cisleithanien)]]
+
+{{Personendaten
+|NAME=Müller, Adolf senior
+|ALTERNATIVNAMEN=Schmid, Matthias (wirklicher Name)
+|KURZBESCHREIBUNG=österreichisch-ungarischer Schauspieler und Komponist
+|GEBURTSDATUM=7. Oktober 1801
+|GEBURTSORT=[[Tolna]], Ungarn
+|STERBEDATUM=29. Juli 1886
+|STERBEORT=[[Wien]]
+}}

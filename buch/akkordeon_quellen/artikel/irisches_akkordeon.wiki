@@ -1,0 +1,34 @@
+Das '''Irische Akkordeon''' ist eine irische Weiterentwicklung des [[Diatonisches Akkordeon|diatonischen Akkordeons]]. Es ist heute meist ein zweireihiges Instrument wie die traditionellen [[Wiener Modell]]e oder das [[Organetto (Akkordeon)|Organetto]]; sie ist daher rein äußerlich oft nicht unterscheidbar von anderen einfachen diatonischen Instrumenten.
+
+== Diskant ==
+
+Die Tonbelegungen pro Reihe sind wie bei der diatonischen Harmonika angeordnet. Die einzelnen [[diatonisch]]en Tastenreihen sind jedoch nicht in Quinten, sondern in chromatischen Halbtönen voneinander entfernt, dadurch erhält man alle chromatischen Töne. Das Instrument ist daher auch [[Gleichstufige Stimmung|gleichstufig]] temperiert gestimmt. Somit ist das Instrument nicht mehr diatonisch, sondern chromatisch und wechseltönig.
+
+Zum Vergleich die Tastenbelegung eines [[Wiener Modell]]s:
+{| class="wikitable"
+|-
+|
+! colspan="6"| Irisches Akkordeon
+! colspan="6"| Wiener Modell
+|-
+| &nbsp;   ||Druck|| Zug || Druck || Zug || ... || &nbsp; || Druck || Zug || Druck || Zug || ... ||
+|-
+| 2. Reihe || Cis || Dis || F  || Fis || ... || &nbsp; || F     || G   || A   || B || ... ||
+|-
+| 1. Reihe || C   || D   || E  || F || ... || &nbsp; || C     || D   || E    || F || ... ||
+|}
+
+Neben der C/Cis-Stimmung findet man auch die B/C-Stimmung oder auch Cis/D. Alle Stimmungen zeichnen sich dadurch aus, dass die beiden Knopfreihen eben nur einen chromatischen Halbton auseinander liegen.
+
+Ansonsten gibt es kaum Unterschiede zum [[Wiener Modell]].
+
+== Bass ==
+
+Die Belegung der Basstasten ist oft sehr unterschiedlich, sie passt meistens auch nicht zur gewählten Spieltechnik. Sie ist wechseltönig wie beim [[Organetto (Akkordeon)|Organetto]]. Sehr oft wird das Instrument daher nur auf der Diskantseite ohne Begleitung gespielt.
+
+== Spieltechnik ==
+
+Irische Musik wird meist sehr schnell gespielt, es folgen daher viele Einzeltöne sehr rasch nacheinander. Die Spieltechnik besteht aus einem raschen Druck-Zugwechsel und führt zu den nötigen Akzenten in der Musik, was nur mit sehr leichten Instrumenten möglich ist.
+
+[[Kategorie:Handzuginstrument]]
+[[Kategorie:Musik (Irland)]]

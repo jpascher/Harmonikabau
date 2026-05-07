@@ -1,0 +1,50 @@
+'''Johann Caspar Schlimbach''' (auch ''Schlimmbach''; * [[30. Juli]] [[1777]] in [[Merkershausen]]; † vor 21. Mai [[1861]] in [[Bad Königshofen im Grabfeld|Bad Königshofen]]) war ein Orgel- und Instrumentenbauer.
+
+== Biographie ==
+Schlimbach wurde in Merkershausen geboren und hatte in Wien Orgel- und Klavierbau gelernt.<ref>Gleichmann: ''Der Erfinder des Harmoniums –Bayer'', In: ''Das Harmonium 9'', 1911, S. 89</ref> 1806 machte er sich in Königshofen als Klavierbauer selbständig.
+
+Vier seiner sechs Söhne wurden ebenfalls Orgelbauer:<ref>Hermann Fischer, Theodor Wohnhaas: ''Historische Orgeln in Unterfranken.'' München 1981. S. 27.</ref> [[Balthasar Schlimbach|Ernst Balthasar Schlimbach]]<ref>"den größten Betrieb besaß [Ernst] Balthasar Schlimbach (1807–1896) aus Königshofen i. Gräberfeld", In: Hermann Fischer, [[Theodor Wohnhaas]]: ''Historische Orgeln in Unterfranken'', Seite 26 [https://books.google.at/books?id=VHUIAQAAMAAJ&q=Balthasar+Schlimbach&dq=Balthasar+Schlimbach&hl=de&ei=ac-xTdz5Dsii4Qaets32Cw&sa=X&oi=book_result&ct=result Online]</ref> (1807–1896) hatte 1836 die verwaiste Werkstätte des ehemaligen Hoforgelbauers [[Johann Philipp Seuffert|Seufert]] in [[Würzburg]] übernommen;<ref>[[Hans Martin Balz]]: ''Orgeln und Orgelbauer im Gebiet der ehemaligen hessischen Provinz Starkenburg'', Seite 373 [https://books.google.at/books?id=PsUJAQAAMAAJ&q=Balthasar+Schlimbach&dq=Balthasar+Schlimbach&hl=de&ei=sdWxTbiXMKjY4wa517iIDA&sa=X&oi=book_result&ct=result Online]</ref> [[Gustav Schlimbach]] (1818–1887) hatte sich 1844 in Speyer niedergelassen sowie Martin Schlimbach und [[Kaspar Schlimbach]] jun., die die väterliche Werkstatt in Bad Königshofen weiterführten, die 1870 geschlossen wurde.<ref>https://organindex.de/index.php?title=Kategorie:Schlimbach_(K%C3%B6nigshofen), abgerufen am 23. Februar 2024.</ref>
+
+Balthasar erhielt am 23. Dezember 1845 ein Privilegium für das Königreich Bayern auf zehn Jahre für eine Verbesserung an Orgeln.<ref>''Kunst- und Gewerbe-Blatt'', Band 42, 1856, Seite 262 [https://books.google.at/books?id=dxEAAAAAMAAJ&dq=Balthasar+Schlimbach&pg=PA262&hl=de#v=onepage&q=Balthasar%20Schlimbach&f=false Online]</ref> Sein Nachfolger wurde ab 1873 sein Sohn [[Martin Joseph Schlimbach]] (* 28. Januar 1841 in Würzburg; † 12. April 1914 in Würzburg).
+
+== Aeoline ==
+Mit seinem Cousin [[Bernhard Eschenbach]] baute Schlimbach um 1810 in Bad Königshofen die [[Aeoline (Musikinstrument)|Aeoline]], ein Instrument mit [[durchschlagende Zunge|durchschlagenden Zungen]] und damit direkter Vorläufer des [[Harmonium]]s. Vor 1805 hatte der Hoforgelbaumeister [[Ignaz Kober]] in Wien ein großes Orgelwerk in der [[Schottenkirche (Wien)|Schottenkirche]] erbaut, das ebenfalls durchschlagende Zungen in einigen Registern einsetzt.<ref>''Allgemeine musikalische Zeitung,'' Band 15, 13. Februar 1813, Seite 117–120. [https://books.google.de/books?id=ZdwqAAAAYAAJ&pg=PA117&dq=Allgemneine+musikalische+Zeitung+vogler+orchestrion&hl=de&ei=WfKOTeWcFMu4hAf4nfG7Dg&sa=X&oi=book_result&ct=result&sqi=2&redir_esc=y online]</ref> Somit sollte eigentlich auch Schlimbach bereits davon Kenntnis gehabt haben. Stimmzungen ohne auf den entsprechenden Ton abgestimmtes Rohr, wie das bei Pfeifen der Fall ist, scheint aber noch niemand bisher in Kombination mit einem Klavier oder auch als eigenständiges Instrument verwendet zu haben.
+
+Die Stimmplatten mit ihren Zungen (Federn) waren damals wie [[Maultrommel]]n gefertigt. Rahmen und Zunge waren aus Stahl. Der Rahmen war U-förmig und die Stahlzunge war in derselben Weise, wie dies bei der Maultrommel heute noch gemacht wird, am Rahmen befestigt. Die Stimmplatten wurden direkt in die [[Tonkanzelle]] der Windkammer mit Pech und Bienenwachs geklebt. Ein [[Bernhard Eschenbach|Bericht über die Erfindung]] ist in der ''Musikalischen Zeitung'' Nr. 30 vom 26. Juli 1820 nachzulesen.
+
+In Berlin befindet sich ein derartiges Instrument.<ref>Vgl. MIM Berlin, Kat.-Nr. 5321 [[Querhammerflügel]] mit Aeoline, Johann Caspar Schlimbach, Königshofen, um 1815.</ref> Außerdem gibt es ähnliche Patente 1821 in Wien, zum Beispiel für [[Anton Haeckl]] und [[Friedrich Sturm (Instrumentenbauer)|Friedrich Sturm]] in [[Suhl]].
+
+(Hinweis: Es gibt noch einen [[Friedrich Schlimbach (Organist)|Georg Christian Friedrich Schlimbach]] (1759–1813), dieser trat als Kritiker von [[Georg Joseph Vogler]] auf und war Organist und Kantor in Prenzlau und später in Berlin.<ref>Georg Christian Friedrich Schlimbach <!-- Was für eine Publikation ist das? --> ([https://books.google.de/books?id=QbT7zBaX0pUC&pg=PA249&dq=Kirsnick+Kopenhagen&hl=de&ei=4BqSTYbGCeWR4gbtmKS1Ag&sa=X&oi=book_result&ct=result&redir_esc=y#v=onepage&q=Schlimbach&f=false books.google.de])</ref><ref>{{MGG1|Verfasser=Johannes Heinrich |Lemma=Schlimbach (Schlimmbach), Georg Christian Friedrich |Band=11 |SpalteVon=1823 |SpalteBis=1824 }}</ref>)
+
+== Werke (Auswahl) ==
+* [[Rannungen]], [[St. Bonifatius (Rannungen)|Kath. Pfarrkirche St. Bonifatius]] (Orgel von 1859)
+
+== Literatur ==
+* {{NDB|23|89 || Schlimbach|Hermann Fischer|12290642X}}
+
+== Weblinks ==
+* {{Webarchiv | url=http://wiki.hammerfluegel.net/index.php/Schlimbach | archive-is=20130221163454 | text=Tastenwiki}} – Portal zum Thema historischer Klavierbau
+* {{BMLO|s0500|Schlimbach (Schlimmbach), Johann Caspar}}
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=p|GND=128375280|VIAF=13360117}}
+
+{{DEFAULTSORT:Schlimbach, Johann Caspar}}
+[[Kategorie:Orgelbauer (19. Jahrhundert)]]
+[[Kategorie:Orgelbauer (Deutschland)]]
+[[Kategorie:Person (Bad Königshofen im Grabfeld)]]
+[[Kategorie:Geboren 1777]]
+[[Kategorie:Gestorben 1861]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Schlimbach, Johann Caspar
+|ALTERNATIVNAMEN=Schlimmbach, Johann Caspar
+|KURZBESCHREIBUNG=Orgel- und Instrumentenbauer
+|GEBURTSDATUM=30. Juli 1777
+|GEBURTSORT=[[Merkershausen]]
+|STERBEDATUM=vor 21. Mai 1861
+|STERBEORT=[[Bad Königshofen im Grabfeld|Bad Königshofen]]
+}}

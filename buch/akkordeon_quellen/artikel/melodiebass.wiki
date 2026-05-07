@@ -1,0 +1,28 @@
+'''Melodiebass''' (auch '''MIII'''  oder '''Manual-III-Bass''' oder auch '''B.B. - Baritonbass''') ist ein Klaviatursystem für die linke Seite (Bassseite) eines [[Akkordeon]]s und ermöglicht im Gegensatz zum weit verbreiteten [[Stradella-Bass]]-System das tonhöhenrichtige [[Melodie]]spiel.
+
+Melodiebasssysteme in verschiedensten Formen wurden bereits vor dem 20. Jahrhundert patentiert und gebaut, aber es fehlte der Markt für derartige Instrumente. Ein früher Prototyp von Mathias Bauer befindet sich etwa im Wiener Technischen Museum.
+
+In Musikhochschulen und bei klassischen Konzert-Akkordeonisten spielt der Melodiebass inzwischen eine größere Rolle als der gewöhnliche Stradella-Bass. Im laienmusikalischen Bereich ist er aber kaum vertreten.
+
+== Tonumfang und Technik ==
+
+Das System verfügt nicht über Akkordknöpfe (Begleiter), sondern lässt nur das Spielen eines Tones pro Knopf zu. Der Tonumfang beträgt bis zu 5 [[Oktave]]n mit bis zu 58 Einzeltönen.
+
+Akkordeons, die ausschließlich mit Melodiebass (engl. Freebass) ausgerüstet wurden, sind recht selten. So ist entweder der Melodiebass dem [[Stradella-Bass]] vor- bzw. hinterlagert oder man kann mechanisch zwischen beiden Systemen umschalten (sogenannter [[Konverterbass]]).
+
+In den 1940er bis 70er Jahren wurden die amerikanischen Manufakturen dazu gedrängt, ein duales Melodiebasssystem zu designen, um voneinander unabhängige Melodielinien in der linken Hand zu ermöglichen. Das Design des Akkordeonisten [[John Serry senior]] beispielsweise verwendet zwei [[Chromatik#Chromatische Tonleiter|chromatische]] [[Klaviatur#Klaviaturen mit runden Tasten|Knopfklaviaturen]] mit einem Gesamtumfang von dreieinhalb Oktaven, wovon eine nur mit dem Daumen gespielt wird.<ref>{{Literatur |Autor=Marion Jacobson |Titel=Squeeze This!: A Cultural History of the Accordion in America |Hrsg=University of Illinois Press |Datum=2012-03-15 |Sprache=en |ISBN=978-0-252-03675-0}} - {{Google Buch |BuchID=bPhXe_qNy5QC |Seite=61}}</ref><ref>{{Internetquelle |url=http://www.newschoolofmusic.com/music-instruments/about-musical-instruments/accordion-lessons/ |titel=Explore the Accordion |hrsg=New School of Music, Inc. |zugriff=2018-02-05 |sprache=en |kommentar=Abschnitt Free bass systems |archiv-url=https://web.archive.org/web/20170805200510/http://newschoolofmusic.com/music-instruments/about-musical-instruments/accordion-lessons/ |archiv-datum=2017-08-05 |offline=1 |archiv-bot=2022-03-25 15:50:58 InternetArchiveBot }}</ref>
+
+== Tastenbelegung ==
+[[Datei:Melodiebass.jpg|mini|C-Griff, B-Griff und B-Griff russisch (Bajan) im Vergleich. Die Wiederholungsreihe (grau hinterlegt) ist bei vorgelagertem M III meist nicht vorhanden.]]
+Die Tastenbelegung ist identisch mit der Anordnung beim [[Chromatisches Knopfakkordeon|Chromatischen Knopfakkordeon]], im Vergleich dazu allerdings spiegelverkehrt. Auch beim Melodiebass gibt es das C-Griff- (C in der äußersten Reihe, Halbtonschritte steigen in Richtung Balg auf) und B-Griff-System (H in der äußersten Reihe, Ganztonschritte steigen in Richtung Balg auf). Bei der europäischen Bauweise werden die Tasten von oben nach unten höher. Bei der [[Bajan]]-Bauweise ist die Anordnung gespiegelt, sodass unten die tiefsten Töne liegen (H in der äußersten Reihe, Ganztonschritte in Richtung Balg).
+
+Wie auf der rechten Seite (Diskant) kann auch beim Melodiebass die Klangfarbe durch [[Register (Musik)|Register]] verändert werden. Üblich sind jedoch nur 2 Chöre (8′ und 4′ oder auch vereinzelt 8′ und 8′ (doppelt)). Bei [[Bajan]]-Modellen ggf. auch 3 Chöre: 8′, 4′ und 2′ oder auch 8′, 8′ (doppelt) und 2′ und – wie bei der Orgel – verschiedene [[Spielhilfe (Orgel)|Spielhilfen]].
+
+== Siehe auch ==
+* [[Konverterbass]]
+* [[Sonderformen der Bassbelegung]]
+
+== Einzelnachweise ==
+ <references />
+
+[[Kategorie:Handzuginstrumentenbau]]

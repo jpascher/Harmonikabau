@@ -1,0 +1,27 @@
+Das '''Belloneon''' ist ein frühes Exemplar eines selbstspielenden Automaten mit [[Durchschlagende Zunge|durchschlagenden Zungen]] zur Tonerzeugung.
+
+[[Johann Gottfried Kaufmann]] und [[Friedrich Kaufmann (Instrumentenbauer)|Friedrich Kaufmann]] baute ein derartiges Instrument erstmals im Jahr 1805.
+
+== Technische Beschreibung ==
+Dieses hatte 24 durchschlagende Zungen aus Metall und trompetenähnliche Resonatoren. 
+Eine Begleitung mit zwei Trommeln. 
+Diese durchschlagenden Zungen erlaubten sowohl laute wie auch leise Musikpassagen. 
+Das Instrument war in einen Mahagoni Holzgehäuse eingebaut.<ref>{{Literatur|Titel=The American monthly magazine and critical review|Band=Band 1|Herausgeber=H. Biglow, Orville Luther Holley|Jahr=1817|Seiten=383|Online={{Google Buch|BuchID=lS4CAAAAIAAJ|Seite=383|Hervorhebung=Belloneon}}}}</ref>
+Der obere Teil des Belloneons präsentiert eine Kriegsstrophe in der Mitte sind 24 Trompeten platziert; 
+unten sind zwei Topftrommeln und die dazugehörigen Schlagstöcke eingebaut. 
+Es spielt Tanzmusik und Märsche, mit außergewöhnlicher Perfektion.
+
+Das [[Deutsches Museum|Deutsche Museum]] in München besitzt ein Belloneon.
+
+== Siehe auch ==
+* [[Mechanischer Trompeter]]
+* [[Harmonichord]]
+
+== Literatur ==
+* Rebecca Wolf: [https://www.deutsches-museum.de/assets/Verlag/Download/Preprint/Preprint_005_2012.pdf ''Die Musikmaschinen von Kaufmann, Mälzel und Robertson. Eine Quellenedition.''] Preprint 5. Deutsches Museum, München 2012
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Mechanischer Musikautomat]]
+[[Kategorie:Historisches Musikinstrument]]

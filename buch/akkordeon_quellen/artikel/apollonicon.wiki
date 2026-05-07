@@ -1,0 +1,17 @@
+Das '''Apollonicon''' ist ein [[1817]] von der englischen [[Orgelbauer|Orgelbaufirma]] Flight & Robson in London gebautes mechanisches [[Musikinstrument]].
+
+Das Apollonicon hatte 1.900 Pfeifen und war ein aus 45 [[Register (Orgel)|Register]]n aufgebautes [[Drehorgel|drehorgelähnliches]] Instrument, das dem von [[Johann Nepomuk Mälzel]] gebauten [[Panharmonikon]] nachempfunden war. Durch die Verbindung von Orgel- und anderen Klängen, wie [[Klavier]] und [[Trompete]]n, sollte ein [[Orchester]] nachgeahmt werden. Das Apollonicon war einer der Vorläufer des [[Orchestrion]]s. Neben automatischem [[Stiftwalze]]nspiel war auch das Handspiel möglich. Hierfür waren fünf [[Klaviatur]]en nebeneinander angebracht, um es fünf Musikern zu ermöglichen, gleichzeitig zu spielen. Eine dieser Klaviaturen war dem [[Pedal]]spiel zugeordnet und konnte so sehr viel geschickter als mit den Füßen betätigt werden.
+
+Eine ausführliche englischsprachige Beschreibung mit Zeichnungen ist im ''[[Mechanics’ Magazine]]'' von 1828 zu finden.<ref>[http://books.google.at/books?id=GA0pAAAAYAAJ&dq=Mechanics%20Magazine%201828&pg=PA97#v=onepage&q&f=false Ausführliche Beschreibung im Mechanics Magazine, Band 9, 1828, Seite 97-103 (in englischer Sprache)]</ref>
+
+Das Apollonicon wird ebenfalls 1828 im ''Polytechnischen Journal'' mit eingedeutschtem Namen als ''Apollonikon'' erwähnt.<ref>{{Polytechnisches Journal |Dokumentencode=mi028036_15 |Autor= |Titel=Apollonikon |Jahr=1828 |Seiten=167 }}</ref>
+
+== Einzelnachweise ==
+<references />
+==Weblinks==
+* [http://www.npor.org.uk/Reporter/apr02/g402.htm Beschreibung beim British Institute of Organ Studies, mit Abbildungen und Bibliographie (in englischer Sprache)]
+* [http://www.victorianlondon.org/entertainment/apollonicon.htm Beschreibung im The Victorian Dictionary (in englischer Sprache)]
+
+[[Kategorie:Tasteninstrument]]
+[[Kategorie:Mechanischer Musikautomat]]
+[[Kategorie:Aerophon]]

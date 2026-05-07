@@ -1,0 +1,40 @@
+'''Johannes Weinrich''' (* [[15. März]] [[1793]] in [[Uder (Ortsteil)|Uder]]; † [[15. Oktober]] [[1855]] in [[Heilbad Heiligenstadt|Heiligenstadt]]) war ein deutscher Volkskünstler und [[Erfinder]].
+
+== Leben ==
+Er war der Sohn eines Kurschmiedes, der als Nebenverdienst ein kleines Gasthaus betrieb. Nach dem frühen Tod der Eltern absolvierte er bei seinem Vormund eine Schuhmacherlehre. Bereits früh zeigte er Interesse an der Musik. Er lernte als Autodidakt das Spielen der [[Flöte]]. Nach dem Abschluss seiner Lehre ging er auf Wanderschaft und erhielt in Straßburg Klarinettenunterricht. 
+
+Als er nach der Wanderschaft 1815 nach Heiligenstadt zurückkehrte, heiratete er die Tochter des wohlhabenden Handelsmannes Fontano und betrieb eine Schusterwerkstatt in der Stadt. 
+
+Inspiriert von der Maultrommel fertigte er Messingzungen an, montierte sie auf einem Holzkloben und erfand damit die [[Mundharmonika]], die er jedoch nicht vermarktete. Danach erfand er noch eine Art Klappentrompete und eine neuartige Klarinette, die er selbst ''Psallmelodicon'' nannte. Die Klarinette verband er mit einem Windkasten, ähnlich einem Blasebalg, mit dem er Luft in das Melodikon blies. So konnte er Psalter und Choräle spielen und gleichzeitig singen. Mit seinem Instrument ging er auf Reisen und war sehr erfolgreich. Daneben widmete er sich auch der Dichtkunst, kaufte den bei Heiligenstadt gelegenen Iberg, auf dem er einen Aussichtsturm und eine Gaststätte errichten ließ.
+
+Weinrich verunglückte 1855 tödlich auf seinem Grundstück am Iberg, als er anlässlich des Geburtstages des preußischen Königs [[Friedrich Wilhelm IV.]] einen [[Mörser (Geschütz)| Mörser]] zündete, um mit dem Echo seine Gäste zu erfreuen. Als das Geschütz beim Schuss zersprang, traf ihn ein Stück der Kanone am Kopf, so dass er noch am Unfallort verstarb.
+
+== Ehrungen ==
+Seine Zeitgenossen nannten ihn scherzhaft „Hans Sachs II.“ und setzten ihm nach seinem Unfalltod einen Gedenkstein.
+
+== Literatur ==
+* H. Daub: ''Johannes Weinrich.'' In: ''Mitteldeutsche Lebensbilder.'' 1. Band Lebensbilder des 19. Jahrhunderts, Magdeburg 1926, S. 134–141
+* [[Bernhard Opfermann]]: ''Gestalten des Eichsfeldes.'' Verlag F. W. Cordier 1999, ISBN 978-3-929413-37-3
+* ''Sundine'', Neu-Vorpommersches Unterhaltungsblatt für Neu-Vorpommern und Rügen, Verlag von Wilhelm Hauschild Stralsund 1834, S. 71f
+
+{{Normdaten|TYP=p|GND=1057863823|VIAF=310600822}}
+
+{{DEFAULTSORT:Weinrich, Johannes}}
+
+[[Kategorie:Mann]]
+[[Kategorie:Deutscher]]
+[[Kategorie:Musiker (Deutschland)]]
+[[Kategorie:Schuhmacher]]
+[[Kategorie:Geboren 1793]]
+[[Kategorie:Gestorben 1855]]
+[[Kategorie:Person (Eichsfeld)]]
+
+{{Personendaten
+|NAME=Weinrich, Johannes
+|ALTERNATIVNAMEN=
+|KURZBESCHREIBUNG=deutscher Volkskünstler
+|GEBURTSDATUM=15. März 1793
+|GEBURTSORT=[[Uder (Ortsteil)|Uder]], Deutschland
+|STERBEDATUM=15. Oktober 1855
+|STERBEORT=Heiligenstadt, Deutschland
+}}

@@ -1,0 +1,441 @@
+{{österreichbezogen}}
+[[Datei:Novak5row1890-fornt.jpg|mini|Baujahr ungefähr 1890–1900]]
+[[Datei:Novakchomatic.jpg|mini|Chromatisches Akkordeon aus der Zeit um 1930]]
+Die Firma '''Novak Harmonikas''', eigentlich ''Rudolf Novak Musikinstrumenteerzeugung GmbH'',<ref>[http://www.novak-harmonikas.com/impressum.html] Firmenwebsite: ''Rudolf Novak Musikinstrumenteerzeugung GmbH''; abgerufen am 1. Okt. 2012</ref> ist ein [[Musikinstrumentenbau|Instrumentenbauunternehmen]] in [[Klagenfurt]], [[Kärnten]].
+
+== Firmengeschichte ==
+Die Firma wurde im Jahr 1874 durch Josef Novak in [[Klagenfurt]] gegründet. Josef Novak war Uhrmacher und begann mit dem Bau von Harmonikas und baute ''Josef Novak Harmonikas''.
+
+Rupert, Sohn von Josef Novak, führte den Betrieb bis 1926 weiter. Ihm folgte Rudolf Novak. Dieser übernahm unter anderem um 1955 die Linzer Orgelbaufirma [[Gebrüder Mauracher]].<ref>{{ÖBL|6|156|157|Mauracher, Matthias|K. Schütz}}</ref> Rudolf folgte sein gleichnamiger Sohn; dieser leitete den Betrieb von 1973 bis 1995. Nun wurde die Firma in eine [[Gesellschaft mit beschränkter Haftung (Österreich)|GmbH]] umgewandelt, Arno Sussitz übernahm die Geschäftsführung bis 2020. Die Firma beschäftigt derzeit ca. 10 Mitarbeiter im Harmonikabau. Jährlich werden bis zu 500 Instrumente gefertigt. Stand 2022, die Geschäftsführung ist jetzt in den Händen von Dominic & Heinrich Schedler. Domink hat das Handwerk bei Novak gelernt. Heinrich Schädler ist jetzt der Eigentümer. (Michelbauer)<ref>{{Internetquelle |url=https://www.novak-harmonikas.at/aktuelles.html |titel=Harmonika-Tradition seit 1874 |abruf=2023-09-20}}</ref>
+
+== Instrumente ==
+[[Datei:2009-07-29 Hubert von Goisern, Neuwied IMG 0147.jpg|mini|[[Hubert von Goisern]] mit einer Novak-Harmonika]]
+1874, zur Zeit der Firmengründung, wurde in der Firma das [[Diatonisches Akkordeon#Wiener Modell|Wiener Modell]] erzeugt. Erst etliche Jahre später wurden hauptsächlich Steirische Harmonikas gefertigt, anfangs das dreireihige Modell. Rupert Novak baute aber bereits um 1900 fünfreihige [[Steirische Harmonika]]s.
+
+Eine Abbildung auf einem Firmenprospekt zeigt Rupert Novak mit einem fünfreihigen Instrument, das aber nicht dem hier präsentierten Bild entspricht. Die Abbildung seitlich zeigt ein Instrument, das eher älteren Wiener Modellen nahekommt. Das am Firmenprospekt abgebildete Instrument weist Ähnlichkeit mit Modellen von Hlavacek auf. Der Balg hatte abgerundete Metallecken wie bei [[Josef Hlaváček]], er war mit Haken an den Gehäuseteilen verriegelt. Ansonsten wiesen die Modelle bereits alle Merkmale heutiger traditioneller Modelle auf, wie:
+* abgestufte Holzmechanik am Diskant, bestehend aus zwei übereinander montierten Teilen
+* Tasten ohne Versatz
+* Metallverdeck und Metall-Dekorbänder am Balg
+* Metallverzierung um die Basstasten mit Drachenkopf-Dekor
+* Metallhörner am Bassteil
+* Das Firmenschild hatte keine Engel als Dekor
+* Intarsien auf beiden Gehäuseteilen
+
+== Rudolf Novak d. Ältere ==
+Rudolf Novak der Ältere übernahm 1955 die Orgelbaufirma [[Gebrüder Mauracher]]/Linz und baute dann Orgeln, zumeist mit elektropneumatischer Traktur, ab den 1960er-Jahren dann auch mechanische Orgeln mit Schleifladen.
+
+{| class="wikitable sortable"
+|-
+! Jahr !! Ort !! Gebäude !!class=unsortable| Bild !! Manuale !! Register !!class="unsortable"| Bemerkungen
+|-
+| 1955
+| [[Wimpassing im Schwarzatale]]
+| [[Pfarrkirche Wimpassing im Schwarzatale]]
+| [[Datei:Wimpassing Prospekt gesamt2.jpg|zentriert|170x170px]]
+| II/P
+| 15
+| <ref>https://organindex.de/index.php?title=Wimpassing_im_Schwarzatal,_Herz_Mari%C3%A4</ref>
+|-
+| 1955
+| [[Meidling|Wien-Meidling]]
+| [[Maria Lourdes (Wien-Meidling)]]
+| [[Datei:Kirche Maria Lourdes11.JPG|zentriert|170x170px]]
+| II/P
+| 23
+| <ref>https://orgeldb.edw.or.at/detail/wien12-pfarrkirche-marialourdes9099</ref>
+|-
+| 1956
+| [[Schönkirchen-Reyersdorf|Reyersdorf]]
+| [[Filialkirche Reyersdorf|Filialkirche hl. Leonhard in Reyersdorf]]
+| 
+| II/P
+| 6
+| <ref>https://web.archive.org/web/20030808071347/http://www.odb.at/Niederoesterreich.htm</ref>
+|-
+| 1958
+| [[Ternitz]]
+| [[Stadtpfarrkirche Ternitz|Pfarrkirche hl. Herz Jesu in Ternitz]]
+| [[Datei:Ternitz Prospekt links.jpg|zentriert|160x160px|linke Gehäusehälfte mit Principal 16']]
+| III/P
+| 34
+| <ref>https://organindex.de/index.php?title=Ternitz,_Hl._Herz_Jesu</ref>
+|-
+| 1959
+| [[Keutschach am See]]
+| [[Pfarrkirche Keutschach]]
+| 
+| II/P
+| 13
+| 
+|-
+| 1959
+| [[Friesach]]
+| [[Pfarrkirche Zienitzen]]
+| 
+| I/P
+| 5
+| <ref>https://organindex.de/index.php?title=Friesach/Zienitzen,_St._Georg</ref>
+|-
+| 1960
+| [[Scheiblingkirchen]]
+| [[Pfarrkirche Scheiblingkirchen]]
+| [[Datei:Scheiblingkirchen - Kirche, Orgel.JPG|zentriert|160x160px]]
+| II/P
+| 10
+| <ref>https://organindex.de/index.php?title=Scheiblingkirchen,_St._Maria_Magdalena_und_Rupert</ref>
+|-
+| 1960
+| [[Klagenfurt]]
+| [[Marienkirche (Klagenfurt am Wörthersee)|Marienkirche]]
+| 
+| II/P
+| 16
+| <ref>https://organindex.de/index.php?title=Klagenfurt,_Marienkirche</ref>
+|-
+| 1960
+| [[Sollenau]]
+| [[Pfarrkirche Sollenau]]
+| [[Datei:Pfarrkirche hl. Laurentius, Sollenau 10 hell.jpg|zentriert|160x160px]]
+| II/P
+| 
+| 
+|-
+| 1962
+| [[Deutsch Wagram]]
+| [[Pfarrkirche Deutsch-Wagram]]
+| 
+| II/P
+| 17
+| 
+|-
+| 1962
+| [[Raach am Hochgebirge]]
+| [[Pfarrkirche Raach am Hochgebirge]]
+| [[Datei:Raach Orgel.jpg|zentriert|160x160px]]
+| II/P
+| 11
+| <ref>https://organindex.de/index.php?title=Raach_am_Hochgebirge,_St._%C3%84gid</ref>
+|-
+| 1962
+| [[Seeboden am Millstätter See]]
+| [[Pfarrkirche Seeboden|Pfarrkirche Seeboden am Millstätter See]]
+| [[Datei:Kath. Pfarrkirche, Herz-Jesu-Friedens- und Versöhnungskirche mit Pfarrhof 03.jpg|zentriert|160x160px]]
+| II/P
+| 15
+| <ref>https://organindex.de/index.php?title=Seeboden_am_Millst%C3%A4tter_See,_Hl._Herz_Jesu</ref>
+|-
+| 1963
+| [[Blumau an der Wild]]
+| [[Pfarrkirche Blumau an der Wild|Blumau an der Wild]]
+| 
+| 
+| 
+| 
+|-
+| 1963
+| [[Warth (Niederösterreich)|Haßbach]]
+| [[Pfarrkirche Haßbach]]
+| 
+| II/P
+| 12
+| <ref>https://web.archive.org/web/20030808071347/http://www.odb.at/Niederoesterreich.htm</ref>
+|-
+| 1963
+| [[Payerbach]]
+| [[Pfarrkirche Payerbach]]
+| 
+| II/P
+| 13
+| <ref>https://web.archive.org/web/20030808071347/http://www.odb.at/Niederoesterreich.htm</ref>
+|-
+| 1963
+| [[Rodaun|Wien-Rodaun]]
+| [[Pfarrkirche Rodaun]]
+| [[Datei:Pfarrkirche Rodaun 03.jpg|zentriert|160x160px]]
+| II/P
+| 9
+| 1. Manual nicht funktionsfähig
+|-
+| 1964
+| [[Ternitz|Ternitz-Sieding]]
+| [[Filialkirche Sieding|Pfarrexpositur Sieding in Ternitz]]
+| [[Datei:Sieding Prospekt3.jpg|zentriert|160x160px]]
+| II/P
+| 10
+| <ref>https://organindex.de/index.php?title=Ternitz/Sieding,_Mariahilf</ref>
+|-
+| 1965
+| [[Großenzersdorf]]
+| [[Pfarrkirche Probstdorf]]
+| 
+| II/P
+| 11
+| <ref>https://web.archive.org/web/20030808071347/http://www.odb.at/Niederoesterreich.htm</ref>
+|-
+| 1965
+| [[Göttlesbrunn]]
+| [[Pfarrkirche Göttlesbrunn]]
+| 
+| II/P
+| 10
+| <ref>https://web.archive.org/web/20030808071347/http://www.odb.at/Niederoesterreich.htm</ref>
+|-
+| 1965
+| [[Alsergrund|Wien-Alsergrund]]
+| [[Canisiuskirche (Wien)]]/Krypta
+| 
+| II/P
+| 10
+| Gehäuse aus 1855 von [[Franz Ullmann (Orgelbauer)|Franz Ullmann]]<ref>https://orgeldb.edw.or.at/detail/wien09-pfarrkirche3-canisiuskirche9056</ref>
+|-
+| 1960er Jahre
+| [[Walpersbach]]
+| [[Pfarrkirche Walpersbach]]
+| [[Datei:Walpersbach Prospekt.jpg|zentriert|160x160px]]
+| II/P
+| 8
+| <ref>https://organindex.de/index.php?title=Walpersbach,_Maria_Himmelfahrt</ref>
+|-
+| 1965
+| [[Deutsch-Haslau]]
+| [[Pfarrkirche Deutsch-Haslau]]
+| 
+| II/P
+| 7
+| 
+|-
+| 1965
+| [[Sooß]]
+| [[Pfarrkirche Sooß]]
+| 
+| II/P
+| 7
+| <ref>https://web.archive.org/web/20030808071347/http://www.odb.at/Niederoesterreich.htm</ref>
+|-
+| 1966
+| [[Felixdorf]]
+| [[Pfarrkirche Felixdorf]]
+| 
+| II/P
+| 6
+| <ref>https://web.archive.org/web/20030808071347/http://www.odb.at/Niederoesterreich.htm</ref>
+|-
+| 1967
+| [[Aderklaa]]
+| [[Filialkirche Aderklaa]]
+| 
+| II/P
+| 9
+| 
+|-
+| 1967
+| [[Zwölfaxing]]
+| [[Pfarrkirche Zwölfaxing]]
+| [[Datei:Zwölfaxing Pfarrkirche Innenansicht.JPG|zentriert|160x160px]]
+| II/P
+| 7
+| <ref>https://web.archive.org/web/20030808071347/http://www.odb.at/Niederoesterreich.htm</ref>
+|-
+| 1968
+| [[Wien]]
+| [[Pfarrkirche am Keplerplatz (Wien)|Pfarrkirche am Keplerplatz]]
+| [[Datei:Wien - Pfarrkirche hl. Johann Evangelist, Orgel, Keplerplatz.JPG|zentriert|160x160px]]
+| II/P
+| 28
+| <ref>https://organindex.de/index.php?title=Wien/Favoriten,_Pfarrkirche_St._Johann_Evangelist</ref>
+|-
+| 1968
+| [[Wien]]
+| [[Filialkirche zur Heiligen Familie (Favoriten)]]
+| 
+| II/P
+| 18
+| <ref>https://orgeldb.edw.or.at/detail/wien10-filialkirche-zur-heiligen-familie9075</ref>
+|-
+| 1969
+| [[Unter Sankt Veit|Wien-Unter St. Veit]]
+| [[Unter St. Veiter Pfarrkirche]]
+| [[Datei:Orgel Unter St. Veit 01.jpg|zentriert|160x160px]]
+| II/P
+| 8
+| <ref>https://organindex.de/index.php?title=Wien/Hietzing,_Verkl%C3%A4rung_Christi_(Unter-St._Veit)</ref>
+|-
+| 1970
+| [[Dürnkrut]]
+| [[Pfarrkirche Dürnkrut]]
+| 
+| II/P
+| 11
+| <ref>https://web.archive.org/web/20030808071347/http://www.odb.at/Niederoesterreich.htm</ref>
+|-
+| 1970
+| [[Schleinbach]]
+| [[Pfarrkirche Schleinbach]]
+| 
+| II/P
+| 12
+| <ref>https://organindex.de/index.php?title=Ulrichskirchen-Schleinbach/Schleinbach,_St._Petrus</ref>
+|-
+| 1970
+| [[Neumarkt in Steiermark]]
+| [[Pfarrkirche Neumarkt in Steiermark]]
+| [[Datei:Neumarkt Prospekt seitlich.jpg|zentriert|160x160px]]
+| II/P
+| 10
+| <ref>https://organindex.de/index.php?title=Neumarkt_in_Steiermark,_St._Katharina</ref>
+|-
+| 1970
+| [[Klagenfurt]]
+| [[Pfarrkirche Klagenfurt-St. Theresia|Pfarrkirche St. Theresia]]
+| [[Datei:Kirche St Theresia Klagenfurt.jpg|zentriert|160x160px]]
+| II/P
+| 21
+| <ref>https://organindex.de/index.php?title=Klagenfurt,_St._Theresia</ref>
+|-
+| 1970
+| [[Friesach]]
+| [[Heiligblutkirche Friesach|Heiligenblutkirche]]
+| [[Datei:Friesach - Heiligblutkirche - Blick zur orgelempore.jpg|zentriert|160x160px]]
+| I/P
+| 4
+| <ref>https://organindex.de/index.php?title=Friesach,_Heiligenblutkirche</ref>
+|-
+| 1971
+| [[Hohenwarth-Mühlbach am Manhartsberg|Hohenwarth]]
+| [[Pfarrkirche Hohenwarth]]
+| 
+| II/P
+| 8
+| 
+|-
+| 1972
+| [[Klagenfurt]]
+| [[Rektoratskirche St. Elisabeth (Klagenfurt)]]
+| 
+| II/P
+| 19
+| <ref>https://organindex.de/index.php?title=Klagenfurt,_Rektoratskirche_St._Elisabeth_(Elisabethinenkirche)</ref>
+|-
+| 1972
+| [[Eisenkappel-Vellach]]
+| [[Pfarrkirche Eisenkappel]]
+| [[Datei:Pfarrkirche Eisenkappel - Empore.JPG|zentriert|160x160px]]
+| II/P
+| 11
+| <ref>https://organindex.de/index.php?title=Eisenkappel-Vellach/Bad_Eisenkappel,_St._Michael</ref>
+|-
+| 19xx
+| [[Ebenthal in Kärnten]]
+| [[Pfarrkirche Ebenthal in Kärnten]]
+| [[Datei:Kirche Ebenthal innen hinten.jpg|zentriert|160x160px]]
+| II/P
+| 11
+| 
+|}
+
+== Rudolf Novak d. Jüngere ==
+Rudolf Novak der Jüngere leitete den Betrieb als Orgelbauer von 1973 bis 1995.
+
+{| class="wikitable sortable"
+|-
+! Jahr !! Ort !! Gebäude !! class="unsortable"| Bild !! Manuale !! Register !! class="unsortable"| Bemerkungen
+|-
+| 1977
+| [[Ferlach]]
+| [[Pfarrkirche Ferlach]]
+| [[Datei:Ferlach Pfarrkirche Orgelempore.jpg|160x160px|zentriert]]
+| II/P
+| 26
+| <ref>https://organindex.de/index.php?title=Ferlach,_Hl._Martin</ref>
+|-
+| 1977
+| [[St. Veit an der Glan]]
+| [[Pfarrkirche St. Veit an der Glan]]
+| [[Datei:Orgel Pfarrkirche Sankt Veit Glan .JPG|160x160px|zentriert]]
+| III/P
+| 25
+| <ref>https://organindex.de/index.php?title=St._Veit_an_der_Glan,_Hl._Dreifaltigkeit_(Hauptorgel)</ref>
+|-
+| 1981
+| [[Friesach]]
+| [[Pfarrkirche Zeltschach]]
+| [[Datei:Kirche Zeltschach innen nach hinten.jpg|160x160px|zentriert]]
+| I/P
+| 7
+| <ref>https://organindex.de/index.php?title=Friesach/Zeltschach,_St._Andreas</ref>
+|-
+| 1981
+| [[Brunn an der Wild]]
+| [[Pfarrkirche Neukirchen an der Wild]]
+| 
+| I/P
+| 6
+| Diese Orgel stand bis 2016 in der Churhauskapelle in 1010 Wien, Stephansplatz<ref>https://organindex.de/index.php?title=Brunn_an_der_Wild/Neukirchen_an_der_Wild,_St._Martin</ref><ref>{{Toter Link |datum=2019-05 |url=http://www.orgelmusik.at/orgeln/orgel_detail/78/ |text=Novak Orgel: Churhauskapelle in Wien |archivebot=2019-05-04 11:59:29 InternetArchiveBot}}</ref>
+|-
+| 1982
+| [[Gurk (Kärnten)]]
+| [[Dom zu Gurk]]
+| 
+| I/P
+| 4
+| Krypta-Orgel<ref>https://organindex.de/index.php?title=Gurk,_Dom_(Krypta)</ref>
+|-
+| 1982
+| [[Bleiburg]]
+| [[Pfarrkirche Rinkenberg]]
+| [[Datei:Rinkenberg-Vogrce - Pfarrkirche - Blick auf die orgelempore.jpg|zentriert|160x160px]]
+| I/P
+| 6
+| originalgetreuer Nachbau der Orgel von [[Franz Grafenauer]], Gehäuse aus 1906
+|-
+| 1983
+| [[Gurk (Kärnten)]]
+| [[Dom zu Gurk]]
+| [[Datei:Gurk Domplatz 1 Dom Mariä Himmelfahrt Interieur Chorgestühl 22052023 3882.jpg|160x160px|zentriert]]
+| III/P
+| 25
+| Chororgel im historischen Gehäuse<ref>https://organindex.de/index.php?title=Gurk,_Dom_(Chororgel)</ref>
+|-
+| 1984
+| [[Maria Gail|Villach-Maria Gail]]
+| [[Wallfahrtskirche Maria Gail]]
+| [[Datei:Maria Gail Pfarrkirche Orgel 12012008 61.jpg|160x160px|zentriert]]
+| II/P
+| 13
+| <ref>https://organindex.de/index.php?title=Villach/Maria_Gail,_Wallfahrtskirche_Maria_Gail</ref>
+|-
+| 1987
+| [[Villach]]
+| [[Pfarrkirche St. Josef (Villach)]]
+| [[Datei:Villach -Pfarrkirche St Josef3.JPG|160x160px|zentriert]]
+| II/P
+| 14
+| <ref>https://organindex.de/index.php?title=Villach,_St._Josef</ref>
+|-
+| 1990
+| [[St. Jakob im Rosental]]
+| [[Wallfahrtskirche Maria Elend]]
+| [[Datei:AT-62467 Wallfahrtskirche Maria Elend 057.jpg|160x160px|zentriert]]
+| II/P
+| 17
+| 
+|}
+
+weitere Orgeln:
+* 1975: Orgelpositiv in der Filialkirche hl. Johannes Nepomuk in [[Traunfeld (Gemeinde Hochleithen)|Traunfeld]]
+
+== Literatur ==
+* [[Dehio Niederösterreich nördlich der Donau 1990]], Neun Nennungen zum Orgelbauer Rudolf Novak im Künstlerverzeichnis, S. 1374.
+
+== Weblinks ==
+* [https://www.novak-harmonikas.at/ueber-uns/geschichte.html Firmenwebsite - Unterseite Geschichte]
+* Organ index: [https://organindex.de/index.php?title=Kategorie:Novak,_Rudolf ''Rudolf Novak'']
+
+== Einzelnachweise ==
+<references />
+
+[[Kategorie:Harmonikahersteller]]
+[[Kategorie:Kunst (Klagenfurt am Wörthersee)]]
+[[Kategorie:Unternehmen (Klagenfurt am Wörthersee)]]
+[[Kategorie:Musikinstrumentenbauunternehmen (Österreich)]]
+[[Kategorie:Unternehmensgründung 1874]]

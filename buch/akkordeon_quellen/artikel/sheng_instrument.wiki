@@ -1,0 +1,38 @@
+[[Datei:Sheng.london.arp.jpg|mini|hochkant|Sheng-Musiker in London, 2004]]
+[[Datei:Sheng (Chinese mouth organ).jpg|mini|hochkant|Sheng mit 17 Pfeifen]]
+'''Sheng''' ({{zh|c=笙|p=shēng}}) ist ein Musikinstrument der traditionellen [[Chinesische Musik|chinesischen Musik]]. Sie gehört zur Familie der [[Mundorgel]]n, die wiederum zu den [[Durchschlagzungeninstrument]]en zählen. Die ''sheng'' gilt als ältester Vorläufer der [[Harmonikainstrument]]e.  
+
+== Bauform ==
+Die ''sheng'' besteht aus einer meist aus Metall gefertigten Windkammer mit Schnabel sowie 17, manchmal auch 21 oder 37 Pfeifen. Die Pfeifen stecken mit den Enden in der Windkammer. Dies unterscheidet die ''sheng'' von der in Südwestchina gespielten ''[[Qeej|lusheng]]'' und der laotischen ''[[khaen]]'', deren Pfeifen durch die Windkammer hindurchführen. Traditionell handelte es sich hierbei um Bambusrohre, die Stimmung erfolgte [[Diatonik|diatonisch]]. In neuerer Zeit wurden zunehmend auch Metallpfeifen und [[Chromatik|chromatische]] Stimmungen gebräuchlich. Der charakteristische laute und durchdringende Ton der ''sheng'' wird durch in den Pfeifen angebrachte [[durchschlagende Zunge]]n aus Metall erzeugt, sobald das Griffloch der jeweiligen Pfeife abgedeckt wird. Man kann die ''sheng'' sowohl beim Ein- als auch beim Ausatmen spielen. Als eines der wenigen Instrumente der traditionellen chinesischen Musik ist sie zur Wiedergabe von [[Akkord]]en in der Lage.
+
+== Bedeutung ==
+[[Datei:Tapete-Sheng.JPG|mini|hochkant|Sheng-Spieler auf einer Beerdigung; Tapete, um 1780]]
+Mit 3000 Jahren ist die ''sheng'' eines der ältesten chinesischen Musikinstrumente. Sie gilt als eines der wichtigsten Instrumente in der klassischen chinesischen Musik und findet auch im sakralen Umfeld Verwendung. Auch in der Sagenwelt Chinas hat die Mundorgel ihren Platz: Viele Geschichten ranken sich um ihre Herkunft und besondere Bedeutung, so etwa die Sage, dass ein Götterstreit nur durch den harmonischen Klang der Sheng besänftigt werden konnte. 
+
+In Japan existiert ein ähnliches Instrument namens ''[[Shō (Instrument)|shō]]'', das zentraler Bestandteil der [[Gagaku]]-Instrumentalmusik ist. Teilweise fand die Sheng auch Eingang in europäische Kompositionen, so etwa bei [[John Cage]].
+
+In der Region, die den Süden Chinas, den Norden von [[Laos]] und von [[Vietnam]] umfasst, gibt es bei den Minderheitsvölkern einige unterschiedliche Arten von einfacheren Mundorgeln, die zumeist aus Bambus gefertigt sind. Die dort am weitesten verbreitete Mundorgel ist die in Laos und der [[Isan]]-Region von Thailand gespielte ''khaen''.
+
+Ein Sheng-Spieler, der klassische chinesische Musik mit zeitgenössischen Klängen und Musizierhaltungen (u.&nbsp;a. [[Jazz]] und [[Neue Improvisationsmusik]]) verbindet, ist der 1970 in der Provinz [[Jiangsu]] geborene und in Deutschland lebende [[Wu Wei (Musiker)|Wu Wei]].
+
+== Typen ==
+Von den ursprünglich zahlreichen Varianten der ''sheng'' haben nur wenige bis in die Gegenwart überdauert:
+
+* ''Gaoyin sheng'' ({{zh|c=高音笙|p=gāoyīn shēng}}), hochgestimmt, auf der Basis des [[Notenschlüssel|Violinschlüssel]]s
+* ''Zhongyin sheng'' ({{zh|c=中音笙|p=zhōngyīn shēng}}), mittlere Stimmlage, Violin- oder [[Notenschlüssel|Altschlüssel]]
+* ''Diyin sheng'' ({{zh|c=低音笙|p=dīyīn shēng}}), tiefe Stimmlage, Alt- oder [[Notenschlüssel|Bassschlüssel]]
+* „Traditionelle“ ''sheng'' ({{zh|c=传统笙|p=chuántǒng shēng}}), 21 Pfeifen, benutzt den Violinschlüssel
+
+== Literatur ==
+* Arthur Christopher Moule: ''A List of the Musical and Other Sound-Producing Instruments of the Chinese.'' (Shanghai 1908) (''Source Materials in Ethnomusicology,'' Bd. 3) Frits Knuf Publishers, Buren 1989, S. 89–96
+* Alan R. Thrasher: ''Sheng.'' In: ''Grove Music Online,'' 2001
+
+== Weblinks ==
+* Henry Doktorski: [https://www.henrydoktorski.com/free-reed///////////////history/sheng.html ''Asian Free-Reed Instruments. Part One: The Chinese Shêng.'']
+* [https://www.metmuseum.org/art/collection/search/180015410 The Metropolitan Museum of Art] Abbildung einer Sheng vom Ende des 19. Jahrhunderts
+* [[Wu Wei (Musiker)|Wu Wei]]: [https://www.youtube.com/watch?v=qkkA5yWrvww ''Instrument: Sheng.''] Philharmonia Orchestra, London (Youtube-Video)
+* [[Hans-Jürgen Schaal (Jazzautor)|Hans-Jürgen Schaal]]: ''[http://www.hjs-jazz.de/?p=00259 Die Großmutter des Akkordeons – Über die chinesische Mundorgel Sheng.]'' In: ''hjs-jazz.de'', 2010.
+
+[[Kategorie:Musik (China)]]
+[[Kategorie:Durchschlagzungeninstrument]]
+[[Kategorie:Traditionelles chinesisches Musikinstrument]]

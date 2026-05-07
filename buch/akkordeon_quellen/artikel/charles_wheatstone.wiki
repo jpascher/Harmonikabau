@@ -1,0 +1,100 @@
+[[Sir (Anrede)|Sir]] '''Charles Wheatstone''' [{{IPA|ˈwiːtstən}}] (* [[6. Februar]] [[1802]] in [[Gloucester]]; † [[19. Oktober]] [[1875]] in [[Paris]]) war ein [[Vereinigtes Königreich|britischer]] [[Physiker]].
+
+== Leben und Wirken ==
+[[Datei:Wheatstone Charles drawing 1868.jpg|mini|Charles Wheatstone]]
+[[Datei:WheatstoneMikrophon1827 crop.jpg|mini|Akustisches ''Mikrophon'' von Charles Wheatstone (um 1827)]]
+Nach dem Besuch mehrerer Schulen arbeitete sich Wheatstone in das Handwerk seines Onkels, den [[Musikinstrumentenbau]], ein und übernahm dessen Geschäft in [[London]] nach seinem Ableben im Jahr 1823 zusammen mit seinem Bruder William. Charles hatte kein großes Interesse an kommerziellen und handwerklichen Tätigkeiten, und so konzentrierte er sich mehr auf die Verbesserung von Instrumenten und die Entwicklung technischer Hilfsmittel. So entwickelte er um 1827 ein Instrument, „welches die schwächsten Töne hörbar macht, und deshalb füglich Mikrophon genannt werden kann.“ Es war jedoch kein [[Mikrofon]] im heutigen Sinne (das Schall in elektrische Spannungsänderungen umwandelt), sondern arbeitete&nbsp;– ähnlich wie ein akustisches [[Stethoskop]]&nbsp;– rein mechanisch: Es bestand aus zwei Eisen- oder Messingdrähten, die an je einem Ende verschweißt wurden, sodass sie eine Spitze bildeten. An den anderen beiden Enden war je ein Metallblech angebracht. Legte man die Metallbleche an die Ohren (wo sie infolge der Federspannung der Drähte angedrückt wurden) und legte man die Spitze auf einen tönenden Körper, so konnte man die Töne deutlicher hören.<ref>{{ANNO|nnh|||1827|544|Experimente in Bezug auf das Hören|AUTOR=Charles Wheatstone|anno-plus=ja}}</ref>
+
+1829 zog er sich gänzlich aus dem Geschäft zurück. 1834 wurde er Professor für [[Experimentalphysik]] am [[King’s College London|King’s College]] in London.
+
+Wheatstone begann früh mit [[physik]]alisch-[[Akustik|akustischen]] Experimenten, in denen er die [[Schallausbreitung|Schallübertragung]], [[stehende Welle]]n und [[Musikinstrument]]e untersuchte. 1828 erfand er das [[Symphonium]], ein Vorläuferinstrument der [[akkordeon]]ähnlichen [[Konzertina]].<ref>[http://www.concertina.com/patents/index.htm#wheatstone-patent-1829 Concertina Patent: „Improvements in the Construction of Wind Musical Instruments“ (1829) by Charles Wheatstone, British Patent No. 5803 of 1829, Specification (19 December 1829) with forty-five figures. 10 pages.]</ref> Er entwarf 1833 in einer der [[Royal Society]] vorgelegten Abhandlung das Prinzip der ''Überlagerung kleiner Bewegungen'' für die [[Chladnische Klangfigur|Chladnischen Klangfiguren]]. Dann wandte er sich der [[Optik]] und [[Elektrotechnik]] zu und erkannte 1833 die Bedeutung der von [[Samuel Hunter Christie]] erfundenen [[Brückenschaltung]] für die exakte Messung [[Elektrischer Widerstand|elektrischer Widerstände]], die später als [[Wheatstonesche Messbrücke]] bekannt wurde.<ref>''The Genesis of the Wheatstone Bridge'' by Stig Ekelof discusses [[Samuel Hunter Christie|Christie’s]] and Wheatstone’s contributions, and why the bridge carries Wheatstone’s name. Published in ''Engineering Science and Education Journal'', volume 10, no 1, Februar 2001, S. 37–40.</ref>
+
+Im Jahr 1835 führte Wheatstone einen nach der Beschreibung von [[Wolfgang von Kempelen]] gebauten Sprechapparat vor.<ref>[[George A. Miller]]: ''Wörter. Streifzüge durch die Psycholinguistik.'' Herausgegeben und aus dem Amerikanischen übersetzt von [[Joachim Grabowski]] und [[Christiane Fellbaum]]. Spektrum der Wissenschaft, Heidelberg 1993; Lizenzausgabe: Zweitausendeins, Frankfurt am Main 1995; 2. Auflage ebenda 1996, ISBN 3-86150-115-5, S. 88–89 (''Die ersten Sprechapparate'').</ref>
+
+1840 erfand er einen stufenlos regelbaren Widerstand ([[Rheostat]]) und 1833 das [[Stereoskop|Spiegelstereoskop]], mit dem er die [[Spektrallinie]]n von [[Funke (Entladung)|Funkenentladungen]] bestimmte.<ref>Beachte das Schreiben von Wheatstone's 1838  "Contributions to the Physiology of Vision.—Part the First. On some remarkable, and hitherto unobserved, Phenomena of Binocular Vision" auf [https://www.stereoscopy.com/library/wheatstone-paper1838.html dieser Webseite.]</ref><ref>{{cite book
+ | title = Sir Charles Wheatstone FRS: 1802–1875
+ | edition = 2nd
+ | author = Brian Bowers
+ | publisher = IET
+ | year = 2001
+ | isbn = 978-0-85296-103-2
+ | pages = 207–208
+ | url = http://books.google.com/books?id=m65tKWiI-MkC&pg=PA208&dq=Wheatstone+spectrum+analysis+metals&lr=&as_brr=3&ei=yqN3StmSN5qGkgTRrpScAQ#v=onepage&q=Wheatstone%20spectrum%20analysis%20metals&f=false |language=en
+ }}</ref><ref>{{cite book
+ | title = The Art of Scientific Discovery: Or, The General Conditions and Methods of Research in Physics and Chemistry
+ | author = George Gore
+ | publisher = Longmans, Green, and Co
+ | year = 1878
+ | page = 179
+ | url = http://books.google.com/books?id=We0EAAAAYAAJ&pg=PA179&dq=Wheatstone+Angstrom+spectrum++bunsen+kirchoff+crookes+rubidium+thallium&lr=&as_brr=3&ei=dqV3SoHpBZXkkQTo7dStAQ#v=onepage&q=Wheatstone%20Angstrom%20spectrum%20%20bunsen%20kirchoff%20crookes%20rubidium%20thallium&f=false |language=en
+ }}</ref><ref>Betrachte Wheatstone's 1852 Bakerian Lecture "Contributions to the Physiology of Vision. – Part the Second. On some remarkable, and hitherto unobserved, Phenomena of Binocular Vision (continued)" bei [https://www.stereoscopy.com/library//wheatstone-paper1852.html auf dieser Webseite.]</ref> 1834 ermittelte Wheatstone erstmals die Fortpflanzungsgeschwindigkeit des [[Elektrischer Strom|elektrischen Stroms]] in metallischen [[Leiter (Physik)|Leitern]]. Im Folgenden entwickelte er zusammen mit dem Elektrotechniker [[William Fothergill Cooke]] zwei [[Telegrafie]]geräte – den [[Nadeltelegraf]]en<ref>{{cite book | author = Beauchamp, Ken | title = History of Telegraphy | year = 2001 | publisher = Institution of Electrical Engineers | location = | pages = 34 – 40 | url = http://books.google.com.au/books?id=ni7lDl3k5LwC&pg=PA30&dq=cooke+wheatstone&sig=ACfU3U3kM8CbK8Pl3slxOyZPtvohKRJzRA#PPA34,M1 |language=en}}</ref> und den [[Zeigertelegraf]]en. Letzterer fand verbreitete Anwendung und wurde später von der [[Morsetelegrafie]] verdrängt. Die Sende- und Empfangsvorrichtung des Zeigertelegrafen bestand aus der Bewegung eines Zeigers zu einzelnen Buchstaben und Ziffern, die eine jeweils unterschiedliche Anzahl von Stromstößen hervorrief. 1854 erfand Wheatstone das [[Playfair]]-Verfahren zur manuellen [[Verschlüsselung]] von Nachrichten.
+
+Fast zur selben Zeit wie [[Werner von Siemens]] entdeckte und publizierte Wheatstone auch das [[Dynamoelektrisches Prinzip|dynamoelektrische Prinzip]]. Wheatstone’s Vortrag vor der [[Royal Academy of Engineering|Royal Academy]] am 14. Februar 1867 folgte unmittelbar dem Beitrag [[Carl Wilhelm Siemens|William Siemens’]], der die Arbeit seines Bruders Werner von Siemens vorgestellt hatte.<ref>Proceedings of the Royal Society of London, Vol. 15 (1867), Seiten 367 und 369</ref> Den Vorträgen vor der Royal Society war die Veröffentlichung der ersten wissenschaftlichen Darstellung des dynamoelektrischen Prinzips<ref>Proceedings of the Royal Society of London, Vol. 37 (1884), Seite VIII</ref> vor der [[Königliche Akademie der Wissenschaften|Berliner Akademie der Wissenschaften]] am 17. Januar 1867 vorausgegangen.
+Wheatstone befasste sich mit der [[Parallelschaltung]] von [[Anker (Elektrotechnik)|Anker]]- und [[Erregerwicklung|Feldwicklung]] im Gegensatz zur Siemensschen Variante mit einer [[Reihenschaltung]]. Die Version von Wheatstone erwies sich später vor allem für die [[Kraftwerkstechnik]] als bedeutender.<ref name="DM">{{Literatur|Autor=Friedrich Heilbronner|Titel=Die Dynamomaschine von Werner Siemens|Sammelwerk=Meisterwerke aus dem Deutschen Museum|Band=III|Verlag=Deutsches Museum|Ort=München|Datum=2000|ISBN=3-924183-79-1|Seiten=24–27|Online={{Webarchiv|url=http://www.deutsches-museum.de/sammlungen/meisterwerke/meisterwerke-iii/dynamomaschine/|wayback=20210422173032|text=Die Dynamomaschine von Werner Siemens}}|Abruf=2024-03-22}}</ref>
+
+Wheatstone und sein Freund [[Lyon Playfair, 1. Baron Playfair]], betrieben die [[Kryptografie]]<ref>{{cite book | author = Marks, Leo | title = Between Silk and Cyanide | year = 1998 | publisher = The Free Press | location = New York | isbn = 0-684-86422-3 |language=en}}</ref> als Hobby. Damals erschienen in der [[The Times|Londoner Times]] oft Privatanzeigen in verschlüsselter Form. Die beiden machten sich einen Spaß daraus, diese Geheimbotschaften zu entschlüsseln. Besonders die Anzeigen von Liebespaaren hatten es ihnen angetan.<ref>[[Simon Singh]]: ''Codes - Die Kunst der Verschlüsselung'' Deutscher Taschenbuch Verlag, München - 4. Auflage März 2009, Seite 91 ISBN 978-3-423-62167-0</ref> Wheatstone entwickelte ein manuelles Verschlüsselungsverfahren, das auf Buchstabenpaaren basierte. Playfair veröffentlichte es später und so erhielt dieses Verfahren seinen Namen.<ref>{{Literatur |Autor=Martin Gardner |Titel=Codes, ciphers, and secret writing |Verlag=Courier Dover Publications |Datum=1972 |Online= Abschnitt: [2] The Playfair Cipher {{Google Buch |BuchID=y6Aw_ZTfpBAC |Seite=46 |Linktext=Online |Hervorhebung=Charles+Wheatstone |KeinText=Ja}}}}</ref>
+
+== Ehrungen ==
+[[Datei:Physiker.jpg|mini|Charles Wheatstone (Mitte)]]
+1836 wurde er zum Mitglied („[[Fellow]]“) der Royal Society gewählt, die ihn zweimal (1840 und 1843) mit der [[Royal Medal]] und 1868 mit der [[Copley-Medaille|Copley Medal]] auszeichnete. 1842 wurde er korrespondierendes und später auswärtiges Mitglied der [[Académie des sciences]].<ref>{{Internetquelle |url=https://www.academie-sciences.fr/fr/Liste-des-membres-depuis-la-creation-de-l-Academie-des-sciences/les-membres-du-passe-dont-le-nom-commence-par-w.html |titel=Verzeichnis der ehemaligen Mitglieder seit 1666: Buchstabe W |hrsg=Académie des sciences |sprache=fr |abruf=2020-03-15}}</ref> Seit 1849 war er assoziiertes Mitglied der [[Académie royale des Sciences, des Lettres et des Beaux-Arts de Belgique]].<ref>{{Internetquelle| url=https://academieroyale.be/fr/who-who-detail/relations/charles-wheatstone/| titel=Académicien décédé: Sir Charles Wheatstone| hrsg=Académie royale des Sciences, des Lettres et des Beaux-Arts de Belgique| zugriff=2025-06-08| sprache=fr}}</ref> Die [[Akademie der Wissenschaften zu Göttingen|Gesellschaft der Wissenschaften zu Göttingen]] nahm ihn 1854 als auswärtiges Mitglied auf.<ref>{{Internetquelle| url=https://adw-goe.de/mitglieder/personendetails/person/sir-charles-wheatstone/| titel=Mitglieder: Sir Charles Wheatstone| hrsg=Niedersächsische Akademie der Wissenschaften zu Göttingen| zugriff=2026-03-04}}</ref> 1867 wurde er zum Ehrenmitglied (''Honorary Fellow'') der [[Royal Society of Edinburgh]] gewählt.<ref>{{Internetquelle |url=https://rse.org.uk/wp-content/uploads/2021/07/RSE-Fellows-BiographicalIndex-2.pdf |titel=Fellows Directory. Biographical Index: Former RSE Fellows 1783–2002, Part Two |hrsg=Royal Society of Edinburgh |format=PDF |abruf=2020-04-21}}</ref> Außerdem war er seit 1868 Träger des Ordens [[Pour le Mérite|Pour le mérite für Wissenschaft und Künste]]. Ebenfalls 1868 wurde er in die [[American Academy of Arts and Sciences]] gewählt. Nach Auszeichnungen in verschiedenen Ländern folgte 1868 seine Adelung als [[Knight Bachelor]].
+
+Nach Wheatstone sind in der Antarktis der [[Wheatstone-Gletscher]] auf der [[Antarktische Halbinsel|Antarktischen Halbinsel]] und das [[Kap Wheatstone]] an der Ostküste des [[Viktorialand]]s benannt. Auch eine, heute ungebräuchliche, [[Wheatstone (Einheit)|Einheit]] für den elektrischen Widerstand wurde nach ihm benannt.
+
+== Weblinks ==
+{{Commons}}
+* {{Polytechnisches Journal |Dokumentencode=11733362X |Name=Charles Wheatstone}}
+* [https://www.theiet.org/resources/library/archives/biographies/wheatstone.cfm Archives Biographies: Sir Charles Wheatstone 1802–1875] in: The Institution of Engineering and Technology
+* [http://eandt.theiet.org/magazine/2012/10/photo-essay.cfm 175th anniversary of the UK patent for Cooke and Wheatstone’s commercially practical electric telegraph]
+
+== Literatur ==
+* {{Literatur
+   |Autor=Kurt Jäger, Friedrich Heilbronner
+   |Titel=Lexikon der Elektrotechniker
+   |Auflage=2.
+   |Verlag=VDE-Verlag
+   |Datum=2010
+   |ISBN=978-3-8007-2903-6
+   |Online=[http://www.vde-verlag.de/buecher/ivz/ivz2903.pdf Inhaltsverzeichnis]
+   |Format=PDF
+   |KBytes=125}}
+
+== Einzelnachweise ==
+<references />
+
+{{Normdaten|TYP=p|GND=11733362X|LCCN=n84188392|VIAF=54231425}}
+
+{{SORTIERUNG:Wheatstone, Charles}}
+[[Kategorie:Physiker (19. Jahrhundert)]]
+[[Kategorie:Erfinder]]
+[[Kategorie:Person (Telegrafie)]]
+[[Kategorie:Persönlichkeit der Elektrotechnik]]
+[[Kategorie:Kryptologe]]
+[[Kategorie:Person (Klassische Kryptologie)]]
+[[Kategorie:Knight Bachelor]]
+[[Kategorie:Träger der Copley-Medaille]]
+[[Kategorie:Träger des Pour le Mérite (Friedensklasse)]]
+[[Kategorie:Mitglied der Königlich Schwedischen Akademie der Wissenschaften]]
+[[Kategorie:Mitglied der Royal Society]]
+[[Kategorie:Mitglied der Royal Society of Edinburgh]]
+[[Kategorie:Mitglied der American Academy of Arts and Sciences]]
+[[Kategorie:Mitglied der Preußischen Akademie der Wissenschaften]]
+[[Kategorie:Mitglied der Niedersächsischen Akademie der Wissenschaften zu Göttingen]]
+[[Kategorie:Mitglied der Bayerischen Akademie der Wissenschaften]]
+[[Kategorie:Mitglied der Académie des sciences]]
+[[Kategorie:Mitglied der Königlichen Akademie der Wissenschaften und Schönen Künste von Belgien]]
+[[Kategorie:Ehrenmitglied des Physikalischen Vereins]]
+[[Kategorie:Brite]]
+[[Kategorie:Engländer]]
+[[Kategorie:Geboren 1802]]
+[[Kategorie:Gestorben 1875]]
+[[Kategorie:Mann]]
+
+{{Personendaten
+|NAME=Wheatstone, Charles
+|ALTERNATIVNAMEN=
+|KURZBESCHREIBUNG=britischer Physiker
+|GEBURTSDATUM=6. Februar 1802
+|GEBURTSORT=[[Gloucester]]
+|STERBEDATUM=19. Oktober 1875
+|STERBEORT=[[Paris]], [[Frankreich]]
+}}

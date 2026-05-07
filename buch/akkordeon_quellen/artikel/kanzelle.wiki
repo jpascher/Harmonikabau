@@ -1,0 +1,20 @@
+[[Datei:Schleiflade.jpg|miniatur|Querschnitt einer gewöhnlichen Schleiflade einer Orgel mit Windkammer (unten), Tonkanzelle (Mitte) und Registerschleifen (oben)]]
+[[Datei:Kanzelle.jpg|miniatur|hochkant|Kanzelle eines Akkordeonstimmstockes]]
+
+Als '''Kanzelle''', früher auch ''Cancelle'', wird bei der [[Orgel]] eine Kammer in der [[Windlade]] bezeichnet, in die je nach Bauart der Windlade [[Taste|als]] '''Tonkanzelle''' oder '''Registerkanzelle''' bezeichnet wird. Bei einer
+
+* Tonkanzelle werden alle Pfeifen, die derselben [[Note (Musik)|Note]] zugeordnet sind, 
+* Registerkanzelle werden alle Pfeifen eines [[Register (Orgel)|Registers]]
+
+durch die Kanzelle mit [[Windwerk|Wind]] versorgt.<ref>{{Internetquelle |autor=Eberlein, Roland |url=https://www.walcker-stiftung.de/Windlade.html |titel=I. Windladenkonstruktionen und Trakturtypen |werk=Technik der Orgel |hrsg=Walcker-Stiftung für orgelwissenschaftliche Forschung |abruf=2025-07-04}}</ref>
+
+Bei [[Harmonikainstrument]]en bezeichnet eine Kanzelle nicht nur die Luftführung zu einer oder zwei [[durchschlagende Zunge|Stimmzungen]], sondern ebenfalls den Raum, in den durch einen Schlitz die Stimmzunge hineinschwingt. Bei Handharmonikas und [[Melodica]]s wird durch Tasten die Luftzufuhr und -abfuhr zu den Kanzellen einzelner Töne geregelt, bei der [[Mundharmonika]] werden die Kanzellen direkt mit dem [[Mund]] mittels [[Atmung]] angespielt, wobei auch mit der Zungenspitze Kanzellenöffnungen abgedeckt werden können zwecks Spielen der Töne nicht benachbarter Kanzellen. Die Kanzelle hat zwei Öffnungen, in der auf dem Kanzellenkörper montierten Stimmplatte den Schlitz, der zu 99 % von der Stimmzunge überdeckt wird, und im [[Rechter Winkel|rechten Winkel]] dazu angeordnet die Kanzellenöffnung.
+
+== Einzelnachweise ==
+<references />
+
+== Weblinks ==
+* [https://www.klausrohwer.de/privat/hobbies/muha/muhapubl/muhakunde.htm Kleine Mundharmonikakunde]
+
+[[Kategorie:Bauteil (Orgel)]]
+[[Kategorie:Handzuginstrumentenbau]]
