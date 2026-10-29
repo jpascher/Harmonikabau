@@ -42,7 +42,15 @@ button:focus-visible,select:focus-visible,input:focus-visible,.filebtn:focus-wit
 .filebtn{display:inline-flex;align-items:center}
 .edithelp{margin:10px 0 0;font-size:14px;color:var(--muted)}
 button[aria-pressed="true"]{background:var(--accent)!important;color:var(--panel)!important}
-#griff .bhit,#griff .brk{fill:transparent}
+#griff .bhit,#griff .brk,#griff .msel{fill:transparent}
+#griff .msel{cursor:pointer}
+#griff .msel:hover{fill:var(--zug-soft);opacity:.7}
+#griff .selbg{fill:var(--zug-soft);opacity:.55}
+.measure.selm{background:var(--zug-soft)}
+.fplay{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:0 4px 14px rgba(0,0,0,.25);padding:12px 18px;font-size:16px;border-radius:999px}
+.fplay.sel{background:var(--zug);border-color:var(--zug)}
+.chk{display:flex;gap:6px;align-items:center;font-weight:600;color:var(--muted);font-size:14px;padding-bottom:8px}
+.measure .mno{cursor:pointer}
 body.editing #griff .gn[data-uid]{cursor:crosshair}
 body.editing #griff .bhit{cursor:pointer}
 body.editing #griff .bhit:hover{fill:var(--druck-soft);opacity:.6}
@@ -138,6 +146,8 @@ button.ghost2{background:transparent;color:var(--accent)}
   #griff .gn.cur,#griff .bl.cur,#griff .gn.forced,#griff .bl.forced{color:#000;fill:#000}
   #griff .brk.on,#griff .bhit{fill:transparent!important}
   .edithelp{display:none!important}
+  #griff .selbg{display:none}
+  .fplay{display:none!important}
   .measure{break-inside:avoid}
   .ev.cur,.beat.cur{background:none}
 }
@@ -213,9 +223,16 @@ button.ghost2{background:transparent;color:var(--accent)}
         <label for="lpr">Takte je Zeile</label>
         <select id="lpr"><option value="0">automatisch</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option></select>
       </div>
+      <div class="field">
+        <label for="selfrom">Üben: Takt von – bis</label>
+        <div style="display:flex;gap:6px;align-items:center"><input id="selfrom" type="number" min="1" style="width:5em" placeholder="von"><span>–</span><input id="selto" type="number" min="1" style="width:5em" placeholder="bis"></div>
+      </div>
+      <label class="chk"><input id="loop" type="checkbox" checked> Schleife</label>
+      <button id="selclear" type="button" class="ghost2">Auswahl löschen</button>
       <button id="edit" type="button" class="ghost2" aria-pressed="false">Bearbeiten</button>
       <button id="reset" type="button" class="ghost2">Änderungen zurücksetzen</button>
     </div>
+    <p class="edithelp" id="selhelp">Zum Üben: über einer Notenzeile auf die <b>Taktnummer</b> klicken wählt den Takt, mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. „Abspielen“ (oben oder der runde Knopf rechts unten) spielt dann nur diese Takte, mit „Schleife“ immer wieder. Ein Klick auf eine Note <b>in</b> der Auswahl startet ab diesem Takt, ein Klick auf eine Note außerhalb spielt nur diesen Griff an.</p>
     <p id="edithelp" class="edithelp" hidden>Bearbeiten: <b>Note</b> anklicken = Balgrichtung dieses Griffs umschalten · <b>Bassbuchstaben</b> anklicken = Zug/Druck für den ganzen Bassabschnitt umschalten · <b>Taktstrich</b> anklicken = Zeile danach umbrechen (nochmal = aufheben). Geänderte Stellen sind blau.</p>
     <div id="drop" class="drop">Oder Datei hierher ziehen: MusicXML (.musicxml, .xml, .mxl) oder MIDI (.mid). Viele Volkstänze gibt es als MIDI bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): Seite eines Stücks öffnen, „Midi-Datei downloaden“, Datei hier hineinziehen.</div>
   </section>
@@ -256,6 +273,7 @@ button.ghost2{background:transparent;color:var(--accent)}
     <div class="tab" id="tab" hidden></div>
   </section>
 
+  <button id="fplay" type="button" class="fplay">▶ Abspielen</button>
   <section class="panel notes">
     <h2>So entscheidet das Programm</h2>
     <ul>
@@ -363,7 +381,8 @@ function loadXMLText(txt){
   const sel=document.getElementById("part");sel.innerHTML="";
   PARTS.forEach((p,i)=>{const o=document.createElement("option");o.value=i;o.textContent=names[p.getAttribute("id")]||("Stimme "+(i+1));sel.appendChild(o);});
   const t=doc.querySelector("work-title")||doc.querySelector("movement-title");TITLE=t?t.textContent.trim():"";
-  NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();
+  NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();SEL=null;
+  const sf=document.getElementById("selfrom");if(sf){sf.value="";document.getElementById("selto").value="";}
 }
 function parsePart(part){
   let div=1,voice=null,keyFifths=0,minor=false,pendingH=null,beats=4,tsN=4,tsD=4;
@@ -399,7 +418,7 @@ function parsePart(part){
           prevNote.tieOpen=ties.includes("start");skipChord=true;
           const te={type:"tie",dur,on:pos,src:prevNote,midis:prevNote.midis};if(pendingH){te.harm=pendingH;pendingH=null;}ev.push(te);pos+=dur;continue;
         }
-        const e={type:"note",midis:[midi],dur,on:pos,tieOpen:ties.includes("start"),key:mIdx+":"+pos.toFixed(4)};
+        const e={type:"note",midis:[midi],dur,on:pos,tieOpen:ties.includes("start"),key:mIdx+":"+pos.toFixed(4),_mi:mIdx};
         if(pendingH){e.harm=pendingH;pendingH=null;}
         ev.push(e);pos+=dur;prevNote=e;
       }
@@ -479,6 +498,7 @@ function buildSegments(measures,t,key,minor){
 const AGAINST=6,MISSING=4;let VOICES=2;
 // Benutzer-Änderungen: erzwungene Balgrichtung je Griff bzw. je Bassabschnitt, Zeilenumbrüche
 let NOTE_FORCE={},SEG_FORCE={},BREAKS=new Set(),EDIT=false,BT=0,DISPLAY=[];
+let SEL=null;   // Übungsauswahl als Bereich in DISPLAY-Positionen {a,b}
 function melMove(a,b){return 0.45*bdist(a.top,b.top);}
 function bassMove(oa,ob,atBar){
   let c=0;
@@ -605,7 +625,7 @@ function renderTab(){
   const tab=document.getElementById("tab");tab.innerHTML="";
   DISPLAY.forEach((dd,di)=>{
     const mi=dd.mi,m=P.measures[mi];
-    const md=document.createElement("div");md.className="measure"+(di===DISPLAY.length-1?" endline":"")+(dd.repStart?" rs":"")+(dd.repEnd?" re":"");
+    const md=document.createElement("div");md.className="measure"+(di===DISPLAY.length-1?" endline":"")+(dd.repStart?" rs":"")+(dd.repEnd?" re":"")+(SEL&&di>=SEL.a&&di<=SEL.b?" selm":"");
     md.innerHTML=`<span class="mno">${m.no}</span>`+(dd.volta&&(di===0||DISPLAY[di-1].volta!==dd.volta)?`<span class="vlt">${dd.volta}.</span>`:"");
     const top=document.createElement("div");top.className="mrow";
     const bot=document.createElement("div");bot.className="mrow";
@@ -628,7 +648,9 @@ function renderTab(){
         d.innerHTML=`<span class="nm">${nameOf(r.pitches[0])}</span><div class="stack${r.pitches.length>1?" multi":""}">${html}</div><span class="bar"></span>`;
         d.title=tip.join("\n")+(g?`\n${g.dir==="Z"?"Zug":"Druck"}${r.against?" (gegen die Bassrichtung)":""}`:"");
         d.tabIndex=0;d.dataset.uid=e._uid;
-        const act=()=>{if(EDIT){toggleNote(e);return;}markCur(e._uid,null);drawKbd(g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
+        const act=()=>{if(EDIT){toggleNote(e);return;}
+          if(SEL&&DISPLAY.slice(SEL.a,SEL.b+1).some(x=>x.mi===mi)){if(playing)stop();else startPlay(mi);return;}
+          markCur(e._uid,null);drawKbd(g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
         d.addEventListener("click",act);d.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
       }
       top.appendChild(d);
@@ -648,6 +670,7 @@ function renderTab(){
       bot.appendChild(b);
     });
     md.appendChild(top);md.appendChild(bot);tab.appendChild(md);
+    md.querySelector(".mno").addEventListener("click",ev=>selectMeasure(di,ev.shiftKey));
   });
 }
 function markCur(uid,beat){
@@ -705,7 +728,9 @@ function renderGriff(){
     let mx=lead;
     row.forEach((x,k)=>{
       const m=x.m,mw=x.w*scale,qw=x.qw*scale,X=on=>mx+(10+x.pad)*scale+on*qw;
+      if(SEL&&x.di>=SEL.a&&x.di<=SEL.b)svg+=`<rect class="selbg" x="${mx}" y="${yOf(4)-18}" width="${mw}" height="${druckY-yOf(4)+22}"/>`;
       svg+=`<text class="mn" x="${mx+2}" y="${yOf(4)-5}">${m.no}</text>`;
+      const mselSvg=`<rect class="msel" data-di="${x.di}" x="${mx}" y="${yOf(4)-18}" width="24" height="16"><title>Takt ${m.no} zum Üben wählen (Umschalt-Klick: Bereich)</title></rect>`;
       if(x.d.repStart){svg+=`<rect class="rp" x="${mx}" y="${yOf(4)}" width="3" height="${8*ST}"/><line class="sl" x1="${mx+6}" x2="${mx+6}" y1="${yOf(4)}" y2="${yOf(-4)}"/><circle class="rp" cx="${mx+10}" cy="${yOf(1)}" r="1.8"/><circle class="rp" cx="${mx+10}" cy="${yOf(-1)}" r="1.8"/>`;}
       if(x.d.volta){const first=x.di===0||DISPLAY[x.di-1].volta!==x.d.volta,lastV=x.di===DISPLAY.length-1||DISPLAY[x.di+1].volta!==x.d.volta;const vy=yOf(Math.max(4,0))-20;
         svg+=`<path class="vt" d="M${mx+2} ${first?vy+10:vy} L${mx+2} ${vy} L${mx+mw-3} ${vy}${lastV&&x.d.volta==="1"?" L"+(mx+mw-3)+" "+(vy+10):""}"/>`;
@@ -735,7 +760,7 @@ function renderGriff(){
         const filled=e.dur<2-1e-9,dotted=[0.75,1.5,3].some(v=>Math.abs(e.dur-v)<1e-6);
         let si=stemInfo.get(e);
         const up=si?si.up:(hs.reduce((a,h)=>a+h.p,0)/hs.length<0);
-        let s=`<rect x="${xh-9}" y="${yOf(hs[hs.length-1].p)-8}" width="18" height="${(hs[hs.length-1].p-hs[0].p)*ST+16}" fill="transparent"/>`;
+        let s="";let hitT=yOf(hs[hs.length-1].p)-8,hitB=yOf(hs[0].p)+8;
         // Hilfslinien
         const lo=hs[0].p,hi=hs[hs.length-1].p;
         for(let q=-6;q>=lo;q-=2)s+=`<line class="lg" x1="${xh-9}" x2="${xh+9}" y1="${yOf(q)}" y2="${yOf(q)}"/>`;
@@ -752,7 +777,7 @@ function renderGriff(){
         if(e.dur<4-1e-9){
           const sx=up?xh+5:xh-5;const yA=up?yOf(lo):yOf(hi);
           const yE=si?si.yEnd:(up?yOf(hi)-26:yOf(lo)+26);
-          s+=`<line x1="${sx}" x2="${sx}" y1="${yA}" y2="${yE}" stroke="currentColor" stroke-width="1.3"/>`;
+          s+=`<line x1="${sx}" x2="${sx}" y1="${yA}" y2="${yE}" stroke="currentColor" stroke-width="1.3"/>`;hitT=Math.min(hitT,yE);hitB=Math.max(hitB,yE);
           if(!si&&e.dur<=0.5+1e-9)s+=`<path d="M${sx} ${yE} q${up?8:8} ${up?8:-8} 7 ${up?18:-18}" fill="none" stroke="currentColor" stroke-width="1.6"/>`;
           if(si){const gr=inBeam.get(e);if(gr[gr.length-1]===e){const x1=X(gr[0].on)+6+(up?5:-5);s+=`<line x1="${x1}" x2="${sx}" y1="${yE}" y2="${yE}" stroke="currentColor" stroke-width="4"/>`;
             const y2=yE+(up?7:-7);for(let j=0;j+1<gr.length;j++)if(gr[j].dur<=0.25+1e-9&&gr[j+1].dur<=0.25+1e-9){const xa=X(gr[j].on)+6+(up?5:-5),xb=X(gr[j+1].on)+6+(up?5:-5);s+=`<line x1="${xa}" x2="${xb}" y1="${y2}" y2="${y2}" stroke="currentColor" stroke-width="4"/>`;}}}
@@ -760,6 +785,7 @@ function renderGriff(){
         // Haltebogen
         if(e.type==="tie"&&tieFrom[e.src._uid]!=null){const x1=tieFrom[e.src._uid],yy=yOf(lo)+9;s+=`<path d="M${Math.min(x1+6,xh-14)} ${yy} Q${(x1+xh)/2} ${yy+9} ${xh-6} ${yy}" fill="none" stroke="currentColor" stroke-width="1.2"/>`;}
         if(isNote)tieFrom[e._uid]=xh;
+        s=`<rect x="${xh-11}" y="${hitT}" width="22" height="${hitB-hitT}" fill="transparent"/>`+s;
         const cls="gn"+(isNote&&r.against?" against":"")+(isNote&&NOTE_FORCE[e.key]?" forced":"");
         svg+=isNote?`<g class="${cls}" data-uid="${e._uid}" tabindex="0">${s}</g>`:`<g class="gn">${s}</g>`;
       });
@@ -771,6 +797,7 @@ function renderGriff(){
         if(o.dir==="D")svg+=`<line class="dl" x1="${X(s.a)-2}" x2="${X(s.b)-6}" y1="${druckY}" y2="${druckY}"/>`;
         svg+=`<rect class="bhit" data-si="${si}" x="${X(s.a)-4}" y="${bassY-16}" width="${Math.max(10,X(s.b)-X(s.a))}" height="28"><title>Zug/Druck für diesen Bassabschnitt umschalten</title></rect>`;
       });
+      svg+=mselSvg;
       mx+=mw;
       const fin=sy===systems.length-1&&k===row.length-1;
       if(x.d.repEnd){svg+=`<circle class="rp" cx="${mx-10}" cy="${yOf(1)}" r="1.8"/><circle class="rp" cx="${mx-10}" cy="${yOf(-1)}" r="1.8"/><line class="sl" x1="${mx-6}" x2="${mx-6}" y1="${yOf(4)}" y2="${yOf(-4)}"/><rect class="rp" x="${mx-3}" y="${yOf(4)}" width="3" height="${8*ST}"/>`;}
@@ -786,20 +813,50 @@ function renderGriff(){
   // Klick auf Noten
   const byUid={};P.measures.forEach(m=>m.ev.forEach(e=>{if(e._uid)byUid[e._uid]=e;}));
   host.querySelectorAll(".gn[data-uid]").forEach(el=>{
-    const act=()=>{const e=byUid[el.dataset.uid];if(!e)return;if(EDIT){toggleNote(e);return;}const r=e._r;markCur(e._uid,null);drawKbd(r.g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
+    const act=()=>{const e=byUid[el.dataset.uid];if(!e)return;if(EDIT){toggleNote(e);return;}
+      const mi=e._mi;
+      if(SEL&&mi!=null&&DISPLAY.slice(SEL.a,SEL.b+1).some(d=>d.mi===mi)){if(playing)stop();else startPlay(mi);return;}
+      const r=e._r;markCur(e._uid,null);drawKbd(r.g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
     el.addEventListener("click",act);el.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
   });
   host.querySelectorAll(".bhit").forEach(el=>el.addEventListener("click",()=>{const s=R.segs[+el.dataset.si];if(!s)return;if(EDIT)toggleSeg(s);else if(s.pick)drawBass(s.pick,"both");}));
+  host.querySelectorAll(".msel").forEach(el=>el.addEventListener("click",ev=>selectMeasure(+el.dataset.di,ev.shiftKey)));
   host.querySelectorAll(".brk").forEach(el=>el.addEventListener("click",()=>{if(!EDIT)return;const mi=+el.dataset.mi;if(BREAKS.has(mi))BREAKS.delete(mi);else BREAKS.add(mi);renderGriff();}));
 }
 // ======== Bearbeiten
-function toggleNote(e){const r=e._r;if(!r||!r.g)return;NOTE_FORCE[e.key]=r.g.dir==="Z"?"D":"Z";resolve();}
+function toggleNote(e){const r=e._r;if(!r||!r.g)return;NOTE_FORCE[e.key]=r.g.dir==="Z"?"D":"Z";resolve();r.pitches.forEach(p=>beep(p,0.35));}
+// ======== Übungsauswahl
+function selectMeasure(di,extend){
+  if(extend&&SEL){SEL={a:Math.min(SEL.a,di),b:Math.max(SEL.b,di)};}
+  else if(SEL&&SEL.a===di&&SEL.b===di){SEL=null;}
+  else SEL={a:di,b:di};
+  syncSelInputs();if(playing)stop();renderGriff();renderTab();updatePlayLabels();
+}
+function syncSelInputs(){
+  const f=document.getElementById("selfrom"),t=document.getElementById("selto");
+  if(!SEL){f.value="";t.value="";return;}
+  f.value=P.measures[DISPLAY[SEL.a].mi].no;t.value=P.measures[DISPLAY[SEL.b].mi].no;
+}
+function selFromInputs(){
+  if(!P)return;const prevSel=JSON.stringify(SEL);const fv=document.getElementById("selfrom").value.trim(),tv=document.getElementById("selto").value.trim();
+  if(!fv){SEL=null;}else{
+    const find=no=>DISPLAY.findIndex(d=>String(P.measures[d.mi].no)===String(no));
+    const a=find(fv),b=tv?find(tv):a;
+    SEL=(a>=0&&b>=0)?{a:Math.min(a,b),b:Math.max(a,b)}:null;
+  }
+  if(JSON.stringify(SEL)===prevSel)return;
+  if(playing)stop();renderGriff();renderTab();updatePlayLabels();
+}
+document.getElementById("selfrom").addEventListener("change",selFromInputs);
+document.getElementById("selto").addEventListener("change",selFromInputs);
+document.getElementById("selclear").addEventListener("click",()=>{SEL=null;syncSelInputs();if(playing)stop();renderGriff();renderTab();updatePlayLabels();});
+document.getElementById("loop").addEventListener("change",updatePlayLabels);
 function toggleSeg(s){if(!s.pick)return;SEG_FORCE[s.key]=s.pick.dir==="Z"?"D":"Z";
   // Griffe in diesem Abschnitt folgen dem Bass: frühere Einzeländerungen dort aufheben
   P.measures[s.mi].ev.forEach(e=>{if(e.key&&e.on>=s.a-1e-9&&e.on<s.b-1e-9)delete NOTE_FORCE[e.key];});resolve();}
 document.getElementById("edit").addEventListener("click",ev=>{EDIT=!EDIT;ev.currentTarget.setAttribute("aria-pressed",EDIT);document.body.classList.toggle("editing",EDIT);document.getElementById("edithelp").hidden=!EDIT;});
 document.getElementById("reset").addEventListener("click",()=>{NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();resolve();});
-document.getElementById("form").addEventListener("change",()=>{if(!P)return;stop();buildDisplay();updateStatus();renderTab();renderGriff();});
+document.getElementById("form").addEventListener("change",()=>{if(!P)return;stop();SEL=null;syncSelInputs();buildDisplay();updateStatus();renderTab();renderGriff();});
 document.getElementById("lpr").addEventListener("change",()=>{if(R)renderGriff();});
 document.getElementById("filelbl").addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();document.getElementById("file").click();}});
 // ======== Drucken
@@ -882,26 +939,40 @@ let timers=[],playing=false,SCHED=null;
 function stop(){
   timers.forEach(clearTimeout);timers=[];if(SCHED){clearInterval(SCHED);SCHED=null;}
   if(playing&&MASTER){try{MASTER.gain.setValueAtTime(0,AC.currentTime);MASTER.disconnect();}catch(e){}MASTER=null;}
-  playing=false;document.getElementById("play").textContent="▶ Abspielen";markCur(null,null);
+  playing=false;updatePlayLabels();markCur(null,null);
 }
-document.getElementById("play").addEventListener("click",()=>{
-  if(playing){stop();return;}if(!R)return;
+document.getElementById("play").addEventListener("click",()=>{if(playing){stop();return;}startPlay(null);});
+document.getElementById("fplay").addEventListener("click",()=>{if(playing){stop();return;}startPlay(null);});
+function updatePlayLabels(){
+  const lbl=playing?"■ Stopp":(SEL&&P?`▶ Takte ${P.measures[DISPLAY[SEL.a].mi].no}–${P.measures[DISPLAY[SEL.b].mi].no}${document.getElementById("loop").checked?" in Schleife":""}`:"▶ Abspielen");
+  document.getElementById("play").textContent=lbl;document.getElementById("fplay").textContent=lbl;
+  document.getElementById("fplay").classList.toggle("sel",!!SEL);
+}
+// fromMi: Takt (Index in P.measures), ab dem innerhalb der Auswahl begonnen wird
+function startPlay(fromMi){
+  if(!R)return;stop();
   const a=ac();const dest=newMaster();
   const q=60/(+document.getElementById("tempo").value||132);
-  // Ereignisliste in Sekunden ab Start
+  // welche Takte: Übungsauswahl (in Anzeigereihenfolge) oder das ganze Stück
+  const seq=SEL?DISPLAY.slice(SEL.a,SEL.b+1).map(d=>d.mi):P.measures.map((m,mi)=>mi);
+  const loop=document.getElementById("loop").checked;
   const evs=[];let mt=0;
-  P.measures.forEach((m,mi)=>{
+  seq.forEach(mi=>{const m=P.measures[mi];
     R.segs.forEach((s,si)=>{if(s.mi!==mi||!s.pick)return;const o=s.pick,pc=o.chord.pc,third=o.chord.minor?3:4;const bu=beatUnit(m),nb=Math.max(1,Math.round(s.len/bu));
       for(let b=0;b<nb;b++)evs.push({t:mt+(s.a+b*bu)*q,kind:b?"B":"G",pc,third,o,si,b});});
     m.ev.forEach(e=>{if(e.type==="note")evs.push({t:mt+e.on*q,kind:"N",e});});
     mt+=m.len*q;
   });
   evs.sort((x,y)=>x.t-y.t);
-  const start=a.currentTime+0.15;let i=0;
+  if(!evs.length)return;
+  let off=0;if(fromMi!=null){for(const mi of seq){if(mi===fromMi)break;off+=P.measures[mi].len*q;}if(off>=mt-1e-9)off=0;}
+  let start=a.currentTime+0.15-off,i=0;while(i<evs.length&&evs[i].t<off-1e-9)i++;
   const tick=()=>{
     const horizon=a.currentTime+0.35;
-    while(i<evs.length&&start+evs[i].t<horizon){
-      const ev=evs[i++],at=start+ev.t,delay=Math.max(0,(at-a.currentTime)*1000);
+    for(;;){
+      if(i>=evs.length){if(loop){i=0;start+=mt;}else break;}
+      const ev=evs[i];if(start+ev.t>=horizon)break;i++;
+      const at=start+ev.t,delay=Math.max(0,(at-a.currentTime)*1000);
       if(ev.kind==="G")tone(36+ev.pc,at,q*0.8,0.09,3,dest);
       else if(ev.kind==="B")[0,ev.third,7].forEach(iv=>tone(48+mod(ev.pc+iv,12)+(mod(ev.pc+iv,12)<5?12:0),at,q*0.45,0.03,4,dest));
       else{const r=ev.e._r;r.pitches.forEach((p,k)=>tone(p,at,ev.e.dur*q*0.95,k?0.06:0.09,6,dest));}
@@ -910,11 +981,12 @@ document.getElementById("play").addEventListener("click",()=>{
         else{drawBass(ev.o,ev.kind);markCur(undefined,[ev.si,ev.b]);}
       },delay));
     }
-    if(i>=evs.length&&a.currentTime>start+mt+0.3)stop();
+    if(timers.length>400)timers=timers.slice(-200);
+    if(!loop&&i>=evs.length&&a.currentTime>start+mt+0.3)stop();
   };
-  playing=true;document.getElementById("play").textContent="■ Stopp";
+  playing=true;updatePlayLabels();
   tick();SCHED=setInterval(tick,60);
-});
+}
 
 // ======== MIDI → MusicXML (Melodiespur mit 2. Stimme, Basspur liefert die Stufen)
 function midiToXML(buf,title){
