@@ -104,6 +104,22 @@ button:focus-visible,select:focus-visible,input:focus-visible,.filebtn:focus-wit
 .notes{font-size:15px;color:var(--muted);max-width:75ch}
 .notes li{margin:4px 0}
 .endline{border-right:4px double var(--fg)}
+button.ghost2{background:transparent;color:var(--accent)}
+#griff svg.gsys{break-inside:avoid;page-break-inside:avoid}
+@media print{
+  :root{--bg:#fff;--panel:#fff;--fg:#000;--muted:#444;--line:#999;--accent:#000;--zug:#000;--druck:#000;--bad:#000;--extra:#000;color-scheme:light}
+  @page{size:A4;margin:12mm}
+  body{background:#fff}
+  .wrap{max-width:none;padding:0;gap:0}
+  header .lead,.panel:has(.controls),.panel:has(#status),.sides,.notes,#lg-griff,#lg-tab,#ttl{display:none!important}
+  header h1{font-size:18px;margin:0 0 4px}
+  .panel{border:none;padding:0;border-radius:0}
+  #griff{overflow:visible}
+  #griff svg{width:100%!important;height:auto!important;max-width:100%}
+  #griff .gn.cur,#griff .bl.cur{color:#000;fill:#000}
+  .measure{break-inside:avoid}
+  .ev.cur,.beat.cur{background:none}
+}
 </style>
 </head>
 <body>
@@ -142,6 +158,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,.filebtn:focus-wit
         <input id="tempo" type="number" min="30" max="260" value="132">
       </div>
       <button id="play" type="button">▶ Abspielen</button>
+      <button id="print" type="button" class="ghost2">Drucken</button>
       <div class="field">
         <label for="demo">Beispiele</label>
         <select id="demo">
@@ -554,6 +571,7 @@ function markCur(uid,beat){
 }
 
 // ======== Griffschrift (System Rosenzopf) als SVG
+let PRINT_W=0;   // beim Drucken feste Breite, damit die Zeilen auf A4 passen
 const beatUnit=m=>(m.tsD===8&&m.tsN%3===0)?1.5:1;   // 6/8, 9/8: Schlag = punktierte Viertel
 const OFF={1:-1,2:0,3:1,4:2};               // Knopf 6 der 2. Reihe = Mittellinie
 const posOf=b=>2*(b.num-6)+OFF[b.row];
@@ -567,7 +585,7 @@ function bassName(b,kind){
 function chordLabel(c){return CHN[c.pc]+(c.minor?"-Moll":"-Dur");}
 function renderGriff(){
   const host=document.getElementById("griff");if(host.hidden)return;
-  const W=Math.max(340,(host.clientWidth||900)-2);
+  const W=PRINT_W||Math.max(340,(host.clientWidth||900)-2);
   const ST=4; // Pixel je Halbstufe (Linienabstand 8)
   const ms=P.measures.map((m,mi)=>{const durs=m.ev.map(e=>e.dur).filter(d=>d>0);const md=Math.min(1,...durs);const qw=Math.max(30,15/md);return {m,mi,qw,w:m.len*qw+20};});
   const systems=[];let cur=[],cw=0;
@@ -576,7 +594,8 @@ function renderGriff(){
   const m0=P.measures[0]||{},beatsNum=m0.tsN||4,beatDen=m0.tsD||4;
   let svg="";let ytop=0;const tieFrom={};
   const segsOf=mi=>R.segs.map((s,si)=>({s,si})).filter(x=>x.s.mi===mi);
-  systems.forEach((row,sy)=>{
+  const parts=[];
+  systems.forEach((row,sy)=>{ytop=0;svg="";
     const lead=sy===0?40:10;
     let minP=-4,maxP=4;
     row.forEach(x=>x.m.ev.forEach(e=>{const g=e.type==="note"?e._r.g:(e.type==="tie"?(e.src._r||{}).g:null);if(g)g.btns.forEach(q=>{const p=posOf(q.b);minP=Math.min(minP,p);maxP=Math.max(maxP,p);});}));
@@ -659,10 +678,11 @@ function renderGriff(){
       svg+=`<line class="sl" x1="${mx}" x2="${mx}" y1="${yOf(4)}" y2="${yOf(-4)}" style="stroke-width:${fin?1:1}"/>`;
       if(fin)svg+=`<line class="sl" x1="${mx+4}" x2="${mx+4}" y1="${yOf(4)}" y2="${yOf(-4)}" style="stroke-width:3.5"/>`;
     });
-    ytop=druckY+18;
+    parts.push({s:svg,h:druckY+18});
   });
   const head=`<text class="hd" x="2" y="12">${TITLE?TITLE+" · ":""}Griffschrift 4-Reiher ${INST.stimm.name}, ${INST.disk.name}, ${INST.bass.name}${CREDIT?" · "+CREDIT:""}</text>`;
-  host.innerHTML=`<svg width="${W}" height="${ytop+20}" viewBox="0 -6 ${W} ${ytop+26}" role="img" aria-label="Griffschrift">${head}<g transform="translate(0,14)">${svg}</g></svg>`;
+  host.innerHTML=`<svg class="ghead" width="${W}" height="20" viewBox="0 0 ${W} 20">${head.replace('y="12"','y="14"')}</svg>`+
+    parts.map((q,i)=>`<svg class="gsys" width="${W}" height="${q.h}" viewBox="0 0 ${W} ${q.h}" role="img" aria-label="Griffschrift Zeile ${i+1}">${q.s}</svg>`).join("");
   // Klick auf Noten
   const byUid={};P.measures.forEach(m=>m.ev.forEach(e=>{if(e._uid)byUid[e._uid]=e;}));
   host.querySelectorAll(".gn[data-uid]").forEach(el=>{
@@ -670,6 +690,18 @@ function renderGriff(){
     el.addEventListener("click",act);el.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
   });
 }
+// ======== Drucken
+function printPrep(on){PRINT_W=on?860:0;if(R){renderGriff();}}
+window.addEventListener("beforeprint",()=>printPrep(true));
+window.addEventListener("afterprint",()=>printPrep(false));
+document.getElementById("print").addEventListener("click",()=>{
+  stop();
+  if(window.self!==window.top){
+    const st=document.getElementById("status");
+    st.insertAdjacentHTML("beforeend",'<span class="err">Drucken geht in dieser Vorschau nicht. Bitte die Seite direkt öffnen: jpascher.github.io/Harmonikabau/griffschrift-wandler/</span>');
+  }
+  printPrep(true);setTimeout(()=>window.print(),50);
+});
 const vsel=document.getElementById("view");
 vsel.addEventListener("change",()=>{const g=vsel.value==="griff";["griff","lg-griff"].forEach(id=>document.getElementById(id).hidden=!g);["tab","lg-tab"].forEach(id=>document.getElementById(id).hidden=g);if(g&&R)renderGriff();});
 let rsT=null;window.addEventListener("resize",()=>{clearTimeout(rsT);rsT=setTimeout(()=>{if(R)renderGriff();},150);});
