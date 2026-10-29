@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Griffschrift-Wandler</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+/* Layout: Werkbank – Steuerleiste oben, darunter Diskant und Bass, darunter die Tabulatur Takt für Takt (Melodie oben, Bass mit Grundbass und Begleiter unten) */
+:root{
+  --bg:#f3f5f1; --panel:#ffffff; --fg:#1c2620; --muted:#5d6b62; --line:#d5ddd6;
+  --druck:#2f6b4f; --druck-soft:#dcebe2; --zug:#a8741d; --zug-soft:#f3e6cc;
+  --bad:#b23a2e; --accent:#2f6b4f; --extra:#2b5fa8;
+  --f-display:"Zilla Slab", Georgia, serif;
+  --f-body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141a16; --panel:#1c241f; --fg:#e4ebe5; --muted:#9aa89e; --line:#2f3a33;
+  --druck:#6cc196; --druck-soft:#20372b; --zug:#e0ad55; --zug-soft:#3a2f1a; --bad:#ef7a6c; --accent:#6cc196; --extra:#7fa9e8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a16; --panel:#1c241f; --fg:#e4ebe5; --muted:#9aa89e; --line:#2f3a33;
+  --druck:#6cc196; --druck-soft:#20372b; --zug:#e0ad55; --zug-soft:#3a2f1a; --bad:#ef7a6c; --accent:#6cc196; --extra:#7fa9e8; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:22px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4vw,40px);margin:0;line-height:1.1;text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:500;font-size:20px;margin:0 0 10px}
+.lead{color:var(--muted);max-width:65ch;margin:6px 0 0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.controls{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:end}
+.field{display:grid;gap:4px;min-width:0}
+.field label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+select,input[type=number]{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);max-width:100%}
+button,.filebtn{font:inherit;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:var(--panel);cursor:pointer}
+.filebtn{background:transparent;color:var(--accent);position:relative;display:inline-block}
+button:focus-visible,select:focus-visible,input:focus-visible,.filebtn:focus-within{outline:3px solid var(--zug);outline-offset:2px}
+.filebtn input{position:absolute;opacity:0;width:1px;height:1px}
+.drop{border:2px dashed var(--line);border-radius:10px;padding:14px;text-align:center;color:var(--muted);margin-top:14px}
+.drop.over{border-color:var(--accent);color:var(--fg)}
+.status{font-size:15px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.pill{display:inline-flex;gap:6px;align-items:center;padding:2px 10px;border-radius:999px;background:var(--druck-soft);font-weight:600;font-variant-numeric:tabular-nums}
+.pill.warn{background:var(--zug-soft)}
+.pill.bad{background:transparent;border:1px solid var(--bad);color:var(--bad)}
+.err{color:var(--bad);font-weight:600}
+.sides{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@media (max-width:860px){.sides{grid-template-columns:minmax(0,1fr)}}
+.kbd{overflow-x:auto}
+.kbd svg{display:block;width:100%;height:auto}
+#kbd svg{min-width:620px}
+#bkbd svg{min-width:480px;max-width:720px}
+.kbd text{font-family:var(--f-mono)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted);margin-top:8px}
+.tab{display:flex;flex-wrap:wrap;gap:24px 0;align-items:stretch}
+.measure{display:grid;grid-template-rows:1fr auto;border-left:2px solid var(--fg);padding:0 4px 0 2px;position:relative}
+.measure .mno{position:absolute;top:-16px;left:3px;font-size:11px;color:var(--muted);font-family:var(--f-mono)}
+.mrow{display:flex;align-items:stretch}
+.ev{display:grid;grid-template-rows:18px 1fr 7px;justify-items:center;align-items:end;cursor:pointer;border-radius:4px;padding:0 1px}
+.ev:hover{background:var(--druck-soft)}
+.ev.cur{background:var(--zug-soft)}
+.ev .nm{font-size:12px;color:var(--muted);align-self:center}
+.stack{display:flex;flex-direction:column;align-items:center;gap:0}
+.k{display:flex;align-items:baseline;gap:2px;line-height:1.05}
+.k b{font-family:var(--f-mono);font-weight:700;font-size:21px;font-variant-numeric:tabular-nums}
+.stack.multi .k b{font-size:17px}
+.k i{font-style:normal;font-size:10px;font-weight:700;color:var(--muted)}
+.k.r1 i,.k.r2 i{color:var(--fg)}
+.k.rep b{color:var(--muted)!important;font-weight:500}
+.ev .bar{width:100%;height:5px;margin-top:3px}
+.ev.druck .bar{background:var(--fg)}
+.ev.zug .k b{color:var(--zug)}
+.ev.druck .k b{color:var(--druck)}
+.k.ex b{color:var(--extra)!important}
+.k.bad b,.ev.against .k b{color:var(--bad)!important}
+.ev.rest .k b{color:var(--muted);font-weight:500}
+.bseg{display:grid;grid-template-rows:7px auto 16px;border-top:1px dashed var(--line);margin-top:6px;padding-top:2px}
+.bseg .bar{height:5px}
+.bseg.druck .bar{background:var(--fg)}
+#griff{overflow-x:auto}
+#griff svg{display:block}
+#griff .sl{stroke:var(--fg);stroke-width:1}
+#griff .lg{stroke:var(--fg);stroke-width:1}
+#griff .gn{color:var(--fg);cursor:pointer}
+#griff .gn.against{color:var(--bad)}
+#griff .gn.cur{color:var(--zug)}
+#griff .gn:hover{color:var(--accent)}
+#griff .gn:focus{outline:none}
+#griff .gn:focus-visible{color:var(--zug)}
+#griff .bl{fill:var(--fg);font-family:var(--f-display);font-weight:500;font-size:16px}
+#griff .bl.cur{fill:var(--zug)}
+#griff .dl{stroke:var(--fg);stroke-width:2}
+#griff .mn{fill:var(--muted);font-family:var(--f-mono);font-size:10px}
+#griff .ts{fill:var(--fg);font-family:var(--f-display);font-weight:700;font-size:17px}
+#griff .hd{fill:var(--muted);font-family:var(--f-body);font-size:12px}
+.beats{display:flex}
+.beat{flex:1;text-align:center;font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.4;border-radius:4px}
+.beat.bg{font-size:16px;font-weight:500}
+.bseg.druck .beat{color:var(--druck)} .bseg.zug .beat{color:var(--zug)}
+.beat.cur{background:var(--zug-soft)}
+.bseg .st{font-size:11px;color:var(--muted);font-weight:600;text-align:center;white-space:nowrap}
+.notes{font-size:15px;color:var(--muted);max-width:75ch}
+.notes li{margin:4px 0}
+.endline{border-right:4px double var(--fg)}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <h1>Griffschrift-Wandler</h1>
+    <p class="lead">Normalnoten als MusicXML rein, Griffweise für die Steirische Harmonika raus. Das Programm legt die Stufen fest und wählt Grundbass und Begleiter so, dass der Bass flüssig läuft. Die Balgrichtung kommt vom Bass, die Melodie samt Doppelgriffen wird darauf abgestimmt.</p>
+  </header>
+
+  <section class="panel">
+    <div class="controls">
+      <div class="field">
+        <label for="stimm">Stimmung</label>
+        <select id="stimm"><option value="GCFB">G-C-F-B</option><option value="ADGC">A-D-G-C</option><option value="BEsAsDes">B-Es-As-Des</option><option value="FBEsAs">F-B-Es-As</option></select>
+      </div>
+      <div class="field">
+        <label for="disk">Diskant</label>
+        <select id="disk"><option value="450s">450 Öllerer und Schaborak</option><option value="446">446 Normal</option></select>
+      </div>
+      <div class="field">
+        <label for="bass">Bass</label>
+        <select id="bass"><option value="s22">Schaborak/Pauli 22, 3 Koppelungen</option><option value="s21">Schaborak 21, 2 Koppelungen</option><option value="s18">Schaborak 18, 2 Koppelungen</option><option value="s16">Schaborak 16</option><option value="normal">Normalbass 16 (Öllerer)</option></select>
+      </div>
+      <div class="field">
+        <label for="part">Stimme</label>
+        <select id="part"><option>–</option></select>
+      </div>
+      <div class="field">
+        <label for="transp">Transponieren</label>
+        <select id="transp"></select>
+      </div>
+      <div class="field">
+        <label for="tempo">Tempo (Viertel/min)</label>
+        <input id="tempo" type="number" min="30" max="260" value="132">
+      </div>
+      <button id="play" type="button">▶ Abspielen</button>
+      <div class="field">
+        <label for="demo">Beispiele</label>
+        <select id="demo">
+          <optgroup label="Volkstänze, Satz Franz Fuchs (volksmusik.cc)"><option value="mid:ausseerlandler">Ausseer Landler</option><option value="mid:broatnbacherwalzer">Broatnbacher Walzer</option><option value="mid:bauernwalzer">Bauernwalzer</option><option value="mid:bierpolka">Bierpolka</option><option value="mid:altepolka">Alte Polka</option><option value="mid:boarischerausderramsau">Boarischer aus der Ramsau</option><option value="mid:bluemerl">Blümerl</option></optgroup>
+          <optgroup label="Eigene Beispiele">
+          <option value="laendler">Ländler mit Terzen (Akkordsymbole)</option>
+          <option value="walzer">Kleiner Walzer (Stufen geschätzt)</option>
+          <option value="stillenacht">Stille Nacht (6/8, Terzen)</option>
+          <option value="freude">Freude, schöner Götterfunken</option>
+          <option value="entchen">Alle meine Entchen</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="field">
+        <label for="view">Ansicht</label>
+        <select id="view"><option value="griff">Griffschrift</option><option value="tab">Griff-Tabelle</option></select>
+      </div>
+      <div class="field">
+        <label for="voices">Stimmen im Diskant</label>
+        <select id="voices"><option value="2">Melodie + 2. Stimme</option><option value="1">nur Melodie</option><option value="3">bis 3 Stimmen</option></select>
+      </div>
+      <span class="filebtn">Noten öffnen (MusicXML / MIDI) …<input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi"></span>
+    </div>
+    <div id="drop" class="drop">Oder Datei hierher ziehen: MusicXML (.musicxml, .xml, .mxl) oder MIDI (.mid). Viele Volkstänze gibt es als MIDI bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): Seite eines Stücks öffnen, „Midi-Datei downloaden“, Datei hier hineinziehen.</div>
+  </section>
+
+  <section class="panel">
+    <div class="status" id="status">–</div>
+  </section>
+
+  <section class="sides">
+    <div class="panel">
+      <h2>Diskant</h2>
+      <div class="kbd" id="kbd"></div>
+      <div class="legend"><span>Im Knopf oben <b style="color:var(--druck)">Druck</b>, unten <b style="color:var(--zug)">Zug</b></span><span>Kopf (tiefe Töne) links</span><span><b style="color:var(--extra)">blau</b> = Zusatzknopf</span></div>
+    </div>
+    <div class="panel">
+      <h2>Bass</h2>
+      <div class="kbd" id="bkbd"></div>
+      <div class="legend"><span>Große Knöpfe Grundbass, kleine Begleiter (m = Moll); oben Druck, unten Zug; darüber der Griffschrift-Name</span></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 id="ttl">Griffweise</h2>
+    <div class="legend" id="lg-griff" style="margin:0 0 14px">
+      <span>Jede Note ist ein Knopf: 2. Reihe auf den Linien (Gleichton = Knopf 6 auf der Mittellinie), 1. Reihe in den Zwischenräumen, 3. und 4. Reihe mit Kreuz</span>
+      <span><span style="display:inline-block;width:26px;height:2px;background:var(--fg);vertical-align:middle"></span> Unterstrich = Druck, ohne Strich = Zug</span>
+      <span>Bass: Großbuchstabe Grundbass, Kleinbuchstabe Begleiter; A, B, C, D = Bassknopf der G-, C-, F-, B-Reihe, ² = Hilfsbass</span>
+      <span><b style="color:var(--bad)">rot</b> = gegen die Bassrichtung</span>
+    </div>
+    <div id="griff"></div>
+    <div class="legend" id="lg-tab" style="margin:0 0 26px" hidden>
+      <span><b style="color:var(--druck);font-family:var(--f-mono)">5</b><small>2</small> = Knopf 5 in Reihe 2 (Knöpfe vom Kopf gezählt)</span>
+      <span><b style="color:var(--muted)">•</b> gleicher Griff wie vorher im Takt</span>
+      <span><span style="display:inline-block;width:26px;height:5px;background:var(--fg);vertical-align:middle"></span> Unterstrich = Druck, ohne Strich = Zug</span>
+      <span>Bass: <b>B</b> Grundbass, <b>b</b> Begleiter (Knopfnamen wie in der Griffschrift)</span>
+      <span><b style="color:var(--bad)">×</b> nicht spielbar, <b style="color:var(--bad)">rot</b> = gegen die Bassrichtung</span>
+    </div>
+    <div class="tab" id="tab" hidden></div>
+  </section>
+
+  <section class="panel notes">
+    <h2>So entscheidet das Programm</h2>
+    <ul>
+      <li>Stehen in der MusicXML-Datei Akkordsymbole, gelten diese. Sonst schätzt das Programm die Stufe pro Takt aus der Melodie, bei Bedarf auch pro halbem Takt.</li>
+      <li>Jede Stufe liegt am Bass auf mehreren Knöpfen und in beiden Balgrichtungen. Gewählt wird über das ganze Stück die Folge mit den kürzesten Wegen. Ein Balgwechsel am selben Knopf (z. B. I auf Druck, V auf Zug) zählt als besonders flüssig.</li>
+      <li>Doppelgriffe und Akkorde in der Melodie werden als ein Griff gesucht: alle Töne in derselben Balgrichtung, auf verschiedenen Knöpfen und mit einer Hand greifbar.</li>
+      <li>Die Griffschrift folgt dem System nach Max Rosenzopf (ohne Schlüssel und Vorzeichen, Unterstrich = Druck, Bass mit Knopfbuchstaben). Diskant- und Bassbelegungen sind wählbar. Zusatzknöpfe im Diskant (gegenüber 446 Normal) werden blau gezeigt und nur genommen, wenn sie den Griff deutlich erleichtern. Zusatzknöpfe im Bass tragen ihren Tonnamen mit Stern, weil die Griffschrift dafür keinen festen Buchstaben hat.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+"use strict";
+// ======== Instrumente. Diskant: Halbtöne über dem tiefsten Ton der 1. Reihe (bei G-C-F-B = G, MIDI 43). 98 = kein Knopf.
+const DISKANTS={
+  "446":{name:"446 Normal",
+    druck:{1:[98,98,0,4,7,12,16,19,24,28,31,36,40,43,48,98],2:[98,98,98,5,9,12,17,21,24,29,33,36,41,45,48,98,98],3:[98,98,98,10,14,17,22,26,29,34,38,41,46,50,98,98],4:[98,98,98,15,19,22,27,31,34,39,43,46,51,98,98]},
+    zug:{1:[98,98,5,7,11,14,17,21,23,26,29,33,35,38,41,98],2:[98,98,98,10,12,16,19,22,24,28,31,34,38,40,43,98,98],3:[98,98,98,15,17,21,24,27,29,33,36,39,43,45,98,98],4:[98,98,98,20,22,26,29,32,34,38,41,44,48,98,98]}},
+  "450s":{name:"450 Öllerer und Schaborak",
+    druck:{1:[98,30,25,4,7,12,16,19,24,28,31,36,40,43,32,98],2:[98,98,20,5,9,12,17,21,24,29,33,36,41,45,48,98,98],3:[98,98,8,10,14,17,22,26,29,34,38,41,46,50,98,98],4:[98,98,13,15,19,22,27,31,34,39,43,46,51,98,98]},
+    zug:{1:[98,25,30,7,11,14,17,21,23,26,29,33,35,38,41,98],2:[98,98,18,10,12,16,19,22,24,28,31,34,38,40,43,98,98],3:[98,98,9,15,17,21,24,27,29,33,36,39,43,45,98,98],4:[98,98,14,20,22,26,29,32,34,38,41,44,48,98,98]}}
+};
+const SHIFT={1:0,2:-1,3:0,4:1};             // Versatz der Reihen in halben Knopfbreiten
+const REFIDX={1:7,2:8,3:8,4:8};             // Feld von Knopf 6 (Gleichton) je Reihe
+// Bass: je Reihe [Druck, Zug]; Großbuchstabe = Grundbass, Kleinbuchstabe = Begleiter (m = Moll). Notiert für A-D-G-C.
+const BASSES={
+  "normal":{name:"Normalbass 16 (Öllerer)",rows:[
+    [["","C","c","G","g","D","d","A","a","",""],["","G","g","D","d","A","a","E","e","",""]],
+    [["","E","e","H","h","F#","ges","E","e","",""],["","F","f","C","c","G","g","H","h","",""]]]},
+  "s16":{name:"Schaborak 16",rows:[
+    [["","C","c","G","g","D","d","A","a","",""],["","G","g","D","d","A","a","E","e","",""]],
+    [["","E","em","H","hm","F#","f#","C#","c#m","",""],["","F","f","C","c","G","g","H","h","",""]]]},
+  "s18":{name:"Schaborak 18, 2 Koppelungen",rows:[
+    [["","C","c","G","g","D","d","A","a","E",""],["","G","g","D","d","A","a","E","e","F",""]],
+    [["A","E","em","H","hm","F#","f#","C#","c#m","",""],["E","F","f","C","c","G","g","H","h","",""]]]},
+  "s21":{name:"Schaborak 21, 2 Koppelungen",rows:[
+    [["","C","c","G","g","D","d","A","a","E","G#"],["","G","g","D","d","A","a","E","e","H","H"]],
+    [["A","E","em","H","hm","F#","f#","C#","c#m","B","b"],["E","F","f","C","c","G","g","H","h","C#","c#"]]]},
+  "s22":{name:"Schaborak/Pauli 22, 3 Koppelungen",rows:[
+    [["C#","C","c","G","g","D","d","A","a","E","G#"],["H","G","g","D","d","A","a","E","e","F","D#"]],
+    [["A","E","em","H","hm","F#","f#","C#","c#m","B","b"],["E","F","f","C","c","G","g","H","h","C#","c#"]]]}
+};
+const STIMMUNGEN={"GCFB":{name:"G-C-F-B",shift:-2},"ADGC":{name:"A-D-G-C",shift:0},"BEsAsDes":{name:"B-Es-As-Des",shift:1},"FBEsAs":{name:"F-B-Es-As",shift:-4}};
+const NOTEPC={c:0,d:2,e:4,f:5,g:7,a:9,b:10,h:11};
+function parseBassName(n){
+  if(!n)return null;const m=n.match(/^([A-Ha-h])(#|is|es|s)?(m)?/);if(!m)return null;
+  let pc=NOTEPC[m[1].toLowerCase()];if(m[2]==="#"||m[2]==="is")pc+=1;else if(m[2])pc-=1;
+  return {t:m[1]===m[1].toUpperCase()?"G":"B",pc:mod(pc,12),minor:!!m[3]};
+}
+let BTNS=[],BBTN=[],INST={};
+function buildInstrument(){
+  const dk=document.getElementById("disk").value,bk=document.getElementById("bass").value,sk=document.getElementById("stimm").value;
+  const D=DISKANTS[dk],N=DISKANTS["446"],sh=STIMMUNGEN[sk].shift,base=45+sh;
+  INST={disk:D,bass:BASSES[bk],stimm:STIMMUNGEN[sk]};
+  BTNS=[];
+  for(const r of [1,2,3,4])D.druck[r].forEach((v,i)=>{if(v===98)return;const z=D.zug[r][i];
+    const extra=N.druck[r][i]!==v||N.zug[r][i]!==z;
+    BTNS.push({id:BTNS.length,row:r,idx:i,num:i-REFIDX[r]+6,x2:2*i+SHIFT[r],druck:v+base,zug:z+base,extra});});
+  BBTN=[];
+  BASSES[bk].rows.forEach((rw,ri)=>{for(let i=0;i<11;i++){const d=parseBassName(rw[0][i]),z=parseBassName(rw[1][i]);if(!d&&!z)continue;
+    if(d)d.pc=mod(d.pc+sh,12);if(z)z.pc=mod(z.pc+sh,12);
+    BBTN.push({id:BBTN.length,row:ri+1,idx:i,x:i+(ri%2?0.5:0),D:d,Z:z});}});
+  GCACHE={};
+}
+const ROWCOST={1:0,2:0,3:0.7,4:1.4};
+const exists=m=>BTNS.some(b=>b.druck===m||b.zug===m);
+const bdist=(a,b)=>Math.hypot((a.x2-b.x2)/2,(a.row-b.row)*0.87);
+
+// Griffe für einen Ton oder Doppelgriff in einer Balgrichtung
+let GCACHE={};
+function grips(pitches,dir){
+  const key=dir+pitches.join(",");if(GCACHE[key])return GCACHE[key];
+  const per=[],missing=[];
+  for(const m of pitches){const l=BTNS.filter(b=>(dir==="D"?b.druck:b.zug)===m);if(l.length)per.push({m,l});else missing.push(m);}
+  let out=[];
+  if(per.length){
+    let combos=[[]];
+    for(const p of per){const nx=[];for(const c of combos)for(const b of p.l){if(c.some(x=>x.b===b))continue;nx.push(c.concat([{m:p.m,b}]));}combos=nx;}
+    for(const c of combos){
+      let spread=0;for(let i=0;i<c.length;i++)for(let j=i+1;j<c.length;j++)spread=Math.max(spread,bdist(c[i].b,c[j].b));
+      const cost=c.reduce((s,x)=>s+ROWCOST[x.b.row]+(x.b.extra?0.6:0),0)/c.length+0.35*spread+(spread>3.2?5:0);
+      out.push({dir,btns:c,missing,cost,top:c[0].b,key:dir+c.map(x=>x.b.id).sort().join("-")});
+    }
+  }
+  out.sort((a,b)=>a.cost-b.cost);
+  return GCACHE[key]=out.slice(0,8);
+}
+
+// ======== Namen
+const PCN=["c","cis","d","es","e","f","fis","g","gis","a","b","h"];
+const CHN=["C","Cis","D","Es","E","F","Fis","G","As","A","B","H"];
+function nameOf(m){const pc=((m%12)+12)%12,oct=Math.floor(m/12)-1,n=PCN[pc];if(oct<=2)return n[0].toUpperCase()+n.slice(1)+(oct<2?",":"");if(oct===3)return n;return n+"'".repeat(oct-3);}
+const mod=(a,b)=>((a%b)+b)%b;
+
+// ======== MusicXML
+const STEP={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+let PARTS=[],TITLE="";
+function loadXMLText(txt){
+  const doc=new DOMParser().parseFromString(txt,"application/xml");
+  if(doc.querySelector("parsererror"))throw new Error("Die Datei ist kein lesbares MusicXML.");
+  if(doc.documentElement.nodeName==="score-timewise")throw new Error("Diese Datei ist im Format „timewise“. Bitte als normales MusicXML (partwise) exportieren.");
+  if(doc.documentElement.nodeName!=="score-partwise")throw new Error("In der Datei wurde keine Partitur gefunden.");
+  PARTS=[...doc.querySelectorAll("score-partwise > part")];
+  const names={};doc.querySelectorAll("part-list score-part").forEach(sp=>{names[sp.getAttribute("id")]=((sp.querySelector("part-name")||{}).textContent||"").trim();});
+  const sel=document.getElementById("part");sel.innerHTML="";
+  PARTS.forEach((p,i)=>{const o=document.createElement("option");o.value=i;o.textContent=names[p.getAttribute("id")]||("Stimme "+(i+1));sel.appendChild(o);});
+  const t=doc.querySelector("work-title")||doc.querySelector("movement-title");TITLE=t?t.textContent.trim():"";
+}
+function parsePart(part){
+  let div=1,voice=null,keyFifths=0,minor=false,pendingH=null,beats=4,tsN=4,tsD=4;
+  const measures=[];let prevNote=null,skipChord=false;
+  for(const m of part.querySelectorAll(":scope > measure")){
+    const ev=[];let pos=0;
+    for(const el of m.children){
+      if(el.nodeName==="attributes"){
+        const d=el.querySelector("divisions");if(d)div=parseFloat(d.textContent)||1;
+        const k=el.querySelector("key fifths");if(k)keyFifths=parseInt(k.textContent)||0;
+        const md=el.querySelector("key mode");if(md)minor=md.textContent.trim()==="minor";
+        const bt=el.querySelector("time beats"),bty=el.querySelector("time beat-type");if(bt){tsN=parseInt(bt.textContent);tsD=bty?parseInt(bty.textContent):4;beats=tsN*4/tsD;}
+      } else if(el.nodeName==="harmony"){
+        const rs=el.querySelector("root root-step");
+        if(rs)pendingH={pc:mod(STEP[rs.textContent.trim()]+Math.round(parseFloat((el.querySelector("root root-alter")||{}).textContent||0)),12),minor:/minor/.test((el.querySelector("kind")||{}).textContent||"")};
+      } else if(el.nodeName==="note"){
+        if(el.querySelector("grace"))continue;
+        const v=(el.querySelector("voice")||{}).textContent||"1";
+        if(voice===null)voice=v;if(v!==voice)continue;
+        const de=el.querySelector("duration");const dur=de?parseFloat(de.textContent)/div:1;
+        const isChord=!!el.querySelector("chord");
+        if(isChord&&skipChord)continue;
+        if(el.querySelector("rest")){if(!isChord){const e={type:"rest",dur,on:pos};if(pendingH){e.harm=pendingH;pendingH=null;}ev.push(e);pos+=dur;prevNote=null;}continue;}
+        const p=el.querySelector("pitch");if(!p)continue;
+        const midi=(parseInt(p.querySelector("octave").textContent)+1)*12+STEP[p.querySelector("step").textContent.trim()]+Math.round(parseFloat((p.querySelector("alter")||{}).textContent||0));
+        const ties=[...el.querySelectorAll(":scope > tie")].map(t=>t.getAttribute("type"));
+        if(isChord){const last=ev[ev.length-1];if(last&&last.type==="note"&&!last.midis.includes(midi)){last.midis.push(midi);last.midis.sort((a,b)=>b-a);}continue;}
+        skipChord=false;
+        if(ties.includes("stop")&&prevNote&&prevNote.tieOpen&&prevNote.midis.includes(midi)){
+          prevNote.tieOpen=ties.includes("start");skipChord=true;
+          const te={type:"tie",dur,on:pos,src:prevNote,midis:prevNote.midis};if(pendingH){te.harm=pendingH;pendingH=null;}ev.push(te);pos+=dur;continue;
+        }
+        const e={type:"note",midis:[midi],dur,on:pos,tieOpen:ties.includes("start")};
+        if(pendingH){e.harm=pendingH;pendingH=null;}
+        ev.push(e);pos+=dur;prevNote=e;
+      }
+    }
+    measures.push({no:m.getAttribute("number")||String(measures.length+1),ev,len:Math.max(pos,0.0001),beats,tsN,tsD});
+  }
+  return {measures,keyPc:mod(keyFifths*7,12),minor};
+}
+
+// ======== Harmonie
+function chordSet(key,minor){
+  const L=[{deg:"I",off:0,prior:0},{deg:"V",off:7,prior:.15,sev:true},{deg:"IV",off:5,prior:.3},
+    {deg:"II",off:2,prior:1.4,sev:true},{deg:"VI",off:9,prior:1.1},{deg:"III",off:4,prior:minor?.2:1.1,sev:true},
+    {deg:"vi",off:9,prior:minor?.1:.6,min:true},{deg:"ii",off:2,prior:.7,min:true},{deg:"iii",off:4,prior:1.0,min:true}];
+  return L.map(c=>{const pc=mod(key+c.off,12);return {...c,pc,minor:!!c.min,tones:[pc,mod(pc+(c.min?3:4),12),mod(pc+7,12)],sevPc:c.sev?mod(pc+10,12):null};})
+          .filter(c=>bassOpts(c).length);
+}
+// Bassoptionen für einen Akkord: Grundbass + passender Begleiter in derselben Balgrichtung
+const BOCACHE={};
+function bassOpts(c){
+  const key=c.pc+(c.minor?"m":"")+"|"+INST.bass.name+INST.stimm.name;if(BOCACHE[key])return BOCACHE[key];
+  const out=[];
+  for(const d of ["D","Z"]){
+    const Gs=BBTN.filter(b=>b[d]&&b[d].t==="G"&&b[d].pc===c.pc);
+    const Bs=BBTN.filter(b=>b[d]&&b[d].t==="B"&&b[d].pc===c.pc&&b[d].minor===!!c.minor);
+    const pairs=[];
+    for(const g of Gs){if(Bs.length)for(const b of Bs)pairs.push({g,b,pd:Math.abs(g.x-b.x)+1.2*Math.abs(g.row-b.row)});else pairs.push({g,b:null,pd:3});}
+    pairs.sort((x,y)=>x.pd-y.pd);
+    pairs.slice(0,4).forEach(p=>out.push({g:p.g,b:p.b,dir:d,pd:p.pd,hx:(p.g.x+(p.b?p.b.x:p.g.x))/2,hy:(p.g.row+(p.b?p.b.row:p.g.row))/2}));
+  }
+  return BOCACHE[key]=out;
+}
+function degOf(pc,key,minor){const d={0:"I",7:"V",5:"IV",2:"II",9:"VI",4:"III",10:"VII♭",3:"III♭",8:"VI♭",11:"VII"}[mod(pc-key,12)]||"";return minor?d.toLowerCase():d;}
+function fit(chord,notes){
+  let c=chord.prior;
+  for(const n of notes){const w=n.dur*n.wt*(Math.abs(n.on-Math.round(n.on))<1e-6?1.3:1)*(n.on===0?1.4:1);const q=mod(n.midi,12);if(!chord.tones.includes(q))c+=(q===chord.sevPc?0.5:1)*w;}
+  return c;
+}
+function buildSegments(measures,t,key,minor){
+  const chords=chordSet(key,minor);const segs=[];
+  measures.forEach((m,mi)=>{
+    const evs=m.ev;
+    const notesOf=(a,b)=>{const r=[];evs.forEach(e=>{if((e.type==="note"||e.type==="tie")&&e.on>=a-1e-9&&e.on<b-1e-9)e.midis.forEach((x,i)=>r.push({midi:x+t,dur:e.dur,on:e.on,wt:i===0?1:0.7}));});return r;};
+    const hs=evs.filter(e=>e.harm);
+    let cuts;
+    if(hs.length)cuts=[0,...hs.map(e=>e.on).filter(o=>o>0),m.len];
+    else{
+      const all=notesOf(0,m.len),best1=Math.min(...chords.map(c=>fit(c,all)));cuts=[0,m.len];
+      if(m.len>=4){const h=m.len/2,a=notesOf(0,h),b=notesOf(h,m.len);
+        const ba=Math.min(...chords.map(c=>fit(c,a))),bb=Math.min(...chords.map(c=>fit(c,b)));
+        if(ba+bb+0.9<best1)cuts=[0,h,m.len];}
+    }
+    cuts=[...new Set(cuts)].sort((x,y)=>x-y);
+    let lastHarm=segs.length?segs[segs.length-1].harm:null;
+    for(let k=0;k<cuts.length-1;k++){
+      const a=cuts[k],b=cuts[k+1],notes=notesOf(a,b);
+      const he=evs.find(e=>e.harm&&Math.abs(e.on-a)<1e-9);
+      let harm=he?{pc:mod(he.harm.pc+t,12),minor:he.harm.minor}:(hs.length&&k===0&&lastHarm?lastHarm:null);
+      const opts=[];
+      const use=harm?[{deg:degOf(harm.pc,key,harm.minor),pc:harm.pc,minor:!!harm.minor,prior:0,tones:[]}]:chords;
+      for(const c of use){
+        let fc=harm?0:fit(c,notes);
+        if(mi===measures.length-1&&k===cuts.length-2&&c.deg==="I")fc-=1.5;
+        for(const bo of bassOpts(c))opts.push({...bo,chord:c,unary:2.2*fc+0.5*bo.pd+0.8*(bo.hy-1)});
+      }
+      if(!opts.length)for(const c of chords)for(const bo of bassOpts(c))opts.push({...bo,chord:c,unary:3+fit(c,notes)+0.5*bo.pd});
+      segs.push({mi,a,b,opts,len:b-a,harm});
+      lastHarm=harm;
+    }
+  });
+  return segs;
+}
+
+// ======== Optimierung: Viterbi über (Griff × Bassoption)
+const AGAINST=6,MISSING=4;let VOICES=2;
+function melMove(a,b){return 0.45*bdist(a.top,b.top);}
+function bassMove(oa,ob,atBar){
+  let c=0;
+  if(oa.g!==ob.g||oa.b!==ob.b)c+=0.3+0.7*Math.abs(oa.hx-ob.hx)+1.2*Math.abs(oa.hy-ob.hy);
+  else if(oa.chord.pc!==ob.chord.pc)c+=0.1;
+  if(oa.dir!==ob.dir)c+=atBar?0.45:0.7;
+  return c;
+}
+function solve(measures,t,key,minor){
+  const segs=buildSegments(measures,t,key,minor);
+  const segOf=(mi,on)=>segs.findIndex(s=>s.mi===mi&&on>=s.a-1e-9&&on<s.b-1e-9);
+  const notes=[];
+  measures.forEach((m,mi)=>m.ev.forEach(e=>{if(e.type!=="note")return;
+    const pitches=e.midis.slice(0,VOICES).map(x=>x+t);notes.push({e,pitches,play:pitches.filter(exists),si:segOf(mi,e.on)});}));
+  const steps=[];
+  segs.forEach((s,si)=>{const ns=notes.filter(n=>n.si===si&&n.play.length);if(ns.length)ns.forEach(n=>steps.push({si,n}));else steps.push({si,n:null});});
+  let prev=null,prevBy={},prevIdx=[];const back=[];
+  steps.forEach((st,k)=>{
+    const seg=segs[st.si],states=[];
+    seg.opts.forEach((o,oi)=>{
+      if(!st.n){states.push({oi,g:null,un:0});return;}
+      for(const d of ["D","Z"])for(const g of grips(st.n.play,d))states.push({oi,g,un:g.cost+g.missing.length*MISSING+(d===o.dir?0:AGAINST)});
+    });
+    const cur=states.map(s=>{
+      const o=seg.opts[s.oi];
+      if(!prev)return {s,cost:s.un+o.unary,bk:-1};
+      let best=Infinity,bi=-1;const pst=steps[k-1],pseg=segs[pst.si],same=pst.si===st.si;
+      const cand=same?(prevBy[s.oi]||[]):prevIdx;
+      for(const pi of cand){const p=prev[pi];
+        let v=p.cost+s.un;
+        if(!same)v+=o.unary+bassMove(pseg.opts[p.s.oi],o,seg.a===0);
+        if(p.s.g&&s.g){v+=melMove(p.s.g,s.g);if(p.s.g.dir!==s.g.dir&&same)v+=1.5;}
+        if(v<best){best=v;bi=pi;}
+      }
+      return {s,cost:best,bk:bi};
+    });
+    back.push(cur);prev=cur;prevBy={};prevIdx=cur.map((c,i)=>i);cur.forEach((c,i)=>{(prevBy[c.s.oi]=prevBy[c.s.oi]||[]).push(i);});
+  });
+  let bi=0;prev.forEach((p,i)=>{if(p.cost<prev[bi].cost)bi=i;});
+  const total=prev[bi].cost;
+  for(let k=steps.length-1;k>=0;k--){const x=back[k][bi],st=steps[k],o=segs[st.si].opts[x.s.oi];segs[st.si].pick=o;if(st.n){st.n.g=x.s.g;st.n.against=x.s.g.dir!==o.dir;}bi=x.bk;}
+  notes.forEach(n=>{n.e._r={pitches:n.pitches,g:n.g||null,against:!!n.against,si:n.si};});
+  measures.forEach((m,mi)=>m.ev.forEach(e=>{if(e.type!=="note")e._r={si:segOf(mi,e.on)};}));
+  let bad=0,missing=0;notes.forEach(n=>{bad+=n.pitches.length-n.play.length;if(n.g)missing+=n.g.missing.length;});
+  const against=notes.filter(n=>n.against).length;
+  let changes=0,ld=null;segs.forEach(s=>{if(!s.pick)return;if(ld&&ld!==s.pick.dir)changes++;ld=s.pick.dir;});
+  let bmoves=0;for(let i=1;i<segs.length;i++)if(segs[i].pick&&segs[i-1].pick&&segs[i].pick.g!==segs[i-1].pick.g)bmoves++;
+  return {segs,notes,total,bad,missing,against,changes,bmoves,n:notes.length};
+}
+
+// ======== Transponieren
+const tsel=document.getElementById("transp");
+(function(){const o=document.createElement("option");o.value="auto";o.textContent="Automatisch (beste Lage)";tsel.appendChild(o);
+  for(let t=-12;t<=12;t++){const x=document.createElement("option");x.value=t;x.textContent=t===0?"Original":(t>0?"+":"")+t+" Halbtöne";tsel.appendChild(x);}tsel.value="auto";})();
+
+// ======== Ablauf
+let P=null,R=null;
+function run(){
+  const st=document.getElementById("status");
+  if(!PARTS.length){st.textContent="Noch keine Noten geladen.";return;}
+  P=parsePart(PARTS[+document.getElementById("part").value||0]);
+  const nN=P.measures.reduce((s,m)=>s+m.ev.filter(e=>e.type==="note").length,0);
+  if(!nN){st.innerHTML='<span class="err">In dieser Stimme stehen keine Noten.</span>';document.getElementById("tab").innerHTML="";return;}
+  let best=null,bt=0;
+  const sub=P.measures.slice(0,32);
+  const tryT=t=>{const r=solve(sub,t,mod(P.keyPc+t,12),P.minor);r.score=r.bad*100+r.missing*20+r.against*8+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03);return r;};
+  if(tsel.value==="auto"){for(let t=-12;t<=12;t++){const r=tryT(t);if(!best||r.score<best.score){best=r;bt=t;}}}
+  else bt=+tsel.value;
+  R=solve(P.measures,bt,mod(P.keyPc+bt,12),P.minor);
+  const key=CHN[mod(P.keyPc+bt,12)]+"-Dur";
+  st.innerHTML=`<span class="pill">${R.n} Griffe</span>`+
+    `<span class="pill warn">${R.changes} Balgwechsel</span>`+
+    `<span class="pill">${R.bmoves} Bassknopf-Wechsel</span>`+
+    (R.against?`<span class="pill bad">${R.against} Griffe gegen den Bass</span>`:"")+
+    (R.bad+R.missing?`<span class="pill bad">${R.bad+R.missing} Töne nicht greifbar</span>`:"")+
+    `<span>${key}, ${bt===0?"Originallage":(bt>0?"+":"")+bt+" Halbtöne"}${tsel.value==="auto"?" (automatisch)":""}</span>`;
+  document.getElementById("ttl").textContent=(TITLE?("Griffweise: "+TITLE):"Griffweise")+(CREDIT?" ("+CREDIT+")":"");
+  renderTab();renderGriff();drawKbd(null);drawBass(null);
+}
+function evWidth(e){return Math.max(32,Math.min(110,24*e.dur+14));}
+let UID=0;
+function renderTab(){
+  const tab=document.getElementById("tab");tab.innerHTML="";
+  P.measures.forEach((m,mi)=>{
+    const md=document.createElement("div");md.className="measure"+(mi===P.measures.length-1?" endline":"");
+    md.innerHTML=`<span class="mno">${m.no}</span>`;
+    const top=document.createElement("div");top.className="mrow";
+    const bot=document.createElement("div");bot.className="mrow";
+    const segW={},seen=new Set();
+    m.ev.forEach(e=>{
+      const d=document.createElement("div");const w=evWidth(e);d.style.width=w+"px";
+      const r=e._r||{};segW[r.si]=(segW[r.si]||0)+w;
+      if(e.type==="rest"){d.className="ev rest";d.innerHTML=`<span class="nm"></span><div class="stack"><span class="k"><b>·</b></span></div><span class="bar"></span>`;d.title="Pause";}
+      else if(e.type==="tie"){const g=(e.src._r||{}).g;d.className="ev rest "+(g?(g.dir==="Z"?"zug":"druck"):"");d.innerHTML=`<span class="nm"></span><div class="stack"><span class="k"><b>‿</b></span></div><span class="bar"></span>`;d.title="Haltebogen";}
+      else{
+        const g=r.g;e._uid=e._uid||("u"+(++UID));
+        const rep=g&&seen.has(g.key);if(g)seen.add(g.key);
+        let html="",tip=[];
+        for(const p of r.pitches){
+          const hit=g&&g.btns.find(x=>x.m===p);
+          if(hit){html+=`<span class="k r${hit.b.row}${rep?" rep":""}${hit.b.extra?" ex":""}"><b>${rep?"•":hit.b.num}</b>${rep?"":`<i>${hit.b.row}</i>`}</span>`;tip.push(`${nameOf(p)}: Reihe ${hit.b.row}, Knopf ${hit.b.num}`);}
+          else{html+=`<span class="k bad"><b>×</b></span>`;tip.push(`${nameOf(p)}: ${exists(p)?"nur in der anderen Balgrichtung":"nicht auf dem Instrument"}`);}
+        }
+        d.className="ev "+(g?(g.dir==="Z"?"zug":"druck"):"bad")+(r.against?" against":"");
+        d.innerHTML=`<span class="nm">${nameOf(r.pitches[0])}</span><div class="stack${r.pitches.length>1?" multi":""}">${html}</div><span class="bar"></span>`;
+        d.title=tip.join("\n")+(g?`\n${g.dir==="Z"?"Zug":"Druck"}${r.against?" (gegen die Bassrichtung)":""}`:"");
+        d.tabIndex=0;d.dataset.uid=e._uid;
+        const act=()=>{markCur(e._uid,null);drawKbd(g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
+        d.addEventListener("click",act);d.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
+      }
+      top.appendChild(d);
+    });
+    R.segs.forEach((s,si)=>{
+      if(s.mi!==mi)return;const o=s.pick;const b=document.createElement("div");
+      b.style.width=(segW[si]||40)+"px";
+      if(!o){b.className="bseg";b.innerHTML=`<span class="bar"></span><div class="beats"><span class="beat">–</span></div><span class="st"></span>`;}
+      else{
+        b.className="bseg "+(o.dir==="Z"?"zug":"druck");
+        const nb=Math.max(1,Math.round(s.len/beatUnit(m)));let beats="";
+        for(let i=0;i<nb;i++)beats+=`<span class="beat${i?" bg":""}" data-si="${si}" data-b="${i}">${i&&o.b?bassName(o.b,"B"):bassName(o.g,"G")}</span>`;
+        b.innerHTML=`<span class="bar"></span><div class="beats">${beats}</div><span class="st">${chordLabel(o.chord)} · ${o.chord.deg||""}</span>`;
+        b.title=`${chordLabel(o.chord)}${o.chord.deg?" (Stufe "+o.chord.deg+")":""}: Grundbass ${bassName(o.g,"G")}, Begleiter ${o.b?bassName(o.b,"B"):"fehlt"}, ${o.dir==="Z"?"Zug":"Druck"}`;
+        b.style.cursor="pointer";b.addEventListener("click",()=>{drawBass(o,"both");});
+      }
+      bot.appendChild(b);
+    });
+    md.appendChild(top);md.appendChild(bot);tab.appendChild(md);
+  });
+}
+function markCur(uid,beat){
+  if(uid!==undefined){document.querySelectorAll("[data-uid].cur").forEach(x=>x.classList.remove("cur"));if(uid)document.querySelectorAll(`[data-uid="${uid}"]`).forEach(el=>el.classList.add("cur"));}
+  if(beat!==undefined){document.querySelectorAll("[data-b].cur").forEach(x=>x.classList.remove("cur"));if(beat)document.querySelectorAll(`[data-si="${beat[0]}"][data-b="${beat[1]}"]`).forEach(b=>b.classList.add("cur"));}
+}
+
+// ======== Griffschrift (System Rosenzopf) als SVG
+const beatUnit=m=>(m.tsD===8&&m.tsN%3===0)?1.5:1;   // 6/8, 9/8: Schlag = punktierte Viertel
+const OFF={1:-1,2:0,3:1,4:2};               // Knopf 6 der 2. Reihe = Mittellinie
+const posOf=b=>2*(b.num-6)+OFF[b.row];
+// Griffschrift-Namen der Bassknöpfe: Feld 1–8 der 1. Reihe = D d C c B b A a (Grundbass/Begleiter der B-, F-, C-, G-Reihe)
+const BNAME={1:"D",2:"d",3:"C",4:"c",5:"B",6:"b",7:"A",8:"a"};
+function bassName(b,kind){
+  const sup=b.row===2?"²":(b.row===3?"³":"");
+  if(BNAME[b.idx])return BNAME[b.idx]+sup;
+  const x=b.D||b.Z;const n=CHN[x.pc];return (x.t==="B"?n.toLowerCase():n)+"*"+sup;   // Zusatzknopf: Tonname mit *
+}
+function chordLabel(c){return CHN[c.pc]+(c.minor?"-Moll":"-Dur");}
+function renderGriff(){
+  const host=document.getElementById("griff");if(host.hidden)return;
+  const W=Math.max(340,(host.clientWidth||900)-2);
+  const ST=4; // Pixel je Halbstufe (Linienabstand 8)
+  const ms=P.measures.map((m,mi)=>{const durs=m.ev.map(e=>e.dur).filter(d=>d>0);const md=Math.min(1,...durs);const qw=Math.max(30,15/md);return {m,mi,qw,w:m.len*qw+20};});
+  const systems=[];let cur=[],cw=0;
+  ms.forEach(x=>{const lead=systems.length===0&&cur.length===0?40:10;if(cur.length&&cw+x.w>W-10-lead){systems.push(cur);cur=[];cw=0;}cur.push(x);cw+=x.w;});
+  if(cur.length)systems.push(cur);
+  const m0=P.measures[0]||{},beatsNum=m0.tsN||4,beatDen=m0.tsD||4;
+  let svg="";let ytop=0;const tieFrom={};
+  const segsOf=mi=>R.segs.map((s,si)=>({s,si})).filter(x=>x.s.mi===mi);
+  systems.forEach((row,sy)=>{
+    const lead=sy===0?40:10;
+    let minP=-4,maxP=4;
+    row.forEach(x=>x.m.ev.forEach(e=>{const g=e.type==="note"?e._r.g:(e.type==="tie"?(e.src._r||{}).g:null);if(g)g.btns.forEach(q=>{const p=posOf(q.b);minP=Math.min(minP,p);maxP=Math.max(maxP,p);});}));
+    const y0=ytop+Math.max(40,maxP*ST+36);
+    const yOf=p=>y0-p*ST;
+    const bassY=y0+Math.max(50,-minP*ST+30),druckY=bassY+7;
+    const sum=row.reduce((s,x)=>s+x.w,0);
+    const last=sy===systems.length-1;
+    const scale=(last&&sum<(W-lead)*0.7)?1:(W-lead)/sum;
+    // Notenlinien
+    const xEnd=lead+sum*scale;
+    for(const p of [-4,-2,0,2,4])svg+=`<line class="sl" x1="2" x2="${xEnd}" y1="${yOf(p)}" y2="${yOf(p)}"/>`;
+    if(sy===0){svg+=`<text class="ts" x="14" y="${yOf(0)-2}" text-anchor="middle">${beatsNum}</text><text class="ts" x="14" y="${yOf(-4)+2}" text-anchor="middle">${beatDen}</text>`;}
+    svg+=`<line class="sl" x1="${lead}" x2="${lead}" y1="${yOf(4)}" y2="${yOf(-4)}"/>`;
+    let mx=lead;
+    row.forEach((x,k)=>{
+      const m=x.m,mw=x.w*scale,qw=x.qw*scale,X=on=>mx+10*scale+on*qw;
+      svg+=`<text class="mn" x="${mx+2}" y="${yOf(4)-5}">${m.no}</text>`;
+      // Balkengruppen (Achtel innerhalb eines Schlags)
+      const beamG={};m.ev.forEach((e,i)=>{if((e.type==="note"||e.type==="tie")&&e.dur<=0.5+1e-9){const k2=Math.floor(e.on+1e-9);(beamG[k2]=beamG[k2]||[]).push(e);}});
+      const inBeam=new Map();Object.values(beamG).forEach(gr=>{if(gr.length>1)gr.forEach(e=>inBeam.set(e,gr));});
+      const stemInfo=new Map();
+      const headsOf=e=>{const g=e.type==="note"?e._r.g:(e.src._r||{}).g;return g?g.btns.map(q=>({p:posOf(q.b),row:q.b.row,extra:q.b.extra})).sort((a,b)=>a.p-b.p):[];};
+      // Halsrichtung je Gruppe
+      Object.values(beamG).forEach(gr=>{if(gr.length<2)return;const ps=gr.flatMap(e=>headsOf(e).map(h=>h.p));const up=ps.reduce((a,b)=>a+b,0)/Math.max(1,ps.length)<0;
+        const ends=gr.map(e=>{const hs=headsOf(e);return hs.length?(up?yOf(hs[hs.length-1].p)-26:yOf(hs[0].p)+26):yOf(0);});
+        const yb=up?Math.min(...ends):Math.max(...ends);gr.forEach(e=>stemInfo.set(e,{up,yEnd:yb}));});
+      m.ev.forEach(e=>{
+        const xh=X(e.on)+6;
+        if(e.type==="rest"){
+          const d=e.dur;let r="";
+          if(d>=4-1e-9)r=`<rect x="${xh-5}" y="${yOf(2)}" width="10" height="4" fill="currentColor"/>`;
+          else if(d>=2-1e-9)r=`<rect x="${xh-5}" y="${yOf(0)-4}" width="10" height="4" fill="currentColor"/>`;
+          else if(d>=1-1e-9)r=`<path d="M${xh-2} ${yOf(3)} l5 6 l-5 5 l5 6 q-7 -2 -3 6" fill="none" stroke="currentColor" stroke-width="2"/>`;
+          else r=`<circle cx="${xh-2}" cy="${yOf(1)}" r="2" fill="currentColor"/><path d="M${xh-2} ${yOf(1)} q4 1 5 -2 l-5 12" fill="none" stroke="currentColor" stroke-width="1.4"/>`;
+          if(Math.abs(d-1.5)<1e-6||Math.abs(d-3)<1e-6)r+=`<circle cx="${xh+8}" cy="${yOf(1)}" r="1.6" fill="currentColor"/>`;
+          svg+=`<g class="gn" style="cursor:default">${r}</g>`;return;
+        }
+        const hs=headsOf(e);if(!hs.length)return;
+        const isNote=e.type==="note";const r=isNote?e._r:{};
+        const filled=e.dur<2-1e-9,dotted=[0.75,1.5,3].some(v=>Math.abs(e.dur-v)<1e-6);
+        let si=stemInfo.get(e);
+        const up=si?si.up:(hs.reduce((a,h)=>a+h.p,0)/hs.length<0);
+        let s=`<rect x="${xh-9}" y="${yOf(hs[hs.length-1].p)-8}" width="18" height="${(hs[hs.length-1].p-hs[0].p)*ST+16}" fill="transparent"/>`;
+        // Hilfslinien
+        const lo=hs[0].p,hi=hs[hs.length-1].p;
+        for(let q=-6;q>=lo;q-=2)s+=`<line class="lg" x1="${xh-9}" x2="${xh+9}" y1="${yOf(q)}" y2="${yOf(q)}"/>`;
+        for(let q=6;q<=hi;q+=2)s+=`<line class="lg" x1="${xh-9}" x2="${xh+9}" y1="${yOf(q)}" y2="${yOf(q)}"/>`;
+        // Köpfe (Sekunden versetzt)
+        hs.forEach((h,i)=>{
+          const sh=(i>0&&h.p-hs[i-1].p===1&&!hs[i-1].shift)?(up?10:-10):0;h.shift=sh;
+          const cx=xh+sh,cy=yOf(h.p),cc=h.extra?"var(--extra)":"currentColor";
+          if(h.row>=3){s+=`<path d="M${cx-4.5} ${cy-4.5} L${cx+4.5} ${cy+4.5} M${cx-4.5} ${cy+4.5} L${cx+4.5} ${cy-4.5}" style="stroke:${cc}" stroke-width="${filled?2.2:1.3}"/>`;if(!filled)s+=`<circle cx="${cx}" cy="${cy}" r="5.6" fill="none" style="stroke:${cc}" stroke-width="1"/>`;}
+          else s+=`<ellipse cx="${cx}" cy="${cy}" rx="5.4" ry="3.9" transform="rotate(-20 ${cx} ${cy})" style="fill:${filled?cc:"none"};stroke:${cc}" stroke-width="1.5"/>`;
+          if(dotted)s+=`<circle cx="${xh+11}" cy="${h.p%2===0?yOf(h.p+1):cy}" r="1.7" fill="currentColor"/>`;
+        });
+        // Hals, Fähnchen, Balken
+        if(e.dur<4-1e-9){
+          const sx=up?xh+5:xh-5;const yA=up?yOf(lo):yOf(hi);
+          const yE=si?si.yEnd:(up?yOf(hi)-26:yOf(lo)+26);
+          s+=`<line x1="${sx}" x2="${sx}" y1="${yA}" y2="${yE}" stroke="currentColor" stroke-width="1.3"/>`;
+          if(!si&&e.dur<=0.5+1e-9)s+=`<path d="M${sx} ${yE} q${up?8:8} ${up?8:-8} 7 ${up?18:-18}" fill="none" stroke="currentColor" stroke-width="1.6"/>`;
+          if(si){const gr=inBeam.get(e);if(gr[gr.length-1]===e){const x1=X(gr[0].on)+6+(up?5:-5);s+=`<line x1="${x1}" x2="${sx}" y1="${yE}" y2="${yE}" stroke="currentColor" stroke-width="4"/>`;
+            const y2=yE+(up?7:-7);for(let j=0;j+1<gr.length;j++)if(gr[j].dur<=0.25+1e-9&&gr[j+1].dur<=0.25+1e-9){const xa=X(gr[j].on)+6+(up?5:-5),xb=X(gr[j+1].on)+6+(up?5:-5);s+=`<line x1="${xa}" x2="${xb}" y1="${y2}" y2="${y2}" stroke="currentColor" stroke-width="4"/>`;}}}
+        }
+        // Haltebogen
+        if(e.type==="tie"&&tieFrom[e.src._uid]!=null){const x1=tieFrom[e.src._uid],yy=yOf(lo)+9;s+=`<path d="M${Math.min(x1+6,xh-14)} ${yy} Q${(x1+xh)/2} ${yy+9} ${xh-6} ${yy}" fill="none" stroke="currentColor" stroke-width="1.2"/>`;}
+        if(isNote)tieFrom[e._uid]=xh;
+        const cls="gn"+(isNote&&r.against?" against":"");
+        svg+=isNote?`<g class="${cls}" data-uid="${e._uid}" tabindex="0">${s}</g>`:`<g class="gn">${s}</g>`;
+      });
+      // Bass: Grundbass auf Schlag 1, Begleiter auf den übrigen; Unterstrich = Druck
+      segsOf(x.mi).forEach(({s,si})=>{
+        const o=s.pick;if(!o)return;const bu=beatUnit(x.m),nb=Math.max(1,Math.round(s.len/bu));
+        for(let b=0;b<nb;b++)svg+=`<text class="bl" data-si="${si}" data-b="${b}" x="${X(s.a+b*bu)+6}" y="${bassY}" text-anchor="middle">${b&&o.b?bassName(o.b,"B"):bassName(o.g,"G")}</text>`;
+        if(o.dir==="D")svg+=`<line class="dl" x1="${X(s.a)-2}" x2="${X(s.b)-6}" y1="${druckY}" y2="${druckY}"/>`;
+      });
+      mx+=mw;
+      const fin=sy===systems.length-1&&k===row.length-1;
+      svg+=`<line class="sl" x1="${mx}" x2="${mx}" y1="${yOf(4)}" y2="${yOf(-4)}" style="stroke-width:${fin?1:1}"/>`;
+      if(fin)svg+=`<line class="sl" x1="${mx+4}" x2="${mx+4}" y1="${yOf(4)}" y2="${yOf(-4)}" style="stroke-width:3.5"/>`;
+    });
+    ytop=druckY+18;
+  });
+  const head=`<text class="hd" x="2" y="12">${TITLE?TITLE+" · ":""}Griffschrift 4-Reiher ${INST.stimm.name}, ${INST.disk.name}, ${INST.bass.name}${CREDIT?" · "+CREDIT:""}</text>`;
+  host.innerHTML=`<svg width="${W}" height="${ytop+20}" viewBox="0 -6 ${W} ${ytop+26}" role="img" aria-label="Griffschrift">${head}<g transform="translate(0,14)">${svg}</g></svg>`;
+  // Klick auf Noten
+  const byUid={};P.measures.forEach(m=>m.ev.forEach(e=>{if(e._uid)byUid[e._uid]=e;}));
+  host.querySelectorAll(".gn[data-uid]").forEach(el=>{
+    const act=()=>{const e=byUid[el.dataset.uid];if(!e)return;const r=e._r;markCur(e._uid,null);drawKbd(r.g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
+    el.addEventListener("click",act);el.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
+  });
+}
+const vsel=document.getElementById("view");
+vsel.addEventListener("change",()=>{const g=vsel.value==="griff";["griff","lg-griff"].forEach(id=>document.getElementById(id).hidden=!g);["tab","lg-tab"].forEach(id=>document.getElementById(id).hidden=g);if(g&&R)renderGriff();});
+let rsT=null;window.addEventListener("resize",()=>{clearTimeout(rsT);rsT=setTimeout(()=>{if(R)renderGriff();},150);});
+
+// ======== Tastaturbilder
+const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+function drawKbd(g){
+  const hw=23,r=20,padX=84,rowsY={4:34,3:84,2:134,1:184};
+  const maxX=Math.max(...BTNS.map(b=>b.x2)),minX=Math.min(...BTNS.map(b=>b.x2));
+  const W=padX+(maxX-minX)*hw+40,H=220;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Knopfbelegung Diskant">`;
+  s+=`<text x="6" y="${H-6}" font-size="11" style="fill:${css('--muted')}">← Kopf</text>`;
+  for(const row of [4,3,2,1])s+=`<text x="8" y="${rowsY[row]+4}" font-size="12" font-weight="700" style="fill:${css('--muted')}">R${row}</text>`;
+  for(const b of BTNS){
+    const x=padX+(b.x2-minX)*hw,y=rowsY[b.row],on=g&&g.btns.some(q=>q.b===b);
+    const fill=on?(g.dir==="Z"?css('--zug'):css('--druck')):css('--panel'),tc=on?css('--panel'):null;
+    s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="${on?fill:(b.extra?css('--extra'):css('--line'))}" stroke-width="${b.extra?2:1.5}"/>`;
+    s+=`<line x1="${x-r+5}" y1="${y}" x2="${x+r-5}" y2="${y}" stroke="${tc||css('--line')}" stroke-width="1"/>`;
+    s+=`<text x="${x}" y="${y-5}" text-anchor="middle" font-size="10.5" style="fill:${tc||css('--druck')}">${nameOf(b.druck)}</text>`;
+    s+=`<text x="${x}" y="${y+13}" text-anchor="middle" font-size="10.5" style="fill:${tc||css('--zug')}">${nameOf(b.zug)}</text>`;
+  }
+  document.getElementById("kbd").innerHTML=s+`</svg>`;
+}
+// part: "G" Grundbass, "B" Begleiter, "both"
+function drawBass(o,part){
+  const step=29,x0=40,ys={1:44,2:118};
+  const maxX=Math.max(...BBTN.map(b=>b.x));
+  const W=x0+maxX*step+30,H=160;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bassbelegung mit Grundbässen und Begleitern">`;
+  s+=`<text x="2" y="${ys[1]+4}" font-size="11" font-weight="700" style="fill:${css('--muted')}">B1</text><text x="2" y="${ys[2]+4}" font-size="11" font-weight="700" style="fill:${css('--muted')}">B2</text>`;
+  for(const b of BBTN){
+    const isG=(b.D||b.Z).t==="G",r=isG?14:11,x=x0+b.x*step,y=ys[b.row];
+    const on=o&&((o.g===b&&(part==="both"||part==="G"))||(o.b===b&&(part==="both"||part==="B")));
+    const fill=on?(o.dir==="Z"?css('--zug'):css('--druck')):css('--panel'),tc=on?css('--panel'):null;
+    const nm=x=>x?(x.t==="G"?CHN[x.pc]:CHN[x.pc].toLowerCase()+(x.minor?"m":"")):"";
+    s+=`<text x="${x}" y="${y-r-5}" text-anchor="middle" font-size="10" font-weight="700" style="fill:${css('--muted')}">${bassName(b)}</text>`;
+    s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="${on?fill:css('--line')}" stroke-width="${isG?1.8:1.2}"/>`;
+    s+=`<line x1="${x-r+4}" y1="${y}" x2="${x+r-4}" y2="${y}" stroke="${tc||css('--line')}" stroke-width="1"/>`;
+    s+=`<text x="${x}" y="${y-3}" text-anchor="middle" font-size="${isG?10:8.5}" font-weight="700" style="fill:${tc||css('--druck')}">${nm(b.D)}</text>`;
+    s+=`<text x="${x}" y="${y+(isG?11:9)}" text-anchor="middle" font-size="${isG?10:8.5}" font-weight="700" style="fill:${tc||css('--zug')}">${nm(b.Z)}</text>`;
+  }
+  document.getElementById("bkbd").innerHTML=s+`</svg>`;
+}
+
+// ======== Klang (Vorausplanung in kleinen Zeitfenstern, damit auch lange Stücke sofort spielen)
+let AC=null,MASTER=null;
+function ac(){
+  if(!AC){AC=new (window.AudioContext||window.webkitAudioContext)();}
+  if(AC.state==="suspended")AC.resume();
+  return AC;
+}
+function newMaster(){
+  const a=ac();if(MASTER){try{MASTER.disconnect();}catch(e){}}
+  const comp=a.createDynamicsCompressor();comp.connect(a.destination);
+  MASTER=a.createGain();MASTER.gain.value=1.6;MASTER.connect(comp);return MASTER;
+}
+function tone(midi,t0,dur,vol,cut,dest){
+  const a=ac(),f=440*Math.pow(2,(midi-69)/12),g=a.createGain(),lp=a.createBiquadFilter();
+  lp.type="lowpass";lp.frequency.value=Math.min(5000,f*(cut||6));
+  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(vol,t0+0.02);g.gain.setValueAtTime(vol,t0+Math.max(0.03,dur-0.05));g.gain.linearRampToValueAtTime(0,t0+dur);
+  for(const det of [-6,6]){const o=a.createOscillator();o.type="sawtooth";o.frequency.value=f;o.detune.value=det;o.connect(lp);o.start(t0);o.stop(t0+dur+0.03);}
+  lp.connect(g);g.connect(dest||MASTER||newMaster());
+}
+function beep(m,d){try{const a=ac();if(!MASTER)newMaster();tone(m,a.currentTime+0.02,d,0.08);}catch(e){}}
+let timers=[],playing=false,SCHED=null;
+function stop(){
+  timers.forEach(clearTimeout);timers=[];if(SCHED){clearInterval(SCHED);SCHED=null;}
+  if(playing&&MASTER){try{MASTER.gain.setValueAtTime(0,AC.currentTime);MASTER.disconnect();}catch(e){}MASTER=null;}
+  playing=false;document.getElementById("play").textContent="▶ Abspielen";markCur(null,null);
+}
+document.getElementById("play").addEventListener("click",()=>{
+  if(playing){stop();return;}if(!R)return;
+  const a=ac();const dest=newMaster();
+  const q=60/(+document.getElementById("tempo").value||132);
+  // Ereignisliste in Sekunden ab Start
+  const evs=[];let mt=0;
+  P.measures.forEach((m,mi)=>{
+    R.segs.forEach((s,si)=>{if(s.mi!==mi||!s.pick)return;const o=s.pick,pc=o.chord.pc,third=o.chord.minor?3:4;const bu=beatUnit(m),nb=Math.max(1,Math.round(s.len/bu));
+      for(let b=0;b<nb;b++)evs.push({t:mt+(s.a+b*bu)*q,kind:b?"B":"G",pc,third,o,si,b});});
+    m.ev.forEach(e=>{if(e.type==="note")evs.push({t:mt+e.on*q,kind:"N",e});});
+    mt+=m.len*q;
+  });
+  evs.sort((x,y)=>x.t-y.t);
+  const start=a.currentTime+0.15;let i=0;
+  const tick=()=>{
+    const horizon=a.currentTime+0.35;
+    while(i<evs.length&&start+evs[i].t<horizon){
+      const ev=evs[i++],at=start+ev.t,delay=Math.max(0,(at-a.currentTime)*1000);
+      if(ev.kind==="G")tone(36+ev.pc,at,q*0.8,0.09,3,dest);
+      else if(ev.kind==="B")[0,ev.third,7].forEach(iv=>tone(48+mod(ev.pc+iv,12)+(mod(ev.pc+iv,12)<5?12:0),at,q*0.45,0.03,4,dest));
+      else{const r=ev.e._r;r.pitches.forEach((p,k)=>tone(p,at,ev.e.dur*q*0.95,k?0.06:0.09,6,dest));}
+      timers.push(setTimeout(()=>{
+        if(ev.kind==="N"){const e=ev.e;markCur(e._uid,undefined);drawKbd(e._r.g);const el=document.querySelector(document.getElementById("view").value==="griff"?`#griff [data-uid="${e._uid}"]`:`.ev[data-uid="${e._uid}"]`);if(el&&el.scrollIntoView)el.scrollIntoView({block:"nearest",behavior:"smooth"});}
+        else{drawBass(ev.o,ev.kind);markCur(undefined,[ev.si,ev.b]);}
+      },delay));
+    }
+    if(i>=evs.length&&a.currentTime>start+mt+0.3)stop();
+  };
+  playing=true;document.getElementById("play").textContent="■ Stopp";
+  tick();SCHED=setInterval(tick,60);
+});
+
+// ======== MIDI → MusicXML (Melodiespur mit 2. Stimme, Basspur liefert die Stufen)
+function midiToXML(buf,title){
+  const b=new Uint8Array(buf);let p=0;
+  if(String.fromCharCode(b[0],b[1],b[2],b[3])!=="MThd")throw new Error("Das ist keine MIDI-Datei.");
+  const u8=()=>b[p++],u16=()=>(b[p++]<<8)|b[p++],u32=()=>((b[p++]<<24)|(b[p++]<<16)|(b[p++]<<8)|b[p++])>>>0;
+  const vl=()=>{let v=0,c;do{c=b[p++];v=(v<<7)|(c&127);}while(c&128&&p<b.length);return v;};
+  p=8;u16();const nt=u16(),div=u16();if(div&0x8000)throw new Error("Diese MIDI-Datei verwendet eine SMPTE-Zeitbasis, die wird nicht unterstützt.");
+  const tracks=[];let ts=null,ks=null;
+  for(let t=0;t<nt&&p<b.length;t++){
+    const id=String.fromCharCode(b[p],b[p+1],b[p+2],b[p+3]);p+=4;const len=u32(),end=Math.min(b.length,p+len);
+    if(id!=="MTrk"){p=end;continue;}
+    let tick=0,rs=0;const tr={notes:[]},on={};
+    while(p<end){tick+=vl();let st=b[p];if(st&128){p++;rs=st;}else st=rs;
+      if(st===0xFF){const ty=u8(),l=vl();const d=b.slice(p,p+l);p+=l;if(ty===0x58&&!ts)ts=[d[0],1<<d[1]];if(ty===0x59&&!ks)ks=[(d[0]<<24)>>24,d[1]];}
+      else if(st===0xF0||st===0xF7){p+=vl();}
+      else{const hi=st&0xF0,ch=st&15,a=u8(),c=(hi===0xC0||hi===0xD0)?0:u8();
+        if(ch===9)continue;
+        if(hi===0x90&&c>0)on[ch+"_"+a]=tick;
+        else if((hi===0x80||(hi===0x90&&c===0))&&on[ch+"_"+a]!=null){tr.notes.push({on:on[ch+"_"+a]/div,len:(tick-on[ch+"_"+a])/div,m:a});delete on[ch+"_"+a];}}}
+    p=end;if(tr.notes.length)tracks.push(tr);
+  }
+  if(!tracks.length)throw new Error("In der MIDI-Datei stehen keine Noten.");
+  const avg=t=>t.notes.reduce((s,n)=>s+n.m,0)/t.notes.length;
+  tracks.sort((a,b)=>avg(b)-avg(a));
+  let mel=tracks[0].notes,bas=[];
+  if(tracks.length>1&&avg(tracks[tracks.length-1])<avg(tracks[0])-10)bas=tracks[tracks.length-1].notes;
+  else{bas=mel.filter(n=>n.m<52);mel=mel.filter(n=>n.m>=52);}
+  const tsN=ts?ts[0]:4,tsD=ts?ts[1]:4,L=tsN*4/tsD;
+  const Q=x=>{const a=Math.round(x*4)/4,c=Math.round(x*3)/3;return Math.abs(a-x)<=Math.abs(c-x)+0.02?a:c;};
+  // Melodie: gleichzeitige Töne zu Griffen zusammenfassen
+  const grp=new Map();
+  for(const n of mel){const o=Q(n.on);const g=grp.get(o)||{on:o,ps:new Set(),end:0};g.ps.add(n.m);g.end=Math.max(g.end,n.on+n.len);grp.set(o,g);}
+  const gs=[...grp.values()].sort((a,b)=>a.on-b.on);
+  const total=Math.ceil((Math.max(...gs.map(g=>g.end))+1e-6)/L)*L;
+  const items=[];let t=0;
+  gs.forEach((g,i)=>{
+    if(g.on>t+1e-6)items.push({rest:true,on:t,dur:g.on-t});
+    const next=i+1<gs.length?gs[i+1].on:total;
+    const len=Math.max(0.25,Q(g.end-g.on));
+    let dur=next-g.on;
+    if(dur-len>=1-1e-6)dur=len;       // längere Pause danach wirklich als Pause
+    items.push({ps:[...g.ps].sort((a,b)=>b-a),on:g.on,dur});t=g.on+dur;
+  });
+  if(t<total-1e-6)items.push({rest:true,on:t,dur:total-t});
+  // in Takte teilen (Überhänge mit Haltebogen)
+  const nM=Math.round(total/L),meas=[...Array(nM)].map(()=>[]);
+  for(const it of items){let on=it.on,rem=it.dur,first=true;
+    while(rem>1e-6){const mi=Math.min(nM-1,Math.floor(on/L+1e-9)),endM=(mi+1)*L,d=Math.min(rem,endM-on);
+      meas[mi].push({...it,on,dur:d,tieStop:!first&&!it.rest,tieStart:rem-d>1e-6&&!it.rest});on+=d;rem-=d;first=false;}}
+  // Stufen aus dem Bass: Ton auf Schlag 1, bei 4/4 auch auf Schlag 3
+  const harm=[...Array(nM)].map(()=>[]);
+  const basAt=x=>{const c=bas.filter(n=>Math.abs(Q(n.on)-x)<1e-6);return c.length?Math.min(...c.map(n=>n.m)):null;};
+  // Grundton: Basston selbst oder (Wechselbass) die Quint darunter – entscheidet die Melodie im Abschnitt
+  const melIn=(a,b)=>items.filter(it=>!it.rest&&it.on>=a-1e-6&&it.on<b-1e-6);
+  const rootFor=(bp,a,b)=>{let best=null;
+    for(const r of [bp%12,(bp+5)%12])for(const mn of [false,true]){
+      const tones=[r,(r+(mn?3:4))%12,(r+7)%12];let sc=0;
+      for(const it of melIn(a,b))it.ps.forEach((m,k)=>{const w=it.dur*(k?0.7:1)*(Math.abs(it.on-Math.round(it.on))<1e-6?1.3:1);const q=m%12;if(tones.includes(q))sc+=w;else if(!mn&&q===(r+10)%12)sc+=0.5*w;});
+      sc-=(r===bp%12?0:0.15)+(mn?0.3:0);
+      if(!best||sc>best.sc)best={sc,pc:r,minor:mn};}
+    return best;};
+  for(let mi=0;mi<nM;mi++){
+    let r=basAt(mi*L);if(r==null){const c=bas.filter(n=>Q(n.on)>=mi*L&&Q(n.on)<(mi+1)*L);if(c.length)r=c.sort((a,b)=>a.on-b.on)[0].m;}
+    const r2=L>=4?basAt(mi*L+L/2):null;
+    const split=r!=null&&r2!=null&&r2%12!==r%12&&mod(r2-r,12)!==7&&mod(r-r2,12)!==7;
+    if(r!=null)harm[mi].push({on:0,...rootFor(r,mi*L,split?mi*L+L/2:(mi+1)*L)});
+    if(split){const h2=rootFor(r2,mi*L+L/2,(mi+1)*L),h1=harm[mi][0];if(!h1||h1.pc!==h2.pc||h1.minor!==h2.minor)harm[mi].push({on:L/2,...h2});}
+  }
+  // Tonart aus den Noten schätzen (Dur), Schlusston und Bass zählen mit
+  let keyPc=0,bestK=-1;
+  for(let k=0;k<12;k++){const sc=[0,2,4,5,7,9,11].map(x=>(x+k)%12);let v=0;
+    items.forEach(it=>{if(!it.rest)it.ps.forEach(m=>{if(sc.includes(m%12))v+=it.dur;});});
+    bas.forEach(n=>{if(sc.includes(n.m%12))v+=0.5;});
+    const last=[...items].reverse().find(it=>!it.rest);if(last&&last.ps[last.ps.length-1]%12===k)v+=4;
+    const lb=bas.length?bas.reduce((a,b)=>a.on>b.on?a:b):null;if(lb&&lb.m%12===k)v+=4;
+    if(v>bestK){bestK=v;keyPc=k;}}
+  const fifthsOf=pc=>{let f=mod(pc*7,12);return f>6?f-12:f;};
+  const DIV=12,SN=["C","C","D","D","E","F","F","G","G","A","A","B"],AL=[0,1,0,1,0,0,1,0,1,0,1,0];
+  const typ=d=>d>=4?"whole":d>=2?"half":d>=1?"quarter":d>=0.5?"eighth":"16th";
+  const pitchX=m=>`<pitch><step>${SN[m%12]}</step>${AL[m%12]?"<alter>1</alter>":""}<octave>${Math.floor(m/12)-1}</octave></pitch>`;
+  let body="";
+  meas.forEach((ms,mi)=>{
+    body+=`<measure number="${mi+1}">`+(mi===0?`<attributes><divisions>${DIV}</divisions><key><fifths>${fifthsOf(keyPc)}</fifths><mode>major</mode></key><time><beats>${tsN}</beats><beat-type>${tsD}</beat-type></time></attributes>`:"");
+    for(const it of ms){
+      const rel=it.on-mi*L;
+      for(const h of harm[mi])if(Math.abs(h.on-rel)<1e-6){
+        // Moll, wenn die Melodie im Takt die kleine, aber nicht die große Terz bringt
+        const minor=h.minor;
+        body+=`<harmony><root><root-step>${SN[h.pc]}</root-step>${AL[h.pc]?"<root-alter>1</root-alter>":""}</root><kind>${minor?"minor":"major"}</kind></harmony>`;}
+      const du=Math.max(1,Math.round(it.dur*DIV));
+      if(it.rest)body+=`<note><rest/><duration>${du}</duration><voice>1</voice><type>${typ(it.dur)}</type></note>`;
+      else it.ps.forEach((m,k)=>{body+=`<note>${k?"<chord/>":""}${pitchX(m)}<duration>${du}</duration>${it.tieStop?'<tie type="stop"/>':""}${it.tieStart?'<tie type="start"/>':""}<voice>1</voice><type>${typ(it.dur)}</type></note>`;});
+    }
+    body+=`</measure>`;
+  });
+  return `<?xml version="1.0"?><score-partwise version="3.1"><work><work-title>${title}</work-title></work><part-list><score-part id="P1"><part-name>Melodie (aus MIDI)</part-name></score-part></part-list><part id="P1">${body}</part></score-partwise>`;
+}
+
+// ======== Dateien
+async function openFile(f){
+  const st=document.getElementById("status");
+  try{
+    let txt;
+    if(/\.mxl$/i.test(f.name)){
+      if(!window.JSZip)throw new Error("Komprimierte .mxl-Dateien können gerade nicht geöffnet werden. Bitte als unkomprimiertes .musicxml exportieren.");
+      const z=await JSZip.loadAsync(f);let path=null;const cont=z.file("META-INF/container.xml");
+      if(cont){const cx=new DOMParser().parseFromString(await cont.async("string"),"application/xml");const rf=cx.querySelector("rootfile");if(rf)path=rf.getAttribute("full-path");}
+      if(!path)path=Object.keys(z.files).find(n=>/\.(xml|musicxml)$/i.test(n)&&!n.startsWith("META-INF"));
+      txt=await z.file(path).async("string");
+    } else if(/\.midi?$/i.test(f.name)){
+      txt=midiToXML(await f.arrayBuffer(),f.name.replace(/\.midi?$/i,""));
+    } else txt=await f.text();
+    stop();CREDIT="";loadXMLText(txt);run();
+  }catch(e){st.innerHTML=`<span class="err">${e.message}</span>`;}
+}
+document.getElementById("file").addEventListener("change",e=>{if(e.target.files[0])openFile(e.target.files[0]);});
+const drop=document.getElementById("drop");
+["dragenter","dragover"].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.add("over");}));
+["dragleave","drop"].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.remove("over");}));
+drop.addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)openFile(f);});
+document.getElementById("part").addEventListener("change",()=>{stop();run();});
+document.getElementById("voices").addEventListener("change",e=>{VOICES=+e.target.value;stop();if(PARTS.length)run();});
+tsel.addEventListener("change",()=>{stop();run();});
+
+// ======== Beispiele (als MusicXML erzeugt). Ton: "E5", Doppelgriff: "E5+C5", Pause: "r", Akkordsymbol: "h:C" / "h:F#"
+function makeXML(title,beats,fifths,tune){
+  let bType=4;if(typeof beats==="string"){const q=beats.split("/");beats=+q[0];bType=+q[1];}
+  const types={0.5:"eighth",1:"quarter",1.5:"quarter",2:"half",3:"half",4:"whole"};
+  const ms=[[]];tune.forEach(x=>{if(x==="|")ms.push([]);else ms[ms.length-1].push(x);});
+  const pitchXML=p=>{const st=p[0],alt=p.length>2?(p[1]==="#"?1:-1):0,oc=p[p.length-1];return `<pitch><step>${st}</step>${alt?`<alter>${alt}</alter>`:""}<octave>${oc}</octave></pitch>`;};
+  const body=ms.map((m,i)=>`<measure number="${i+1}">${i===0?`<attributes><divisions>2</divisions><key><fifths>${fifths}</fifths></key><time><beats>${beats}</beats><beat-type>${bType}</beat-type></time><clef><sign>G</sign><line>2</line></clef></attributes>`:""}`+
+    m.map(x=>{
+      if(typeof x==="string"&&x.startsWith("h:")){const h=x.slice(2);return `<harmony><root><root-step>${h[0]}</root-step>${/^[#b]$/.test(h[1]||"")?`<root-alter>${h[1]==="#"?1:-1}</root-alter>`:""}</root><kind>${h.endsWith("7")?"dominant":"major"}</kind></harmony>`;}
+      const [p,d]=x,dur=d*2,typ=types[d]||"quarter",dot=(d===1.5||d===3)?"<dot/>":"";
+      if(p==="r")return `<note><rest/><duration>${dur}</duration><voice>1</voice><type>${typ}</type>${dot}</note>`;
+      return p.split("+").map((q,k)=>`<note>${k?"<chord/>":""}${pitchXML(q)}<duration>${dur}</duration><voice>1</voice><type>${typ}</type>${dot}</note>`).join("");
+    }).join("")+`</measure>`).join("");
+  return `<?xml version="1.0"?><score-partwise version="3.1"><work><work-title>${title}</work-title></work><part-list><score-part id="P1"><part-name>Melodie</part-name></score-part></part-list><part id="P1">${body}</part></score-partwise>`;
+}
+const DEMOS={
+  // Franz Xaver Gruber 1818 (gemeinfrei), Oberstimme mit Terzen/Sexten darunter
+  stillenacht:()=>makeXML("Stille Nacht","6/8",0,[
+    "h:C",["G4+E4",1.5],["A4+F4",0.5],["G4+E4",1],"|",["E4+C4",3],"|",["G4+E4",1.5],["A4+F4",0.5],["G4+E4",1],"|",["E4+C4",3],"|",
+    "h:G7",["D5+B4",2],["D5+B4",1],"|",["B4+G4",3],"|","h:C",["C5+G4",2],["C5+G4",1],"|",["G4+E4",3],"|",
+    "h:F",["A4+F4",2],["A4+F4",1],"|",["C5+A4",1.5],["B4+G4",0.5],["A4+F4",1],"|","h:C",["G4+E4",1.5],["A4+F4",0.5],["G4+E4",1],"|",["E4+C4",3],"|",
+    "h:F",["A4+F4",2],["A4+F4",1],"|",["C5+A4",1.5],["B4+G4",0.5],["A4+F4",1],"|","h:C",["G4+E4",1.5],["A4+F4",0.5],["G4+E4",1],"|",["E4+C4",3],"|",
+    "h:G7",["D5+B4",2],["D5+B4",1],"|",["F5+D5",1.5],["D5+B4",0.5],["B4+G4",1],"|","h:C",["C5+G4",3],"|",["E5+C5",3],"|",
+    "h:C",["C5+G4",1.5],["G4+E4",0.5],["E4+C4",1],"|","h:G7",["G4+B3",1.5],["F4+D4",0.5],["D4+B3",1],"|","h:C",["C4+E3",3],"|",["C4+E3",3]]),
+  // Ludwig van Beethoven (gemeinfrei), Stufen werden geschätzt
+  freude:()=>makeXML("Freude, schöner Götterfunken",4,0,[
+    ["E4",1],["E4",1],["F4",1],["G4",1],"|",["G4",1],["F4",1],["E4",1],["D4",1],"|",["C4",1],["C4",1],["D4",1],["E4",1],"|",["E4",1.5],["D4",0.5],["D4",2],"|",
+    ["E4",1],["E4",1],["F4",1],["G4",1],"|",["G4",1],["F4",1],["E4",1],["D4",1],"|",["C4",1],["C4",1],["D4",1],["E4",1],"|",["D4",1.5],["C4",0.5],["C4",2],"|",
+    ["D4",1],["D4",1],["E4",1],["C4",1],"|",["D4",1],["E4",0.5],["F4",0.5],["E4",1],["C4",1],"|",["D4",1],["E4",0.5],["F4",0.5],["E4",1],["D4",1],"|",["C4",1],["D4",1],["G3",2],"|",
+    ["E4",1],["E4",1],["F4",1],["G4",1],"|",["G4",1],["F4",1],["E4",1],["D4",1],"|",["C4",1],["C4",1],["D4",1],["E4",1],"|",["D4",1.5],["C4",0.5],["C4",2]]),
+  // eigene Übungsmelodie im Landlerstil: Terzen und Sexten, Achtel, Doppeldominante D7
+  laendler:()=>makeXML("Ländler in C",3,0,[
+    "h:C",["E5+C5",1],["G5+E5",1],["E5+C5",1],"|",
+    "h:G7",["F5+D5",1],["D5+B4",0.5],["F5+D5",0.5],["B4+G4",1],"|",
+    "h:G7",["D5+B4",1],["F5+D5",1],["D5+B4",1],"|",
+    "h:C",["E5+C5",2],["C5",1],"|",
+    "h:C",["G4",0.5],["C5",0.5],["E5+C5",1],["G5+E5",1],"|",
+    "h:F",["A5+F5",1.5],["G5",0.5],["F5+C5",1],"|",
+    "h:G7",["F5+D5",1],["D5+B4",1],["B4+G4",1],"|",
+    "h:C",["C5+E4",3],"|",
+    "h:D7",["F#5+D5",1],["A5+F#5",1],["F#5+D5",1],"|",
+    "h:G7",["G5+D5",1],["F5+D5",1],["D5+B4",1],"|",
+    "h:C",["E5+C5",1],["E5+C5",0.5],["F5+D5",0.5],["G5+E5",1],"|",
+    "h:F",["A5+F5",2],["F5+C5",1],"|",
+    "h:C",["G5+E5",1],["E5+C5",1],["C5+G4",1],"|",
+    "h:G7",["D5+B4",1],["F5+D5",1],["B4+G4",1],"|",
+    "h:G7",["B4+G4",1],["D5+B4",1],["F5+D5",1],"|",
+    "h:C",["E5+C5",2],["r",1]]),
+  walzer:()=>makeXML("Kleiner Walzer",3,0,[["E4",1],["G4",1],["C5",1],"|",["E5",2],["C5",1],"|",["D5",1],["B4",1],["G4",1],"|",["D5",3],"|",
+    ["F4",1],["A4",1],["C5",1],"|",["F5",2],["D5",1],"|",["B4",1],["D5",1],["F5",1],"|",["E5",3],"|",
+    ["E4",1],["G4",1],["C5",1],"|",["E5",2],["C5",1],"|",["F4",1],["A4",1],["C5",1],"|",["A4",3],"|",
+    ["G4",1],["B4",1],["D5",1],"|",["F5",2],["D5",1],"|",["C5",3],"|",["C5",3]]),
+  entchen:()=>makeXML("Alle meine Entchen",4,0,[["C4",1],["D4",1],["E4",1],["F4",1],"|",["G4",2],["G4",2],"|",["A4",1],["A4",1],["A4",1],["A4",1],"|",["G4",4],"|",
+    ["A4",1],["A4",1],["A4",1],["A4",1],"|",["G4",4],"|",["F4",1],["F4",1],["F4",1],["F4",1],"|",["E4",2],["E4",2],"|",["D4",1],["D4",1],["D4",1],["D4",1],"|",["C4",4]])
+};
+["stimm","disk","bass"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{stop();buildInstrument();if(PARTS.length)run();}));
+buildInstrument();
+// MIDI-Dateien von volksmusik.cc, Satz: Franz Fuchs (mit seinem Einverständnis, Herkunft wird angezeigt)
+const FUCHS_MIDI={
+  "ausseerlandler":{title:"Ausseer Landler",b64:"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gTRAgTeRNH+BSYE0QIE3kTR/gUmBNECBN5E0f4FJgTRAgTfhQUIAkS1/gUmBLUCBN5Etf4FJgS1AgTfhEUMAkS1/gUmBLUCBN5Etf4FJgS1AgTfhYUMAkTR/gUmBNECBN5E0f4FJgTRAgTeRNH+BSYE0QIE3kTR/gUmBNECBN+ERQwCRLX+BSYEtQIE3kS1/gUmBLUCBN+FBQgCRLX+BSYEtQIE3kS1/gUmBLUCBN+ERQwCRNH+BSYE0QIE3kTR/gUmBNECBN5E0f4FJgTRAgTeRNH+BSYE0QIE34UFCAJEtf4FJgS1AhDfhcUEAkTJ/gUmBMkCBN+FBQgCRLX+BSYEtQIE34XFBAJEyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+ERQwCRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAhDfhcUEAkTJ/gUmBMkCBN+FBQgCRLX+BSYEtQIE34XFBAJEyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+ERQwCRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAhDeRMn+BSYEyQIE3kTJ/gUmBMkCBN+ERQwCRLX+BSYEtQIE3kS1/gUmBLUCBN5Etf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTfhEUMAkS1/gUmBLUCBN5Etf4FJgS1AgTeRLX+BSYEtQIE3kS1/gUmBLUCBN+FBQgCRMn+BSYEyQIQ3kTJ/gUmBMkCBN5Eyf4FJgTJAgTfhEUMAkS1/gUmBLUCBN5Etf4FJgS1AgTeRLX+BSYEtQIE3kS1/gUmBLUCBN+FBQgCRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE3kS1/gUmBLUCBN5Etf4FJgS1AgTfhQUIAkTJ/gUmBMkCEN5Eyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTfhEUMAkS1/gUmBLUCBN+FBQgCRMn+BSYEyQIQ3kSt/gUmBK0CBN5Erf4FJgStAgTfhcUEAkTB/gUmBMECBN5Ewf4FJgTBAgTeRMH+BSYEwQIE3kTB/gUmBMECBN+FBQgCRK3+BSYErQIE3kSt/gUmBK0CBN5Erf4FJgStAgTeRK3+BSYErQIE34RFDAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTfhQUIAkSt/gUmBK0CBN5Erf4FJgStAgTeRK3+BSYErQIE3kSt/gUmBK0CBN+ERQwCRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE34UFCAJErf4FJgStAgTfhEUMAkTJ/gUmBMkCBN+FBQgCRK3+BSYErQIE3kSt/gUmBK0CBN+ERQwCRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE34UFCAJErf4FJgStAgTfhEUMAkTJ/gUmBMkCBN+FBQgCRK3+BSYErQIE3kSt/gUmBK0CBN+ERQwCRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE34UFCAJErf4FJgStAgTeRK3+BSYErQIE3kSt/gUmBK0CBN5Erf4FJgStAgTfhEUMAkTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+FBQgCRK3+BSYErQIE34RFDAJEyf4FJgTJAgTfhQUIAkSt/gTaBK0CBN5Erf4FJgStAgTfhEUMAkTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+FBQgCRK3+BSYErQIE34RFDAJEyf4FJgTJAgTfhQUIAkSt/gUmBK0CBN5Erf4FJgStAgUrhEUMAkTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+FBQgCRK3+BSYErQIE34RFDAJEyf4FJgTJAgTfhQUIAkSt/gUmBK0CBN5Erf4FJgStAgTfhEUMAkTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+FBQgCRK3+BSYErQIE3kSt/gUmBK0CBN5Erf4FJgStAgTeRK3+BSYErQIE34RFDAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTfhQUIAkSt/gUmBK0CBN5Erf4FJgStAgTeRK3+BSYErQIE3kSt/gUmBK0CBN+ERQwCRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE34UFCAJErf4FJgStAgTeRK3+BSYErQIE3kSt/gUmBK0CBN5Erf4FJgStAgTfhEUMAkTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+FBQgCRK3+BSYErQIE3kSt/gUmBK0CBN5Erf4FJgStAgTeRK3+BSYErQIE34RFDAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTfhQUIAkSt/gUmBK0CBN5Erf4FJgStAgTeRK3+BSYErQIE3kSt/gUmBK0CBN+ERQwCRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE34UFCAJErf4FJgStAgTeRK3+BSYErQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTfhEUMAkS1/gUmBLUCBN5Etf4FJgS1AgTeRLX+BSYEtQIE3kS1/gUmBLUCBN+FBQgCRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE3kS1/gUmBLUCBN5Etf4FJgS1AgTfhQUIAkTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+ERQwCRLX+BSYEtQIE3kS1/gUmBLUCBN5Etf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTfhEUMAkS1/gUmBLUCBN5Etf4FJgS1AgTeRLX+BSYEtQIE3kS1/gUmBLUCBN+FBQgCRMn+BSYEyQIE3kTJ/gUmBMkCBN+ERQwCRLX+BSYEtQIE3kS1/gUmBLUCBN+FhQwCRNH+BSYE0QIE3kTR/gUmBNECBN5E0f4FJgTRAgTeRNH+BSYE0QIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEtf4FJgS1AgTeRLX+BSYEtQIE34RFDAJE0f4FJgTRAgTeRNH+BSYE0QIE3kTR/gUmBNECBN5E0f4FJgTRAgTfhQUIAkS1/gUmBLUCBN5Etf4FJgS1AgTfhEUMAkS1/gUmBLUCBN5Etf4FJgS1AgTfhYUMAkTR/gUmBNECBN5E0f4FJgTRAgTeRNH+BSYE0QIE3kTR/gUmBNECBN+ERQwCRLX+BSYEtQIE3kS1/gUmBLUCBN+FBQgCRLX+BSYEtQIE3kS1/gUmBLUCBN+ERQwCRNH+BSYE0QIE3kTR/gUmBNECBN5E0f4FJgTRAgTeRNH+BSYE0QIE34UFCAJEtf4FJgS1AhDfhcUEAkTJ/gUmBMkCBN+FBQgCRLX+BSYEtQIE34XFBAJEyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+ERQwCRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAhDfhcUEAkTJ/gUmBMkCBN+FBQgCRLX+BSYEtQIE34XFBAJEyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN+ERQwCRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAhDeRMn+BSYEyQIE3kTJ/gUmBMkCBN+ERQwCRLX+BSYEtQIE3kS1/gUmBLUCBN5Etf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTeRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTfhEUMAkS1/gUmBLUCBN5Etf4FJgS1AgTeRLX+BSYEtQIE3kS1/gUmBLUCBN+FBQgCRMn+BSYEyQIQ3kTJ/gUmBMkCBN5Eyf4FJgTJAgTfhEUMAkS1/gUmBLUCBN5Etf4FJgS1AgTeRLX+BSYEtQIE3kS1/gUmBLUCBN+FBQgCRMn+BSYEyQIE3kTJ/gUmBMkCBN5Eyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE3kS1/gUmBLUCBN5Etf4FJgS1AgTfhQUIAkTJ/gUmBMkCEN5Eyf4FJgTJAgTeRMn+BSYEyQIE34RFDAJEtf4FJgS1AgTeRLX+BSYEtQIE34UFCAJEyf4FJgTJAgTfhEUMAkS1/gUmBLUCBN+FBQgCRMn+BSYEyQIJ34RFDAJEyfwyBMkAA/y8A"},
+  "broatnbacherwalzer":{title:"Broatnbacher Walzer",b64:"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AJBDVYE3gDtAAIBDQAmQQ1UA4BE+AJBHVYE3gENAAIBHQAmQR1UA4BFDAJBKVYE3gEdAAIBKQAmQSlUA4EFCAJBPVYE3gEpAAIBPQAmQT1UA4BE+AJBTVYJtgE9AAIBTQBPgEUMAkD5VAOBhPgCQQlWBN4A+QACAQkAJkEJVAOBhQwCQRVWBN4BCQACARUAJ4HFBAJBIVQDgEUMAkEpVgTeASEAAgEpACZBKVQDgYT4AkE5VgTeASkAAgE5ACZBOVQDgYUMAkFFVgTeATkAAgFFACeBxQQCQSFUA4GE+AJBOVYE3gEhAAIBOQAngET4AkEdVAOBBQgCQT1WCbYBHQACAT0CBU7B7AAD/LwBNVHJrAAADtQD/Awp1bmJlbmFubnQyAP8JG01JREk6IE1pY3Jvc29mdCBNSURJIE1hcHBlcokA4UFCAMFJALEHWACxC1UAkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYTkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYTkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYTkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYTkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYTkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYTkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYTkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYTkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYTkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYT4RFDAJEyf4JtgTJAhhPhQUIAkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYT4UFCAJErf4JtgStAhhPhEUMAkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYT4RFDAJEyf4JtgTJAhhPhQUIAkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYT4UFCAJErf4JtgStAhhPhEUMAkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYT4RFDAJEyf4JtgTJAhhPhQUIAkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYT4UFCAJErf4JtgStAhhORK3+CbYErQIYT4RFDAJEyf4JtgTJAhhORMn+CbYEyQIYT4UFCAJErf4JtgStAhhORK3+CbYErQIYT4RFDAJEyf4JtgTJAhhORMn+CbYEyQIYT4UFCAJErf4JtgStAhhORK3+CbYErQIYT4RFDAJEyf4JtgTJAhhORMn+CbYEyQIYT4UFCAJErf4JtgStAhhORK3+CbYErQIYT4RFDAJEyf4JtgTJAhhORMn+CbYEyQIYT4UFCAJErf4JtgStAhhPhEUMAkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYT4RFDAJEyf4JtgTJAhhPhQUIAkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYT4UFCAJErf4JtgStAhhPhEUMAkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYT4RFDAJEyf4JtgTJAhhPhQUIAkSt/gm2BK0CGE+ERQwCRMn+CbYEyQIYT4UFCAJErf4JtgStAhhPhEUMAkTJ/gm2BMkCGE+FBQgCRK3+CbYErQIYT4RFDAJEyf4JtgTJAhhPhQUIAkSt/gm2BK0CBU7F7AAD/LwA="},
+  "bauernwalzer":{title:"Bauernwalzer",b64:"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ZIEtZINskTJkgWSBMmQMkTBkgWSBMGQMkS1kgWSBLWQMkStkgWSBK2QMkS9kgWSBL2QMkTJkgWSBMmQMkStkgWSBK2SDbJErZIFkgStkg2yRK2SBZIErZINskTJkgWSBMmQMkTBkgWSBMGQMkS1kgWSBLWQMkTJkgWSBMmSDbJErZIFkgStkg2yRK2SBZIErZINskTJkgWSBMmQMkTBkgWSBMGQMkS1kgWSBLWQMkTJkgWSBMmSDbJEtZIFkgS1kg2yRMmSBZIEyZINskStkgWSBK2SDbJEyZIFkgTJkg2yRLWSBZIEtZINskTJkgWSBMmSDbJErZIFkgStkg2yRMmSBZIEyZINskS1kgWSBLWSDbJEyZIFkgTJkg2yRK2SBZIErZINskTJkgWSBMmSDbJEtZIFkgS1kg2yRMmSBZIEyZAyRMGSBZIEwZAyRLWSBZIEtZAyRK2SBZIErZAyRL2SBZIEvZAyRMmSBZIEyZAyRK2SBZIErZINskTJkgWSBMmSDbJEyZIFkgTJkg2yRLWSBZIEtZAyRMWSBZIExZAyRNGSBZIE0ZAyROWSBZIE5ZINskTJkgWSBMmSDbJEyZIFkgTJkg2yRLWSBZIEtZAyRMWSBZIExZAyRNGSBZIE0ZAyROWSBZIE5ZINskTRkgWSBNGSDbJEtZIFkgS1kg2yRMmSBZIEyZINskS1kgWSBLWSDbJE0ZIFkgTRkg2yRLWSBZIEtZINskTJkgWSBMmSDbJEtZIFkgS1kg2yRNGSBZIE0ZINskS1kgWSBLWSDbJEyZIFkgTJkg2yRLWSBZIEtZINskTRkgWSBNGSDbJEtZIFkgS1kDJEvZIFkgS9kDJExZIFkgTFkDJEyZIFkgTJkDJE2ZIFkgTZkDJE5ZIFkgTlkDJEyZIFkgTJkAP8vAA=="},
+  "bierpolka":{title:"Bierpolka",b64:"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QIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZEyVYE3gTJACZEtVYE3gS1ACZEyVYE3gTJAgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRMlWBN4EyQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRMlWBN4EyQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRL1WBN4EvQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEvVYE3gS9AgUmRNFWBN4E0QIFJkS1VgTeBLUAJkTRVgTeBNEAJkS1VgTeBLUCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRL1WBN4EvQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEvVYE3gS9AgUmRNFWBN4E0QIFJkS1VgTeBLUAJkTRVgTeBNEAJkS1VgTeBLUCBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZEyVYE3gTJAgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEvVYE3gS9AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS9VgTeBL0CBSZE0VYE3gTRAgUmRLVWBN4EtQAmRNFWBN4E0QAmRLVWBN4EtQIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEvVYE3gS9AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS9VgTeBL0CBSZE0VYE3gTRAgUmRLVWBN4EtQAmRNFWBN4E0QAmRLVWBN4EtQIFJsXsAAP8vAA=="},
+  "altepolka":{title:"Alte Polka",b64:"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QIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRMlWBN4EyQAmRLVWBN4EtQAmRMlWBN4EyQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRMlWBN4EyQAmRLVWBN4EtQAmRMlWBN4EyQIFJkS1VgTeBLUCBSZEtVYE3gS1AgUmRL1WBN4EvQIFJkS9VgTeBL0CBSZE0VYE3gTRAgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZEtVYE3gS1AgUmRLVWBN4EtQIFJkS1VgTeBLUCBSZEvVYE3gS9AgUmRL1WBN4EvQIFJkTRVgTeBNECBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTJVgTeBMkAJkS1VgTeBLUAJkTJVgTeBMkCBSZEtVYE3gS1AgUmRLVWBN4EtQIFJkS9VgTeBL0CBSZEvVYE3gS9AgUmRNFWBN4E0QIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRLVWBN4EtQIFJkS1VgTeBLUCBSZEtVYE3gS1AgUmRL1WBN4EvQIFJkS9VgTeBL0CBSZE0VYE3gTRAgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTRVgTeBNECBSZEtVYE3gS1AgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZE0VYE3gTRAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZEtVYE3gS1AgUmRNFWBN4E0QIFJkS1VgTeBLUCBSZEyVYE3gTJACZEtVYE3gS1ACZEyVYE3gTJAgUmRK1WBN4ErQIFJkTBVgTeBMECBSZErVYE3gStAgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRK1WBN4ErQIFJkTJVgTeBMkCBSZErVYE3gStAgUmRMFWBN4EwQIFJkStVgTeBK0CBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZErVYE3gStACZEyVYE3gTJACZErVYE3gStAgUmRK1WBN4ErQIFJkTBVgTeBMECBSZErVYE3gStAgUmRMlWBN4EyQIFJkS1VgTeBLUCBSZEyVYE3gTJAgUmRK1WBN4ErQIFJkTJVgTeBMkCBSZErVYE3gStAgUmRMFWBN4EwQIFJkStVgTeBK0CBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZErVYE3gStACZEyVYE3gTJACZErVYE3gStAgUmRL1WBN4EvQIFJkTRVgTeBNECBSZEvVYE3gS9AgUmRNFWBN4E0QIFJkS9VgTeBL0CBSZE0VYE3gTRAgUmRL1WBN4EvQIFJkTJVgTeBMkCBSZErVYE3gStAgUmRMFWBN4EwQIFJkStVgTeBK0CBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZErVYE3gStACZEyVYE3gTJACZErVYE3gStAgUmRL1WBN4EvQIFJkTRVgTeBNECBSZEvVYE3gS9AgUmRNFWBN4E0QIFJkS9VgTeBL0CBSZE0VYE3gTRAgUmRL1WBN4EvQIFJkTJVgTeBMkCBSZErVYE3gStAgUmRMFWBN4EwQIFJkStVgTeBK0CBSZEyVYE3gTJAgUmRLVWBN4EtQIFJkTJVgTeBMkCBSZErVYE3gStACZEyVYE3gTJACZErVYE3gStACbF7AAD/LwA="},
+  "boarischerausderramsau":{title:"Boarischer aus der Ramsau",b64:"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gS1AgUmRNH+BN4E0QIFJkS1/gTeBLUCBSZE0f4E3gTRACZEtf4E3gS1ACZEvf4E3gS9ACZExf4E3gTFACZEyf4E3gTJACZEtf4E3gS1ACZEyf4E3gTJAgUmRMn+BN4EyQIFJkS1/gTeBLUCBSZE0f4E3gTRAgUmRLX+BN4EtQIFJkTR/gTeBNECBSZEtf4E3gS1AgUmRMn+BN4EyQIFJkS1/gTeBLUCBSZEyf4E3gTJAgUmRLX+BN4EtQIFJkTR/gTeBNECBSZEtf4E3gS1AgUmRNH+BN4E0QAmRLX+BN4EtQAmRL3+BN4EvQAmRMX+BN4ExQAmRMn+BN4EyQAmRLX+BN4EtQAmRMn+BN4EyQIFJkS9/gTeBL0CBSZE0f4E3gTRAgUmRLX+BN4EtQIFJkTR/gTeBNECBSZEvf4E3gS9AgUmRNH+BN4E0QIFJkS1/gTeBLUCBSZE0f4E3gTRAgUmRL3+BN4EvQIFJkTR/gTeBNECBSZEtf4E3gS1AgUmRNH+BN4E0QIFJkS9/gTeBL0CBSZE0f4E3gTRAgUmRLX+BN4EtQAmRNH+BN4E0QAmRLX+BN4EtQIFJkTJ/gTeBMkCBSZEtf4E3gS1AgUmRNH+BN4E0QIFJkS1/gTeBLUCBSZE0f4E3gTRAgUmRLX+BN4EtQIFJkTJ/gTeBMkCBSZEtf4E3gS1AgUmRMn+BN4EyQIFJkS1/gTeBLUCBSZE0f4E3gTRAgUmRLX+BN4EtQIFJkTR/gTeBNEAJkS1/gTeBLUAJkS9/gTeBL0AJkTF/gTeBMUAJkTJ/gTeBMkAJkS1/gTeBLUAJkTJ/gTeBMkCBSZErf4E3gStAgUmRMn+BN4EyQIFJkS1/gTeBLUCBSZEyf4E3gTJAgUmRLX+BN4EtQIFJkTJ/gTeBMkCBSZErf4E3gStAgUmRMn+BN4EyQIFJkSt/gTeBK0CBSZEyf4E3gTJAgUmRLX+BN4EtQIFJkTJ/gTeBMkCBSZEtf4E3gS1ACZEyf4E3gTJACZEwf4E3gTBACZEtf4E3gS1ACZErf4E3gStACZEyf4E3gTJACZErf4E3gStAgUmRK3+BN4ErQIFJkTJ/gTeBMkCBSZEtf4E3gS1AgUmRMn+BN4EyQIFJkS1/gTeBLUCBSZEyf4E3gTJAgUmRK3+BN4ErQIFJkTJ/gTeBMkCBSZErf4E3gStAgUmRMn+BN4EyQIFJkS1/gTeBLUCBSZEyf4E3gTJAgUmRLX+BN4EtQAmRMn+BN4EyQAmRMH+BN4EwQAmRLX+BN4EtQAmRK3+BN4ErQAmRMn+BN4EyQAmRK3+BN4ErQIFJkTJ/gTeBMkCBSZEtf4E3gS1AgUmRNH+BN4E0QIFJkS1/gTeBLUCBSZE0f4E3gTRAgUmRLX+BN4EtQIFJkTJ/gTeBMkCBSZEtf4E3gS1AgUmRMn+BN4EyQIFJkS1/gTeBLUCBSZE0f4E3gTRAgUmRLX+BN4EtQIFJkTR/gTeBNEAJkS1/gTeBLUAJkS9/gTeBL0AJkTF/gTeBMUAJkTJ/gTeBMkAJkS1/gTeBLUAJkTJ/gTeBMkAA/y8A"},
+  "bluemerl":{title:"Blümerl",b64:"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gExAAIBQQAmQTFUAkFBVgTeATEAAgFBACZBKVQCQTFWBN4BKQACATEAJkExVAJBQVYJtgExAAIBQQBOQSlUAkFNVgm2ASkAAgFNAE5BJVQCQUVWCbYBJQACAUUATkElVAJBRVYJtgElAAIBRQBOQSVUAkFFVgm2ASUAAgFFAAP8vAE1UcmsAAASzAP8DCnVuYmVuYW5udDMA/wklTUlESTogTWljcm9zb2Z0IEdTIFdhdmV0YWJsZSBTVyBTeW50aIkAwUkAsQc+gwDhAEAAsQtVAJE0f4JtgTRAgxORLX+CbYEtQIMTkTJ/gm2BMkCDE5Etf4JtgS1AgxORNH+CbYE0QBORLX+CbYEtQBORL3+CbYEvQBORMX+CbYExQBORMn+CbYEyQBORLX+CbYEtQBORMn+BN4EyQIdJkTJ/gm2BMkCDE5Etf4JtgS1AgxORMn+CbYEyQIMTkS1/gm2BLUCDE5E0f4JtgTRAgxORL3+CbYEvQIMTkTR/gm2BNECDE5Evf4JtgS9AgxORNH+CbYE0QIMTkS1/gm2BLUCDE5Eyf4JtgTJAgxORLX+CbYEtQIMTkTR/gm2BNECDE5Etf4JtgS1AgxORMn+CbYEyQIMTkS1/gm2BLUCDE5E0f4JtgTRAgxORLX+CbYEtQIMTkTJ/gm2BMkCDE5Etf4JtgS1AgxORNH+CbYE0QBORLX+CbYEtQBORL3+CbYEvQBORMX+CbYExQBORMn+CbYEyQBORLX+CbYEtQBORMn+BN4EyQIdJkTJ/gm2BMkCDE5Etf4JtgS1AgxORMn+CbYEyQIMTkS1/gm2BLUCDE5E0f4JtgTRAgxORL3+CbYEvQIMTkTR/gm2BNECDE5Evf4JtgS9AgxORNH+CbYE0QIMTkS1/gm2BLUCDE5Eyf4JtgTJAgxORLX+CbYEtQIMTkTR/gm2BNECDE5Etf4JtgS1AgxORMn+CbYEyQIMTkS1/gm2BLUCDE5E0f4JtgTRAgxORLX+CbYEtQIMTkTJ/gm2BMkCDE5Etf4JtgS1AgxORNH+CbYE0QBORLX+CbYEtQBORL3+CbYEvQBORMX+CbYExQBORMn+CbYEyQBORLX+CbYEtQBORMn+BN4EyQIdJkS1/gm2BLUCDE5E0f4JtgTRAgxORLX+CbYEtQIMTkTR/gm2BNECDE5Evf4JtgS9AgxORNn+CbYE2QIMTkS9/gm2BL0CDE5E2f4JtgTZAgxORL3+CbYEvQIMTkTR/gm2BNECDE5Etf4JtgS1AgxORNH+CbYE0QIMTkS9/gm2BL0CDE5E0f4JtgTRAgxORLX+CbYEtQIMTkTR/gm2BNECDE5Evf4JtgS9AgxORNH+CbYE0QIMTkS1/gm2BLUCDE5E0f4JtgTRAgxORL3+CbYEvQIMTkTR/gm2BNECDE5Etf4JtgS1AE5E0f4JtgTRAE5Etf4E3gS1Ah0mRLX+CbYEtQIMTkTR/gm2BNECDE5Etf4JtgS1AgxORNH+CbYE0QIMTkS9/gm2BL0CDE5E2f4JtgTZAgxORL3+CbYEvQIMTkTZ/gm2BNkCDE5Evf4JtgS9AgxORNH+CbYE0QIMTkS1/gm2BLUCDE5E0f4JtgTRAgxORL3+CbYEvQIMTkTR/gm2BNECDE5Etf4JtgS1AgxORNH+CbYE0QIMTkS9/gm2BL0CDE5E0f4JtgTRAgxORLX+CbYEtQIMTkTR/gm2BNECDE5Evf4JtgS9AgxORNH+CbYE0QIMTkS1/gm2BLUATkTR/gm2BNEATkS1/gTeBLUAA/y8A"}
+};
+let CREDIT="";
+function loadDemo(v){
+  stop();
+  if(v.startsWith("mid:")){const d=FUCHS_MIDI[v.slice(4)];const bin=atob(d.b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+    loadXMLText(midiToXML(u.buffer,d.title));CREDIT="Satz: Franz Fuchs, volksmusik.cc";}
+  else{loadXMLText(DEMOS[v]());CREDIT="";}
+  run();
+}
+const dsel=document.getElementById("demo");
+dsel.addEventListener("change",()=>loadDemo(dsel.value));
+const mq=window.matchMedia("(prefers-color-scheme: dark)");mq.addEventListener&&mq.addEventListener("change",()=>{drawKbd(null);drawBass(null);});
+loadDemo(dsel.value);
+</script>
+
+</body>
+</html>
