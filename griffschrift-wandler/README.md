@@ -6,6 +6,8 @@ Die Griffwahl geht vom Bass aus. Das Programm übernimmt Akkordsymbole aus der D
 
 Wählbar sind die Stimmung (G-C-F-B, A-D-G-C, B-Es-As-Des, F-B-Es-As), der Diskant (450 Öllerer und Schaborak, 446 Normal) und der Bass (Schaborak 16 bis 22 Knöpfe, Normalbass). Die Belegungen stammen aus der Akkordsuche für Handharmonika auf hyperbox.org. Das Stück wird bei Bedarf automatisch in eine gut spielbare Lage transponiert.
 
+Wiederholungen werden bei MIDI-Dateien erkannt und mit Wiederholungszeichen und 1./2. Schluss dargestellt; wahlweise lässt sich das Stück ausgeschrieben anzeigen. Im Bearbeiten-Modus kann man die Balgrichtung einzelner Griffe oder ganzer Bassabschnitte umschalten und Zeilenumbrüche setzen; die Zahl der Takte je Zeile ist ebenfalls wählbar. Der Drucken-Knopf gibt nur die Griffschrift auf A4 aus.
+
 Die Beispiele im Ordner `midi/` und in der Seite sind Volkstänze von volksmusik.cc, Satz: Franz Fuchs; die Herkunft wird beim Laden angezeigt. Dazu kommen eigene Beispiele (Ländler mit Terzen, Stille Nacht, Freude schöner Götterfunken, Alle meine Entchen).
 
 Offen sind noch die Notation der Bass-Zusatzknöpfe (derzeit Tonname mit Stern), die Notenkopfrichtung bei Doppelgriffen nach Fuchs und die Erkennung von Auftakten in MIDI-Dateien.

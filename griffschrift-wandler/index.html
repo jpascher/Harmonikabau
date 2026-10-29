@@ -38,7 +38,26 @@ select,input[type=number]{font:inherit;padding:7px 9px;border:1px solid var(--li
 button,.filebtn{font:inherit;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:var(--panel);cursor:pointer}
 .filebtn{background:transparent;color:var(--accent);position:relative;display:inline-block}
 button:focus-visible,select:focus-visible,input:focus-visible,.filebtn:focus-within{outline:3px solid var(--zug);outline-offset:2px}
-.filebtn input{position:absolute;opacity:0;width:1px;height:1px}
+#file{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.filebtn{display:inline-flex;align-items:center}
+.edithelp{margin:10px 0 0;font-size:14px;color:var(--muted)}
+button[aria-pressed="true"]{background:var(--accent)!important;color:var(--panel)!important}
+#griff .bhit,#griff .brk{fill:transparent}
+body.editing #griff .gn[data-uid]{cursor:crosshair}
+body.editing #griff .bhit{cursor:pointer}
+body.editing #griff .bhit:hover{fill:var(--druck-soft);opacity:.6}
+body.editing #griff .brk{cursor:col-resize}
+body.editing #griff .brk:hover,#griff .brk.on{fill:var(--extra);opacity:.35}
+#griff .gn.forced{color:var(--extra)}
+#griff .bl.forced{fill:var(--extra)}
+#griff .rp{fill:var(--fg)}
+#griff .vt{stroke:var(--fg);fill:none;stroke-width:1}
+#griff .vl{fill:var(--fg);font-family:var(--f-body);font-size:11px;font-weight:600}
+.measure.rs::before{content:"𝄆";position:absolute;left:-2px;top:22px;font-size:22px;color:var(--fg)}
+.measure.re::after{content:"𝄇";position:absolute;right:-2px;top:22px;font-size:22px;color:var(--fg)}
+.measure .vlt{position:absolute;top:-16px;left:28px;font-size:11px;font-weight:700;color:var(--fg)}
+.ev.forced .k b{color:var(--extra)!important}
+.bseg.forced .beat{color:var(--extra)!important}
 .drop{border:2px dashed var(--line);border-radius:10px;padding:14px;text-align:center;color:var(--muted);margin-top:14px}
 .drop.over{border-color:var(--accent);color:var(--fg)}
 .status{font-size:15px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
@@ -116,7 +135,9 @@ button.ghost2{background:transparent;color:var(--accent)}
   .panel{border:none;padding:0;border-radius:0}
   #griff{overflow:visible}
   #griff svg{width:100%!important;height:auto!important;max-width:100%}
-  #griff .gn.cur,#griff .bl.cur{color:#000;fill:#000}
+  #griff .gn.cur,#griff .bl.cur,#griff .gn.forced,#griff .bl.forced{color:#000;fill:#000}
+  #griff .brk.on,#griff .bhit{fill:transparent!important}
+  .edithelp{display:none!important}
   .measure{break-inside:avoid}
   .ev.cur,.beat.cur{background:none}
 }
@@ -180,8 +201,22 @@ button.ghost2{background:transparent;color:var(--accent)}
         <label for="voices">Stimmen im Diskant</label>
         <select id="voices"><option value="2">Melodie + 2. Stimme</option><option value="1">nur Melodie</option><option value="3">bis 3 Stimmen</option></select>
       </div>
-      <span class="filebtn">Noten öffnen (MusicXML / MIDI) …<input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi"></span>
+      <label class="filebtn" for="file" tabindex="0" id="filelbl">Noten öffnen (MusicXML / MIDI) …</label>
+      <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi">
     </div>
+    <div class="controls" style="margin-top:12px">
+      <div class="field">
+        <label for="form">Wiederholungen</label>
+        <select id="form"><option value="rep">mit Wiederholungszeichen</option><option value="long">ausgeschrieben (lang)</option></select>
+      </div>
+      <div class="field">
+        <label for="lpr">Takte je Zeile</label>
+        <select id="lpr"><option value="0">automatisch</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option></select>
+      </div>
+      <button id="edit" type="button" class="ghost2" aria-pressed="false">Bearbeiten</button>
+      <button id="reset" type="button" class="ghost2">Änderungen zurücksetzen</button>
+    </div>
+    <p id="edithelp" class="edithelp" hidden>Bearbeiten: <b>Note</b> anklicken = Balgrichtung dieses Griffs umschalten · <b>Bassbuchstaben</b> anklicken = Zug/Druck für den ganzen Bassabschnitt umschalten · <b>Taktstrich</b> anklicken = Zeile danach umbrechen (nochmal = aufheben). Geänderte Stellen sind blau.</p>
     <div id="drop" class="drop">Oder Datei hierher ziehen: MusicXML (.musicxml, .xml, .mxl) oder MIDI (.mid). Viele Volkstänze gibt es als MIDI bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): Seite eines Stücks öffnen, „Midi-Datei downloaden“, Datei hier hineinziehen.</div>
   </section>
 
@@ -328,12 +363,16 @@ function loadXMLText(txt){
   const sel=document.getElementById("part");sel.innerHTML="";
   PARTS.forEach((p,i)=>{const o=document.createElement("option");o.value=i;o.textContent=names[p.getAttribute("id")]||("Stimme "+(i+1));sel.appendChild(o);});
   const t=doc.querySelector("work-title")||doc.querySelector("movement-title");TITLE=t?t.textContent.trim():"";
+  NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();
 }
 function parsePart(part){
   let div=1,voice=null,keyFifths=0,minor=false,pendingH=null,beats=4,tsN=4,tsD=4;
   const measures=[];let prevNote=null,skipChord=false;
   for(const m of part.querySelectorAll(":scope > measure")){
-    const ev=[];let pos=0;
+    const ev=[];let pos=0;const mIdx=measures.length;
+    let repStart=false,repEnd=false,ending=null;
+    m.querySelectorAll(":scope > barline").forEach(bl=>{const r=bl.querySelector("repeat");if(r){if(r.getAttribute("direction")==="forward")repStart=true;else repEnd=true;}
+      const en=bl.querySelector("ending");if(en&&en.getAttribute("type")==="start")ending=(en.getAttribute("number")||"1").split(",")[0].trim();});
     for(const el of m.children){
       if(el.nodeName==="attributes"){
         const d=el.querySelector("divisions");if(d)div=parseFloat(d.textContent)||1;
@@ -360,12 +399,12 @@ function parsePart(part){
           prevNote.tieOpen=ties.includes("start");skipChord=true;
           const te={type:"tie",dur,on:pos,src:prevNote,midis:prevNote.midis};if(pendingH){te.harm=pendingH;pendingH=null;}ev.push(te);pos+=dur;continue;
         }
-        const e={type:"note",midis:[midi],dur,on:pos,tieOpen:ties.includes("start")};
+        const e={type:"note",midis:[midi],dur,on:pos,tieOpen:ties.includes("start"),key:mIdx+":"+pos.toFixed(4)};
         if(pendingH){e.harm=pendingH;pendingH=null;}
         ev.push(e);pos+=dur;prevNote=e;
       }
     }
-    measures.push({no:m.getAttribute("number")||String(measures.length+1),ev,len:Math.max(pos,0.0001),beats,tsN,tsD});
+    measures.push({no:m.getAttribute("number")||String(measures.length+1),ev,len:Math.max(pos,0.0001),beats,tsN,tsD,repStart,repEnd,ending});
   }
   return {measures,keyPc:mod(keyFifths*7,12),minor};
 }
@@ -419,7 +458,7 @@ function buildSegments(measures,t,key,minor){
       const a=cuts[k],b=cuts[k+1],notes=notesOf(a,b);
       const he=evs.find(e=>e.harm&&Math.abs(e.on-a)<1e-9);
       let harm=he?{pc:mod(he.harm.pc+t,12),minor:he.harm.minor}:(hs.length&&k===0&&lastHarm?lastHarm:null);
-      const opts=[];
+      let opts=[];
       const use=harm?[{deg:degOf(harm.pc,key,harm.minor),pc:harm.pc,minor:!!harm.minor,prior:0,tones:[]}]:chords;
       for(const c of use){
         let fc=harm?0:fit(c,notes);
@@ -427,7 +466,9 @@ function buildSegments(measures,t,key,minor){
         for(const bo of bassOpts(c))opts.push({...bo,chord:c,unary:2.2*fc+0.5*bo.pd+0.8*(bo.hy-1)});
       }
       if(!opts.length)for(const c of chords)for(const bo of bassOpts(c))opts.push({...bo,chord:c,unary:3+fit(c,notes)+0.5*bo.pd});
-      segs.push({mi,a,b,opts,len:b-a,harm});
+      const skey=mi+":"+a.toFixed(4),fd=SEG_FORCE[skey];
+      if(fd){const f=opts.filter(o=>o.dir===fd);if(f.length)opts=f;}
+      segs.push({mi,a,b,opts,len:b-a,harm,key:skey});
       lastHarm=harm;
     }
   });
@@ -436,6 +477,8 @@ function buildSegments(measures,t,key,minor){
 
 // ======== Optimierung: Viterbi über (Griff × Bassoption)
 const AGAINST=6,MISSING=4;let VOICES=2;
+// Benutzer-Änderungen: erzwungene Balgrichtung je Griff bzw. je Bassabschnitt, Zeilenumbrüche
+let NOTE_FORCE={},SEG_FORCE={},BREAKS=new Set(),EDIT=false,BT=0,DISPLAY=[];
 function melMove(a,b){return 0.45*bdist(a.top,b.top);}
 function bassMove(oa,ob,atBar){
   let c=0;
@@ -457,7 +500,8 @@ function solve(measures,t,key,minor){
     const seg=segs[st.si],states=[];
     seg.opts.forEach((o,oi)=>{
       if(!st.n){states.push({oi,g:null,un:0});return;}
-      for(const d of ["D","Z"])for(const g of grips(st.n.play,d))states.push({oi,g,un:g.cost+g.missing.length*MISSING+(d===o.dir?0:AGAINST)});
+      const fd=NOTE_FORCE[st.n.e.key];let dirs=fd?[fd]:["D","Z"];if(fd&&!grips(st.n.play,fd).length)dirs=["D","Z"];
+      for(const d of dirs)for(const g of grips(st.n.play,d))states.push({oi,g,un:g.cost+g.missing.length*MISSING+(d===o.dir?0:AGAINST)});
     });
     const cur=states.map(s=>{
       const o=seg.opts[s.oi];
@@ -496,6 +540,7 @@ let P=null,R=null;
 function run(){
   const st=document.getElementById("status");
   if(!PARTS.length){st.textContent="Noch keine Noten geladen.";return;}
+  stop();
   P=parsePart(PARTS[+document.getElementById("part").value||0]);
   const nN=P.measures.reduce((s,m)=>s+m.ev.filter(e=>e.type==="note").length,0);
   if(!nN){st.innerHTML='<span class="err">In dieser Stimme stehen keine Noten.</span>';document.getElementById("tab").innerHTML="";return;}
@@ -504,24 +549,64 @@ function run(){
   const tryT=t=>{const r=solve(sub,t,mod(P.keyPc+t,12),P.minor);r.score=r.bad*100+r.missing*20+r.against*8+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03);return r;};
   if(tsel.value==="auto"){for(let t=-12;t<=12;t++){const r=tryT(t);if(!best||r.score<best.score){best=r;bt=t;}}}
   else bt=+tsel.value;
+  BT=bt;
   R=solve(P.measures,bt,mod(P.keyPc+bt,12),P.minor);
+  buildDisplay();updateStatus();
+  document.getElementById("ttl").textContent=(TITLE?("Griffweise: "+TITLE):"Griffweise")+(CREDIT?" ("+CREDIT+")":"");
+  renderTab();renderGriff();drawKbd(null);drawBass(null);
+}
+// nach einer Änderung neu rechnen, Lage und Darstellung bleiben
+function resolve(){
+  if(!P)return;stop();
+  R=solve(P.measures,BT,mod(P.keyPc+BT,12),P.minor);
+  updateStatus();renderTab();renderGriff();
+}
+function updateStatus(){
+  const st=document.getElementById("status"),bt=BT;
   const key=CHN[mod(P.keyPc+bt,12)]+"-Dur";
+  const nf=Object.keys(NOTE_FORCE).length+Object.keys(SEG_FORCE).length;
   st.innerHTML=`<span class="pill">${R.n} Griffe</span>`+
     `<span class="pill warn">${R.changes} Balgwechsel</span>`+
     `<span class="pill">${R.bmoves} Bassknopf-Wechsel</span>`+
     (R.against?`<span class="pill bad">${R.against} Griffe gegen den Bass</span>`:"")+
     (R.bad+R.missing?`<span class="pill bad">${R.bad+R.missing} Töne nicht greifbar</span>`:"")+
-    `<span>${key}, ${bt===0?"Originallage":(bt>0?"+":"")+bt+" Halbtöne"}${tsel.value==="auto"?" (automatisch)":""}</span>`;
-  document.getElementById("ttl").textContent=(TITLE?("Griffweise: "+TITLE):"Griffweise")+(CREDIT?" ("+CREDIT+")":"");
-  renderTab();renderGriff();drawKbd(null);drawBass(null);
+    `<span>${key}, ${bt===0?"Originallage":(bt>0?"+":"")+bt+" Halbtöne"}${tsel.value==="auto"?" (automatisch)":""}</span>`+
+    (nf?`<span class="pill" style="background:transparent;border:1px solid var(--extra);color:var(--extra)">${nf} Änderung${nf>1?"en":""} von Hand</span>`:"")+
+    (DISPLAY.length<P.measures.length?`<span>${DISPLAY.length} von ${P.measures.length} Takten (Wiederholungen zusammengefasst)</span>`:"");
+}
+// ======== Wiederholungen: Anzeigeliste der Takte
+function measureFP(m){return m.ev.map(e=>e.type[0]+e.on.toFixed(3)+":"+e.dur.toFixed(3)+":"+(e.midis?e.midis.slice(0,2).join("."):"")).join("|")+"#"+m.len.toFixed(3);}
+function buildDisplay(){
+  const M=P.measures,n=M.length,mode=document.getElementById("form").value;
+  const explicit=M.some(m=>m.repStart||m.repEnd||m.ending);
+  if(explicit||mode==="long"){DISPLAY=M.map((m,mi)=>({mi,repStart:m.repStart,repEnd:m.repEnd,volta:m.ending}));return;}
+  const fp=M.map(measureFP),hasNotes=M.map(m=>m.ev.some(e=>e.type==="note"));
+  const eq=(a,b,len)=>{for(let j=0;j<len;j++)if(fp[a+j]!==fp[b+j])return false;return true;};
+  const out=[];let i=0;
+  while(i<n){
+    let f=null;
+    for(let L=Math.min(16,Math.floor((n-i)/2));L>=2&&!f;L--){
+      if(!hasNotes.slice(i,i+L).some(Boolean))continue;
+      if(eq(i,i+L,L)){f={L,k:0};break;}
+      for(const k of [1,2])if(L-k>=2&&i+2*L<=n&&eq(i,i+L,L-k)&&!eq(i+L-k,i+2*L-k,k)){f={L,k};break;}
+    }
+    if(!f){out.push({mi:i});i++;continue;}
+    const {L,k}=f;
+    for(let j=0;j<L-k;j++)out.push({mi:i+j,repStart:j===0,repEnd:k===0&&j===L-1});
+    if(k){for(let j=0;j<k;j++)out.push({mi:i+L-k+j,volta:"1",repEnd:j===k-1});
+          for(let j=0;j<k;j++)out.push({mi:i+2*L-k+j,volta:"2"});}
+    i+=2*L;
+  }
+  DISPLAY=out;
 }
 function evWidth(e){return Math.max(32,Math.min(110,24*e.dur+14));}
 let UID=0;
 function renderTab(){
   const tab=document.getElementById("tab");tab.innerHTML="";
-  P.measures.forEach((m,mi)=>{
-    const md=document.createElement("div");md.className="measure"+(mi===P.measures.length-1?" endline":"");
-    md.innerHTML=`<span class="mno">${m.no}</span>`;
+  DISPLAY.forEach((dd,di)=>{
+    const mi=dd.mi,m=P.measures[mi];
+    const md=document.createElement("div");md.className="measure"+(di===DISPLAY.length-1?" endline":"")+(dd.repStart?" rs":"")+(dd.repEnd?" re":"");
+    md.innerHTML=`<span class="mno">${m.no}</span>`+(dd.volta&&(di===0||DISPLAY[di-1].volta!==dd.volta)?`<span class="vlt">${dd.volta}.</span>`:"");
     const top=document.createElement("div");top.className="mrow";
     const bot=document.createElement("div");bot.className="mrow";
     const segW={},seen=new Set();
@@ -539,11 +624,11 @@ function renderTab(){
           if(hit){html+=`<span class="k r${hit.b.row}${rep?" rep":""}${hit.b.extra?" ex":""}"><b>${rep?"•":hit.b.num}</b>${rep?"":`<i>${hit.b.row}</i>`}</span>`;tip.push(`${nameOf(p)}: Reihe ${hit.b.row}, Knopf ${hit.b.num}`);}
           else{html+=`<span class="k bad"><b>×</b></span>`;tip.push(`${nameOf(p)}: ${exists(p)?"nur in der anderen Balgrichtung":"nicht auf dem Instrument"}`);}
         }
-        d.className="ev "+(g?(g.dir==="Z"?"zug":"druck"):"bad")+(r.against?" against":"");
+        d.className="ev "+(g?(g.dir==="Z"?"zug":"druck"):"bad")+(r.against?" against":"")+(NOTE_FORCE[e.key]?" forced":"");
         d.innerHTML=`<span class="nm">${nameOf(r.pitches[0])}</span><div class="stack${r.pitches.length>1?" multi":""}">${html}</div><span class="bar"></span>`;
         d.title=tip.join("\n")+(g?`\n${g.dir==="Z"?"Zug":"Druck"}${r.against?" (gegen die Bassrichtung)":""}`:"");
         d.tabIndex=0;d.dataset.uid=e._uid;
-        const act=()=>{markCur(e._uid,null);drawKbd(g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
+        const act=()=>{if(EDIT){toggleNote(e);return;}markCur(e._uid,null);drawKbd(g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
         d.addEventListener("click",act);d.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
       }
       top.appendChild(d);
@@ -553,12 +638,12 @@ function renderTab(){
       b.style.width=(segW[si]||40)+"px";
       if(!o){b.className="bseg";b.innerHTML=`<span class="bar"></span><div class="beats"><span class="beat">–</span></div><span class="st"></span>`;}
       else{
-        b.className="bseg "+(o.dir==="Z"?"zug":"druck");
+        b.className="bseg "+(o.dir==="Z"?"zug":"druck")+(SEG_FORCE[s.key]?" forced":"");
         const nb=Math.max(1,Math.round(s.len/beatUnit(m)));let beats="";
         for(let i=0;i<nb;i++)beats+=`<span class="beat${i?" bg":""}" data-si="${si}" data-b="${i}">${i&&o.b?bassName(o.b,"B"):bassName(o.g,"G")}</span>`;
         b.innerHTML=`<span class="bar"></span><div class="beats">${beats}</div><span class="st">${chordLabel(o.chord)} · ${o.chord.deg||""}</span>`;
         b.title=`${chordLabel(o.chord)}${o.chord.deg?" (Stufe "+o.chord.deg+")":""}: Grundbass ${bassName(o.g,"G")}, Begleiter ${o.b?bassName(o.b,"B"):"fehlt"}, ${o.dir==="Z"?"Zug":"Druck"}`;
-        b.style.cursor="pointer";b.addEventListener("click",()=>{drawBass(o,"both");});
+        b.style.cursor="pointer";b.addEventListener("click",()=>{if(EDIT){toggleSeg(s);return;}drawBass(o,"both");});
       }
       bot.appendChild(b);
     });
@@ -587,9 +672,14 @@ function renderGriff(){
   const host=document.getElementById("griff");if(host.hidden)return;
   const W=PRINT_W||Math.max(340,(host.clientWidth||900)-2);
   const ST=4; // Pixel je Halbstufe (Linienabstand 8)
-  const ms=P.measures.map((m,mi)=>{const durs=m.ev.map(e=>e.dur).filter(d=>d>0);const md=Math.min(1,...durs);const qw=Math.max(30,15/md);return {m,mi,qw,w:m.len*qw+20};});
+  const ms=DISPLAY.map((d,di)=>{const m=P.measures[d.mi];const durs=m.ev.map(e=>e.dur).filter(q=>q>0);const md=Math.min(1,...durs);const qw=Math.max(30,15/md);
+    const pad=(d.repStart?12:0);return {m,mi:d.mi,d,di,qw,pad,w:m.len*qw+20+pad+(d.repEnd?12:0)};});
+  const LPR=+document.getElementById("lpr").value||0;
   const systems=[];let cur=[],cw=0;
-  ms.forEach(x=>{const lead=systems.length===0&&cur.length===0?40:10;if(cur.length&&cw+x.w>W-10-lead){systems.push(cur);cur=[];cw=0;}cur.push(x);cw+=x.w;});
+  ms.forEach(x=>{const lead=systems.length===0&&cur.length===0?40:10;
+    if(cur.length&&(LPR?cur.length>=LPR:cw+x.w>W-10-lead)){systems.push(cur);cur=[];cw=0;}
+    cur.push(x);cw+=x.w;
+    if(BREAKS.has(x.mi)){cur.forced=true;systems.push(cur);cur=[];cw=0;}});
   if(cur.length)systems.push(cur);
   const m0=P.measures[0]||{},beatsNum=m0.tsN||4,beatDen=m0.tsD||4;
   let svg="";let ytop=0;const tieFrom={};
@@ -604,7 +694,9 @@ function renderGriff(){
     const bassY=y0+Math.max(50,-minP*ST+30),druckY=bassY+7;
     const sum=row.reduce((s,x)=>s+x.w,0);
     const last=sy===systems.length-1;
-    const scale=(last&&sum<(W-lead)*0.7)?1:(W-lead)/sum;
+    let scale=(W-lead)/sum;
+    // kurze Zeilen (Ende, erzwungener Umbruch) nicht übermäßig auseinanderziehen
+    if((last||row.forced)&&scale>1.3)scale=Math.max(1,Math.min(scale,LPR?1.6:1.3));
     // Notenlinien
     const xEnd=lead+sum*scale;
     for(const p of [-4,-2,0,2,4])svg+=`<line class="sl" x1="2" x2="${xEnd}" y1="${yOf(p)}" y2="${yOf(p)}"/>`;
@@ -612,8 +704,12 @@ function renderGriff(){
     svg+=`<line class="sl" x1="${lead}" x2="${lead}" y1="${yOf(4)}" y2="${yOf(-4)}"/>`;
     let mx=lead;
     row.forEach((x,k)=>{
-      const m=x.m,mw=x.w*scale,qw=x.qw*scale,X=on=>mx+10*scale+on*qw;
+      const m=x.m,mw=x.w*scale,qw=x.qw*scale,X=on=>mx+(10+x.pad)*scale+on*qw;
       svg+=`<text class="mn" x="${mx+2}" y="${yOf(4)-5}">${m.no}</text>`;
+      if(x.d.repStart){svg+=`<rect class="rp" x="${mx}" y="${yOf(4)}" width="3" height="${8*ST}"/><line class="sl" x1="${mx+6}" x2="${mx+6}" y1="${yOf(4)}" y2="${yOf(-4)}"/><circle class="rp" cx="${mx+10}" cy="${yOf(1)}" r="1.8"/><circle class="rp" cx="${mx+10}" cy="${yOf(-1)}" r="1.8"/>`;}
+      if(x.d.volta){const first=x.di===0||DISPLAY[x.di-1].volta!==x.d.volta,lastV=x.di===DISPLAY.length-1||DISPLAY[x.di+1].volta!==x.d.volta;const vy=yOf(Math.max(4,0))-20;
+        svg+=`<path class="vt" d="M${mx+2} ${first?vy+10:vy} L${mx+2} ${vy} L${mx+mw-3} ${vy}${lastV&&x.d.volta==="1"?" L"+(mx+mw-3)+" "+(vy+10):""}"/>`;
+        if(first)svg+=`<text class="vl" x="${mx+6}" y="${vy+10}">${x.d.volta}.</text>`;}
       // Balkengruppen (Achtel innerhalb eines Schlags)
       const beamG={};m.ev.forEach((e,i)=>{if((e.type==="note"||e.type==="tie")&&e.dur<=0.5+1e-9){const k2=Math.floor(e.on+1e-9);(beamG[k2]=beamG[k2]||[]).push(e);}});
       const inBeam=new Map();Object.values(beamG).forEach(gr=>{if(gr.length>1)gr.forEach(e=>inBeam.set(e,gr));});
@@ -664,19 +760,23 @@ function renderGriff(){
         // Haltebogen
         if(e.type==="tie"&&tieFrom[e.src._uid]!=null){const x1=tieFrom[e.src._uid],yy=yOf(lo)+9;s+=`<path d="M${Math.min(x1+6,xh-14)} ${yy} Q${(x1+xh)/2} ${yy+9} ${xh-6} ${yy}" fill="none" stroke="currentColor" stroke-width="1.2"/>`;}
         if(isNote)tieFrom[e._uid]=xh;
-        const cls="gn"+(isNote&&r.against?" against":"");
+        const cls="gn"+(isNote&&r.against?" against":"")+(isNote&&NOTE_FORCE[e.key]?" forced":"");
         svg+=isNote?`<g class="${cls}" data-uid="${e._uid}" tabindex="0">${s}</g>`:`<g class="gn">${s}</g>`;
       });
       // Bass: Grundbass auf Schlag 1, Begleiter auf den übrigen; Unterstrich = Druck
       segsOf(x.mi).forEach(({s,si})=>{
         const o=s.pick;if(!o)return;const bu=beatUnit(x.m),nb=Math.max(1,Math.round(s.len/bu));
-        for(let b=0;b<nb;b++)svg+=`<text class="bl" data-si="${si}" data-b="${b}" x="${X(s.a+b*bu)+6}" y="${bassY}" text-anchor="middle">${b&&o.b?bassName(o.b,"B"):bassName(o.g,"G")}</text>`;
+        const fz=SEG_FORCE[s.key]?" forced":"";
+        for(let b=0;b<nb;b++)svg+=`<text class="bl${fz}" data-si="${si}" data-b="${b}" x="${X(s.a+b*bu)+6}" y="${bassY}" text-anchor="middle">${b&&o.b?bassName(o.b,"B"):bassName(o.g,"G")}</text>`;
         if(o.dir==="D")svg+=`<line class="dl" x1="${X(s.a)-2}" x2="${X(s.b)-6}" y1="${druckY}" y2="${druckY}"/>`;
+        svg+=`<rect class="bhit" data-si="${si}" x="${X(s.a)-4}" y="${bassY-16}" width="${Math.max(10,X(s.b)-X(s.a))}" height="28"><title>Zug/Druck für diesen Bassabschnitt umschalten</title></rect>`;
       });
       mx+=mw;
       const fin=sy===systems.length-1&&k===row.length-1;
-      svg+=`<line class="sl" x1="${mx}" x2="${mx}" y1="${yOf(4)}" y2="${yOf(-4)}" style="stroke-width:${fin?1:1}"/>`;
-      if(fin)svg+=`<line class="sl" x1="${mx+4}" x2="${mx+4}" y1="${yOf(4)}" y2="${yOf(-4)}" style="stroke-width:3.5"/>`;
+      if(x.d.repEnd){svg+=`<circle class="rp" cx="${mx-10}" cy="${yOf(1)}" r="1.8"/><circle class="rp" cx="${mx-10}" cy="${yOf(-1)}" r="1.8"/><line class="sl" x1="${mx-6}" x2="${mx-6}" y1="${yOf(4)}" y2="${yOf(-4)}"/><rect class="rp" x="${mx-3}" y="${yOf(4)}" width="3" height="${8*ST}"/>`;}
+      else{svg+=`<line class="sl" x1="${mx}" x2="${mx}" y1="${yOf(4)}" y2="${yOf(-4)}"/>`;
+        if(fin)svg+=`<line class="sl" x1="${mx+4}" x2="${mx+4}" y1="${yOf(4)}" y2="${yOf(-4)}" style="stroke-width:3.5"/>`;}
+      if(!fin)svg+=`<rect class="brk${BREAKS.has(x.mi)?" on":""}" data-mi="${x.mi}" x="${mx-5}" y="${yOf(4)-6}" width="10" height="${8*ST+12}"><title>Zeile nach diesem Takt umbrechen</title></rect>`;
     });
     parts.push({s:svg,h:druckY+18});
   });
@@ -686,10 +786,22 @@ function renderGriff(){
   // Klick auf Noten
   const byUid={};P.measures.forEach(m=>m.ev.forEach(e=>{if(e._uid)byUid[e._uid]=e;}));
   host.querySelectorAll(".gn[data-uid]").forEach(el=>{
-    const act=()=>{const e=byUid[el.dataset.uid];if(!e)return;const r=e._r;markCur(e._uid,null);drawKbd(r.g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
+    const act=()=>{const e=byUid[el.dataset.uid];if(!e)return;if(EDIT){toggleNote(e);return;}const r=e._r;markCur(e._uid,null);drawKbd(r.g);const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.forEach(p=>beep(p,0.45));};
     el.addEventListener("click",act);el.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
   });
+  host.querySelectorAll(".bhit").forEach(el=>el.addEventListener("click",()=>{const s=R.segs[+el.dataset.si];if(!s)return;if(EDIT)toggleSeg(s);else if(s.pick)drawBass(s.pick,"both");}));
+  host.querySelectorAll(".brk").forEach(el=>el.addEventListener("click",()=>{if(!EDIT)return;const mi=+el.dataset.mi;if(BREAKS.has(mi))BREAKS.delete(mi);else BREAKS.add(mi);renderGriff();}));
 }
+// ======== Bearbeiten
+function toggleNote(e){const r=e._r;if(!r||!r.g)return;NOTE_FORCE[e.key]=r.g.dir==="Z"?"D":"Z";resolve();}
+function toggleSeg(s){if(!s.pick)return;SEG_FORCE[s.key]=s.pick.dir==="Z"?"D":"Z";
+  // Griffe in diesem Abschnitt folgen dem Bass: frühere Einzeländerungen dort aufheben
+  P.measures[s.mi].ev.forEach(e=>{if(e.key&&e.on>=s.a-1e-9&&e.on<s.b-1e-9)delete NOTE_FORCE[e.key];});resolve();}
+document.getElementById("edit").addEventListener("click",ev=>{EDIT=!EDIT;ev.currentTarget.setAttribute("aria-pressed",EDIT);document.body.classList.toggle("editing",EDIT);document.getElementById("edithelp").hidden=!EDIT;});
+document.getElementById("reset").addEventListener("click",()=>{NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();resolve();});
+document.getElementById("form").addEventListener("change",()=>{if(!P)return;stop();buildDisplay();updateStatus();renderTab();renderGriff();});
+document.getElementById("lpr").addEventListener("change",()=>{if(R)renderGriff();});
+document.getElementById("filelbl").addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();document.getElementById("file").click();}});
 // ======== Drucken
 function printPrep(on){PRINT_W=on?860:0;if(R){renderGriff();}}
 window.addEventListener("beforeprint",()=>printPrep(true));
