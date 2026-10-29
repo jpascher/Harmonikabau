@@ -49,6 +49,21 @@ button[aria-pressed="true"]{background:var(--accent)!important;color:var(--panel
 .measure.selm{background:var(--zug-soft)}
 .fplay{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:0 4px 14px rgba(0,0,0,.25);padding:12px 18px;font-size:16px;border-radius:999px}
 .fplay.sel{background:var(--zug);border-color:var(--zug)}
+.titlerow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.hbtns{display:flex;gap:8px}
+x-de,x-en{display:contents}
+html.en x-de,html:not(.en) x-en,html.en .i-de,html:not(.en) .i-en{display:none!important}
+dialog.help{max-width:820px;width:calc(100% - 32px);max-height:calc(100% - 40px);padding:0;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--fg)}
+dialog.help::backdrop{background:rgba(0,0,0,.45)}
+.helphead{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 20px;background:var(--panel);border-bottom:1px solid var(--line);z-index:1}
+.helphead h2{margin:0}
+.helptoc{display:flex;flex-wrap:wrap;gap:6px 14px;padding:12px 20px;border-bottom:1px solid var(--line);font-size:14px}
+.helptoc a,.helpbody a{color:var(--accent)}
+.helpbody{padding:6px 20px 24px;max-width:70ch}
+.helpbody section{scroll-margin-top:72px}
+.helpbody h3{font-family:var(--f-display);font-weight:500;font-size:19px;margin:20px 0 6px}
+.helpbody p,.helpbody li{font-size:15px;line-height:1.55}
+.helpbody ol,.helpbody ul{padding-left:22px}
 .chk{display:flex;gap:6px;align-items:center;font-weight:600;color:var(--muted);font-size:14px;padding-bottom:8px}
 .measure .mno{cursor:pointer}
 body.editing #griff .gn[data-uid]{cursor:crosshair}
@@ -148,6 +163,7 @@ button.ghost2{background:transparent;color:var(--accent)}
   .edithelp{display:none!important}
   #griff .selbg{display:none}
   .fplay{display:none!important}
+  dialog.help,#helpbtn,#helpbtn2{display:none!important}
   .measure{break-inside:avoid}
   .ev.cur,.beat.cur{background:none}
 }
@@ -158,83 +174,89 @@ button.ghost2{background:transparent;color:var(--accent)}
 
 <div class="wrap">
   <header>
-    <h1>Griffschrift-Wandler</h1>
-    <p class="lead">Normalnoten als MusicXML rein, Griffweise für die Steirische Harmonika raus. Das Programm legt die Stufen fest und wählt Grundbass und Begleiter so, dass der Bass flüssig läuft. Die Balgrichtung kommt vom Bass, die Melodie samt Doppelgriffen wird darauf abgestimmt.</p>
+    <div class="titlerow"><h1>Griffschrift-Wandler</h1><div class="hbtns"><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
+    <p class="lead"><x-de>Normalnoten als MusicXML rein, Griffweise für die Steirische Harmonika raus. Das Programm legt die Stufen fest und wählt Grundbass und Begleiter so, dass der Bass flüssig läuft. Die Balgrichtung kommt vom Bass, die Melodie samt Doppelgriffen wird darauf abgestimmt.</x-de><x-en>Standard notation goes in as MusicXML, fingering for the Styrian accordion (Steirische Harmonika) comes out. The program works out the harmonic degrees and picks bass and chord buttons so the bass side flows smoothly. The bellows direction follows the bass; the melody, double stops included, is fitted to it.</x-en></p>
   </header>
 
   <section class="panel">
     <div class="controls">
       <div class="field">
-        <label for="stimm">Stimmung</label>
-        <select id="stimm"><option value="GCFB">G-C-F-B</option><option value="ADGC">A-D-G-C</option><option value="BEsAsDes">B-Es-As-Des</option><option value="FBEsAs">F-B-Es-As</option></select>
+        <label for="stimm"><x-de>Stimmung</x-de><x-en>Tuning</x-en></label>
+        <select id="stimm"><option value="GCFB">G-C-F-B</option><option value="ADGC">A-D-G-C</option><option value="BEsAsDes">B-Es-As-Des</option><option value="FBEsAs">F-B-Es-As</option><option value="FisHEA">Fis-H-E-A</option><option value="GisCisFisH">Gis-Cis-Fis-H</option><option value="HEAD">H-E-A-D</option><option value="CFBEs">C-F-B-Es</option></select>
       </div>
       <div class="field">
-        <label for="disk">Diskant</label>
+        <label for="disk"><x-de>Diskant</x-de><x-en>Treble</x-en></label>
         <select id="disk"><option value="450s">450 Öllerer und Schaborak</option><option value="446">446 Normal</option></select>
       </div>
       <div class="field">
         <label for="bass">Bass</label>
-        <select id="bass"><option value="s22">Schaborak/Pauli 22, 3 Koppelungen</option><option value="s21">Schaborak 21, 2 Koppelungen</option><option value="s18">Schaborak 18, 2 Koppelungen</option><option value="s16">Schaborak 16</option><option value="normal">Normalbass 16 (Öllerer)</option></select>
+        <select id="bass"><optgroup id="og-hyper" label="Akkordsuche (hyperbox.org)"><option value="s22">Schaborak/Pauli 22, 3 Koppelungen</option><option value="s21">Schaborak 21, 2 Koppelungen</option><option value="s18">Schaborak 18, 2 Koppelungen</option><option value="s16">Schaborak 16</option><option value="normal">Normalbass 16 (Öllerer)</option></optgroup><optgroup id="og-strasser" label="Strasser (harmonika.com)"><option value="st00">Übergangsbässe, 15 Tasten</option><option value="st04">Übergangsbässe, X-Bass gekoppelt</option><option value="st05">Übergangsbässe, X- und H-Bass entkoppelt</option><option value="st06">Mollbässe, 15 Tasten</option><option value="st07">Mollbässe, WB Basslauf</option><option value="st08">Mollbässe, X-Bass gekoppelt (wie Michlbauer)</option><option value="st09">Mollbässe, X- und H-Bass entkoppelt (wie Michlbauer)</option><option value="st10">Mollbässe, X- und H-Bass entkoppelt mit Basslauf</option><option value="st11">1 Mollbass, 15 Tasten</option><option value="st12">1 Mollbass, WB Basslauf (Quetschn-Academy)</option><option value="st13">1 Mollbass, X-Bass gekoppelt</option><option value="st14">1 Mollbass, X- und H-Bass entkoppelt</option><option value="st15">1 Mollbass, X- und H-Bass entkoppelt mit Basslauf</option><option value="st19">Klassisch, 19 Tasten (wie 5-Reiher)</option><option value="st20">Klassisch mit Mollbässen, 19 Tasten</option><option value="st21">Strohmeier, 19 Tasten</option><option value="st22">Glaser, 19 Tasten</option><option value="st23">Pichler, 19 Tasten, 1 Kopplung</option><option value="st24">Hubmann, 21 Tasten, 2 Kopplungen</option><option value="st25">Senekovic, 20 Tasten, 2 Kopplungen</option><option value="st26">Schaborak, 21 Tasten, 2 Kopplungen</option><option value="st27">Schaborak/Pauli, 22 Tasten, 3 Kopplungen</option><option value="st28">Kalcher I, 17 Tasten</option><option value="st29">Kalcher II, 20 Tasten, 1 Kopplung</option><option value="st30">Egger, 19 Tasten</option><option value="st31">Svoboda, 19 Tasten</option><option value="st32">Zweverink, 20 Tasten, 2 Kopplungen</option><option value="st33">Guggi, 19 Tasten</option><option value="st34">Lenz R., 19 Tasten</option></optgroup></select>
       </div>
       <div class="field">
-        <label for="part">Stimme</label>
+        <label for="bmoll"><x-de>Mollbegleiter</x-de><x-en>Minor chords</x-en></label>
+        <select id="bmoll"><option value="std">wie Belegung</option><option value="tpl">Vorlage: Paralleltonarten in Moll</option><option value="own">eigene (im Bassbild anklicken)</option></select>
+      </div>
+      <div class="field">
+        <label for="part"><x-de>Stimme</x-de><x-en>Part</x-en></label>
         <select id="part"><option>–</option></select>
       </div>
       <div class="field">
-        <label for="transp">Transponieren</label>
+        <label for="transp"><x-de>Transponieren</x-de><x-en>Transpose</x-en></label>
         <select id="transp"></select>
       </div>
       <div class="field">
-        <label for="tempo">Tempo (Viertel/min)</label>
+        <label for="tempo"><x-de>Tempo (Viertel/min)</x-de><x-en>Tempo (quarters/min)</x-en></label>
         <input id="tempo" type="number" min="30" max="260" value="132">
       </div>
       <button id="play" type="button">▶ Abspielen</button>
-      <button id="print" type="button" class="ghost2">Drucken</button>
+      <button id="print" type="button" class="ghost2"><x-de>Drucken</x-de><x-en>Print</x-en></button>
+      <button id="helpbtn" type="button" class="ghost2"><x-de>Hilfe</x-de><x-en>Help</x-en></button>
       <div class="field">
-        <label for="demo">Beispiele</label>
+        <label for="demo"><x-de>Beispiele</x-de><x-en>Examples</x-en></label>
         <select id="demo">
-          <optgroup label="Volkstänze, Satz Franz Fuchs (volksmusik.cc)"><option value="mid:ausseerlandler">Ausseer Landler</option><option value="mid:broatnbacherwalzer">Broatnbacher Walzer</option><option value="mid:bauernwalzer">Bauernwalzer</option><option value="mid:bierpolka">Bierpolka</option><option value="mid:altepolka">Alte Polka</option><option value="mid:boarischerausderramsau">Boarischer aus der Ramsau</option><option value="mid:bluemerl">Blümerl</option></optgroup>
-          <optgroup label="Eigene Beispiele">
+          <optgroup id="og-fuchs" label="Volkstänze, Satz Franz Fuchs (volksmusik.cc)"><option value="mid:ausseerlandler">Ausseer Landler</option><option value="mid:broatnbacherwalzer">Broatnbacher Walzer</option><option value="mid:bauernwalzer">Bauernwalzer</option><option value="mid:bierpolka">Bierpolka</option><option value="mid:altepolka">Alte Polka</option><option value="mid:boarischerausderramsau">Boarischer aus der Ramsau</option><option value="mid:bluemerl">Blümerl</option></optgroup>
+          <optgroup id="og-own" label="Eigene Beispiele">
           <option value="laendler">Ländler mit Terzen (Akkordsymbole)</option>
           <option value="walzer">Kleiner Walzer (Stufen geschätzt)</option>
           <option value="stillenacht">Stille Nacht (6/8, Terzen)</option>
           <option value="freude">Freude, schöner Götterfunken</option>
+          <option value="mollwalzer">Moll-Walzer (a-Moll, für Mollbässe)</option>
           <option value="entchen">Alle meine Entchen</option>
           </optgroup>
         </select>
       </div>
       <div class="field">
-        <label for="view">Ansicht</label>
+        <label for="view"><x-de>Ansicht</x-de><x-en>View</x-en></label>
         <select id="view"><option value="griff">Griffschrift</option><option value="tab">Griff-Tabelle</option></select>
       </div>
       <div class="field">
-        <label for="voices">Stimmen im Diskant</label>
+        <label for="voices"><x-de>Stimmen im Diskant</x-de><x-en>Voices in the treble</x-en></label>
         <select id="voices"><option value="2">Melodie + 2. Stimme</option><option value="1">nur Melodie</option><option value="3">bis 3 Stimmen</option></select>
       </div>
-      <label class="filebtn" for="file" tabindex="0" id="filelbl">Noten öffnen (MusicXML / MIDI) …</label>
+      <label class="filebtn" for="file" tabindex="0" id="filelbl"><x-de>Noten öffnen (MusicXML / MIDI) …</x-de><x-en>Open music (MusicXML / MIDI) …</x-en></label>
       <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi">
     </div>
     <div class="controls" style="margin-top:12px">
       <div class="field">
-        <label for="form">Wiederholungen</label>
+        <label for="form"><x-de>Wiederholungen</x-de><x-en>Repeats</x-en></label>
         <select id="form"><option value="rep">mit Wiederholungszeichen</option><option value="long">ausgeschrieben (lang)</option></select>
       </div>
       <div class="field">
-        <label for="lpr">Takte je Zeile</label>
+        <label for="lpr"><x-de>Takte je Zeile</x-de><x-en>Measures per line</x-en></label>
         <select id="lpr"><option value="0">automatisch</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option></select>
       </div>
       <div class="field">
-        <label for="selfrom">Üben: Takt von – bis</label>
+        <label for="selfrom"><x-de>Üben: Takt von – bis</x-de><x-en>Practice: measures from – to</x-en></label>
         <div style="display:flex;gap:6px;align-items:center"><input id="selfrom" type="number" min="1" style="width:5em" placeholder="von"><span>–</span><input id="selto" type="number" min="1" style="width:5em" placeholder="bis"></div>
       </div>
-      <label class="chk"><input id="loop" type="checkbox" checked> Schleife</label>
-      <button id="selclear" type="button" class="ghost2">Auswahl löschen</button>
-      <button id="edit" type="button" class="ghost2" aria-pressed="false">Bearbeiten</button>
-      <button id="reset" type="button" class="ghost2">Änderungen zurücksetzen</button>
+      <label class="chk"><input id="loop" type="checkbox" checked> <x-de>Schleife</x-de><x-en>Loop</x-en></label>
+      <button id="selclear" type="button" class="ghost2"><x-de>Auswahl löschen</x-de><x-en>Clear selection</x-en></button>
+      <button id="edit" type="button" class="ghost2" aria-pressed="false"><x-de>Bearbeiten</x-de><x-en>Edit</x-en></button>
+      <button id="reset" type="button" class="ghost2"><x-de>Änderungen zurücksetzen</x-de><x-en>Undo all changes</x-en></button>
     </div>
-    <p class="edithelp" id="selhelp">Zum Üben: über einer Notenzeile auf die <b>Taktnummer</b> klicken wählt den Takt, mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. „Abspielen“ (oben oder der runde Knopf rechts unten) spielt dann nur diese Takte, mit „Schleife“ immer wieder. Ein Klick auf eine Note <b>in</b> der Auswahl startet ab diesem Takt, ein Klick auf eine Note außerhalb spielt nur diesen Griff an.</p>
-    <p id="edithelp" class="edithelp" hidden>Bearbeiten: <b>Note</b> anklicken = Balgrichtung dieses Griffs umschalten · <b>Bassbuchstaben</b> anklicken = Zug/Druck für den ganzen Bassabschnitt umschalten · <b>Taktstrich</b> anklicken = Zeile danach umbrechen (nochmal = aufheben). Geänderte Stellen sind blau.</p>
-    <div id="drop" class="drop">Oder Datei hierher ziehen: MusicXML (.musicxml, .xml, .mxl) oder MIDI (.mid). Viele Volkstänze gibt es als MIDI bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): Seite eines Stücks öffnen, „Midi-Datei downloaden“, Datei hier hineinziehen.</div>
+    <p class="edithelp" id="selhelp"><x-de>Zum Üben: über einer Notenzeile auf die <b>Taktnummer</b> klicken wählt den Takt, mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. „Abspielen“ (oben oder der runde Knopf rechts unten) spielt dann nur diese Takte, mit „Schleife“ immer wieder. Ein Klick auf eine Note <b>in</b> der Auswahl startet ab diesem Takt, ein Klick auf eine Note außerhalb spielt nur diesen Griff an.</x-de><x-en>To practise: click the <b>measure number</b> above a line of music to select that measure; <b>Shift-click</b> another measure number to select a range. “Play” (at the top, or the round button at the bottom right) then plays only those measures, over and over with “Loop”. Clicking a note <b>inside</b> the selection starts from that measure; clicking a note outside it just sounds that one grip.</x-en></p>
+    <p id="edithelp" class="edithelp" hidden><x-de>Bearbeiten: <b>Note</b> anklicken = Balgrichtung dieses Griffs umschalten · <b>Bassbuchstaben</b> anklicken = Zug/Druck für den ganzen Bassabschnitt umschalten · <b>Taktstrich</b> anklicken = Zeile danach umbrechen (nochmal = aufheben). Geänderte Stellen sind blau.</x-de><x-en>Edit: click a <b>note</b> = switch the bellows direction of that grip · click a <b>bass letter</b> = switch pull/push for the whole bass section · click a <b>bar line</b> = start a new line after it (click again to undo). Changed spots are blue.</x-en></p>
+    <div id="drop" class="drop"><x-de>Oder Datei hierher ziehen: MusicXML (.musicxml, .xml, .mxl) oder MIDI (.mid). Viele Volkstänze gibt es als MIDI bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): Seite eines Stücks öffnen, „Midi-Datei downloaden“, Datei hier hineinziehen. Gescannte Noten oder PDF? Siehe <a href="#" class="pdfhelp">Hilfe → PDF und Scans</a>.</x-de><x-en>Or drop a file here: MusicXML (.musicxml, .xml, .mxl) or MIDI (.mid). Many Austrian folk dances are available as MIDI at <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): open a tune's page, click “Midi-Datei downloaden”, drop the file here. Scanned music or PDF? See <a href="#" class="pdfhelp">Help → PDF and scans</a>.</x-en></div>
   </section>
 
   <section class="panel">
@@ -243,50 +265,288 @@ button.ghost2{background:transparent;color:var(--accent)}
 
   <section class="sides">
     <div class="panel">
-      <h2>Diskant</h2>
+      <h2><x-de>Diskant</x-de><x-en>Treble</x-en></h2>
       <div class="kbd" id="kbd"></div>
-      <div class="legend"><span>Im Knopf oben <b style="color:var(--druck)">Druck</b>, unten <b style="color:var(--zug)">Zug</b></span><span>Kopf (tiefe Töne) links</span><span><b style="color:var(--extra)">blau</b> = Zusatzknopf</span></div>
+      <div class="legend"><x-de><span>Im Knopf oben <b style="color:var(--druck)">Druck</b>, unten <b style="color:var(--zug)">Zug</b></span><span>Kopf (tiefe Töne) links</span><span><b style="color:var(--extra)">blau</b> = Zusatzknopf</span></x-de><x-en><span>In each button: top <b style="color:var(--druck)">push</b>, bottom <b style="color:var(--zug)">pull</b></span><span>Head end (low notes) on the left</span><span><b style="color:var(--extra)">blue</b> = extra button</span></x-en></div>
     </div>
     <div class="panel">
       <h2>Bass</h2>
       <div class="kbd" id="bkbd"></div>
-      <div class="legend"><span>Große Knöpfe Grundbass, kleine Begleiter (m = Moll); oben Druck, unten Zug; darüber der Griffschrift-Name</span></div>
+      <div class="legend"><x-de><span>Große Knöpfe Grundbass, kleine Begleiter (m = Moll); oben Druck, unten Zug; darüber der Griffschrift-Name</span><span>Wie beim Diskant: Kopf links, Fuß rechts; oben die Außenreihe (Grundbässe), unten die Innenreihe (Hilfsbässe)</span><span>Begleiter anklicken (obere Hälfte Druck, untere Zug) schaltet Dur ↔ Moll; <b style="color:var(--extra)">blau</b> = gegenüber der Belegung geändert</span></x-de><x-en><span>Large buttons are bass notes, small ones chords (m = minor); top push, bottom pull; above each button its Griffschrift name</span><span>As on the treble: head end left, foot end right; outer row (main basses) on top, inner row (auxiliary basses) below</span><span>Click a chord button (top half push, bottom half pull) to switch major ↔ minor; <b style="color:var(--extra)">blue</b> = changed from the layout</span></x-en></div>
     </div>
   </section>
 
   <section class="panel">
     <h2 id="ttl">Griffweise</h2>
     <div class="legend" id="lg-griff" style="margin:0 0 14px">
-      <span>Jede Note ist ein Knopf: 2. Reihe auf den Linien (Gleichton = Knopf 6 auf der Mittellinie), 1. Reihe in den Zwischenräumen, 3. und 4. Reihe mit Kreuz</span>
+      <x-de><span>Jede Note ist ein Knopf: 2. Reihe auf den Linien (Gleichton = Knopf 6 auf der Mittellinie), 1. Reihe in den Zwischenräumen, 3. und 4. Reihe mit Kreuz</span>
       <span><span style="display:inline-block;width:26px;height:2px;background:var(--fg);vertical-align:middle"></span> Unterstrich = Druck, ohne Strich = Zug</span>
       <span>Bass: Großbuchstabe Grundbass, Kleinbuchstabe Begleiter; A, B, C, D = Bassknopf der G-, C-, F-, B-Reihe, ² = Hilfsbass</span>
-      <span><b style="color:var(--bad)">rot</b> = gegen die Bassrichtung</span>
+      <span><b style="color:var(--bad)">rot</b> = gegen die Bassrichtung</span></x-de>
+      <x-en><span>Every note is a button: row 2 on the lines (Gleichton, button 6, on the middle line), row 1 in the spaces, rows 3 and 4 with a cross</span>
+      <span><span style="display:inline-block;width:26px;height:2px;background:var(--fg);vertical-align:middle"></span> underline = push, no line = pull</span>
+      <span>Bass: capital letter = bass note, small letter = chord; A, B, C, D = bass button belonging to the G, C, F, B row, ² = auxiliary bass</span>
+      <span><b style="color:var(--bad)">red</b> = against the bass direction</span></x-en>
     </div>
     <div id="griff"></div>
     <div class="legend" id="lg-tab" style="margin:0 0 26px" hidden>
-      <span><b style="color:var(--druck);font-family:var(--f-mono)">5</b><small>2</small> = Knopf 5 in Reihe 2 (Knöpfe vom Kopf gezählt)</span>
+      <x-de><span><b style="color:var(--druck);font-family:var(--f-mono)">5</b><small>2</small> = Knopf 5 in Reihe 2 (Knöpfe vom Kopf gezählt)</span>
       <span><b style="color:var(--muted)">•</b> gleicher Griff wie vorher im Takt</span>
       <span><span style="display:inline-block;width:26px;height:5px;background:var(--fg);vertical-align:middle"></span> Unterstrich = Druck, ohne Strich = Zug</span>
       <span>Bass: <b>B</b> Grundbass, <b>b</b> Begleiter (Knopfnamen wie in der Griffschrift)</span>
-      <span><b style="color:var(--bad)">×</b> nicht spielbar, <b style="color:var(--bad)">rot</b> = gegen die Bassrichtung</span>
+      <span><b style="color:var(--bad)">×</b> nicht spielbar, <b style="color:var(--bad)">rot</b> = gegen die Bassrichtung</span></x-de>
+      <x-en><span><b style="color:var(--druck);font-family:var(--f-mono)">5</b><small>2</small> = button 5 in row 2 (buttons counted from the head end)</span>
+      <span><b style="color:var(--muted)">•</b> same grip as earlier in the measure</span>
+      <span><span style="display:inline-block;width:26px;height:5px;background:var(--fg);vertical-align:middle"></span> underline = push, no line = pull</span>
+      <span>Bass: <b>B</b> bass note, <b>b</b> chord (button names as in the Griffschrift)</span>
+      <span><b style="color:var(--bad)">×</b> not playable, <b style="color:var(--bad)">red</b> = against the bass direction</span></x-en>
     </div>
     <div class="tab" id="tab" hidden></div>
   </section>
 
   <button id="fplay" type="button" class="fplay">▶ Abspielen</button>
+<dialog id="help" class="help" aria-labelledby="helpttl">
+  <div class="helphead">
+    <h2 id="helpttl"><x-de>Hilfe zum Griffschrift-Wandler</x-de><x-en>Griffschrift-Wandler help</x-en></h2>
+    <button id="helpclose" type="button" class="ghost2" aria-label="Hilfe schließen"><x-de>Schließen ✕</x-de><x-en>Close ✕</x-en></button>
+  </div>
+  <nav class="helptoc i-de" aria-label="Inhalt">
+    <a href="#h-start">Schnellstart</a><a href="#h-laden">Noten laden</a><a href="#h-pdf">PDF und Scans</a><a href="#h-instr">Instrument</a><a href="#h-lesen">Griffschrift lesen</a><a href="#h-logik">So entscheidet das Programm</a><a href="#h-wdh">Wiederholungen</a><a href="#h-ueben">Üben und Abspielen</a><a href="#h-edit">Bearbeiten</a><a href="#h-druck">Zeilen und Drucken</a><a href="#h-grenzen">Grenzen und Tipps</a><a href="#h-quellen">Quellen</a>
+  </nav>
+  <nav class="helptoc i-en" aria-label="Contents">
+    <a href="#e-start">Quick start</a><a href="#e-laden">Loading music</a><a href="#e-pdf">PDF and scans</a><a href="#e-instr">Instrument</a><a href="#e-lesen">Reading Griffschrift</a><a href="#e-logik">How the program decides</a><a href="#e-wdh">Repeats</a><a href="#e-ueben">Practice and playback</a><a href="#e-edit">Editing</a><a href="#e-druck">Lines and printing</a><a href="#e-grenzen">Limits and tips</a><a href="#e-quellen">Sources</a>
+  </nav>
+  <div class="helpbody">
+   <div class="i-de">
+    <section id="h-start"><h3>Schnellstart</h3>
+      <ol>
+        <li>Oben <b>Stimmung</b>, <b>Diskant</b> und <b>Bass</b> deiner Harmonika einstellen.</li>
+        <li>Auf <b>„Noten öffnen“</b> klicken und eine MusicXML- oder MIDI-Datei wählen, oder die Datei in das gestrichelte Feld ziehen. Zum Ausprobieren gibt es unter <b>Beispiele</b> fertige Stücke.</li>
+        <li>Die Griffschrift erscheint unten. <b>„Abspielen“</b> spielt das Stück vor, die Knöpfe leuchten auf dem Diskant- und Bassbild mit.</li>
+        <li>Mit <b>„Drucken“</b> kommt die Griffschrift auf Papier oder als PDF.</li>
+      </ol>
+      <p>Oben rechts schaltet <b>„English“</b> die ganze Seite auf Englisch um.</p>
+    </section>
+    <section id="h-laden"><h3>Noten laden</h3>
+      <p><b>MusicXML</b> (.musicxml, .xml, .mxl) ist das beste Format. Es kommt aus MuseScore, Finale, Sibelius, Capella und den meisten Notenprogrammen über „Exportieren“. Akkordsymbole in der Datei werden übernommen, ebenso Wiederholungszeichen und 1./2. Schluss.</p>
+      <p><b>MIDI</b> (.mid) geht auch. Die höchste Spur wird zur Melodie, gleichzeitige Töne werden zu Doppelgriffen, die tiefste Spur liefert die Stufen. Bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> gibt es zu fast jedem Volkstanz eine MIDI-Datei (Satz Franz Fuchs): Stück öffnen, „Midi-Datei downloaden“, hier hineinziehen.</p>
+      <p>Hat eine MusicXML-Datei mehrere Stimmen, wählst du unter <b>Stimme</b> die Melodiestimme. <b>Stimmen im Diskant</b> bestimmt, ob nur die Melodie oder auch die 2. (und 3.) Stimme als Doppelgriff gegriffen wird.</p>
+    </section>
+    <section id="h-pdf"><h3>PDF und gescannte Noten</h3>
+      <p>Gescannte Noten oder PDF-Dateien kann der Wandler nicht direkt lesen. Dafür braucht es eine Notenerkennung (OMR), die aus dem Bild wieder Noten macht. Das geht mit einem Zwischenschritt:</p>
+      <ol>
+        <li><b>Audiveris</b> installieren. Es ist kostenlos, quelloffen und läuft unter Windows, macOS und Linux; das Installationsprogramm gibt es auf der Audiveris-Seite bei GitHub.</li>
+        <li>In Audiveris die PDF- oder Bilddatei öffnen und die Erkennung für das ganze Buch starten („Book“ → „Transcribe“).</li>
+        <li>Ergebnis als MusicXML exportieren („Book“ → „Export“, Dateiendung .mxl).</li>
+        <li>Die .mxl-Datei in den Wandler ziehen.</li>
+      </ol>
+      <p><b>Fehler ausbessern:</b> Keine Notenerkennung ist fehlerfrei. Typische Fehler sind falsche Notenwerte, vergessene Vorzeichen, Bögen als Haltebögen und durcheinandergeratene Stimmen. Am bequemsten öffnet man die .mxl-Datei vorher in <b>MuseScore</b> (kostenlos), hört sie sich an, bessert falsche Noten aus und exportiert sie wieder als MusicXML.</p>
+      <p><b>Für gute Ergebnisse beim Scannen:</b> 300 dpi, Graustufen, gerade aufgelegt, keine Schatten am Rand. Saubere Druckausgaben werden viel besser erkannt als Handschrift oder Kopien von Kopien. Einstimmige Melodien mit Akkordsymbolen funktionieren am besten.</p>
+      <p>MuseScore bietet außerdem über musescore.com einen eigenen PDF-Import an; dafür braucht man ein Konto, die Qualität ist ähnlich.</p>
+    </section>
+    <section id="h-instr"><h3>Instrument einstellen</h3>
+      <p><b>Stimmung:</b> alle acht 4-Reiher-Stimmungen von F-B-Es-As bis C-F-B-Es (wie sie Strasser liefert). Die Griffschrift bleibt bei jeder Stimmung gleich, nur die klingenden Töne verschieben sich.</p>
+      <p><b>Diskant:</b> 446 Normal oder 450 Öllerer und Schaborak mit Zusatzknöpfen. Zusatzknöpfe sind im Diskantbild blau umrandet; das Programm nimmt sie nur, wenn sie einen Griff deutlich erleichtern.</p>
+      <p><b>Bass:</b> Normalbass und Schaborak aus der Akkordsuche (hyperbox.org) sowie die Bassbelegungen aus dem Tonbelegungs-Konfigurator von Strasser (harmonika.com): Übergangsbässe, Mollbässe, 1 Mollbass, jeweils auch mit gekoppeltem oder entkoppeltem X- und H-Bass und Basslauf, dazu Klassisch, Strohmeier, Glaser, Pichler, Hubmann, Senekovic, Schaborak, Kalcher, Egger, Svoboda, Zweverink, Guggi und Lenz. Im Bassbild sind große Knöpfe Grundbässe, kleine Begleiter, darüber steht der Name, der in der Griffschrift verwendet wird.</p>
+      <p><b>Mollbegleiter:</b> „wie Belegung“ nimmt die Begleiter so, wie sie in der gewählten Belegung stehen. „Vorlage: Paralleltonarten in Moll“ legt die Begleiter der Hilfsbassreihe, die zu den Paralleltonarten gehören, auf Moll (bei G-C-F-B d-, a- und e-Moll). Für ein individuell gebautes Instrument klickt man im Bassbild auf einen Begleiter: obere Hälfte schaltet den Druck-, untere den Zug-Akkord zwischen Dur und Moll um. Geänderte Begleiter sind blau, die eigene Belegung wird je Bass-System im Browser gemerkt. Das Programm rechnet danach sofort neu und nimmt Mollbegleiter für die Moll-Stufen. Fehlt für eine Stufe der passende Bass oder Begleiter, meldet die Statuszeile das, und „Transponieren: Automatisch“ sucht eine Lage, in der möglichst alles vorhanden ist. Zum Ausprobieren gibt es unter Beispiele den „Moll-Walzer“.</p>
+      <p><b>Transponieren:</b> „Automatisch“ sucht die Lage, in der das Stück am besten auf dem Instrument liegt. Du kannst die Lage auch fest einstellen.</p>
+    </section>
+    <section id="h-lesen"><h3>Griffschrift lesen</h3>
+      <p>Die Griffschrift folgt dem System nach Max Rosenzopf. Sie sieht aus wie Noten, ist aber eine Tabulatur: Jede Note bedeutet einen <b>Knopf</b>, nicht einen Ton. Deshalb gibt es keinen Schlüssel und keine Vorzeichen.</p>
+      <ul>
+        <li><b>2. Reihe:</b> Noten auf den Linien. Der Gleichton (Knopf 6, auf Zug und Druck gleich) steht auf der Mittellinie.</li>
+        <li><b>1. Reihe:</b> Noten in den Zwischenräumen, Knopf 6 zwischen 2. Linie und Mittellinie.</li>
+        <li><b>3. Reihe:</b> Kreuz statt Notenkopf, in den Zwischenräumen.</li>
+        <li><b>4. Reihe:</b> Kreuz statt Notenkopf, auf den Linien.</li>
+        <li><b>Druck</b> = Strich unter dem Bass, <b>Zug</b> = kein Strich.</li>
+        <li><b>Bass:</b> Großbuchstabe = Grundbass, Kleinbuchstabe = Begleiter. A, B, C, D sind die Bassknöpfe, die zur G-, C-, F- und B-Reihe gehören (bei G-C-F-B), ² bedeutet Hilfsbassreihe, ein Stern einen Zusatzbass.</li>
+        <li><b>Blau</b> = Zusatzknopf oder von Hand geänderte Stelle, <b>rot</b> = Griff gegen die Balgrichtung des Basses.</li>
+      </ul>
+      <p>Unter <b>Ansicht</b> gibt es statt der Griffschrift auch eine <b>Griff-Tabelle</b> mit Knopfnummer und Reihe (z. B. 5₂ = Knopf 5 in Reihe 2). Dort steht ein Punkt, wenn derselbe Griff im Takt schon vorkam.</p>
+    </section>
+    <section id="h-logik"><h3>So entscheidet das Programm</h3>
+      <p>Zug und Druck werden <b>vom Bass her</b> entschieden. Zuerst bestimmt das Programm die Stufen (I, IV, V …): aus Akkordsymbolen, aus der Bassspur einer MIDI-Datei (Wechselbass wird erkannt) oder geschätzt aus der Melodie. Dann sucht es über das ganze Stück die Folge von Grundbass und Begleiter mit den kürzesten Wegen; ein Balgwechsel am selben Knopf zählt als besonders flüssig. Die Melodie samt Doppelgriffen folgt der Balgrichtung des Basses. Gibt es einen Ton nur in der anderen Richtung, wird er gegen den Bass gespielt und rot markiert.</p>
+      <p>Oben in der Statuszeile siehst du, wie viele Balgwechsel und Bassknopf-Wechsel herauskommen.</p>
+    </section>
+    <section id="h-wdh"><h3>Wiederholungen</h3>
+      <p>Bei MIDI-Dateien, in denen Wiederholungen ausgeschrieben sind, erkennt das Programm die wiederholten Teile und zeigt sie mit Wiederholungszeichen und 1./2. Schluss. Unter <b>Wiederholungen</b> → „ausgeschrieben (lang)“ siehst du das Stück wieder in voller Länge. Abgespielt wird immer das ganze Stück.</p>
+    </section>
+    <section id="h-ueben"><h3>Üben und Abspielen</h3>
+      <ul>
+        <li><b>Takte wählen:</b> Über der Notenzeile auf die kleine <b>Taktnummer</b> klicken; mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. Alternativ „Üben: Takt von – bis“ ausfüllen.</li>
+        <li><b>Abspielen:</b> Der obere Knopf oder der runde Knopf rechts unten spielt die gewählten Takte, mit <b>Schleife</b> immer wieder. Ein Klick auf eine Note in der Auswahl startet ab diesem Takt.</li>
+        <li><b>Tempo</b> in Vierteln pro Minute einstellen, zum Üben langsamer.</li>
+        <li>Ein Klick auf eine Note außerhalb der Auswahl spielt nur diesen Griff und zeigt den Knopf im Diskant- und Bassbild.</li>
+        <li><b>„Auswahl löschen“</b> spielt wieder das ganze Stück.</li>
+      </ul>
+    </section>
+    <section id="h-edit"><h3>Bearbeiten</h3>
+      <p>Auf <b>„Bearbeiten“</b> klicken, dann:</p>
+      <ul>
+        <li><b>Note</b> anklicken: Balgrichtung dieses Griffs umschalten.</li>
+        <li><b>Bassbuchstaben</b> anklicken: Zug/Druck für den ganzen Bassabschnitt umschalten; die Melodie folgt.</li>
+        <li><b>Taktstrich</b> anklicken: Zeile nach diesem Takt umbrechen, nochmal klicken hebt es auf.</li>
+      </ul>
+      <p>Das Programm rechnet nach jeder Änderung den Rest neu, damit es flüssig weitergeht. Geänderte Stellen sind blau. „Änderungen zurücksetzen“ nimmt alles zurück. Änderungen werden nicht gespeichert und gehen verloren, wenn ein anderes Stück geladen wird; also vor dem Wechseln drucken.</p>
+    </section>
+    <section id="h-druck"><h3>Zeilen und Drucken</h3>
+      <p><b>Takte je Zeile:</b> automatisch nach Platz oder fest 2 bis 8. Einzelne Umbrüche setzt du im Bearbeiten-Modus über den Taktstrich.</p>
+      <p><b>Drucken</b> gibt nur die Griffschrift aus, schwarz auf weiß, auf A4. Im Druckdialog des Browsers kannst du auch „Als PDF speichern“ wählen. In der Claude-Vorschau ist Drucken gesperrt; dort die Seite unter jpascher.github.io/Harmonikabau/griffschrift-wandler/ öffnen.</p>
+    </section>
+    <section id="h-grenzen"><h3>Grenzen und Tipps</h3>
+      <ul>
+        <li>Die Griffwahl ist ein Vorschlag. Wer anders greifen würde, ändert es im Bearbeiten-Modus.</li>
+        <li>Bei MIDI-Dateien kann ein Auftakt die Takteinteilung verschieben; MusicXML ist hier zuverlässiger.</li>
+        <li>Töne, die es auf dem gewählten Instrument nicht gibt, erscheinen in der Tabelle als ×. Oft hilft eine andere Lage unter „Transponieren“.</li>
+        <li>Notenköpfe bei Doppelgriffen werden noch nicht nach außen/innen ausgerichtet.</li>
+        <li>Für Bass-Zusatzknöpfe gibt es keinen einheitlichen Buchstaben; sie tragen den Tonnamen mit Stern.</li>
+      </ul>
+    </section>
+    <section id="h-quellen"><h3>Quellen</h3>
+      <p>Griffschrift nach Max Rosenzopf, Erklärung nach Franz Fuchs (volksmusikschule.at). Diskant- und Bassbelegungen aus der Akkordsuche für Handharmonika von Johann Pascher (hyperbox.org), weitere Bassbelegungen und Stimmungen aus dem Tonbelegungs-Konfigurator von Strasser (harmonika.com). Beispiel-Volkstänze: Satz Franz Fuchs, volksmusik.cc. Programm: Johann Pascher, github.com/jpascher/Harmonikabau.</p>
+    </section>
+   </div>
+   <div class="i-en">
+    <section id="e-start"><h3>Quick start</h3>
+      <ol>
+        <li>At the top, set the <b>Tuning</b>, <b>Treble</b> and <b>Bass</b> to match your accordion.</li>
+        <li>Click <b>“Open music”</b> and choose a MusicXML or MIDI file, or drag the file onto the dashed box. To try things out, <b>Examples</b> has ready-made tunes.</li>
+        <li>The Griffschrift appears below. <b>“Play”</b> plays the tune, and the buttons light up on the treble and bass diagrams as it goes.</li>
+        <li><b>“Print”</b> puts the Griffschrift on paper or into a PDF.</li>
+      </ol>
+      <p>The <b>“Deutsch”</b> button at the top right switches the whole page to German.</p>
+    </section>
+    <section id="e-laden"><h3>Loading music</h3>
+      <p><b>MusicXML</b> (.musicxml, .xml, .mxl) is the best format. MuseScore, Finale, Sibelius, Capella and most notation programs write it via “Export”. Chord symbols in the file are used, as are repeat signs and first/second endings.</p>
+      <p><b>MIDI</b> (.mid) works too. The highest track becomes the melody, simultaneous notes become double stops, and the lowest track supplies the harmonic degrees. <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> has a MIDI file for almost every Austrian folk dance (arrangements by Franz Fuchs): open the tune, click “Midi-Datei downloaden”, drop the file here.</p>
+      <p>If a MusicXML file has several parts, pick the melody under <b>Part</b>. <b>Voices in the treble</b> decides whether only the melody or also the second (and third) voice is played as a double stop.</p>
+    </section>
+    <section id="e-pdf"><h3>PDF and scanned music</h3>
+      <p>The converter cannot read scanned music or PDF files directly. That needs optical music recognition (OMR), which turns the image back into notes. It works with one extra step:</p>
+      <ol>
+        <li>Install <b>Audiveris</b>. It is free, open source and runs on Windows, macOS and Linux; the installer is on the Audiveris page on GitHub.</li>
+        <li>In Audiveris, open the PDF or image file and run recognition for the whole book (“Book” → “Transcribe”).</li>
+        <li>Export the result as MusicXML (“Book” → “Export”, file extension .mxl).</li>
+        <li>Drag the .mxl file into the converter.</li>
+      </ol>
+      <p><b>Fixing mistakes:</b> no music recognition is perfect. Typical errors are wrong note values, missing accidentals, slurs read as ties and voices getting mixed up. The easiest way is to open the .mxl file in <b>MuseScore</b> (free) first, listen to it, correct wrong notes and export it again as MusicXML.</p>
+      <p><b>For good scanning results:</b> 300 dpi, greyscale, page lying straight, no shadows at the edge. Clean printed music is recognised far better than handwriting or copies of copies. Single-line melodies with chord symbols work best.</p>
+      <p>MuseScore also offers its own PDF import through musescore.com; it needs an account, and the quality is similar.</p>
+    </section>
+    <section id="e-instr"><h3>Setting up the instrument</h3>
+      <p><b>Tuning:</b> all eight 4-row tunings from F-B-Es-As (F-B♭-E♭-A♭) to C-F-B-Es (C-F-B♭-E♭), as supplied by Strasser. The Griffschrift is the same for every tuning; only the sounding pitches shift.</p>
+      <p><b>Treble:</b> 446 standard, or 450 Öllerer and Schaborak with extra buttons. Extra buttons have a blue outline in the treble diagram; the program uses them only when they make a grip clearly easier.</p>
+      <p><b>Bass:</b> standard bass and Schaborak from the chord finder (hyperbox.org), plus the bass layouts from the Strasser key-layout configurator (harmonika.com): transition basses, minor basses, 1 minor bass, each also with coupled or uncoupled X and H bass and bass run, as well as Classic, Strohmeier, Glaser, Pichler, Hubmann, Senekovic, Schaborak, Kalcher, Egger, Svoboda, Zweverink, Guggi and Lenz. In the bass diagram, large buttons are bass notes and small ones chords; above each is the name used in the Griffschrift.</p>
+      <p><b>Minor chords:</b> “as in the layout” uses the chord buttons exactly as they are in the chosen layout. “Template: relative minors” switches the chord buttons of the auxiliary bass row that belong to the relative minor keys to minor (on G-C-F-B: D, A and E minor). For an individually built instrument, click a chord button in the bass diagram: the top half switches the push chord, the bottom half the pull chord between major and minor. Changed chord buttons are blue, and your own layout is remembered in the browser for each bass system. The program recalculates at once and uses the minor chords for minor degrees. If the matching bass or chord button for a degree is missing, the status line says so, and “Transpose: Automatic” looks for a key in which as much as possible is available. The “Minor waltz” under Examples lets you try this out.</p>
+      <p><b>Transpose:</b> “Automatic” looks for the key in which the tune lies best on the instrument. You can also set the key yourself.</p>
+    </section>
+    <section id="e-lesen"><h3>Reading Griffschrift</h3>
+      <p>Griffschrift follows the system of Max Rosenzopf. It looks like standard notation but is a tablature: each note stands for a <b>button</b>, not a pitch. That is why there is no clef and there are no accidentals.</p>
+      <ul>
+        <li><b>Row 2:</b> notes on the lines. The Gleichton (button 6, same note on pull and push) sits on the middle line.</li>
+        <li><b>Row 1:</b> notes in the spaces, button 6 between the second line and the middle line.</li>
+        <li><b>Row 3:</b> a cross instead of a note head, in the spaces.</li>
+        <li><b>Row 4:</b> a cross instead of a note head, on the lines.</li>
+        <li><b>Push</b> (Druck) = a line under the bass, <b>pull</b> (Zug) = no line.</li>
+        <li><b>Bass:</b> capital letter = bass note, small letter = chord. A, B, C, D are the bass buttons belonging to the G, C, F and B rows (on a G-C-F-B instrument); ² means the auxiliary bass row, a star an extra bass button.</li>
+        <li><b>Blue</b> = extra button or a spot changed by hand, <b>red</b> = grip played against the bellows direction of the bass.</li>
+      </ul>
+      <p>Under <b>View</b> you can switch from the Griffschrift to a <b>grip table</b> with button number and row (e.g. 5₂ = button 5 in row 2). A dot there means the same grip already came earlier in the measure.</p>
+    </section>
+    <section id="e-logik"><h3>How the program decides</h3>
+      <p>Pull and push are decided <b>from the bass</b>. First the program determines the harmonic degrees (I, IV, V …): from chord symbols, from the bass track of a MIDI file (alternating bass is recognised), or estimated from the melody. Then it searches the whole tune for the sequence of bass and chord buttons with the shortest moves; a bellows change on the same button counts as especially smooth. The melody, double stops included, follows the bellows direction of the bass. If a note exists only in the other direction, it is played against the bass and marked red.</p>
+      <p>The status line at the top shows how many bellows changes and bass button changes result.</p>
+    </section>
+    <section id="e-wdh"><h3>Repeats</h3>
+      <p>In MIDI files where repeats are written out, the program finds the repeated sections and shows them with repeat signs and first/second endings. <b>Repeats</b> → “written out (long)” shows the tune at full length again. Playback always plays the whole tune.</p>
+    </section>
+    <section id="e-ueben"><h3>Practice and playback</h3>
+      <ul>
+        <li><b>Selecting measures:</b> click the small <b>measure number</b> above the line of music; <b>Shift-click</b> another measure number to make a range. Or fill in “Practice: measures from – to”.</li>
+        <li><b>Play:</b> the button at the top or the round button at the bottom right plays the selected measures, over and over with <b>Loop</b>. Clicking a note inside the selection starts from that measure.</li>
+        <li>Set the <b>tempo</b> in quarter notes per minute; slower for practising.</li>
+        <li>Clicking a note outside the selection plays just that grip and shows the button on the treble and bass diagrams.</li>
+        <li><b>“Clear selection”</b> goes back to playing the whole tune.</li>
+      </ul>
+    </section>
+    <section id="e-edit"><h3>Editing</h3>
+      <p>Click <b>“Edit”</b>, then:</p>
+      <ul>
+        <li>Click a <b>note</b>: switch the bellows direction of that grip.</li>
+        <li>Click a <b>bass letter</b>: switch pull/push for the whole bass section; the melody follows.</li>
+        <li>Click a <b>bar line</b>: start a new line after that measure; click again to undo.</li>
+      </ul>
+      <p>After every change the program recalculates the rest so that it keeps flowing. Changed spots are blue. “Undo all changes” takes everything back. Changes are not saved and are lost when another tune is loaded, so print before switching.</p>
+    </section>
+    <section id="e-druck"><h3>Lines and printing</h3>
+      <p><b>Measures per line:</b> automatic to fit the space, or a fixed 2 to 8. Single line breaks are set in edit mode via the bar line.</p>
+      <p><b>Print</b> outputs only the Griffschrift, black on white, on A4. In the browser's print dialog you can also choose “Save as PDF”. Printing is blocked in the Claude preview; open the page at jpascher.github.io/Harmonikabau/griffschrift-wandler/ instead.</p>
+    </section>
+    <section id="e-grenzen"><h3>Limits and tips</h3>
+      <ul>
+        <li>The choice of grips is a suggestion. If you would play it differently, change it in edit mode.</li>
+        <li>In MIDI files a pickup (anacrusis) can shift the measure boundaries; MusicXML is more reliable here.</li>
+        <li>Notes that do not exist on the chosen instrument appear as × in the table. Another key under “Transpose” often helps.</li>
+        <li>Note heads in double stops are not yet offset to the left and right.</li>
+        <li>There is no standard letter for extra bass buttons; they carry the note name with a star.</li>
+      </ul>
+    </section>
+    <section id="e-quellen"><h3>Sources</h3>
+      <p>Griffschrift after Max Rosenzopf, explanation after Franz Fuchs (volksmusikschule.at). Treble and bass layouts from the chord finder for button accordion by Johann Pascher (hyperbox.org); further bass layouts and tunings from the Strasser key-layout configurator (harmonika.com). Example folk dances: arrangements by Franz Fuchs, volksmusik.cc. Program: Johann Pascher, github.com/jpascher/Harmonikabau.</p>
+    </section>
+   </div>
+  </div>
+</dialog>
+
   <section class="panel notes">
-    <h2>So entscheidet das Programm</h2>
-    <ul>
+    <h2><x-de>So entscheidet das Programm</x-de><x-en>How the program decides</x-en></h2>
+    <ul class="i-de">
       <li>Stehen in der MusicXML-Datei Akkordsymbole, gelten diese. Sonst schätzt das Programm die Stufe pro Takt aus der Melodie, bei Bedarf auch pro halbem Takt.</li>
       <li>Jede Stufe liegt am Bass auf mehreren Knöpfen und in beiden Balgrichtungen. Gewählt wird über das ganze Stück die Folge mit den kürzesten Wegen. Ein Balgwechsel am selben Knopf (z. B. I auf Druck, V auf Zug) zählt als besonders flüssig.</li>
       <li>Doppelgriffe und Akkorde in der Melodie werden als ein Griff gesucht: alle Töne in derselben Balgrichtung, auf verschiedenen Knöpfen und mit einer Hand greifbar.</li>
       <li>Die Griffschrift folgt dem System nach Max Rosenzopf (ohne Schlüssel und Vorzeichen, Unterstrich = Druck, Bass mit Knopfbuchstaben). Diskant- und Bassbelegungen sind wählbar. Zusatzknöpfe im Diskant (gegenüber 446 Normal) werden blau gezeigt und nur genommen, wenn sie den Griff deutlich erleichtern. Zusatzknöpfe im Bass tragen ihren Tonnamen mit Stern, weil die Griffschrift dafür keinen festen Buchstaben hat.</li>
+    </ul>
+    <ul class="i-en">
+      <li>If the MusicXML file contains chord symbols, they are used. Otherwise the program estimates the degree for each measure from the melody, and per half measure where needed.</li>
+      <li>Every degree sits on several bass buttons and in both bellows directions. Across the whole tune, the sequence with the shortest moves is chosen. A bellows change on the same button (e.g. I on push, V on pull) counts as especially smooth.</li>
+      <li>Double stops and chords in the melody are searched for as one grip: all notes in the same bellows direction, on different buttons and reachable with one hand.</li>
+      <li>The Griffschrift follows the system of Max Rosenzopf (no clef or accidentals, underline = push, bass with button letters). Treble and bass layouts can be chosen. Extra treble buttons (compared with 446 standard) are shown in blue and used only when they make the grip clearly easier. Extra bass buttons carry their note name with a star, because Griffschrift has no fixed letter for them.</li>
     </ul>
   </section>
 </div>
 
 <script>
 "use strict";
+// ======== Sprache / language
+const isDe=s=>(s||"de").toLowerCase().startsWith("de");
+let LANG="de";
+try{const q=new URLSearchParams(location.search).get("lang");let s=null;try{s=localStorage.getItem("gw-lang");}catch(e){}LANG=q?(isDe(q)?"de":"en"):(s||(isDe(navigator.language)?"de":"en"));}catch(e){LANG=isDe(navigator.language)?"de":"en";}
+if(LANG!=="en")LANG="de";
+const TX=(de,en)=>LANG==="en"?en:de;
+// Texte der Auswahllisten (value → [de,en])
+const OPT={
+  disk:{"450s":["450 Öllerer und Schaborak","450 Öllerer and Schaborak"],"446":["446 Normal","446 standard"]},
+  bass:{s22:["Schaborak/Pauli 22, 3 Koppelungen","Schaborak/Pauli 22, 3 couplings"],s21:["Schaborak 21, 2 Koppelungen","Schaborak 21, 2 couplings"],s18:["Schaborak 18, 2 Koppelungen","Schaborak 18, 2 couplings"],s16:["Schaborak 16","Schaborak 16"],normal:["Normalbass 16 (Öllerer)","Standard bass 16 (Öllerer)"]},
+  demo:{laendler:["Ländler mit Terzen (Akkordsymbole)","Ländler in thirds (chord symbols)"],walzer:["Kleiner Walzer (Stufen geschätzt)","Little waltz (degrees estimated)"],stillenacht:["Stille Nacht (6/8, Terzen)","Silent Night (6/8, thirds)"],freude:["Freude, schöner Götterfunken","Ode to Joy"],mollwalzer:["Moll-Walzer (a-Moll, für Mollbässe)","Minor waltz (A minor, for minor basses)"],entchen:["Alle meine Entchen","Alle meine Entchen (children's song)"]},
+  view:{griff:["Griffschrift","Griffschrift"],tab:["Griff-Tabelle","Grip table"]},
+  voices:{"2":["Melodie + 2. Stimme","Melody + 2nd voice"],"1":["nur Melodie","Melody only"],"3":["bis 3 Stimmen","Up to 3 voices"]},
+  form:{rep:["mit Wiederholungszeichen","with repeat signs"],long:["ausgeschrieben (lang)","written out (long)"]},
+  lpr:{"0":["automatisch","automatic"]},
+  bmoll:{std:["wie Belegung","as in the layout"],tpl:["Vorlage: Paralleltonarten in Moll","Template: relative minors"],own:["eigene (im Bassbild anklicken)","custom (click in the bass diagram)"]}
+};
+function applyStaticLang(){
+  document.documentElement.lang=LANG;document.documentElement.classList.toggle("en",LANG==="en");
+  for(const id in OPT){const s=document.getElementById(id);if(!s)continue;[...s.options].forEach(o=>{const t=OPT[id][o.value];if(t)o.textContent=t[LANG==="en"?1:0];});}
+  const og=(id,de,en)=>{const g=document.getElementById(id);if(g)g.label=TX(de,en);};
+  og("og-fuchs","Volkstänze, Satz Franz Fuchs (volksmusik.cc)","Austrian folk dances, arr. Franz Fuchs (volksmusik.cc)");og("og-own","Eigene Beispiele","Own examples");og("og-hyper","Akkordsuche (hyperbox.org)","Chord finder (hyperbox.org)");og("og-strasser","Strasser (harmonika.com)","Strasser (harmonika.com)");
+  const ts=document.getElementById("transp");if(ts)[...ts.options].forEach(o=>{if(o.value==="auto")o.textContent=TX("Automatisch (beste Lage)","Automatic (best key)");else{const t=+o.value;o.textContent=t===0?"Original":(t>0?"+":"")+t+TX(" Halbtöne"," semitones");}});
+  const ps=document.getElementById("part");if(ps)[...ps.options].forEach(o=>{if(o.dataset.auto)o.textContent=TX("Stimme ","Part ")+o.dataset.auto;if(o.dataset.midi)o.textContent=TX("Melodie (aus MIDI)","Melody (from MIDI)");});
+  document.getElementById("selfrom").placeholder=TX("von","from");document.getElementById("selto").placeholder=TX("bis","to");
+  document.getElementById("helpclose").setAttribute("aria-label",TX("Hilfe schließen","Close help"));
+  const lb=document.getElementById("lang");lb.textContent=LANG==="en"?"Deutsch":"English";lb.lang=LANG==="en"?"de":"en";
+  lb.title=LANG==="en"?"Auf Deutsch umschalten":"Switch to English";
+  document.title=TX("Griffschrift-Wandler – Steirische Harmonika","Griffschrift-Wandler – Styrian accordion");
+}
 // ======== Instrumente. Diskant: Halbtöne über dem tiefsten Ton der 1. Reihe (bei G-C-F-B = G, MIDI 43). 98 = kein Knopf.
 const DISKANTS={
   "446":{name:"446 Normal",
@@ -316,7 +576,38 @@ const BASSES={
     [["C#","C","c","G","g","D","d","A","a","E","G#"],["H","G","g","D","d","A","a","E","e","F","D#"]],
     [["A","E","em","H","hm","F#","f#","C#","c#m","B","b"],["E","F","f","C","c","G","g","H","h","C#","c#"]]]}
 };
-const STIMMUNGEN={"GCFB":{name:"G-C-F-B",shift:-2},"ADGC":{name:"A-D-G-C",shift:0},"BEsAsDes":{name:"B-Es-As-Des",shift:1},"FBEsAs":{name:"F-B-Es-As",shift:-4}};
+// Strasser-Bassbelegungen (harmonika.com, Tonbelegungs-Konfigurator 4-Reiher), notiert in A-D-G-C
+BASSES["st00"]={name:"Übergangsbässe, 15 Tasten",en:"Transition basses, 15 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "E", "", "", ""], ["", "F", "f", "C", "c", "G", "g", "H", "", "", ""]]]};
+BASSES["st04"]={name:"Übergangsbässe, X-Bass gekoppelt",en:"Transition basses, X bass coupled",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "E", "", "", ""], ["", "F", "f", "C", "c", "G", "g", "H", "", "", ""]]]};
+BASSES["st05"]={name:"Übergangsbässe, X- und H-Bass entkoppelt",en:"Transition basses, X and H bass uncoupled",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "", "", ""], ["", "F", "f", "C", "c", "G", "g", "Fis", "", "", ""]]]};
+BASSES["st06"]={name:"Mollbässe, 15 Tasten",en:"Minor basses, 15 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "E", "", "", ""], ["", "F", "f", "E", "em", "H", "hm", "H", "", "", ""]]]};
+BASSES["st07"]={name:"Mollbässe, WB Basslauf",en:"Minor basses, WB bass run",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "E", "", "", ""], ["", "F", "f", "E", "em", "H", "hm", "Cis", "", "", ""]]]};
+BASSES["st08"]={name:"Mollbässe, X-Bass gekoppelt (wie Michlbauer)",en:"Minor basses, X bass coupled (as Michlbauer)",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "E", "", "", ""], ["", "F", "f", "E", "em", "H", "hm", "H", "", "", ""]]]};
+BASSES["st09"]={name:"Mollbässe, X- und H-Bass entkoppelt (wie Michlbauer)",en:"Minor basses, X and H bass uncoupled (as Michlbauer)",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "", "", ""], ["", "F", "f", "E", "em", "H", "hm", "Fis", "", "", ""]]]};
+BASSES["st10"]={name:"Mollbässe, X- und H-Bass entkoppelt mit Basslauf",en:"Minor basses, X and H bass uncoupled with bass run",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "", "", ""], ["", "F", "f", "E", "em", "H", "hm", "Cis", "", "", ""]]]};
+BASSES["st11"]={name:"1 Mollbass, 15 Tasten",en:"1 minor bass, 15 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "E", "", "", ""], ["", "F", "f", "C", "c", "H", "hm", "H", "", "", ""]]]};
+BASSES["st12"]={name:"1 Mollbass, WB Basslauf (Quetschn-Academy)",en:"1 minor bass, WB bass run (Quetschn-Academy)",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "", ""]], [["", "E", "em", "H", "h", "Fis", "fis", "E", "", "", ""], ["", "F", "f", "C", "c", "H", "hm", "Cis", "", "", ""]]]};
+BASSES["st13"]={name:"1 Mollbass, X-Bass gekoppelt",en:"1 minor bass, X bass coupled",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "E", "", "", ""], ["", "F", "f", "C", "c", "H", "hm", "H", "", "", ""]]]};
+BASSES["st14"]={name:"1 Mollbass, X- und H-Bass entkoppelt",en:"1 minor bass, X and H bass uncoupled",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "", "", ""], ["", "F", "f", "C", "c", "H", "hm", "Fis", "", "", ""]]]};
+BASSES["st15"]={name:"1 Mollbass, X- und H-Bass entkoppelt mit Basslauf",en:"1 minor bass, X and H bass uncoupled with bass run",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", ""]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "", "", ""], ["", "F", "f", "C", "c", "H", "hm", "Cis", "", "", ""]]]};
+BASSES["st19"]={name:"Klassisch, 19 Tasten (wie 5-Reiher)",en:"Classic, 19 buttons (like 5-row)",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "e"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "h"]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "cis", "H", ""], ["", "F", "f", "C", "c", "G", "g", "D", "d", "Fis", ""]]]};
+BASSES["st20"]={name:"Klassisch mit Mollbässen, 19 Tasten",en:"Classic with minor basses, 19 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "e"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "h"]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "cis", "H", ""], ["", "F", "f", "E", "em", "H", "hm", "Fis", "fism", "Fis", ""]]]};
+BASSES["st21"]={name:"Strohmeier, 19 Tasten",en:"Strohmeier, 19 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "e"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "h"]], [["", "E", "em", "H", "h", "Fis", "fis", "Cis", "cism", "Gis", ""], ["", "F", "f", "C", "c", "H", "hm", "Fis", "fism", "Cis", ""]]]};
+BASSES["st22"]={name:"Glaser, 19 Tasten",en:"Glaser, 19 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "em"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "hm"]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "am", "Gis", ""], ["", "F", "f", "C", "c", "G", "g", "Cis", "em", "Fis", ""]]]};
+BASSES["st23"]={name:"Pichler, 19 Tasten, 1 Kopplung",en:"Pichler, 19 buttons, 1 coupling",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "B"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "F", "Cis"]], [["", "E", "em", "H", "hm", "Fis", "fism", "Cis", "cis", "Gis", ""], ["", "F", "f", "C", "c", "G", "g", "H", "am", "Dis", ""]]]};
+BASSES["st24"]={name:"Hubmann, 21 Tasten, 2 Kopplungen",en:"Hubmann, 21 buttons, 2 couplings",src:"Strasser",rows:[[["Gis", "C", "c", "G", "g", "D", "d", "A", "a", "E", "fism"], ["Dis", "G", "g", "D", "d", "A", "a", "E", "e", "H", "cism"]], [["A", "E", "em", "H", "h", "Fis", "fis", "Cis", "cis", "Gis", ""], ["E", "F", "f", "C", "c", "H", "hm", "Cis", "am", "Dis", ""]]]};
+BASSES["st25"]={name:"Senekovic, 20 Tasten, 2 Kopplungen",en:"Senekovic, 20 buttons, 2 couplings",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "E"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "H"]], [["A", "E", "am", "H", "h", "Fis", "fis", "E", "e", "Cis", ""], ["E", "F", "f", "E", "em", "H", "hm", "Cis", "cis", "C", ""]]]};
+BASSES["st26"]={name:"Schaborak, 21 Tasten, 2 Kopplungen",en:"Schaborak, 21 buttons, 2 couplings",src:"Strasser",rows:[[["Gis", "C", "c", "G", "g", "D", "d", "A", "a", "E", "Gis"], ["Dis", "G", "g", "D", "d", "A", "a", "E", "e", "F", "Dis"]], [["A", "E", "em", "H", "hm", "Fis", "fis", "Cis", "cism", "B", "b"], ["E", "F", "f", "C", "c", "G", "g", "H", "h", "Cis", "cis"]]]};
+BASSES["st27"]={name:"Schaborak/Pauli, 22 Tasten, 3 Kopplungen",en:"Schaborak/Pauli, 22 buttons, 3 couplings",src:"Strasser",rows:[[["Cis", "C", "c", "G", "g", "D", "d", "A", "a", "E", "Gis"], ["H", "G", "g", "D", "d", "A", "a", "E", "e", "F", "Dis"]], [["A", "E", "em", "H", "hm", "Fis", "fis", "Cis", "cism", "B", "b"], ["E", "F", "f", "C", "c", "G", "g", "H", "h", "Cis", "cis"]]]};
+BASSES["st28"]={name:"Kalcher I, 17 Tasten",en:"Kalcher I, 17 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", ""], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", ""]], [["", "E", "em", "H", "hm", "Fis", "fism", "Gis", "D", "", ""], ["", "F", "f", "C", "c", "G", "g", "Cis", "Dis", "", ""]]]};
+BASSES["st29"]={name:"Kalcher II, 20 Tasten, 1 Kopplung",en:"Kalcher II, 20 buttons, 1 coupling",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "gis"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "dis"]], [["Gis", "B", "bm", "E", "em", "H", "hm", "Fis", "fism", "Gis", ""], ["Dis", "F", "f", "C", "c", "G", "g", "Cis", "cis", "Dis", ""]]]};
+BASSES["st30"]={name:"Egger, 19 Tasten",en:"Egger, 19 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "e"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "h"]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "am", "Gis", ""], ["", "F", "f", "C", "c", "H", "hm", "Cis", "em", "Gis", ""]]]};
+BASSES["st31"]={name:"Svoboda, 19 Tasten",en:"Svoboda, 19 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "e"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "h"]], [["", "E", "fism", "H", "h", "Fis", "fis", "Cis", "am", "Gis", ""], ["", "F", "f", "C", "c", "H", "hm", "Cis", "em", "Gis", ""]]]};
+BASSES["st32"]={name:"Zweverink, 20 Tasten, 2 Kopplungen",en:"Zweverink, 20 buttons, 2 couplings",src:"Strasser",rows:[[["F", "f", "C", "c", "G", "g", "D", "d", "A", "a", "E"], ["C", "c", "G", "g", "D", "d", "A", "a", "E", "e", "H"]], [["A", "a", "E", "e", "H", "h", "Fis", "fis", "Cis", "", ""], ["E", "e", "F", "f", "E", "em", "H", "hm", "Fis", "", ""]]]};
+BASSES["st33"]={name:"Guggi, 19 Tasten",en:"Guggi, 19 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "e"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "h"]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "am", "G", ""], ["", "F", "f", "E", "em", "H", "hm", "Cis", "am", "G", ""]]]};
+BASSES["st34"]={name:"Lenz R., 19 Tasten",en:"Lenz R., 19 buttons",src:"Strasser",rows:[[["", "C", "c", "G", "g", "D", "d", "A", "a", "E", "e"], ["", "G", "g", "D", "d", "A", "a", "E", "e", "H", "h"]], [["", "E", "e", "H", "h", "Fis", "fis", "Cis", "cism", "Gis", ""], ["", "F", "f", "E", "em", "H", "hm", "Fis", "fism", "Cis", ""]]]};
+for(const k in BASSES)if(BASSES[k].src&&!OPT.bass[k])OPT.bass[k]=[BASSES[k].name,BASSES[k].en];
+const STIMMUNGEN={"FBEsAs":{name:"F-B-Es-As",shift:-4},"FisHEA":{name:"Fis-H-E-A",shift:-3},"GCFB":{name:"G-C-F-B",shift:-2},"GisCisFisH":{name:"Gis-Cis-Fis-H",shift:-1},"ADGC":{name:"A-D-G-C",shift:0},"BEsAsDes":{name:"B-Es-As-Des",shift:1},"HEAD":{name:"H-E-A-D",shift:2},"CFBEs":{name:"C-F-B-Es",shift:3}};
 const NOTEPC={c:0,d:2,e:4,f:5,g:7,a:9,b:10,h:11};
 function parseBassName(n){
   if(!n)return null;const m=n.match(/^([A-Ha-h])(#|is|es|s)?(m)?/);if(!m)return null;
@@ -324,6 +615,25 @@ function parseBassName(n){
   return {t:m[1]===m[1].toUpperCase()?"G":"B",pc:mod(pc,12),minor:!!m[3]};
 }
 let BTNS=[],BBTN=[],INST={};
+// ======== Mollbegleiter: Vorlage oder eigene Wahl (je Bass-System im Browser gemerkt)
+let MOLLSIG="";
+const MOLL_TPL_PC=new Set([6,11,4,9]);   // in A-D-G-C notiert: fis, h, e, a = Paralleltonarten zu A, D, G, C
+function mollTemplate(bk){const s=new Set();BASSES[bk].rows.forEach((rw,ri)=>{if(ri!==1)return;   // nur Hilfsbassreihe
+  for(let i=0;i<11;i++)["D","Z"].forEach((dir,k)=>{const x=parseBassName(rw[k][i]);if(x&&x.t==="B"&&!x.minor&&MOLL_TPL_PC.has(x.pc))s.add(`2:${i}:${dir}`);});});return s;}
+function loadOwn(bk){try{const v=localStorage.getItem("gw-moll-"+bk);return new Set(v?JSON.parse(v):[]);}catch(e){return new Set();}}
+function saveOwn(bk,s){try{localStorage.setItem("gw-moll-"+bk,JSON.stringify([...s]));}catch(e){}}
+let OWN_MOLL={};
+function mollFlips(bk){const m=document.getElementById("bmoll").value;
+  if(m==="tpl")return mollTemplate(bk);
+  if(m==="own"){if(!OWN_MOLL[bk])OWN_MOLL[bk]=loadOwn(bk);return OWN_MOLL[bk];}
+  return new Set();}
+function toggleMoll(b,dir){
+  const bk=document.getElementById("bass").value,ms=document.getElementById("bmoll");
+  const cur=new Set(mollFlips(bk)),k=`${b.row}:${b.idx}:${dir}`;
+  if(cur.has(k))cur.delete(k);else cur.add(k);
+  OWN_MOLL[bk]=cur;saveOwn(bk,cur);ms.value="own";
+  stop();buildInstrument();if(PARTS.length)run();else{drawBass(null);}
+}
 function buildInstrument(){
   const dk=document.getElementById("disk").value,bk=document.getElementById("bass").value,sk=document.getElementById("stimm").value;
   const D=DISKANTS[dk],N=DISKANTS["446"],sh=STIMMUNGEN[sk].shift,base=45+sh;
@@ -332,11 +642,15 @@ function buildInstrument(){
   for(const r of [1,2,3,4])D.druck[r].forEach((v,i)=>{if(v===98)return;const z=D.zug[r][i];
     const extra=N.druck[r][i]!==v||N.zug[r][i]!==z;
     BTNS.push({id:BTNS.length,row:r,idx:i,num:i-REFIDX[r]+6,x2:2*i+SHIFT[r],druck:v+base,zug:z+base,extra});});
-  BBTN=[];
+  BBTN=[];const FL=mollFlips(bk);
   BASSES[bk].rows.forEach((rw,ri)=>{for(let i=0;i<11;i++){const d=parseBassName(rw[0][i]),z=parseBassName(rw[1][i]);if(!d&&!z)continue;
+    // Mollbegleiter: Dur/Moll gegenüber der Belegung umgedreht
+    if(d&&d.t==="B"&&FL.has(`${ri+1}:${i}:D`)){d.minor=!d.minor;d.flip=true;}
+    if(z&&z.t==="B"&&FL.has(`${ri+1}:${i}:Z`)){z.minor=!z.minor;z.flip=true;}
     if(d)d.pc=mod(d.pc+sh,12);if(z)z.pc=mod(z.pc+sh,12);
     BBTN.push({id:BBTN.length,row:ri+1,idx:i,x:i+(ri%2?0.5:0),D:d,Z:z});}});
-  GCACHE={};
+  MOLLSIG=[...FL].sort().join(",");
+  for(const k in BOCACHE)delete BOCACHE[k];GCACHE={};
 }
 const ROWCOST={1:0,2:0,3:0.7,4:1.4};
 const exists=m=>BTNS.some(b=>b.druck===m||b.zug===m);
@@ -364,8 +678,10 @@ function grips(pitches,dir){
 
 // ======== Namen
 const PCN=["c","cis","d","es","e","f","fis","g","gis","a","b","h"];
-const CHN=["C","Cis","D","Es","E","F","Fis","G","As","A","B","H"];
-function nameOf(m){const pc=((m%12)+12)%12,oct=Math.floor(m/12)-1,n=PCN[pc];if(oct<=2)return n[0].toUpperCase()+n.slice(1)+(oct<2?",":"");if(oct===3)return n;return n+"'".repeat(oct-3);}
+const CHN_DE=["C","Cis","D","Es","E","F","Fis","G","As","A","B","H"],CHN_EN=["C","C#","D","Eb","E","F","F#","G","Ab","A","Bb","B"];
+const CHN=new Proxy([],{get:(t,k)=>(LANG==="en"?CHN_EN:CHN_DE)[k]});
+const PCN_EN=["C","C#","D","Eb","E","F","F#","G","G#","A","Bb","B"];
+function nameOf(m){const pc=((m%12)+12)%12,oct=Math.floor(m/12)-1,n=PCN[pc];if(LANG==="en")return PCN_EN[pc]+oct;if(oct<=2)return n[0].toUpperCase()+n.slice(1)+(oct<2?",":"");if(oct===3)return n;return n+"'".repeat(oct-3);}
 const mod=(a,b)=>((a%b)+b)%b;
 
 // ======== MusicXML
@@ -374,12 +690,12 @@ let PARTS=[],TITLE="";
 function loadXMLText(txt){
   const doc=new DOMParser().parseFromString(txt,"application/xml");
   if(doc.querySelector("parsererror"))throw new Error("Die Datei ist kein lesbares MusicXML.");
-  if(doc.documentElement.nodeName==="score-timewise")throw new Error("Diese Datei ist im Format „timewise“. Bitte als normales MusicXML (partwise) exportieren.");
-  if(doc.documentElement.nodeName!=="score-partwise")throw new Error("In der Datei wurde keine Partitur gefunden.");
+  if(doc.documentElement.nodeName==="score-timewise")throw new Error(TX("Diese Datei ist im Format „timewise“. Bitte als normales MusicXML (partwise) exportieren.","This file is in “timewise” format. Please export it as normal (partwise) MusicXML."));
+  if(doc.documentElement.nodeName!=="score-partwise")throw new Error(TX("In der Datei wurde keine Partitur gefunden.","No score was found in this file."));
   PARTS=[...doc.querySelectorAll("score-partwise > part")];
   const names={};doc.querySelectorAll("part-list score-part").forEach(sp=>{names[sp.getAttribute("id")]=((sp.querySelector("part-name")||{}).textContent||"").trim();});
   const sel=document.getElementById("part");sel.innerHTML="";
-  PARTS.forEach((p,i)=>{const o=document.createElement("option");o.value=i;o.textContent=names[p.getAttribute("id")]||("Stimme "+(i+1));sel.appendChild(o);});
+  PARTS.forEach((p,i)=>{const o=document.createElement("option");o.value=i;const nm0=names[p.getAttribute("id")];if(nm0==="Melodie (aus MIDI)"){o.dataset.midi="1";o.textContent=TX(nm0,"Melody (from MIDI)");}else if(nm0)o.textContent=nm0;else{o.dataset.auto=i+1;o.textContent=TX("Stimme ","Part ")+(i+1);}sel.appendChild(o);});
   const t=doc.querySelector("work-title")||doc.querySelector("movement-title");TITLE=t?t.textContent.trim():"";
   NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();SEL=null;
   const sf=document.getElementById("selfrom");if(sf){sf.value="";document.getElementById("selto").value="";}
@@ -439,13 +755,13 @@ function chordSet(key,minor){
 // Bassoptionen für einen Akkord: Grundbass + passender Begleiter in derselben Balgrichtung
 const BOCACHE={};
 function bassOpts(c){
-  const key=c.pc+(c.minor?"m":"")+"|"+INST.bass.name+INST.stimm.name;if(BOCACHE[key])return BOCACHE[key];
+  const key=c.pc+(c.minor?"m":"")+"|"+INST.bass.name+INST.stimm.name+"|"+MOLLSIG;if(BOCACHE[key])return BOCACHE[key];
   const out=[];
   for(const d of ["D","Z"]){
     const Gs=BBTN.filter(b=>b[d]&&b[d].t==="G"&&b[d].pc===c.pc);
     const Bs=BBTN.filter(b=>b[d]&&b[d].t==="B"&&b[d].pc===c.pc&&b[d].minor===!!c.minor);
     const pairs=[];
-    for(const g of Gs){if(Bs.length)for(const b of Bs)pairs.push({g,b,pd:Math.abs(g.x-b.x)+1.2*Math.abs(g.row-b.row)});else pairs.push({g,b:null,pd:3});}
+    for(const g of Gs){if(Bs.length)for(const b of Bs)pairs.push({g,b,pd:Math.abs(g.x-b.x)+1.2*Math.abs(g.row-b.row)});else pairs.push({g,b:null,pd:6});}
     pairs.sort((x,y)=>x.pd-y.pd);
     pairs.slice(0,4).forEach(p=>out.push({g:p.g,b:p.b,dir:d,pd:p.pd,hx:(p.g.x+(p.b?p.b.x:p.g.x))/2,hy:(p.g.row+(p.b?p.b.row:p.g.row))/2}));
   }
@@ -484,10 +800,11 @@ function buildSegments(measures,t,key,minor){
         if(mi===measures.length-1&&k===cuts.length-2&&c.deg==="I")fc-=1.5;
         for(const bo of bassOpts(c))opts.push({...bo,chord:c,unary:2.2*fc+0.5*bo.pd+0.8*(bo.hy-1)});
       }
+      const fb=!opts.length&&!!harm;   // Akkordsymbol, aber Grundbass fehlt auf dem Instrument
       if(!opts.length)for(const c of chords)for(const bo of bassOpts(c))opts.push({...bo,chord:c,unary:3+fit(c,notes)+0.5*bo.pd});
       const skey=mi+":"+a.toFixed(4),fd=SEG_FORCE[skey];
       if(fd){const f=opts.filter(o=>o.dir===fd);if(f.length)opts=f;}
-      segs.push({mi,a,b,opts,len:b-a,harm,key:skey});
+      segs.push({mi,a,b,opts,len:b-a,harm,key:skey,fb});
       lastHarm=harm;
     }
   });
@@ -547,32 +864,34 @@ function solve(measures,t,key,minor){
   const against=notes.filter(n=>n.against).length;
   let changes=0,ld=null;segs.forEach(s=>{if(!s.pick)return;if(ld&&ld!==s.pick.dir)changes++;ld=s.pick.dir;});
   let bmoves=0;for(let i=1;i<segs.length;i++)if(segs[i].pick&&segs[i-1].pick&&segs[i].pick.g!==segs[i-1].pick.g)bmoves++;
-  return {segs,notes,total,bad,missing,against,changes,bmoves,n:notes.length};
+  const nobeg=segs.filter(s=>s.pick&&(!s.pick.b||s.fb)).length;   // Bassabschnitte ohne passenden Begleiter (z. B. Moll fehlt)
+  const nofb=segs.filter(s=>s.fb).length;
+  return {segs,notes,total,bad,missing,against,changes,bmoves,nobeg,nofb,n:notes.length};
 }
 
 // ======== Transponieren
 const tsel=document.getElementById("transp");
-(function(){const o=document.createElement("option");o.value="auto";o.textContent="Automatisch (beste Lage)";tsel.appendChild(o);
-  for(let t=-12;t<=12;t++){const x=document.createElement("option");x.value=t;x.textContent=t===0?"Original":(t>0?"+":"")+t+" Halbtöne";tsel.appendChild(x);}tsel.value="auto";})();
+(function(){const o=document.createElement("option");o.value="auto";o.textContent=TX("Automatisch (beste Lage)","Automatic (best key)");tsel.appendChild(o);
+  for(let t=-12;t<=12;t++){const x=document.createElement("option");x.value=t;x.textContent=t===0?"Original":(t>0?"+":"")+t+TX(" Halbtöne"," semitones");tsel.appendChild(x);}tsel.value="auto";})();
 
 // ======== Ablauf
 let P=null,R=null;
 function run(){
   const st=document.getElementById("status");
-  if(!PARTS.length){st.textContent="Noch keine Noten geladen.";return;}
+  if(!PARTS.length){st.textContent=TX("Noch keine Noten geladen.","No music loaded yet.");return;}
   stop();
   P=parsePart(PARTS[+document.getElementById("part").value||0]);
   const nN=P.measures.reduce((s,m)=>s+m.ev.filter(e=>e.type==="note").length,0);
-  if(!nN){st.innerHTML='<span class="err">In dieser Stimme stehen keine Noten.</span>';document.getElementById("tab").innerHTML="";return;}
+  if(!nN){st.innerHTML='<span class="err">'+TX("In dieser Stimme stehen keine Noten.","This part contains no notes.")+'</span>';document.getElementById("tab").innerHTML="";return;}
   let best=null,bt=0;
   const sub=P.measures.slice(0,32);
-  const tryT=t=>{const r=solve(sub,t,mod(P.keyPc+t,12),P.minor);r.score=r.bad*100+r.missing*20+r.against*8+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03);return r;};
+  const tryT=t=>{const r=solve(sub,t,mod(P.keyPc+t,12),P.minor);r.score=r.bad*100+r.missing*20+r.against*8+r.nobeg*6+r.nofb*15+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03);return r;};
   if(tsel.value==="auto"){for(let t=-12;t<=12;t++){const r=tryT(t);if(!best||r.score<best.score){best=r;bt=t;}}}
   else bt=+tsel.value;
   BT=bt;
   R=solve(P.measures,bt,mod(P.keyPc+bt,12),P.minor);
   buildDisplay();updateStatus();
-  document.getElementById("ttl").textContent=(TITLE?("Griffweise: "+TITLE):"Griffweise")+(CREDIT?" ("+CREDIT+")":"");
+  setTitle();
   renderTab();renderGriff();drawKbd(null);drawBass(null);
 }
 // nach einer Änderung neu rechnen, Lage und Darstellung bleiben
@@ -581,24 +900,28 @@ function resolve(){
   R=solve(P.measures,BT,mod(P.keyPc+BT,12),P.minor);
   updateStatus();renderTab();renderGriff();
 }
+function creditText(){return CREDIT?TX("Satz: ","Arr. ")+CREDIT:"";}
+function setTitle(){const w=TX("Griffweise","Fingering");document.getElementById("ttl").textContent=(TITLE?(w+": "+TITLE):w)+(CREDIT?" ("+creditText()+")":"");}
 function updateStatus(){
   const st=document.getElementById("status"),bt=BT;
-  const key=CHN[mod(P.keyPc+bt,12)]+"-Dur";
+  const kn=CHN[mod(P.keyPc+bt+(P.minor?9:0),12)],key=(P.minor&&LANG!=="en"?kn.toLowerCase():kn)+(P.minor?TX("-Moll"," minor"):TX("-Dur"," major"));
   const nf=Object.keys(NOTE_FORCE).length+Object.keys(SEG_FORCE).length;
-  st.innerHTML=`<span class="pill">${R.n} Griffe</span>`+
-    `<span class="pill warn">${R.changes} Balgwechsel</span>`+
-    `<span class="pill">${R.bmoves} Bassknopf-Wechsel</span>`+
-    (R.against?`<span class="pill bad">${R.against} Griffe gegen den Bass</span>`:"")+
-    (R.bad+R.missing?`<span class="pill bad">${R.bad+R.missing} Töne nicht greifbar</span>`:"")+
-    `<span>${key}, ${bt===0?"Originallage":(bt>0?"+":"")+bt+" Halbtöne"}${tsel.value==="auto"?" (automatisch)":""}</span>`+
-    (nf?`<span class="pill" style="background:transparent;border:1px solid var(--extra);color:var(--extra)">${nf} Änderung${nf>1?"en":""} von Hand</span>`:"")+
-    (DISPLAY.length<P.measures.length?`<span>${DISPLAY.length} von ${P.measures.length} Takten (Wiederholungen zusammengefasst)</span>`:"");
+  st.innerHTML=`<span class="pill">${R.n} ${TX("Griffe","grips")}</span>`+
+    `<span class="pill warn">${R.changes} ${TX("Balgwechsel",R.changes===1?"bellows change":"bellows changes")}</span>`+
+    `<span class="pill">${R.bmoves} ${TX("Bassknopf-Wechsel",R.bmoves===1?"bass button change":"bass button changes")}</span>`+
+    (R.against?`<span class="pill bad">${R.against} ${TX("Griffe gegen den Bass",R.against===1?"grip against the bass":"grips against the bass")}</span>`:"")+
+    (R.nobeg?`<span class="pill bad">${R.nobeg} ${TX(R.nobeg===1?"Bassabschnitt ohne passenden Bass/Begleiter":"Bassabschnitte ohne passenden Bass/Begleiter",R.nobeg===1?"bass section without a matching bass/chord button":"bass sections without a matching bass/chord button")}</span>`:"")+
+    (R.bad+R.missing?`<span class="pill bad">${R.bad+R.missing} ${TX("Töne nicht greifbar",R.bad+R.missing===1?"note not playable":"notes not playable")}</span>`:"")+
+    `<span>${key}, ${bt===0?TX("Originallage","original key"):(bt>0?"+":"")+bt+TX(" Halbtöne"," semitones")}${tsel.value==="auto"?TX(" (automatisch)"," (automatic)"):""}</span>`+
+    (nf?`<span class="pill" style="background:transparent;border:1px solid var(--extra);color:var(--extra)">${nf} ${TX("Änderung"+(nf>1?"en":"")+" von Hand",(nf>1?"changes":"change")+" by hand")}</span>`:"")+
+    (DISPLAY.length<P.measures.length?`<span>${TX(`${DISPLAY.length} von ${P.measures.length} Takten (Wiederholungen zusammengefasst)`,`${DISPLAY.length} of ${P.measures.length} measures (repeats combined)`)}</span>`:"");
 }
 // ======== Wiederholungen: Anzeigeliste der Takte
 function measureFP(m){return m.ev.map(e=>e.type[0]+e.on.toFixed(3)+":"+e.dur.toFixed(3)+":"+(e.midis?e.midis.slice(0,2).join("."):"")).join("|")+"#"+m.len.toFixed(3);}
 function buildDisplay(){
   const M=P.measures,n=M.length,mode=document.getElementById("form").value;
   const explicit=M.some(m=>m.repStart||m.repEnd||m.ending);
+  ALIAS=M.map((m,mi)=>mi);   // Takt → Takt, der dafür angezeigt wird
   if(explicit||mode==="long"){DISPLAY=M.map((m,mi)=>({mi,repStart:m.repStart,repEnd:m.repEnd,volta:m.ending}));return;}
   const fp=M.map(measureFP),hasNotes=M.map(m=>m.ev.some(e=>e.type==="note"));
   const eq=(a,b,len)=>{for(let j=0;j<len;j++)if(fp[a+j]!==fp[b+j])return false;return true;};
@@ -612,7 +935,7 @@ function buildDisplay(){
     }
     if(!f){out.push({mi:i});i++;continue;}
     const {L,k}=f;
-    for(let j=0;j<L-k;j++)out.push({mi:i+j,repStart:j===0,repEnd:k===0&&j===L-1});
+    for(let j=0;j<L-k;j++){out.push({mi:i+j,repStart:j===0,repEnd:k===0&&j===L-1});ALIAS[i+L+j]=i+j;}
     if(k){for(let j=0;j<k;j++)out.push({mi:i+L-k+j,volta:"1",repEnd:j===k-1});
           for(let j=0;j<k;j++)out.push({mi:i+2*L-k+j,volta:"2"});}
     i+=2*L;
@@ -620,7 +943,7 @@ function buildDisplay(){
   DISPLAY=out;
 }
 function evWidth(e){return Math.max(32,Math.min(110,24*e.dur+14));}
-let UID=0;
+let UID=0,ALIAS=[];
 function renderTab(){
   const tab=document.getElementById("tab");tab.innerHTML="";
   DISPLAY.forEach((dd,di)=>{
@@ -633,20 +956,20 @@ function renderTab(){
     m.ev.forEach(e=>{
       const d=document.createElement("div");const w=evWidth(e);d.style.width=w+"px";
       const r=e._r||{};segW[r.si]=(segW[r.si]||0)+w;
-      if(e.type==="rest"){d.className="ev rest";d.innerHTML=`<span class="nm"></span><div class="stack"><span class="k"><b>·</b></span></div><span class="bar"></span>`;d.title="Pause";}
-      else if(e.type==="tie"){const g=(e.src._r||{}).g;d.className="ev rest "+(g?(g.dir==="Z"?"zug":"druck"):"");d.innerHTML=`<span class="nm"></span><div class="stack"><span class="k"><b>‿</b></span></div><span class="bar"></span>`;d.title="Haltebogen";}
+      if(e.type==="rest"){d.className="ev rest";d.innerHTML=`<span class="nm"></span><div class="stack"><span class="k"><b>·</b></span></div><span class="bar"></span>`;d.title=TX("Pause","Rest");}
+      else if(e.type==="tie"){const g=(e.src._r||{}).g;d.className="ev rest "+(g?(g.dir==="Z"?"zug":"druck"):"");d.innerHTML=`<span class="nm"></span><div class="stack"><span class="k"><b>‿</b></span></div><span class="bar"></span>`;d.title=TX("Haltebogen","Tie");}
       else{
         const g=r.g;e._uid=e._uid||("u"+(++UID));
         const rep=g&&seen.has(g.key);if(g)seen.add(g.key);
         let html="",tip=[];
         for(const p of r.pitches){
           const hit=g&&g.btns.find(x=>x.m===p);
-          if(hit){html+=`<span class="k r${hit.b.row}${rep?" rep":""}${hit.b.extra?" ex":""}"><b>${rep?"•":hit.b.num}</b>${rep?"":`<i>${hit.b.row}</i>`}</span>`;tip.push(`${nameOf(p)}: Reihe ${hit.b.row}, Knopf ${hit.b.num}`);}
-          else{html+=`<span class="k bad"><b>×</b></span>`;tip.push(`${nameOf(p)}: ${exists(p)?"nur in der anderen Balgrichtung":"nicht auf dem Instrument"}`);}
+          if(hit){html+=`<span class="k r${hit.b.row}${rep?" rep":""}${hit.b.extra?" ex":""}"><b>${rep?"•":hit.b.num}</b>${rep?"":`<i>${hit.b.row}</i>`}</span>`;tip.push(`${nameOf(p)}: ${TX("Reihe","row")} ${hit.b.row}, ${TX("Knopf","button")} ${hit.b.num}`);}
+          else{html+=`<span class="k bad"><b>×</b></span>`;tip.push(`${nameOf(p)}: ${exists(p)?TX("nur in der anderen Balgrichtung","only in the other bellows direction"):TX("nicht auf dem Instrument","not on the instrument")}`);}
         }
         d.className="ev "+(g?(g.dir==="Z"?"zug":"druck"):"bad")+(r.against?" against":"")+(NOTE_FORCE[e.key]?" forced":"");
         d.innerHTML=`<span class="nm">${nameOf(r.pitches[0])}</span><div class="stack${r.pitches.length>1?" multi":""}">${html}</div><span class="bar"></span>`;
-        d.title=tip.join("\n")+(g?`\n${g.dir==="Z"?"Zug":"Druck"}${r.against?" (gegen die Bassrichtung)":""}`:"");
+        d.title=tip.join("\n")+(g?`\n${g.dir==="Z"?TX("Zug","pull"):TX("Druck","push")}${r.against?TX(" (gegen die Bassrichtung)"," (against the bass direction)"):""}`:"");
         d.tabIndex=0;d.dataset.uid=e._uid;
         const act=()=>{if(EDIT){toggleNote(e);return;}
           if(SEL&&DISPLAY.slice(SEL.a,SEL.b+1).some(x=>x.mi===mi)){if(playing)stop();else startPlay(mi);return;}
@@ -664,7 +987,7 @@ function renderTab(){
         const nb=Math.max(1,Math.round(s.len/beatUnit(m)));let beats="";
         for(let i=0;i<nb;i++)beats+=`<span class="beat${i?" bg":""}" data-si="${si}" data-b="${i}">${i&&o.b?bassName(o.b,"B"):bassName(o.g,"G")}</span>`;
         b.innerHTML=`<span class="bar"></span><div class="beats">${beats}</div><span class="st">${chordLabel(o.chord)} · ${o.chord.deg||""}</span>`;
-        b.title=`${chordLabel(o.chord)}${o.chord.deg?" (Stufe "+o.chord.deg+")":""}: Grundbass ${bassName(o.g,"G")}, Begleiter ${o.b?bassName(o.b,"B"):"fehlt"}, ${o.dir==="Z"?"Zug":"Druck"}`;
+        b.title=`${chordLabel(o.chord)}${o.chord.deg?TX(" (Stufe "," (degree ")+o.chord.deg+")":""}: ${TX("Grundbass","bass")} ${bassName(o.g,"G")}, ${TX("Begleiter","chord")} ${o.b?bassName(o.b,"B"):TX("fehlt","missing")}, ${o.dir==="Z"?TX("Zug","pull"):TX("Druck","push")}`;
         b.style.cursor="pointer";b.addEventListener("click",()=>{if(EDIT){toggleSeg(s);return;}drawBass(o,"both");});
       }
       bot.appendChild(b);
@@ -690,7 +1013,8 @@ function bassName(b,kind){
   if(BNAME[b.idx])return BNAME[b.idx]+sup;
   const x=b.D||b.Z;const n=CHN[x.pc];return (x.t==="B"?n.toLowerCase():n)+"*"+sup;   // Zusatzknopf: Tonname mit *
 }
-function chordLabel(c){return CHN[c.pc]+(c.minor?"-Moll":"-Dur");}
+function optText(id,obj){const v=Object.keys(id==="disk"?DISKANTS:BASSES).find(k=>(id==="disk"?DISKANTS:BASSES)[k]===obj);const t=OPT[id][v];return t?t[LANG==="en"?1:0]:obj.name;}
+function chordLabel(c){return CHN[c.pc]+(c.minor?TX("-Moll"," minor"):TX("-Dur"," major"));}
 function renderGriff(){
   const host=document.getElementById("griff");if(host.hidden)return;
   const W=PRINT_W||Math.max(340,(host.clientWidth||900)-2);
@@ -730,7 +1054,7 @@ function renderGriff(){
       const m=x.m,mw=x.w*scale,qw=x.qw*scale,X=on=>mx+(10+x.pad)*scale+on*qw;
       if(SEL&&x.di>=SEL.a&&x.di<=SEL.b)svg+=`<rect class="selbg" x="${mx}" y="${yOf(4)-18}" width="${mw}" height="${druckY-yOf(4)+22}"/>`;
       svg+=`<text class="mn" x="${mx+2}" y="${yOf(4)-5}">${m.no}</text>`;
-      const mselSvg=`<rect class="msel" data-di="${x.di}" x="${mx}" y="${yOf(4)-18}" width="24" height="16"><title>Takt ${m.no} zum Üben wählen (Umschalt-Klick: Bereich)</title></rect>`;
+      const mselSvg=`<rect class="msel" data-di="${x.di}" x="${mx}" y="${yOf(4)-18}" width="24" height="16"><title>${TX(`Takt ${m.no} zum Üben wählen (Umschalt-Klick: Bereich)`,`Select measure ${m.no} for practice (Shift-click: range)`)}</title></rect>`;
       if(x.d.repStart){svg+=`<rect class="rp" x="${mx}" y="${yOf(4)}" width="3" height="${8*ST}"/><line class="sl" x1="${mx+6}" x2="${mx+6}" y1="${yOf(4)}" y2="${yOf(-4)}"/><circle class="rp" cx="${mx+10}" cy="${yOf(1)}" r="1.8"/><circle class="rp" cx="${mx+10}" cy="${yOf(-1)}" r="1.8"/>`;}
       if(x.d.volta){const first=x.di===0||DISPLAY[x.di-1].volta!==x.d.volta,lastV=x.di===DISPLAY.length-1||DISPLAY[x.di+1].volta!==x.d.volta;const vy=yOf(Math.max(4,0))-20;
         svg+=`<path class="vt" d="M${mx+2} ${first?vy+10:vy} L${mx+2} ${vy} L${mx+mw-3} ${vy}${lastV&&x.d.volta==="1"?" L"+(mx+mw-3)+" "+(vy+10):""}"/>`;
@@ -795,7 +1119,7 @@ function renderGriff(){
         const fz=SEG_FORCE[s.key]?" forced":"";
         for(let b=0;b<nb;b++)svg+=`<text class="bl${fz}" data-si="${si}" data-b="${b}" x="${X(s.a+b*bu)+6}" y="${bassY}" text-anchor="middle">${b&&o.b?bassName(o.b,"B"):bassName(o.g,"G")}</text>`;
         if(o.dir==="D")svg+=`<line class="dl" x1="${X(s.a)-2}" x2="${X(s.b)-6}" y1="${druckY}" y2="${druckY}"/>`;
-        svg+=`<rect class="bhit" data-si="${si}" x="${X(s.a)-4}" y="${bassY-16}" width="${Math.max(10,X(s.b)-X(s.a))}" height="28"><title>Zug/Druck für diesen Bassabschnitt umschalten</title></rect>`;
+        svg+=`<rect class="bhit" data-si="${si}" x="${X(s.a)-4}" y="${bassY-16}" width="${Math.max(10,X(s.b)-X(s.a))}" height="28"><title>${TX("Zug/Druck für diesen Bassabschnitt umschalten","Switch pull/push for this bass section")}</title></rect>`;
       });
       svg+=mselSvg;
       mx+=mw;
@@ -803,13 +1127,13 @@ function renderGriff(){
       if(x.d.repEnd){svg+=`<circle class="rp" cx="${mx-10}" cy="${yOf(1)}" r="1.8"/><circle class="rp" cx="${mx-10}" cy="${yOf(-1)}" r="1.8"/><line class="sl" x1="${mx-6}" x2="${mx-6}" y1="${yOf(4)}" y2="${yOf(-4)}"/><rect class="rp" x="${mx-3}" y="${yOf(4)}" width="3" height="${8*ST}"/>`;}
       else{svg+=`<line class="sl" x1="${mx}" x2="${mx}" y1="${yOf(4)}" y2="${yOf(-4)}"/>`;
         if(fin)svg+=`<line class="sl" x1="${mx+4}" x2="${mx+4}" y1="${yOf(4)}" y2="${yOf(-4)}" style="stroke-width:3.5"/>`;}
-      if(!fin)svg+=`<rect class="brk${BREAKS.has(x.mi)?" on":""}" data-mi="${x.mi}" x="${mx-5}" y="${yOf(4)-6}" width="10" height="${8*ST+12}"><title>Zeile nach diesem Takt umbrechen</title></rect>`;
+      if(!fin)svg+=`<rect class="brk${BREAKS.has(x.mi)?" on":""}" data-mi="${x.mi}" x="${mx-5}" y="${yOf(4)-6}" width="10" height="${8*ST+12}"><title>${TX("Zeile nach diesem Takt umbrechen","Start a new line after this measure")}</title></rect>`;
     });
     parts.push({s:svg,h:druckY+18});
   });
-  const head=`<text class="hd" x="2" y="12">${TITLE?TITLE+" · ":""}Griffschrift 4-Reiher ${INST.stimm.name}, ${INST.disk.name}, ${INST.bass.name}${CREDIT?" · "+CREDIT:""}</text>`;
+  const head=`<text class="hd" x="2" y="12">${TITLE?TITLE+" · ":""}${TX("Griffschrift 4-Reiher","Griffschrift, 4-row")} ${INST.stimm.name}, ${optText("disk",INST.disk)}, ${optText("bass",INST.bass)}${MOLLSIG?TX(" mit Mollbegleitern"," with minor chords"):""}${CREDIT?" · "+creditText():""}</text>`;
   host.innerHTML=`<svg class="ghead" width="${W}" height="20" viewBox="0 0 ${W} 20">${head.replace('y="12"','y="14"')}</svg>`+
-    parts.map((q,i)=>`<svg class="gsys" width="${W}" height="${q.h}" viewBox="0 0 ${W} ${q.h}" role="img" aria-label="Griffschrift Zeile ${i+1}">${q.s}</svg>`).join("");
+    parts.map((q,i)=>`<svg class="gsys" width="${W}" height="${q.h}" viewBox="0 0 ${W} ${q.h}" role="img" aria-label="${TX("Griffschrift Zeile","Griffschrift line")} ${i+1}">${q.s}</svg>`).join("");
   // Klick auf Noten
   const byUid={};P.measures.forEach(m=>m.ev.forEach(e=>{if(e._uid)byUid[e._uid]=e;}));
   host.querySelectorAll(".gn[data-uid]").forEach(el=>{
@@ -859,6 +1183,17 @@ document.getElementById("reset").addEventListener("click",()=>{NOTE_FORCE={};SEG
 document.getElementById("form").addEventListener("change",()=>{if(!P)return;stop();SEL=null;syncSelInputs();buildDisplay();updateStatus();renderTab();renderGriff();});
 document.getElementById("lpr").addEventListener("change",()=>{if(R)renderGriff();});
 document.getElementById("filelbl").addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();document.getElementById("file").click();}});
+// ======== Hilfe
+const helpDlg=document.getElementById("help");
+function openHelp(id){try{helpDlg.showModal();}catch(e){helpDlg.setAttribute("open","");}
+  if(id&&LANG==="en")id=id.replace(/^h-/,"e-");
+  if(id){const t=document.getElementById(id);if(t)t.scrollIntoView();}}
+document.getElementById("helpbtn").addEventListener("click",()=>openHelp());
+document.getElementById("helpbtn2").addEventListener("click",()=>openHelp());
+document.querySelectorAll(".pdfhelp").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();openHelp("h-pdf");}));
+document.getElementById("helpclose").addEventListener("click",()=>helpDlg.close());
+helpDlg.addEventListener("click",e=>{if(e.target===helpDlg)helpDlg.close();});
+helpDlg.querySelectorAll(".helptoc a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();const t=document.getElementById(a.getAttribute("href").slice(1));if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}));
 // ======== Drucken
 function printPrep(on){PRINT_W=on?860:0;if(R){renderGriff();}}
 window.addEventListener("beforeprint",()=>printPrep(true));
@@ -867,7 +1202,7 @@ document.getElementById("print").addEventListener("click",()=>{
   stop();
   if(window.self!==window.top){
     const st=document.getElementById("status");
-    st.insertAdjacentHTML("beforeend",'<span class="err">Drucken geht in dieser Vorschau nicht. Bitte die Seite direkt öffnen: jpascher.github.io/Harmonikabau/griffschrift-wandler/</span>');
+    st.insertAdjacentHTML("beforeend",'<span class="err">'+TX("Drucken geht in dieser Vorschau nicht. Bitte die Seite direkt öffnen: ","Printing does not work in this preview. Please open the page directly: ")+'jpascher.github.io/Harmonikabau/griffschrift-wandler/</span>');
   }
   printPrep(true);setTimeout(()=>window.print(),50);
 });
@@ -881,8 +1216,9 @@ function drawKbd(g){
   const hw=23,r=20,padX=84,rowsY={4:34,3:84,2:134,1:184};
   const maxX=Math.max(...BTNS.map(b=>b.x2)),minX=Math.min(...BTNS.map(b=>b.x2));
   const W=padX+(maxX-minX)*hw+40,H=220;
-  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Knopfbelegung Diskant">`;
-  s+=`<text x="6" y="${H-6}" font-size="11" style="fill:${css('--muted')}">← Kopf</text>`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${TX("Knopfbelegung Diskant","Treble button layout")}">`;
+  s+=`<text x="6" y="${H-6}" font-size="11" style="fill:${css('--muted')}">← ${TX("Kopf","head")}</text>`;
+  s+=`<text x="${W-6}" y="${H-6}" font-size="11" text-anchor="end" style="fill:${css('--muted')}">${TX("Fuß","foot")} →</text>`;
   for(const row of [4,3,2,1])s+=`<text x="8" y="${rowsY[row]+4}" font-size="12" font-weight="700" style="fill:${css('--muted')}">R${row}</text>`;
   for(const b of BTNS){
     const x=padX+(b.x2-minX)*hw,y=rowsY[b.row],on=g&&g.btns.some(q=>q.b===b);
@@ -896,23 +1232,30 @@ function drawKbd(g){
 }
 // part: "G" Grundbass, "B" Begleiter, "both"
 function drawBass(o,part){
-  const step=29,x0=40,ys={1:44,2:118};
+  const step=29,x0=52,ys={1:44,2:118};
   const maxX=Math.max(...BBTN.map(b=>b.x));
-  const W=x0+maxX*step+30,H=160;
-  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bassbelegung mit Grundbässen und Begleitern">`;
-  s+=`<text x="2" y="${ys[1]+4}" font-size="11" font-weight="700" style="fill:${css('--muted')}">B1</text><text x="2" y="${ys[2]+4}" font-size="11" font-weight="700" style="fill:${css('--muted')}">B2</text>`;
+  const W=x0+maxX*step+30,H=172;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${TX("Bassbelegung mit Grundbässen und Begleitern","Bass layout with bass notes and chords")}">`;
+  // wie der Diskant: Kopf links, Fuß rechts (Knopfreihenfolge der Belegung gespiegelt)
+  s+=`<text x="2" y="${ys[1]+4}" font-size="11" font-weight="700" style="fill:${css('--muted')}">${TX("außen","outer")}</text><text x="2" y="${ys[2]+4}" font-size="11" font-weight="700" style="fill:${css('--muted')}">${TX("innen","inner")}</text>`;
+  s+=`<text x="6" y="${H-6}" font-size="11" style="fill:${css('--muted')}">← ${TX("Kopf","head")}</text><text x="${W-6}" y="${H-6}" font-size="11" text-anchor="end" style="fill:${css('--muted')}">${TX("Fuß","foot")} →</text>`;
   for(const b of BBTN){
-    const isG=(b.D||b.Z).t==="G",r=isG?14:11,x=x0+b.x*step,y=ys[b.row];
+    const isG=(b.D||b.Z).t==="G",r=isG?14:11,x=x0+(maxX-b.x)*step,y=ys[b.row];
     const on=o&&((o.g===b&&(part==="both"||part==="G"))||(o.b===b&&(part==="both"||part==="B")));
     const fill=on?(o.dir==="Z"?css('--zug'):css('--druck')):css('--panel'),tc=on?css('--panel'):null;
     const nm=x=>x?(x.t==="G"?CHN[x.pc]:CHN[x.pc].toLowerCase()+(x.minor?"m":"")):"";
     s+=`<text x="${x}" y="${y-r-5}" text-anchor="middle" font-size="10" font-weight="700" style="fill:${css('--muted')}">${bassName(b)}</text>`;
     s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="${on?fill:css('--line')}" stroke-width="${isG?1.8:1.2}"/>`;
     s+=`<line x1="${x-r+4}" y1="${y}" x2="${x+r-4}" y2="${y}" stroke="${tc||css('--line')}" stroke-width="1"/>`;
-    s+=`<text x="${x}" y="${y-3}" text-anchor="middle" font-size="${isG?10:8.5}" font-weight="700" style="fill:${tc||css('--druck')}">${nm(b.D)}</text>`;
-    s+=`<text x="${x}" y="${y+(isG?11:9)}" text-anchor="middle" font-size="${isG?10:8.5}" font-weight="700" style="fill:${tc||css('--zug')}">${nm(b.Z)}</text>`;
+    const fc=(x,base)=>tc||(x&&x.flip?css('--extra'):css(base));
+    s+=`<text x="${x}" y="${y-3}" text-anchor="middle" font-size="${isG?10:8.5}" font-weight="700" style="fill:${fc(b.D,'--druck')}">${nm(b.D)}</text>`;
+    s+=`<text x="${x}" y="${y+(isG?11:9)}" text-anchor="middle" font-size="${isG?10:8.5}" font-weight="700" style="fill:${fc(b.Z,'--zug')}">${nm(b.Z)}</text>`;
+    const tt=TX("Dur/Moll umschalten","Switch major/minor");
+    if(b.D&&b.D.t==="B")s+=`<rect class="mtog" data-b="${b.id}" data-d="D" x="${x-r}" y="${y-r}" width="${2*r}" height="${r}" fill="transparent" style="cursor:pointer"><title>${tt} (${TX("Druck","push")})</title></rect>`;
+    if(b.Z&&b.Z.t==="B")s+=`<rect class="mtog" data-b="${b.id}" data-d="Z" x="${x-r}" y="${y}" width="${2*r}" height="${r}" fill="transparent" style="cursor:pointer"><title>${tt} (${TX("Zug","pull")})</title></rect>`;
   }
-  document.getElementById("bkbd").innerHTML=s+`</svg>`;
+  const host=document.getElementById("bkbd");host.innerHTML=s+`</svg>`;
+  host.querySelectorAll(".mtog").forEach(el=>el.addEventListener("click",()=>toggleMoll(BBTN[+el.dataset.b],el.dataset.d)));
 }
 
 // ======== Klang (Vorausplanung in kleinen Zeitfenstern, damit auch lange Stücke sofort spielen)
@@ -944,7 +1287,7 @@ function stop(){
 document.getElementById("play").addEventListener("click",()=>{if(playing){stop();return;}startPlay(null);});
 document.getElementById("fplay").addEventListener("click",()=>{if(playing){stop();return;}startPlay(null);});
 function updatePlayLabels(){
-  const lbl=playing?"■ Stopp":(SEL&&P?`▶ Takte ${P.measures[DISPLAY[SEL.a].mi].no}–${P.measures[DISPLAY[SEL.b].mi].no}${document.getElementById("loop").checked?" in Schleife":""}`:"▶ Abspielen");
+  const lbl=playing?TX("■ Stopp","■ Stop"):(SEL&&P?`▶ ${TX("Takte","Measures")} ${P.measures[DISPLAY[SEL.a].mi].no}–${P.measures[DISPLAY[SEL.b].mi].no}${document.getElementById("loop").checked?TX(" in Schleife"," on loop"):""}`:TX("▶ Abspielen","▶ Play"));
   document.getElementById("play").textContent=lbl;document.getElementById("fplay").textContent=lbl;
   document.getElementById("fplay").classList.toggle("sel",!!SEL);
 }
@@ -957,10 +1300,14 @@ function startPlay(fromMi){
   const seq=SEL?DISPLAY.slice(SEL.a,SEL.b+1).map(d=>d.mi):P.measures.map((m,mi)=>mi);
   const loop=document.getElementById("loop").checked;
   const evs=[];let mt=0;
-  seq.forEach(mi=>{const m=P.measures[mi];
+  // bei zusammengefassten Wiederholungen die angezeigten Noten des ersten Durchgangs markieren
+  const segIdx=mi=>R.segs.map((s,si)=>s.mi===mi?si:-1).filter(x=>x>=0);
+  seq.forEach(mi=>{const m=P.measures[mi],dmi=ALIAS[mi]!=null?ALIAS[mi]:mi,dm=P.measures[dmi];
+    const own=segIdx(mi),shown=segIdx(dmi);
     R.segs.forEach((s,si)=>{if(s.mi!==mi||!s.pick)return;const o=s.pick,pc=o.chord.pc,third=o.chord.minor?3:4;const bu=beatUnit(m),nb=Math.max(1,Math.round(s.len/bu));
-      for(let b=0;b<nb;b++)evs.push({t:mt+(s.a+b*bu)*q,kind:b?"B":"G",pc,third,o,si,b});});
-    m.ev.forEach(e=>{if(e.type==="note")evs.push({t:mt+e.on*q,kind:"N",e});});
+      const k=own.indexOf(si),msi=dmi!==mi&&shown[k]!=null?shown[k]:si;
+      for(let b=0;b<nb;b++)evs.push({t:mt+(s.a+b*bu)*q,kind:b?"B":"G",pc,third,o,si:msi,b});});
+    m.ev.forEach((e,ei)=>{if(e.type!=="note")return;const de=dmi!==mi?dm.ev[ei]:null;evs.push({t:mt+e.on*q,kind:"N",e,me:de&&de.type==="note"&&de._uid?de:e});});
     mt+=m.len*q;
   });
   evs.sort((x,y)=>x.t-y.t);
@@ -977,7 +1324,7 @@ function startPlay(fromMi){
       else if(ev.kind==="B")[0,ev.third,7].forEach(iv=>tone(48+mod(ev.pc+iv,12)+(mod(ev.pc+iv,12)<5?12:0),at,q*0.45,0.03,4,dest));
       else{const r=ev.e._r;r.pitches.forEach((p,k)=>tone(p,at,ev.e.dur*q*0.95,k?0.06:0.09,6,dest));}
       timers.push(setTimeout(()=>{
-        if(ev.kind==="N"){const e=ev.e;markCur(e._uid,undefined);drawKbd(e._r.g);const el=document.querySelector(document.getElementById("view").value==="griff"?`#griff [data-uid="${e._uid}"]`:`.ev[data-uid="${e._uid}"]`);if(el&&el.scrollIntoView)el.scrollIntoView({block:"nearest",behavior:"smooth"});}
+        if(ev.kind==="N"){const e=ev.me||ev.e;markCur(e._uid,undefined);drawKbd(ev.e._r.g);const el=document.querySelector(document.getElementById("view").value==="griff"?`#griff [data-uid="${e._uid}"]`:`.ev[data-uid="${e._uid}"]`);if(el&&el.scrollIntoView)el.scrollIntoView({block:"nearest",behavior:"smooth"});}
         else{drawBass(ev.o,ev.kind);markCur(undefined,[ev.si,ev.b]);}
       },delay));
     }
@@ -991,10 +1338,10 @@ function startPlay(fromMi){
 // ======== MIDI → MusicXML (Melodiespur mit 2. Stimme, Basspur liefert die Stufen)
 function midiToXML(buf,title){
   const b=new Uint8Array(buf);let p=0;
-  if(String.fromCharCode(b[0],b[1],b[2],b[3])!=="MThd")throw new Error("Das ist keine MIDI-Datei.");
+  if(String.fromCharCode(b[0],b[1],b[2],b[3])!=="MThd")throw new Error(TX("Das ist keine MIDI-Datei.","This is not a MIDI file."));
   const u8=()=>b[p++],u16=()=>(b[p++]<<8)|b[p++],u32=()=>((b[p++]<<24)|(b[p++]<<16)|(b[p++]<<8)|b[p++])>>>0;
   const vl=()=>{let v=0,c;do{c=b[p++];v=(v<<7)|(c&127);}while(c&128&&p<b.length);return v;};
-  p=8;u16();const nt=u16(),div=u16();if(div&0x8000)throw new Error("Diese MIDI-Datei verwendet eine SMPTE-Zeitbasis, die wird nicht unterstützt.");
+  p=8;u16();const nt=u16(),div=u16();if(div&0x8000)throw new Error(TX("Diese MIDI-Datei verwendet eine SMPTE-Zeitbasis, die wird nicht unterstützt.","This MIDI file uses SMPTE timing, which is not supported."));
   const tracks=[];let ts=null,ks=null;
   for(let t=0;t<nt&&p<b.length;t++){
     const id=String.fromCharCode(b[p],b[p+1],b[p+2],b[p+3]);p+=4;const len=u32(),end=Math.min(b.length,p+len);
@@ -1009,7 +1356,7 @@ function midiToXML(buf,title){
         else if((hi===0x80||(hi===0x90&&c===0))&&on[ch+"_"+a]!=null){tr.notes.push({on:on[ch+"_"+a]/div,len:(tick-on[ch+"_"+a])/div,m:a});delete on[ch+"_"+a];}}}
     p=end;if(tr.notes.length)tracks.push(tr);
   }
-  if(!tracks.length)throw new Error("In der MIDI-Datei stehen keine Noten.");
+  if(!tracks.length)throw new Error(TX("In der MIDI-Datei stehen keine Noten.","The MIDI file contains no notes."));
   const avg=t=>t.notes.reduce((s,n)=>s+n.m,0)/t.notes.length;
   tracks.sort((a,b)=>avg(b)-avg(a));
   let mel=tracks[0].notes,bas=[];
@@ -1091,8 +1438,9 @@ async function openFile(f){
   const st=document.getElementById("status");
   try{
     let txt;
+    if(/\.(pdf|png|jpe?g|tiff?)$/i.test(f.name)){openHelp("h-pdf");throw new Error(TX("Gescannte Noten und PDF-Dateien müssen zuerst mit einer Notenerkennung (z. B. Audiveris) in MusicXML umgewandelt werden – siehe Hilfe.","Scanned music and PDF files must first be converted to MusicXML with music recognition software (e.g. Audiveris) – see Help."));}
     if(/\.mxl$/i.test(f.name)){
-      if(!window.JSZip)throw new Error("Komprimierte .mxl-Dateien können gerade nicht geöffnet werden. Bitte als unkomprimiertes .musicxml exportieren.");
+      if(!window.JSZip)throw new Error(TX("Komprimierte .mxl-Dateien können gerade nicht geöffnet werden. Bitte als unkomprimiertes .musicxml exportieren.","Compressed .mxl files cannot be opened right now. Please export as uncompressed .musicxml."));
       const z=await JSZip.loadAsync(f);let path=null;const cont=z.file("META-INF/container.xml");
       if(cont){const cx=new DOMParser().parseFromString(await cont.async("string"),"application/xml");const rf=cx.querySelector("rootfile");if(rf)path=rf.getAttribute("full-path");}
       if(!path)path=Object.keys(z.files).find(n=>/\.(xml|musicxml)$/i.test(n)&&!n.startsWith("META-INF"));
@@ -1118,9 +1466,9 @@ function makeXML(title,beats,fifths,tune){
   const types={0.5:"eighth",1:"quarter",1.5:"quarter",2:"half",3:"half",4:"whole"};
   const ms=[[]];tune.forEach(x=>{if(x==="|")ms.push([]);else ms[ms.length-1].push(x);});
   const pitchXML=p=>{const st=p[0],alt=p.length>2?(p[1]==="#"?1:-1):0,oc=p[p.length-1];return `<pitch><step>${st}</step>${alt?`<alter>${alt}</alter>`:""}<octave>${oc}</octave></pitch>`;};
-  const body=ms.map((m,i)=>`<measure number="${i+1}">${i===0?`<attributes><divisions>2</divisions><key><fifths>${fifths}</fifths></key><time><beats>${beats}</beats><beat-type>${bType}</beat-type></time><clef><sign>G</sign><line>2</line></clef></attributes>`:""}`+
+  const body=ms.map((m,i)=>`<measure number="${i+1}">${i===0?`<attributes><divisions>2</divisions><key><fifths>${fifths}</fifths>${tune.find(x=>typeof x==="string"&&x.startsWith("h:"))&&/^h:[A-G][#b]?m$/.test(tune.find(x=>typeof x==="string"&&x.startsWith("h:")))?"<mode>minor</mode>":""}</key><time><beats>${beats}</beats><beat-type>${bType}</beat-type></time><clef><sign>G</sign><line>2</line></clef></attributes>`:""}`+
     m.map(x=>{
-      if(typeof x==="string"&&x.startsWith("h:")){const h=x.slice(2);return `<harmony><root><root-step>${h[0]}</root-step>${/^[#b]$/.test(h[1]||"")?`<root-alter>${h[1]==="#"?1:-1}</root-alter>`:""}</root><kind>${h.endsWith("7")?"dominant":"major"}</kind></harmony>`;}
+      if(typeof x==="string"&&x.startsWith("h:")){const h=x.slice(2);return `<harmony><root><root-step>${h[0]}</root-step>${/^[#b]$/.test(h[1]||"")?`<root-alter>${h[1]==="#"?1:-1}</root-alter>`:""}</root><kind>${h.endsWith("7")?"dominant":(/^[A-G][#b]?m$/.test(h)?"minor":"major")}</kind></harmony>`;}
       const [p,d]=x,dur=d*2,typ=types[d]||"quarter",dot=(d===1.5||d===3)?"<dot/>":"";
       if(p==="r")return `<note><rest/><duration>${dur}</duration><voice>1</voice><type>${typ}</type>${dot}</note>`;
       return p.split("+").map((q,k)=>`<note>${k?"<chord/>":""}${pitchXML(q)}<duration>${dur}</duration><voice>1</voice><type>${typ}</type>${dot}</note>`).join("");
@@ -1164,10 +1512,17 @@ const DEMOS={
     ["F4",1],["A4",1],["C5",1],"|",["F5",2],["D5",1],"|",["B4",1],["D5",1],["F5",1],"|",["E5",3],"|",
     ["E4",1],["G4",1],["C5",1],"|",["E5",2],["C5",1],"|",["F4",1],["A4",1],["C5",1],"|",["A4",3],"|",
     ["G4",1],["B4",1],["D5",1],"|",["F5",2],["D5",1],"|",["C5",3],"|",["C5",3]]),
+  mollwalzer:()=>makeXML("Moll-Walzer",3,0,[
+    "h:Am",["C5+A4",1],["E5+C5",1],["C5+A4",1],"|",["A4+E4",2],["C5+A4",1],"|",
+    "h:Dm",["D5+A4",1],["F5+D5",1],["D5+A4",1],"|",["A4+F4",3],"|",
+    "h:E7",["B4+G#4",1],["D5+B4",1],["E5+B4",1],"|",["D5+B4",2],["B4+G#4",1],"|",
+    "h:Am",["C5+A4",1],["B4+G#4",1],["C5+A4",1],"|",["A4+E4",3],"|",
+    "h:Dm",["F5+D5",1],["E5+C5",1],["D5+A4",1],"|","h:Am",["E5+C5",2],["C5+A4",1],"|",
+    "h:E7",["B4+G#4",1],["D5+B4",1],["B4+G#4",1],"|","h:Am",["A4+E4",2],["r",1]]),
   entchen:()=>makeXML("Alle meine Entchen",4,0,[["C4",1],["D4",1],["E4",1],["F4",1],"|",["G4",2],["G4",2],"|",["A4",1],["A4",1],["A4",1],["A4",1],"|",["G4",4],"|",
     ["A4",1],["A4",1],["A4",1],["A4",1],"|",["G4",4],"|",["F4",1],["F4",1],["F4",1],["F4",1],"|",["E4",2],["E4",2],"|",["D4",1],["D4",1],["D4",1],["D4",1],"|",["C4",4]])
 };
-["stimm","disk","bass"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{stop();buildInstrument();if(PARTS.length)run();}));
+["stimm","disk","bass","bmoll"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{stop();buildInstrument();if(PARTS.length)run();}));
 buildInstrument();
 // MIDI-Dateien von volksmusik.cc, Satz: Franz Fuchs (mit seinem Einverständnis, Herkunft wird angezeigt)
 const FUCHS_MIDI={
@@ -1183,13 +1538,19 @@ let CREDIT="";
 function loadDemo(v){
   stop();
   if(v.startsWith("mid:")){const d=FUCHS_MIDI[v.slice(4)];const bin=atob(d.b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
-    loadXMLText(midiToXML(u.buffer,d.title));CREDIT="Satz: Franz Fuchs, volksmusik.cc";}
+    loadXMLText(midiToXML(u.buffer,d.title));CREDIT="Franz Fuchs, volksmusik.cc";}
   else{loadXMLText(DEMOS[v]());CREDIT="";}
   run();
 }
 const dsel=document.getElementById("demo");
 dsel.addEventListener("change",()=>loadDemo(dsel.value));
 const mq=window.matchMedia("(prefers-color-scheme: dark)");mq.addEventListener&&mq.addEventListener("change",()=>{drawKbd(null);drawBass(null);});
+function setLang(l){LANG=l==="en"?"en":"de";try{localStorage.setItem("gw-lang",LANG);}catch(e){}
+  applyStaticLang();updatePlayLabels();
+  if(P&&R){updateStatus();setTitle();renderTab();renderGriff();}else run();
+  drawKbd(null);drawBass(null);}
+document.getElementById("lang").addEventListener("click",()=>setLang(LANG==="en"?"de":"en"));
+applyStaticLang();updatePlayLabels();
 loadDemo(dsel.value);
 </script>
 
