@@ -203,6 +203,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <div class="field">
         <label for="bmoll"><x-de>Bassknöpfe anpassen</x-de><x-en>Adjust bass buttons</x-en></label>
         <select id="bmoll"><option value="std">wie Belegung</option><option value="tpl">Vorlage: Moll auf Zug (Paralleltonarten)</option><option value="own">eigene (im Bassbild anklicken)</option></select>
+        <label class="chk"><input id="msub" type="checkbox" checked> <x-de>Moll-Ersatz (Dur-Begleiter der Terz)</x-de><x-en>Minor substitute (major chord a third up)</x-en></label>
       </div>
       <div class="field">
         <label for="part"><x-de>Stimme</x-de><x-en>Part</x-en></label>
@@ -385,8 +386,8 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>Stimmung:</b> alle acht 4-Reiher-Stimmungen von F-B-Es-As bis C-F-B-Es (wie sie Strasser liefert), dazu Cis-Fis-H-E, D-G-C-F, Es-As-Des-Ges und E-A-D-G aus den Grifftabellen von Dieter Schaborak. Die Griffschrift bleibt bei jeder Stimmung gleich, nur die klingenden Töne verschieben sich.</p>
       <p><b>Diskant:</b> 446 Normal oder 450 Öllerer und Schaborak mit Zusatzknöpfen, dazu die Diskant-Ausführungen von Strasser mit 46, 48 und 50 Tasten: Halbtöne in Serie wie Michlbauer, Halbton wechseltönig, Tief- oder Halbtöne sowie die Ausführungen nach Hubmann, Zwanzleitner, Strohmeier, Lenz und „salzburgisch“. Die Strasser-Ausführung „46 Tasten, Tieftöne (traditionell)“ entspricht 446 Normal. Zusatzknöpfe sind im Diskantbild blau umrandet; das Programm nimmt sie nur, wenn sie einen Griff deutlich erleichtern.</p>
       <p><b>Bass:</b> Voreingestellt ist Strassers „Mollbässe, X- und H-Bass entkoppelt (wie Michlbauer)“. Zur Wahl stehen das Original-Klangschema der Schaborak 50/21 (Grifftabelle von Dieter Schaborak; der Diskant dazu ist „450 Öllerer und Schaborak“), Normalbass und Schaborak aus der Akkordsuche (hyperbox.org) sowie die Bassbelegungen aus dem Tonbelegungs-Konfigurator von Strasser (harmonika.com): Übergangsbässe, Mollbässe, 1 Mollbass, jeweils auch mit gekoppeltem oder entkoppeltem X- und H-Bass und Basslauf, dazu Klassisch, Strohmeier, Glaser, Pichler, Hubmann, Senekovic, Schaborak, Kalcher, Egger, Svoboda, Zweverink, Guggi und Lenz. Im Bassbild sind große Knöpfe Grundbässe, kleine Begleiter, darüber steht der Name, der in der Griffschrift verwendet wird.</p>
-      <p><b>Bassknöpfe anpassen:</b> „wie Belegung“ nimmt die Begleiter so, wie sie in der gewählten Belegung stehen. „Vorlage: Moll auf Zug“ richtet die Hilfsbassreihe so ein, wie es bei Instrumenten ohne Schaborak üblich ist und wie es auch Franz Fuchs voraussetzt: Moll gibt es auf Zug, bei G-C-F-B d-Moll und a-Moll mit ihren Grundbässen (wie die Strasser-Mollbässe). Bei Moll-Stücken entscheidet vor allem, ob die Moll-Begleiter auf Zug oder auf Druck liegen; danach richtet sich die Balgrichtung, und die Melodie liegt dann meist in der 1. Reihe. Beim Schaborak liegen Moll-Begleiter auf beiden Balgrichtungen, das Programm wählt dann je nach Weg. Für ein individuell gebautes Instrument klickt man im Bassbild auf einen Knopf, die obere Hälfte für Druck, die untere für Zug. Im Auswahlfeld stellt man Ton und Art ein: Grundbass, Begleiter Dur, Begleiter Moll oder leer; „Wie Belegung“ setzt den Knopf zurück. Mit „eigene“ erscheinen auch die freien Plätze (+), auf die man zusätzliche Knöpfe legen kann. Geänderte Knöpfe sind blau, die eigene Belegung wird je Bass-System im Browser gemerkt. Das Programm rechnet danach sofort neu und nimmt Mollbegleiter für die Moll-Stufen. Fehlt für eine Stufe der passende Bass oder Begleiter, meldet die Statuszeile das, und „Transponieren: Automatisch“ sucht eine Lage, in der möglichst alles vorhanden ist. Zum Ausprobieren gibt es unter Beispiele den „Moll-Walzer“.</p>
-      <p><b>Transponieren:</b> „Automatisch“ sucht die Lage, in der das Stück am besten auf dem Instrument liegt: Alle 25 Lagen (eine Oktave nach oben und unten) werden geprüft, die aussichtsreichsten über das ganze Stück. Entscheidend ist zuerst, dass möglichst kein Ton unspielbar bleibt; danach zählen fehlende Grund- und Begleitbässe, Töne, die in eine andere Oktave ausweichen müssen, und Griffe gegen den Bass. Die beste Lage hängt deshalb vom gewählten Diskant- und Basslayout ab. Bei Stücken mit Fuchs' Griffen bleibt seine Lage, solange sie nicht mehr unspielbare Töne ergibt. Du kannst die Lage auch fest einstellen.</p>
+      <p><b>Bassknöpfe anpassen:</b> „wie Belegung“ nimmt die Begleiter so, wie sie in der gewählten Belegung stehen. „Vorlage: Moll auf Zug“ richtet die Hilfsbassreihe so ein, wie es bei Instrumenten ohne Schaborak üblich ist und wie es auch Franz Fuchs voraussetzt: Moll gibt es auf Zug, bei G-C-F-B d-Moll und a-Moll mit ihren Grundbässen (wie die Strasser-Mollbässe). Bei Moll-Stücken entscheidet vor allem, ob die Moll-Begleiter auf Zug oder auf Druck liegen; danach richtet sich die Balgrichtung, und die Melodie liegt dann meist in der 1. Reihe. Beim Schaborak liegen Moll-Begleiter auf beiden Balgrichtungen, das Programm wählt dann je nach Weg. Für ein individuell gebautes Instrument klickt man im Bassbild auf einen Knopf, die obere Hälfte für Druck, die untere für Zug. Im Auswahlfeld stellt man Ton und Art ein: Grundbass, Begleiter Dur, Begleiter Moll oder leer; „Wie Belegung“ setzt den Knopf zurück. Mit „eigene“ erscheinen auch die freien Plätze (+), auf die man zusätzliche Knöpfe legen kann. Geänderte Knöpfe sind blau, die eigene Belegung wird je Bass-System im Browser gemerkt. Das Programm rechnet danach sofort neu und nimmt Mollbegleiter für die Moll-Stufen. Gibt es den Moll-Begleiter nur in einer Balgrichtung (bei „Moll auf Zug“ nur auf Zug), legt das Programm den Moll-Abschnitt in diese Richtung und nimmt die andere nur, wenn die Melodie dort gar nicht geht. Fehlt ein Moll-Begleiter ganz, spielt es zum Moll-Grundbass den Dur-Begleiter der kleinen Terz darüber (g-Moll = Grundbass G mit B-Dur-Begleiter, klingt als Gm7); die Statuszeile zählt diese Stellen. Das lässt sich mit dem Häkchen „Moll-Ersatz“ unter „Bassknöpfe anpassen“ abschalten; dann bleibt es beim Grundbass ohne Begleiter. Fehlt für eine Stufe der passende Bass oder Begleiter, meldet die Statuszeile das, und „Transponieren: Automatisch“ sucht eine Lage, in der möglichst alles vorhanden ist. Zum Ausprobieren gibt es unter Beispiele den „Moll-Walzer“.</p>
+      <p><b>Transponieren:</b> „Automatisch“ sucht die Lage, in der das Stück am besten auf dem Instrument liegt: Alle 25 Lagen (eine Oktave nach oben und unten) werden geprüft, die aussichtsreichsten über das ganze Stück. Entscheidend ist zuerst, dass möglichst kein Ton unspielbar bleibt; danach zählen fehlende Grund- und Begleitbässe, Töne, die in eine andere Oktave ausweichen müssen, und Griffe gegen den Bass. Die beste Lage hängt deshalb vom gewählten Diskant- und Basslayout ab. Bei Stücken mit hinterlegter Griffschrift (Franz Fuchs, Philipp Ramoner) bleibt deren Lage, also auch deren Balgrichtungen, solange sie höchstens ein, zwei Töne (bzw. 1 % der Noten) mehr unspielbar lässt; Töne, die der Verfasser in seinem Griff selbst weglässt, zählen dabei nicht. Du kannst die Lage auch fest einstellen.</p>
     </section>
     <section id="h-lesen"><h3>Griffschrift lesen</h3>
       <p>Die Griffschrift folgt dem System nach Max Rosenzopf. Sie sieht aus wie Noten, ist aber eine Tabulatur: Jede Note bedeutet einen <b>Knopf</b>, nicht einen Ton. Deshalb gibt es keinen Schlüssel und keine Vorzeichen.</p>
@@ -493,8 +494,8 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>Tuning:</b> all eight 4-row tunings from F-B-Es-As (F-B♭-E♭-A♭) to C-F-B-Es (C-F-B♭-E♭), as supplied by Strasser, plus C♯-F♯-B-E, D-G-C-F, E♭-A♭-D♭-G♭ and E-A-D-G from Dieter Schaborak’s button charts. The Griffschrift is the same for every tuning; only the sounding pitches shift.</p>
       <p><b>Treble:</b> 446 standard, or 450 Öllerer and Schaborak with extra buttons, plus the Strasser treble versions with 46, 48 and 50 buttons: semitones in series as Michlbauer, a semitone that differs on push and pull, low notes or semitones, and the versions after Hubmann, Zwanzleitner, Strohmeier, Lenz and “Salzburg style”. The Strasser version “46 buttons, low notes (traditional)” is the same as 446 standard. Extra buttons have a blue outline in the treble diagram; the program uses them only when they make a grip clearly easier.</p>
       <p><b>Bass:</b> the default is Strasser’s “minor basses, X and H bass uncoupled (as Michlbauer)”. Available are the original layout of the Schaborak 50/21 (button chart by Dieter Schaborak; the matching treble is “450 Öllerer and Schaborak”), standard bass and Schaborak from the chord finder (hyperbox.org), plus the bass layouts from the Strasser key-layout configurator (harmonika.com): transition basses, minor basses, 1 minor bass, each also with coupled or uncoupled X and H bass and bass run, as well as Classic, Strohmeier, Glaser, Pichler, Hubmann, Senekovic, Schaborak, Kalcher, Egger, Svoboda, Zweverink, Guggi and Lenz. In the bass diagram, large buttons are bass notes and small ones chords; above each is the name used in the Griffschrift.</p>
-      <p><b>Adjust bass buttons:</b> “as in the layout” uses the chord buttons exactly as they are in the chosen layout. “Template: minor on pull” sets up the auxiliary bass row the way it is usual on instruments without Schaborak and the way Franz Fuchs assumes: minor is on pull, on G-C-F-B D minor and A minor with their bass notes (like the Strasser minor basses). In minor pieces the main question is whether the minor chord buttons are on pull or on push; the bellows direction follows from that, and the melody then mostly lies in row 1. On a Schaborak, minor chord buttons are on both bellows directions, and the program chooses by the shorter way. For an individually built instrument, click a button in the bass diagram, the top half for push, the bottom half for pull. In the small panel you set the note and type: bass note, major chord, minor chord or empty; “As in layout” resets the button. With “custom”, the free places (+) also appear, where you can add extra buttons. Changed buttons are blue, and your own layout is remembered in the browser for each bass system. The program recalculates at once and uses the minor chords for minor degrees. If the matching bass or chord button for a degree is missing, the status line says so, and “Transpose: Automatic” looks for a key in which as much as possible is available. The “Minor waltz” under Examples lets you try this out.</p>
-      <p><b>Transpose:</b> “Automatic” looks for the key in which the tune lies best on the instrument: all 25 keys (one octave up and down) are checked, the most promising ones over the whole tune. The first priority is that no note remains unplayable; after that, missing bass and chord buttons, notes that have to move to another octave and grips against the bass count. The best key therefore depends on the chosen treble and bass layout. For tunes with Fuchs' grips his key is kept as long as it does not leave more notes unplayable. You can also set the key yourself.</p>
+      <p><b>Adjust bass buttons:</b> “as in the layout” uses the chord buttons exactly as they are in the chosen layout. “Template: minor on pull” sets up the auxiliary bass row the way it is usual on instruments without Schaborak and the way Franz Fuchs assumes: minor is on pull, on G-C-F-B D minor and A minor with their bass notes (like the Strasser minor basses). In minor pieces the main question is whether the minor chord buttons are on pull or on push; the bellows direction follows from that, and the melody then mostly lies in row 1. On a Schaborak, minor chord buttons are on both bellows directions, and the program chooses by the shorter way. For an individually built instrument, click a button in the bass diagram, the top half for push, the bottom half for pull. In the small panel you set the note and type: bass note, major chord, minor chord or empty; “As in layout” resets the button. With “custom”, the free places (+) also appear, where you can add extra buttons. Changed buttons are blue, and your own layout is remembered in the browser for each bass system. The program recalculates at once and uses the minor chords for minor degrees. If the minor chord button exists in only one bellows direction (with “minor on pull” only on pull), the program puts the minor section in that direction and uses the other one only if the melody cannot be played there at all. If there is no minor chord button at all, it plays the minor bass note with the major chord button a minor third above (G minor = bass note G with the B♭ major chord, sounding as Gm7); the status line counts these places. The “Minor substitute” checkbox under “Adjust bass buttons” turns this off; the minor bass note is then played without a chord button. If the matching bass or chord button for a degree is missing, the status line says so, and “Transpose: Automatic” looks for a key in which as much as possible is available. The “Minor waltz” under Examples lets you try this out.</p>
+      <p><b>Transpose:</b> “Automatic” looks for the key in which the tune lies best on the instrument: all 25 keys (one octave up and down) are checked, the most promising ones over the whole tune. The first priority is that no note remains unplayable; after that, missing bass and chord buttons, notes that have to move to another octave and grips against the bass count. The best key therefore depends on the chosen treble and bass layout. For tunes with a stored Griffschrift (Franz Fuchs, Philipp Ramoner) its key, and with it its bellows directions, is kept as long as it leaves at most one or two more notes (or 1 % of the notes) unplayable; notes the author leaves out of his own grip do not count. You can also set the key yourself.</p>
     </section>
     <section id="e-lesen"><h3>Reading Griffschrift</h3>
       <p>Griffschrift follows the system of Max Rosenzopf. It looks like standard notation but is a tablature: each note stands for a <b>button</b>, not a pitch. That is why there is no clef and there are no accidentals.</p>
@@ -791,7 +792,7 @@ function buildInstrument(){
   for(const k in BOCACHE)delete BOCACHE[k];GCACHE={};
 }
 // Gewichte der Griffwahl (abgestimmt an den Griffschrift-Sätzen von Franz Fuchs)
-const W={hrel:1,win:1.5,pos0:20,pos1x:6,pos1:0.8,ext:0.6,sp1:0.6,sp2:1.5,sp3:12,r1:1,r2:-0.2,r3:0.7,r4:5,extra:0.6,spread:0.19,gleich:1,zug:0.5,num:0,against:9,missing:4,mel:0.45,melRow:0.2,dirSame:1.5,bBase:1,bX:0.7,bY:1.2,bChord:0.1,bDirBar:0.05,bDirMid:0.7,uFit:2.2,uPd:0.5,uHy:0.8};   // an 26 Fuchs-Sätzen: 83 % gleiche Griffe (vorher 74 %), 90 % der Griffe auf 4 Stimmen ergänzbar
+const W={hrel:1,win:1.5,pos0:20,pos1x:6,pos1:0.8,ext:0.6,sp1:0.6,sp2:1.5,sp3:12,r1:1,r2:-0.2,r3:0.7,r4:5,extra:0.6,spread:0.19,gleich:1,zug:0.5,num:0,against:9,missing:4,mel:0.45,melRow:0.2,dirSame:1.5,bBase:1,bX:0.7,bY:1.2,bChord:0.1,bDirBar:0.05,bDirMid:0.7,uFit:2.2,uPd:0.5,uHy:0.8,noBeg:8,subPd:6};   // an 26 Fuchs-Sätzen: 83 % gleiche Griffe (vorher 74 %), 90 % der Griffe auf 4 Stimmen ergänzbar
 const ROWCOST={get 1(){return W.r1},get 2(){return W.r2},get 3(){return W.r3},get 4(){return W.r4}};
 // ======== Ergänzung auf 4 Stimmen: Akkordtöne unter der Melodie, in derselben Balgrichtung und in Griffweite
 let FILL4=true,FILL3=false;
@@ -941,17 +942,21 @@ function chordSet(key,minor){
           .filter(c=>bassOpts(c).length);
 }
 // Bassoptionen für einen Akkord: Grundbass + passender Begleiter in derselben Balgrichtung
-const BOCACHE={};
+const BOCACHE={};let MOLLSUB=true;try{const v=localStorage.getItem("gw-mollsub");if(v!==null)MOLLSUB=v==="1";}catch(e){}
 function bassOpts(c){
-  const key=c.pc+(c.minor?"m":"")+"|"+INST.bass.name+INST.stimm.name+"|"+MOLLSIG;if(BOCACHE[key])return BOCACHE[key];
+  const key=c.pc+(c.minor?"m":"")+"|"+INST.bass.name+INST.stimm.name+"|"+MOLLSIG+"|"+MOLLSUB;if(BOCACHE[key])return BOCACHE[key];
   const out=[];
+  // Ersatz nur, wenn es den Moll-Begleiter in keiner Balgrichtung gibt (sonst gehört Moll in dessen Richtung)
+  const anyMin=c.minor&&BBTN.some(b=>["D","Z"].some(d=>b[d]&&b[d].t==="B"&&b[d].pc===c.pc&&b[d].minor));
   for(const d of ["D","Z"]){
     const Gs=BBTN.filter(b=>b[d]&&b[d].t==="G"&&b[d].pc===c.pc);
-    const Bs=BBTN.filter(b=>b[d]&&b[d].t==="B"&&b[d].pc===c.pc&&b[d].minor===!!c.minor);
+    let Bs=BBTN.filter(b=>b[d]&&b[d].t==="B"&&b[d].pc===c.pc&&b[d].minor===!!c.minor),sub=false;
+    // Moll ohne Mollbegleiter: Grundbass + Dur-Begleiter der kleinen Terz (Gm = G + B-Dur, klingt als Gm7)
+    if(!Bs.length&&c.minor&&MOLLSUB&&!anyMin){Bs=BBTN.filter(b=>b[d]&&b[d].t==="B"&&b[d].pc===mod(c.pc+3,12)&&!b[d].minor);sub=Bs.length>0;}
     const pairs=[];
-    for(const g of Gs){if(Bs.length)for(const b of Bs)pairs.push({g,b,pd:Math.abs(g.x-b.x)+1.2*Math.abs(g.row-b.row)});else pairs.push({g,b:null,pd:12});}
+    for(const g of Gs){if(Bs.length)for(const b of Bs)pairs.push({g,b,pd:Math.abs(g.x-b.x)+1.2*Math.abs(g.row-b.row)+(sub?W.subPd:0),sub});else pairs.push({g,b:null,pd:12});}
     pairs.sort((x,y)=>x.pd-y.pd);
-    pairs.slice(0,4).forEach(p=>out.push({g:p.g,b:p.b,dir:d,pd:p.pd,hx:(p.g.x+(p.b?p.b.x:p.g.x))/2,hy:(p.g.row+(p.b?p.b.row:p.g.row))/2}));
+    pairs.slice(0,4).forEach(p=>out.push({g:p.g,b:p.b,dir:d,pd:p.pd,sub:!!p.sub,hx:(p.g.x+(p.b?p.b.x:p.g.x))/2,hy:(p.g.row+(p.b?p.b.row:p.g.row))/2}));
   }
   return BOCACHE[key]=out;
 }
@@ -1001,8 +1006,10 @@ function buildSegments(measures,t,key,minor){
         // Optionen direkt aus seinen Knöpfen bilden (Akkord aus dem Begleiter), Balgrichtung bleibt frei
         const gb=G?bassBtnByName(G):null,bb=Bg?bassBtnByName(Bg):null,o2=[];
         if(gb)for(const d of ["D","Z"]){if(!gb[d])continue;const bt=bb&&bb[d]?bb:null,minor=bt?!!bt[d].minor:false,cpc=bt?bt[d].pc:gb[d].pc;
-          o2.push({g:gb,b:bt,dir:d,pd:bt?Math.abs(gb.x-bt.x):12,hx:(gb.x+(bt?bt.x:gb.x))/2,hy:(gb.row+(bt?bt.row:gb.row))/2,chord:{deg:degOf(cpc,key,minor),pc:cpc,minor,prior:0,tones:[]},unary:0});}
+          o2.push({g:gb,b:bt,dir:d,pd:bt?Math.abs(gb.x-bt.x):12,hx:(gb.x+(bt?bt.x:gb.x))/2,hy:(gb.row+(bt?bt.row:gb.row))/2,chord:{deg:degOf(cpc,key,minor),pc:cpc,minor,prior:0,tones:[]},unary:0,gOnly:!Bg});}
         if(o2.length)opts=o2;}
+      // Begleiter (v. a. Moll) gibt es oft nur in einer Balgrichtung: die Richtung ohne Begleiter nur, wenn es nicht anders geht
+      {const full=new Set(opts.filter(o=>o.b).map(o=>o.chord.pc+(o.chord.minor?"m":"")));opts.forEach(o=>{if(!o.b&&full.has(o.chord.pc+(o.chord.minor?"m":"")))o.unary+=W.noBeg;});}
       const skey=mi+":"+a.toFixed(4),fd=SEG_FORCE[skey];
       if(fd){const f=opts.filter(o=>o.dir===fd);if(f.length)opts=f;}
       segs.push({mi,a,b,opts,len:b-a,harm,key:skey,fb,bnotes});
@@ -1082,10 +1089,10 @@ function solve(measures,t,key,minor){
   const against=notes.filter(n=>n.against).length;
   let changes=0,ld=null;segs.forEach(s=>{if(!s.pick)return;if(ld&&ld!==s.pick.dir)changes++;ld=s.pick.dir;});
   let bmoves=0;for(let i=1;i<segs.length;i++)if(segs[i].pick&&segs[i-1].pick&&segs[i].pick.g!==segs[i-1].pick.g)bmoves++;
-  const nobeg=segs.filter(s=>s.pick&&(!s.pick.b||s.fb)).length;   // Bassabschnitte ohne passenden Begleiter (z. B. Moll fehlt)
-  const nofb=segs.filter(s=>s.fb).length;
+  const nobeg=segs.filter(s=>s.pick&&((!s.pick.b&&!s.pick.gOnly)||s.fb)).length;   // Bassabschnitte ohne passenden Begleiter (z. B. Moll fehlt)
+  const nofb=segs.filter(s=>s.fb).length,subN=segs.filter(s=>s.pick&&s.pick.sub).length;
   const octN=notes.reduce((s,n)=>s+(n.oct||0),0),pinN=notes.filter(n=>n.pinned).length;
-  return {segs,notes,total,bad,missing,against,changes,bmoves,nobeg,nofb,oct:octN,pin:pinN,n:notes.length};
+  return {segs,notes,total,bad,missing,against,changes,bmoves,nobeg,nofb,sub:subN,oct:octN,pin:pinN,n:notes.length};
 }
 
 // ======== Transponieren
@@ -1105,21 +1112,23 @@ function run(){
   if(!nN){st.innerHTML='<span class="err">'+TX("In dieser Stimme stehen keine Noten.","This part contains no notes.")+'</span>';document.getElementById("tab").innerHTML="";return;}
   let best=null,bt=0;
   const sub=P.measures.slice(0,32);
-  const tryT=t=>{const r=solve(sub,t,mod(P.keyPc+t,12),P.minor);r.score=r.bad*100+r.missing*20+r.against*8+r.nobeg*6+r.nofb*15+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03);return r;};
+  const tryT=t=>{const r=solve(sub,t,mod(P.keyPc+t,12),P.minor);r.score=r.bad*100+r.missing*20+r.against*8+r.nobeg*6+r.sub*2+r.nofb*15+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03);return r;};
   const pinOn=USEPIN&&CURPIN;
   if(tsel.value==="auto"){
     // 1. alle 25 Lagen grob am Anfang des Stücks, 2. die besten über das ganze Stück: zuerst möglichst wenige nicht greifbare Töne und fehlende Bässe
     const cand=[];for(let t=-12;t<=12;t++)cand.push({t,r:tryT(t)});cand.sort((x,y)=>x.r.score-y.r.score);
     const pt=pinOn?INST.stimm.shift-CURPIN.sh:null;
     const pick=[...new Set(cand.slice(0,6).map(c=>c.t).concat(pt!=null&&pt>=-12&&pt<=12?[pt]:[],[0]))];
-    const evalT=t=>{const r=solve(P.measures,t,mod(P.keyPc+t,12),P.minor);const un=r.bad+r.missing;
-      return {t,un,sc:un*100+r.nofb*15+r.nobeg*6+r.oct*2+r.against*8+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03)};};
+    // Töne, die der Verfasser der Griffschrift in seinem Griff selbst weglässt, zählen nicht als unspielbar
+    const evalT=t=>{const r=solve(P.measures,t,mod(P.keyPc+t,12),P.minor);const un=r.bad+r.notes.reduce((c,n)=>c+(n.g&&!n.pinned?n.g.missing.length:0),0);
+      return {t,un,n:r.n,sc:un*100+r.nofb*15+r.nobeg*6+r.sub*2+r.oct*2+r.against*8+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03)};};
     const full=pick.map(evalT);full.sort((x,y)=>x.sc-y.sc);
     // bleiben Töne unspielbar, alle übrigen Lagen ebenfalls über das ganze Stück prüfen
     if(full[0].un>0){for(const c of cand)if(!pick.includes(c.t))full.push(evalT(c.t));full.sort((x,y)=>x.sc-y.sc);}
     let ch=full[0];
-    // Fuchs' Lage behalten, solange sie nicht mehr unspielbare Töne bringt (dann gelten seine Griffe)
-    if(pt!=null){const f=full.find(x=>x.t===pt);if(f&&f.un<=ch.un)ch=f;}
+    // Lage der Griffschrift (Fuchs, Philipp) behalten, solange sie nicht mehr unspielbare Töne bringt (dann gelten seine Griffe)
+    // (ein, zwei fehlende Töne bzw. 1 % der Noten werden hingenommen: die Lage des Verfassers geht vor)
+    if(pt!=null){const f=full.find(x=>x.t===pt);if(f&&f.un<=ch.un+Math.max(2,Math.round(0.01*f.n)))ch=f;}
     bt=ch.t;TRANSP_INFO={best:full[0],chosen:ch};
   }
   else bt=+tsel.value;
@@ -1146,6 +1155,7 @@ function updateStatus(){
     `<span class="pill">${R.bmoves} ${TX("Bassknopf-Wechsel",R.bmoves===1?"bass button change":"bass button changes")}</span>`+
     (R.against?`<span class="pill bad">${R.against} ${TX("Griffe gegen den Bass",R.against===1?"grip against the bass":"grips against the bass")}</span>`:"")+
     (R.wbMiss?`<span class="pill bad">${R.wbMiss} ${TX(R.wbMiss===1?"Wechselbass ohne Quintbass in dieser Balgrichtung":"Wechselbässe ohne Quintbass in dieser Balgrichtung",R.wbMiss===1?"alternating bass without a fifth button in this bellows direction":"alternating basses without a fifth button in this bellows direction")}</span>`:"")+
+    (()=>{const n=R.segs.filter(s=>s.pick&&s.pick.sub).length;return n?`<span class="pill">${n} ${TX(n===1?"Moll-Abschnitt mit Dur-Begleiter der Terz (Moll-Begleiter fehlt)":"Moll-Abschnitte mit Dur-Begleiter der Terz (Moll-Begleiter fehlt)",n===1?"minor section with the major chord a third up (no minor chord button)":"minor sections with the major chord a third up (no minor chord button)")}</span>`:"";})()+
     (R.nobeg?`<span class="pill bad">${R.nobeg} ${TX(R.nobeg===1?"Bassabschnitt ohne passenden Bass/Begleiter":"Bassabschnitte ohne passenden Bass/Begleiter",R.nobeg===1?"bass section without a matching bass/chord button":"bass sections without a matching bass/chord button")}</span>`:"")+
     (()=>{const n=R.segs.reduce((c,sg)=>c+segSlots(sg).filter(x=>!x.btn).length,0);return n?`<span class="pill bad">${n} ${TX(n===1?"Basston ohne Knopf in dieser Balgrichtung":"Basstöne ohne Knopf in dieser Balgrichtung",n===1?"bass note without a button in this bellows direction":"bass notes without a button in this bellows direction")}</span>`:"";})()+
     (LANDLER&&!BASSPIN?`<span class="pill">${TX("Landlerbegleitung (ohne Wechselbass)","Ländler accompaniment (no alternating bass)")}</span>`:"")+
@@ -1983,6 +1993,8 @@ const DEMOS={
   entchen:()=>makeXML("Alle meine Entchen",4,0,[["C4",1],["D4",1],["E4",1],["F4",1],"|",["G4",2],["G4",2],"|",["A4",1],["A4",1],["A4",1],["A4",1],"|",["G4",4],"|",
     ["A4",1],["A4",1],["A4",1],["A4",1],"|",["G4",4],"|",["F4",1],["F4",1],["F4",1],["F4",1],"|",["E4",2],["E4",2],"|",["D4",1],["D4",1],["D4",1],["D4",1],"|",["C4",4]])
 };
+(function(){const c=document.getElementById("msub");c.checked=MOLLSUB;
+  c.addEventListener("change",()=>{MOLLSUB=c.checked;try{localStorage.setItem("gw-mollsub",MOLLSUB?"1":"0");}catch(e){}stop();for(const k in BOCACHE)delete BOCACHE[k];GCACHE={};if(PARTS.length)run();});})();
 ["stimm","disk","bass","bmoll"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{stop();buildInstrument();const r=document.getElementById("rref");if(r)r.innerHTML="";if(PARTS.length)run();}));
 buildInstrument();
 // MIDI-Dateien von volksmusik.cc, Satz: Franz Fuchs (mit seinem Einverständnis, Herkunft wird angezeigt)
