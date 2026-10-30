@@ -89,7 +89,7 @@ body.editing #griff .brk:hover,#griff .brk.on{fill:var(--extra);opacity:.35}
 .beat.forced{color:var(--extra)!important}#griff text.bl.miss,.beat.miss{fill:var(--bad);color:var(--bad)!important}
 .edithelp .semi button{margin-right:6px}
 #edbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:50;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;max-width:calc(100vw - 24px);padding:8px 10px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25)}
-#edbar[hidden]{display:none}#edrange{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;border-top:1px solid var(--line);padding-top:6px}#edrange[hidden],#edrange [hidden]{display:none}#rhint{opacity:.8;font-size:.85em}#edrange select{font:inherit;padding:4px}@media (max-width:760px){#edbar{bottom:72px}}#edbar #edtxt{font-weight:700;margin-right:4px;min-width:6em}
+#edbar[hidden]{display:none}.balrow{display:flex;align-items:center;gap:6px}.balrow input{flex:1;min-width:90px;accent-color:var(--accent)}.balrow span{font-size:.8em;opacity:.7;font-weight:700}#edrange{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;border-top:1px solid var(--line);padding-top:6px}#edrange[hidden],#edrange [hidden]{display:none}#rhint{opacity:.8;font-size:.85em}#edrange select{font:inherit;padding:4px}@media (max-width:760px){#edbar{bottom:72px}}#edbar #edtxt{font-weight:700;margin-right:4px;min-width:6em}
 #edbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#edbar button:disabled{opacity:.4;cursor:default}
 #griff .gn.selx{color:var(--accent)}#griff text.chs.selx{fill:var(--accent);text-decoration:underline}#griff text.chs.forced{fill:var(--extra)}.st.selx{outline:2px solid var(--accent);border-radius:4px}#griff .chit{cursor:pointer}#griff .hh.selx{stroke:var(--accent);stroke-width:2.5}
 .drop{border:2px dashed var(--line);border-radius:10px;padding:14px;text-align:center;color:var(--muted);margin-top:14px}
@@ -216,6 +216,10 @@ button.ghost2{background:transparent;color:var(--accent)}
       <div class="field">
         <label for="tempo"><x-de>Tempo (Viertel/min)</x-de><x-en>Tempo (quarters/min)</x-en></label>
         <input id="tempo" type="number" min="30" max="260" value="100">
+      </div>
+      <div class="field">
+        <label for="bal"><x-de>Lautstärke Bass ↔ Diskant</x-de><x-en>Volume bass ↔ treble</x-en></label>
+        <div class="balrow"><span>B</span><input id="bal" type="range" min="0" max="100" step="5" value="50"><span><x-de>D</x-de><x-en>T</x-en></span></div>
       </div>
       <button id="play" type="button">▶ Abspielen</button>
       <button id="print" type="button" class="ghost2"><x-de>Drucken</x-de><x-en>Print</x-en></button>
@@ -399,7 +403,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li><b>4. Reihe:</b> Kreuz statt Notenkopf, auf den Linien.</li>
         <li><b>Druck</b> = Strich unter dem Bass, <b>Zug</b> = kein Strich.</li>
         <li><b>Bass:</b> Großbuchstabe = Grundbass, Kleinbuchstabe = Begleiter. A, B, C, D sind die Bassknöpfe, die zur G-, C-, F- und B-Reihe gehören (bei G-C-F-B), ² bedeutet Hilfsbassreihe, ein Stern einen Zusatzbass.</li>
-        <li><b>Blau</b> = Zusatzknopf oder von Hand geänderte Stelle, <b>rot</b> = Griff gegen die Balgrichtung des Basses.</li>
+        <li><b>Blau</b> = Zusatzknopf oder von Hand geänderte Stelle, <b>rot</b> = Griff gegen den Bass: er klingt zugleich mit einem Grundbass- oder Begleiteranschlag, aber in der anderen Balgrichtung. Leit- und Durchgangstöne zwischen den Bassanschlägen dürfen in der anderen Richtung liegen; sie gelten nicht als gegen den Bass, kosten aber einen Balgwechsel, deshalb nimmt das Programm sie nur, wenn es sich lohnt. Mit „Griffe aus der Griffschrift“ teilt sich ein Bassabschnitt nur dort, wo der Verfasser den Balg zu einem Bassanschlag wechselt.</li>
       </ul>
       <p><b>Für den PC:</b> Der Knopf „Für den PC ⤓“ oben bietet drei Wege an: das Programm als App installieren (eigenes Fenster mit Symbol, geht auch ohne Internet), eine Desktop-Verknüpfung (.url) herunterladen oder das ganze Programm als HTML-Datei herunterladen und lokal öffnen.</p>
       <p>Unter <b>Ansicht</b> gibt es statt der Griffschrift auch eine <b>Griff-Tabelle</b> mit Knopfnummer und Reihe (z. B. 5₂ = Knopf 5 in Reihe 2). Dort steht ein Punkt, wenn derselbe Griff im Takt schon vorkam. Die dritte Möglichkeit sind <b>Normalnoten</b>: die Melodie mit allen Griff-Tönen im Violinschlüssel, mit Tonart-Vorzeichen und Versetzungszeichen, darunter die Akkordnamen. Gezeigt wird die eingestellte Lage, also so, wie es auf dem gewählten Instrument klingt. Abspielen, Übungsauswahl und Bearbeiten funktionieren dort genauso.</p>
@@ -425,6 +429,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li><b>Takte wählen:</b> Über der Notenzeile auf die kleine <b>Taktnummer</b> klicken; mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. Alternativ „Üben: Takt von – bis“ ausfüllen.</li>
         <li><b>Abspielen:</b> Der obere Knopf oder der runde Knopf rechts unten spielt die gewählten Takte, mit <b>Schleife</b> immer wieder. Ein Klick auf eine Note in der Auswahl startet ab diesem Takt.</li>
         <li><b>Tempo</b> in Vierteln pro Minute einstellen, zum Üben langsamer.</li>
+        <li><b>Lautstärke Bass ↔ Diskant:</b> In der Mitte klingen beide voll. Nach links (B) wird der Diskant leiser, ganz links ist nur der Bass zu hören; nach rechts (D) wird der Bass leiser, ganz rechts nur der Diskant. Der Regler wirkt auch während des Abspielens und wird im Browser gemerkt.</li>
         <li><b>Noten mitscrollen</b> ausschalten, wenn man beim Abspielen lieber die Knöpfe im Diskant- und Bassbild verfolgt; die Seite bleibt dann stehen. Die Einstellung wird im Browser gemerkt.</li>
         <li>Ein Klick auf eine Note außerhalb der Auswahl spielt nur diesen Griff und zeigt den Knopf im Diskant- und Bassbild.</li>
         <li><b>„Auswahl löschen“</b> spielt wieder das ganze Stück.</li>
@@ -507,7 +512,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li><b>Row 4:</b> a cross instead of a note head, on the lines.</li>
         <li><b>Push</b> (Druck) = a line under the bass, <b>pull</b> (Zug) = no line.</li>
         <li><b>Bass:</b> capital letter = bass note, small letter = chord. A, B, C, D are the bass buttons belonging to the G, C, F and B rows (on a G-C-F-B instrument); ² means the auxiliary bass row, a star an extra bass button.</li>
-        <li><b>Blue</b> = extra button or a spot changed by hand, <b>red</b> = grip played against the bellows direction of the bass.</li>
+        <li><b>Blue</b> = extra button or a spot changed by hand, <b>red</b> = grip against the bass: it sounds together with a bass-note or chord-button stroke, but in the other bellows direction. Leading and passing notes between the bass strokes may lie in the other direction; they do not count as against the bass, but they cost a bellows change, so the program only uses them when it pays off. With “Grips from the Griffschrift”, a bass section is only split where the author changes the bellows at a bass stroke.</li>
       </ul>
       <p><b>For your PC:</b> the “For your PC ⤓” button at the top offers three ways: install the program as an app (its own window with an icon, also works without internet), download a desktop shortcut (.url), or download the whole program as an HTML file and open it locally.</p>
       <p>Under <b>View</b> you can switch from the Griffschrift to a <b>grip table</b> with button number and row (e.g. 5₂ = button 5 in row 2). A dot there means the same grip already came earlier in the measure. The third option is <b>standard notation</b>: the melody with all notes of the grips in treble clef, with key signature and accidentals, and the chord names below. It shows the selected key, i.e. as it sounds on the chosen instrument. Playback, practice selection and editing work there in the same way.</p>
@@ -533,6 +538,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li><b>Selecting measures:</b> click the small <b>measure number</b> above the line of music; <b>Shift-click</b> another measure number to make a range. Or fill in “Practice: measures from – to”.</li>
         <li><b>Play:</b> the button at the top or the round button at the bottom right plays the selected measures, over and over with <b>Loop</b>. Clicking a note inside the selection starts from that measure.</li>
         <li>Set the <b>tempo</b> in quarter notes per minute; slower for practising.</li>
+        <li><b>Volume bass ↔ treble:</b> in the middle both play at full volume. To the left (B) the treble gets quieter, fully left only the bass is heard; to the right (T) the bass gets quieter, fully right only the treble. The slider also works during playback and is remembered in the browser.</li>
         <li>Turn off <b>Scroll with the notes</b> if you would rather follow the buttons on the treble and bass diagrams during playback; the page then stays where it is. The setting is remembered in the browser.</li>
         <li>Clicking a note outside the selection plays just that grip and shows the button on the treble and bass diagrams.</li>
         <li><b>“Clear selection”</b> goes back to playing the whole tune.</li>
@@ -793,7 +799,7 @@ function buildInstrument(){
   for(const k in BOCACHE)delete BOCACHE[k];GCACHE={};
 }
 // Gewichte der Griffwahl (abgestimmt an den Griffschrift-Sätzen von Franz Fuchs)
-const W={hrel:1,win:1.5,pos0:20,pos1x:6,pos1:0.8,ext:0.6,sp1:0.6,sp2:1.5,sp3:12,r1:1,r2:-0.2,r3:0.7,r4:5,extra:0.6,spread:0.19,gleich:1,zug:0.5,num:0,against:9,missing:4,mel:0.45,melRow:0.2,dirSame:1.5,bBase:1,bX:0.7,bY:1.2,bChord:0.1,bDirBar:0.05,bDirMid:0.7,uFit:2.2,uPd:0.5,uHy:0.8,noBeg:8,subPd:6};   // an 26 Fuchs-Sätzen: 83 % gleiche Griffe (vorher 74 %), 90 % der Griffe auf 4 Stimmen ergänzbar
+const W={hrel:1,win:1.5,pos0:20,pos1x:6,pos1:0.8,ext:0.6,sp1:0.6,sp2:1.5,sp3:12,r1:1,r2:-0.2,r3:0.7,r4:5,extra:0.6,spread:0.19,gleich:1,zug:0.5,num:0,against:9,agOff:4,missing:4,mel:0.45,melRow:0.2,dirSame:1.5,bBase:1,bX:0.7,bY:1.2,bChord:0.1,bDirBar:0.05,bDirMid:0.7,uFit:2.2,uPd:0.5,uHy:0.8,noBeg:8,subPd:6};   // an 26 Fuchs-Sätzen: 83 % gleiche Griffe (vorher 74 %), 90 % der Griffe auf 4 Stimmen ergänzbar
 const ROWCOST={get 1(){return W.r1},get 2(){return W.r2},get 3(){return W.r3},get 4(){return W.r4}};
 // ======== Ergänzung auf 4 Stimmen: Akkordtöne unter der Melodie, in derselben Balgrichtung und in Griffweite
 let FILL4=true,FILL3=false;
@@ -986,7 +992,13 @@ function buildSegments(measures,t,key,minor){
         const ba=Math.min(...chords.map(c=>fit(c,a))),bb=Math.min(...chords.map(c=>fit(c,b)));
         if(ba+bb+0.9<best1)cuts=[0,h,m.len];}
     }
-    if(strict){let ld=null;evs.filter(e=>e.type==="note").sort((x,y)=>x.on-y.on).forEach(e=>{const d=pdirAt(mi,e.on);if(!d)return;if(ld&&d!==ld&&e.on>1e-9)cuts.push(e.on);ld=d;});}
+    // Bassanschläge (Takt-relativ): Grundbass/Begleiter klingen nur zu diesen Zeiten; nur ein Diskantton, der dann klingt, muss in der Balgrichtung des Basses liegen
+    const attOf=(a,b)=>{if(bpOn&&!MEAS_SHIFT[mi]){const L=[];for(let k=Math.round((mOff[mi]+a)*12);k<Math.round((mOff[mi]+b)*12);k++)if(BASSPIN.get(k))L.push(k/12-mOff[mi]);if(L.length)return L;}
+      const st=(m.tsN===2&&m.tsD===4)?0.5:beatUnit(m),L=[];for(let x=a;x<b-1e-9;x+=st)L.push(x);(m.bass||[]).forEach(n=>{if(n.on>=a-1e-9&&n.on<b-1e-9)L.push(n.on);});return [...new Set(L.map(x=>Math.round(x*48)/48))].sort((x,y)=>x-y);};
+    const spanOf=e=>e.dur+evs.filter(x=>x.type==="tie"&&x.src===e).reduce((c,x)=>c+x.dur,0);
+    const hits=(e,att)=>att.some(x=>x>=e.on-1e-6&&x<e.on+spanOf(e)-1e-6);
+    // Griffschrift zwingend: geteilt wird nur, wo der Verfasser den Balg zu einem Bassanschlag wechselt (Leit- und Durchgangstöne dazwischen nicht)
+    if(strict){const attM=attOf(0,m.len);let ld=null;evs.filter(e=>e.type==="note").sort((x,y)=>x.on-y.on).forEach(e=>{const d=pdirAt(mi,e.on);if(!d||!hits(e,attM))return;if(ld&&d!==ld&&e.on>1e-9)cuts.push(e.on);ld=d;});}
     cuts=[...new Set(cuts.map(x=>Math.round(x*48)/48))].sort((x,y)=>x-y);
     let lastHarm=segs.length?segs[segs.length-1].harm:null;
     for(let k=0;k<cuts.length-1;k++){
@@ -1015,7 +1027,8 @@ function buildSegments(measures,t,key,minor){
         if(o2.length)opts=o2;}
       // Begleiter (v. a. Moll) gibt es oft nur in einer Balgrichtung: die Richtung ohne Begleiter nur, wenn es nicht anders geht
       {const full=new Set(opts.filter(o=>o.b).map(o=>o.chord.pc+(o.chord.minor?"m":"")));opts.forEach(o=>{if(!o.b&&full.has(o.chord.pc+(o.chord.minor?"m":"")))o.unary+=W.noBeg;});}
-      let pdir=null;if(strict){const e1=evs.filter(e=>e.type==="note"&&e.on>=a-1e-9&&e.on<b-1e-9).sort((x,y)=>x.on-y.on).find(e=>pdirAt(mi,e.on));if(e1)pdir=pdirAt(mi,e1.on);}
+      const att=attOf(a,b);
+      let pdir=null;if(strict){const e1=evs.filter(e=>e.type==="note"&&e.on>=a-1e-9&&e.on<b-1e-9).sort((x,y)=>x.on-y.on).find(e=>pdirAt(mi,e.on)&&hits(e,att));if(e1)pdir=pdirAt(mi,e1.on);}
       let fbx=false;
       if(pdir){let f=opts.filter(o=>o.dir===pdir);
         // Moll nur in der anderen Richtung: Moll-Ersatz (Dur-Begleiter der Terz) in seiner Richtung
@@ -1026,7 +1039,7 @@ function buildSegments(measures,t,key,minor){
         if(f.length)opts=f;}
       const skey=mi+":"+a.toFixed(4),fd=SEG_FORCE[skey];
       if(fd){const f=opts.filter(o=>o.dir===fd);if(f.length)opts=f;}
-      segs.push({mi,a,b,opts,len:b-a,harm,key:skey,fb:fb||fbx,bnotes,pdir});
+      segs.push({mi,a,b,opts,len:b-a,harm,key:skey,fb:fb||fbx,bnotes,pdir,att});
       lastHarm=harm;
     }
   });
@@ -1056,7 +1069,9 @@ function solve(measures,t,key,minor){
     // Töne außerhalb des Tonumfangs eine (oder zwei) Oktaven versetzen, wenn es sie dort gibt
     for(const x of raw){if(exists(x)){pitches.push(x);continue;}const y=[x-12,x+12,x-24,x+24].find(v=>exists(v)&&!raw.includes(v)&&!pitches.includes(v));if(y!=null){pitches.push(y);oct++;}else if([x-12,x+12,x-24,x+24].some(v=>exists(v)&&(raw.includes(v)||pitches.includes(v))))oct++;   // nur Oktavverdopplung: weglassen
       else pitches.push(x);}
-    notes.push({e,pitches,raw,oct,play:pitches.filter(exists),si:segOf(mi,e.on),at:mOff[mi]+e.on});}));
+    const si=segOf(mi,e.on),sp=e.dur+m.ev.filter(x=>x.type==="tie"&&x.src===e).reduce((c,x)=>c+x.dur,0),att=si>=0?segs[si].att||[]:[];
+    const clash=att.some(x=>x>=e.on-1e-6&&x<e.on+sp-1e-6);   // klingt gleichzeitig mit einem Bassanschlag
+    notes.push({e,pitches,raw,oct,play:pitches.filter(exists),si,at:mOff[mi]+e.on,clash});}));
   const steps=[];
   segs.forEach((s,si)=>{const ns=notes.filter(n=>n.si===si&&n.play.length);if(ns.length)ns.forEach(n=>steps.push({si,n}));else steps.push({si,n:null});});
   let prev=null,prevBy={},prevIdx=[];const back=[];
@@ -1071,13 +1086,13 @@ function solve(measures,t,key,minor){
     seg.opts.forEach((o,oi)=>{
       if(!st.n){for(const w of winsOf(null))states.push({oi,g:null,un:0,win:w});return;}
       const fd=NOTE_FORCE[st.n.e.key];let dirs=fd?[fd]:["D","Z"];if(fd&&!grips(st.n.play,fd).length)dirs=["D","Z"];
-      if(seg.pdir&&!fd&&grips(st.n.play,o.dir).length)dirs=[o.dir];   // Griffschrift zwingend: Diskant mit dem Bass
+      if(seg.pdir&&!fd&&st.n.clash&&grips(st.n.play,o.dir).length)dirs=[o.dir];   // Griffschrift zwingend: Diskant mit dem Bass
       // Griffe nach Fuchs: nur Griffe zulassen, die seine Knöpfe (und Balgrichtung) für diese Töne verwenden
       let pin=null;if(pinT!==null&&!fd&&!MEAS_SHIFT[segs[st.si].mi]){const L=PINIDX.get(Math.round(st.n.at*12));if(L)pin=L.filter(x=>st.n.play.includes(x[1]+pinT));if(pin&&!pin.length)pin=null;}
       const okPin=g=>pin.every(x=>(!x[4]||g.dir===x[4])&&g.btns.some(q=>q.m===x[1]+pinT&&q.b.row===x[2]&&q.b.num===x[3]));
       if(pin&&!dirs.some(d=>grips(st.n.play,d,true).some(okPin)))pin=null;
       st.n.pinned=!!pin;
-      for(const d of dirs)for(const g of grips(st.n.play,d,!!pin)){if(pin&&!okPin(g))continue;const un=g.cost+g.missing.length*W.missing+(d===o.dir?0:W.against)+extCost(g,o.chord);for(const w of winsOf(g))states.push({oi,g,un:un+relRow(g,w),win:w});}
+      for(const d of dirs)for(const g of grips(st.n.play,d,!!pin)){if(pin&&!okPin(g))continue;const un=g.cost+g.missing.length*W.missing+(d===o.dir?0:(st.n.clash?W.against:W.agOff))+extCost(g,o.chord);for(const w of winsOf(g))states.push({oi,g,un:un+relRow(g,w),win:w});}
     });
     const cur=states.map(s=>{
       const o=seg.opts[s.oi];
@@ -1097,7 +1112,7 @@ function solve(measures,t,key,minor){
   });
   let bi=0;prev.forEach((p,i)=>{if(p.cost<prev[bi].cost)bi=i;});
   const total=prev[bi].cost;
-  for(let k=steps.length-1;k>=0;k--){const x=back[k][bi],st=steps[k],o=segs[st.si].opts[x.s.oi];segs[st.si].pick=o;if(st.n){st.n.g=x.s.g;st.n.against=x.s.g.dir!==o.dir;st.n.chord=o.chord;}bi=x.bk;}
+  for(let k=steps.length-1;k>=0;k--){const x=back[k][bi],st=steps[k],o=segs[st.si].opts[x.s.oi];segs[st.si].pick=o;if(st.n){st.n.g=x.s.g;st.n.against=x.s.g.dir!==o.dir&&st.n.clash;st.n.chord=o.chord;}bi=x.bk;}
   notes.forEach(n=>{n.e._r={pitches:n.pitches,raw:n.raw,oct:n.oct,g:n.g||null,against:!!n.against,si:n.si,ext:n.g?extOf(n.g,n.chord):[]};});
   measures.forEach((m,mi)=>m.ev.forEach(e=>{if(e.type!=="note")e._r={si:segOf(mi,e.on)};}));
   let bad=0,missing=0;notes.forEach(n=>{bad+=n.pitches.length-n.play.length;if(n.g)missing+=n.g.missing.length;});
@@ -1747,7 +1762,12 @@ function drawBass(o,part){
 }
 
 // ======== Klang (Vorausplanung in kleinen Zeitfenstern, damit auch lange Stücke sofort spielen)
-let AC=null,MASTER=null;
+let AC=null,MASTER=null,TGAIN=null,BGAIN=null,BAL=50;
+try{const v=localStorage.getItem("gw-bal");if(v!==null&&!isNaN(+v))BAL=Math.max(0,Math.min(100,+v));}catch(e){}
+// Balance: 50 = beide voll, darunter wird der Diskant leiser, darüber der Bass
+const balT=()=>Math.min(1,BAL/50),balB=()=>Math.min(1,(100-BAL)/50);
+function setBal(v){BAL=v;try{localStorage.setItem("gw-bal",String(v));}catch(e){}
+  if(AC&&TGAIN&&BGAIN){const t=AC.currentTime;TGAIN.gain.setTargetAtTime(balT(),t,0.03);BGAIN.gain.setTargetAtTime(balB(),t,0.03);}}
 function ac(){
   if(!AC){AC=new (window.AudioContext||window.webkitAudioContext)();}
   if(AC.state==="suspended")AC.resume();
@@ -1756,7 +1776,9 @@ function ac(){
 function newMaster(){
   const a=ac();if(MASTER){try{MASTER.disconnect();}catch(e){}}
   const comp=a.createDynamicsCompressor();comp.connect(a.destination);
-  MASTER=a.createGain();MASTER.gain.value=1.6;MASTER.connect(comp);return MASTER;
+  MASTER=a.createGain();MASTER.gain.value=1.6;MASTER.connect(comp);
+  TGAIN=a.createGain();TGAIN.gain.value=balT();TGAIN.connect(MASTER);BGAIN=a.createGain();BGAIN.gain.value=balB();BGAIN.connect(MASTER);
+  return MASTER;
 }
 function tone(midi,t0,dur,vol,cut,dest){
   const a=ac(),f=440*Math.pow(2,(midi-69)/12),g=a.createGain(),lp=a.createBiquadFilter();
@@ -1765,6 +1787,22 @@ function tone(midi,t0,dur,vol,cut,dest){
   for(const det of [-6,6]){const o=a.createOscillator();o.type="sawtooth";o.frequency.value=f;o.detune.value=det;o.connect(lp);o.start(t0);o.stop(t0+dur+0.03);}
   lp.connect(g);g.connect(dest||MASTER||newMaster());
 }
+// Bassklang: Grundbass wie ein Helikonbass mit zwei Zungen im Oktavabstand (tief + Oktave), obertonreich, damit die Tonhöhe
+// auch auf kleinen Lautsprechern hörbar ist; Begleiter als gehaltener Dreiklang mit drei Zungen, nicht nur als kurzer Schlag
+function reed(a,f,t0,dur,vol,cut,dest,type,att,dec){const g=a.createGain(),lp=a.createBiquadFilter();lp.type="lowpass";lp.frequency.value=cut;lp.Q.value=0.7;
+  const end=t0+dur,sus=vol*0.75;g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(vol,t0+att);g.gain.linearRampToValueAtTime(sus,t0+att+dec);
+  g.gain.setValueAtTime(sus,Math.max(t0+att+dec,end-0.04));g.gain.linearRampToValueAtTime(0,end);
+  for(const det of [-5,5]){const o=a.createOscillator();o.type=type;o.frequency.value=f;o.detune.value=det;o.connect(lp);o.start(t0);o.stop(end+0.03);}
+  lp.connect(g);g.connect(dest);}
+function bassTone(pc,t0,dur,vol,dest){const a=ac(),m=36+mod(pc-4,12)+4,f=440*Math.pow(2,(m-69)/12);   // E2…Dis3 (82–156 Hz) + Oktave: Sprung nur zwischen Dis und E
+  dest=dest||MASTER||newMaster();
+  reed(a,f,t0,dur,vol,Math.max(900,f*12),dest,"sawtooth",0.012,0.12);
+  reed(a,f*2,t0,dur,vol*0.7,Math.max(1400,f*14),dest,"sawtooth",0.012,0.12);}
+// Begleiter in Grundstellung: Grundton unten (g' bis fis''), Terz und Quint darüber, dazu der Grundton eine Oktave höher;
+// so wandert der ganze Akkord mit dem Grundton und die Begleiter unterscheiden sich deutlich (nicht alle in denselben Tönen zusammengeschoben)
+function chordTone(pc,third,t0,dur,vol,dest){const a=ac();dest=dest||MASTER||newMaster();const r=67+mod(pc-7,12);   // G4…Fis5 (eine Oktave höher, damit die Begleiter klar über dem Grundbass liegen)
+  [[0,1],[third,0.8],[7,0.8],[12,0.55]].forEach(([iv,w])=>{const f=440*Math.pow(2,(r+iv-69)/12);
+    reed(a,f,t0,dur,vol*w,Math.min(5000,f*6),dest,"sawtooth",0.01,0.08);});}
 function beep(m,d){try{const a=ac();if(!MASTER)newMaster();tone(m,a.currentTime+0.02,d,0.08);}catch(e){}}
 let timers=[],playing=false,SCHED=null;
 function stop(){
@@ -1794,7 +1832,8 @@ function startPlay(fromMi){
     const own=segIdx(mi),shown=segIdx(dmi);
     R.segs.forEach((s,si)=>{if(s.mi!==mi||!s.pick)return;const o=s.pick,pc=o.chord.pc,third=o.chord.minor?3:4;const bu=beatUnit(m),nb=Math.max(1,Math.round(s.len/bu));
       const k=own.indexOf(si),msi=dmi!==mi&&shown[k]!=null?shown[k]:si;
-      for(const x of segSlots(s)){evs.push({t:mt+(s.a+x.t)*q,kind:x.k==="B"?"B":"G",pc:x.pc,third,o:x.k==="B"?(x.btn&&x.btn!==o.b?{...o,b:x.btn}:o):(x.btn?{...o,g:x.btn}:o),si:msi,b:x.i});}});
+      for(const x of segSlots(s)){const sb=x.k==="B"&&x.btn&&x.btn[o.dir]&&x.btn[o.dir].t==="B"?x.btn[o.dir]:null;   // Begleiter: so, wie der Knopf klingt (auch Moll-Ersatz)
+        evs.push({t:mt+(s.a+x.t)*q,kind:x.k==="B"?"B":"G",pc:sb?sb.pc:x.pc,third:sb?(sb.minor?3:4):third,o:x.k==="B"?(x.btn&&x.btn!==o.b?{...o,b:x.btn}:o):(x.btn?{...o,g:x.btn}:o),si:msi,b:x.i});}});
     m.ev.forEach((e,ei)=>{if(e.type!=="note")return;const de=dmi!==mi?dm.ev[ei]:null;evs.push({t:mt+e.on*q,kind:"N",e,me:de&&de.type==="note"&&de._uid?de:e});});
     mt+=m.len*q;
   });
@@ -1808,9 +1847,10 @@ function startPlay(fromMi){
       if(i>=evs.length){if(loop){i=0;start+=mt;}else break;}
       const ev=evs[i];if(start+ev.t>=horizon)break;i++;
       const at=start+ev.t,delay=Math.max(0,(at-a.currentTime)*1000);
-      if(ev.kind==="G")tone(36+ev.pc,at,q*0.8,0.09,3,dest);
-      else if(ev.kind==="B")[0,ev.third,7].forEach(iv=>tone(48+mod(ev.pc+iv,12)+(mod(ev.pc+iv,12)<5?12:0),at,q*0.45,0.03,4,dest));
-      else{const r=ev.e._r;r.pitches.forEach((p,k)=>tone(p,at,ev.e.dur*q*0.95,k?0.06:0.09,6,dest));extShown(r).forEach(x=>tone(x.m,at,ev.e.dur*q*0.95,0.045,6,dest));}
+      const bd=BGAIN||dest,td=TGAIN||dest;
+      if(ev.kind==="G")bassTone(ev.pc,at,q*0.8,0.075,bd);
+      else if(ev.kind==="B")chordTone(ev.pc,ev.third,at,q*0.6,0.03,bd);
+      else{const r=ev.e._r;r.pitches.forEach((p,k)=>tone(p,at,ev.e.dur*q*0.95,k?0.06:0.09,6,td));extShown(r).forEach(x=>tone(x.m,at,ev.e.dur*q*0.95,0.045,6,td));}
       timers.push(setTimeout(()=>{
         if(ev.kind==="N"){const e=ev.me||ev.e;markCur(e._uid,undefined);drawKbd(ev.e._r.g,extShown(ev.e._r));const el=document.querySelector(document.getElementById("view").value!=="tab"?`#griff [data-uid="${e._uid}"]`:`.ev[data-uid="${e._uid}"]`);if(el&&el.scrollIntoView&&document.getElementById("follow").checked)el.scrollIntoView({block:"nearest",behavior:"smooth"});}
         else{drawBass(ev.o,ev.kind);markCur(undefined,[ev.si,ev.b]);}
@@ -2017,6 +2057,7 @@ const DEMOS={
   entchen:()=>makeXML("Alle meine Entchen",4,0,[["C4",1],["D4",1],["E4",1],["F4",1],"|",["G4",2],["G4",2],"|",["A4",1],["A4",1],["A4",1],["A4",1],"|",["G4",4],"|",
     ["A4",1],["A4",1],["A4",1],["A4",1],"|",["G4",4],"|",["F4",1],["F4",1],["F4",1],["F4",1],"|",["E4",2],["E4",2],"|",["D4",1],["D4",1],["D4",1],["D4",1],"|",["C4",4]])
 };
+(function(){const r=document.getElementById("bal");r.value=BAL;r.addEventListener("input",()=>setBal(+r.value));})();
 (function(){const c=document.getElementById("msub");c.checked=MOLLSUB;
   c.addEventListener("change",()=>{MOLLSUB=c.checked;try{localStorage.setItem("gw-mollsub",MOLLSUB?"1":"0");}catch(e){}stop();for(const k in BOCACHE)delete BOCACHE[k];GCACHE={};if(PARTS.length)run();});})();
 ["stimm","disk","bass","bmoll"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{stop();buildInstrument();const r=document.getElementById("rref");if(r)r.innerHTML="";if(PARTS.length)run();}));
