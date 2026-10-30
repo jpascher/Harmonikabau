@@ -89,7 +89,10 @@ body.editing #griff .brk:hover,#griff .brk.on{fill:var(--extra);opacity:.35}
 .beat.forced{color:var(--extra)!important}#griff text.bl.miss,.beat.miss{fill:var(--bad);color:var(--bad)!important}
 .edithelp .semi button{margin-right:6px}
 #edbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:50;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;max-width:calc(100vw - 24px);padding:8px 10px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25)}
-#edbar[hidden]{display:none}.balrow{display:flex;align-items:center;gap:6px}.balrow input{flex:1;min-width:90px;accent-color:var(--accent)}.balrow span{font-size:.8em;opacity:.7;font-weight:700}#edrange{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;border-top:1px solid var(--line);padding-top:6px}#edrange[hidden],#edrange [hidden]{display:none}#rhint{opacity:.8;font-size:.85em}#rctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center}.rsep{font-size:.8em;opacity:.7;margin-left:8px}#rshift,#rclip{font-size:.85em;opacity:.8}#edrange select{font:inherit;padding:4px}@media (max-width:760px){#edbar{bottom:72px}}#edbar #edtxt{font-weight:700;margin-right:4px;min-width:6em}
+#edbar[hidden]{display:none}.balrow{display:flex;align-items:center;gap:6px}.balrow input{flex:1;min-width:90px;accent-color:var(--accent)}.balrow span{font-size:.8em;opacity:.7;font-weight:700}#edrange{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;border-top:1px solid var(--line);padding-top:6px}#edrange[hidden],#edrange [hidden]{display:none}#rhint{opacity:.8;font-size:.85em}#rctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center}.rsep{font-size:.8em;opacity:.7;margin-left:8px}#rshift,#rclip{font-size:.85em;opacity:.8}
+.pill.flash{background:var(--accent);color:var(--panel)}
+@keyframes rflash{from{background:color-mix(in srgb,var(--accent) 18%,transparent)}to{background:transparent}}#griff.resetflash{animation:rflash 1s ease-out}
+button:disabled{opacity:.45;cursor:default}#edrange select{font:inherit;padding:4px}@media (max-width:760px){#edbar{bottom:72px}}#edbar #edtxt{font-weight:700;margin-right:4px;min-width:6em}
 #edbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#edbar button:disabled{opacity:.4;cursor:default}
 #griff .gn.selx{color:var(--accent)}#griff text.chs.selx{fill:var(--accent);text-decoration:underline}#griff text.chs.forced{fill:var(--extra)}.st.selx{outline:2px solid var(--accent);border-radius:4px}#griff .chit{cursor:pointer}#griff .hh.selx{stroke:var(--accent);stroke-width:2.5}
 .drop{border:2px dashed var(--line);border-radius:10px;padding:14px;text-align:center;color:var(--muted);margin-top:14px}
@@ -454,7 +457,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li><b>Taktstrich</b> anklicken: Zeile nach diesem Takt umbrechen, nochmal klicken hebt es auf.</li>
       </ul>
       <p><b>Bassläufe:</b> Steht in der Datei eine eigene Bassstimme (MIDI-Bassspur oder das untere System einer MusicXML-Datei), übernimmt das Programm sie. Spielt der Bass dort nur Grundton und Quint, bleibt es bei Grundbass, Wechselbass und Begleiter. Kommen andere Töne vor, etwa ein Lauf D–C–A–D oder eine Zerlegung, wird jeder Ton dieses Abschnitts als eigener Grundbass gesetzt, auch auf Achteln; auf freien Schlägen bleibt der Begleiter. Fehlt für einen Ton in der Balgrichtung ein Knopf, steht er rot mit „?“ da, und die Statuszeile zählt ihn.</p>
-      <p>Das Programm rechnet nach jeder Änderung den Rest neu, damit es flüssig weitergeht. Geänderte Stellen sind blau. „Änderungen zurücksetzen“ nimmt alles zurück. Beim Laden eines anderen Stücks gehen Änderungen verloren, deshalb vorher speichern.</p>
+      <p>Das Programm rechnet nach jeder Änderung den Rest neu, damit es flüssig weitergeht. Geänderte Stellen sind blau. „Änderungen zurücksetzen“ zeigt in Klammern, wie viele Änderungen es gibt, und nimmt alle zurück; die Notenansicht blinkt dabei kurz auf, und in der Statuszeile steht „Alle Änderungen zurückgenommen“. Ohne Änderungen ist der Knopf ausgegraut. Beim Laden eines anderen Stücks gehen Änderungen verloren, deshalb vorher speichern.</p>
       <p><b>Bearbeitung speichern und laden:</b> „Bearbeitung speichern ⤓“ legt eine kleine Datei <i>Titel_Griffschrift-Bearbeitung.json</i> im Download-Ordner ab (der Browser fragt je nach Einstellung auch nach dem Ort). Darin stehen alle Änderungen (Balgrichtungen, Töne, Bässe, Akkorde, Notenlängen, Spielreihen, Tonhöhen, Zeilenumbrüche) und die Einstellungen: Stimmung, Diskant, Bass samt eigener Bassbelegung, Lage, Griffweise, Begleitung und Ansicht. Bei einem eingebauten Beispiel wird nur verwiesen, welches Stück es ist; bei einer selbst geöffneten Datei werden die Noten mitgespeichert, die Bearbeitung lässt sich also auch ohne die Originaldatei wieder öffnen. „Bearbeitung laden …“ (oder die Datei einfach auf das Feld zum Öffnen ziehen) lädt Stück, Einstellungen und Änderungen wieder, in derselben Lage wie beim Speichern. Die Datei funktioniert auch mit der heruntergeladenen Programmdatei ohne Internet; nur die nachgeladenen Volkstänze brauchen dafür eine Verbindung.</p>
     </section>
     <section id="h-druck"><h3>Zeilen und Drucken</h3>
@@ -565,7 +568,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li>Click a <b>bar line</b>: start a new line after that measure; click again to undo.</li>
       </ul>
       <p><b>Bass runs:</b> if the file contains its own bass part (a MIDI bass track or the lower staff of a MusicXML file), the program uses it. If the bass only plays root and fifth, it keeps bass button, alternating bass and chord button. If other notes occur, such as a run D–C–A–D or a broken chord, every note in that section gets its own bass button, eighth notes included; free beats keep the chord button. If a note has no button in that bellows direction, it is shown in red with “?”, and the status line counts it.</p>
-      <p>After every change the program recalculates the rest so that it keeps flowing. Changed spots are blue. “Undo all changes” takes everything back. Changes are lost when another tune is loaded, so save them first.</p>
+      <p>After every change the program recalculates the rest so that it keeps flowing. Changed spots are blue. “Undo all changes” shows in brackets how many changes there are and takes them all back; the music briefly flashes and the status line says “All changes undone”. Without changes the button is greyed out. Changes are lost when another tune is loaded, so save them first.</p>
       <p><b>Saving and loading edits:</b> “Save edits ⤓” puts a small file <i>Title_Griffschrift-Bearbeitung.json</i> into the downloads folder (depending on its settings, the browser may also ask where). It holds all changes (bellows directions, notes, basses, chords, note lengths, rows, pitches, line breaks) and the settings: tuning, treble, bass including your own bass layout, key, grip style, accompaniment and view. For a built-in example it only records which tune it is; for a file you opened yourself the music is stored as well, so the edit can be opened again without the original file. “Load edits …” (or simply dragging the file onto the open area) restores tune, settings and changes, in the same key as when saved. The file also works with the downloaded program file without internet; only the folk dances loaded on demand need a connection.</p>
     </section>
     <section id="e-druck"><h3>Lines and printing</h3>
@@ -1189,10 +1192,16 @@ function resolve(){
 }
 function creditText(){return CREDIT?TX("Satz: ","Arr. ")+CREDIT:"";}
 function setTitle(){const w=TX("Griffweise","Fingering");document.getElementById("ttl").textContent=(TITLE?(w+": "+TITLE):w)+(CREDIT?" ("+creditText()+")":"");}
+// Zahl aller Änderungen von Hand (für Statuszeile und Knopf „Änderungen zurücksetzen“)
+function editCount(){return Object.keys(NOTE_FORCE).length+Object.keys(SEG_FORCE).length+BREAKS.size+Object.keys(BASS_EDIT).length+Object.keys(BASS_KIND).length+Object.keys(PITCH_EDIT).length+
+  Object.keys(SEG_HARM).length+DUR_OPS.length+Object.keys(MEAS_SHIFT).length+Object.keys(RANGE_PLAY).length+MEAS_OPS.length;}
+function updResetBtn(n){const b=document.getElementById("reset");if(!b)return;b.disabled=!n;
+  b.textContent=TX(`Änderungen zurücksetzen${n?` (${n})`:""}`,`Undo all changes${n?` (${n})`:""}`);}
+function flashMsg(t){const st=document.getElementById("status");if(!st)return;const sp=document.createElement("span");sp.className="pill flash";sp.textContent=t;st.prepend(sp);setTimeout(()=>sp.remove(),4000);}
 function updateStatus(){
   const st=document.getElementById("status"),bt=BT;
   const kn=CHN[mod(P.keyPc+bt+(P.minor?9:0),12)],key=(P.minor&&LANG!=="en"?kn.toLowerCase():kn)+(P.minor?TX("-Moll"," minor"):TX("-Dur"," major"));
-  const nf=Object.keys(NOTE_FORCE).length+Object.keys(SEG_FORCE).length;
+  const nf=editCount();updResetBtn(nf);
   st.innerHTML=`<span class="pill">${R.n} ${TX("Griffe","grips")}</span>`+
     `<span class="pill warn">${R.changes} ${TX("Balgwechsel",R.changes===1?"bellows change":"bellows changes")}</span>`+
     `<span class="pill">${R.bmoves} ${TX("Bassknopf-Wechsel",R.bmoves===1?"bass button change":"bass button changes")}</span>`+
@@ -1741,7 +1750,9 @@ document.addEventListener("keydown",ev=>{if(!EDIT||!SEL||SELX)return;const tg=ev
 document.getElementById("edit").addEventListener("click",ev=>{EDIT=!EDIT;setTimeout(updEdbar,0);ev.currentTarget.setAttribute("aria-pressed",EDIT);document.body.classList.toggle("editing",EDIT);document.getElementById("edithelp").hidden=!EDIT;});
 document.getElementById("reset").addEventListener("click",()=>{NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();BASS_EDIT={};BASS_KIND={};SEG_HARM={};
   const dur=DUR_OPS.length>0||Object.keys(MEAS_SHIFT).length>0||MEAS_OPS.length>0;DUR_OPS=[];MEAS_SHIFT={};RANGE_PLAY={};MEAS_OPS=[];CLIP=null;
-  if(P)P.measures.forEach(m=>m.ev.forEach(e=>{if(e.orig){e.midis=e.orig;delete e.orig;}}));PITCH_EDIT={};SELX=null;if(dur)run();else resolve();updEdbar();});
+  if(P)P.measures.forEach(m=>m.ev.forEach(e=>{if(e.orig){e.midis=e.orig;delete e.orig;}}));PITCH_EDIT={};SELX=null;if(dur)run();else resolve();updEdbar();
+  flashMsg(TX("Alle Änderungen zurückgenommen","All changes undone"));
+  const g=document.getElementById("griff");if(g){g.classList.remove("resetflash");void g.offsetWidth;g.classList.add("resetflash");}});
 document.getElementById("semup").addEventListener("click",()=>shiftSel(1));document.getElementById("bkind").addEventListener("click",toggleKind);document.getElementById("semdn").addEventListener("click",()=>shiftSel(-1));
 document.getElementById("form").addEventListener("change",()=>{if(!P)return;stop();SEL=null;syncSelInputs();buildDisplay();updateStatus();renderTab();renderGriff();});
 document.getElementById("lpr").addEventListener("change",()=>{if(R)renderGriff();});
