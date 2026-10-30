@@ -408,7 +408,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>Alle Volkstänze von volksmusik.cc:</b> Die Auswahl „Alle Volkstänze“ enthält alle 854 Stücke, für die Franz Fuchs auf volksmusik.cc eine MIDI-Datei anbietet: 838 aus seiner Griffschrift-Sammlung und 16 weitere, die es nur bei den Volkstanz-Noten gibt (Satz: Franz Fuchs, mit seinem Einverständnis). Bei 341 davon, mit ★ markiert, übernimmt das Programm Griffe aus seiner Griffschrift; dort ließ sich seine Capella-Datei Takt für Takt der MIDI-Datei zuordnen. Sie stehen in der Auswahl „Beispiele“ ganz unten in der Gruppe „Alle … Volkstänze von volksmusik.cc“, alphabetisch geordnet. Die Stücke werden erst beim Auswählen aus dem Internet nachgeladen: auf der GitHub-Seite aus dem Ordner midi/vm daneben, bei lokal geöffneter index.html von der GitHub-Seite. Dafür braucht es also eine Internetverbindung; die übrigen Beispiele funktionieren auch ohne.</p>
       <p><b>Griffe aus der Griffschrift (Fuchs):</b> Bei den Beispielen Bauernwalzer, Blümerl, Boarischer aus der Ramsau, Broatnbacher Walzer, Kreuzpolka, Sternpolka, Sternpolka aus dem Mießtal und Warschauer aus Tragöß übernimmt das Programm die Griffe direkt aus Fuchs' Griffschrift (Häkchen „Griffe aus der Griffschrift“). Die Lage wird dann so gewählt, dass seine Knöpfe zur eingestellten Stimmung passen. Wo sich ein Ton in seiner Griffschrift nicht eindeutig einem Knopf zuordnen lässt, etwa beim Gleichton oder bei Wiederholungen mit anderem Schluss, greift das Programm selbst. Die Statuszeile zeigt, wie viele Griffe von Fuchs stammen.</p>
       <p><b>Abgestimmt an Franz Fuchs:</b> Wo ein Ton auf mehreren Knöpfen liegt, richtet sich die Wahl nach den Griffschrift-Sätzen von Franz Fuchs (volksmusik.cc). Dafür wurden 26 seiner Sätze Note für Note mit der zugehörigen MIDI-Datei verglichen und die Gewichte des Programms so eingestellt, dass es möglichst oft gleich greift. Typisch für diese Sätze: Die 2. und 3. Reihe werden der 1. Reihe vorgezogen, der Gleichton wird eher gemieden, bei gleichwertigen Möglichkeiten wird Druck bevorzugt, und die Hand bleibt möglichst in einer Lage. Doppelgriffe liegen bei Fuchs fast immer in einer Reihe, selten über zwei oder drei und nie über alle vier Reihen; entsprechend nimmt das Programm weit gespannte Griffe nur, wenn es keine andere Möglichkeit gibt. Ebenso meidet es Griffe, deren Notenköpfe zusammenstoßen: Zwei Töne auf derselben Stelle (Note und Kreuz übereinander) kommen bei Fuchs nie vor, Sekunden mit einem Kreuz daneben praktisch nie. Solche Griffe nimmt das Programm nur, wenn kein anderer Griff möglich ist. Das Programm greift jetzt bei 83 von 100 Tönen gleich wie Fuchs (vorher 74). Die Abweichungen betreffen meist die Balgrichtung, die vom Bass abhängt.</p>
-      <p><b>Wechselbass:</b> Bleibt der Akkord gleich, wechselt der Grundbass zwischen Grundton und Quint, so wie man Polka, Marsch und Walzer auf der Steirischen spielt. Im 2/4- und 3/4-Takt wechselt er von Takt zu Takt, im 4/4-Takt kommt der Quintbass auf Schlag 3. Das Programm nimmt dafür den nächstgelegenen Quintbass-Knopf in derselben Balgrichtung; gibt es keinen, bleibt der Grundbass stehen, und die Statuszeile meldet das. Mit dem Häkchen „Wechselbass“ lässt er sich abschalten.</p>
+      <p><b>Wechselbass:</b> Bleibt der Akkord gleich, wechselt der Grundbass zwischen Grundton und Quint, so wie man Polka, Marsch und Walzer auf der Steirischen spielt. Der 2/4-Takt wird immer mit vier Achteln begleitet (Bass, Begleiter, Bass, Begleiter); der Quintbass kommt dabei auf Schlag 2. Im 3/4-Takt wechselt er von Takt zu Takt, im 4/4-Takt kommt der Quintbass auf Schlag 3. Landler (auch Steirer und Schleuniger, erkannt am Titel) werden ohne Wechselbass begleitet; die Statuszeile zeigt dann „Landlerbegleitung“. Das Programm nimmt dafür den nächstgelegenen Quintbass-Knopf in derselben Balgrichtung; gibt es keinen, bleibt der Grundbass stehen, und die Statuszeile meldet das. Mit dem Häkchen „Wechselbass“ lässt er sich abschalten.</p>
       <p><b>Auf 4 Stimmen ergänzbar:</b> Auch wenn nur ein- oder zweistimmig gespielt wird, wählt das Programm die Griffe bevorzugt so, dass sich bei Bedarf ein dritter und vierter Ton dazugreifen lässt: Akkordtöne unter der Melodie, in derselben Balgrichtung, in Griffweite der Hand und höchstens über drei Reihen. So ist bei rund 3 von 4 Griffen ein vierstimmiger Griff möglich. Ist unter „Stimmen im Diskant“ „bis 4 Stimmen“ gewählt, werden die Griffe auf vier Stimmen ergänzt; mit dem Häkchen „dreistimmig ergänzen“ auf drei Stimmen. Die Ergänzungstöne erscheinen dann grau gestrichelt in der Griffschrift, in der Griff-Tabelle und im Diskantbild (gestrichelter Rand) und klingen beim Abspielen leise mit. Ergänzt wird zuerst der fehlende Dreiklangston (Grundton, dann Terz, dann Quint), bei der V. Stufe danach die Septime, erst dann wird verdoppelt. Der dreistimmige Griff ist deshalb immer ein Teil des vierstimmigen. Sonst bleiben die Ergänzungstöne ausgeblendet. Das Häkchen „Griffe auf 4 Stimmen ergänzbar“ schaltet die Bevorzugung ab.</p>
       <p><b>Handlage über drei Reihen:</b> Die Hand deckt drei nebeneinanderliegende Reihen ab, je nach Tonlage die Reihen 1 bis 3 oder 2 bis 4. Das Programm bleibt möglichst in einer Lage und wechselt nur, wenn sich das lohnt; Griffe über alle vier Reihen gibt es nur im Notfall.</p>
       <p>Oben in der Statuszeile siehst du, wie viele Balgwechsel und Bassknopf-Wechsel herauskommen.</p>
@@ -515,7 +515,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>All folk dances from volksmusik.cc:</b> the “All folk dances” list contains all 854 tunes for which Franz Fuchs offers a MIDI file on volksmusik.cc: 838 from his Griffschrift collection and 16 more that only appear among the folk dance scores (arrangements by Franz Fuchs, used with his consent). For 341 of them, marked with ★, the program takes grips from his Griffschrift; for these his Capella file could be matched to the MIDI file measure by measure. They are at the bottom of the “Examples” list in the group “All … folk dances from volksmusik.cc”, in alphabetical order. A tune is loaded from the internet only when you choose it: on the GitHub page from the midi/vm folder next to it, and when index.html is opened locally, from the GitHub page. So this needs an internet connection; the other examples also work without one.</p>
       <p><b>Grips from the Griffschrift (Fuchs):</b> for the examples Bauernwalzer, Blümerl, Boarischer aus der Ramsau, Broatnbacher Walzer, Kreuzpolka, Sternpolka, Sternpolka aus dem Mießtal and Warschauer aus Tragöß, the program takes the grips directly from Fuchs' Griffschrift (“Grips from the Griffschrift” checkbox). The key is then chosen so that his buttons fit the selected tuning. Where a note in his Griffschrift cannot be assigned to one button unambiguously, for example the Gleichton or repeats with a different ending, the program chooses the grip itself. The status line shows how many grips come from Fuchs.</p>
       <p><b>Tuned to Franz Fuchs:</b> where a note lies on several buttons, the choice follows the Griffschrift arrangements by Franz Fuchs (volksmusik.cc). 26 of his arrangements were compared note by note with the matching MIDI files, and the program's weights were set so that it chooses the same grip as often as possible. Typical of these arrangements: rows 2 and 3 are preferred to row 1, the Gleichton button tends to be avoided, push is preferred when the options are otherwise equal, and the hand stays in one position where possible. Fuchs almost always places double stops within one row, rarely across two or three and never across all four rows; accordingly the program only uses widely spread grips when there is no other option. Likewise it avoids grips whose note heads collide: two notes on the same staff position (a note and a cross on top of each other) never occur in Fuchs, and seconds with a cross next to a note practically never. The program only uses such grips when no other grip is possible. The program now chooses the same grip as Fuchs for 83 out of 100 notes (74 before). The differences are mostly in the bellows direction, which depends on the bass.</p>
-      <p><b>Alternating bass:</b> while the chord stays the same, the bass alternates between root and fifth, the way polkas, marches and waltzes are played on the Styrian accordion. In 2/4 and 3/4 it alternates from measure to measure; in 4/4 the fifth comes on beat 3. The program takes the nearest fifth button in the same bellows direction; if there is none, the root stays and the status line reports it. The “Alternating bass” checkbox turns it off.</p>
+      <p><b>Alternating bass:</b> while the chord stays the same, the bass alternates between root and fifth, the way polkas, marches and waltzes are played on the Styrian accordion. 2/4 is always accompanied in four eighths (bass, chord, bass, chord), with the fifth on beat 2. In 3/4 it alternates from measure to measure; in 4/4 the fifth comes on beat 3. Ländler (also Steirer and Schleuniger, recognised by the title) are accompanied without alternating bass; the status line then shows “Ländler accompaniment”. The program takes the nearest fifth button in the same bellows direction; if there is none, the root stays and the status line reports it. The “Alternating bass” checkbox turns it off.</p>
       <p><b>Extendable to 4 voices:</b> even when only one or two voices are played, the program prefers grips to which a third and fourth note can be added when needed: chord notes below the melody, in the same bellows direction, within reach of the hand and across at most three rows. This makes a four-voice grip possible for about 3 out of 4 grips. When “Up to 4 voices” is chosen under “Voices in the treble”, the grips are filled to four voices; with the “Fill to 3 voices” checkbox, to three voices. The extra notes then appear grey and dashed in the Griffschrift, in the grip table and on the treble diagram (dashed outline), and sound softly during playback. The missing triad note is added first (root, then third, then fifth), on the 5th degree the seventh next, and only then a note is doubled. The three-voice grip is therefore always part of the four-voice grip. Otherwise the extra notes stay hidden. The “Grips extendable to 4 voices” checkbox turns this preference off.</p>
       <p><b>Hand position across three rows:</b> the hand covers three adjacent rows, rows 1 to 3 or rows 2 to 4 depending on the register. The program stays in one position where possible and only moves when it pays off; grips across all four rows are used only as a last resort.</p>
       <p>The status line at the top shows how many bellows changes and bass button changes result.</p>
@@ -1087,7 +1087,7 @@ function run(){
   const st=document.getElementById("status");
   if(!PARTS.length){st.textContent=TX("Noch keine Noten geladen.","No music loaded yet.");return;}
   stop();
-  P=parsePart(PARTS[+document.getElementById("part").value||0]);applyDurOps();applyPitchEdits();SELX=null;
+  P=parsePart(PARTS[+document.getElementById("part").value||0]);LANDLER=isLandler();applyDurOps();applyPitchEdits();SELX=null;
   const nN=P.measures.reduce((s,m)=>s+m.ev.filter(e=>e.type==="note").length,0);
   if(!nN){st.innerHTML='<span class="err">'+TX("In dieser Stimme stehen keine Noten.","This part contains no notes.")+'</span>';document.getElementById("tab").innerHTML="";return;}
   let best=null,bt=0;
@@ -1122,6 +1122,7 @@ function updateStatus(){
     (R.wbMiss?`<span class="pill bad">${R.wbMiss} ${TX(R.wbMiss===1?"Wechselbass ohne Quintbass in dieser Balgrichtung":"Wechselbässe ohne Quintbass in dieser Balgrichtung",R.wbMiss===1?"alternating bass without a fifth button in this bellows direction":"alternating basses without a fifth button in this bellows direction")}</span>`:"")+
     (R.nobeg?`<span class="pill bad">${R.nobeg} ${TX(R.nobeg===1?"Bassabschnitt ohne passenden Bass/Begleiter":"Bassabschnitte ohne passenden Bass/Begleiter",R.nobeg===1?"bass section without a matching bass/chord button":"bass sections without a matching bass/chord button")}</span>`:"")+
     (()=>{const n=R.segs.reduce((c,sg)=>c+segSlots(sg).filter(x=>!x.btn).length,0);return n?`<span class="pill bad">${n} ${TX(n===1?"Basston ohne Knopf in dieser Balgrichtung":"Basstöne ohne Knopf in dieser Balgrichtung",n===1?"bass note without a button in this bellows direction":"bass notes without a button in this bellows direction")}</span>`:"";})()+
+    (LANDLER&&WB?`<span class="pill">${TX("Landlerbegleitung (ohne Wechselbass)","Ländler accompaniment (no alternating bass)")}</span>`:"")+
     (R.pin?`<span class="pill" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">${TX(`${R.pin} Griffe nach ${PINNAME()} Griffschrift`,`${R.pin} grips from ${PINNAME()} Griffschrift`)}</span>`:"")+
     (R.oct?`<span class="pill">${R.oct} ${TX(R.oct===1?"Ton oktaviert":"Töne oktaviert",R.oct===1?"note moved by an octave":"notes moved by an octave")}</span>`:"")+
     (R.bad+R.missing?`<span class="pill bad">${R.bad+R.missing} ${TX("Töne nicht greifbar",R.bad+R.missing===1?"note not playable":"notes not playable")}</span>`:"")+
@@ -1202,7 +1203,7 @@ function renderTab(){
         let beats="";
         for(const x of segSlots(s))beats+=`<span class="beat${x.k==="B"?" bg":""}${x.ed?" forced":""}${!x.btn?" miss":""}${SELX&&SELX.slot===x.key?" selx":""}" data-si="${si}" data-b="${x.i}" data-slot="${x.key}">${slotName(x)}</span>`;
         b.innerHTML=`<span class="bar"></span><div class="beats">${beats}</div><span class="st${SEG_HARM[s.key]?" forced":""}" data-chord="${s.key}">${chordLabel(o.chord)} · ${o.chord.deg||""}</span>`;
-        b.title=`${chordLabel(o.chord)}${o.chord.deg?TX(" (Stufe "," (degree ")+o.chord.deg+")":""}: ${TX("Grundbass","bass")} ${bassName(o.g,"G")}, ${TX("Begleiter","chord")} ${o.b?bassName(o.b,"B"):TX("fehlt","missing")}${WB&&s.fifth&&s.alt&&s.alt.some(x=>x)?", "+TX("Wechselbass","alternating bass")+" "+bassName(s.fifth,"G"):""}, ${o.dir==="Z"?TX("Zug","pull"):TX("Druck","push")}`;
+        b.title=`${chordLabel(o.chord)}${o.chord.deg?TX(" (Stufe "," (degree ")+o.chord.deg+")":""}: ${TX("Grundbass","bass")} ${bassName(o.g,"G")}, ${TX("Begleiter","chord")} ${o.b?bassName(o.b,"B"):TX("fehlt","missing")}${WBX()&&s.fifth&&s.alt&&s.alt.some(x=>x)?", "+TX("Wechselbass","alternating bass")+" "+bassName(s.fifth,"G"):""}, ${o.dir==="Z"?TX("Zug","pull"):TX("Druck","push")}`;
         b.style.cursor="pointer";b.addEventListener("click",ev=>{if(EDIT){const sp=ev.target.closest("[data-slot]");if(sp){pickSlot(s,sp.dataset.slot);return;}if(ev.target.closest("[data-chord]")){pickChord(s);return;}toggleSeg(s);return;}drawBass(o,"both");});
       }
       bot.appendChild(b);
@@ -1220,7 +1221,10 @@ function markCur(uid,beat){
 let PRINT_W=0;   // beim Drucken feste Breite, damit die Zeilen auf A4 passen
 const beatUnit=m=>(m.tsD===8&&m.tsN%3===0)?1.5:1;   // 6/8, 9/8: Schlag = punktierte Viertel
 // ======== Wechselbass: bei gleichbleibendem Akkord wechselt der Grundbass zwischen Grundton und Quint
-let WB=true;
+let WB=true,LANDLER=false;
+// Landler (3/4) wird ohne Wechselbass begleitet (Hinweis von Franz Fuchs)
+const WBX=()=>WB&&!LANDLER;
+function isLandler(){if(!P)return false;const t=(TITLE||"").toLowerCase();return /(l[aä]ndler|landla|steirer|steirisch|schleunig|landlerisch)/.test(t);}
 try{const v=localStorage.getItem("gw-wb");if(v!==null)WB=v==="1";}catch(e){}
 function segNb(s){return Math.max(1,Math.round(s.len/beatUnit(P.measures[s.mi])));}
 function applyWB(){
@@ -1229,21 +1233,21 @@ function applyWB(){
   R.segs.forEach(s=>{s.alt=null;s.fifth=null;const o=s.pick;if(!o)return;
     const key=o.chord.pc+(o.chord.minor?"m":"");   // Wechsel läuft weiter, solange der Akkord bleibt (auch über Balgwechsel)
     if(key!==prev){cnt=0;prev=key;}
-    const nbb=(WB&&segNb(s)===4)?2:1;s.alt=[];
+    const nbb=(WBX()&&segNb(s)===4)?2:1;s.alt=[];
     for(let i=0;i<nbb;i++){s.alt.push(cnt%2===1);cnt++;}
-    if(!WB)return;
+    if(!WBX())return;
     const fpc=mod(o.chord.pc+7,12);
     const c=BBTN.filter(b=>b[o.dir]&&b[o.dir].t==="G"&&b[o.dir].pc===fpc).sort((a,b)=>dist(a,o.g)-dist(b,o.g));
     if(c.length)s.fifth=c[0];else if(s.alt.some(x=>x))miss++;});
-  R.wbMiss=WB?miss:0;
+  R.wbMiss=WBX()?miss:0;
 }
 // welcher Knopf auf Schlag b eines Bassabschnitts: k = "G" Grundbass, "F" Quintbass (Wechselbass), "B" Begleiter
 function beatInfo(s,b){
   const o=s.pick,nb=segNb(s);
-  const bassBeat=b===0||(WB&&nb===4&&b===2);
+  const bassBeat=b===0||(WBX()&&nb===4&&b===2);
   if(!bassBeat)return o.b?{k:"B",btn:o.b}:{k:"G",btn:o.g};
   const bi=b===0?0:1;
-  if(WB&&s.alt&&s.alt[bi]&&s.fifth)return {k:"F",btn:s.fifth};
+  if(WBX()&&s.alt&&s.alt[bi]&&s.fifth)return {k:"F",btn:s.fifth};
   return {k:"G",btn:o.g};
 }
 const beatName=(s,b)=>{const q=beatInfo(s,b);return bassName(q.btn,q.k==="B"?"B":"G");};
@@ -1261,6 +1265,11 @@ function segSlots(s){
     for(let b=0;b<nb;b++){const t=b*bu;if(sl.some(x=>Math.abs(x.t-t)<1e-6))continue;
       if(bn.some(n=>n.on-s.a<t-1e-6&&n.on-s.a+n.dur>t+1e-6))continue;   // Basston klingt noch
       if(o.b)sl.push({t,k:"B",pc:o.chord.pc,btn:o.b});}
+  } else if(m.tsN===2&&m.tsD===4){   // 2/4: immer vier Achtel – Bass, Begleiter, Bass, Begleiter; mit Wechselbass auf Schlag 2 die Quint
+    for(let t=0;t<s.len-1e-9;t+=0.5){const abs=s.a+t,onBeat=Math.abs(abs-Math.round(abs))<1e-6;
+      if(!onBeat){if(o.b)sl.push({t,k:"B",pc:o.chord.pc,btn:o.b});else sl.push({t,k:"G",pc:o.g[o.dir].pc,btn:o.g});continue;}
+      const fifth=WBX()&&Math.abs(abs-1)<1e-6&&s.a<1e-6&&s.fifth;
+      sl.push(fifth?{t,k:"F",pc:s.fifth[o.dir].pc,btn:s.fifth}:{t,k:"G",pc:o.g[o.dir].pc,btn:o.g});}
   } else for(let b=0;b<nb;b++){const q=beatInfo(s,b);sl.push({t:b*bu,k:q.k,pc:q.k==="B"?o.chord.pc:q.btn[o.dir].pc,btn:q.btn});}
   sl.sort((x,y)=>x.t-y.t);
   sl.forEach((x,i)=>{x.i=i;x.key=s.key+"@"+x.t.toFixed(3);const kd=BASS_KIND[x.key];
