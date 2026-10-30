@@ -88,7 +88,7 @@ body.editing #griff .brk:hover,#griff .brk.on{fill:var(--extra);opacity:.35}
 #edbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:50;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;max-width:calc(100vw - 24px);padding:8px 10px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25)}
 #edbar[hidden]{display:none}@media (max-width:760px){#edbar{bottom:72px}}#edbar #edtxt{font-weight:700;margin-right:4px;min-width:6em}
 #edbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#edbar button:disabled{opacity:.4;cursor:default}
-#griff .gn.selx{color:var(--accent)}#griff .hh.selx{stroke:var(--accent);stroke-width:2.5}
+#griff .gn.selx{color:var(--accent)}#griff text.chs.selx{fill:var(--accent);text-decoration:underline}#griff text.chs.forced{fill:var(--extra)}.st.selx{outline:2px solid var(--accent);border-radius:4px}#griff .chit{cursor:pointer}#griff .hh.selx{stroke:var(--accent);stroke-width:2.5}
 .drop{border:2px dashed var(--line);border-radius:10px;padding:14px;text-align:center;color:var(--muted);margin-top:14px}
 .drop.over{border-color:var(--accent);color:var(--fg)}
 .status{font-size:15px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
@@ -270,6 +270,7 @@ button.ghost2{background:transparent;color:var(--accent)}
     <p class="edithelp" id="selhelp"><x-de>Zum Üben: über einer Notenzeile auf die <b>Taktnummer</b> klicken wählt den Takt, mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. „Abspielen“ (oben oder der runde Knopf rechts unten) spielt dann nur diese Takte, mit „Schleife“ immer wieder. Ein Klick auf eine Note <b>in</b> der Auswahl startet ab diesem Takt, ein Klick auf eine Note außerhalb spielt nur diesen Griff an.</x-de><x-en>To practise: click the <b>measure number</b> above a line of music to select that measure; <b>Shift-click</b> another measure number to select a range. “Play” (at the top, or the round button at the bottom right) then plays only those measures, over and over with “Loop”. Clicking a note <b>inside</b> the selection starts from that measure; clicking a note outside it just sounds that one grip.</x-en></p>
     <div id="edbar" hidden role="toolbar" aria-label="Bearbeiten"><span id="edtxt"></span>
       <button type="button" data-a="o-" title="Oktave tiefer (Bild ab)">−8va</button><button type="button" data-a="-" title="Halbton tiefer (−)">− ½</button><button type="button" data-a="+" title="Halbton höher (+)">+ ½</button><button type="button" data-a="o+" title="Oktave höher (Bild auf)">+8va</button>
+      <button type="button" data-a="l-"><x-de>kürzer</x-de><x-en>shorter</x-en></button><button type="button" data-a="l+"><x-de>länger</x-de><x-en>longer</x-en></button><button type="button" data-a="mm"><x-de>Dur/Moll</x-de><x-en>major/minor</x-en></button>
       <button type="button" data-a="dir"><x-de>Zug/Druck</x-de><x-en>Pull/push</x-en></button><button type="button" data-a="kind"><x-de>Begleiter ↔ Grundbass</x-de><x-en>Chord ↔ bass</x-en></button><button type="button" data-a="x" title="Auswahl aufheben (Esc)">✕</button></div>
     <p id="edithelp" class="edithelp" hidden><span class="semi"><button id="semdn" type="button" class="ghost2" title="−1">− <x-de>Halbton</x-de><x-en>semitone</x-en></button><button id="semup" type="button" class="ghost2" title="+1">+ <x-de>Halbton</x-de><x-en>semitone</x-en></button><button id="bkind" type="button" class="ghost2" title="G"><x-de>Begleiter ↔ Grundbass</x-de><x-en>Chord ↔ bass button</x-en></button> <span id="selinfo"></span></span><br><x-de>Bearbeiten: <b>Note</b> oder <b>Bassbuchstaben</b> anklicken = auswählen, dann <b>+</b> / <b>−</b> (Tasten oder Knöpfe) = einen Halbton höher / tiefer; ein einzelner Notenkopf (Griffschrift) bzw. Ton (Griff-Tabelle) wählt nur diesen Ton · Bassbuchstabe + <b>G</b> oder Knopf „Begleiter ↔ Grundbass“ = Begleiter zum Grundbass machen und zurück · <b>nochmal anklicken</b> = Balgrichtung umschalten (Note: dieser Griff, Bassbuchstabe: ganzer Bassabschnitt) · <b>Taktstrich</b> anklicken = Zeile danach umbrechen (nochmal = aufheben). Geänderte Stellen sind blau.</x-de><x-en>Edit: click a <b>note</b> or a <b>bass letter</b> = select it, then <b>+</b> / <b>−</b> (keys or buttons) = one semitone up / down; clicking a single note head (Griffschrift) or note (grip table) selects only that note · bass letter + <b>G</b> or the “Chord ↔ bass button” button = turn a chord button into a bass button and back · <b>click again</b> = switch the bellows direction (note: that grip, bass letter: the whole bass section) · click a <b>bar line</b> = start a new line after it (click again to undo). Changed spots are blue.</x-en></p>
     <div id="drop" class="drop"><x-de>Oder Datei hierher ziehen: MusicXML (.musicxml, .xml, .mxl) oder MIDI (.mid). Viele Volkstänze gibt es als MIDI bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): Seite eines Stücks öffnen, „Midi-Datei downloaden“, Datei hier hineinziehen. Gescannte Noten oder PDF? Siehe <a href="#" class="pdfhelp">Hilfe → PDF und Scans</a>.</x-de><x-en>Or drop a file here: MusicXML (.musicxml, .xml, .mxl) or MIDI (.mid). Many Austrian folk dances are available as MIDI at <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): open a tune's page, click “Midi-Datei downloaden”, drop the file here. Scanned music or PDF? See <a href="#" class="pdfhelp">Help → PDF and scans</a>.</x-en></div>
@@ -413,6 +414,8 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li>Ein ausgewählter <b>Begleiter</b> wird mit der Taste <b>G</b> oder dem Knopf „Begleiter ↔ Grundbass“ zum Grundbass (zuerst auf dem Grundton des Akkords), danach lässt er sich mit + / − auf jeden anderen Ton setzen. So kann man auch dort, wo die Vorlage nur Grundton und Begleiter hat, einen eigenen Basslauf schreiben. Nochmal G macht wieder einen Begleiter daraus; umgekehrt geht es ebenso.</li>
         <li>Dann mit <b>+</b> / <b>−</b> (Tasten, Pfeil auf/ab oder die Knöpfe „+ Halbton“ / „− Halbton“) den ausgewählten Griff, Ton oder Basston um einen Halbton höher oder tiefer setzen. Das Programm sucht dafür den passenden Knopf und rechnet den Rest neu. Beim Bass bleibt ein Begleiter ein Begleiter, ein Grundbass ein Grundbass. Zurück auf den ursprünglichen Ton hebt die Änderung auf.</li>
         <li>Im Bearbeiten-Modus erscheint unten eine Leiste mit allen Knöpfen: „− ½“ / „+ ½“ (Halbton), „−8va“ / „+8va“ (Oktave, auch Bild ab/auf oder Umschalt+Pfeil), „Zug/Druck“, beim Bass „Begleiter ↔ Grundbass“ und „✕“ zum Aufheben der Auswahl. Das funktioniert in allen drei Ansichten, auch in den Normalnoten.</li>
+        <li><b>Notenlänge:</b> Bei einem ausgewählten Griff machen „kürzer“ / „länger“ in der Leiste ihn zum nächsten Notenwert (Sechzehntel, Achtel, punktierte Achtel, Viertel, punktierte Viertel, Halbe, punktierte Halbe, Ganze). Länger nimmt die Zeit von den folgenden Noten im Takt, kürzer setzt eine Pause dahinter; die Taktlänge bleibt gleich.</li>
+        <li><b>Akkord:</b> In den Normalnoten den Akkordnamen anklicken (in der Griff-Tabelle den Akkord unter den Bassbuchstaben). Mit + / − wechselt der Grundton um einen Halbton, „Dur/Moll“ schaltet um; Grundbass, Begleiter und Griffe werden dazu neu gesucht.</li>
         <li>Dieselbe <b>Note</b> nochmal anklicken: Balgrichtung dieses Griffs umschalten. Denselben <b>Bassbuchstaben</b> nochmal anklicken: Zug/Druck für den ganzen Bassabschnitt umschalten; die Melodie folgt.</li>
         <li><b>Taktstrich</b> anklicken: Zeile nach diesem Takt umbrechen, nochmal klicken hebt es auf.</li>
       </ul>
@@ -517,6 +520,8 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li>A selected <b>chord button</b> becomes a bass button with the <b>G</b> key or the “Chord ↔ bass button” button (first on the root of the chord), and + / − then move it to any other note. This lets you write your own bass run where the original only has root and chord. Pressing G again turns it back into a chord button; it works the other way round too.</li>
         <li>Then use <b>+</b> / <b>−</b> (keys, arrow up/down or the “+ semitone” / “− semitone” buttons) to move the selected grip, note or bass note one semitone up or down. The program finds the matching button and recalculates the rest. In the bass, a chord button stays a chord button and a bass button stays a bass button. Going back to the original note cancels the change.</li>
         <li>In edit mode a toolbar appears at the bottom with all buttons: “− ½” / “+ ½” (semitone), “−8va” / “+8va” (octave, also Page Down/Up or Shift+arrow), “Pull/push”, for the bass “Chord ↔ bass” and “✕” to clear the selection. This works in all three views, including standard notation.</li>
+        <li><b>Note length:</b> for a selected grip, “shorter” / “longer” in the toolbar change it to the next note value (16th, 8th, dotted 8th, quarter, dotted quarter, half, dotted half, whole). Longer takes the time from the following notes in the measure, shorter puts a rest after it; the measure length stays the same.</li>
+        <li><b>Chord:</b> in standard notation click the chord name (in the grip table the chord below the bass letters). + / − move the root by a semitone, “major/minor” switches; bass button, chord button and grips are chosen again to match.</li>
         <li>Click the same <b>note</b> again: switch the bellows direction of that grip. Click the same <b>bass letter</b> again: switch pull/push for the whole bass section; the melody follows.</li>
         <li>Click a <b>bar line</b>: start a new line after that measure; click again to undo.</li>
       </ul>
@@ -846,7 +851,7 @@ function loadXMLText(txt){
   const sel=document.getElementById("part");sel.innerHTML="";
   PARTS.forEach((p,i)=>{const o=document.createElement("option");o.value=i;const nm0=names[p.getAttribute("id")];if(nm0==="Melodie (aus MIDI)"){o.dataset.midi="1";o.textContent=TX(nm0,"Melody (from MIDI)");}else if(nm0)o.textContent=nm0;else{o.dataset.auto=i+1;o.textContent=TX("Stimme ","Part ")+(i+1);}sel.appendChild(o);});
   const t=doc.querySelector("work-title")||doc.querySelector("movement-title");TITLE=t?t.textContent.trim():"";
-  NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();SEL=null;BASS_EDIT={};BASS_KIND={};PITCH_EDIT={};SELX=null;
+  NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();SEL=null;BASS_EDIT={};BASS_KIND={};PITCH_EDIT={};SEG_HARM={};DUR_OPS=[];SELX=null;
   const sf=document.getElementById("selfrom");if(sf){sf.value="";document.getElementById("selto").value="";}
 }
 function parsePart(part){
@@ -953,6 +958,7 @@ function buildSegments(measures,t,key,minor){
       const a=cuts[k],b=cuts[k+1],notes=notesOf(a,b);
       const he=evs.find(e=>e.harm&&Math.abs(e.on-a)<1e-9);
       let harm=he?{pc:mod(he.harm.pc+t,12),minor:he.harm.minor}:(hs.length&&k===0&&lastHarm?lastHarm:null);
+      {const ov=SEG_HARM[mi+":"+a.toFixed(4)];if(ov)harm={pc:mod(ov.pc+t,12),minor:ov.minor};}   // Akkord von Hand geändert
       let opts=[];
       const use=harm?[{deg:degOf(harm.pc,key,harm.minor),pc:harm.pc,minor:!!harm.minor,prior:0,tones:[]}]:chords;
       for(const c of use){
@@ -1061,7 +1067,7 @@ function run(){
   const st=document.getElementById("status");
   if(!PARTS.length){st.textContent=TX("Noch keine Noten geladen.","No music loaded yet.");return;}
   stop();
-  P=parsePart(PARTS[+document.getElementById("part").value||0]);applyPitchEdits();SELX=null;
+  P=parsePart(PARTS[+document.getElementById("part").value||0]);applyDurOps();applyPitchEdits();SELX=null;
   const nN=P.measures.reduce((s,m)=>s+m.ev.filter(e=>e.type==="note").length,0);
   if(!nN){st.innerHTML='<span class="err">'+TX("In dieser Stimme stehen keine Noten.","This part contains no notes.")+'</span>';document.getElementById("tab").innerHTML="";return;}
   let best=null,bt=0;
@@ -1175,9 +1181,9 @@ function renderTab(){
         b.className="bseg "+(o.dir==="Z"?"zug":"druck")+(SEG_FORCE[s.key]?" forced":"");
         let beats="";
         for(const x of segSlots(s))beats+=`<span class="beat${x.k==="B"?" bg":""}${x.ed?" forced":""}${!x.btn?" miss":""}${SELX&&SELX.slot===x.key?" selx":""}" data-si="${si}" data-b="${x.i}" data-slot="${x.key}">${slotName(x)}</span>`;
-        b.innerHTML=`<span class="bar"></span><div class="beats">${beats}</div><span class="st">${chordLabel(o.chord)} · ${o.chord.deg||""}</span>`;
+        b.innerHTML=`<span class="bar"></span><div class="beats">${beats}</div><span class="st${SEG_HARM[s.key]?" forced":""}" data-chord="${s.key}">${chordLabel(o.chord)} · ${o.chord.deg||""}</span>`;
         b.title=`${chordLabel(o.chord)}${o.chord.deg?TX(" (Stufe "," (degree ")+o.chord.deg+")":""}: ${TX("Grundbass","bass")} ${bassName(o.g,"G")}, ${TX("Begleiter","chord")} ${o.b?bassName(o.b,"B"):TX("fehlt","missing")}${WB&&s.fifth&&s.alt&&s.alt.some(x=>x)?", "+TX("Wechselbass","alternating bass")+" "+bassName(s.fifth,"G"):""}, ${o.dir==="Z"?TX("Zug","pull"):TX("Druck","push")}`;
-        b.style.cursor="pointer";b.addEventListener("click",ev=>{if(EDIT){const sp=ev.target.closest("[data-slot]");if(sp){pickSlot(s,sp.dataset.slot);return;}toggleSeg(s);return;}drawBass(o,"both");});
+        b.style.cursor="pointer";b.addEventListener("click",ev=>{if(EDIT){const sp=ev.target.closest("[data-slot]");if(sp){pickSlot(s,sp.dataset.slot);return;}if(ev.target.closest("[data-chord]")){pickChord(s);return;}toggleSeg(s);return;}drawBass(o,"both");});
       }
       bot.appendChild(b);
     });
@@ -1222,7 +1228,7 @@ function beatInfo(s,b){
 }
 const beatName=(s,b)=>{const q=beatInfo(s,b);return bassName(q.btn,q.k==="B"?"B":"G");};
 // Bass-Plätze eines Abschnitts: t (Viertel ab Abschnittsbeginn), k = G/F/B wie oben, L = Ton eines Basslaufs
-let BASS_EDIT={},BASS_KIND={},PITCH_EDIT={},SELX=null;   // Änderungen von Hand: Basston je Platz, Töne je Griff; SELX = ausgewählter Platz/Griff
+let BASS_EDIT={},BASS_KIND={},PITCH_EDIT={},SEG_HARM={},DUR_OPS=[],SELX=null;   // Änderungen von Hand: Basston je Platz, Töne je Griff; SELX = ausgewählter Platz/Griff
 function bassBtnFor(o,pc,kind,minor){const t=kind==="B"?"B":"G";
   const c=BBTN.filter(b=>b[o.dir]&&b[o.dir].t===t&&b[o.dir].pc===pc&&(t==="G"||b[o.dir].minor===!!minor));
   const ref=t==="B"&&o.b?o.b:o.g;return c.sort((a,b)=>Math.abs(a.x-ref.x)+1.2*Math.abs(a.row-ref.row)-Math.abs(b.x-ref.x)-1.2*Math.abs(b.row-ref.row))[0]||null;}
@@ -1382,7 +1388,7 @@ function renderGriff(){
       // Bass: Grundbass auf Schlag 1 (mit Wechselbass abwechselnd Grundton und Quint, im 4/4 auch auf Schlag 3), Begleiter auf den übrigen; Unterstrich = Druck
       segsOf(x.mi).forEach(({s,si})=>{
         const o=s.pick;if(!o)return;
-        if(NORM){svg+=`<text class="chs" x="${X(s.a)+2}" y="${bassY}">${CHN[o.chord.pc]}${o.chord.minor?"m":""}</text>`;return;}
+        if(NORM){svg+=`<text class="chs${SEG_HARM[s.key]?" forced":""}" data-chord="${s.key}" data-si="${si}" x="${X(s.a)+2}" y="${bassY}">${CHN[o.chord.pc]}${o.chord.minor?"m":""}</text><rect class="chit" data-si="${si}" x="${X(s.a)-2}" y="${bassY-16}" width="${Math.max(24,X(s.b)-X(s.a)-4)}" height="22" fill="transparent"/>`;return;}
         const fz=SEG_FORCE[s.key]?" forced":"";
         for(const q of segSlots(s))svg+=`<text class="bl${fz}${q.ed?" forced":""}${!q.btn?" miss":""}${SELX&&SELX.slot===q.key?" selx":""}" data-si="${si}" data-b="${q.i}" data-slot="${q.key}" x="${X(s.a+q.t)+6}" y="${bassY}" text-anchor="middle"${q.k==="L"&&q.t%1?' style="font-size:13px"':""}>${slotName(q)}</text>`;
         if(o.dir==="D")svg+=`<line class="dl" x1="${X(s.a)-2}" x2="${X(s.b)-6}" y1="${druckY}" y2="${druckY}"/>`;
@@ -1411,6 +1417,7 @@ function renderGriff(){
       const r=e._r;markCur(e._uid,null);drawKbd(r.g,extShown(r));const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.concat(extShown(r).map(q=>q.m)).forEach(p=>beep(p,0.45));};
     el.addEventListener("click",act);el.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
   });
+  host.querySelectorAll(".chit").forEach(el=>el.addEventListener("click",()=>{const s=R.segs[+el.dataset.si];if(!s)return;if(EDIT)pickChord(s);else if(s.pick)drawBass(s.pick,"both");}));
   host.querySelectorAll(".bhit").forEach(el=>el.addEventListener("click",ev=>{const s=R.segs[+el.dataset.si];if(!s)return;
     if(EDIT){const sl=segSlots(s),gx=ev.offsetX;   // nächstgelegener Bassplatz zur Klickstelle
       const texts=[...host.querySelectorAll(`.bl[data-si="${el.dataset.si}"]`)];let best=null,bd=1e9;
@@ -1430,6 +1437,7 @@ function pickSlot(s,key){if(SELX&&SELX.slot===key){SELX=null;toggleSeg(s);return
   const x=segSlots(s).find(q=>q.key===key);if(x){if(x.k==="B")[0,s.pick.chord.minor?3:4,7].forEach(iv=>beep(48+mod(x.pc+iv,12),0.3));else beep(36+x.pc,0.35);}}
 function selSeg(){return R&&SELX&&SELX.skey?R.segs.find(x=>x.key===SELX.skey):null;}
 function markSel(){document.querySelectorAll(".selx").forEach(x=>x.classList.remove("selx"));if(!SELX){const h=document.getElementById("selinfo");if(h)h.textContent=selText();updEdbar();return;}
+  if(SELX.chord)document.querySelectorAll(`[data-chord="${SELX.skey}"]`).forEach(x=>x.classList.add("selx"));
   if(SELX.slot)document.querySelectorAll(`[data-slot="${SELX.slot}"]`).forEach(x=>x.classList.add("selx"));
   else if(SELX.e&&SELX.e._uid){document.querySelectorAll(`[data-uid="${SELX.e._uid}"]`).forEach(x=>x.classList.add("selx"));
     if(SELX.pi!=null)document.querySelectorAll(`.ev[data-uid="${SELX.e._uid}"] .k[data-pi="${SELX.pi}"]`).forEach(x=>x.classList.add("selx"));}
@@ -1437,17 +1445,24 @@ function markSel(){document.querySelectorAll(".selx").forEach(x=>x.classList.rem
   const h=document.getElementById("selinfo");if(h)h.textContent=selText();updEdbar();}
 // schwebende Werkzeugleiste beim Bearbeiten (gut erreichbar, auch ohne Tastatur)
 function updEdbar(){const b=document.getElementById("edbar");if(!b)return;b.hidden=!EDIT;if(!EDIT)return;
-  const has=!!SELX,bass=has&&!!SELX.slot;
+  const has=!!SELX,bass=has&&!!SELX.slot,chord=has&&!!SELX.chord,note=has&&!!SELX.e;
   document.getElementById("edtxt").textContent=has?selText():TX("Note, Notenkopf oder Bassbuchstaben anklicken","Click a note, a note head or a bass letter");
-  b.querySelectorAll("button[data-a]").forEach(x=>{const a=x.dataset.a;x.disabled=!has||(a==="kind"&&!bass)||((a==="o+"||a==="o-")&&bass);x.hidden=(a==="kind"&&!bass);});}
+  b.querySelectorAll("button[data-a]").forEach(x=>{const a=x.dataset.a;const show=a==="kind"?bass:a==="mm"?chord:(a==="l-"||a==="l+")?note:(a==="o+"||a==="o-")?!(bass||chord):true;x.hidden=!show;x.disabled=!has;});
+  document.getElementById("edtxt").textContent=has?selText()+(note?` · ${durName(SELX.e.dur)}`:""):document.getElementById("edtxt").textContent;}
+function durName(d){const n={0.25:TX("Sechzehntel","16th"),0.5:TX("Achtel","8th"),0.75:TX("punkt. Achtel","dotted 8th"),1:TX("Viertel","quarter"),1.5:TX("punkt. Viertel","dotted quarter"),2:TX("Halbe","half"),3:TX("punkt. Halbe","dotted half"),4:TX("Ganze","whole")}[d];return n||(+d.toFixed(2)+TX(" Viertel"," quarters"));}
 function edAct(a){if(!SELX)return;
   if(a==="+")shiftSel(1);else if(a==="-")shiftSel(-1);else if(a==="o+")shiftSel(12);else if(a==="o-")shiftSel(-12);
-  else if(a==="dir"){if(SELX.slot){const sg=selSeg();if(sg)toggleSeg(sg);}else toggleNote(SELX.e);markSel();}
-  else if(a==="kind")toggleKind();else if(a==="x"){SELX=null;markSel();}}
+  else if(a==="dir"){if(SELX.slot||SELX.chord){const sg=selSeg();if(sg)toggleSeg(sg);}else toggleNote(SELX.e);markSel();}
+  else if(a==="kind")toggleKind();else if(a==="l+")changeLen(1);else if(a==="l-")changeLen(-1);
+  else if(a==="mm"){const c=selChord();if(c)setChord(c.pc,!c.minor);}
+  else if(a==="x"){SELX=null;markSel();}}
 function selText(){if(!SELX)return TX("nichts ausgewählt","nothing selected");
+  if(SELX.chord){const c=selChord();return c?TX("Akkord: ","Chord: ")+CHN[c.pc]+(c.minor?"m":""):"";}
   if(SELX.slot){const x=segSlots(selSeg()).find(q=>q.key===SELX.slot);return x?TX("Bass: ","Bass: ")+slotName(x):"";}
   const e=SELX.e;return (SELX.pi!=null?TX("Ton: ","Note: ")+nameOf(e.midis[SELX.pi]+BT):TX("Griff: ","Grip: ")+e.midis.map(m=>nameOf(m+BT)).join(" "));}
 function shiftSel(d){if(!SELX||!EDIT)return;
+  if(SELX.chord){const c=selChord();if(!c||Math.abs(d)>=12)return;   // nächster Grundton, den es auf dem Instrument als Bass gibt
+    for(let k=1;k<12;k++){const pc=mod(c.pc+d*k,12);if(bassOpts({pc,minor:c.minor}).length||bassOpts({pc,minor:!c.minor}).length){setChord(pc,c.minor);return;}}return;}
   if(SELX.slot){const old=BASS_EDIT[SELX.slot];delete BASS_EDIT[SELX.slot];const x=segSlots(selSeg()).find(q=>q.key===SELX.slot);if(!x){if(old!=null)BASS_EDIT[SELX.slot]=old;return;}
     const np=(old!=null?old:x.pc)+d;if(mod(np,12)!==x.pc)BASS_EDIT[x.key]=np;resolve();   // zurück auf den ursprünglichen Ton = Änderung aufheben
     const y=segSlots(selSeg()).find(q=>q.key===SELX.slot);if(y){if(y.k==="B")[0,selSeg().pick.chord.minor?3:4,7].forEach(iv=>beep(48+mod(y.pc+iv,12),0.3));else beep(36+y.pc,0.4);}}
@@ -1460,6 +1475,22 @@ function toggleKind(){if(!SELX||!SELX.slot||!EDIT)return;const sg=selSeg();if(!s
   const kd=BASS_KIND[SELX.slot];delete BASS_EDIT[SELX.slot];
   if(kd)delete BASS_KIND[SELX.slot];else{const x=segSlots(sg).find(q=>q.key===SELX.slot);if(!x)return;BASS_KIND[SELX.slot]=x.k==="B"?"G":"B";}
   resolve();const y=segSlots(selSeg()).find(q=>q.key===SELX.slot);if(y){if(y.k==="B")[0,selSeg().pick.chord.minor?3:4,7].forEach(iv=>beep(48+mod(y.pc+iv,12),0.3));else beep(36+y.pc,0.4);}markSel();}
+// Notenlänge eines Griffs: länger nimmt die Zeit von den folgenden Noten im Takt, kürzer setzt eine Pause dahinter
+const LENS=[0.25,0.5,0.75,1,1.5,2,3,4];
+function durOp(m,idx,nd){const ev=m.ev,e=ev[idx];if(!e)return false;const d=nd-e.dur;
+  if(d>1e-9){let rest=0;for(let j=idx+1;j<ev.length;j++)rest+=ev[j].dur;if(rest<d-1e-9)return false;
+    let rem=d,j=idx+1;while(rem>1e-9&&j<ev.length){const tk=Math.min(rem,ev[j].dur);ev[j].dur-=tk;rem-=tk;if(ev[j].dur<=1e-9)ev.splice(j,1);else j++;}}
+  else if(d<-1e-9)ev.splice(idx+1,0,{type:"rest",dur:-d,on:0});
+  e.dur=nd;let pos=0;ev.forEach(x=>{x.on=pos;pos+=x.dur;});return true;}
+function applyDurOps(){if(!P)return;for(const o of DUR_OPS){const m=P.measures[o.mi];if(!m)continue;const idx=m.ev.findIndex(e=>e.key===o.key);if(idx>=0)durOp(m,idx,o.nd);}}
+function changeLen(dir){if(!SELX||!SELX.e)return;const e=SELX.e,m=P.measures[e._mi];if(!m)return;const idx=m.ev.indexOf(e);
+  const cur=e.dur;const nd=dir>0?LENS.find(v=>v>cur+1e-9):[...LENS].reverse().find(v=>v<cur-1e-9);if(nd==null)return;
+  const back=m.ev.map(x=>({...x}));if(!durOp(m,idx,nd)){beep(40,0.15);return;}
+  DUR_OPS.push({mi:e._mi,key:e.key,nd});resolve();markSel();}
+function selChord(){const sg=selSeg();return sg&&sg.pick?sg.pick.chord:null;}
+function pickChord(s){if(SELX&&SELX.chord&&SELX.skey===s.key){SELX=null;toggleSeg(s);markSel();return;}SELX={chord:true,skey:s.key};markSel();
+  const c=s.pick&&s.pick.chord;if(c)[0,c.minor?3:4,7].forEach(iv=>beep(48+mod(c.pc+iv,12),0.3));}
+function setChord(pc,minor){const sg=selSeg();if(!sg)return;SEG_HARM[sg.key]={pc:mod(pc-BT,12),minor};resolve();const c=selChord();if(c)[0,c.minor?3:4,7].forEach(iv=>beep(48+mod(c.pc+iv,12),0.35));markSel();}
 function applyPitchEdits(){if(!P)return;P.measures.forEach(m=>m.ev.forEach(e=>{if(e.type==="note"&&PITCH_EDIT[e.key]){e.orig=e.orig||e.midis.slice();e.midis=PITCH_EDIT[e.key].slice();}}));}
 document.addEventListener("keydown",ev=>{if(!EDIT||!SELX)return;const tg=ev.target;if(tg&&(tg.tagName==="INPUT"||tg.tagName==="SELECT"||tg.tagName==="TEXTAREA"))return;
   if(ev.key==="PageUp"||(ev.shiftKey&&ev.key==="ArrowUp")){ev.preventDefault();if(!SELX.slot)shiftSel(12);}
@@ -1499,8 +1530,9 @@ function toggleSeg(s){if(!s.pick)return;SEG_FORCE[s.key]=s.pick.dir==="Z"?"D":"Z
   P.measures[s.mi].ev.forEach(e=>{if(e.key&&e.on>=s.a-1e-9&&e.on<s.b-1e-9)delete NOTE_FORCE[e.key];});resolve();}
 document.getElementById("edbar").addEventListener("click",ev=>{const t=ev.target.closest("button[data-a]");if(t)edAct(t.dataset.a);});
 document.getElementById("edit").addEventListener("click",ev=>{EDIT=!EDIT;setTimeout(updEdbar,0);ev.currentTarget.setAttribute("aria-pressed",EDIT);document.body.classList.toggle("editing",EDIT);document.getElementById("edithelp").hidden=!EDIT;});
-document.getElementById("reset").addEventListener("click",()=>{NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();BASS_EDIT={};BASS_KIND={};
-  if(P)P.measures.forEach(m=>m.ev.forEach(e=>{if(e.orig){e.midis=e.orig;delete e.orig;}}));PITCH_EDIT={};SELX=null;resolve();});
+document.getElementById("reset").addEventListener("click",()=>{NOTE_FORCE={};SEG_FORCE={};BREAKS=new Set();BASS_EDIT={};BASS_KIND={};SEG_HARM={};
+  const dur=DUR_OPS.length>0;DUR_OPS=[];
+  if(P)P.measures.forEach(m=>m.ev.forEach(e=>{if(e.orig){e.midis=e.orig;delete e.orig;}}));PITCH_EDIT={};SELX=null;if(dur)run();else resolve();});
 document.getElementById("semup").addEventListener("click",()=>shiftSel(1));document.getElementById("bkind").addEventListener("click",toggleKind);document.getElementById("semdn").addEventListener("click",()=>shiftSel(-1));
 document.getElementById("form").addEventListener("change",()=>{if(!P)return;stop();SEL=null;syncSelInputs();buildDisplay();updateStatus();renderTab();renderGriff();});
 document.getElementById("lpr").addEventListener("change",()=>{if(R)renderGriff();});
