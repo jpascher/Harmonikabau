@@ -417,6 +417,8 @@ button.ghost2{background:transparent;color:var(--accent)}
     </section>
     <section id="h-logik"><h3>So entscheidet das Programm</h3>
       <p>Zug und Druck werden <b>vom Bass her</b> entschieden. Zuerst bestimmt das Programm die Stufen (I, IV, V …): aus Akkordsymbolen, aus der Bassspur einer MIDI-Datei (Wechselbass wird erkannt) oder geschätzt aus der Melodie. Dann sucht es über das ganze Stück die Folge von Grundbass und Begleiter mit den kürzesten Wegen; ein Balgwechsel am selben Knopf zählt als besonders flüssig. Die Melodie samt Doppelgriffen folgt der Balgrichtung des Basses. Gibt es einen Ton nur in der anderen Richtung, wird er gegen den Bass gespielt und rot markiert.</p>
+      <p><b>MIDI-Dateien ohne Griffschrift:</b> Gibt keine Griffschrift die Bässe vor, klärt das Programm beim Einlesen zuerst die Taktart, dann die Tonarten und die Akkordfolge, und erst danach werden Griffe gesucht. <i>Taktart:</i> Alle Taktwechsel der Datei werden übernommen (viele Volkstänze wechseln zwischen 3/4 und 2/4); die Taktstriche laufen ab dem Anfang der Datei, ein Takt vor einem Wechsel, der nicht voll wird, bleibt kurz. <i>Tonart:</i> Die Vorzeichen der Datei samt Tonartwechseln zwischen den Teilen, sofern sie zu den Tönen passen, sonst aus den Tönen geschätzt. <i>Akkordfolge:</i> Für jeden Takt (im 4/4-Takt auch halbtaktig) wird über das ganze Stück die wahrscheinlichste Folge gesucht. Gewertet werden die Basstöne auf den Schlägen (Grundton, im Wechsel mit der Quint) und die Melodietöne; I und V sind häufig, IV seltener, II, III und VI selten, ein Akkordwechsel kostet ein wenig, V→I ist erwünscht. An den Bassbuchstaben von Franz Fuchs geprüft (340 Stücke) stimmt der Begleiter-Akkord jetzt bei 96 % statt 92 %. <i>Basstöne:</i> Ein Basston, der weder in die Tonart noch zum Akkord passt, ist meist falsch zugeordnet und wird auf den nächsten passenden Ton gesetzt. Die Statuszeile zeigt, was geklärt wurde, z. B. „aus MIDI: 3/4 / 2/4, 3 Taktwechsel, 1 Tonartwechsel, 2 Basstöne angepasst“.</p>
+      <p><b>Luft und Stufen:</b> Wo keine Griffschrift vorgibt, achtet das Programm zusätzlich darauf, dass nicht zu lange in einer Balgrichtung gespielt wird, sonst reicht die Luft nicht: höchstens etwa 12 Viertel (4 Takte im 3/4-Takt, 3 Takte im 4/4-Takt). Das entspricht der Praxis von Franz Fuchs: In seinen Sätzen sind 95 % der Läufe in einer Richtung höchstens 7½ Viertel lang, der längste 19. Wird ein Lauf länger, legt das Programm einen Bassabschnitt nahe seiner Mitte in die andere Richtung. Außerdem kommt in Dur-Stücken die Stufe I bevorzugt auf Druck und die Stufe V auf Zug. Wichtiger als beides ist aber, dass alles spielbar bleibt: Beide Regeln werden nur angewandt, wenn dadurch kein Ton unspielbar wird, kein Griff gegen den Bass kommt und kein Begleiter fehlt. Wo das nicht geht, zeigt die Statuszeile die zu langen Stellen an.</p>
       <p><b>Griffweise nach Ramoner oder Fuchs:</b> Wo ein Ton auf mehreren Knöpfen liegt, gibt es zwei Spielweisen. „Ramoner“ (voreingestellt) folgt Philipp Ramoners Griffschrift: Die Hand liegt je nach Tonlage auch über Reihe 2 bis 4, die 4. Reihe wird dann selbstverständlich genommen, und der Gleichton ist willkommen. „Fuchs“ folgt Franz Fuchs: Die Hand bleibt vor allem in Reihe 1 bis 3, und der Gleichton wird eher gemieden. Mit „Ramoner“ greift das Programm bei Philipps Stücken deutlich öfter wie er, mit „Fuchs“ bei Fuchs' Sätzen etwas öfter wie Fuchs.</p>
       <p><b>Schneewalzer:</b> Unter „Eigene Beispiele“ steht der Schneewalzer als MusicXML-Datei (Notensatz: Dorfer), die Philipp zur Verfügung gestellt hat.</p>
       <p><b>Stücke von Philipp Ramoner:</b> Die Beispiele unter „Stücke von Philipp Ramoner“ (Griffig Landler, Für'n Voter, Polka Royal, Der Zommgschwoasste, Eiswind, s'Isabellile, 10-5er, Polar-Weis, Böhmischer Hauch, Bobbl Polka, Sibirische Gedanken) sind seine eigenen Stücke. <b>Melodie und Satz sind urheberrechtlich geschützt</b>; sie sind hier mit seiner Genehmigung enthalten, die Notation stammt von Elke Margetich. Kopieren, Weitergeben oder Veröffentlichen der Noten außerhalb dieses Programms ist nicht erlaubt. Beim Laden wird sein Instrument eingestellt (G-C-F-B, Diskant Schaborak 50 Tasten, Bass Schaborak 50/21), und das Programm übernimmt die Griffe aus seiner Griffschrift (Häkchen „Griffe aus der Griffschrift“).</p>
@@ -527,6 +529,8 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p>Under <b>View</b> you can switch from the Griffschrift to a <b>grip table</b> with button number and row (e.g. 5₂ = button 5 in row 2). A dot there means the same grip already came earlier in the measure. The third option is <b>standard notation</b>: the melody with all notes of the grips in treble clef, with key signature and accidentals, and the chord names below. It shows the selected key, i.e. as it sounds on the chosen instrument. Playback, practice selection and editing work there in the same way.</p>
     </section>
     <section id="e-logik"><h3>How the program decides</h3>
+      <p><b>MIDI files without Griffschrift:</b> if no Griffschrift prescribes the basses, the program first works out the time signature while reading the file, then the keys and the chord progression, and only then looks for grips. <i>Time signature:</i> all time-signature changes in the file are used (many folk dances change between 3/4 and 2/4); bar lines run from the start of the file, and a measure before a change that does not fill up stays short. <i>Key:</i> the key signatures of the file including key changes between the parts, as long as they fit the notes, otherwise estimated from the notes. <i>Chord progression:</i> for each measure (in 4/4 also per half measure) the most likely progression over the whole tune is chosen. It weighs the bass notes on the beats (root, alternating with the fifth) and the melody notes; I and V are common, IV less so, II, III and VI rare; a chord change costs a little, and V→I is welcome. Checked against Franz Fuchs's bass letters (340 tunes), the chord button is now right 96 % of the time instead of 92 %. <i>Bass notes:</i> a bass note that fits neither the key nor the chord is usually misassigned and is moved to the nearest fitting note. The status line shows what was worked out, e.g. “from MIDI: 3/4 / 2/4, 3 time-signature changes, 1 key change, 2 bass notes adjusted to key/chord”.</p>
+      <p><b>Air and degrees:</b> where no Griffschrift prescribes it, the program also makes sure the bellows do not go too long in one direction, otherwise the air runs out: at most about 12 quarter notes (4 measures in 3/4, 3 measures in 4/4). This matches Franz Fuchs's practice: in his arrangements 95 % of the runs in one direction are at most 7½ quarters long, the longest 19. If a run gets longer, the program moves a bass section near its middle to the other direction. In major tunes, degree I also preferably goes on push and degree V on pull. More important than both, though, is that everything stays playable: both rules are only applied if no note becomes unplayable, no grip goes against the bass and no chord button is missing. Where that is not possible, the status line shows the places that are too long.</p>
       <p>Pull and push are decided <b>from the bass</b>. First the program determines the harmonic degrees (I, IV, V …): from chord symbols, from the bass track of a MIDI file (alternating bass is recognised), or estimated from the melody. Then it searches the whole tune for the sequence of bass and chord buttons with the shortest moves; a bellows change on the same button counts as especially smooth. The melody, double stops included, follows the bellows direction of the bass. If a note exists only in the other direction, it is played against the bass and marked red.</p>
       <p><b>Grip style Ramoner or Fuchs:</b> where a note lies on several buttons, there are two ways of playing. “Ramoner” (the default) follows Philipp Ramoner's Griffschrift: depending on the register, the hand also sits across rows 2 to 4, row 4 is then used naturally, and the Gleichton button is welcome. “Fuchs” follows Franz Fuchs: the hand stays mainly in rows 1 to 3, and the Gleichton button tends to be avoided. With “Ramoner” the program matches Philipp's grips in his pieces much more often; with “Fuchs” it matches Fuchs a little more often in his arrangements.</p>
       <p><b>Schneewalzer:</b> under “Own examples” you will find the Schneewalzer as a MusicXML file (engraving: Dorfer), provided by Philipp.</p>
@@ -810,7 +814,7 @@ function buildInstrument(){
   for(const k in BOCACHE)delete BOCACHE[k];GCACHE={};
 }
 // Gewichte der Griffwahl (abgestimmt an den Griffschrift-Sätzen von Franz Fuchs)
-const W={hrel:1,win:1.5,pos0:20,pos1x:6,pos1:0.8,ext:0.6,sp1:0.6,sp2:1.5,sp3:12,r1:1,r2:-0.2,r3:0.7,r4:5,extra:0.6,spread:0.19,gleich:1,zug:0.5,num:0,against:9,agOff:4,rpRow:8,missing:4,mel:0.45,melRow:0.2,dirSame:1.5,bBase:1,bX:0.7,bY:1.2,bChord:0.1,bDirBar:0.05,bDirMid:0.7,uFit:2.2,uPd:0.5,uHy:0.8,noBeg:8,subPd:6};   // an 26 Fuchs-Sätzen: 83 % gleiche Griffe (vorher 74 %), 90 % der Griffe auf 4 Stimmen ergänzbar
+const W={hrel:1,win:1.5,pos0:20,pos1x:6,pos1:0.8,ext:0.6,sp1:0.6,sp2:1.5,sp3:12,r1:1,r2:-0.2,r3:0.7,r4:5,extra:0.6,spread:0.19,gleich:1,zug:0.5,num:0,against:9,agOff:4,rpRow:8,degDir:1,airMax:12,missing:4,mel:0.45,melRow:0.2,dirSame:1.5,bBase:1,bX:0.7,bY:1.2,bChord:0.1,bDirBar:0.05,bDirMid:0.7,uFit:2.2,uPd:0.5,uHy:0.8,noBeg:8,subPd:6};   // an 26 Fuchs-Sätzen: 83 % gleiche Griffe (vorher 74 %), 90 % der Griffe auf 4 Stimmen ergänzbar
 const ROWCOST={get 1(){return W.r1},get 2(){return W.r2},get 3(){return W.r3},get 4(){return W.r4}};
 // ======== Ergänzung auf 4 Stimmen: Akkordtöne unter der Melodie, in derselben Balgrichtung und in Griffweite
 let FILL4=true,FILL3=false;
@@ -891,6 +895,7 @@ function loadXMLText(txt){
   if(doc.documentElement.nodeName!=="score-partwise")throw new Error(TX("In der Datei wurde keine Partitur gefunden.","No score was found in this file."));
   PARTS=[...doc.querySelectorAll("score-partwise > part")];
   const names={};doc.querySelectorAll("part-list score-part").forEach(sp=>{names[sp.getAttribute("id")]=((sp.querySelector("part-name")||{}).textContent||"").trim();});
+  if(!Object.values(names).includes("Melodie (aus MIDI)"))MIDI_INFO=null;
   const sel=document.getElementById("part");sel.innerHTML="";
   PARTS.forEach((p,i)=>{const o=document.createElement("option");o.value=i;const nm0=names[p.getAttribute("id")];if(nm0==="Melodie (aus MIDI)"){o.dataset.midi="1";o.textContent=TX(nm0,"Melody (from MIDI)");}else if(nm0)o.textContent=nm0;else{o.dataset.auto=i+1;o.textContent=TX("Stimme ","Part ")+(i+1);}sel.appendChild(o);});
   const t=doc.querySelector("work-title")||doc.querySelector("movement-title");TITLE=t?t.textContent.trim():"";
@@ -1022,7 +1027,9 @@ function buildSegments(measures,t,key,minor){
       for(const c of use){
         let fc=harm?0:fit(c,notes);
         if(mi===measures.length-1&&k===cuts.length-2&&c.deg==="I")fc-=1.5;
-        for(const bo of bassOpts(c))opts.push({...bo,chord:c,unary:W.uFit*fc+W.uPd*bo.pd+W.uHy*(bo.hy-1)});
+        // Stufe I gern auf Druck, Stufe V gern auf Zug (Grundakkord bzw. Dominantakkord der Reihe)
+        const dg=bo=>minor||NODEG?0:(((!c.minor&&c.pc===key&&bo.dir==="Z")||(!c.minor&&c.pc===mod(key+7,12)&&bo.dir==="D"))?W.degDir:0);
+        for(const bo of bassOpts(c))opts.push({...bo,chord:c,unary:W.uFit*fc+W.uPd*bo.pd+W.uHy*(bo.hy-1)+dg(bo)});
       }
       const fb=!opts.length&&!!harm;   // Akkordsymbol, aber Grundbass fehlt auf dem Instrument
       if(!opts.length)for(const c of chords)for(const bo of bassOpts(c))opts.push({...bo,chord:c,unary:3+fit(c,notes)+0.5*bo.pd});
@@ -1071,8 +1078,34 @@ function bassMove(oa,ob,atBar){
   if(oa.dir!==ob.dir)c+=atBar?W.bDirBar:W.bDirMid;
   return c;
 }
+// Luft: nicht zu lange in einer Balgrichtung (ohne Vorgabe der Griffschrift). Nach dem Lösen werden zu lange Läufe gesucht;
+// in deren Mitte bekommt ein Bassabschnitt einen Aufschlag für die bisherige Richtung, dann wird neu gelöst (höchstens 3 Runden)
+function airRuns(r){const ns=r.notes.filter(n=>n.g).sort((a,b)=>a.at-b.at),runs=[];let st=null,cur=null,last=null,first=null,pin=false;
+  const close=()=>{if(cur!==null)runs.push({a:st,b:last,dir:cur,len:last-st,pin,first});};
+  for(const n of ns){if(cur===null||n.g.dir!==cur||n.at-last>2){close();st=n.at;cur=n.g.dir;pin=false;first=n;}if(n.pinned)pin=true;last=n.at;}close();return runs;}
+let NODEG=false;
 function solve(measures,t,key,minor){
+  let r=solve0(measures,t,key,minor,null);
+  // Vorliebe I auf Druck / V auf Zug nur, wenn dadurch nichts schlechter spielbar wird
+  if(W.degDir&&!minor){NODEG=true;const r0=solve0(measures,t,key,minor,null);
+    if(r0.bad+r0.missing<r.bad+r.missing||r0.against<r.against||r0.nobeg<r.nobeg)r=r0;else NODEG=false;}
+  try{
+  if(!W.airMax)return r;const pen={},tried=new Set();
+  const ok=(a,b)=>airEx(b)<airEx(a)&&b.bad+b.missing<=a.bad+a.missing&&b.against<=a.against&&b.nobeg<=a.nobeg;
+  for(let it=0;it<6;it++){const x=airRuns(r).filter(x=>x.len>W.airMax&&!x.pin&&!tried.has(x.a)).sort((x,y)=>y.len-x.len)[0];if(!x)break;tried.add(x.a);
+    const mid=(x.a+x.b)/2,cand=[];
+    r.segs.forEach((s,i)=>{if(!s.pick||s.pick.dir!==x.dir||pen[i])return;const at=r.mOff[s.mi]+s.a;if(at<x.a+2||at>x.b-2)return;
+      if(!s.opts.some(o=>o.dir!==x.dir))return;cand.push({i,d:Math.abs(at-mid)});});
+    cand.sort((a,b)=>a.d-b.d);let best=null;
+    // Abschnitte nahe der Mitte des Laufs in die andere Richtung legen; genommen wird die günstigste Lösung, die spielbar bleibt
+    for(const c of cand.slice(0,8)){const p2={...pen,[c.i]:x.dir};const r2=solve0(measures,t,key,minor,p2);
+      if(ok(r,r2)&&(!best||airEx(r2)<airEx(best.r)-0.01||(Math.abs(airEx(r2)-airEx(best.r))<0.01&&r2.total<best.r.total)))best={r:r2,p:p2};}
+    if(best){Object.assign(pen,best.p);r=best.r;tried.clear();}}
+  return r;}finally{NODEG=false;}}
+function airEx(r){return airRuns(r).reduce((c,x)=>c+(x.pin?0:Math.max(0,x.len-W.airMax)),0);}
+function solve0(measures,t,key,minor,pen){
   const segs=buildSegments(measures,t,key,minor);
+  if(pen)for(const i in pen)if(segs[i]){const f=segs[i].opts.filter(o=>o.dir!==pen[i]);if(f.length)segs[i].opts=f;}   // Balgwechsel für die Luft
   const segOf=(mi,on)=>segs.findIndex(s=>s.mi===mi&&on>=s.a-1e-9&&on<s.b-1e-9);
   const notes=[];let offT=0;const mOff=measures.map(m=>{const o=offT;offT+=m.len;return o;});
   const pinT=USEPIN&&CURPIN&&PINIDX&&t===INST.stimm.shift-CURPIN.sh?t:null;
@@ -1135,7 +1168,7 @@ function solve(measures,t,key,minor){
   const nobeg=segs.filter(s=>s.pick&&((!s.pick.b&&!s.pick.gOnly)||s.fb)).length;   // Bassabschnitte ohne passenden Begleiter (z. B. Moll fehlt)
   const nofb=segs.filter(s=>s.fb).length,subN=segs.filter(s=>s.pick&&s.pick.sub).length;
   const octN=notes.reduce((s,n)=>s+(n.oct||0),0),pinN=notes.filter(n=>n.pinned).length;
-  return {segs,notes,total,bad,missing,against,changes,bmoves,nobeg,nofb,sub:subN,oct:octN,pin:pinN,n:notes.length};
+  return {segs,notes,total,bad,missing,against,changes,bmoves,nobeg,nofb,sub:subN,oct:octN,pin:pinN,n:notes.length,mOff};
 }
 
 // ======== Transponieren
@@ -1155,7 +1188,7 @@ function run(){
   if(!nN){st.innerHTML='<span class="err">'+TX("In dieser Stimme stehen keine Noten.","This part contains no notes.")+'</span>';document.getElementById("tab").innerHTML="";return;}
   let best=null,bt=0;
   const sub=P.measures.slice(0,32);
-  const tryT=t=>{const r=solve(sub,t,mod(P.keyPc+t,12),P.minor);r.score=r.bad*100+r.missing*20+r.against*8+r.nobeg*6+r.sub*2+r.nofb*15+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03);return r;};
+  const tryT=t=>{NODEG=true;const r=solve0(sub,t,mod(P.keyPc+t,12),P.minor,null);NODEG=false;r.score=r.bad*100+r.missing*20+r.against*8+r.nobeg*6+r.sub*2+r.nofb*15+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03);return r;};
   const pinOn=USEPIN&&CURPIN;
   if(tsel.value==="auto"){
     // 1. alle 25 Lagen grob am Anfang des Stücks, 2. die besten über das ganze Stück: zuerst möglichst wenige nicht greifbare Töne und fehlende Bässe
@@ -1163,7 +1196,7 @@ function run(){
     const pt=pinOn?INST.stimm.shift-CURPIN.sh:null;
     const pick=[...new Set(cand.slice(0,6).map(c=>c.t).concat(pt!=null&&pt>=-12&&pt<=12?[pt]:[],[0]))];
     // Töne, die der Verfasser der Griffschrift in seinem Griff selbst weglässt, zählen nicht als unspielbar
-    const evalT=t=>{const r=solve(P.measures,t,mod(P.keyPc+t,12),P.minor);const un=r.bad+r.notes.reduce((c,n)=>c+(n.g&&!n.pinned?n.g.missing.length:0),0);
+    const evalT=t=>{NODEG=true;const r=solve0(P.measures,t,mod(P.keyPc+t,12),P.minor,null);NODEG=false;const un=r.bad+r.notes.reduce((c,n)=>c+(n.g&&!n.pinned?n.g.missing.length:0),0);
       return {t,un,n:r.n,sc:un*100+r.nofb*15+r.nobeg*6+r.sub*2+r.oct*2+r.against*8+r.total/Math.max(1,r.n)+(t===0?0:0.6+Math.abs(t)*0.03)};};
     const full=pick.map(evalT);full.sort((x,y)=>x.sc-y.sc);
     // bleiben Töne unspielbar, alle übrigen Lagen ebenfalls über das ganze Stück prüfen
@@ -1208,6 +1241,8 @@ function updateStatus(){
     (R.against?`<span class="pill bad">${R.against} ${TX("Griffe gegen den Bass",R.against===1?"grip against the bass":"grips against the bass")}</span>`:"")+
     (R.wbMiss?`<span class="pill bad">${R.wbMiss} ${TX(R.wbMiss===1?"Wechselbass ohne Quintbass in dieser Balgrichtung":"Wechselbässe ohne Quintbass in dieser Balgrichtung",R.wbMiss===1?"alternating bass without a fifth button in this bellows direction":"alternating basses without a fifth button in this bellows direction")}</span>`:"")+
     (()=>{const n=R.segs.filter(s=>s.pick&&s.pick.sub).length;return n?`<span class="pill">${n} ${TX(n===1?"Moll-Abschnitt mit Dur-Begleiter der Terz (Moll-Begleiter fehlt)":"Moll-Abschnitte mit Dur-Begleiter der Terz (Moll-Begleiter fehlt)",n===1?"minor section with the major chord a third up (no minor chord button)":"minor sections with the major chord a third up (no minor chord button)")}</span>`:"";})()+
+    (()=>{const L=airRuns(R).filter(x=>x.len>W.airMax&&!x.pin);if(!L.length)return "";const ml=P.measures[0].len,mx=Math.max(...L.map(x=>x.len));
+      return `<span class="pill">${L.length} ${TX(L.length===1?"Stelle":"Stellen","")}${TX(` länger als ${Math.round(W.airMax/ml*10)/10} Takte in einer Balgrichtung (längste ${Math.round(mx/ml*10)/10})`,`${L.length===1?"place":"places"} longer than ${Math.round(W.airMax/ml*10)/10} measures in one bellows direction (longest ${Math.round(mx/ml*10)/10})`)}</span>`;})()+
     (R.nobeg?`<span class="pill bad">${R.nobeg} ${TX(R.nobeg===1?"Bassabschnitt ohne passenden Bass/Begleiter":"Bassabschnitte ohne passenden Bass/Begleiter",R.nobeg===1?"bass section without a matching bass/chord button":"bass sections without a matching bass/chord button")}</span>`:"")+
     (()=>{const n=R.segs.reduce((c,sg)=>c+segSlots(sg).filter(x=>!x.btn).length,0);return n?`<span class="pill bad">${n} ${TX(n===1?"Basston ohne Knopf in dieser Balgrichtung":"Basstöne ohne Knopf in dieser Balgrichtung",n===1?"bass note without a button in this bellows direction":"bass notes without a button in this bellows direction")}</span>`:"";})()+
     (LANDLER&&!BASSPIN?`<span class="pill">${TX("Landlerbegleitung (ohne Wechselbass)","Ländler accompaniment (no alternating bass)")}</span>`:"")+
@@ -1217,6 +1252,12 @@ function updateStatus(){
     (R.bad+R.missing?`<span class="pill bad">${R.bad+R.missing} ${TX("Töne nicht greifbar",R.bad+R.missing===1?"note not playable":"notes not playable")}</span>`:"")+
     `<span>${key}, ${bt===0?TX("Originallage","original key"):(bt>0?"+":"")+bt+TX(" Halbtöne"," semitones")}${tsel.value==="auto"?(USEPIN&&CURPIN?TX(` (Lage nach ${PINWHO()})`,` (key as ${PINWHO()})`):TX(" (automatisch)"," (automatic)")):""}</span>`+
     (nf?`<span class="pill" style="background:transparent;border:1px solid var(--extra);color:var(--extra)">${nf} ${TX("Änderung"+(nf>1?"en":"")+" von Hand",(nf>1?"changes":"change")+" by hand")}</span>`:"")+
+    (MIDI_INFO?(()=>{const I=MIDI_INFO,ms=[...new Set(I.meters)];const parts=[ms.join(" / ")];
+      if(I.pickup>1e-6)parts.push(TX(`Auftakt ${Math.round(I.pickup*100)/100} Viertel`,`pickup ${Math.round(I.pickup*100)/100} quarters`));
+      if(I.tsChanges)parts.push(TX(`${I.tsChanges} Taktwechsel`,`${I.tsChanges} time-signature change${I.tsChanges>1?"s":""}`));
+      if(I.keyChanges)parts.push(TX(`${I.keyChanges} Tonartwechsel`,`${I.keyChanges} key change${I.keyChanges>1?"s":""}`));
+      if(I.bassFixed)parts.push(TX(`${I.bassFixed} Basstöne an Tonart/Akkord angepasst`,`${I.bassFixed} bass notes adjusted to key/chord`));
+      return `<span class="pill" style="background:transparent;border:1px solid var(--line);color:var(--muted)">${TX("aus MIDI: ","from MIDI: ")}${parts.join(", ")}</span>`;})():"")+
     (DISPLAY.length<P.measures.length?`<span>${TX(`${DISPLAY.length} von ${P.measures.length} Takten (Wiederholungen zusammengefasst)`,`${DISPLAY.length} of ${P.measures.length} measures (repeats combined)`)}</span>`:"");
 }
 // ======== Wiederholungen: Anzeigeliste der Takte
@@ -1943,19 +1984,20 @@ function startPlay(fromMi){
 }
 
 // ======== MIDI → MusicXML (Melodiespur mit 2. Stimme, Basspur liefert die Stufen)
+let MIDI_INFO=null;   // was beim Einlesen der MIDI-Datei geklärt wurde (Taktart, Auftakt, Wechsel, angepasste Basstöne)
 function midiToXML(buf,title){
   const b=new Uint8Array(buf);let p=0;
   if(String.fromCharCode(b[0],b[1],b[2],b[3])!=="MThd")throw new Error(TX("Das ist keine MIDI-Datei.","This is not a MIDI file."));
   const u8=()=>b[p++],u16=()=>(b[p++]<<8)|b[p++],u32=()=>((b[p++]<<24)|(b[p++]<<16)|(b[p++]<<8)|b[p++])>>>0;
   const vl=()=>{let v=0,c;do{c=b[p++];v=(v<<7)|(c&127);}while(c&128&&p<b.length);return v;};
   p=8;u16();const nt=u16(),div=u16();if(div&0x8000)throw new Error(TX("Diese MIDI-Datei verwendet eine SMPTE-Zeitbasis, die wird nicht unterstützt.","This MIDI file uses SMPTE timing, which is not supported."));
-  const tracks=[];let ts=null,ks=null;
+  const tracks=[];const tsE=[],ksE=[];let ord=0;
   for(let t=0;t<nt&&p<b.length;t++){
     const id=String.fromCharCode(b[p],b[p+1],b[p+2],b[p+3]);p+=4;const len=u32(),end=Math.min(b.length,p+len);
     if(id!=="MTrk"){p=end;continue;}
     let tick=0,rs=0;const tr={notes:[]},on={};
     while(p<end){tick+=vl();let st=b[p];if(st&128){p++;rs=st;}else st=rs;
-      if(st===0xFF){const ty=u8(),l=vl();const d=b.slice(p,p+l);p+=l;if(ty===0x58&&!ts)ts=[d[0],1<<d[1]];if(ty===0x59&&!ks)ks=[(d[0]<<24)>>24,d[1]];}
+      if(st===0xFF){const ty=u8(),l=vl();const d=b.slice(p,p+l);p+=l;if(ty===0x58)tsE.push({t:tick/div,n:d[0],d:1<<d[1],o:ord++});if(ty===0x59)ksE.push({t:tick/div,f:(d[0]<<24)>>24,mi:d[1],o:ord++});}
       else if(st===0xF0||st===0xF7){p+=vl();}
       else{const hi=st&0xF0,ch=st&15,a=u8(),c=(hi===0xC0||hi===0xD0)?0:u8();
         if(ch===9)continue;
@@ -1969,13 +2011,28 @@ function midiToXML(buf,title){
   let mel=tracks[0].notes,bas=[];
   if(tracks.length>1&&avg(tracks[tracks.length-1])<avg(tracks[0])-10)bas=tracks[tracks.length-1].notes;
   else{bas=mel.filter(n=>n.m<52);mel=mel.filter(n=>n.m>=52);}
-  const tsN=ts?ts[0]:4,tsD=ts?ts[1]:4,L=tsN*4/tsD;
   const Q=x=>{const a=Math.round(x*4)/4,c=Math.round(x*3)/3;return Math.abs(a-x)<=Math.abs(c-x)+0.02?a:c;};
+  const info={tsFile:!!tsE.length,pickup:0,tsChanges:0,keyChanges:0,bassFixed:0,meters:[]};
+  // ===== 1. Taktart: alle Taktwechsel aus der Datei (an derselben Stelle gilt der letzte); ein Takt, der vor einem Wechsel nicht voll wird, bleibt kurz
+  const secs=[];[...tsE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const t=Q(e.t);if(secs.length&&Math.abs(secs[secs.length-1].t-t)<1e-6)secs[secs.length-1]={t,n:e.n,d:e.d};else secs.push({t,n:e.n,d:e.d});});
+  if(!secs.length)secs.push({t:0,n:4,d:4});secs[0].t=0;
+  for(let i=secs.length-1;i>0;i--)if(secs[i].n===secs[i-1].n&&secs[i].d===secs[i-1].d)secs.splice(i,1);
+  info.tsChanges=secs.length-1;
+  const lastT=Math.max(...mel.map(n=>n.on+n.len),...bas.map(n=>n.on+n.len));
+  // Die Taktstriche laufen ab dem Anfang der Datei (Auftakte sind dort zu ganzen Takten aufgefüllt; an den Bassbuchstaben von Franz Fuchs
+  // geprüft: bei 147 von 149 Stücken im 3/4-Takt richtig). Die Stelle der ersten Taktangabe ist dafür unzuverlässig und zählt nicht.
+  const bars=[];   // {s,len,n,d,full}
+  secs.forEach((sc,i)=>{const S=sc.t,E=i+1<secs.length?secs[i+1].t:Math.max(lastT,S+1e-3),L=sc.n*4/sc.d;
+    const o=0;info.meters.push(sc.n+"/"+sc.d);
+    let t=S;if(o>1e-6){bars.push({s:S,len:o,n:sc.n,d:sc.d,full:false});t=S+o;}
+    while(t<E-1e-6){const len=Math.min(L,E-t);bars.push({s:t,len:i+1<secs.length?len:L,n:sc.n,d:sc.d,full:len>=L-1e-6});t+=L;}});
+  if(!bars.length)bars.push({s:0,len:4,n:4,d:4,full:true});
+  const total=bars[bars.length-1].s+bars[bars.length-1].len;
+  const barAt=x=>{let lo=0,hi=bars.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(bars[m].s<=x+1e-6)lo=m;else hi=m-1;}return lo;};
   // Melodie: gleichzeitige Töne zu Griffen zusammenfassen
   const grp=new Map();
   for(const n of mel){const o=Q(n.on);const g=grp.get(o)||{on:o,ps:new Set(),end:0};g.ps.add(n.m);g.end=Math.max(g.end,n.on+n.len);grp.set(o,g);}
   const gs=[...grp.values()].sort((a,b)=>a.on-b.on);
-  const total=Math.ceil((Math.max(...gs.map(g=>g.end))+1e-6)/L)*L;
   const items=[];let t=0;
   gs.forEach((g,i)=>{
     if(g.on>t+1e-6)items.push({rest:true,on:t,dur:g.on-t});
@@ -1987,30 +2044,11 @@ function midiToXML(buf,title){
   });
   if(t<total-1e-6)items.push({rest:true,on:t,dur:total-t});
   // in Takte teilen (Überhänge mit Haltebogen)
-  const nM=Math.round(total/L),meas=[...Array(nM)].map(()=>[]);
+  const nM=bars.length,meas=[...Array(nM)].map(()=>[]);
   for(const it of items){let on=it.on,rem=it.dur,first=true;
-    while(rem>1e-6){const mi=Math.min(nM-1,Math.floor(on/L+1e-9)),endM=(mi+1)*L,d=Math.min(rem,endM-on);
+    while(rem>1e-6){const mi=barAt(on),endM=bars[mi].s+bars[mi].len,d=Math.min(rem,endM-on);if(d<1e-6)break;
       meas[mi].push({...it,on,dur:d,tieStop:!first&&!it.rest,tieStart:rem-d>1e-6&&!it.rest});on+=d;rem-=d;first=false;}}
-  // Stufen aus dem Bass: Ton auf Schlag 1, bei 4/4 auch auf Schlag 3
-  const harm=[...Array(nM)].map(()=>[]);
-  const basAt=x=>{const c=bas.filter(n=>Math.abs(Q(n.on)-x)<1e-6);return c.length?Math.min(...c.map(n=>n.m)):null;};
-  // Grundton: Basston selbst oder (Wechselbass) die Quint darunter – entscheidet die Melodie im Abschnitt
-  const melIn=(a,b)=>items.filter(it=>!it.rest&&it.on>=a-1e-6&&it.on<b-1e-6);
-  const rootFor=(bp,a,b)=>{let best=null;
-    for(const r of [bp%12,(bp+5)%12])for(const mn of [false,true]){
-      const tones=[r,(r+(mn?3:4))%12,(r+7)%12];let sc=0;
-      for(const it of melIn(a,b))it.ps.forEach((m,k)=>{const w=it.dur*(k?0.7:1)*(Math.abs(it.on-Math.round(it.on))<1e-6?1.3:1);const q=m%12;if(tones.includes(q))sc+=w;else if(!mn&&q===(r+10)%12)sc+=0.5*w;});
-      sc-=(r===bp%12?0:0.15)+(mn?0.3:0);
-      if(!best||sc>best.sc)best={sc,pc:r,minor:mn};}
-    return best;};
-  for(let mi=0;mi<nM;mi++){
-    let r=basAt(mi*L);if(r==null){const c=bas.filter(n=>Q(n.on)>=mi*L&&Q(n.on)<(mi+1)*L);if(c.length)r=c.sort((a,b)=>a.on-b.on)[0].m;}
-    const r2=L>=4?basAt(mi*L+L/2):null;
-    const split=r!=null&&r2!=null&&r2%12!==r%12&&mod(r2-r,12)!==7&&mod(r-r2,12)!==7;
-    if(r!=null)harm[mi].push({on:0,...rootFor(r,mi*L,split?mi*L+L/2:(mi+1)*L)});
-    if(split){const h2=rootFor(r2,mi*L+L/2,(mi+1)*L),h1=harm[mi][0];if(!h1||h1.pc!==h2.pc||h1.minor!==h2.minor)harm[mi].push({on:L/2,...h2});}
-  }
-  // Tonart aus den Noten schätzen (Dur), Schlusston und Bass zählen mit
+  // ===== 2. Tonart je Teil: Vorzeichen aus der Datei (auch Wechsel), sonst aus den Tönen geschätzt (Dur)
   let keyPc=0,bestK=-1;
   for(let k=0;k<12;k++){const sc=[0,2,4,5,7,9,11].map(x=>(x+k)%12);let v=0;
     items.forEach(it=>{if(!it.rest)it.ps.forEach(m=>{if(sc.includes(m%12))v+=it.dur;});});
@@ -2018,32 +2056,72 @@ function midiToXML(buf,title){
     const last=[...items].reverse().find(it=>!it.rest);if(last&&last.ps[last.ps.length-1]%12===k)v+=4;
     const lb=bas.length?bas.reduce((a,b)=>a.on>b.on?a:b):null;if(lb&&lb.m%12===k)v+=4;
     if(v>bestK){bestK=v;keyPc=k;}}
+  const kE=[];[...ksE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const pc=mod(e.f*7+(e.mi?3:0),12),t=Q(e.t);if(kE.length&&Math.abs(kE[kE.length-1].t-t)<1e-6)kE[kE.length-1]={t,pc};else if(!kE.length||kE[kE.length-1].pc!==pc)kE.push({t,pc});});
+  if(kE.length)kE[0].t=0;info.keyChanges=Math.max(0,kE.length-1);
+  // Tonart der Datei nur, wenn sie zu den Tönen passt (sonst die geschätzte)
+  const scaleFit=(k,a,b)=>{const sc=[0,2,4,5,7,9,11].map(x=>(x+k)%12);let v=0,tot=0;items.forEach(it=>{if(it.rest||it.on<a-1e-6||it.on>=b-1e-6)return;it.ps.forEach(m=>{tot+=it.dur;if(sc.includes(m%12))v+=it.dur;});});return tot?v/tot:1;};
+  const keyAt=x=>{if(!kE.length)return keyPc;let k=kE[0].pc;for(const e of kE)if(e.t<=x+1e-6)k=e.pc;return k;};
+  if(kE.length&&scaleFit(kE[0].pc,0,total)+0.05<scaleFit(keyPc,0,total))kE.length=0;
+  // ===== 3. Stufen: je Takt (bei 4/4 auch halbtaktig), Grundbass auf Schlag 1 und Melodie zählen; I und V sind häufig, IV seltener, II und III selten
+  const basIn=(a,b)=>bas.filter(n=>Q(n.on)>=a-1e-6&&Q(n.on)<b-1e-6).sort((x,y)=>x.on-y.on||x.m-y.m);
+  const melIn=(a,b)=>items.filter(it=>!it.rest&&it.on>=a-1e-6&&it.on<b-1e-6);
+  const units=[];
+  bars.forEach((br,mi)=>{const L=br.len,b0=basIn(br.s,br.s+L);
+    const r1=b0.find(n=>Math.abs(Q(n.on)-br.s)<1e-6)||b0[0]||null;
+    const half=L>=4?b0.find(n=>Math.abs(Q(n.on)-(br.s+L/2))<1e-6):null;
+    const split=r1&&half&&mod(half.m-r1.m,12)!==0&&mod(half.m-r1.m,12)!==7&&mod(r1.m-half.m,12)!==7;
+    if(split){units.push({mi,on:0,a:br.s,b:br.s+L/2,bp:r1.m});units.push({mi,on:L/2,a:br.s+L/2,b:br.s+L,bp:half.m});}
+    else units.push({mi,on:0,a:br.s,b:br.s+L,bp:r1?r1.m:null});});
+  const CH=[{o:0,mn:0,pr:0},{o:7,mn:0,pr:0,sev:1},{o:5,mn:0,pr:0.8},{o:2,mn:1,pr:1.8},{o:9,mn:1,pr:1.6},{o:2,mn:0,pr:2.0,sev:1},{o:4,mn:1,pr:2.4},{o:4,mn:0,pr:2.4,sev:1},{o:9,mn:0,pr:2.6,sev:1},{o:10,mn:0,pr:2.6}];
+  const cands=k=>CH.map(c=>({pc:mod(k+c.o,12),minor:!!c.mn,pr:c.pr,sev:c.sev?mod(k+c.o+10,12):null}));
+  const ucost=(u,c)=>{const tones=[c.pc,mod(c.pc+(c.minor?3:4),12),mod(c.pc+7,12)];let v=c.pr;
+    // Basstöne: der erste zählt voll, weitere auf Schlägen schwächer (Grundton–Quint-Wechsel zeigt den Grundton)
+    {const bn=basIn(u.a,u.b).filter(n=>Math.abs(Q(n.on)-Math.round(Q(n.on)))<1e-6);const seen=new Set();let first=true;
+      for(const n of bn){const o=Q(n.on);if(seen.has(o))continue;seen.add(o);const q=mod(n.m,12),w=first?1:0.6;first=false;v+=w*(q===c.pc?-2:q===tones[2]?-1:q===tones[1]?0.3:1.5);}
+      if(!bn.length&&u.bp!=null){const q=mod(u.bp,12);v+=q===c.pc?-2:q===tones[2]?-1:q===tones[1]?0.3:1.5;}}
+    let tot=0;for(const it of melIn(u.a,u.b))it.ps.forEach((m,k)=>{const w=it.dur*(k?0.7:1)*(Math.abs(it.on-Math.round(it.on))<1e-6?1.3:1);tot+=w;const q=mod(m,12);if(!tones.includes(q))v+=(q===c.sev?0.5:1)*w;});
+    return v;};
+  // Viterbi über die Abschnitte: gleicher Akkord kostet nichts, ein Wechsel wenig, V→I ist erwünscht
+  let prev=null;const back=[];
+  units.forEach((u,i)=>{const C=cands(keyAt(u.a));u.C=C;const cur=C.map(c=>{const uc=ucost(u,c);if(!prev)return {v:uc,bk:-1};let best=1e9,bk=-1;
+      prev.forEach((p,j)=>{const pc=units[i-1].C[j];let tr=pc.pc===c.pc&&pc.minor===c.minor?0:0.4;if(!c.minor&&c.pc===keyAt(u.a)&&!pc.minor&&pc.pc===mod(keyAt(u.a)+7,12))tr-=0.2;const x=p.v+tr;if(x<best){best=x;bk=j;}});
+      return {v:best+uc,bk};});back.push(cur);prev=cur;});
+  const harm=[...Array(nM)].map(()=>[]);
+  if(prev){let bi=0;prev.forEach((p,j)=>{if(p.v<prev[bi].v)bi=j;});
+    for(let i=units.length-1;i>=0;i--){const u=units[i],c=u.C[bi];u.ch=c;bi=back[i][bi].bk;}
+    units.forEach(u=>{if(u.bp==null&&!melIn(u.a,u.b).length)return;const h=harm[u.mi],c=u.ch;if(u.on>0&&h.length&&h[h.length-1].pc===c.pc&&h[h.length-1].minor===c.minor)return;h.push({on:u.on,pc:c.pc,minor:c.minor});});}
+  // ===== 4. Basstöne, die weder in die Tonart noch zum Akkord passen (falsch zugeordnet), auf den nächsten passenden Ton setzen
+  units.forEach(u=>{if(!u.ch)return;const k=keyAt(u.a),sc=[0,2,4,5,7,9,11].map(x=>(x+k)%12),c=u.ch,tones=[c.pc,mod(c.pc+(c.minor?3:4),12),mod(c.pc+7,12)];
+    for(const n of bas){const o=Q(n.on);if(o<u.a-1e-6||o>=u.b-1e-6)continue;const q=mod(n.m,12);if(sc.includes(q)||tones.includes(q)||q===c.sev)continue;
+      const up=mod(q+1,12),dn=mod(q-1,12),pick=tones.includes(dn)?-1:tones.includes(up)?1:sc.includes(dn)?-1:1;n.m+=pick;info.bassFixed++;}});
   const fifthsOf=pc=>{let f=mod(pc*7,12);return f>6?f-12:f;};
   const DIV=12,SN=["C","C","D","D","E","F","F","G","G","A","A","B"],AL=[0,1,0,1,0,0,1,0,1,0,1,0];
   const typ=d=>d>=4?"whole":d>=2?"half":d>=1?"quarter":d>=0.5?"eighth":"16th";
   const pitchX=m=>`<pitch><step>${SN[m%12]}</step>${AL[m%12]?"<alter>1</alter>":""}<octave>${Math.floor(m/12)-1}</octave></pitch>`;
   let body="";
-  meas.forEach((ms,mi)=>{
-    body+=`<measure number="${mi+1}">`+(mi===0?`<attributes><divisions>${DIV}</divisions><key><fifths>${fifthsOf(keyPc)}</fifths><mode>major</mode></key><time><beats>${tsN}</beats><beat-type>${tsD}</beat-type></time></attributes>`:"");
+  meas.forEach((ms,mi)=>{const br=bars[mi],pv=mi?bars[mi-1]:null;
+    const at=mi===0?`<attributes><divisions>${DIV}</divisions><key><fifths>${fifthsOf(kE.length?kE[0].pc:keyPc)}</fifths><mode>major</mode></key><time><beats>${br.n}</beats><beat-type>${br.d}</beat-type></time></attributes>`:
+      (pv.n!==br.n||pv.d!==br.d?`<attributes><time><beats>${br.n}</beats><beat-type>${br.d}</beat-type></time></attributes>`:"");
+    body+=`<measure number="${mi+1}"${br.full?"":' implicit="yes"'}>`+at;
+    if(!ms.length)body+=`<note><rest/><duration>${Math.max(1,Math.round(br.len*DIV))}</duration><voice>1</voice></note>`;
     for(const it of ms){
-      const rel=it.on-mi*L;
-      for(const h of harm[mi])if(Math.abs(h.on-rel)<1e-6){
-        // Moll, wenn die Melodie im Takt die kleine, aber nicht die große Terz bringt
-        const minor=h.minor;
-        body+=`<harmony><root><root-step>${SN[h.pc]}</root-step>${AL[h.pc]?"<root-alter>1</root-alter>":""}</root><kind>${minor?"minor":"major"}</kind></harmony>`;}
+      const rel=it.on-br.s;
+      for(const h of harm[mi])if(Math.abs(h.on-rel)<1e-6)
+        body+=`<harmony><root><root-step>${SN[h.pc]}</root-step>${AL[h.pc]?"<root-alter>1</root-alter>":""}</root><kind>${h.minor?"minor":"major"}</kind></harmony>`;
       const du=Math.max(1,Math.round(it.dur*DIV));
       if(it.rest)body+=`<note><rest/><duration>${du}</duration><voice>1</voice><type>${typ(it.dur)}</type></note>`;
       else it.ps.forEach((m,k)=>{body+=`<note>${k?"<chord/>":""}${pitchX(m)}<duration>${du}</duration>${it.tieStop?'<tie type="stop"/>':""}${it.tieStart?'<tie type="start"/>':""}<voice>1</voice><type>${typ(it.dur)}</type></note>`;});
     }
     // Bassstimme der MIDI-Datei (Grundbässe und Bassläufe) als 2. System
-    {const bg=new Map();for(const n of bas){const o=Q(n.on);if(o<mi*L-1e-6||o>=(mi+1)*L-1e-6)continue;if(!bg.has(o)||bg.get(o)>n.m)bg.set(o,n.m);}
+    {const bg=new Map();for(const n of bas){const o=Q(n.on);if(o<br.s-1e-6||o>=br.s+br.len-1e-6)continue;if(!bg.has(o)||bg.get(o)>n.m)bg.set(o,n.m);}
       const bl=[...bg.entries()].sort((x,y)=>x[0]-y[0]);
-      if(bl.length){body+=`<backup><duration>${Math.round(L*DIV)}</duration></backup>`;let tt=0;
-        bl.forEach(([o,m],k)=>{const rel=o-mi*L;if(rel>tt+1e-6){body+=`<forward><duration>${Math.round((rel-tt)*DIV)}</duration></forward>`;tt=rel;}
-          const end=k+1<bl.length?bl[k+1][0]-mi*L:L,d=Math.max(1,Math.round((end-rel)*DIV));
+      if(bl.length){body+=`<backup><duration>${Math.round(br.len*DIV)}</duration></backup>`;let tt=0;
+        bl.forEach(([o,m],k)=>{const rel=o-br.s;if(rel>tt+1e-6){body+=`<forward><duration>${Math.round((rel-tt)*DIV)}</duration></forward>`;tt=rel;}
+          const end=k+1<bl.length?bl[k+1][0]-br.s:br.len,d=Math.max(1,Math.round((end-rel)*DIV));
           body+=`<note>${pitchX(m)}<duration>${d}</duration><voice>5</voice><staff>2</staff></note>`;tt=rel+d/DIV;});}}
     body+=`</measure>`;
   });
+  MIDI_INFO=info;
   return `<?xml version="1.0"?><score-partwise version="3.1"><work><work-title>${title}</work-title></work><part-list><score-part id="P1"><part-name>Melodie (aus MIDI)</part-name></score-part></part-list><part id="P1">${body}</part></score-partwise>`;
 }
 
