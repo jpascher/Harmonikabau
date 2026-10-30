@@ -1,4 +1,7 @@
 <meta charset="utf-8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<meta name="theme-color" content="#2e6b4f">
 <title>Griffschrift-Wandler</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -171,7 +174,7 @@ button.ghost2{background:transparent;color:var(--accent)}
   .edithelp{display:none!important}
   #griff .selbg{display:none}
   .fplay{display:none!important}
-  dialog.help,#helpbtn,#helpbtn2{display:none!important}
+  dialog.help,#helpbtn,#helpbtn2,#pcbtn{display:none!important}
   .measure{break-inside:avoid}
   .ev.cur,.beat.cur{background:none}
 }
@@ -216,6 +219,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <button id="play" type="button">▶ Abspielen</button>
       <button id="print" type="button" class="ghost2"><x-de>Drucken</x-de><x-en>Print</x-en></button>
       <button id="helpbtn" type="button" class="ghost2"><x-de>Hilfe</x-de><x-en>Help</x-en></button>
+      <button id="pcbtn" type="button" class="ghost2"><x-de>Für den PC ⤓</x-de><x-en>For your PC ⤓</x-en></button>
       <div class="field">
         <label for="demo"><x-de>Beispiele</x-de><x-en>Examples</x-en></label>
         <select id="demo">
@@ -322,6 +326,20 @@ button.ghost2{background:transparent;color:var(--accent)}
   </section>
 
   <button id="fplay" type="button" class="fplay">▶ Abspielen</button>
+<dialog id="pcdlg" class="help" aria-labelledby="pcttl">
+  <div class="helphead">
+    <h2 id="pcttl"><x-de>Programm auf den PC holen</x-de><x-en>Get the program onto your PC</x-en></h2>
+    <button id="pcclose" type="button" class="ghost2"><x-de>Schließen ✕</x-de><x-en>Close ✕</x-en></button>
+  </div>
+  <div class="helpbody">
+    <p id="pcinstallrow" hidden><button id="pcinstall" type="button"><x-de>Als App installieren</x-de><x-en>Install as an app</x-en></button>
+      <x-de>Der Browser legt ein eigenes Programmfenster mit Symbol im Startmenü und auf Wunsch auf dem Desktop an. Es funktioniert danach auch ohne Internet; die nachgeladenen Volkstänze nur, wenn sie schon einmal geöffnet wurden.</x-de><x-en>The browser creates a separate program window with an icon in the Start menu and, if you like, on the desktop. It then also works without internet; the folk dances loaded on demand only if they were opened before.</x-en></p>
+    <p><button id="pcurl" type="button"><x-de>Desktop-Verknüpfung herunterladen</x-de><x-en>Download a desktop shortcut</x-en></button>
+      <x-de>Lädt die Datei „Griffschrift-Wandler.url“ herunter. Aus dem Download-Ordner auf den Desktop ziehen; ein Doppelklick öffnet dann die Internetseite des Programms.</x-de><x-en>Downloads the file “Griffschrift-Wandler.url”. Drag it from the Downloads folder onto the desktop; a double-click then opens the program's web page.</x-en></p>
+    <p><button id="pchtml" type="button"><x-de>Programm als Datei herunterladen</x-de><x-en>Download the program as a file</x-en></button>
+      <x-de>Lädt „griffschrift-wandler.html“ herunter (das ganze Programm in einer Datei). Am besten in einen eigenen Ordner legen und mit der rechten Maustaste auf den Desktop ziehen → „Verknüpfungen hier erstellen“. Die eingebauten Beispiele und eigene Dateien gehen dann auch ohne Internet; die 854 Volkstänze von volksmusik.cc werden bei Bedarf aus dem Internet geholt.</x-de><x-en>Downloads “griffschrift-wandler.html” (the whole program in one file). Put it in a folder of its own and drag it onto the desktop with the right mouse button → “Create shortcuts here”. The built-in examples and your own files then work without internet; the 854 folk dances from volksmusik.cc are fetched from the internet when needed.</x-en></p>
+  </div>
+</dialog>
 <dialog id="help" class="help" aria-labelledby="helpttl">
   <div class="helphead">
     <h2 id="helpttl"><x-de>Hilfe zum Griffschrift-Wandler</x-de><x-en>Griffschrift-Wandler help</x-en></h2>
@@ -379,6 +397,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li><b>Bass:</b> Großbuchstabe = Grundbass, Kleinbuchstabe = Begleiter. A, B, C, D sind die Bassknöpfe, die zur G-, C-, F- und B-Reihe gehören (bei G-C-F-B), ² bedeutet Hilfsbassreihe, ein Stern einen Zusatzbass.</li>
         <li><b>Blau</b> = Zusatzknopf oder von Hand geänderte Stelle, <b>rot</b> = Griff gegen die Balgrichtung des Basses.</li>
       </ul>
+      <p><b>Für den PC:</b> Der Knopf „Für den PC ⤓“ oben bietet drei Wege an: das Programm als App installieren (eigenes Fenster mit Symbol, geht auch ohne Internet), eine Desktop-Verknüpfung (.url) herunterladen oder das ganze Programm als HTML-Datei herunterladen und lokal öffnen.</p>
       <p>Unter <b>Ansicht</b> gibt es statt der Griffschrift auch eine <b>Griff-Tabelle</b> mit Knopfnummer und Reihe (z. B. 5₂ = Knopf 5 in Reihe 2). Dort steht ein Punkt, wenn derselbe Griff im Takt schon vorkam. Die dritte Möglichkeit sind <b>Normalnoten</b>: die Melodie mit allen Griff-Tönen im Violinschlüssel, mit Tonart-Vorzeichen und Versetzungszeichen, darunter die Akkordnamen. Gezeigt wird die eingestellte Lage, also so, wie es auf dem gewählten Instrument klingt. Abspielen, Übungsauswahl und Bearbeiten funktionieren dort genauso.</p>
     </section>
     <section id="h-logik"><h3>So entscheidet das Programm</h3>
@@ -485,6 +504,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li><b>Bass:</b> capital letter = bass note, small letter = chord. A, B, C, D are the bass buttons belonging to the G, C, F and B rows (on a G-C-F-B instrument); ² means the auxiliary bass row, a star an extra bass button.</li>
         <li><b>Blue</b> = extra button or a spot changed by hand, <b>red</b> = grip played against the bellows direction of the bass.</li>
       </ul>
+      <p><b>For your PC:</b> the “For your PC ⤓” button at the top offers three ways: install the program as an app (its own window with an icon, also works without internet), download a desktop shortcut (.url), or download the whole program as an HTML file and open it locally.</p>
       <p>Under <b>View</b> you can switch from the Griffschrift to a <b>grip table</b> with button number and row (e.g. 5₂ = button 5 in row 2). A dot there means the same grip already came earlier in the measure. The third option is <b>standard notation</b>: the melody with all notes of the grips in treble clef, with key signature and accidentals, and the chord names below. It shows the selected key, i.e. as it sounds on the chosen instrument. Playback, practice selection and editing work there in the same way.</p>
     </section>
     <section id="e-logik"><h3>How the program decides</h3>
@@ -1968,6 +1988,22 @@ async function loadVM(key){
     run();
   }catch(e){alert(TX("Dieses Stück wird aus dem Internet nachgeladen (Ordner midi/vm auf der GitHub-Seite). Dafür ist eine Internetverbindung nötig.","This tune is loaded from the internet (folder midi/vm on the GitHub page). An internet connection is required."));}
 }
+// ======== Für den PC: Datei, Verknüpfung, App
+const WEBURL="https://jpascher.github.io/Harmonikabau/griffschrift-wandler/";
+function saveBlob(name,blob){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);}
+(function(){const dlg=document.getElementById("pcdlg");let promptEv=null;
+  window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();promptEv=e;document.getElementById("pcinstallrow").hidden=false;});
+  document.getElementById("pcbtn").addEventListener("click",()=>{try{dlg.showModal();}catch(e){dlg.setAttribute("open","");}});
+  document.getElementById("pcclose").addEventListener("click",()=>dlg.close());
+  document.getElementById("pcinstall").addEventListener("click",async()=>{if(!promptEv)return;promptEv.prompt();try{await promptEv.userChoice;}catch(e){}promptEv=null;document.getElementById("pcinstallrow").hidden=true;});
+  document.getElementById("pcurl").addEventListener("click",()=>{const u=/^https?:/.test(location.protocol)?location.href.split(/[?#]/)[0]:WEBURL;
+    saveBlob("Griffschrift-Wandler.url",new Blob(["[InternetShortcut]\r\nURL="+u+"\r\n"],{type:"application/octet-stream"}));});
+  document.getElementById("pchtml").addEventListener("click",async()=>{let txt=null;
+    if(/^https?:/.test(location.protocol)){try{const r=await fetch(location.href.split(/[?#]/)[0],{cache:"no-store"});if(r.ok)txt=await r.text();}catch(e){}}
+    if(!txt){try{const r=await fetch(WEBURL+"index.html",{cache:"no-store"});if(r.ok)txt=await r.text();}catch(e){}}
+    if(!txt)txt="<!doctype html>\n"+document.documentElement.outerHTML;
+    saveBlob("griffschrift-wandler.html",new Blob([txt],{type:"text/html"}));});
+  if("serviceWorker" in navigator&&/^https:/.test(location.protocol))navigator.serviceWorker.register("sw.js").catch(()=>{});})();
 const dsel=document.getElementById("demo");
 dsel.addEventListener("change",()=>loadDemo(dsel.value));
 const mq=window.matchMedia("(prefers-color-scheme: dark)");mq.addEventListener&&mq.addEventListener("change",()=>{drawKbd(null);drawBass(null);});
