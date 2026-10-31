@@ -6,8 +6,8 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'">
+<!-- Schriften und JSZip blockieren den Start nicht: bei schlechtem Netz (Handy) startet das Programm sofort; JSZip wird erst für .mxl-Dateien geladen -->
 <style>
 /* Layout: Werkbank – Steuerleiste oben, darunter Diskant und Bass, darunter die Tabulatur Takt für Takt (Melodie oben, Bass mit Grundbass und Begleiter unten) */
 :root{
@@ -2366,6 +2366,7 @@ async function openFile(f){
     let txt;
     if(/\.(pdf|png|jpe?g|tiff?)$/i.test(f.name)){openHelp("h-pdf");throw new Error(TX("Gescannte Noten und PDF-Dateien müssen zuerst mit einer Notenerkennung (z. B. Audiveris) in MusicXML umgewandelt werden – siehe Hilfe.","Scanned music and PDF files must first be converted to MusicXML with music recognition software (e.g. Audiveris) – see Help."));}
     if(/\.mxl$/i.test(f.name)){
+      if(!window.JSZip)await new Promise(ok=>{const sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";sc.onload=sc.onerror=ok;document.head.appendChild(sc);});
       if(!window.JSZip)throw new Error(TX("Komprimierte .mxl-Dateien können gerade nicht geöffnet werden. Bitte als unkomprimiertes .musicxml exportieren.","Compressed .mxl files cannot be opened right now. Please export as uncompressed .musicxml."));
       const z=await JSZip.loadAsync(f);let path=null;const cont=z.file("META-INF/container.xml");
       if(cont){const cx=new DOMParser().parseFromString(await cont.async("string"),"application/xml");const rf=cx.querySelector("rootfile");if(rf)path=rf.getAttribute("full-path");}
