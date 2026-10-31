@@ -4,6 +4,7 @@
 <meta name="theme-color" content="#2e6b4f">
 <title>Griffschrift-Wandler</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -106,6 +107,7 @@ button:disabled{opacity:.45;cursor:default}#edrange select{font:inherit;padding:
 .err{color:var(--bad);font-weight:600}
 .sides{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
 @media (max-width:860px){.sides{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){select,label{max-width:100%;min-width:0}label select{flex:1 1 auto}select{text-overflow:ellipsis}.wrap{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-top:14px}.panel{padding:12px 10px}}
 .kbd{overflow-x:auto}
 .kbd svg{display:block;width:100%;height:auto}
 #kbd svg{min-width:620px}
