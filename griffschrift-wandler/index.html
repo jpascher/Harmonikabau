@@ -235,6 +235,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <button id="print" type="button" class="ghost2"><x-de>Drucken</x-de><x-en>Print</x-en></button>
       <button id="helpbtn" type="button" class="ghost2"><x-de>Hilfe</x-de><x-en>Help</x-en></button>
       <button id="pcbtn" type="button" class="ghost2"><x-de>Für den PC ⤓</x-de><x-en>For your PC ⤓</x-en></button>
+      <button id="mobbtn" type="button" class="ghost2"><x-de>Fürs Handy 📱</x-de><x-en>For your phone 📱</x-en></button>
       <div class="field">
         <label for="demo"><x-de>Beispiele</x-de><x-en>Examples</x-en></label>
         <select id="demo">
@@ -365,6 +366,22 @@ button.ghost2{background:transparent;color:var(--accent)}
   </section>
 
   <button id="fplay" type="button" class="fplay">▶ Abspielen</button>
+<dialog id="mobdlg" class="help" aria-labelledby="mobttl">
+  <div class="helphead">
+    <h2 id="mobttl"><x-de>Programm aufs Handy holen</x-de><x-en>Get the program onto your phone</x-en></h2>
+    <button id="mobclose" type="button" class="ghost2"><x-de>Schließen ✕</x-de><x-en>Close ✕</x-en></button>
+  </div>
+  <div class="helpbody">
+    <div id="mobqrbox"><p><x-de>Mit der Handy-Kamera diesen Code scannen – dann öffnet sich das Programm am Handy:</x-de><x-en>Scan this code with your phone camera – the program then opens on your phone:</x-en></p>
+      <div id="mobqr" style="background:#fff;padding:12px;display:inline-block;border-radius:8px;min-width:40px;min-height:40px"></div>
+      <p class="mono" style="word-break:break-all">https://jpascher.github.io/Harmonikabau/griffschrift-wandler/</p></div>
+    <p id="mobinstallrow" hidden><button id="mobinstall" type="button"><x-de>Als App installieren</x-de><x-en>Install as an app</x-en></button>
+      <x-de>Legt ein Symbol auf dem Startbildschirm an; das Programm startet dann wie eine App, auch ohne Internet.</x-de><x-en>Puts an icon on the home screen; the program then starts like an app, also without internet.</x-en></p>
+    <p><b><x-de>Android (Chrome):</x-de><x-en>Android (Chrome):</x-en></b> <x-de>Seite öffnen → Menü ⋮ → „App installieren“ bzw. „Zum Startbildschirm hinzufügen“.</x-de><x-en>open the page → menu ⋮ → “Install app” or “Add to home screen”.</x-en></p>
+    <p><b>iPhone / iPad (Safari):</b> <x-de>Seite öffnen → Teilen-Symbol (Viereck mit Pfeil) → „Zum Home-Bildschirm“.</x-de><x-en>open the page → share icon (square with arrow) → “Add to Home Screen”.</x-en></p>
+    <p><b><x-de>Ohne Internet:</x-de><x-en>Without internet:</x-en></b> <x-de>Das Programm speichert sich beim ersten Öffnen selbst. Danach gehen eigene Noten (MusicXML, MIDI), Eintippen und Zufallsmelodien auch offline. Beispielstücke und der Harmonika-Klang sind offline nur da, wenn man sie einmal mit Internet geöffnet bzw. abgespielt hat – sonst klingt der synthetische Ton. Gepackte .mxl-Dateien brauchen Internet. Tipp: einmal ein Beispiel laden und abspielen, dann im Flugmodus ausprobieren. Auf dem iPhone löscht Safari die gespeicherten Daten, wenn die Seite einige Wochen nicht benutzt wurde; dann einfach einmal mit Internet öffnen.</x-de><x-en>the program stores itself the first time it is opened. After that your own music (MusicXML, MIDI), typing in and random tunes also work offline. Example tunes and the accordion sound are only available offline if they were opened or played once with internet – otherwise the synthetic sound is heard. Compressed .mxl files need internet. Tip: load an example once and play it, then try it in flight mode. On the iPhone, Safari deletes the stored data if the page has not been used for a few weeks; then simply open it once with internet.</x-en></p>
+  </div>
+</dialog>
 <dialog id="pcdlg" class="help" aria-labelledby="pcttl">
   <div class="helphead">
     <h2 id="pcttl"><x-de>Programm auf den PC holen</x-de><x-en>Get the program onto your PC</x-en></h2>
@@ -385,10 +402,10 @@ button.ghost2{background:transparent;color:var(--accent)}
     <button id="helpclose" type="button" class="ghost2" aria-label="Hilfe schließen"><x-de>Schließen ✕</x-de><x-en>Close ✕</x-en></button>
   </div>
   <nav class="helptoc i-de" aria-label="Inhalt">
-    <a href="#h-start">Schnellstart</a><a href="#h-laden">Noten laden</a><a href="#h-pdf">PDF und Scans</a><a href="#h-instr">Instrument</a><a href="#h-lesen">Griffschrift lesen</a><a href="#h-logik">So entscheidet das Programm</a><a href="#h-wdh">Wiederholungen</a><a href="#h-ueben">Üben und Abspielen</a><a href="#h-edit">Bearbeiten</a><a href="#h-create">Melodie eingeben</a><a href="#h-druck">Zeilen und Drucken</a><a href="#h-grenzen">Grenzen und Tipps</a><a href="#h-recht">Urheberrecht</a><a href="#h-quellen">Quellen</a>
+    <a href="#h-start">Schnellstart</a><a href="#h-laden">Noten laden</a><a href="#h-pdf">PDF und Scans</a><a href="#h-instr">Instrument</a><a href="#h-lesen">Griffschrift lesen</a><a href="#h-logik">So entscheidet das Programm</a><a href="#h-wdh">Wiederholungen</a><a href="#h-ueben">Üben und Abspielen</a><a href="#h-edit">Bearbeiten</a><a href="#h-create">Melodie eingeben</a><a href="#h-druck">Zeilen und Drucken</a><a href="#h-handy">Handy und offline</a><a href="#h-grenzen">Grenzen und Tipps</a><a href="#h-recht">Urheberrecht</a><a href="#h-quellen">Quellen</a>
   </nav>
   <nav class="helptoc i-en" aria-label="Contents">
-    <a href="#e-start">Quick start</a><a href="#e-laden">Loading music</a><a href="#e-pdf">PDF and scans</a><a href="#e-instr">Instrument</a><a href="#e-lesen">Reading Griffschrift</a><a href="#e-logik">How the program decides</a><a href="#e-wdh">Repeats</a><a href="#e-ueben">Practice and playback</a><a href="#e-edit">Editing</a><a href="#e-create">Enter melody</a><a href="#e-druck">Lines and printing</a><a href="#e-grenzen">Limits and tips</a><a href="#e-recht">Copyright</a><a href="#e-quellen">Sources</a>
+    <a href="#e-start">Quick start</a><a href="#e-laden">Loading music</a><a href="#e-pdf">PDF and scans</a><a href="#e-instr">Instrument</a><a href="#e-lesen">Reading Griffschrift</a><a href="#e-logik">How the program decides</a><a href="#e-wdh">Repeats</a><a href="#e-ueben">Practice and playback</a><a href="#e-edit">Editing</a><a href="#e-create">Enter melody</a><a href="#e-druck">Lines and printing</a><a href="#e-handy">Phone and offline</a><a href="#e-grenzen">Limits and tips</a><a href="#e-recht">Copyright</a><a href="#e-quellen">Sources</a>
   </nav>
   <div class="helpbody">
    <div class="i-de">
@@ -439,6 +456,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li><b>Blau</b> = Zusatzknopf oder von Hand geänderte Stelle, <b>rot</b> = Griff gegen den Bass: er klingt zugleich mit einem Grundbass- oder Begleiteranschlag, aber in der anderen Balgrichtung. Leit- und Durchgangstöne zwischen den Bassanschlägen dürfen in der anderen Richtung liegen; sie gelten nicht als gegen den Bass, kosten aber einen Balgwechsel, deshalb nimmt das Programm sie nur, wenn es sich lohnt. Mit „Griffe aus der Griffschrift“ teilt sich ein Bassabschnitt nur dort, wo der Verfasser den Balg zu einem Bassanschlag wechselt.</li>
       </ul>
       <p><b>Für den PC:</b> Der Knopf „Für den PC ⤓“ oben bietet drei Wege an: das Programm als App installieren (eigenes Fenster mit Symbol, geht auch ohne Internet), eine Desktop-Verknüpfung (.url) herunterladen oder das ganze Programm als HTML-Datei herunterladen und lokal öffnen.</p>
+      <p id="h-handy"><b>Am Handy und ohne Internet:</b> Der Knopf „Fürs Handy 📱“ zeigt am PC einen QR-Code, den man mit der Handy-Kamera scannt; am Handy erklärt er, wie man das Programm auf den Startbildschirm legt (Android/Chrome: Menü ⋮ → „App installieren“; iPhone/Safari: Teilen-Symbol → „Zum Home-Bildschirm“). Das Programm speichert sich beim ersten Öffnen selbst und geht danach auch ohne Internet: eigene Noten (MusicXML, MIDI), Eintippen und Zufallsmelodien immer, Beispielstücke und der Harmonika-Klang aber nur, wenn man sie einmal mit Internet geöffnet bzw. abgespielt hat – sonst klingt der synthetische Ton. Gepackte .mxl-Dateien brauchen Internet. Auf dem iPhone löscht Safari die gespeicherten Daten nach einigen Wochen ohne Benutzung; dann einfach einmal mit Internet öffnen.</p>
       <p>Unter <b>Ansicht</b> gibt es statt der Griffschrift auch eine <b>Griff-Tabelle</b> mit Knopfnummer und Reihe (z. B. 5₂ = Knopf 5 in Reihe 2). Dort steht ein Punkt, wenn derselbe Griff im Takt schon vorkam. Die dritte Möglichkeit sind <b>Normalnoten</b>: die Melodie mit allen Griff-Tönen im Violinschlüssel, mit Tonart-Vorzeichen und Versetzungszeichen, darunter die Akkordnamen. Gezeigt wird die eingestellte Lage, also so, wie es auf dem gewählten Instrument klingt. Abspielen, Übungsauswahl und Bearbeiten funktionieren dort genauso.</p>
     </section>
     <section id="h-logik"><h3>So entscheidet das Programm</h3>
@@ -565,6 +583,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li><b>Blue</b> = extra button or a spot changed by hand, <b>red</b> = grip against the bass: it sounds together with a bass-note or chord-button stroke, but in the other bellows direction. Leading and passing notes between the bass strokes may lie in the other direction; they do not count as against the bass, but they cost a bellows change, so the program only uses them when it pays off. With “Grips from the Griffschrift”, a bass section is only split where the author changes the bellows at a bass stroke.</li>
       </ul>
       <p><b>For your PC:</b> the “For your PC ⤓” button at the top offers three ways: install the program as an app (its own window with an icon, also works without internet), download a desktop shortcut (.url), or download the whole program as an HTML file and open it locally.</p>
+      <p id="e-handy"><b>On your phone and without internet:</b> on a PC, the “For your phone 📱” button shows a QR code to scan with the phone camera; on the phone it explains how to put the program on the home screen (Android/Chrome: menu ⋮ → “Install app”; iPhone/Safari: share icon → “Add to Home Screen”). The program stores itself the first time it is opened and then also works without internet: your own music (MusicXML, MIDI), typing in and random tunes always, example tunes and the accordion sound only if they were opened or played once with internet – otherwise the synthetic sound is heard. Compressed .mxl files need internet. On the iPhone, Safari deletes the stored data after a few weeks without use; then simply open it once with internet.</p>
       <p>Under <b>View</b> you can switch from the Griffschrift to a <b>grip table</b> with button number and row (e.g. 5₂ = button 5 in row 2). A dot there means the same grip already came earlier in the measure. The third option is <b>standard notation</b>: the melody with all notes of the grips in treble clef, with key signature and accidentals, and the chord names below. It shows the selected key, i.e. as it sounds on the chosen instrument. Playback, practice selection and editing work there in the same way.</p>
     </section>
     <section id="e-logik"><h3>How the program decides</h3>
@@ -2707,7 +2726,16 @@ document.getElementById("edload").addEventListener("keydown",ev=>{if(ev.key==="E
 const WEBURL="https://jpascher.github.io/Harmonikabau/griffschrift-wandler/";
 function saveBlob(name,blob){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);}
 (function(){const dlg=document.getElementById("pcdlg");let promptEv=null;
-  window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();promptEv=e;document.getElementById("pcinstallrow").hidden=false;});
+  window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();promptEv=e;document.getElementById("pcinstallrow").hidden=false;document.getElementById("mobinstallrow").hidden=false;});
+  // Fürs Handy: am PC ein QR-Code zum Scannen (Bibliothek wird erst beim Öffnen geladen), am Handy Installieren und Anleitung
+  const md=document.getElementById("mobdlg"),isMob=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  document.getElementById("mobbtn").addEventListener("click",()=>{try{md.showModal();}catch(e){md.setAttribute("open","");}
+    const box=document.getElementById("mobqrbox");box.hidden=isMob;if(isMob)return;
+    const q=document.getElementById("mobqr");if(q.dataset.done)return;
+    const draw=()=>{try{q.innerHTML="";new QRCode(q,{text:WEBURL,width:200,height:200});q.dataset.done="1";}catch(e){q.textContent="";}};
+    if(window.QRCode)draw();else{const sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";sc.onload=draw;sc.onerror=()=>{q.style.display="none";};document.head.appendChild(sc);}});
+  document.getElementById("mobclose").addEventListener("click",()=>md.close());
+  document.getElementById("mobinstall").addEventListener("click",async()=>{if(!promptEv)return;promptEv.prompt();try{await promptEv.userChoice;}catch(e){}promptEv=null;document.getElementById("mobinstallrow").hidden=true;document.getElementById("pcinstallrow").hidden=true;});
   document.getElementById("pcbtn").addEventListener("click",()=>{try{dlg.showModal();}catch(e){dlg.setAttribute("open","");}});
   document.getElementById("pcclose").addEventListener("click",()=>dlg.close());
   document.getElementById("pcinstall").addEventListener("click",async()=>{if(!promptEv)return;promptEv.prompt();try{await promptEv.userChoice;}catch(e){}promptEv=null;document.getElementById("pcinstallrow").hidden=true;});
