@@ -200,10 +200,11 @@ button.ghost2{background:transparent;color:var(--accent)}
       <div class="field">
         <label for="disk"><x-de>Diskant</x-de><x-en>Treble</x-en></label>
         <select id="disk"><optgroup id="og-dhyper" label="Akkordsuche (hyperbox.org)"><option value="450s">450 Öllerer und Schaborak</option><option value="446">446 Normal</option></optgroup><optgroup id="og-dstrasser" label="Strasser (harmonika.com)"><option value="st46m">46 Tasten, 2 Halbtöne in Serie (wie Michlbauer)</option><option value="st46h">46 Tasten, 1 Halbton</option><option value="st46w">46 Tasten, 1 Halbton wechseltönig</option><option value="st48h">48 Tasten, Halbtöne</option><option value="st48t">48 Tasten, Tieftöne</option><option value="st50t">50 Tasten, Tieftöne</option><option value="st50h">50 Tasten, Halbtöne</option><option value="st50hub">50 Tasten, Halbtöne nach Hubmann</option><option value="st50zw">50 Tasten nach Zwanzleitner</option><option value="st50str">50 Tasten nach Strohmeier</option><option value="st50sbg">50 Tasten, „salzburgisch“</option><option value="st50lenz">50 Tasten nach Lenz R.</option></optgroup></select>
+        <label class="chk"><x-de>Diskantknöpfe</x-de><x-en>Treble buttons</x-en> <select id="dmode"><option value="std">wie Belegung</option><option value="own">eigene (im Diskantbild anklicken)</option></select></label>
       </div>
       <div class="field">
         <label for="bass">Bass</label>
-        <select id="bass"><optgroup id="og-hyper" label="Akkordsuche (hyperbox.org)"><option value="s22">Schaborak/Pauli 22, 3 Koppelungen</option><option value="s21">Schaborak 21, 2 Koppelungen</option><option value="s18">Schaborak 18, 2 Koppelungen</option><option value="s16">Schaborak 16</option><option value="normal">Normalbass 16 (Öllerer)</option><option value="fuchs15">Steirisch Franz Fuchs, 15 Knöpfe</option><option value="pascher">Pascher, 17 Knöpfe, Moll innen auf Druck</option></optgroup><optgroup id="og-schab" label="Dieter Schaborak (Original)"><option value="schab5021">Schaborak 50/21, Original-Klangschema</option></optgroup><optgroup id="og-strasser" label="Strasser (harmonika.com)"><option value="st00">Übergangsbässe, 15 Tasten</option><option value="st04">Übergangsbässe, X-Bass gekoppelt</option><option value="st05">Übergangsbässe, X- und H-Bass entkoppelt</option><option value="st06">Mollbässe, 15 Tasten</option><option value="st07">Mollbässe, WB Basslauf</option><option value="st08">Mollbässe, X-Bass gekoppelt (wie Michlbauer)</option><option value="st09" selected>Mollbässe, X- und H-Bass entkoppelt (wie Michlbauer)</option><option value="st10">Mollbässe, X- und H-Bass entkoppelt mit Basslauf</option><option value="st11">1 Mollbass, 15 Tasten</option><option value="st12">1 Mollbass, WB Basslauf (Quetschn-Academy)</option><option value="st13">1 Mollbass, X-Bass gekoppelt</option><option value="st14">1 Mollbass, X- und H-Bass entkoppelt</option><option value="st15">1 Mollbass, X- und H-Bass entkoppelt mit Basslauf</option><option value="st19">Klassisch, 19 Tasten (wie 5-Reiher)</option><option value="st20">Klassisch mit Mollbässen, 19 Tasten</option><option value="st21">Strohmeier, 19 Tasten</option><option value="st22">Glaser, 19 Tasten</option><option value="st23">Pichler, 19 Tasten, 1 Kopplung</option><option value="st24">Hubmann, 21 Tasten, 2 Kopplungen</option><option value="st25">Senekovic, 20 Tasten, 2 Kopplungen</option><option value="st26">Schaborak, 21 Tasten, 2 Kopplungen</option><option value="st27">Schaborak/Pauli, 22 Tasten, 3 Kopplungen</option><option value="st28">Kalcher I, 17 Tasten</option><option value="st29">Kalcher II, 20 Tasten, 1 Kopplung</option><option value="st30">Egger, 19 Tasten</option><option value="st31">Svoboda, 19 Tasten</option><option value="st32">Zweverink, 20 Tasten, 2 Kopplungen</option><option value="st33">Guggi, 19 Tasten</option><option value="st34">Lenz R., 19 Tasten</option></optgroup></select>
+        <select id="bass"><optgroup id="og-hyper" label="Akkordsuche (hyperbox.org)"><option value="s22">Schaborak/Pauli 22, 3 Koppelungen</option><option value="s21">Schaborak 21, 2 Koppelungen</option><option value="s18">Schaborak 18, 2 Koppelungen</option><option value="s16">Schaborak 16</option><option value="normal">Normalbass 16 (Öllerer)</option><option value="fuchs15">Steirisch Franz Fuchs, 15 Knöpfe</option><option value="hum20">Hummelberger, 20 Knöpfe</option><option value="hum18">Hummelberger, 18 Knöpfe</option><option value="pascher">Pascher, 17 Knöpfe, Moll innen auf Druck</option></optgroup><optgroup id="og-schab" label="Dieter Schaborak (Original)"><option value="schab5021">Schaborak 50/21, Original-Klangschema</option></optgroup><optgroup id="og-strasser" label="Strasser (harmonika.com)"><option value="st00">Übergangsbässe, 15 Tasten</option><option value="st04">Übergangsbässe, X-Bass gekoppelt</option><option value="st05">Übergangsbässe, X- und H-Bass entkoppelt</option><option value="st06">Mollbässe, 15 Tasten</option><option value="st07">Mollbässe, WB Basslauf</option><option value="st08">Mollbässe, X-Bass gekoppelt (wie Michlbauer)</option><option value="st09" selected>Mollbässe, X- und H-Bass entkoppelt (wie Michlbauer)</option><option value="st10">Mollbässe, X- und H-Bass entkoppelt mit Basslauf</option><option value="st11">1 Mollbass, 15 Tasten</option><option value="st12">1 Mollbass, WB Basslauf (Quetschn-Academy)</option><option value="st13">1 Mollbass, X-Bass gekoppelt</option><option value="st14">1 Mollbass, X- und H-Bass entkoppelt</option><option value="st15">1 Mollbass, X- und H-Bass entkoppelt mit Basslauf</option><option value="st19">Klassisch, 19 Tasten (wie 5-Reiher)</option><option value="st20">Klassisch mit Mollbässen, 19 Tasten</option><option value="st21">Strohmeier, 19 Tasten</option><option value="st22">Glaser, 19 Tasten</option><option value="st23">Pichler, 19 Tasten, 1 Kopplung</option><option value="st24">Hubmann, 21 Tasten, 2 Kopplungen</option><option value="st25">Senekovic, 20 Tasten, 2 Kopplungen</option><option value="st26">Schaborak, 21 Tasten, 2 Kopplungen</option><option value="st27">Schaborak/Pauli, 22 Tasten, 3 Kopplungen</option><option value="st28">Kalcher I, 17 Tasten</option><option value="st29">Kalcher II, 20 Tasten, 1 Kopplung</option><option value="st30">Egger, 19 Tasten</option><option value="st31">Svoboda, 19 Tasten</option><option value="st32">Zweverink, 20 Tasten, 2 Kopplungen</option><option value="st33">Guggi, 19 Tasten</option><option value="st34">Lenz R., 19 Tasten</option></optgroup></select>
       </div>
       <div class="field">
         <label for="bmoll"><x-de>Bassknöpfe anpassen</x-de><x-en>Adjust bass buttons</x-en></label>
@@ -421,8 +422,9 @@ button.ghost2{background:transparent;color:var(--accent)}
     <section id="h-instr"><h3>Instrument einstellen</h3>
       <p><b>Stimmung:</b> alle acht 4-Reiher-Stimmungen von F-B-Es-As bis C-F-B-Es (wie sie Strasser liefert), dazu Cis-Fis-H-E, D-G-C-F, Es-As-Des-Ges und E-A-D-G aus den Grifftabellen von Dieter Schaborak. Die Griffschrift bleibt bei jeder Stimmung gleich, nur die klingenden Töne verschieben sich.</p>
       <p><b>Diskant:</b> 446 Normal oder 450 Öllerer und Schaborak mit Zusatzknöpfen, dazu die Diskant-Ausführungen von Strasser mit 46, 48 und 50 Tasten: Halbtöne in Serie wie Michlbauer, Halbton wechseltönig, Tief- oder Halbtöne sowie die Ausführungen nach Hubmann, Zwanzleitner, Strohmeier, Lenz und „salzburgisch“. Die Strasser-Ausführung „46 Tasten, Tieftöne (traditionell)“ entspricht 446 Normal. Zusatzknöpfe sind im Diskantbild blau umrandet; das Programm nimmt sie nur, wenn sie einen Griff deutlich erleichtern.</p>
-      <p><b>Bass:</b> Voreingestellt ist Strassers „Mollbässe, X- und H-Bass entkoppelt (wie Michlbauer)“. Zur Wahl stehen das Original-Klangschema der Schaborak 50/21 (Grifftabelle von Dieter Schaborak; der Diskant dazu ist „450 Öllerer und Schaborak“), Normalbass, Schaborak, Steirisch nach Franz Fuchs und Pascher (wie Mollbässe mit entkoppeltem X- und H-Bass, aber in der Innenreihe, bei G-C-F-B, auf Druck d-Moll statt D-Dur, auf Zug B-Dur statt d-Moll und ein weiterer Begleiter mit h-Moll auf Druck und d-Moll auf Zug) aus der Akkordsuche (hyperbox.org) sowie die Bassbelegungen aus dem Tonbelegungs-Konfigurator von Strasser (harmonika.com): Übergangsbässe, Mollbässe, 1 Mollbass, jeweils auch mit gekoppeltem oder entkoppeltem X- und H-Bass und Basslauf, dazu Klassisch, Strohmeier, Glaser, Pichler, Hubmann, Senekovic, Schaborak, Kalcher, Egger, Svoboda, Zweverink, Guggi und Lenz. Im Bassbild sind große Knöpfe Grundbässe, kleine Begleiter, darüber steht der Name, der in der Griffschrift verwendet wird.</p>
+      <p><b>Bass:</b> Voreingestellt ist Strassers „Mollbässe, X- und H-Bass entkoppelt (wie Michlbauer)“. Zur Wahl stehen das Original-Klangschema der Schaborak 50/21 (Grifftabelle von Dieter Schaborak; der Diskant dazu ist „450 Öllerer und Schaborak“), Normalbass, Schaborak, Hummelberger (18 und 20 Knöpfe), Steirisch nach Franz Fuchs und Pascher (wie Mollbässe mit entkoppeltem X- und H-Bass, aber in der Innenreihe, bei G-C-F-B, auf Druck d-Moll statt D-Dur, auf Zug B-Dur statt d-Moll und ein weiterer Begleiter mit h-Moll auf Druck und d-Moll auf Zug) aus der Akkordsuche (hyperbox.org) sowie die Bassbelegungen aus dem Tonbelegungs-Konfigurator von Strasser (harmonika.com): Übergangsbässe, Mollbässe, 1 Mollbass, jeweils auch mit gekoppeltem oder entkoppeltem X- und H-Bass und Basslauf, dazu Klassisch, Strohmeier, Glaser, Pichler, Hubmann, Senekovic, Schaborak, Kalcher, Egger, Svoboda, Zweverink, Guggi und Lenz. Im Bassbild sind große Knöpfe Grundbässe, kleine Begleiter, darüber steht der Name, der in der Griffschrift verwendet wird.</p>
       <p><b>Bassknöpfe anpassen:</b> „wie Belegung“ nimmt die Begleiter so, wie sie in der gewählten Belegung stehen. „Vorlage: Moll auf Zug“ richtet die Hilfsbassreihe so ein, wie es bei Instrumenten ohne Schaborak üblich ist und wie es auch Franz Fuchs voraussetzt: Moll gibt es auf Zug, bei G-C-F-B d-Moll und a-Moll mit ihren Grundbässen (wie die Strasser-Mollbässe). Bei Moll-Stücken entscheidet vor allem, ob die Moll-Begleiter auf Zug oder auf Druck liegen; danach richtet sich die Balgrichtung, und die Melodie liegt dann meist in der 1. Reihe. Beim Schaborak liegen Moll-Begleiter auf beiden Balgrichtungen, das Programm wählt dann je nach Weg. Für ein individuell gebautes Instrument klickt man im Bassbild auf einen Knopf, die obere Hälfte für Druck, die untere für Zug. Im Auswahlfeld stellt man Ton und Art ein: Grundbass, Begleiter Dur, Begleiter Moll oder leer; „Wie Belegung“ setzt den Knopf zurück. Mit „eigene“ erscheinen auch die freien Plätze (+), auf die man zusätzliche Knöpfe legen kann. Geänderte Knöpfe sind blau, die eigene Belegung wird je Bass-System im Browser gemerkt. Das Programm rechnet danach sofort neu und nimmt Mollbegleiter für die Moll-Stufen. Gibt es den Moll-Begleiter nur in einer Balgrichtung (bei „Moll auf Zug“ nur auf Zug), legt das Programm den Moll-Abschnitt in diese Richtung und nimmt die andere nur, wenn die Melodie dort gar nicht geht. Fehlt ein Moll-Begleiter ganz, spielt es zum Moll-Grundbass den Dur-Begleiter der kleinen Terz darüber (g-Moll = Grundbass G mit B-Dur-Begleiter, klingt als Gm7); die Statuszeile zählt diese Stellen. Das lässt sich mit dem Häkchen „Moll-Ersatz“ unter „Bassknöpfe anpassen“ abschalten; dann bleibt es beim Grundbass ohne Begleiter. Fehlt für eine Stufe der passende Bass oder Begleiter, meldet die Statuszeile das, und „Transponieren: Automatisch“ sucht eine Lage, in der möglichst alles vorhanden ist. Zum Ausprobieren gibt es unter Beispiele den „Moll-Walzer“.</p>
+      <p><b>Diskantknöpfe anpassen:</b> Viele Harmonikas sind nach Kundenwunsch belegt (bei Jamnik etwa bekommt jeder Käufer seinen eigenen Belegungsplan). Mit „Diskantknöpfe: eigene“ lässt sich darum auch der Diskant ändern: Man wählt die Belegung, die am nächsten liegt, und klickt im Diskantbild auf einen Knopf – obere Hälfte Druck, untere Hälfte Zug – und wählt den Ton aus der Liste (er klingt beim Auswählen an), „leer“ entfernt ihn, „Wie Belegung“ stellt ihn zurück. Freie Plätze am Kopf und Fuß jeder Reihe erscheinen gestrichelt mit „+“ und lassen sich ebenso belegen. Geänderte Knöpfe haben einen grünen Rand. Die eigene Belegung wird je Diskant im Browser gemerkt und mit „Bearbeitung speichern“ mitgesichert, so dass man sie auch weitergeben kann.</p>
       <p><b>Transponieren:</b> „Automatisch“ sucht die Lage, in der das Stück am besten auf dem Instrument liegt: Alle 25 Lagen (eine Oktave nach oben und unten) werden geprüft, die aussichtsreichsten über das ganze Stück. Entscheidend ist zuerst, dass möglichst kein Ton unspielbar bleibt; danach zählen fehlende Grund- und Begleitbässe, Töne, die in eine andere Oktave ausweichen müssen, und Griffe gegen den Bass. Die beste Lage hängt deshalb vom gewählten Diskant- und Basslayout ab. Bei Stücken mit hinterlegter Griffschrift (Franz Fuchs, Philipp Ramoner) bleibt deren Lage, also auch deren Balgrichtungen, solange sie höchstens ein, zwei Töne (bzw. 1 % der Noten) mehr unspielbar lässt; Töne, die der Verfasser in seinem Griff selbst weglässt, zählen dabei nicht. Du kannst die Lage auch fest einstellen.</p>
     </section>
     <section id="h-lesen"><h3>Griffschrift lesen</h3>
@@ -546,8 +548,9 @@ button.ghost2{background:transparent;color:var(--accent)}
     <section id="e-instr"><h3>Setting up the instrument</h3>
       <p><b>Tuning:</b> all eight 4-row tunings from F-B-Es-As (F-B♭-E♭-A♭) to C-F-B-Es (C-F-B♭-E♭), as supplied by Strasser, plus C♯-F♯-B-E, D-G-C-F, E♭-A♭-D♭-G♭ and E-A-D-G from Dieter Schaborak’s button charts. The Griffschrift is the same for every tuning; only the sounding pitches shift.</p>
       <p><b>Treble:</b> 446 standard, or 450 Öllerer and Schaborak with extra buttons, plus the Strasser treble versions with 46, 48 and 50 buttons: semitones in series as Michlbauer, a semitone that differs on push and pull, low notes or semitones, and the versions after Hubmann, Zwanzleitner, Strohmeier, Lenz and “Salzburg style”. The Strasser version “46 buttons, low notes (traditional)” is the same as 446 standard. Extra buttons have a blue outline in the treble diagram; the program uses them only when they make a grip clearly easier.</p>
-      <p><b>Bass:</b> the default is Strasser’s “minor basses, X and H bass uncoupled (as Michlbauer)”. Available are the original layout of the Schaborak 50/21 (button chart by Dieter Schaborak; the matching treble is “450 Öllerer and Schaborak”), standard bass, Schaborak, Styrian after Franz Fuchs and Pascher (like minor basses with uncoupled X and H bass, but in the inner row, in G-C-F-B, D minor instead of D major on push, B♭ major instead of D minor on pull, and one more chord button with B minor on push and D minor on pull) from the chord finder (hyperbox.org), plus the bass layouts from the Strasser key-layout configurator (harmonika.com): transition basses, minor basses, 1 minor bass, each also with coupled or uncoupled X and H bass and bass run, as well as Classic, Strohmeier, Glaser, Pichler, Hubmann, Senekovic, Schaborak, Kalcher, Egger, Svoboda, Zweverink, Guggi and Lenz. In the bass diagram, large buttons are bass notes and small ones chords; above each is the name used in the Griffschrift.</p>
+      <p><b>Bass:</b> the default is Strasser’s “minor basses, X and H bass uncoupled (as Michlbauer)”. Available are the original layout of the Schaborak 50/21 (button chart by Dieter Schaborak; the matching treble is “450 Öllerer and Schaborak”), standard bass, Schaborak, Hummelberger (18 and 20 buttons), Styrian after Franz Fuchs and Pascher (like minor basses with uncoupled X and H bass, but in the inner row, in G-C-F-B, D minor instead of D major on push, B♭ major instead of D minor on pull, and one more chord button with B minor on push and D minor on pull) from the chord finder (hyperbox.org), plus the bass layouts from the Strasser key-layout configurator (harmonika.com): transition basses, minor basses, 1 minor bass, each also with coupled or uncoupled X and H bass and bass run, as well as Classic, Strohmeier, Glaser, Pichler, Hubmann, Senekovic, Schaborak, Kalcher, Egger, Svoboda, Zweverink, Guggi and Lenz. In the bass diagram, large buttons are bass notes and small ones chords; above each is the name used in the Griffschrift.</p>
       <p><b>Adjust bass buttons:</b> “as in the layout” uses the chord buttons exactly as they are in the chosen layout. “Template: minor on pull” sets up the auxiliary bass row the way it is usual on instruments without Schaborak and the way Franz Fuchs assumes: minor is on pull, on G-C-F-B D minor and A minor with their bass notes (like the Strasser minor basses). In minor pieces the main question is whether the minor chord buttons are on pull or on push; the bellows direction follows from that, and the melody then mostly lies in row 1. On a Schaborak, minor chord buttons are on both bellows directions, and the program chooses by the shorter way. For an individually built instrument, click a button in the bass diagram, the top half for push, the bottom half for pull. In the small panel you set the note and type: bass note, major chord, minor chord or empty; “As in layout” resets the button. With “custom”, the free places (+) also appear, where you can add extra buttons. Changed buttons are blue, and your own layout is remembered in the browser for each bass system. The program recalculates at once and uses the minor chords for minor degrees. If the minor chord button exists in only one bellows direction (with “minor on pull” only on pull), the program puts the minor section in that direction and uses the other one only if the melody cannot be played there at all. If there is no minor chord button at all, it plays the minor bass note with the major chord button a minor third above (G minor = bass note G with the B♭ major chord, sounding as Gm7); the status line counts these places. The “Minor substitute” checkbox under “Adjust bass buttons” turns this off; the minor bass note is then played without a chord button. If the matching bass or chord button for a degree is missing, the status line says so, and “Transpose: Automatic” looks for a key in which as much as possible is available. The “Minor waltz” under Examples lets you try this out.</p>
+      <p><b>Adjust treble buttons:</b> many accordions are built to order (Jamnik, for example, gives each buyer an individual layout chart). With “Treble buttons: own” the treble can therefore be changed as well: choose the closest layout, click a button in the treble diagram – upper half push, lower half pull – and pick the note from the list (it sounds while you choose); “empty” removes it, “As in layout” resets it. Free places at the head and foot of every row appear dashed with “+” and can be assigned the same way. Changed buttons have a green outline. The own layout is remembered per treble in the browser and is included in “Save edits”, so it can also be passed on.</p>
       <p><b>Transpose:</b> “Automatic” looks for the key in which the tune lies best on the instrument: all 25 keys (one octave up and down) are checked, the most promising ones over the whole tune. The first priority is that no note remains unplayable; after that, missing bass and chord buttons, notes that have to move to another octave and grips against the bass count. The best key therefore depends on the chosen treble and bass layout. For tunes with a stored Griffschrift (Franz Fuchs, Philipp Ramoner) its key, and with it its bellows directions, is kept as long as it leaves at most one or two more notes (or 1 % of the notes) unplayable; notes the author leaves out of his own grip do not count. You can also set the key yourself.</p>
     </section>
     <section id="e-lesen"><h3>Reading Griffschrift</h3>
@@ -671,10 +674,10 @@ const TX=(de,en)=>LANG==="en"?en:de;
 // Texte der Auswahllisten (value → [de,en])
 const OPT={
   disk:{"450s":["450 Öllerer und Schaborak","450 Öllerer and Schaborak"],"446":["446 Normal","446 standard"]},
-  bass:{s22:["Schaborak/Pauli 22, 3 Koppelungen","Schaborak/Pauli 22, 3 couplings"],s21:["Schaborak 21, 2 Koppelungen","Schaborak 21, 2 couplings"],s18:["Schaborak 18, 2 Koppelungen","Schaborak 18, 2 couplings"],s16:["Schaborak 16","Schaborak 16"],normal:["Normalbass 16 (Öllerer)","Standard bass 16 (Öllerer)"],fuchs15:["Steirisch Franz Fuchs, 15 Knöpfe","Styrian Franz Fuchs, 15 buttons"],pascher:["Pascher, 17 Knöpfe, Moll innen auf Druck","Pascher, 17 buttons, minor on push in inner row"]},
+  bass:{s22:["Schaborak/Pauli 22, 3 Koppelungen","Schaborak/Pauli 22, 3 couplings"],s21:["Schaborak 21, 2 Koppelungen","Schaborak 21, 2 couplings"],s18:["Schaborak 18, 2 Koppelungen","Schaborak 18, 2 couplings"],s16:["Schaborak 16","Schaborak 16"],normal:["Normalbass 16 (Öllerer)","Standard bass 16 (Öllerer)"],fuchs15:["Steirisch Franz Fuchs, 15 Knöpfe","Styrian Franz Fuchs, 15 buttons"],hum20:["Hummelberger, 20 Knöpfe","Hummelberger, 20 buttons"],hum18:["Hummelberger, 18 Knöpfe","Hummelberger, 18 buttons"],pascher:["Pascher, 17 Knöpfe, Moll innen auf Druck","Pascher, 17 buttons, minor on push in inner row"]},
   demo:{"phx:schneewalzer":["Schneewalzer (Notensatz Dorfer, von Philipp)","Schneewalzer (engraving by Dorfer, via Philipp)"],laendler:["Ländler mit Terzen (Akkordsymbole)","Ländler in thirds (chord symbols)"],walzer:["Kleiner Walzer (Stufen geschätzt)","Little waltz (degrees estimated)"],stillenacht:["Stille Nacht (6/8, Terzen)","Silent Night (6/8, thirds)"],freude:["Freude, schöner Götterfunken","Ode to Joy"],mollwalzer:["Moll-Walzer (a-Moll, für Mollbässe)","Minor waltz (A minor, for minor basses)"],entchen:["Alle meine Entchen","Alle meine Entchen (children's song)"]},
   view:{griff:["Griffschrift","Griffschrift"],tab:["Griff-Tabelle","Grip table"],noten:["Normalnoten","Standard notation"]},
-  gstyle:{ramoner:["Ramoner (Lage 2–4, Gleichton)","Ramoner (rows 2–4, Gleichton)"],fuchs:["Fuchs (Lage 1–3, Gleichton gemieden)","Fuchs (rows 1–3, Gleichton avoided)"]},acc:{auto:["Automatisch (Landler am Titel erkannt)","Automatic (Ländler recognised by title)"],wb:["Mit Wechselbass","With alternating bass"],landler:["Landler (ohne Wechselbass)","Ländler (no alternating bass)"]},fill:{"0":["nein","no"],"3":["auf 3 Stimmen","to 3 voices"],"4":["auf 4 Stimmen","to 4 voices"]},voices:{"2":["Melodie + 2. Stimme","Melody + 2nd voice"],"1":["nur Melodie","Melody only"],"3":["bis 3 Stimmen","Up to 3 voices"],"4":["bis 4 Stimmen","Up to 4 voices"]},
+  gstyle:{ramoner:["Ramoner (Lage 2–4, Gleichton)","Ramoner (rows 2–4, Gleichton)"],fuchs:["Fuchs (Lage 1–3, Gleichton gemieden)","Fuchs (rows 1–3, Gleichton avoided)"]},acc:{auto:["Automatisch (Landler am Titel erkannt)","Automatic (Ländler recognised by title)"],wb:["Mit Wechselbass","With alternating bass"],landler:["Landler (ohne Wechselbass)","Ländler (no alternating bass)"]},dmode:{std:["wie Belegung","as in layout"],own:["eigene (im Diskantbild anklicken)","own (click in the treble diagram)"]},fill:{"0":["nein","no"],"3":["auf 3 Stimmen","to 3 voices"],"4":["auf 4 Stimmen","to 4 voices"]},voices:{"2":["Melodie + 2. Stimme","Melody + 2nd voice"],"1":["nur Melodie","Melody only"],"3":["bis 3 Stimmen","Up to 3 voices"],"4":["bis 4 Stimmen","Up to 4 voices"]},
   form:{rep:["mit Wiederholungszeichen","with repeat signs"],long:["ausgeschrieben (lang)","written out (long)"]},
   lpr:{"0":["automatisch","automatic"]},
   bmoll:{std:["wie Belegung","as in the layout"],tpl:["Vorlage: Moll auf Zug (Paralleltonarten)","Template: minor on pull (relative minors)"],own:["eigene (im Bassbild anklicken)","custom (click in the bass diagram)"]}
@@ -739,6 +742,13 @@ const BASSES={
   "fuchs15":{name:"Steirisch Franz Fuchs, 15 Knöpfe",rows:[
     [["","C","c","G","g","D","d","A","a","",""],["","G","g","D","d","A","a","E","e","",""]],
     [["","E","e","H","h","F#","f#","E","","",""],["","F","f","E","em","H","hm","F","","",""]]]},
+  // Akkordsuche Nr. 420 und 410: Hummelberger, 20 Knöpfe (10 Grundbässe, 2 Koppelungen, 8 Begleiter) und 18 Knöpfe
+  "hum20":{name:"Hummelberger, 20 Knöpfe",rows:[
+    [["","C","c","G","g","D","d","A","a","E","D"],["","G","g","D","d","A","a","E","e","F","B"]],
+    [["A","E","em","H","hm","F#","f#m","C#","c#m","G#",""],["E","F","f","C","c","H","h","C#","c#","D#",""]]]},
+  "hum18":{name:"Hummelberger, 18 Knöpfe",rows:[
+    [["","C","c","G","g","D","d","A","a","E",""],["","G","g","D","d","A","a","E","e","F",""]],
+    [["A","E","em","H","hm","F#","f#m","C#","c#m","",""],["E","F","f","C","c","H","h","C#","c#","",""]]]},
   // Johann Pascher, nach Mollsystem X-Bass, H-Bass entkoppelt (Akkordsuche Nr. 760, Strasser/Michlbauer). Innenreihe, bei G-C-F-B:
   // Druck D/dm statt D/d (wie beim dreireihigen Pascher-Bass Nr. 981); Zug B/b (IV. Stufe von F) statt D/dm;
   // dazu ein weiterer Begleiter am Ende der Innenreihe, Druck hm, Zug dm
@@ -849,14 +859,45 @@ function openBassEditor(row,idx,dir,ev){
 function outsideBE(e){const b=document.getElementById("bedit");if(b&&!b.contains(e.target))closeBassEditor();}
 function closeBassEditor(){const b=document.getElementById("bedit");if(b)b.remove();document.removeEventListener("pointerdown",outsideBE,true);}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeBassEditor();});
+// ======== eigene Diskantbelegung (je Diskant im Browser gemerkt): Schlüssel "Reihe:Index:D|Z" → Halbtöne über dem Bezugston, null = leer
+let OWN_DISK={},BASE_D=45,DSIG="{}";
+function ownDisk(dk){if(!OWN_DISK[dk]){try{OWN_DISK[dk]=JSON.parse(localStorage.getItem("gw-disk-"+dk)||"{}");}catch(e){OWN_DISK[dk]={};}}return OWN_DISK[dk];}
+function saveOwnDisk(dk){try{localStorage.setItem("gw-disk-"+dk,JSON.stringify(OWN_DISK[dk]||{}));}catch(e){}}
+// val: undefined = wie Belegung, null = leer, Zahl = klingender MIDI-Ton
+function setDiskKey(row,idx,dir,val){const dk=document.getElementById("disk").value,o={...ownDisk(dk)},k=`${row}:${idx}:${dir}`;
+  if(val===undefined)delete o[k];else o[k]=val===null?null:val-BASE_D;
+  OWN_DISK[dk]=o;saveOwnDisk(dk);document.getElementById("dmode").value="own";stop();buildInstrument();if(PARTS.length)run();else drawKbd(null);}
+function openDiskEditor(row,idx,dir,ev){closeBassEditor();
+  const b=BTNS.find(x=>x.row===row&&x.idx===idx),cur=b?(dir==="D"?b.druck:b.zug):null;
+  const near=cur!=null?cur:(BTNS.filter(x=>x.row===row).sort((a,c)=>Math.abs(a.idx-idx)-Math.abs(c.idx-idx))[0]||{druck:BASE_D+12}).druck;
+  const lo=BASE_D-14,hi=BASE_D+56;let opts="";for(let m=lo;m<=hi;m++)opts+=`<option value="${m}"${m===(cur!=null?cur:near)?" selected":""}>${nameOf(m)}</option>`;
+  const box=document.createElement("div");box.id="bedit";box.className="bedit";
+  box.innerHTML=`<div class="bedit-h">${TX("Diskant","Treble")} R${row} · ${TX("Knopf","button")} ${idx-REFIDX[row]+6} · ${dir==="D"?TX("Druck","push"):TX("Zug","pull")}</div>
+    <label>${TX("Ton","Note")} <select id="dedit-m">${opts}</select></label>
+    <div class="bedit-b"><button type="button" id="dedit-ok">${TX("Übernehmen","Apply")}</button><button type="button" class="ghost2" id="dedit-empty">${TX("leer","empty")}</button><button type="button" class="ghost2" id="dedit-def">${TX("Wie Belegung","As in layout")}</button><button type="button" class="ghost2" id="bedit-x">✕</button></div>`;
+  document.body.appendChild(box);const bw=Math.min(330,window.innerWidth-24);box.style.width=bw+"px";
+  let x=ev.clientX-bw/2,y=ev.clientY+14;x=Math.max(12,Math.min(x,window.innerWidth-bw-12));box.style.left=x+"px";box.style.top=y+"px";
+  const r=box.getBoundingClientRect();if(r.bottom>window.innerHeight-8)box.style.top=Math.max(8,ev.clientY-r.height-14)+"px";
+  const sel=box.querySelector("#dedit-m");sel.addEventListener("change",()=>beep(+sel.value,0.35));
+  box.querySelector("#dedit-ok").addEventListener("click",()=>{const m=+sel.value;closeBassEditor();setDiskKey(row,idx,dir,m);});
+  box.querySelector("#dedit-empty").addEventListener("click",()=>{closeBassEditor();setDiskKey(row,idx,dir,null);});
+  box.querySelector("#dedit-def").addEventListener("click",()=>{closeBassEditor();setDiskKey(row,idx,dir,undefined);});
+  box.querySelector("#bedit-x").addEventListener("click",closeBassEditor);
+  setTimeout(()=>document.addEventListener("pointerdown",outsideBE,true),0);}
 function buildInstrument(){
   const dk=document.getElementById("disk").value,bk=document.getElementById("bass").value,sk=document.getElementById("stimm").value;
-  const D=DISKANTS[dk],N=DISKANTS["446"],sh=STIMMUNGEN[sk].shift,base=45+sh;
-  INST={disk:D,bass:BASSES[bk],stimm:STIMMUNGEN[sk]};
-  BTNS=[];
-  for(const r of [1,2,3,4])D.druck[r].forEach((v,i)=>{if(v===98)return;const z=D.zug[r][i];
-    const extra=N.druck[r][i]!==v||N.zug[r][i]!==z;
-    BTNS.push({id:BTNS.length,row:r,idx:i,num:i-REFIDX[r]+6,x2:2*i+SHIFT[r],druck:v+base,zug:z+base,extra});});
+  const D0=DISKANTS[dk],N=DISKANTS["446"],sh=STIMMUNGEN[sk].shift,base=45+sh;
+  // eigene Diskantbelegung: einzelne Knöpfe je Druck/Zug neu belegt (Halbtöne über dem Bezugston wie in DISKANTS, 98 = leer)
+  const OD=document.getElementById("dmode").value==="own"?ownDisk(dk):{};
+  const D={druck:{},zug:{}};for(const r of [1,2,3,4]){D.druck[r]=D0.druck[r].slice();D.zug[r]=D0.zug[r].slice();}
+  for(const k in OD){const [r,i,d]=k.split(":");const arr=(d==="D"?D.druck:D.zug)[+r];if(arr&&+i<arr.length)arr[+i]=OD[k]==null?98:OD[k];}
+  INST={disk:D0,bass:BASSES[bk],stimm:STIMMUNGEN[sk],diskOwn:Object.keys(OD).length>0};
+  BTNS=[];BASE_D=base;
+  for(const r of [1,2,3,4])D.druck[r].forEach((v,i)=>{let z=D.zug[r][i];if(v===98&&z===98)return;
+    if(v===98)v=z;if(z===98)z=v;   // nur eine Richtung belegt: wie bei echten Einzeltönen auf beiden Seiten gleich behandeln
+    const extra=N.druck[r][i]!==v||N.zug[r][i]!==z,own=(`${r}:${i}:D` in OD)||(`${r}:${i}:Z` in OD);
+    BTNS.push({id:BTNS.length,row:r,idx:i,num:i-REFIDX[r]+6,x2:2*i+SHIFT[r],druck:v+base,zug:z+base,extra,own});});
+  DSIG=JSON.stringify(OD);
   BBTN=[];const OL=ownLayout(bk),FL=OL.flips;
   BASSES[bk].rows.forEach((rw,ri)=>{for(let i=0;i<11;i++){let d=parseBassName(rw[0][i]),z=parseBassName(rw[1][i]);
     // Mollbegleiter: Dur/Moll gegenüber der Belegung umgedreht
@@ -869,7 +910,7 @@ function buildInstrument(){
     if(!d&&!z)continue;
     if(d)d.pc=mod(d.pc+sh,12);if(z)z.pc=mod(z.pc+sh,12);
     BBTN.push({id:BBTN.length,row:ri+1,idx:i,x:i+(ri%2?0.5:0),D:d,Z:z});}});
-  MOLLSIG=[...FL].sort().join(",")+(Object.keys(OL.set).length?"|"+JSON.stringify(OL.set):"");
+  MOLLSIG=[...FL].sort().join(",")+(Object.keys(OL.set).length?"|"+JSON.stringify(OL.set):"")+(DSIG!=="{}"?"|D"+DSIG:"");
   for(const k in BOCACHE)delete BOCACHE[k];GCACHE={};
 }
 // Gewichte der Griffwahl (abgestimmt an den Griffschrift-Sätzen von Franz Fuchs)
@@ -1670,7 +1711,7 @@ function renderGriff(){
     });
     parts.push({s:svg,h:druckY+18});
   });
-  const head=`<text class="hd" x="2" y="12">${TITLE?TITLE+" · ":""}${NORM?TX("Normalnoten, für","Standard notation, for"):TX("Griffschrift 4-Reiher","Griffschrift, 4-row")} ${INST.stimm.name}, ${optText("disk",INST.disk)}, ${optText("bass",INST.bass)}${document.getElementById("bmoll").value==="tpl"?TX(" mit Moll auf Zug"," with minor on pull"):(MOLLSIG?TX(" (angepasst)"," (customised)"):"")}${CREDIT?" · "+creditText():""}</text>`;
+  const head=`<text class="hd" x="2" y="12">${TITLE?TITLE+" · ":""}${NORM?TX("Normalnoten, für","Standard notation, for"):TX("Griffschrift 4-Reiher","Griffschrift, 4-row")} ${INST.stimm.name}, ${optText("disk",INST.disk)}${INST.diskOwn?TX(" (eigene Belegung)"," (own layout)"):""}, ${optText("bass",INST.bass)}${document.getElementById("bmoll").value==="tpl"?TX(" mit Moll auf Zug"," with minor on pull"):(MOLLSIG?TX(" (angepasst)"," (customised)"):"")}${CREDIT?" · "+creditText():""}</text>`;
   host.innerHTML=`<svg class="ghead" width="${W}" height="20" viewBox="0 0 ${W} 20">${head.replace('y="12"','y="14"')}</svg>`+
     parts.map((q,i)=>`<svg class="gsys" width="${W}" height="${q.h}" viewBox="0 0 ${W} ${q.h}" role="img" aria-label="${TX("Griffschrift Zeile","Griffschrift line")} ${i+1}">${q.s}</svg>`).join("");
   // Klick auf Noten
@@ -1950,9 +1991,11 @@ let rsT=null;window.addEventListener("resize",()=>{clearTimeout(rsT);rsT=setTime
 
 // ======== Tastaturbilder
 const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
-function drawKbd(g,ext){
+function dzones(x,y,r,row,idx){const tt=TX("Knopf ändern","Change button");return `<rect class="dtog" data-row="${row}" data-idx="${idx}" data-d="D" x="${x-r}" y="${y-r}" width="${2*r}" height="${r}" fill="transparent" style="cursor:pointer"><title>${tt} (${TX("Druck","push")})</title></rect><rect class="dtog" data-row="${row}" data-idx="${idx}" data-d="Z" x="${x-r}" y="${y}" width="${2*r}" height="${r}" fill="transparent" style="cursor:pointer"><title>${tt} (${TX("Zug","pull")})</title></rect>`;}
+let DOWN=false;
+function drawKbd(g,ext){DOWN=document.getElementById("dmode").value==="own";
   const hw=23,r=20,padX=84,rowsY={4:34,3:84,2:134,1:184};
-  const maxX=Math.max(...BTNS.map(b=>b.x2)),minX=Math.min(...BTNS.map(b=>b.x2));
+  const ext2=DOWN?2:0,maxX=Math.max(...BTNS.map(b=>b.x2))+ext2,minX=Math.min(...BTNS.map(b=>b.x2))-ext2;
   const W=padX+(maxX-minX)*hw+40,H=220;
   let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${TX("Knopfbelegung Diskant","Treble button layout")}">`;
   s+=`<text x="6" y="${H-6}" font-size="11" style="fill:${css('--muted')}">← ${TX("Kopf","head")}</text>`;
@@ -1962,12 +2005,17 @@ function drawKbd(g,ext){
     const x=padX+(b.x2-minX)*hw,y=rowsY[b.row],on=g&&g.btns.some(q=>q.b===b),xt=!on&&g&&ext&&ext.some(q=>q.b===b);
     const dc=g?(g.dir==="Z"?css('--zug'):css('--druck')):null;
     const fill=on?dc:css('--panel'),tc=on?css('--panel'):null;
-    s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="${on?fill:(xt?dc:(b.extra?css('--extra'):css('--line')))}" stroke-width="${xt?3:(b.extra?2:1.5)}"${xt?' stroke-dasharray="5 3"':""}/>`;
+    s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="${on?fill:(xt?dc:(b.own?css('--accent'):(b.extra?css('--extra'):css('--line'))))}" stroke-width="${xt?3:(b.own?2.5:(b.extra?2:1.5))}"${xt?' stroke-dasharray="5 3"':""}/>`;
     s+=`<line x1="${x-r+5}" y1="${y}" x2="${x+r-5}" y2="${y}" stroke="${tc||css('--line')}" stroke-width="1"/>`;
     s+=`<text x="${x}" y="${y-5}" text-anchor="middle" font-size="10.5" style="fill:${tc||css('--druck')}">${nameOf(b.druck)}</text>`;
     s+=`<text x="${x}" y="${y+13}" text-anchor="middle" font-size="10.5" style="fill:${tc||css('--zug')}">${nameOf(b.zug)}</text>`;
+    if(DOWN)s+=dzones(x,y,r,b.row,b.idx);
   }
-  document.getElementById("kbd").innerHTML=s+`</svg>`;
+  // eigene Belegung: freie Plätze am Kopf und Fuß jeder Reihe als gestrichelte Knöpfe zum Belegen
+  if(DOWN){const D0=INST.disk;for(const row of [1,2,3,4])D0.druck[row].forEach((v,i)=>{if(BTNS.some(b=>b.row===row&&b.idx===i))return;const x2=2*i+SHIFT[row];if(x2<minX||x2>maxX)return;
+      const x=padX+(x2-minX)*hw,y=rowsY[row];s+=`<circle cx="${x}" cy="${y}" r="${r-4}" fill="none" stroke="${css('--line')}" stroke-dasharray="3 3"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="12" style="fill:${css('--muted')}">+</text>`+dzones(x,y,r,row,i);});}
+  const host=document.getElementById("kbd");host.innerHTML=s+`</svg>`;
+  if(DOWN)host.querySelectorAll(".dtog").forEach(el=>el.addEventListener("click",ev=>{ev.stopPropagation();openDiskEditor(+el.dataset.row,+el.dataset.idx,el.dataset.d,ev);}));
 }
 // part: "G" Grundbass, "B" Begleiter, "both"
 function drawBass(o,part){
@@ -2382,7 +2430,7 @@ const DEMOS={
 (function(){const r=document.getElementById("bal");r.value=BAL;r.addEventListener("input",()=>setBal(+r.value));})();
 (function(){const c=document.getElementById("msub");c.checked=MOLLSUB;
   c.addEventListener("change",()=>{MOLLSUB=c.checked;try{localStorage.setItem("gw-mollsub",MOLLSUB?"1":"0");}catch(e){}stop();for(const k in BOCACHE)delete BOCACHE[k];GCACHE={};if(PARTS.length)run();});})();
-["stimm","disk","bass","bmoll"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{stop();buildInstrument();const r=document.getElementById("rref");if(r)r.innerHTML="";if(PARTS.length)run();}));
+["stimm","disk","bass","bmoll","dmode"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{stop();buildInstrument();const r=document.getElementById("rref");if(r)r.innerHTML="";if(PARTS.length)run();}));
 buildInstrument();
 // MIDI-Dateien von volksmusik.cc, Satz: Franz Fuchs (mit seinem Einverständnis, Herkunft wird angezeigt)
 const FUCHS_MIDI={
@@ -2623,11 +2671,12 @@ function crSaveXML(){if(!CR||!CR.nl.length)return;saveBlob((CR.title||"Melodie")
 
 // ======== Bearbeitung speichern und laden (JSON-Datei, landet im Download-Ordner)
 let SRC=null;
-const SAVE_SEL=["part","voices","form","lpr","view","gstyle","acc","stimm","disk","bass","bmoll","transp","fill"],SAVE_CHK=["usepin","msub","fill4"];
+const SAVE_SEL=["part","voices","form","lpr","view","gstyle","acc","stimm","disk","bass","bmoll","dmode","transp","fill"],SAVE_CHK=["usepin","msub","fill4"];
 function saveEdits(){if(!P||!SRC){alert(TX("Zuerst ein Stück laden.","Load a tune first."));return;}
   const bk=document.getElementById("bass").value,ob=document.getElementById("bmoll").value==="own"&&OWN_BASS[bk]?{flips:[...OWN_BASS[bk].flips],set:OWN_BASS[bk].set}:null;
   const d={app:"griffschrift-wandler",version:1,saved:new Date().toISOString(),title:TITLE,src:SRC,BT,
     sel:Object.fromEntries(SAVE_SEL.map(id=>[id,document.getElementById(id).value])),chk:Object.fromEntries(SAVE_CHK.map(id=>[id,document.getElementById(id).checked])),ownBass:ob,
+    ownDisk:document.getElementById("dmode").value==="own"?{disk:document.getElementById("disk").value,set:ownDisk(document.getElementById("disk").value)}:null,
     edits:{NOTE_FORCE,SEG_FORCE,BREAKS:[...BREAKS],BASS_EDIT,BASS_KIND,BASS_DEL,PITCH_EDIT,SEG_HARM,DUR_OPS,MEAS_SHIFT,RANGE_PLAY,MEAS_OPS}};
   const nm=(TITLE||(SRC.name||"Stueck").replace(/\.[^.]+$/,"")).replace(/[\\/:*?"<>|]+/g,"").trim().replace(/\s+/g,"_")||"Stueck";
   saveBlob(nm+"_Griffschrift-Bearbeitung.json",new Blob([JSON.stringify(d)],{type:"application/json"}));}
@@ -2640,7 +2689,8 @@ async function loadEdits(f){const st=document.getElementById("status");
       else if(e.value!==v&&[...e.options].some(o=>o.value===v)){e.value=v;e.dispatchEvent(new Event("change"));}};
     if(d.ownBass&&d.sel&&d.sel.bass){OWN_BASS[d.sel.bass]={flips:new Set(d.ownBass.flips||[]),set:d.ownBass.set||{}};saveOwn(d.sel.bass,OWN_BASS[d.sel.bass]);}
     for(const id of SAVE_SEL)if(d.sel&&d.sel[id]!=null)ch(id,d.sel[id]);for(const id of SAVE_CHK)if(d.chk&&d.chk[id]!=null)ch(id,d.chk[id]);if(d.chk&&d.chk.fill3!=null&&!(d.sel&&d.sel.fill!=null))ch("fill",d.chk.fill3?(d.sel&&d.sel.voices==="4"?"4":"3"):(d.sel&&d.sel.voices==="4"?"4":"0"));   // ältere Speicherstände
-    if(d.ownBass){buildInstrument();}
+    if(d.ownDisk&&d.ownDisk.disk){OWN_DISK[d.ownDisk.disk]=d.ownDisk.set||{};saveOwnDisk(d.ownDisk.disk);}
+    if(d.ownBass||d.ownDisk){buildInstrument();}
     const E=d.edits;NOTE_FORCE=E.NOTE_FORCE||{};SEG_FORCE=E.SEG_FORCE||{};BREAKS=new Set(E.BREAKS||[]);BASS_EDIT=E.BASS_EDIT||{};BASS_KIND=E.BASS_KIND||{};
     PITCH_EDIT=E.PITCH_EDIT||{};SEG_HARM=E.SEG_HARM||{};DUR_OPS=E.DUR_OPS||[];MEAS_SHIFT=E.MEAS_SHIFT||{};RANGE_PLAY=E.RANGE_PLAY||{};MEAS_OPS=E.MEAS_OPS||[];BASS_DEL=E.BASS_DEL||{};CLIP=null;SEL=null;SELX=null;
     run();
