@@ -2493,7 +2493,8 @@ function auNotesToMidi(raw,kind,bpm,ts,grid,shift){
   let bT=T,bP=0,bS=-1;for(let f=(bpm>0?1:0.97);f<=(bpm>0?1:1.03)+1e-9;f+=0.002){const T2=T*f;for(let k=0;k<48;k++){const p=k*T2/48,sc=fit(T2,p);if(sc>bS){bS=sc;bT=T2;bP=p;}}}
   T=bT;// Schlag oder Achtel dazwischen: dorthin, wo mehr (Bass-)Einsätze liegen
   const onBeat=p=>all.reduce((a,x)=>{const d=((x.t-p)%T+T)%T;return a+(Math.min(d,T-d)<0.12*T?x.w:0);},0);
-  let ph=onBeat(bP)>=onBeat(bP+T/2)?bP:bP+T/2;if(shift)ph+=T/2;   // von Hand: Schlag eine Achtel später ansetzen (wenn fast jeder Takt mit einer Überbindung beginnt)let t0=ph;while(t0>tmin+0.03)t0-=T;while(t0<tmin-T+0.03)t0+=T;
+  // von Hand: Schlag eine Achtel später ansetzen (wenn fast jeder Takt mit einer Überbindung beginnt)
+  let ph=onBeat(bP)>=onBeat(bP+T/2)?bP:bP+T/2;if(shift)ph+=T/2;let t0=ph;while(t0>tmin+0.03)t0-=T;while(t0<tmin-T+0.03)t0+=T;
   // Raster „Achtel“: Einsätze auf Achtel runden, je Achtel nur der oberste Ton (mit Terz/Sext darunter), zu kurze Zwischentöne weg;
   // jeder Ton klingt bis zum nächsten Einsatz. „fein“ = bisherige Art (Sechzehntel und Triolen)
   if(grid>0){const g=grid,slot=n=>Math.max(0,Math.round((n.s-t0)/T/g)*g);
