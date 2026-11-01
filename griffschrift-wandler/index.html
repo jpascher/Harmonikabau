@@ -98,7 +98,7 @@ body.editing #griff .brk:hover,#griff .brk.on{fill:var(--extra);opacity:.35}
 .pill.flash{background:var(--accent);color:var(--panel)}
 @keyframes rflash{from{background:color-mix(in srgb,var(--accent) 18%,transparent)}to{background:transparent}}#griff.resetflash{animation:rflash 1s ease-out}
 button:disabled{opacity:.45;cursor:default}#edrange select{font:inherit;padding:4px}@media (max-width:760px){#edbar{bottom:72px}}#edbar #edtxt{font-weight:700;margin-right:4px;min-width:6em}
-#crbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:51;max-width:calc(100vw - 24px);padding:8px 10px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25)}#crbar[hidden],#crbar [hidden]{display:none!important}#crsetup,#crwork{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}#crbar select,#crbar input{font:inherit;padding:3px 5px}#crbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#crbar button.crback{border-color:var(--accent);font-weight:700}#crinfo{flex-basis:100%;text-align:center;font-variant-numeric:tabular-nums}.crcur{color:var(--accent);font-weight:700}.crkeys{font-size:.82em;opacity:.85}.crkeys kbd{border:1px solid var(--line);border-radius:4px;padding:0 4px;font:inherit}.crwarn{flex-basis:100%;text-align:center;font-size:.85em;color:var(--bad)}.crsep{opacity:.7}body.creating #edbar{display:none!important}@media (max-width:760px){#crbar{bottom:72px}}
+#crbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:51;max-width:calc(100vw - 24px);padding:8px 10px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25)}#crbar[hidden],#crbar [hidden]{display:none!important}#crsetup,#crwork,#cropts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}#cropts{margin:6px 0;font-size:.92em}#cropts select{width:auto!important;min-width:0;flex:none!important;padding:2px 4px}#crbar select,#crbar input{font:inherit;padding:3px 5px}#crbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#crbar button.crback{border-color:var(--accent);font-weight:700}#crinfo{flex-basis:100%;text-align:center;font-variant-numeric:tabular-nums}.crcur{color:var(--accent);font-weight:700}.crkeys{font-size:.82em;opacity:.85}.crkeys kbd{border:1px solid var(--line);border-radius:4px;padding:0 4px;font:inherit}.crwarn{flex-basis:100%;text-align:center;font-size:.85em;color:var(--bad)}.crsep{opacity:.7}body.creating #edbar{display:none!important}@media (max-width:760px){#crbar{bottom:72px}}
 #edbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#edbar button:disabled{opacity:.4;cursor:default}
 #griff .gn.selx{color:var(--accent)}#griff text.chs.selx{fill:var(--accent);text-decoration:underline}#griff text.chs.forced{fill:var(--extra)}.st.selx{outline:2px solid var(--accent);border-radius:4px}#griff .chit{cursor:pointer}#griff .hh.selx{stroke:var(--accent);stroke-width:2.5}
 .drop{border:2px dashed var(--line);border-radius:10px;padding:14px;text-align:center;color:var(--muted);margin-top:14px}
@@ -317,6 +317,12 @@ button.ghost2{background:transparent;color:var(--accent)}
         <label><x-de>im Stück ab Takt</x-de><x-en>in the tune from measure</x-en> <input id="crfrom" type="text" size="3" value="1"></label><button type="button" id="crhere"><x-de>An dieser Stelle</x-de><x-en>At this position</x-en></button>
         <button type="button" id="crcancel"><x-de>Abbrechen</x-de><x-en>Cancel</x-en></button>
         <span id="crwarn" class="crwarn" hidden><x-de>Achtung: Übernommen wird nur die Melodiestimme; Änderungen aus dem Bearbeiten-Modus gehen dabei verloren.</x-de><x-en>Note: only the melody part is taken over; changes made in edit mode are lost.</x-en></span></div>
+      <div id="cropts" class="cropts"><span class="crsep">🎲</span>
+        <label><x-de>Auftakt</x-de><x-en>Pickup</x-en> <select id="crauf"><option value="0" data-de="nein" data-en="no">nein</option><option value="1" data-de="ja" data-en="yes">ja</option></select></label>
+        <label><x-de>Melodik</x-de><x-en>Melody</x-en> <select id="crmel"><option value="step" data-de="schrittweise" data-en="stepwise">schrittweise</option><option value="mix" selected data-de="gemischt" data-en="mixed">gemischt</option><option value="arp" data-de="Zerlegungen" data-en="broken chords">Zerlegungen</option></select></label>
+        <label><x-de>Rhythmus</x-de><x-en>Rhythm</x-en> <select id="crrhy"><option value="calm" data-de="ruhig" data-en="calm">ruhig</option><option value="norm" selected data-de="normal" data-en="normal">normal</option><option value="busy" data-de="bewegt" data-en="lively">bewegt</option></select></label>
+        <label><x-de>Tonumfang</x-de><x-en>Range</x-en> <select id="crrng"><option value="eng" data-de="eng (e′–e″)" data-en="narrow (E4–E5)">eng (e′–e″)</option><option value="normal" selected data-de="normal (d′–g″)" data-en="normal (D4–G5)">normal (d′–g″)</option><option value="weit" data-de="weit (a–c‴)" data-en="wide (A3–C6)">weit (a–c‴)</option></select></label>
+        <label><x-de>Bassläufe</x-de><x-en>Bass runs</x-en> <select id="crrun"><option value="0" data-de="keine" data-en="none">keine</option><option value="phr" data-de="an Phrasenenden" data-en="at phrase ends">an Phrasenenden</option><option value="oft" data-de="öfter" data-en="more often">öfter</option></select></label></div>
       <div id="crwork" hidden><span id="crinfo"></span>
         <span class="crkeys"><x-de>Länge: <kbd>1</kbd> <kbd>2</kbd> <kbd>4</kbd> <kbd>8</kbd> <kbd>6</kbd>=16tel, <kbd>.</kbd> punktiert · Ton: <kbd>c</kbd>…<kbd>h</kbd>, <kbd>b</kbd> · <kbd>p</kbd> Pause · <kbd>+</kbd>/<kbd>−</kbd> Halbton · <kbd>↑</kbd>/<kbd>↓</kbd> Oktavlage · <kbd>←</kbd>/<kbd>→</kbd> Stelle · <kbd>⌫</kbd> löschen</x-de><x-en>Length: <kbd>1</kbd> <kbd>2</kbd> <kbd>4</kbd> <kbd>8</kbd> <kbd>6</kbd>=16th, <kbd>.</kbd> dotted · Note: <kbd>c</kbd>…<kbd>h</kbd>, <kbd>b</kbd> · <kbd>p</kbd> rest · <kbd>+</kbd>/<kbd>−</kbd> semitone · <kbd>↑</kbd>/<kbd>↓</kbd> register · <kbd>←</kbd>/<kbd>→</kbd> position · <kbd>⌫</kbd> delete</x-en></span>
         <label class="chk"><input id="crover" type="checkbox"> <x-de>überschreiben</x-de><x-en>overwrite</x-en></label><label class="chk"><input id="cr2nd" type="checkbox" checked> <x-de>beim Beenden Terzen/Sexten ergänzen</x-de><x-en>add thirds/sixths when done</x-en></label><button type="button" id="crrand2" title="Neue Zufallsmelodie"><x-de>🎲 neu würfeln</x-de><x-en>🎲 roll again</x-en></button><button type="button" id="crundo" title="Strg+Z"><x-de>↶ Schritt zurück</x-de><x-en>↶ Undo step</x-en></button><button type="button" id="crsave"><x-de>Als MusicXML speichern</x-de><x-en>Save as MusicXML</x-en></button><button type="button" id="crback" class="crback"><x-de>Fertig – zurück zum Normalmodus</x-de><x-en>Done – back to normal mode</x-en></button></div>
@@ -513,7 +519,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>Bearbeitung speichern und laden:</b> „Bearbeitung speichern ⤓“ legt eine kleine Datei <i>Titel_Griffschrift-Bearbeitung.json</i> im Download-Ordner ab (der Browser fragt je nach Einstellung auch nach dem Ort). Darin stehen alle Änderungen (Balgrichtungen, Töne, Bässe, Akkorde, Notenlängen, Spielreihen, Tonhöhen, Zeilenumbrüche) und die Einstellungen: Stimmung, Diskant, Bass samt eigener Bassbelegung, Lage, Griffweise, Begleitung und Ansicht. Bei einem eingebauten Beispiel wird nur verwiesen, welches Stück es ist; bei einer selbst geöffneten Datei werden die Noten mitgespeichert, die Bearbeitung lässt sich also auch ohne die Originaldatei wieder öffnen. „Bearbeitung laden …“ (oder die Datei einfach auf das Feld zum Öffnen ziehen) lädt Stück, Einstellungen und Änderungen wieder, in derselben Lage wie beim Speichern. Die Datei funktioniert auch mit der heruntergeladenen Programmdatei ohne Internet; nur die nachgeladenen Volkstänze brauchen dafür eine Verbindung.</p>
     </section>
     <section id="h-create"><h3>Melodie eingeben</h3>
-      <p> Mit „Melodie eingeben“ (neben „Bearbeiten“) lässt sich eine Melodie ganz über die Tastatur schreiben. Zu Beginn wählt man <b>Leeres Blatt</b> (mit Takt, Tonart und Titel) oder <b>An dieser Stelle</b>: Dann wird die Melodiestimme des geladenen Stücks übernommen und ab dem angegebenen Takt weitergeschrieben, voreingestellt im Überschreiben-Modus, damit die folgenden Takte an ihrem Platz bleiben. Die Notenlänge wird mit einer Zahl vorgewählt: 1 ganze, 2 halbe, 4 Viertel, 8 Achtel, 6 Sechzehntel, der Punkt macht sie punktiert. Diese Vorwahl bleibt, bis wieder eine Zahl getippt wird. Die Töne tippt man mit c d e f g a h (b = B) innerhalb einer Oktavlage; die Vorzeichen der Tonart gelten von selbst, + und − verschieben den zuletzt getippten Ton um einen Halbton, Pfeil auf und ab wechseln die Oktavlage, p setzt eine Pause. Mit Pfeil links und rechts wandert die Schreibstelle, die Rücktaste löscht den Ton davor, Strg+Z nimmt den letzten Schritt zurück. Taktstriche und Überbindungen setzt das Programm selbst, und die Griffschrift entsteht während des Tippens. Die Leiste unten zeigt in diesem Modus nur das Nötige und den Knopf „Fertig – zurück zum Normalmodus“. Erst beim Zurückschalten ergänzt das Programm (abschaltbar) eine zweite Stimme nach dem üblichen Muster: zu jedem einzelnen Melodieton eine Terz oder Sext darunter, bevorzugt ein Ton des Akkords an dieser Stelle, so dass der gewohnte Wechsel von Terzen und Sexten entsteht; vorhandene Doppelgriffe bleiben. Die fertige Melodie lässt sich als MusicXML speichern; danach kann sie wie jedes Stück unter <a href="#h-edit">Bearbeiten</a> verfeinert werden, und mit <a href="#h-fill">Griffe ergänzen</a> lassen sich die Griffe auf drei oder vier Stimmen auffüllen. Mit <b>🎲 Zufallsmelodie</b> entsteht eine Übungsmelodie in der gewählten Tonart: Landler, Walzer, Polka oder Boarischer, 8 oder 16 Takte, als Periode mit der üblichen Stufenfolge (meist I und V, Halbschluss in der Mitte, Schluss auf dem Grundton). Auf den Schlägen stehen Akkordtöne, dazwischen geht die Melodie meist schrittweise, und die Takte 5 und 6 nehmen den Rhythmus vom Anfang wieder auf. Die Akkordsymbole werden mitgeschrieben, „🎲 neu würfeln“ erzeugt eine andere, und die Melodie lässt sich danach wie jede andere weiter bearbeiten. Mit dem Häkchen <b>mit Trio</b> folgt ein zweiter Teil gleicher Länge in einer anderen Tonart, wie bei Landler, Walzer und Polka üblich: bei Dur in der Unterdominante (C-Dur → F-Dur), bei Moll in der Paralleltonart (a-Moll → C-Dur). Im Notentext steht dort „Trio“; zurück zum ersten Teil (da capo) spielt man wie gewohnt selbst. Die Melodie bleibt zwischen d' und g'', springt nach einem größeren Sprung möglichst schrittweise zurück und macht selten zwei Sprünge hintereinander.</p>
+      <p> Mit „Melodie eingeben“ (neben „Bearbeiten“) lässt sich eine Melodie ganz über die Tastatur schreiben. Zu Beginn wählt man <b>Leeres Blatt</b> (mit Takt, Tonart und Titel) oder <b>An dieser Stelle</b>: Dann wird die Melodiestimme des geladenen Stücks übernommen und ab dem angegebenen Takt weitergeschrieben, voreingestellt im Überschreiben-Modus, damit die folgenden Takte an ihrem Platz bleiben. Die Notenlänge wird mit einer Zahl vorgewählt: 1 ganze, 2 halbe, 4 Viertel, 8 Achtel, 6 Sechzehntel, der Punkt macht sie punktiert. Diese Vorwahl bleibt, bis wieder eine Zahl getippt wird. Die Töne tippt man mit c d e f g a h (b = B) innerhalb einer Oktavlage; die Vorzeichen der Tonart gelten von selbst, + und − verschieben den zuletzt getippten Ton um einen Halbton, Pfeil auf und ab wechseln die Oktavlage, p setzt eine Pause. Mit Pfeil links und rechts wandert die Schreibstelle, die Rücktaste löscht den Ton davor, Strg+Z nimmt den letzten Schritt zurück. Taktstriche und Überbindungen setzt das Programm selbst, und die Griffschrift entsteht während des Tippens. Die Leiste unten zeigt in diesem Modus nur das Nötige und den Knopf „Fertig – zurück zum Normalmodus“. Erst beim Zurückschalten ergänzt das Programm (abschaltbar) eine zweite Stimme nach dem üblichen Muster: zu jedem einzelnen Melodieton eine Terz oder Sext darunter, bevorzugt ein Ton des Akkords an dieser Stelle, so dass der gewohnte Wechsel von Terzen und Sexten entsteht; vorhandene Doppelgriffe bleiben. Die fertige Melodie lässt sich als MusicXML speichern; danach kann sie wie jedes Stück unter <a href="#h-edit">Bearbeiten</a> verfeinert werden, und mit <a href="#h-fill">Griffe ergänzen</a> lassen sich die Griffe auf drei oder vier Stimmen auffüllen. Mit <b>🎲 Zufallsmelodie</b> entsteht eine Übungsmelodie in der gewählten Tonart: Landler, Walzer, Polka oder Boarischer, 8 oder 16 Takte, als Periode mit der üblichen Stufenfolge (meist I und V, Halbschluss in der Mitte, Schluss auf dem Grundton). Auf den Schlägen stehen Akkordtöne, dazwischen geht die Melodie meist schrittweise, und die Takte 5 und 6 nehmen den Rhythmus vom Anfang wieder auf. Unter der Würfel-Zeile lässt sich das Ergebnis lenken: Ein <b>Auftakt</b> führt mit einem oder zwei Tönen von unten oder von der Dominante in den ersten Ton, der Schlusstakt wird dafür entsprechend kürzer (beim Trio füllt dessen eigener Auftakt den Schlusstakt des ersten Teils). Bei der <b>Melodik</b> geht „schrittweise“ fast nur in Sekunden, „gemischt“ ist die bisherige Art, und „Zerlegungen“ springt bevorzugt durch die Töne des Dreiklangs, wie es bei Landlern und Jodlern üblich ist. Der <b>Rhythmus</b> reicht von „ruhig“ (überwiegend Viertel) bis „bewegt“ (mehr Achtel und Sechzehntel), der <b>Tonumfang</b> von eng (e′–e″, für Anfänger) bis weit (a–c‴). <b>Bassläufe</b> lassen im Takt vor einem Akkordwechsel den Grundbass in Leiterschritten zum nächsten Grundton laufen, entweder nur an Phrasenenden oder öfter; das Programm nimmt dabei nur Läufe, deren Töne alle als Grundbass in einer Balgrichtung auf dem gewählten Bass liegen. Die Akkordsymbole werden mitgeschrieben, „🎲 neu würfeln“ erzeugt eine andere, und die Melodie lässt sich danach wie jede andere weiter bearbeiten. Mit dem Häkchen <b>mit Trio</b> folgt ein zweiter Teil gleicher Länge in einer anderen Tonart, wie bei Landler, Walzer und Polka üblich: bei Dur in der Unterdominante (C-Dur → F-Dur), bei Moll in der Paralleltonart (a-Moll → C-Dur). Im Notentext steht dort „Trio“; zurück zum ersten Teil (da capo) spielt man wie gewohnt selbst. Die Melodie bleibt zwischen d' und g'', springt nach einem größeren Sprung möglichst schrittweise zurück und macht selten zwei Sprünge hintereinander.</p>
     </section>
     <section id="h-druck"><h3>Zeilen und Drucken</h3>
       <p><b>Takte je Zeile:</b> automatisch nach Platz oder fest 2 bis 8. Einzelne Umbrüche setzt du im Bearbeiten-Modus über den Taktstrich.</p>
@@ -640,7 +646,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>Saving and loading edits:</b> “Save edits ⤓” puts a small file <i>Title_Griffschrift-Bearbeitung.json</i> into the downloads folder (depending on its settings, the browser may also ask where). It holds all changes (bellows directions, notes, basses, chords, note lengths, rows, pitches, line breaks) and the settings: tuning, treble, bass including your own bass layout, key, grip style, accompaniment and view. For a built-in example it only records which tune it is; for a file you opened yourself the music is stored as well, so the edit can be opened again without the original file. “Load edits …” (or simply dragging the file onto the open area) restores tune, settings and changes, in the same key as when saved. The file also works with the downloaded program file without internet; only the folk dances loaded on demand need a connection.</p>
     </section>
     <section id="e-create"><h3>Enter melody</h3>
-      <p> “Enter melody” (next to “Edit”) lets you write a melody entirely from the keyboard. At the start you choose <b>Empty sheet</b> (with time signature, key and title) or <b>At this position</b>: the melody part of the loaded tune is then taken over and you continue writing from the given measure, by default in overwrite mode so that the following measures stay in place. The note length is chosen in advance with a number: 1 whole, 2 half, 4 quarter, 8 eighth, 6 sixteenth, and the full stop makes it dotted. This choice stays until another number is typed. Notes are typed with c d e f g a h (b = B flat) within one octave register; the key signature applies automatically, + and − move the last typed note by a semitone, arrow up and down change the register, and p enters a rest. Arrow left and right move the writing position, Backspace deletes the note before it, and Ctrl+Z takes back the last step. The program sets bar lines and ties itself, and the Griffschrift is built while you type. In this mode the toolbar at the bottom shows only what is needed and the “Done – back to normal mode” button. Only when you switch back does the program (optionally) add a second voice in the usual pattern: a third or sixth below each single melody note, preferably a note of the chord at that point, which gives the familiar alternation of thirds and sixths; existing double notes stay. The finished melody can be saved as MusicXML; after that it can be refined like any tune under <a href="#e-edit">Editing</a>, and <a href="#e-fill">Fill grips</a> fills the grips to three or four voices. <b>🎲 Random tune</b> creates a practice melody in the chosen key: Ländler, waltz, polka or Boarischer, 8 or 16 measures, as a period with the usual chord sequence (mostly I and V, half cadence in the middle, ending on the tonic). Chord notes fall on the beats, the melody mostly moves stepwise in between, and measures 5 and 6 repeat the rhythm of the beginning. Chord symbols are written as well, “🎲 roll again” makes a new one, and the tune can then be edited like any other. With the <b>with trio</b> checkbox a second part of the same length follows in another key, as is usual for Ländler, waltz and polka: in major in the subdominant (C major → F major), in minor in the relative major (A minor → C major). The music shows “Trio” there; going back to the first part (da capo) is up to the player as usual. The melody stays between d' and g'', after a larger leap it preferably steps back in the other direction, and it rarely makes two leaps in a row.</p>
+      <p> “Enter melody” (next to “Edit”) lets you write a melody entirely from the keyboard. At the start you choose <b>Empty sheet</b> (with time signature, key and title) or <b>At this position</b>: the melody part of the loaded tune is then taken over and you continue writing from the given measure, by default in overwrite mode so that the following measures stay in place. The note length is chosen in advance with a number: 1 whole, 2 half, 4 quarter, 8 eighth, 6 sixteenth, and the full stop makes it dotted. This choice stays until another number is typed. Notes are typed with c d e f g a h (b = B flat) within one octave register; the key signature applies automatically, + and − move the last typed note by a semitone, arrow up and down change the register, and p enters a rest. Arrow left and right move the writing position, Backspace deletes the note before it, and Ctrl+Z takes back the last step. The program sets bar lines and ties itself, and the Griffschrift is built while you type. In this mode the toolbar at the bottom shows only what is needed and the “Done – back to normal mode” button. Only when you switch back does the program (optionally) add a second voice in the usual pattern: a third or sixth below each single melody note, preferably a note of the chord at that point, which gives the familiar alternation of thirds and sixths; existing double notes stay. The finished melody can be saved as MusicXML; after that it can be refined like any tune under <a href="#e-edit">Editing</a>, and <a href="#e-fill">Fill grips</a> fills the grips to three or four voices. <b>🎲 Random tune</b> creates a practice melody in the chosen key: Ländler, waltz, polka or Boarischer, 8 or 16 measures, as a period with the usual chord sequence (mostly I and V, half cadence in the middle, ending on the tonic). Chord notes fall on the beats, the melody mostly moves stepwise in between, and measures 5 and 6 repeat the rhythm of the beginning. The row below the dice lets you steer the result: a <b>pickup</b> leads into the first note with one or two notes from below or from the dominant, and the final measure becomes correspondingly shorter (with a trio, its own pickup fills the final measure of the first part). For the <b>melody</b>, “stepwise” moves almost only in seconds, “mixed” is the previous behaviour, and “broken chords” prefers leaps through the notes of the triad, as is usual in Ländlers and yodels. The <b>rhythm</b> goes from “calm” (mostly quarters) to “lively” (more eighths and sixteenths), the <b>range</b> from narrow (E4–E5, for beginners) to wide (A3–C6). <b>Bass runs</b> make the bass button walk in scale steps to the next root in the measure before a chord change, either only at phrase ends or more often; the program only uses runs whose notes all lie as bass buttons in one bellows direction on the chosen bass layout. Chord symbols are written as well, “🎲 roll again” makes a new one, and the tune can then be edited like any other. With the <b>with trio</b> checkbox a second part of the same length follows in another key, as is usual for Ländler, waltz and polka: in major in the subdominant (C major → F major), in minor in the relative major (A minor → C major). The music shows “Trio” there; going back to the first part (da capo) is up to the player as usual. The melody stays between d' and g'', after a larger leap it preferably steps back in the other direction, and it rarely makes two leaps in a row.</p>
     </section>
     <section id="e-druck"><h3>Lines and printing</h3>
       <p><b>Measures per line:</b> automatic to fit the space, or a fixed 2 to 8. Single line breaks are set in edit mode via the bar line.</p>
@@ -713,7 +719,7 @@ function applyStaticLang(){
   og("og-fuchs","Volkstänze, Satz Franz Fuchs (volksmusik.cc)","Austrian folk dances, arr. Franz Fuchs (volksmusik.cc)");og("og-own","Eigene Beispiele","Own examples");og("og-philipp","Stücke von Philipp Ramoner (urheberrechtlich geschützt)","Pieces by Philipp Ramoner (protected by copyright)");og("og-hyper","Akkordsuche (hyperbox.org)","Chord finder (hyperbox.org)");og("og-strasser","Strasser (harmonika.com)","Strasser (harmonika.com)");og("og-schab","Dieter Schaborak (Original)","Dieter Schaborak (original)");og("og-dhyper","Akkordsuche (hyperbox.org)","Chord finder (hyperbox.org)");og("og-dstrasser","Strasser (harmonika.com)","Strasser (harmonika.com)");
   const ts=document.getElementById("transp");if(ts)[...ts.options].forEach(o=>{if(o.value==="auto")o.textContent=TX("Automatisch (beste Lage)","Automatic (best key)");else{const t=+o.value;o.textContent=t===0?"Original":(t>0?"+":"")+t+TX(" Halbtöne"," semitones");}});
   const ps=document.getElementById("part");if(ps)[...ps.options].forEach(o=>{if(o.dataset.auto)o.textContent=TX("Stimme ","Part ")+o.dataset.auto;if(o.dataset.midi)o.textContent=TX("Melodie (aus MIDI)","Melody (from MIDI)");});
-  const ck=document.getElementById("crkey");if(ck)[...ck.options].forEach(o=>{if(o.dataset.de)o.textContent=TX(o.dataset.de,o.dataset.en);});
+  document.querySelectorAll("#crkey option,#cropts option").forEach(o=>{if(o.dataset.de)o.textContent=TX(o.dataset.de,o.dataset.en);});
   const so=document.getElementById("sound");if(so){so.options[0].textContent=TX("Aufnahme (Harmonika)","Recording (accordion)");so.options[1].textContent=TX("Synthetisch","Synthetic");}
   document.getElementById("selfrom").placeholder=TX("von","from");document.getElementById("selto").placeholder=TX("bis","to");
   document.getElementById("helpclose").setAttribute("aria-label",TX("Hilfe schließen","Close help"));
@@ -2558,8 +2564,8 @@ function crSpell(m,fifths){const pc=mod(m,12),oc=Math.floor(m/12)-1;
   const [st,al]=S[pc];return `<pitch><step>${st}</step>${al?`<alter>${al}</alter>`:""}<octave>${oc}</octave></pitch>`;}
 const CR_TYPES=[[4,"whole",0],[3,"half",1],[2,"half",0],[1.5,"quarter",1],[1,"quarter",0],[0.75,"eighth",1],[0.5,"eighth",0],[0.375,"16th",1],[0.25,"16th",0],[0.125,"32nd",0]];
 function crPieces(d){const out=[];let r=d;while(r>1e-6){const t=CR_TYPES.find(x=>x[0]<=r+1e-6);if(!t){out.push([r,"32nd",0]);break;}out.push(t);r-=t[0];}return out;}
-function crXML(){const DIV=24,L=crBarLen(),ms=[];let cur=[],pos=0,mi=0;const barEnd=()=>mi===0&&CR.pickup>0?CR.pickup:L;
-  const flush=()=>{ms.push(cur);cur=[];pos=0;mi++;};
+function crXML(){const DIV=24,L=crBarLen(),ms=[],ml=[];let cur=[],pos=0,mi=0;const barEnd=()=>mi===0&&CR.pickup>0?CR.pickup:L;
+  const flush=()=>{ms.push(cur);ml.push(barEnd());cur=[];pos=0;mi++;};
   CR.nl.forEach(it=>{let rem=it.d,first=true;
     while(rem>1e-6){const room=barEnd()-pos,take=Math.min(rem,room),cont=rem-take>1e-6;
       crPieces(take).forEach((pc,j,arr)=>{const tieStart=cont||j<arr.length-1,tieStop=!first||j>0;
@@ -2569,8 +2575,15 @@ function crXML(){const DIV=24,L=crBarLen(),ms=[];let cur=[],pos=0,mi=0;const bar
         else{const ms_=Array.isArray(it.m)?it.m:[it.m];
           cur.push(h+ms_.map((m,k)=>`<note>${k?"<chord/>":""}${crSpell(m,it.f!=null?it.f:CR.fifths)}<duration>${dur}</duration>${tieStop?'<tie type="stop"/>':""}${it.m!=null&&tieStart?'<tie type="start"/>':""}<voice>1</voice>${typ}</note>`).join(""));}});
       pos+=take;rem-=take;first=false;if(barEnd()-pos<1e-6)flush();}});
-  if(cur.length||!ms.length)ms.push(cur);
-  const body=ms.map((m,i)=>`<measure number="${i+1}">${i===0?`<attributes><divisions>${DIV}</divisions><key><fifths>${CR.fifths}</fifths>${CR.minor?"<mode>minor</mode>":""}</key><time><beats>${CR.tsN}</beats><beat-type>${CR.tsD}</beat-type></time><clef><sign>G</sign><line>2</line></clef></attributes>`:""}${m.join("")}</measure>`).join("");
+  if(cur.length||!ms.length){ms.push(cur);ml.push(pos||barEnd());}
+  // Bassläufe der Zufallsmelodie als 2. System (wie die Bassstimme einer Datei)
+  const BS=(CR.bass||[]);let st0=0;const hasB=BS.length>0;
+  if(hasB)ms.forEach((m,i)=>{const s=st0,len=ml[i];st0+=len;const bn=BS.filter(x=>x.t>=s-1e-6&&x.t<s+len-1e-6);if(!bn.length)return;
+    let x=`<backup><duration>${Math.round(len*DIV)}</duration></backup>`,tt=0;
+    bn.forEach(n=>{const rel=n.t-s;if(rel>tt+1e-6)x+=`<forward><duration>${Math.round((rel-tt)*DIV)}</duration></forward>`;const d=Math.min(n.d,len-rel);
+      x+=`<note>${crSpell(n.m,n.f!=null?n.f:CR.fifths)}<duration>${Math.round(d*DIV)}</duration><voice>5</voice><staff>2</staff></note>`;tt=rel+d;});
+    m.push(x);});
+  const body=ms.map((m,i)=>`<measure number="${i+1}">${i===0?`<attributes><divisions>${DIV}</divisions><key><fifths>${CR.fifths}</fifths>${CR.minor?"<mode>minor</mode>":""}</key><time><beats>${CR.tsN}</beats><beat-type>${CR.tsD}</beat-type></time>${hasB?'<staves>2</staves><clef number="1"><sign>G</sign><line>2</line></clef><clef number="2"><sign>F</sign><line>4</line></clef>':'<clef><sign>G</sign><line>2</line></clef>'}</attributes>`:""}${m.join("")}</measure>`).join("");
   return `<?xml version="1.0"?><score-partwise version="3.1"><work><work-title>${(CR.title||"").replace(/[<&]/g,"")}</work-title></work><part-list><score-part id="P1"><part-name>Melodie</part-name></score-part></part-list><part id="P1">${body}</part></score-partwise>`;}
 // bestehendes Stück (Melodiestimme) in die Notenliste übernehmen
 function crFromPiece(){const nl=[];const m0=P.measures[0];
@@ -2596,7 +2609,7 @@ function crInfo(){const box=document.getElementById("crinfo");if(!box||!CR)retur
 // Einfügen oder (Häkchen „überschreiben“) die folgende Zeit ersetzen, damit die Takte danach an ihrem Platz bleiben
 function crPut(it){if(CR.over){let need=it.d,j=CR.cur;while(need>1e-6&&j<CR.nl.length){const x=CR.nl[j];if(x.d<=need+1e-6){need-=x.d;CR.nl.splice(j,1);}else{x.d-=need;need=0;}}}
   CR.nl.splice(CR.cur,0,it);CR.cur++;}
-function crPush(){CR.undo.push(JSON.stringify({nl:CR.nl,cur:CR.cur}));if(CR.undo.length>300)CR.undo.shift();}
+function crPush(){CR.undo.push(JSON.stringify({nl:CR.nl,cur:CR.cur,bass:CR.bass||[],pickup:CR.pickup,ts:[CR.tsN,CR.tsD]}));if(CR.undo.length>300)CR.undo.shift();}
 function crKey(ev){if(!CREATE||!CR||!CR.on)return;const tg=ev.target;if(tg&&(tg.tagName==="INPUT"||tg.tagName==="SELECT"||tg.tagName==="TEXTAREA"))return;
   const k=ev.key,kl=k.toLowerCase();let handled=true,changed=false;
   if((ev.ctrlKey||ev.metaKey)&&kl==="z"){crUndo();ev.preventDefault();return;}
@@ -2615,62 +2628,112 @@ function crKey(ev){if(!CREATE||!CR||!CR.on)return;const tg=ev.target;if(tg&&(tg.
   else if(k==="Delete"){if(CR.cur<CR.nl.length){crPush();CR.nl.splice(CR.cur,1);changed=true;}}
   else handled=false;
   if(!handled)return;ev.preventDefault();if(changed)crRender();else crInfo();}
-function crUndo(){if(!CR||!CR.undo.length)return;const s=JSON.parse(CR.undo.pop());CR.nl=s.nl;CR.cur=s.cur;crRender();}
+function crUndo(){if(!CR||!CR.undo.length)return;const s=JSON.parse(CR.undo.pop());CR.nl=s.nl;CR.cur=s.cur;if(s.bass)CR.bass=s.bass;if(s.pickup!=null)CR.pickup=s.pickup;if(s.ts){CR.tsN=s.ts[0];CR.tsD=s.ts[1];}crRender();}
 // ======== Zufallsmelodie: Periode mit alpenländischer Stufenfolge (I–V), Rhythmusbausteinen je Tanzart, Akkordtönen auf den Schlägen
 // und schrittweiser Bewegung dazwischen; Takt 5–6 nehmen den Rhythmus von Takt 1–2 wieder auf. Akkordsymbole werden mitgeschrieben.
 const CR_STYLES={
-  landler:{ts:[3,4],r:[[1,1,1],[0.5,0.5,1,1],[1,0.5,0.5,1],[0.5,0.5,0.5,0.5,1],[1.5,0.5,1],[0.5,0.5,1,0.5,0.5]],cad:[[2,1],[1,2]],end:[[3],[2,1]]},
-  walzer:{ts:[3,4],r:[[2,1],[1,1,1],[1,2],[1.5,0.5,1]],cad:[[3],[2,1]],end:[[3]]},
-  polka:{ts:[2,4],r:[[0.5,0.5,0.5,0.5],[1,1],[0.5,0.5,1],[0.25,0.25,0.5,1],[1,0.5,0.5]],cad:[[1,1],[2]],end:[[2],[1,1]]},
-  boarischer:{ts:[4,4],r:[[1,1,1,1],[0.5,0.5,1,0.5,0.5,1],[1.5,0.5,1,1],[1,0.5,0.5,1,1],[0.5,0.5,0.5,0.5,1,1]],cad:[[2,2],[1,1,2]],end:[[4],[2,2]]}};
+  landler:{ts:[3,4],r:[[1,1,1],[0.5,0.5,1,1],[1,0.5,0.5,1],[0.5,0.5,0.5,0.5,1],[1.5,0.5,1],[0.5,0.5,1,0.5,0.5]],cad:[[2,1],[1,2]],end:[[3],[2,1]],
+    calm:[[1,1,1],[2,1],[1,2]],busy:[[0.5,0.5,0.5,0.5,0.5,0.5],[0.25,0.25,0.5,1,1],[0.5,0.25,0.25,1,1],[1,0.25,0.25,0.25,0.25,1]]},
+  walzer:{ts:[3,4],r:[[2,1],[1,1,1],[1,2],[1.5,0.5,1]],cad:[[3],[2,1]],end:[[3]],
+    calm:[[2,1],[1,1,1],[1,2],[3]],busy:[[1,0.5,0.5,1],[0.5,0.5,1,1],[0.5,0.5,0.5,0.5,1]]},
+  polka:{ts:[2,4],r:[[0.5,0.5,0.5,0.5],[1,1],[0.5,0.5,1],[0.25,0.25,0.5,1],[1,0.5,0.5]],cad:[[1,1],[2]],end:[[2],[1,1]],
+    calm:[[1,1],[0.5,0.5,1],[1,0.5,0.5]],busy:[[0.25,0.25,0.25,0.25,0.5,0.5],[0.25,0.25,0.25,0.25,1],[0.5,0.25,0.25,0.5,0.5]]},
+  boarischer:{ts:[4,4],r:[[1,1,1,1],[0.5,0.5,1,0.5,0.5,1],[1.5,0.5,1,1],[1,0.5,0.5,1,1],[0.5,0.5,0.5,0.5,1,1]],cad:[[2,2],[1,1,2]],end:[[4],[2,2]],
+    calm:[[1,1,1,1],[2,1,1],[1,1,2],[2,2]],busy:[[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5],[0.25,0.25,0.5,1,1,1],[0.5,0.25,0.25,0.5,0.5,1,1]]}};
 const CR_PROG8=[["I","I","V","V","V","V","I","I"],["I","V","V","I","I","V","V","I"],["I","I","IV","I","V","V","V","I"],["I","I","V","V","I","IV","V","I"]];
 const CR_PROG8H=[["I","I","V","V","V","V","I","V"],["I","I","IV","I","I","V","V","V"]];
-// ein Teil (Periode) in einer Tonart: fifths/minor bestimmen Leiter und Akkorde; jeder Ton trägt seine Schreibweise (f) für Vorzeichen
-function crSection(fifths,minor,bars,st,startPrev){const pick=a=>a[Math.floor(Math.random()*a.length)];
-  const tonic=mod(fifths*7+(minor?9:0),12);
-  const scale=(minor?[0,2,3,5,7,8,11]:[0,2,4,5,7,9,11]).map(x=>mod(x+tonic,12));
+const CR_RNG={eng:[64,76,70],normal:[62,79,71],weit:[57,84,72]};
+// Würfel-Optionen aus dem Melodie-Fenster: Auftakt, Melodik (schrittweise/gemischt/Zerlegungen), Rhythmus, Lage, Bassläufe
+function crOpts(){const v=id=>{const e=document.getElementById(id);return e?e.value:"";};
+  return {auf:v("crauf")==="1",mel:v("crmel")||"mix",rhy:v("crrhy")||"norm",rng:v("crrng")||"normal",run:v("crrun")||"0"};}
+function crScale(fifths,minor){const tonic=mod(fifths*7+(minor?9:0),12);return {tonic,sc:(minor?[0,2,3,5,7,8,11]:[0,2,4,5,7,9,11]).map(x=>mod(x+tonic,12))};}
+function crStep(m,sc,dir){let x=m+dir;while(!sc.includes(mod(x,12)))x+=dir;return x;}
+// ein Teil (Periode) in einer Tonart: fifths/minor bestimmen Leiter und Akkorde; jeder Ton trägt seine Schreibweise (f) für Vorzeichen.
+// cut = Länge des Auftakts, um die der letzte Takt kürzer wird
+function crSection(fifths,minor,bars,st,startPrev,o,cut){const pick=a=>a[Math.floor(Math.random()*a.length)];o=o||{mel:"mix",rhy:"norm",rng:"normal"};
+  const {tonic,sc:scale}=crScale(fifths,minor);
   const DEG={I:0,IV:5,V:7};
   const chordOf=d=>{const pc=mod(tonic+DEG[d],12),mi=minor&&d!=="V";return {pc,minor:mi,tones:[pc,mod(pc+(mi?3:4),12),mod(pc+7,12)].concat(d==="V"?[mod(pc+10,12)]:[])};};
   const prog=bars===16?pick(CR_PROG8H).concat(pick(CR_PROG8)):pick(CR_PROG8);
-  const LO=62,HI=79,CEN=71,inScale=m=>scale.includes(mod(m,12));
+  const [LO,HI,CEN]=CR_RNG[o.rng]||CR_RNG.normal,inScale=m=>scale.includes(mod(m,12));
+  const pool=o.rhy==="calm"?st.calm:(o.rhy==="busy"?st.r.concat(st.busy,st.busy):st.r);
   const rhythms=[];for(let b=0;b<bars;b++){const last=b===bars-1,cad=(b%4)===3;
-    rhythms.push(last?pick(st.end):((b%8===4||b%8===5)&&rhythms[b-4]?rhythms[b-4]:(cad?pick(st.cad):pick(st.r))));}
+    rhythms.push(last?pick(st.end).slice():((b%8===4||b%8===5)&&rhythms[b-4]?rhythms[b-4]:(cad?pick(o.rhy==="calm"&&st.cad.some(r=>Math.min(...r)>=1)?st.cad.filter(r=>Math.min(...r)>=1):st.cad):pick(pool))));}
+  if(cut>1e-9){const r=rhythms[bars-1];let c=cut;while(c>1e-9&&r.length){const l=r[r.length-1];if(l>c+1e-9){r[r.length-1]=l-c;c=0;}else{c-=l;r.pop();}}if(!r.length)r.push(crBarLenOf(st)-cut);}
+  const arp=o.mel==="arp",step=o.mel==="step",maxD=arp?9:(step?5:7);
   // Anfang auf einem Ton des Tonika-Dreiklangs in der Mittellage (beim Trio nahe am letzten Ton davor)
   const near=startPrev||CEN;let prev=[0,4,7].map(x=>mod(tonic+x+(minor&&x===4?-1:0),12)).flatMap(pc=>[pc+48,pc+60,pc+72]).filter(m=>m>=LO+2&&m<=HI-2).sort((a,b)=>Math.abs(a-near)-Math.abs(b-near))[Math.floor(Math.random()*2)];
   let lastLeap=0;const out=[];
   for(let b=0;b<bars;b++){const ch=chordOf(prog[b]),rh=rhythms[b];let pos=0;
     rh.forEach((d,k)=>{const strong=Math.abs(pos-Math.round(pos))<1e-6,last=b===bars-1&&k===rh.length-1;
       let cand=[];for(let m=LO;m<=HI;m++){if(!inScale(m)&&!ch.tones.includes(mod(m,12)))continue;
-        const ct=ch.tones.includes(mod(m,12)),iv=m-prev,dist=Math.abs(iv);if(dist>7)continue;
+        const ct=ch.tones.includes(mod(m,12)),iv=m-prev,dist=Math.abs(iv);if(dist>maxD)continue;
         if((strong||d>=1)&&!ct)continue;if(last&&mod(m,12)!==tonic)continue;
-        let w=(dist===0?0.6:dist<=2?3:dist<=4?2:dist<=5?0.8:0.3)*(ct?1.5:1);
-        w*=Math.exp(-Math.pow((m-CEN)/7,2));                       // Mittellage um h' bevorzugen
-        if(lastLeap&&dist>0){if(Math.sign(iv)===-Math.sign(lastLeap)&&dist<=2)w*=2.5;else if(Math.sign(iv)===Math.sign(lastLeap)&&dist>2)w*=0.25;}   // nach einem Sprung Gegenschritt
-        if(dist>2&&out.length&&Math.abs(out[out.length-1].m-(out[out.length-2]||{}).m)>2)w*=0.4;   // nicht Sprung auf Sprung
+        let w;
+        if(arp)w=ct?(dist===0?0.3:dist<=2?1:dist<=5?3.5:1.6):(dist<=2?0.6:0);          // Zerlegungen: Sprünge im Dreiklang
+        else{w=(dist===0?0.6:dist<=2?3:dist<=4?2:dist<=5?0.8:0.3)*(ct?1.5:1);if(step)w*=dist<=2?1.6:(dist<=4?0.6:0.2);}
+        if(w<=0)continue;
+        w*=Math.exp(-Math.pow((m-CEN)/7,2));                       // Mittellage bevorzugen
+        const arpOn=arp&&ct&&dist>2&&lastLeap&&Math.sign(iv)===Math.sign(lastLeap);   // Dreiklang weiter in dieselbe Richtung zerlegen
+        if(lastLeap&&dist>0&&!arpOn){if(Math.sign(iv)===-Math.sign(lastLeap)&&dist<=2)w*=2.5;else if(Math.sign(iv)===Math.sign(lastLeap)&&dist>2)w*=0.25;}   // nach einem Sprung Gegenschritt
+        if(arpOn)w*=out.length>=3&&Math.abs(out[out.length-2].m-(out[out.length-3]||{}).m)>2?0.3:1.5;   // höchstens drei Sprünge hintereinander
+        else if(dist>2&&out.length&&Math.abs(out[out.length-1].m-(out[out.length-2]||{}).m)>2)w*=arp?0.7:0.4;   // nicht Sprung auf Sprung
         if(out.length>=2&&out[out.length-1].m===m&&out[out.length-2].m===m)w*=0.1;cand.push([m,w]);}
       if(!cand.length)cand=[[ch.tones.map(t=>{let m=prev-mod(prev-t,12);if(m<LO)m+=12;return m;}).sort((a,c)=>Math.abs(a-prev)-Math.abs(c-prev))[0],1]];
       let tot=cand.reduce((s,x)=>s+x[1],0),r=Math.random()*tot,m=cand[0][0];for(const [mm,w] of cand){r-=w;if(r<=0){m=mm;break;}}
       const it={m,d,f:fifths,mn:minor};if(k===0)it.h={pc:ch.pc,minor:ch.minor};out.push(it);lastLeap=Math.abs(m-prev)>2?m-prev:0;prev=m;pos+=d;});}
+  out.chords=prog.map(chordOf);out.scale=scale;
   return out;}
-function crRandom(){const st=CR_STYLES[document.getElementById("crstyle").value]||CR_STYLES.landler,bars=+document.getElementById("crbars").value||8;
-  CR.tsN=st.ts[0];CR.tsD=st.ts[1];CR.pickup=0;
-  const a=crSection(CR.fifths,CR.minor,bars,st);
-  if(!document.getElementById("crtrio").checked)return a;
-  // Trio: in Dur in der Unterdominante (C → F), in Moll in der Paralleltonart; Tonart wird über Akkordsymbole und Vorzeichen der Töne geführt
-  const tf=CR.minor?CR.fifths:CR.fifths-1;const b=crSection(tf,false,bars,st,a[a.length-1].m);b[0].trio=true;return a.concat(b);}
+function crBarLenOf(st){return st.ts[0]*4/st.ts[1];}
+// Auftakt: ein oder zwei Töne, die von unten (Leiterschritte) oder von der Dominante her in den ersten Ton führen
+function crPickupNotes(first,fifths,minor,p){const pick=a=>a[Math.floor(Math.random()*a.length)];const {tonic,sc}=crScale(fifths,minor);
+  const s1=crStep(first,sc,-1),s2=crStep(s1,sc,-1),dom=first-mod(first-mod(tonic+7,12),12);
+  const f=x=>({m:x,d:0,f:fifths,mn:minor});
+  if(p<0.75){const a=f(pick([s1,s1,dom>=first-7?dom:s1]));a.d=p;return [a];}
+  if(Math.random()<0.4){const a=f(pick([s1,dom>=first-7?dom:s1]));a.d=p;return [a];}
+  const two=pick([[s2,s1],[s2,s1],[dom>=first-7?dom:s2,s1],[crStep(first,sc,1),s1]]);return two.map(x=>{const a=f(x);a.d=p/2;return a;});}
+// Bassläufe: im Takt vor einem Akkordwechsel läuft der Grundbass in Leiterschritten zum Grundton des nächsten Akkords
+function crBassRuns(chords,scales,secEnd,mode,tsN,tsD,p){const runs=[];if(mode==="0")return runs;const L=tsN*4/tsD;
+  const beats=tsN===2&&tsD===4?[0,1,1.5]:(tsD===8?[0,1.5]:Array.from({length:tsN},(_,i)=>i));let bm=48;
+  for(let k=0;k<chords.length-1;k++){if(secEnd.has(k))continue;const c=chords[k],n=chords[k+1];if(c.pc===n.pc)continue;
+    const phr=k%4===3;if(mode==="phr"&&!phr)continue;if(mode==="oft"&&!phr&&Math.random()>0.6)continue;
+    const sc=scales[k],up=mod(n.pc-c.pc,12)<=6,dir=up?1:-1;
+    let root=c.pc+36;while(root<41)root+=12;while(root>52)root-=12;if(Math.abs(root+12-bm)<Math.abs(root-bm)&&root+12<=55)root+=12;
+    let target=root+mod(dir*(n.pc-c.pc),12)*dir;const ns=[root];let x=target;const back=[];
+    for(let i=1;i<beats.length;i++){x=crStep(x,sc,-dir);back.unshift(x);}
+    if((back[0]-root)*dir<=0)continue;   // Grundtöne zu nahe beieinander (z. B. F → G): kein Lauf
+    ns.push(...back);const t0=p+k*L;
+    // nur Läufe, deren Töne alle als Grundbass in einer Balgrichtung auf dem gewählten Bass liegen
+    if(typeof BBTN!=="undefined"&&BBTN.length&&!["D","Z"].some(d=>ns.every(m=>BBTN.some(x=>x[d]&&x[d].t==="G"&&x[d].pc===mod(m,12)))))continue;
+    beats.forEach((b,i)=>runs.push({t:t0+b,m:ns[i],d:(i+1<beats.length?beats[i+1]:L)-b}));bm=root;}
+  return runs;}
+function crRandom(){const st=CR_STYLES[document.getElementById("crstyle").value]||CR_STYLES.landler,bars=+document.getElementById("crbars").value||8,o=crOpts();
+  CR.tsN=st.ts[0];CR.tsD=st.ts[1];
+  const p=o.auf?(st.ts[0]===2?(Math.random()<0.5?0.5:1):1):0;CR.pickup=p;
+  const a=crSection(CR.fifths,CR.minor,bars,st,null,o,p);
+  let res=p?crPickupNotes(a[0].m,CR.fifths,CR.minor,p).concat(a):a.slice();
+  const chords=a.chords.slice(),scales=a.chords.map(()=>a.scale),secEnd=new Set([bars-1]);
+  if(document.getElementById("crtrio").checked){
+    // Trio: in Dur in der Unterdominante (C → F), in Moll in der Paralleltonart; Tonart wird über Akkordsymbole und Vorzeichen der Töne geführt.
+    // Mit Auftakt bekommt auch das Trio einen, er füllt den verkürzten Schlusstakt des ersten Teils.
+    const tf=CR.minor?CR.fifths:CR.fifths-1;const b=crSection(tf,false,bars,st,a[a.length-1].m,o,p);
+    const pk=p?crPickupNotes(b[0].m,tf,false,p):[];(pk[0]||b[0]).trio=true;res=res.concat(pk,b);
+    chords.push(...b.chords);scales.push(...b.chords.map(()=>b.scale));secEnd.add(2*bars-1);}
+  CR.bass=crBassRuns(chords,scales,secEnd,o.run,CR.tsN,CR.tsD,p);CR.rand=true;
+  return res;}
 function crDoRandom(){if(!CR)return;crPush();CR.nl=crRandom();CR.cur=CR.nl.length;crRender();}
 function crOpen(){if(EDIT)document.getElementById("edit").click();stop();CREATE=true;document.body.classList.add("creating");
-  const b=document.getElementById("crbar");b.hidden=false;document.getElementById("crsetup").hidden=false;document.getElementById("crwork").hidden=true;
+  const b=document.getElementById("crbar");b.hidden=false;document.getElementById("crsetup").hidden=false;document.getElementById("crwork").hidden=true;document.getElementById("cropts").hidden=false;
   const ex=document.getElementById("crhere");ex.disabled=!P;document.getElementById("crfrom").value=SEL&&P?P.measures[DISPLAY[SEL.a].mi].no:"1";
   document.getElementById("crwarn").hidden=!(P&&editCount());}
 function crStart(mode){const ts=document.getElementById("crts").value.split("/"),ky=document.getElementById("crkey").value;
-  CR={nl:[],cur:0,len:1,dot:false,oct:60,undo:[],on:true,tsN:+ts[0],tsD:+ts[1],fifths:parseInt(ky),minor:/m$/.test(ky),pickup:0,title:document.getElementById("crtitle").value.trim()||TX("Neue Melodie","New tune"),
+  CR={nl:[],cur:0,len:1,dot:false,oct:60,undo:[],on:true,tsN:+ts[0],tsD:+ts[1],fifths:parseInt(ky),minor:/m$/.test(ky),pickup:0,bass:[],title:document.getElementById("crtitle").value.trim()||TX("Neue Melodie","New tune"),
     prevT:document.getElementById("transp").value,over:false};
   if(mode==="here"&&P){const f=crFromPiece();Object.assign(CR,f);const no=document.getElementById("crfrom").value.trim();let mi=P.measures.findIndex(m=>m.no===no);if(mi<0)mi=Math.max(0,Math.min(P.measures.length-1,(parseInt(no)||1)-1));
     CR.over=true;const tStart=P.measures.slice(0,mi).reduce((s,m)=>s+m.len,0);let t=0,i=0;while(i<CR.nl.length&&t<tStart-1e-6){t+=CR.nl[i].d;i++;}CR.cur=i;
     const ms=CR.nl.filter(x=>x.m!=null).map(x=>Array.isArray(x.m)?x.m[0]:x.m);if(ms.length){const avg=ms.reduce((a,b)=>a+b,0)/ms.length;CR.oct=Math.max(36,Math.min(84,Math.round((avg-6)/12)*12));}}
   const t=document.getElementById("transp");if([...t.options].some(o=>o.value==="0")){t.value="0";}
-  document.getElementById("crover").checked=CR.over;document.getElementById("crsetup").hidden=true;document.getElementById("crwork").hidden=false;if(document.activeElement)document.activeElement.blur();crRender();}
+  document.getElementById("crover").checked=CR.over;document.getElementById("crsetup").hidden=true;document.getElementById("crwork").hidden=false;document.getElementById("cropts").hidden=true;if(document.activeElement)document.activeElement.blur();crRender();}
 // 2. Stimme nach alpenländischem Muster: zu jedem einzelnen Melodieton eine Terz oder Sext darunter, bevorzugt ein Ton des Akkords,
 // den das Programm an dieser Stelle gewählt hat (so entsteht der übliche Terz-Sext-Wechsel), sonst die leitereigene Terz; Doppelgriffe bleiben.
 function crSecond(){if(!P||!R||!CR||!CR.nl.length)return 0;
@@ -2689,7 +2752,7 @@ function crClose(){CREATE=false;document.body.classList.remove("creating");docum
 function crSaveXML(){if(!CR||!CR.nl.length)return;saveBlob((CR.title||"Melodie").replace(/[\\/:*?"<>|]+/g,"").trim().replace(/\s+/g,"_")+".musicxml",new Blob([crXML()],{type:"application/vnd.recordare.musicxml+xml"}));}
 (function(){const ks=document.getElementById("crkey");CR_KEYS.forEach(([v,de,en])=>{const o=document.createElement("option");o.value=String(v);o.dataset.de=de;o.dataset.en=en;o.textContent=TX(de,en);ks.appendChild(o);});
   document.getElementById("create").addEventListener("click",()=>{if(CREATE)crClose();else crOpen();});
-  document.getElementById("crnew").addEventListener("click",()=>crStart("new"));document.getElementById("crrand").addEventListener("click",()=>{crStart("new");if(!document.getElementById("crtitle").value.trim())CR.title=TX("Zufallsmelodie","Random tune");CR.undo=[];CR.nl=crRandom();CR.cur=CR.nl.length;crRender();});document.getElementById("crrand2").addEventListener("click",e=>{crDoRandom();e.currentTarget.blur();});document.getElementById("crhere").addEventListener("click",()=>crStart("here"));
+  document.getElementById("crnew").addEventListener("click",()=>crStart("new"));document.getElementById("crrand").addEventListener("click",()=>{crStart("new");if(!document.getElementById("crtitle").value.trim())CR.title=TX("Zufallsmelodie","Random tune");CR.undo=[];CR.nl=crRandom();CR.cur=CR.nl.length;document.getElementById("cropts").hidden=false;crRender();});document.getElementById("crrand2").addEventListener("click",e=>{crDoRandom();e.currentTarget.blur();});document.getElementById("crhere").addEventListener("click",()=>crStart("here"));
   document.getElementById("crback").addEventListener("click",crClose);document.getElementById("crcancel").addEventListener("click",crClose);
   document.getElementById("crundo").addEventListener("click",crUndo);document.getElementById("crover").addEventListener("change",e=>{if(CR)CR.over=e.target.checked;e.target.blur();});document.getElementById("cr2nd").addEventListener("change",e=>e.target.blur());document.getElementById("crsave").addEventListener("click",crSaveXML);
   document.addEventListener("keydown",crKey);})();
