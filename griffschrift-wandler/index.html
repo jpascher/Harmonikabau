@@ -1584,6 +1584,7 @@ function genSlots(s){const o=s.pick;if(!o)return [];
     for(const n of bn)sl.push({t:n.on-s.a,k:"L",pc:n.pc,btn:bassBtnFor(o,n.pc,"G")});
     // Schläge ohne Basston im Lauf: Begleiter (gibt es keinen, der Grundbass)
     for(let b=0;b<nb;b++){const t=b*bu;if(sl.some(x=>Math.abs(x.t-t)<1e-6))continue;
+      if(isL34(m)&&LART==="verr"&&mod(Math.round(s.a+t),3)===1)continue;   // verrissener Landler: kein Nachschlag auf Schlag 2
       sl.push(o.b?{t,k:"B",pc:o.chord.pc,btn:o.b}:{t,k:"G",pc:o.g[o.dir].pc,btn:o.g});}
   } else if(m.tsD===8&&m.tsN%3===0){   // 6/8 (auch 3/8, 9/8, 12/8): je punktierte Viertel Bass – Begleiter – Begleiter; mit Wechselbass auf Schlag 4 die Quint
     for(let t=0;t<s.len-1e-9;t+=0.5){const abs=s.a+t,pos=Math.round(abs/0.5)%3;
