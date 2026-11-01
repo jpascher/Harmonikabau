@@ -104,6 +104,8 @@ body.editing #griff .brk:hover,#griff .brk.on{fill:var(--extra);opacity:.35}
 .pill.flash{background:var(--accent);color:var(--panel)}
 @keyframes rflash{from{background:color-mix(in srgb,var(--accent) 18%,transparent)}to{background:transparent}}#griff.resetflash{animation:rflash 1s ease-out}
 button:disabled{opacity:.45;cursor:default}#edrange select{font:inherit;padding:4px}@media (max-width:760px){#edbar{bottom:72px}}#edbar #edtxt{font-weight:700;margin-right:4px;min-width:6em}
+#aubar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:53;max-width:calc(100vw - 24px);width:760px;padding:10px 12px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:8px}
+#aubar[hidden]{display:none!important}#aubar .aurow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}#aubar audio{height:34px;max-width:100%}#autime{font-family:var(--f-mono);min-width:3em}#aust{font-size:13px;color:var(--muted)}#aurec.on{background:var(--zug);border-color:var(--zug);color:#fff}
 #crbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:51;max-width:calc(100vw - 24px);padding:8px 10px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25)}#crbar[hidden],#crbar [hidden]{display:none!important}#crsetup,#crwork,#cropts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}#cropts{margin:6px 0;font-size:.92em}#cropts select{width:auto!important;min-width:0;flex:none!important;padding:2px 4px}#crbar select,#crbar input{font:inherit;padding:3px 5px}#crbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#crbar button.crback{border-color:var(--accent);font-weight:700}#crinfo{flex-basis:100%;text-align:center;font-variant-numeric:tabular-nums}.crcur{color:var(--accent);font-weight:700}.crkeys{font-size:.82em;opacity:.85}.crkeys kbd{border:1px solid var(--line);border-radius:4px;padding:0 4px;font:inherit}.crwarn{flex-basis:100%;text-align:center;font-size:.85em;color:var(--bad)}.crsep{opacity:.7}body.creating #edbar{display:none!important}@media (max-width:760px){#crbar{bottom:72px}}
 #edbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#edbar button:disabled{opacity:.4;cursor:default}
 #griff .gn.selx{color:var(--accent)}#griff text.chs.selx{fill:var(--accent);text-decoration:underline}#griff text.chs.forced{fill:var(--extra)}.st.selx{outline:2px solid var(--accent);border-radius:4px}#griff .chit{cursor:pointer}#griff .hh.selx{stroke:var(--accent);stroke-width:2.5}
@@ -272,7 +274,8 @@ button.ghost2{background:transparent;color:var(--accent)}
         <select id="voices"><option value="2">Melodie + 2. Stimme</option><option value="1">nur Melodie</option><option value="3">bis 3 Stimmen</option><option value="4">bis 4 Stimmen</option></select>
       </div>
       <label class="filebtn" for="file" tabindex="0" id="filelbl"><x-de>Noten öffnen (MusicXML / MIDI) …</x-de><x-en>Open music (MusicXML / MIDI) …</x-en></label>
-      <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,.json">
+      <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,.json,.mp3,.wav,.m4a,.ogg,.flac">
+      <button id="audiobtn" type="button" class="ghost2"><x-de>🎤 Aufnahme / Audio …</x-de><x-en>🎤 Recording / audio …</x-en></button>
     </div>
     <div class="controls" style="margin-top:12px">
       <div class="field">
@@ -313,6 +316,17 @@ button.ghost2{background:transparent;color:var(--accent)}
         <span id="rctl"><span id="rtxt"></span> <label><x-de>spielen auf</x-de><x-en>play on</x-en> <select id="rplay"></select></label>
         <span class="rsep"><x-de>Takte</x-de><x-en>measures</x-en></span><button type="button" id="mcopy" title="Strg+C"><x-de>kopieren</x-de><x-en>copy</x-en></button><button type="button" id="mpaste" title="Strg+V"><x-de>einfügen danach</x-de><x-en>paste after</x-en></button><button type="button" id="mdel" title="Entf"><x-de>löschen</x-de><x-en>delete</x-en></button><span id="rclip"></span>
         <span class="rsep"><x-de>Tonhöhe</x-de><x-en>pitch</x-en></span><button type="button" id="rdn">− ½</button><button type="button" id="rup">+ ½</button> <span id="rshift"></span></span></div></div>
+    <div id="aubar" hidden role="dialog" aria-label="Aufnahme in Noten umwandeln">
+      <div class="aurow"><b><x-de>Aufnahme in Noten umwandeln</x-de><x-en>Turn a recording into music</x-en></b>
+        <button type="button" id="aurec">● <x-de>Aufnehmen</x-de><x-en>Record</x-en></button><button type="button" id="austop" disabled>■ Stopp</button><span id="autime">0:00</span>
+        <label class="filebtn" for="aufile" tabindex="0"><x-de>Audio-Datei öffnen …</x-de><x-en>Open audio file …</x-en></label><input id="aufile" type="file" accept="audio/*,.mp3,.wav,.m4a,.ogg,.webm,.flac" hidden></div>
+      <div class="aurow"><audio id="auplay" controls preload="auto"></audio><button type="button" id="ausave" disabled><x-de>Aufnahme speichern (WAV) ⤓</x-de><x-en>Save recording (WAV) ⤓</x-en></button></div>
+      <div class="aurow"><label><x-de>Tempo (Viertel/min)</x-de><x-en>Tempo (quarters/min)</x-en> <input id="autempo" type="number" min="40" max="240" size="4" placeholder="auto"></label>
+        <label><x-de>Takt</x-de><x-en>Time</x-en> <select id="auts"><option value="" data-de="automatisch" data-en="automatic">automatisch</option><option>2/4</option><option>3/4</option><option>4/4</option><option>6/8</option></select></label>
+        <label><x-de>Inhalt</x-de><x-en>Content</x-en> <select id="aukind"><option value="mel" data-de="Melodie allein (Gesang, Pfeifen, ein Instrument)" data-en="melody only (singing, whistling, one instrument)">Melodie allein (Gesang, Pfeifen, ein Instrument)</option><option value="acc" data-de="Harmonika mit Bass" data-en="accordion with bass">Harmonika mit Bass</option></select></label>
+        <button type="button" id="auconv" disabled><x-de>In Noten umwandeln</x-de><x-en>Convert to music</x-en></button><button type="button" id="auclose"><x-de>Schließen</x-de><x-en>Close</x-en></button></div>
+      <div class="aurow" id="aust"></div>
+    </div>
     <div id="crbar" hidden role="toolbar" aria-label="Melodie eingeben">
       <div id="crsetup"><b><x-de>Melodie eingeben</x-de><x-en>Enter melody</x-en></b>
         <label><x-de>Takt</x-de><x-en>Time</x-en> <select id="crts"><option>2/4</option><option selected>3/4</option><option>4/4</option><option>6/8</option></select></label>
@@ -449,6 +463,9 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>MIDI</b> (.mid) geht auch. Die höchste Spur wird zur Melodie, gleichzeitige Töne werden zu Doppelgriffen, die tiefste Spur liefert die Stufen. Bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> gibt es zu fast jedem Volkstanz eine MIDI-Datei (Satz Franz Fuchs): Stück öffnen, „Midi-Datei downloaden“, hier hineinziehen.</p>
       <p>Hat eine MusicXML-Datei mehrere Stimmen, wählst du unter <b>Stimme</b> die Melodiestimme. <b>Stimmen im Diskant</b> bestimmt, ob nur die Melodie oder auch die 2., 3. und 4. Stimme aus der Datei mitgegriffen werden.</p>
     </section>
+    <section id="h-audio"><h3>Aufnahme oder Audio-Datei in Noten</h3>
+      <p>Mit „🎤 Aufnahme / Audio …“ (neben „Noten öffnen“) lässt sich eine Melodie über das Mikrofon aufnehmen oder eine Audio-Datei öffnen (MP3, WAV, M4A, OGG; Audio-Dateien kann man auch einfach hineinziehen). Die Aufnahme lässt sich anhören und mit „Aufnahme speichern (WAV)“ als Datei sichern. „In Noten umwandeln“ erkennt die Töne mit Basic Pitch, einer frei verfügbaren Tonerkennung von Spotify (Apache-Lizenz 2.0), die ganz im Browser läuft: die Aufnahme verlässt den Rechner nicht, beim ersten Mal werden etwa 2,5 MB nachgeladen. Aus den erkannten Tönen nimmt das Programm die oberste Stimme als Melodie (gleichzeitig angeschlagene Terzen und Sexten darunter als Doppelgriff), schätzt Tempo und Schlagraster und verarbeitet das Ergebnis wie eine MIDI-Datei weiter (Taktart, Stufen, Griffe). Am besten gelingt eine Melodie allein, gesungen, gepfiffen oder auf einem Instrument einstimmig gespielt, ruhig und deutlich. Bei „Harmonika mit Bass“ werden auch die Bässe gelesen (sie helfen bei den Stufen), die Begleiter (Nachschlag) werden möglichst herausgefiltert; das klappt nicht immer, einzelne Begleittöne können in der Melodie landen. Stimmt das Ergebnis nicht, hilft es meist, den Takt vorzugeben oder das Tempo einzutragen (das erkannte Tempo steht danach im Feld; manchmal liegt es beim Doppelten oder bei der Hälfte). Kleine Fehler lassen sich danach mit „Melodie eingeben → An dieser Stelle“ oder im Bearbeiten-Modus verbessern.</p>
+    </section>
     <section id="h-pdf"><h3>PDF und gescannte Noten</h3>
       <p>Gescannte Noten oder PDF-Dateien kann der Wandler nicht direkt lesen. Dafür braucht es eine Notenerkennung (OMR), die aus dem Bild wieder Noten macht. Das geht mit einem Zwischenschritt:</p>
       <ol>
@@ -575,6 +592,9 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>MusicXML</b> (.musicxml, .xml, .mxl) is the best format. MuseScore, Finale, Sibelius, Capella and most notation programs write it via “Export”. Chord symbols in the file are used, as are repeat signs and first/second endings.</p>
       <p><b>MIDI</b> (.mid) works too. The highest track becomes the melody, simultaneous notes become double stops, and the lowest track supplies the harmonic degrees. <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> has a MIDI file for almost every Austrian folk dance (arrangements by Franz Fuchs): open the tune, click “Midi-Datei downloaden”, drop the file here.</p>
       <p>If a MusicXML file has several parts, pick the melody under <b>Part</b>. <b>Voices in the treble</b> decides whether only the melody or also the second, third and fourth voice from the file are played.</p>
+    </section>
+    <section id="e-audio"><h3>Recording or audio file to music</h3>
+      <p>“🎤 Recording / audio …” (next to “Open music”) lets you record a melody with the microphone or open an audio file (MP3, WAV, M4A, OGG; audio files can also simply be dragged in). The recording can be played back and saved as a file with “Save recording (WAV)”. “Convert to music” recognises the notes with Basic Pitch, a freely available note recognition by Spotify (Apache License 2.0) that runs entirely in the browser: the recording never leaves the computer; the first time about 2.5 MB are loaded. From the recognised notes the program takes the top voice as the melody (thirds and sixths struck at the same time below it become double notes), estimates the tempo and the beat grid and then processes the result like a MIDI file (time signature, chords, grips). It works best with a melody on its own, sung, whistled or played in one voice on an instrument, calmly and clearly. With “accordion with bass” the basses are read too (they help with the chords) and the after-beat chords are filtered out as far as possible; this does not always work, and single chord notes may end up in the melody. If the result is off, it usually helps to set the time signature or enter the tempo (the recognised tempo is shown in the field afterwards; sometimes it is double or half). Small mistakes can then be fixed with “Enter melody → At this position” or in edit mode.</p>
     </section>
     <section id="e-pdf"><h3>PDF and scanned music</h3>
       <p>The converter cannot read scanned music or PDF files directly. That needs optical music recognition (OMR), which turns the image back into notes. It works with one extra step:</p>
@@ -733,7 +753,7 @@ function applyStaticLang(){
   og("og-fuchs","Volkstänze, Satz Franz Fuchs (volksmusik.cc)","Austrian folk dances, arr. Franz Fuchs (volksmusik.cc)");og("og-own","Eigene Beispiele","Own examples");og("og-philipp","Stücke von Philipp Ramoner (urheberrechtlich geschützt)","Pieces by Philipp Ramoner (protected by copyright)");og("og-hyper","Akkordsuche (hyperbox.org)","Chord finder (hyperbox.org)");og("og-strasser","Strasser (harmonika.com)","Strasser (harmonika.com)");og("og-schab","Dieter Schaborak (Original)","Dieter Schaborak (original)");og("og-dhyper","Akkordsuche (hyperbox.org)","Chord finder (hyperbox.org)");og("og-dstrasser","Strasser (harmonika.com)","Strasser (harmonika.com)");
   const ts=document.getElementById("transp");if(ts)[...ts.options].forEach(o=>{if(o.value==="auto")o.textContent=TX("Automatisch (beste Lage)","Automatic (best key)");else{const t=+o.value;o.textContent=t===0?"Original":(t>0?"+":"")+t+TX(" Halbtöne"," semitones");}});
   const ps=document.getElementById("part");if(ps)[...ps.options].forEach(o=>{if(o.dataset.auto)o.textContent=TX("Stimme ","Part ")+o.dataset.auto;if(o.dataset.midi)o.textContent=TX("Melodie (aus MIDI)","Melody (from MIDI)");});
-  document.querySelectorAll("#crkey option,#cropts option,#crstyle option").forEach(o=>{if(o.dataset.de)o.textContent=TX(o.dataset.de,o.dataset.en);});
+  document.querySelectorAll("#crkey option,#cropts option,#crstyle option,#aukind option,#auts option").forEach(o=>{if(o.dataset.de)o.textContent=TX(o.dataset.de,o.dataset.en);});
   const so=document.getElementById("sound");if(so){so.options[0].textContent=TX("Aufnahme (Harmonika)","Recording (accordion)");so.options[1].textContent=TX("Synthetisch","Synthetic");}
   document.getElementById("selfrom").placeholder=TX("von","from");document.getElementById("selto").placeholder=TX("bis","to");
   document.getElementById("helpclose").setAttribute("aria-label",TX("Hilfe schließen","Close help"));
@@ -2413,10 +2433,100 @@ function midiToXML(buf,title){
   return `<?xml version="1.0"?><score-partwise version="3.1"><work><work-title>${title}</work-title></work><part-list><score-part id="P1"><part-name>Melodie (aus MIDI)</part-name></score-part></part-list><part id="P1">${body}</part></score-partwise>`;
 }
 
+// ======== Aufnahme / Audio → Noten (Basic Pitch von Spotify, Apache-2.0, läuft im Browser; Dateien in bp/)
+// Ablauf: Aufnahme (Mikrofon) oder Audio-Datei → 22050 Hz mono → Basic Pitch erkennt Töne → Melodie (oberste Stimme, Terzen/Sexten
+// darunter als Doppelgriff) und Bass (unter E3) → Tempo und Schlagraster geschätzt → MIDI → wie jede MIDI-Datei weiterverarbeitet.
+const AU={buf:null,name:"",rec:null,chunks:[],t0:0,timer:null,url:null};
+function auStatus(t){document.getElementById("aust").textContent=t;}
+function auSet(buf,name,blob){AU.buf=buf;AU.name=name;const a=document.getElementById("auplay");if(AU.url)URL.revokeObjectURL(AU.url);
+  AU.url=URL.createObjectURL(blob||new Blob([auWav(buf)],{type:"audio/wav"}));a.src=AU.url;
+  document.getElementById("ausave").disabled=false;document.getElementById("auconv").disabled=false;
+  auStatus(TX(`Aufnahme bereit: ${buf.duration.toFixed(1)} s. Jetzt „In Noten umwandeln“.`,`Recording ready: ${buf.duration.toFixed(1)} s. Now “Convert to music”.`));}
+function auWav(buf){const sr=buf.sampleRate,n=buf.length,ch=buf.numberOfChannels,d=new Float32Array(n);for(let c=0;c<ch;c++){const x=buf.getChannelData(c);for(let i=0;i<n;i++)d[i]+=x[i]/ch;}
+  const ab=new ArrayBuffer(44+n*2),v=new DataView(ab),w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+  w(0,"RIFF");v.setUint32(4,36+n*2,true);w(8,"WAVE");w(12,"fmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,"data");v.setUint32(40,n*2,true);
+  for(let i=0;i<n;i++){const s=Math.max(-1,Math.min(1,d[i]));v.setInt16(44+i*2,s<0?s*0x8000:s*0x7FFF,true);}return ab;}
+async function auRecStart(){try{const st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    AU.chunks=[];const r=new MediaRecorder(st);AU.rec=r;r.ondataavailable=e=>{if(e.data.size)AU.chunks.push(e.data);};
+    r.onstop=async()=>{st.getTracks().forEach(t=>t.stop());clearInterval(AU.timer);const blob=new Blob(AU.chunks,{type:r.mimeType||"audio/webm"});
+      try{const buf=await ac().decodeAudioData(await blob.arrayBuffer());const d=new Date();auSet(buf,TX("Aufnahme ","Recording ")+d.toLocaleDateString()+" "+d.toTimeString().slice(0,5),blob);}catch(e){auStatus(TX("Die Aufnahme ließ sich nicht lesen.","The recording could not be read."));}
+      document.getElementById("aurec").classList.remove("on");document.getElementById("aurec").disabled=false;document.getElementById("austop").disabled=true;};
+    r.start();AU.t0=Date.now();AU.timer=setInterval(()=>{const s=Math.floor((Date.now()-AU.t0)/1000);document.getElementById("autime").textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0");},250);
+    document.getElementById("aurec").classList.add("on");document.getElementById("aurec").disabled=true;document.getElementById("austop").disabled=false;
+    auStatus(TX("Aufnahme läuft … zum Beenden „Stopp“.","Recording … press “Stop” to end."));}
+  catch(e){auStatus(TX("Kein Mikrofon-Zugriff (bitte im Browser erlauben).","No microphone access (please allow it in the browser)."));}}
+async function auOpenFile(f){try{auStatus(TX("Lese Audio-Datei …","Reading audio file …"));const buf=await ac().decodeAudioData(await f.arrayBuffer());auSet(buf,f.name.replace(/\.[^.]+$/,""),f);}
+  catch(e){auStatus(TX("Diese Audio-Datei kann der Browser nicht lesen (MP3, WAV, M4A, OGG gehen meist).","The browser cannot read this audio file (MP3, WAV, M4A, OGG usually work)."));}}
+function auLoadBP(){if(window.GW_BP)return Promise.resolve();return new Promise((ok,no)=>{const sc=document.createElement("script");sc.src="bp/basicpitch.js";sc.onload=ok;sc.onerror=()=>no(new Error("bp"));document.head.appendChild(sc);});}
+async function auToMono22k(buf){const sr=22050,len=Math.ceil(buf.duration*sr),oc=new OfflineAudioContext(1,len,sr),src=oc.createBufferSource();src.buffer=buf;src.connect(oc.destination);src.start();return await oc.startRendering();}
+// erkannte Töne → Melodie (oberste Stimme) und Bass; Tempo und Schlagraster schätzen; MIDI-Datei
+function auNotesToMidi(raw,kind,bpm,ts){
+  let ns=raw.filter(n=>n.a>=0.12&&n.d>=0.06).map(n=>({...n}));
+  const SPLIT=52;let bass=kind==="acc"?ns.filter(n=>n.m<SPLIT):[],up=kind==="acc"?ns.filter(n=>n.m>=SPLIT):ns;
+  if(kind==="acc"&&up.length){// Begleiter (Nachschlag-Akkorde) unter der Melodie weglassen: Gruppen von 3 und mehr gleichzeitig einsetzenden Tönen,
+    // deren oberster deutlich unter der Melodie der Umgebung liegt, und Töne mehr als eine Oktave unter ihr
+    const lmax=t=>Math.max(...up.filter(h=>Math.abs(h.s-t)<=0.75).map(h=>h.m));
+    up=up.filter(n=>{const L=lmax(n.s);if(n.m<L-12)return false;const cl=up.filter(h=>Math.abs(h.s-n.s)<0.06);if(cl.length>=3&&n.m<Math.max(...cl.map(h=>h.m)))return false;   // Akkordgruppe: nur der oberste Ton (Melodie) bleibt
+      return !(cl.length>=3&&Math.max(...cl.map(h=>h.m))<L-2);});}
+  // oberste Stimme: ein Ton zählt nicht, wenn bei seinem Einsatz schon ein höherer klingt (Begleiter unter gehaltener Melodie);
+  // Töne, die gleichzeitig mit einem höheren einsetzen und bis zu einer Sext tiefer liegen, bleiben als Doppelgriff
+  up.sort((x,y)=>x.s-y.s||y.m-x.m);
+  const mel=up.filter(n=>!up.some(h=>h!==n&&h.m>n.m&&((Math.abs(h.s-n.s)<0.05&&h.m-n.m>9)||(h.s<n.s-0.05&&h.s+h.d>n.s+0.05))));
+  if(kind==="acc"){// gehaltener Melodieton, der beim Einsatz eines Begleiters neu „anschlägt“ (Oberton des Begleiters): zum vorigen Ton zählen
+    mel.sort((x,y)=>x.s-y.s||y.m-x.m);for(let i=mel.length-1;i>0;i--){const n=mel[i];const pv=mel.slice(0,i).reverse().find(h=>h.m===n.m);
+      if(pv&&n.s-(pv.s+pv.d)<0.06&&ns.filter(h=>h.m<n.m-2&&h.m>=SPLIT&&Math.abs(h.s-n.s)<0.08).length>=2){pv.d=Math.max(pv.d,n.s+n.d-pv.s);mel.splice(i,1);}}}
+  if(kind==="acc"){// Bass: tiefster Ton je Einsatz
+    bass.sort((x,y)=>x.s-y.s||x.m-y.m);bass=bass.filter((n,i)=>!bass.some(h=>h!==n&&Math.abs(h.s-n.s)<0.05&&h.m<n.m));}
+  const all=mel.map(n=>({t:n.s,w:1})).concat(bass.map(n=>({t:n.s,w:1.5})));
+  if(!all.length)return null;
+  const tmin=Math.min(...all.map(x=>x.t));
+  const coh=(T,sub)=>{let c=0,s=0,W=0;for(const x of all){const a=2*Math.PI*x.t/(T/sub);c+=x.w*Math.cos(a);s+=x.w*Math.sin(a);W+=x.w;}return {r:Math.hypot(c,s)/W,ph:Math.atan2(s,c)};};
+  let T;if(bpm>0)T=60/bpm;else{let best=-1;for(let t=0.3;t<=1.0;t+=0.004){const a=coh(t,1),b=coh(t,2),pri=Math.exp(-Math.pow(Math.log(t/0.5)/0.45,2)/2);const sc=(a.r+0.6*b.r)*pri;if(sc>best){best=sc;T=t;}}}
+  // Feinsuche: Tempo (±3 %, nicht bei vorgegebenem Tempo) und Lage des Achtelrasters so, dass möglichst viele Einsätze darauf fallen
+  const fit=(T2,p)=>{let s=0;for(const x of all){const g=T2/2,d=((x.t-p)%g+g)%g,dd=Math.min(d,g-d);s+=x.w*Math.exp(-Math.pow(dd/(0.06*T2),2));}return s;};
+  let bT=T,bP=0,bS=-1;for(let f=(bpm>0?1:0.97);f<=(bpm>0?1:1.03)+1e-9;f+=0.002){const T2=T*f;for(let k=0;k<48;k++){const p=k*T2/48,sc=fit(T2,p);if(sc>bS){bS=sc;bT=T2;bP=p;}}}
+  T=bT;// Schlag oder Achtel dazwischen: dorthin, wo mehr (Bass-)Einsätze liegen
+  const onBeat=p=>all.reduce((a,x)=>{const d=((x.t-p)%T+T)%T;return a+(Math.min(d,T-d)<0.12*T?x.w:0);},0);
+  let ph=onBeat(bP)>=onBeat(bP+T/2)?bP:bP+T/2;let t0=ph;while(t0>tmin+0.03)t0-=T;while(t0<tmin-T+0.03)t0+=T;
+  const PPQ=480,tk=x=>Math.max(0,Math.round((x-t0)/T*PPQ));
+  const vlq=n=>{const b=[n&127];while(n>>=7)b.unshift((n&127)|128);return b;};
+  const track=(list,ch,tempo)=>{const ev=[];list.forEach(n=>{const a=tk(n.s),e=Math.max(a+30,tk(n.s+n.d));ev.push([a,1,0x90|ch,n.m,90],[e,0,0x80|ch,n.m,0]);});ev.sort((x,y)=>x[0]-y[0]||x[1]-y[1]);
+    let out=[],last=0;if(tempo){const us=Math.round(T*1e6);out.push(0,0xFF,0x51,3,(us>>16)&255,(us>>8)&255,us&255);}
+    ev.forEach(x=>{out.push(...vlq(x[0]-last),x[2],x[3],x[4]);last=x[0];});out.push(0,0xFF,0x2F,0);
+    return [0x4D,0x54,0x72,0x6B,(out.length>>>24)&255,(out.length>>16)&255,(out.length>>8)&255,out.length&255,...out];};
+  const trs=[track(mel,0,true)];if(bass.length)trs.push(track(bass,1,false));
+  if(ts){const [n,d]=ts.split("/").map(Number),tr=trs[0],ins=[0,0xFF,0x58,4,n,Math.log2(d),24,8];tr.splice(8,0,...ins);const L=tr.length-8;tr[4]=(L>>>24)&255;tr[5]=(L>>16)&255;tr[6]=(L>>8)&255;tr[7]=L&255;}
+  const head=[0x4D,0x54,0x68,0x64,0,0,0,6,0,1,0,trs.length,(PPQ>>8)&255,PPQ&255];
+  return {midi:new Uint8Array(head.concat(...trs)).buffer,bpm:Math.round(60/T),nMel:mel.length,nBass:bass.length};}
+async function auConvert(){if(!AU.buf)return;const btn=document.getElementById("auconv");btn.disabled=true;
+  try{auStatus(TX("Lade die Tonerkennung (beim ersten Mal etwa 2,5 MB) …","Loading the note recognition (about 2.5 MB the first time) …"));await auLoadBP();
+    const B=window.GW_BP;const mono=await auToMono22k(AU.buf);
+    const frames=[],onsets=[],contours=[];const bp=new B.BasicPitch(new URL("bp/model.json",location.href).href);
+    await bp.evaluateModel(mono,(f,o,c)=>{frames.push(...f);onsets.push(...o);contours.push(...c);},p=>auStatus(TX(`Erkenne Töne … ${Math.round(p*100)} %`,`Recognising notes … ${Math.round(p*100)} %`)));
+    const notes=B.noteFramesToTime(B.addPitchBendsToNoteEvents(contours,B.outputToNotesPoly(frames,onsets,0.5,0.3,8,document.getElementById("aukind").value!=="acc"))).map(n=>({s:n.startTimeSeconds,d:n.durationSeconds,m:n.pitchMidi,a:n.amplitude}));
+    const kind=document.getElementById("aukind").value,bpm=+document.getElementById("autempo").value||0,ts=document.getElementById("auts").value;
+    const r=auNotesToMidi(notes,kind,bpm,ts);AU.last={notes,r};if(!r||!r.nMel)throw new Error(TX("In der Aufnahme wurden keine Töne erkannt.","No notes were recognised in the recording."));
+    stop();CREDIT="";setPins(null);const title=AU.name||TX("Aufnahme","Recording");
+    loadXMLText(midiToXML(r.midi,title));TITLE=title;SRC={kind:"file",name:title+".mid",xml:LASTXML};run();
+    auStatus(TX(`Fertig: ${r.nMel} Melodietöne${r.nBass?`, ${r.nBass} Basstöne`:""}, Tempo etwa ${r.bpm} Viertel/min. Passt es nicht, Tempo (doppelt oder halb so viel) oder Takt vorgeben und erneut umwandeln.`,
+      `Done: ${r.nMel} melody notes${r.nBass?`, ${r.nBass} bass notes`:""}, tempo about ${r.bpm} quarters/min. If it is off, set the tempo (double or half) or the time signature and convert again.`));
+    document.getElementById("autempo").placeholder=String(r.bpm);}
+  catch(e){auStatus(e.message==="bp"?TX("Die Tonerkennung ließ sich nicht laden (Internetverbindung nötig).","The note recognition could not be loaded (internet connection needed)."):(e.message||String(e)));}
+  btn.disabled=false;}
+(function(){const bar=document.getElementById("aubar");
+  document.getElementById("audiobtn").addEventListener("click",()=>{bar.hidden=!bar.hidden;if(!bar.hidden&&!AU.buf)auStatus(TX("Aufnehmen oder eine Audio-Datei öffnen. Am besten eine Melodie allein, langsam und deutlich gespielt oder gesungen.","Record or open an audio file. Best is a melody on its own, played or sung slowly and clearly."));});
+  document.getElementById("auclose").addEventListener("click",()=>{if(AU.rec&&AU.rec.state==="recording")AU.rec.stop();bar.hidden=true;});
+  document.getElementById("aurec").addEventListener("click",auRecStart);
+  document.getElementById("austop").addEventListener("click",()=>{if(AU.rec&&AU.rec.state==="recording")AU.rec.stop();});
+  document.getElementById("aufile").addEventListener("change",e=>{const f=e.target.files[0];if(f)auOpenFile(f);e.target.value="";});
+  document.getElementById("ausave").addEventListener("click",()=>{if(AU.buf)saveBlob((AU.name||"Aufnahme").replace(/[\\/:*?"<>|]+/g,"").trim().replace(/\s+/g,"_")+".wav",new Blob([auWav(AU.buf)],{type:"audio/wav"}));});
+  document.getElementById("auconv").addEventListener("click",auConvert);})();
+
 // ======== Dateien
 async function openFile(f){
   const st=document.getElementById("status");
   if(/\.json$/i.test(f.name)){loadEdits(f);return;}
+  if(/\.(mp3|wav|m4a|ogg|oga|webm|flac|aac)$/i.test(f.name)||/^audio\//.test(f.type||"")){document.getElementById("aubar").hidden=false;auOpenFile(f);return;}
   setPins(null);
   try{
     let txt;
