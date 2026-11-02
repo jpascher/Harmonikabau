@@ -2645,6 +2645,16 @@ async function auRecStart(){try{const st=await navigator.mediaDevices.getUserMed
   catch(e){auStatus(TX("Kein Mikrofon-Zugriff (bitte im Browser erlauben).","No microphone access (please allow it in the browser)."));}}
 async function auOpenFile(f){try{auStatus(TX("Lese Audio-Datei …","Reading audio file …"));const buf=await ac().decodeAudioData(await f.arrayBuffer());auSet(buf,f.name.replace(/\.[^.]+$/,""),f);}
   catch(e){auStatus(TX("Diese Audio-Datei kann der Browser nicht lesen (MP3, WAV, M4A, OGG gehen meist).","The browser cannot read this audio file (MP3, WAV, M4A, OGG usually work)."));}}
+// Modell: online über die Adresse; in einer lokal geöffneten Kopie (file://) lässt der Browser kein Nachladen von Dateien zu,
+// dann kommt es aus bp/model.js (als Skript eingebettet)
+let AU_MODEL=null;
+function auModel(B){if(AU_MODEL)return AU_MODEL;
+  AU_MODEL=(location.protocol!=="file:"?B.tf.loadGraphModel(new URL("bp/model.json",location.href).href):
+    new Promise((ok,no)=>{if(window.GW_BP_MODEL)return ok();const sc=document.createElement("script");sc.src="bp/model.js";sc.onload=ok;sc.onerror=()=>no(new Error(TX("Die Datei bp/model.js fehlt in der lokalen Kopie.","The file bp/model.js is missing from the local copy.")));document.head.appendChild(sc);})
+    .then(()=>{const M=window.GW_BP_MODEL,J=M.json,bin=Uint8Array.from(atob(M.bin),c=>c.charCodeAt(0));
+      return B.tf.loadGraphModel(B.tf.io.fromMemory({modelTopology:J.modelTopology,weightSpecs:J.weightsManifest[0].weights,weightData:bin.buffer,format:J.format,generatedBy:J.generatedBy,convertedBy:J.convertedBy,signature:J.signature}));}))
+    .catch(e=>{AU_MODEL=null;throw e;});
+  return AU_MODEL;}
 function auLoadBP(){if(window.GW_BP)return Promise.resolve();return new Promise((ok,no)=>{const sc=document.createElement("script");sc.src="bp/basicpitch.js";sc.onload=ok;sc.onerror=()=>no(new Error("bp"));document.head.appendChild(sc);});}
 // ch: null = alle Kanäle gemischt, 0/1 = nur linker/rechter Kanal
 async function auToMono22k(buf,ch){if(ch!=null&&buf.numberOfChannels>ch){const one=new AudioBuffer({length:buf.length,numberOfChannels:1,sampleRate:buf.sampleRate});one.copyToChannel(buf.getChannelData(ch),0);buf=one;}
@@ -2712,7 +2722,7 @@ async function auConvert(){if(!AU.buf)return;const btn=document.getElementById("
     const runs=chm==="LR"?[["t",0],["b",1]]:chm==="RL"?[["t",1],["b",0]]:[["a",chm==="L"?0:chm==="R"?1:null]];
     AU.fc=AU.fc&&AU.fc.buf===AU.buf?AU.fc:{buf:AU.buf};
     for(const [role,ch] of runs){const key=String(ch);if(AU.fc[key])continue;const mono=await auToMono22k(AU.buf,ch);
-      const frames=[],onsets=[],contours=[];const bp=new B.BasicPitch(new URL("bp/model.json",location.href).href);
+      const frames=[],onsets=[],contours=[];const bp=new B.BasicPitch(auModel(B));
       const lab=ch==null?"":(ch===0?TX(" (links)"," (left)"):TX(" (rechts)"," (right)"));
       await bp.evaluateModel(mono,(f,o,c)=>{frames.push(...f);onsets.push(...o);contours.push(...c);},p=>auStatus(TX(`Erkenne Töne${lab} … ${Math.round(p*100)} %`,`Recognising notes${lab} … ${Math.round(p*100)} %`)));
       AU.fc[key]={frames,onsets,contours};}
