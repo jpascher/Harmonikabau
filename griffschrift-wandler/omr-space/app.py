@@ -5,13 +5,17 @@ import os, tempfile
 import gradio as gr
 from omr_core import scan_file
 
-try:                      # ZeroGPU-Space (kostenlos für Konten älter als 30 Tage): Funktion muss so gekennzeichnet sein
+# homr rechnet auf der CPU. Auf ZeroGPU-Hardware läuft normaler Code im CPU-Teil des Space ohne Rechenzeit-Kontingent;
+# nur mit @spaces.GPU gekennzeichnete Funktionen verbrauchen das (für anonyme Aufrufe sehr knappe) GPU-Kontingent.
+# ZeroGPU verlangt beim Start mindestens eine solche Funktion – daher eine leere, die nie aufgerufen wird.
+try:
     import spaces
-    gpu = spaces.GPU(duration=120)
-except Exception:         # CPU-Space oder lokal
-    gpu = lambda f: f
+    @spaces.GPU(duration=1)
+    def _gpu_platzhalter():
+        return None
+except Exception:
+    pass
 
-@gpu
 def scan(file):
     if file is None:
         raise gr.Error("Keine Datei")
@@ -30,9 +34,10 @@ demo = gr.Interface(
     inputs=gr.File(label="Foto oder PDF gedruckter Noten", file_types=["image", ".pdf"]),
     outputs=gr.File(label="MusicXML"),
     title="Notenerkennung für den Griffschrift-Wandler",
-    description="Foto oder PDF gedruckter Noten → MusicXML (homr). Die Datei wird nur für die Erkennung verwendet und nicht aufbewahrt.",
+    description="Foto oder PDF gedruckter Noten → MusicXML (homr). Die Datei wird nur für die Erkennung verwendet und nach spätestens einer Stunde gelöscht.",
     api_name="scan",
     flagging_mode="never",
+    delete_cache=(1800, 3600),   # hochgeladene Dateien und Ergebnisse nach spätestens einer Stunde löschen
 )
 
 if __name__ == "__main__":

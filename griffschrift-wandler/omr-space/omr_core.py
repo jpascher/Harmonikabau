@@ -11,7 +11,8 @@ def _homr(img, timeout):
     r = subprocess.run([exe, img], capture_output=True, text=True, timeout=timeout)
     out = os.path.splitext(img)[0] + ".musicxml"
     if r.returncode != 0 or not os.path.exists(out):
-        raise RuntimeError((r.stderr or r.stdout or "homr ohne Ergebnis")[-600:])
+        lines = [l for l in (r.stderr + "\n" + r.stdout).splitlines() if l.strip() and not l.startswith(("Downloaded", "Processing"))]
+        raise RuntimeError(" / ".join(lines[-2:])[-400:] or "homr ohne Ergebnis")
     return out
 
 def _merge(files):
