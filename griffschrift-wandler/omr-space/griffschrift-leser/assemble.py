@@ -1,18 +1,23 @@
 # Griffschrift-Zeile -> Griffe (Knopf, Reihe, Balgrichtung, Töne)
+import os as _os; HERE=_os.path.dirname(_os.path.abspath(__file__))
 import cv2, numpy as np, json, sys
-sys.path.insert(0, '/tmp/claude-0/gsr'); import gsread as G
+sys.path.insert(0, HERE); import gsread as G
 from detect import detect
 D446 = {'druck': {1: [98,98,0,4,7,12,16,19,24,28,31,36,40,43,48,98], 2: [98,98,98,5,9,12,17,21,24,29,33,36,41,45,48,98,98], 3: [98,98,98,10,14,17,22,26,29,34,38,41,46,50,98,98], 4: [98,98,98,15,19,22,27,31,34,39,43,46,51,98,98]},
         'zug': {1: [98,98,5,7,11,14,17,21,23,26,29,33,35,38,41,98], 2: [98,98,98,10,12,16,19,22,24,28,31,34,38,40,43,98,98], 3: [98,98,98,15,17,21,24,27,29,33,36,39,43,45,98,98], 4: [98,98,98,20,22,26,29,32,34,38,41,44,48,98,98]}}
 REF = {1: 7, 2: 8, 3: 8, 4: 8}; OFF = {1: -1, 2: 0, 3: 1, 4: 2}; BASE = 43   # G-C-F-B
 
 def button(p, t):
+    if t == 't': return 4, (p - OFF[4]) // 2 + 6   # Dreieck: immer 4. Reihe
     rows = (1, 2) if t == 'o' else (3, 4)
     r = rows[0] if (p - OFF[rows[0]]) % 2 == 0 else rows[1]
     return r, (p - OFF[r]) // 2 + 6
 
-def pitch(r, num, dr):
-    i = num - 6 + REF[r]; arr = D446['druck' if dr == 'D' else 'zug'][r]
+def pitch(r, num, dr, table=None):
+    """table: Diskantbelegung wie im Wandler ({'druck': {1: [...], ...}, 'zug': {...}}, Halbtöne über G bei G-C-F-B, 98 = kein Knopf); ohne: 446 Normal."""
+    t = table or D446; arr = t['druck' if dr == 'D' else 'zug']; arr = arr.get(r, arr.get(str(r)))
+    if arr is None: return None
+    i = num - 6 + REF[r]
     return BASE + arr[i] if 0 <= i < len(arr) and arr[i] != 98 else None
 
 _ocr = None
@@ -48,7 +53,7 @@ def read_line(path, scale=2):
     return out, under
 
 if __name__ == '__main__':
-    files = json.load(open('/tmp/claude-0/gsr/test.json')) if len(sys.argv) < 2 else sys.argv[1:]
+    files = json.load(open(HERE+'/test.json')) if len(sys.argv) < 2 else sys.argv[1:]
     tot = dict(gt=0, found=0, dir=0, btn=0, pitch=0)
     for f in files:
         gt = json.load(open(f[:-4] + '.json'))

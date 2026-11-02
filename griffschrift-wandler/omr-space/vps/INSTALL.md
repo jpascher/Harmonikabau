@@ -47,7 +47,7 @@ In griffschrift-wandler/index.html die Zeile `const OMR_URL="";` ändern in
 
 und pushen. Dann erscheint im Dialog „📷 Noten scannen …“ nach dem Häkchen die Zeile „Erkennungsserver des Wandlers (scan.hyperbox.org)“. Zugriffe erlaubt der Dienst nur von https://jpascher.github.io (Einstellung `OMR_ORIGINS` in der .service-Datei; mehrere Adressen mit Komma trennen).
 
-Der Ordner gsleser enthält den Griffschrift-Leser samt seinen beiden angelernten Modellen (heads.pkl, rhythm.pkl). Er wird nur gebraucht, wenn im Wandler „Griffschrift“ gewählt ist; scikit-learn muss genau in der Version aus requirements.txt installiert sein, sonst lassen sich die Modelle nicht laden.
+Der Ordner gsleser enthält den Griffschrift-Leser samt seinen drei angelernten Modellen (heads.pkl, tri.pkl, rhythm.pkl). Der Wandler schickt dafür neben der Stimmung auch seine eingestellte Diskantbelegung mit (Feld „layout“). Er wird nur gebraucht, wenn im Wandler „Griffschrift“ gewählt ist; scikit-learn muss genau in der Version aus requirements.txt installiert sein, sonst lassen sich die Modelle nicht laden.
 
 ## Pflege
 

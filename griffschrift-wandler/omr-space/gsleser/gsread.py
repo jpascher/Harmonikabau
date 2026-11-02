@@ -52,12 +52,17 @@ def templates(d):
     cv2.line(a, (c - r, c - r), (c + r, c + r), 255, t); cv2.line(a, (c - r, c + r), (c + r, c - r), 255, t); T['x_f'] = a
     a = blank(); t2 = max(1, int(d * 0.16)); cv2.line(a, (c - r, c - r), (c + r, c + r), 255, t2); cv2.line(a, (c - r, c + r), (c + r, c - r), 255, t2)
     cv2.circle(a, (c, c), int(d * 0.7), 255, max(1, int(d * 0.12))); T['x_h'] = a
+    # Dreieck mit der Spitze nach oben (4. Reihe bei Elke Margetich)
+    w, h = int(d * 1.3), int(d * 1.05); pts = np.array([[c - w // 2, c + h // 2], [c + w // 2, c + h // 2], [c, c - h // 2]], np.int32)
+    a = blank(); cv2.fillPoly(a, [pts], 255); T['t_f'] = a
+    a = blank(); cv2.polylines(a, [pts], True, 255, max(1, int(d * 0.15))); T['t_h'] = a
     return T
 
 def heads(img, d, top, bottom):
     T = templates(d); found = []
     for name, t in T.items():
         r = cv2.matchTemplate(img, t, cv2.TM_CCOEFF_NORMED)
+        if name.startswith('t'): continue   # Dreiecke nur über detect.py
         thr = {'o_f': 0.5, 'o_h': 0.42, 'x_f': 0.3, 'x_h': 0.33}[name]
         ys, xs = np.where(r >= thr)
         for y, x in zip(ys, xs):

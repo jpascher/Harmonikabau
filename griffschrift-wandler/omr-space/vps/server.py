@@ -3,7 +3,7 @@
 # brauchen kann und Cloudflare Antworten nach 100 Sekunden abbricht, läuft die Erkennung als Auftrag:
 #   GET  /health          -> {"ok": true, "queue": n}
 #   POST /scan            -> Formularfeld "file" (Bild oder PDF); Antwort sofort: {"id": "..."}
-#                            mit kind=gs und shift=n: Griffschrift lesen (Ergebnis JSON mit MusicXML und Griffen)
+#                            mit kind=gs und shift=n (dazu layout=JSON der Diskantbelegung): Griffschrift lesen (Ergebnis JSON mit MusicXML und Griffen)
 #   GET  /job/{id}        -> {"state": "queued"|"running"|"done"|"error", "pos": n, "error": "..."}
 #   GET  /job/{id}/xml    -> MusicXML (danach wird der Auftrag gelöscht)
 # Hochgeladene Dateien liegen nur bis zum Ende der Erkennung in einem Temp-Ordner; Ergebnisse höchstens 15 Minuten.
@@ -29,7 +29,7 @@ lock = asyncio.Lock()      # immer nur eine Erkennung gleichzeitig (Arbeitsspeic
 def run_homr(path):
     return scan_file(path, timeout=TIMEOUT)
 
-def run_gs(path, shift):
+def run_gs(path, shift, layout=""):
     # Griffschrift-Leser (Ordner gsleser neben server.py bzw. eine Ebene höher im Repository)
     import json
     here = os.path.dirname(os.path.abspath(__file__))
@@ -44,7 +44,7 @@ def run_gs(path, shift):
         for i, pg in enumerate(doc):
             if i >= 4: break
             fn = path + f".s{i}.png"; pg.get_pixmap(dpi=200).save(fn); pages.append(fn)
-    xml, pins = gs2xml.convert(pages, shift=shift)
+    xml, pins = gs2xml.convert(pages, shift=shift, table=gs2xml.parse_table(layout))
     return json.dumps({"xml": xml, "pins": pins})
 
 def cleanup():
@@ -58,7 +58,7 @@ async def work(jid):
         j["state"] = "running"
         try:
             if j.get("kind") == "gs":
-                j["xml"] = await asyncio.to_thread(run_gs, j["path"], j.get("shift", 0))
+                j["xml"] = await asyncio.to_thread(run_gs, j["path"], j.get("shift", 0), j.get("layout", ""))
             else:
                 j["xml"] = await asyncio.to_thread(run_homr, j["path"])
             j["state"] = "done"
@@ -77,7 +77,7 @@ def health():
     return {"ok": True, "queue": len(ORDER)}
 
 @app.post("/scan")
-async def scan(file: UploadFile = File(...), kind: str = Form("nn"), shift: int = Form(0)):
+async def scan(file: UploadFile = File(...), kind: str = Form("nn"), shift: int = Form(0), layout: str = Form("")):
     cleanup()
     if len(ORDER) >= MAX_QUEUE:
         raise HTTPException(503, "Gerade zu viele Aufträge, bitte später noch einmal")
@@ -92,7 +92,7 @@ async def scan(file: UploadFile = File(...), kind: str = Form("nn"), shift: int 
     with open(path, "wb") as f:
         f.write(data)
     jid = uuid.uuid4().hex
-    JOBS[jid] = {"state": "queued", "path": path, "work": work_dir, "xml": None, "error": "", "t": time.time(), "kind": kind, "shift": shift}
+    JOBS[jid] = {"state": "queued", "path": path, "work": work_dir, "xml": None, "error": "", "t": time.time(), "kind": kind, "shift": shift, "layout": layout[:20000]}
     ORDER.append(jid)
     asyncio.create_task(work(jid))
     return {"id": jid}

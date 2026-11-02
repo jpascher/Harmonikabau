@@ -8,12 +8,16 @@ D446 = {'druck': {1: [98,98,0,4,7,12,16,19,24,28,31,36,40,43,48,98], 2: [98,98,9
 REF = {1: 7, 2: 8, 3: 8, 4: 8}; OFF = {1: -1, 2: 0, 3: 1, 4: 2}; BASE = 43   # G-C-F-B
 
 def button(p, t):
+    if t == 't': return 4, (p - OFF[4]) // 2 + 6   # Dreieck: immer 4. Reihe
     rows = (1, 2) if t == 'o' else (3, 4)
     r = rows[0] if (p - OFF[rows[0]]) % 2 == 0 else rows[1]
     return r, (p - OFF[r]) // 2 + 6
 
-def pitch(r, num, dr):
-    i = num - 6 + REF[r]; arr = D446['druck' if dr == 'D' else 'zug'][r]
+def pitch(r, num, dr, table=None):
+    """table: Diskantbelegung wie im Wandler ({'druck': {1: [...], ...}, 'zug': {...}}, Halbtöne über G bei G-C-F-B, 98 = kein Knopf); ohne: 446 Normal."""
+    t = table or D446; arr = t['druck' if dr == 'D' else 'zug']; arr = arr.get(r, arr.get(str(r)))
+    if arr is None: return None
+    i = num - 6 + REF[r]
     return BASE + arr[i] if 0 <= i < len(arr) and arr[i] != 98 else None
 
 _ocr = None

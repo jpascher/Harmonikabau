@@ -2,7 +2,12 @@ import os as _os; HERE=_os.path.dirname(_os.path.abspath(__file__))
 import cv2, numpy as np, json, sys, pickle
 sys.path.insert(0, HERE); import gsread as G; from train import patch, CL
 INK = 0.12
-clf = pickle.load(open(HERE+'/heads.pkl', 'rb'))
+MOD = HERE if _os.path.exists(HERE+'/heads.pkl') else _os.path.join(HERE, '..', 'gsleser')   # Forschungsordner: Modelle aus gsleser
+clf = pickle.load(open(MOD+'/heads.pkl', 'rb'))
+# Dreiecke (4. Reihe in der Notation von Elke Margetich, z. B. Philipp Ramoner): eigener kleiner Klassifikator auf denselben Ausschnitten
+TRI = pickle.load(open(MOD+'/tri.pkl', 'rb')) if _os.path.exists(MOD+'/tri.pkl') else None
+TRI_THR, TRI_HEAD, TRI_SURE = 0.5, 0.3, 0.95   # Dreieck, wenn dessen Klassifikator ≥ 0,5 meldet und der Kopf-Klassifikator ≥ 0,3 (oder Dreieck ≥ 0,95)
+CLX = CL + ['t_f', 't_h']
 
 def detect(path, scale=2, thr=0.5):
     g = cv2.imread(path, 0); _, bw = cv2.threshold(g, 200, 255, cv2.THRESH_BINARY_INV)
@@ -27,12 +32,19 @@ def detect(path, scale=2, thr=0.5):
                 if row[x] >= INK:
                     F.append(np.concatenate([fpatch(bwp, x, y), fpatch(nolp, x, y)])); cand.append((x, y, p, float(row[x])))
         if not cand: continue
-        pr = clf.predict_proba(np.array(F))
-        hits = [(round(1 - pr[i][0], 3), cand[i][:3], int(np.argmax(pr[i][1:])) + 1) for i in range(len(cand)) if pr[i][0] < 1 - thr]
+        F = np.array(F); pr = clf.predict_proba(F)
+        pt = TRI.predict_proba(F) if TRI is not None else None
+        hits = []
+        for i in range(len(cand)):
+            tp = pt[i][1] + pt[i][2] if pt is not None else 0
+            if cand[i][2] % 2 == 0 and tp >= TRI_THR and (1 - pr[i][0] >= TRI_HEAD or tp >= TRI_SURE):   # 4. Reihe liegt immer auf geraden Lagen
+                hits.append((round(float(tp), 3), cand[i][:3], 5 if pt[i][1] >= pt[i][2] else 6))
+            elif pr[i][0] < 1 - thr:
+                hits.append((round(1 - pr[i][0], 3), cand[i][:3], int(np.argmax(pr[i][1:])) + 1))
         # Formgüte: Übereinstimmung mit einer Kopfvorlage genau an der Stelle (trennt echte Köpfe von Treffern eine Halbstufe daneben)
         T = G.templates(d)
         def good(x, y, c):
-            t = T['o_f' if CL[c].startswith('o') else 'x_f']; hh, ww = t.shape
+            t = T['o_f' if CLX[c].startswith('o') else ('t_f' if CLX[c].startswith('t') else 'x_f')]; hh, ww = t.shape
             y0, x0 = int(round(y)) - hh // 2, int(round(x)) - ww // 2
             win = nol[max(0, y0):y0 + hh, max(0, x0):x0 + ww].astype(np.float32)
             if win.shape != t.shape: return 0.0
@@ -41,10 +53,15 @@ def detect(path, scale=2, thr=0.5):
         ref = sorted(ref, key=lambda r: -(r[0] * 0.5 + r[1]))
         keep = []
         for sc, gq, (x, y, p), c in ref:
-            if all(abs(x - k[2][0]) > d * (1.3 if k[2][2] == p else 0.8) or abs(k[2][2] - p) > 1 for k in keep): keep.append((sc, gq, (x, y, p), c))
+            # Dreieck neben Kreuz oder rundem Kopf eine Lage tiefer/höher (Sekunde links und rechts vom Hals) darf näher stehen
+            def apart(k):
+                if abs(k[2][2] - p) > 1: return True
+                lim = d * (1.3 if k[2][2] == p else (0.45 if (k[3] >= 5) != (c >= 5) else 0.8))
+                return abs(x - k[2][0]) > lim
+            if all(apart(k) for k in keep): keep.append((sc, gq, (x, y, p), c))
         keep = [(sc, xyp, c) for sc, gq, xyp, c in keep]
         for sc, (x, y, p), c in keep:
-            out.append({'x': x / scale, 'y': y / scale, 'p': p, 't': CL[clf.classes_[c]][0] if False else CL[c][0], 'fill': CL[c].endswith('f'), 'sc': round(float(sc), 2), 'st': si, 'd': d / scale, 'mid': mid / scale})
+            out.append({'x': x / scale, 'y': y / scale, 'p': p, 't': CLX[c][0], 'fill': CLX[c].endswith('f'), 'sc': round(float(sc), 2), 'st': si, 'd': d / scale, 'mid': mid / scale})
     return out
 
 if __name__ == '__main__':

@@ -1,14 +1,15 @@
 # Griffschrift-Bild -> MusicXML (Normalnoten) + Griffe für den Wandler (Pins: Zeit, Ton, Reihe, Knopf, Balgrichtung)
+import os as _os; HERE=_os.path.dirname(_os.path.abspath(__file__))
 import cv2,sys,json,pickle,collections,numpy as np,os as _os
 from PIL import Image
-sys.path.insert(0,'/tmp/claude-0/gsr')
+sys.path.insert(0,HERE)
 import gsread as G, detect as D
 from align import chords_det
 from assemble import button,pitch
 from fuchsread import druck_bars
 from rhythm import strip,beam_feats,dot_feat
 from measures import barlines,rests,fit_measure,UNIT
-RCLF=pickle.load(open('/tmp/claude-0/gsr/rhythm.pkl','rb'))
+RCLF=pickle.load(open((HERE if _os.path.exists(HERE+'/rhythm.pkl') else _os.path.join(HERE,'..','gsleser'))+'/rhythm.pkl','rb'))
 SHIFT={'GCFB':-2,'ADGC':0,'BEsAsDes':1,'HEAD':2,'CFBEs':3,'FBEsAsDes':-4,'FBEsAs':-4,'EADG':-5,'DGCF':-7}
 def load_gray(path,target_d=18.0):
     im=Image.open(path).convert('RGBA');bg=Image.new('RGBA',im.size,(255,255,255,255));bg.alpha_composite(im);g=np.array(bg.convert('L'))
@@ -19,7 +20,7 @@ def load_gray(path,target_d=18.0):
             d=float(np.median([np.mean(np.diff(s)) for s in st]))
             return cv2.resize(g,None,fx=target_d/d*f/f if False else target_d/(d/f),fy=target_d/(d/f),interpolation=cv2.INTER_CUBIC)
     return None
-def read(path,shift=0,work=None):
+def read(path,shift=0,work=None,table=None):
     """shift: Stimmung wie im Wandler (A-D-G-C = 0, G-C-F-B = -2 …)."""
     g=load_gray(path)
     if g is None: raise ValueError('Keine Notenlinien gefunden')
@@ -38,7 +39,7 @@ def read(path,shift=0,work=None):
         si=c[0]['st'];x=float(np.median([h['x'] for h in c]))
         if si==0 and x<x_start[0]+6*(st[0][4]-st[0][0])/4: continue
         dr='D' if any(a-3<=x<=b+3 for a,b,_ in bars_d.get(si,[])) else 'Z'
-        ks=[button(h['p'],h['t']) for h in c];ps=[pitch(r,n,dr) for r,n in ks]
+        ks=[button(h['p'],h['t']) for h in c];ps=[pitch(r,n,dr,table) for r,n in ks]
         hs=[(h,k,p+off) for h,k,p in zip(c,ks,ps) if p]
         if not hs: continue
         ys=st[si];d=(ys[4]-ys[0])/4;nl=G.remove_lines(bw,ys,d)
@@ -94,11 +95,21 @@ def read(path,shift=0,work=None):
     try: _os.remove(work)
     except Exception: pass
     return out,lens
-def convert(paths,shift=0,title='Gescannte Griffschrift'):
-    """Eine oder mehrere Seiten (Bilder) -> (MusicXML, Pins); Takte der Seiten hintereinander."""
+def parse_table(s):
+    """Diskantbelegung vom Wandler als JSON-Text ({"druck":{"1":[...],...},"zug":{...}}); leer oder fehlerhaft -> None (446 Normal)."""
+    if not s: return None
+    try:
+        t=json.loads(s) if isinstance(s,str) else s
+        out={}
+        for dr in ('druck','zug'):
+            out[dr]={int(r):[int(v) for v in a][:40] for r,a in t[dr].items() if int(r) in (1,2,3,4)}
+        return out if all(len(out[dr])==4 for dr in out) else None
+    except Exception: return None
+def convert(paths,shift=0,title='Gescannte Griffschrift',table=None):
+    """Eine oder mehrere Seiten (Bilder) -> (MusicXML, Pins); Takte der Seiten hintereinander. table: Diskantbelegung des Wandlers (sonst 446 Normal)."""
     allm=[];Lm=None
     for p in paths:
-        m,L=read(p,shift);allm+=m;Lm=(Lm or [])+L
+        m,L=read(p,shift,table=table);allm+=m;Lm=(Lm or [])+L
     if not allm: raise ValueError('Keine Griffschrift gefunden')
     return to_xml(allm,Lm,title,shift)
 STEP=['C','C','D','D','E','F','F','G','G','A','A','B'];ALT=[0,1,0,1,0,0,1,0,1,0,1,0]
@@ -132,6 +143,6 @@ def to_xml(meas,lens,title='Gescannte Griffschrift',shift=0):
 if __name__=='__main__':
     sh=SHIFT[sys.argv[2] if len(sys.argv)>2 else 'ADGC'];meas,Lm=read(sys.argv[1],sh)
     xml,pins=to_xml(meas,Lm,shift=sh)
-    open(sys.argv[3] if len(sys.argv)>3 else '/tmp/claude-0/gsr/out.musicxml','w').write(xml)
-    json.dump(pins,open((sys.argv[3] if len(sys.argv)>3 else '/tmp/claude-0/gsr/out.musicxml')+'.pins.json','w'))
+    open(sys.argv[3] if len(sys.argv)>3 else HERE+'/out.musicxml','w').write(xml)
+    json.dump(pins,open((sys.argv[3] if len(sys.argv)>3 else HERE+'/out.musicxml')+'.pins.json','w'))
     print('Takte',len(meas),'Taktlängen',sorted(set(l/12 for l in Lm)),'Viertel; Noten',sum(1 for m in meas for e in m if not e['rest']),'Pausen',sum(1 for m in meas for e in m if e['rest']))

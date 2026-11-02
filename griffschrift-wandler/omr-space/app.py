@@ -30,8 +30,9 @@ def scan(file):
         f.write(xml)
     return out
 
-def scan_gs(file, shift):
-    """Griffschrift (Steirische, 3-Reiher, Stil Franz Fuchs) -> JSON mit MusicXML und Griffen (Pins) für den Wandler."""
+def scan_gs(file, shift, layout=""):
+    """Griffschrift (Steirische, 3- und 4-Reiher; Stil Franz Fuchs, 4. Reihe auch als Dreieck wie bei Elke Margetich)
+    -> JSON mit MusicXML und Griffen (Pins) für den Wandler. layout: Diskantbelegung des Wandlers als JSON (leer = 446 Normal)."""
     if file is None:
         raise gr.Error("Keine Datei")
     src = file if isinstance(file, str) else file.name
@@ -44,7 +45,7 @@ def scan_gs(file, shift):
             for i, pg in enumerate(doc):
                 if i >= 4: break
                 fn = os.path.join(tmp, f"s{i}.png"); pg.get_pixmap(dpi=200).save(fn); pages.append(fn)
-        xml, pins = gs2xml.convert(pages, shift=int(shift or 0))
+        xml, pins = gs2xml.convert(pages, shift=int(shift or 0), table=gs2xml.parse_table(layout))
     except Exception as e:
         raise gr.Error("Erkennung fehlgeschlagen: " + str(e)[-400:])
     out = os.path.join(tempfile.mkdtemp(), "griffschrift.json")
@@ -66,10 +67,11 @@ nn = gr.Interface(
 gs = gr.Interface(
     fn=scan_gs,
     inputs=[gr.File(label="Foto oder PDF gedruckter Griffschrift", file_types=["image", ".pdf"]),
-            gr.Number(label="Stimmung als Verschiebung (A-D-G-C = 0, G-C-F-B = -2, B-Es-As-Des = 1 …)", value=0, precision=0)],
+            gr.Number(label="Stimmung als Verschiebung (A-D-G-C = 0, G-C-F-B = -2, B-Es-As-Des = 1 …)", value=0, precision=0),
+            gr.Textbox(label="Diskantbelegung als JSON (leer = 446 Normal; der Wandler schickt seine eingestellte Belegung mit)", value="")],
     outputs=gr.File(label="JSON mit MusicXML und Griffen"),
     title="Griffschrift lesen (Versuch)",
-    description="Gedruckte Steirische Griffschrift (3-Reiher, Stil Franz Fuchs) → Normalnoten (MusicXML) und Griffe mit Balgrichtung für den Griffschrift-Wandler. Versuchsstand.",
+    description="Gedruckte Steirische Griffschrift (3- und 4-Reiher; Stil Franz Fuchs, 4. Reihe auch als Dreieck wie bei Elke Margetich) → Normalnoten (MusicXML) und Griffe mit Balgrichtung für den Griffschrift-Wandler. Versuchsstand.",
     api_name="scan_gs",
     flagging_mode="never",
     delete_cache=(1800, 3600),
