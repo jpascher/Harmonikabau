@@ -1,0 +1,14 @@
+[Unit]
+Description=Notenerkennung (homr) fuer den Griffschrift-Wandler
+After=network.target
+
+[Service]
+User=omr
+WorkingDirectory=/opt/griffschrift-omr
+Environment=OMR_ORIGINS=https://jpascher.github.io
+ExecStart=/opt/griffschrift-omr/venv/bin/uvicorn server:app --host 127.0.0.1 --port 8701
+Restart=on-failure
+MemoryMax=6G
+
+[Install]
+WantedBy=multi-user.target

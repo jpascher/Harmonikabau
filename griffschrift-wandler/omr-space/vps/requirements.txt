@@ -1,0 +1,4 @@
+homr
+fastapi
+uvicorn
+python-multipart
