@@ -7,6 +7,7 @@ def druck_bars(g):
     _,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV);st=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1]);out={}
     for si,ys in enumerate(st):
         d=float(np.mean(np.diff(ys)));y0=int(ys[4]+1.5*d);y1=int(min(ys[4]+14*d,(st[si+1][0]-2.5*d) if si+1<len(st) else g.shape[0]))
+        if y1<=y0+2: out[si]=[];continue   # nächstes System zu nah
         band=bw[y0:y1];h=cv2.morphologyEx(band,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(int(d*3),1)))
         h=cv2.morphologyEx(h,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(1,max(2,int(d*.25)))))
         n,lab,s,_=cv2.connectedComponentsWithStats(h)
@@ -57,9 +58,11 @@ if __name__=='__main__':
     out={};T=[0,0,0]
     for f in sorted(glob.glob('/tmp/claude-0/fuchs/fuchs/*/')):
         if 'iliana' in f: continue   # 4-Reiher mit Mollbässen, eigener Fall
+        if not glob.glob(f+'GS*'): continue
         r=check(f)
         if not r: continue
         print(r['k'],'Akkorde',r['n'],'MIDI',r['midi'],'gepaart',r['paired'],'gleich',r['exact'],'Versatz',r['sh'],flush=True)
         T[0]+=r['n'];T[1]+=r['paired'];T[2]+=r['exact'];out[r['k']]=r
+        json.dump(out,open((sys.argv[1] if len(sys.argv)>1 else '/tmp/claude-0/gsr/midicheck.json')+'.part','w'),default=lambda o:o.item() if hasattr(o,'item') else str(o))
     print('gesamt Akkorde',T[0],'gepaart',T[1],'gleich',T[2],round(T[2]/max(1,T[1]),3))
     json.dump(out,open(sys.argv[1] if len(sys.argv)>1 else '/tmp/claude-0/gsr/midicheck.json','w'),default=lambda o:o.item() if hasattr(o,'item') else str(o))

@@ -3,13 +3,14 @@
 # brauchen kann und Cloudflare Antworten nach 100 Sekunden abbricht, läuft die Erkennung als Auftrag:
 #   GET  /health          -> {"ok": true, "queue": n}
 #   POST /scan            -> Formularfeld "file" (Bild oder PDF); Antwort sofort: {"id": "..."}
+#                            mit kind=gs und shift=n: Griffschrift lesen (Ergebnis JSON mit MusicXML und Griffen)
 #   GET  /job/{id}        -> {"state": "queued"|"running"|"done"|"error", "pos": n, "error": "..."}
 #   GET  /job/{id}/xml    -> MusicXML (danach wird der Auftrag gelöscht)
 # Hochgeladene Dateien liegen nur bis zum Ende der Erkennung in einem Temp-Ordner; Ergebnisse höchstens 15 Minuten.
 import asyncio, glob, os, shutil, subprocess, sys, tempfile, time, uuid
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from omr_core import scan_file   # liegt im selben Ordner (beim Einrichten mitkopieren)
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 
@@ -28,6 +29,24 @@ lock = asyncio.Lock()      # immer nur eine Erkennung gleichzeitig (Arbeitsspeic
 def run_homr(path):
     return scan_file(path, timeout=TIMEOUT)
 
+def run_gs(path, shift):
+    # Griffschrift-Leser (Ordner gsleser neben server.py bzw. eine Ebene höher im Repository)
+    import json
+    here = os.path.dirname(os.path.abspath(__file__))
+    for d in (os.path.join(here, "gsleser"), os.path.join(here, "..", "gsleser")):
+        if os.path.isdir(d) and d not in sys.path:
+            sys.path.insert(0, d)
+    import gs2xml
+    pages = [path]
+    if path.lower().endswith(".pdf"):
+        import fitz
+        doc = fitz.open(path); pages = []
+        for i, pg in enumerate(doc):
+            if i >= 4: break
+            fn = path + f".s{i}.png"; pg.get_pixmap(dpi=200).save(fn); pages.append(fn)
+    xml, pins = gs2xml.convert(pages, shift=shift)
+    return json.dumps({"xml": xml, "pins": pins})
+
 def cleanup():
     now = time.time()
     for k in [k for k, j in JOBS.items() if j["state"] in ("done", "error") and now - j["t"] > KEEP]:
@@ -38,7 +57,10 @@ async def work(jid):
     async with lock:
         j["state"] = "running"
         try:
-            j["xml"] = await asyncio.to_thread(run_homr, j["path"])
+            if j.get("kind") == "gs":
+                j["xml"] = await asyncio.to_thread(run_gs, j["path"], j.get("shift", 0))
+            else:
+                j["xml"] = await asyncio.to_thread(run_homr, j["path"])
             j["state"] = "done"
         except subprocess.TimeoutExpired:
             j["state"], j["error"] = "error", "Erkennung dauerte zu lange"
@@ -55,7 +77,7 @@ def health():
     return {"ok": True, "queue": len(ORDER)}
 
 @app.post("/scan")
-async def scan(file: UploadFile = File(...)):
+async def scan(file: UploadFile = File(...), kind: str = Form("nn"), shift: int = Form(0)):
     cleanup()
     if len(ORDER) >= MAX_QUEUE:
         raise HTTPException(503, "Gerade zu viele Aufträge, bitte später noch einmal")
@@ -70,7 +92,7 @@ async def scan(file: UploadFile = File(...)):
     with open(path, "wb") as f:
         f.write(data)
     jid = uuid.uuid4().hex
-    JOBS[jid] = {"state": "queued", "path": path, "work": work_dir, "xml": None, "error": "", "t": time.time()}
+    JOBS[jid] = {"state": "queued", "path": path, "work": work_dir, "xml": None, "error": "", "t": time.time(), "kind": kind, "shift": shift}
     ORDER.append(jid)
     asyncio.create_task(work(jid))
     return {"id": jid}
@@ -89,4 +111,5 @@ def job_xml(jid: str):
     if not j or j["state"] != "done":
         raise HTTPException(404, "Kein Ergebnis")
     JOBS.pop(jid, None)
-    return Response(content=j["xml"], media_type="application/vnd.recordare.musicxml+xml")
+    mt = "application/json" if j.get("kind") == "gs" else "application/vnd.recordare.musicxml+xml"
+    return Response(content=j["xml"], media_type=mt)

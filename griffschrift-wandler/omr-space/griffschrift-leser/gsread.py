@@ -4,19 +4,28 @@ import cv2, numpy as np, json, sys
 def staves(bw):
     """5-Linien-Systeme über die waagrechte Projektion finden; liefert Liste von 5 y-Werten."""
     h, w = bw.shape
-    prof = bw.sum(axis=1) / 255
-    rows = [y for y in range(h) if prof[y] > 0.6 * prof.max() and prof[y] > 0.15 * w]
+    # nur lange waagrechte Striche zählen (Balken und Köpfe fallen weg, sonst verschmelzen sie mit einer Linie)
+    lin = cv2.morphologyEx(bw, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (max(20, int(w * 0.08)), 1)))
+    prof = lin.sum(axis=1) / 255
+    rows = [y for y in range(h) if prof[y] > 0.3 * prof.max() and prof[y] > 0.15 * w]   # 0,3: auch kurze Systeme (z. B. vor „Fine“); fünf gleich weite Linien filtern den Rest
     # benachbarte Zeilen zusammenfassen (Liniendicke)
     lines = []
     for y in rows:
         if lines and y - lines[-1][-1] <= 1: lines[-1].append(y)
         else: lines.append([y])
     ys = [sum(l) / len(l) for l in lines]
-    out, i = [], 0
-    while i + 4 < len(ys):
+    # alle Fünfergruppen bewerten (Schwankung der Abstände), die gleichmäßigsten zuerst nehmen, ohne Überlappung
+    cand = []
+    for i in range(len(ys) - 4):
         g = ys[i:i + 5]; d = np.diff(g)
-        if d.max() - d.min() <= 2 and d.mean() > 4: out.append(g); i += 5
-        else: i += 1
+        if d.mean() > 4 and d.max() - d.min() <= max(2, 0.25 * d.mean()): cand.append(((d.max() - d.min()) / d.mean(), i))
+    used = set(); out = []
+    for _, i in sorted(cand):
+        if any(j in used for j in range(i, i + 5)): continue
+        used.update(range(i, i + 5)); g = ys[i:i + 5]
+        # gleichmäßig ausgleichen (eine Linie kann durch einen anliegenden Balken leicht verschoben sein)
+        k = np.arange(5); a1, a0 = np.polyfit(k, g, 1); out.append([float(a0 + a1 * q) for q in k])
+    out.sort(key=lambda g: g[0])
     return out
 
 def remove_lines(bw, ys, d):

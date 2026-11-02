@@ -1,9 +1,10 @@
 # Notenerkennung (OMR) für den Griffschrift-Wandler als Hugging Face Space (Gradio): Foto oder PDF -> MusicXML mit homr
 # (https://github.com/liebharc/homr, AGPL-3.0). Der Wandler ruft die Funktion „scan“ über die Gradio-Schnittstelle auf
 # (/gradio_api/upload, /gradio_api/call/scan). homr rechnet mit onnxruntime auf der CPU, eine Grafikkarte braucht es nicht.
-import os, tempfile
+import os, sys, json, tempfile
 import gradio as gr
 from omr_core import scan_file
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "gsleser"))
 
 # homr rechnet auf der CPU. Auf ZeroGPU-Hardware läuft normaler Code im CPU-Teil des Space ohne Rechenzeit-Kontingent;
 # nur mit @spaces.GPU gekennzeichnete Funktionen verbrauchen das (für anonyme Aufrufe sehr knappe) GPU-Kontingent.
@@ -29,7 +30,29 @@ def scan(file):
         f.write(xml)
     return out
 
-demo = gr.Interface(
+def scan_gs(file, shift):
+    """Griffschrift (Steirische, 3-Reiher, Stil Franz Fuchs) -> JSON mit MusicXML und Griffen (Pins) für den Wandler."""
+    if file is None:
+        raise gr.Error("Keine Datei")
+    src = file if isinstance(file, str) else file.name
+    try:
+        import gs2xml
+        pages = [src]
+        if src.lower().endswith(".pdf"):
+            import fitz
+            doc = fitz.open(src); tmp = tempfile.mkdtemp(); pages = []
+            for i, pg in enumerate(doc):
+                if i >= 4: break
+                fn = os.path.join(tmp, f"s{i}.png"); pg.get_pixmap(dpi=200).save(fn); pages.append(fn)
+        xml, pins = gs2xml.convert(pages, shift=int(shift or 0))
+    except Exception as e:
+        raise gr.Error("Erkennung fehlgeschlagen: " + str(e)[-400:])
+    out = os.path.join(tempfile.mkdtemp(), "griffschrift.json")
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump({"xml": xml, "pins": pins}, f)
+    return out
+
+nn = gr.Interface(
     fn=scan,
     inputs=gr.File(label="Foto oder PDF gedruckter Noten", file_types=["image", ".pdf"]),
     outputs=gr.File(label="MusicXML"),
@@ -39,6 +62,20 @@ demo = gr.Interface(
     flagging_mode="never",
     delete_cache=(1800, 3600),   # hochgeladene Dateien und Ergebnisse nach spätestens einer Stunde löschen
 )
+
+gs = gr.Interface(
+    fn=scan_gs,
+    inputs=[gr.File(label="Foto oder PDF gedruckter Griffschrift", file_types=["image", ".pdf"]),
+            gr.Number(label="Stimmung als Verschiebung (A-D-G-C = 0, G-C-F-B = -2, B-Es-As-Des = 1 …)", value=0, precision=0)],
+    outputs=gr.File(label="JSON mit MusicXML und Griffen"),
+    title="Griffschrift lesen (Versuch)",
+    description="Gedruckte Steirische Griffschrift (3-Reiher, Stil Franz Fuchs) → Normalnoten (MusicXML) und Griffe mit Balgrichtung für den Griffschrift-Wandler. Versuchsstand.",
+    api_name="scan_gs",
+    flagging_mode="never",
+    delete_cache=(1800, 3600),
+)
+
+demo = gr.TabbedInterface([nn, gs], ["Normalnoten", "Griffschrift (Versuch)"])
 
 if __name__ == "__main__":
     demo.queue(max_size=8).launch()

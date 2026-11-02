@@ -9,6 +9,7 @@ Voraussetzungen: Linux (die Befehle gelten für Debian oder Ubuntu), Python 3.11
     apt install python3 python3-venv nginx
     useradd --system --home /opt/griffschrift-omr --create-home omr
     cp server.py requirements.txt ../omr_core.py /opt/griffschrift-omr/
+    cp -r ../gsleser /opt/griffschrift-omr/
     cd /opt/griffschrift-omr
     sudo -u omr python3 -m venv venv
     sudo -u omr venv/bin/pip install -r requirements.txt
@@ -45,6 +46,8 @@ In griffschrift-wandler/index.html die Zeile `const OMR_URL="";` ändern in
     const OMR_URL="https://scan.hyperbox.org";
 
 und pushen. Dann erscheint im Dialog „📷 Noten scannen …“ nach dem Häkchen die Zeile „Erkennungsserver des Wandlers (scan.hyperbox.org)“. Zugriffe erlaubt der Dienst nur von https://jpascher.github.io (Einstellung `OMR_ORIGINS` in der .service-Datei; mehrere Adressen mit Komma trennen).
+
+Der Ordner gsleser enthält den Griffschrift-Leser samt seinen beiden angelernten Modellen (heads.pkl, rhythm.pkl). Er wird nur gebraucht, wenn im Wandler „Griffschrift“ gewählt ist; scikit-learn muss genau in der Version aus requirements.txt installiert sein, sonst lassen sich die Modelle nicht laden.
 
 ## Pflege
 

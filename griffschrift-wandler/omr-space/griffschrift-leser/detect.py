@@ -13,13 +13,18 @@ def detect(path, scale=2, thr=0.5):
         # Kandidaten: alle Lagen und Spalten, an denen nach Entfernen von Linien und Hälsen genug Tinte in Kopfgröße liegt
         ink = cv2.boxFilter((nol > 0).astype(np.float32), -1, (max(3, int(d * 0.9)), max(3, int(d * 0.6))))
         cand = []; F = []
+        # einmal je System rändern statt bei jedem Ausschnitt (gleiches Ergebnis wie train.patch, aber viel schneller)
+        r = int(d * 0.9); bwp = cv2.copyMakeBorder(bw, r * 2, r * 2, r * 2, r * 2, cv2.BORDER_CONSTANT, value=0); nolp = cv2.copyMakeBorder(nol, r * 2, r * 2, r * 2, r * 2, cv2.BORDER_CONSTANT, value=0)
+        def fpatch(pad, x, y):
+            x0, y0 = int(round(x)) - r, int(round(y)) - r
+            return cv2.resize(pad[y0 + 2 * r:y0 + 4 * r, x0 + 2 * r:x0 + 4 * r], (20, 20), interpolation=cv2.INTER_AREA).ravel()
         for p in range(-13, 13):
             y = int(round(mid + 0.5 - p * d / 2))
             if not (0 <= y < bw.shape[0]): continue
             row = ink[y]
             for x in range(int(d * 2), bw.shape[1] - int(d), 2):
                 if row[x] >= INK:
-                    F.append(np.concatenate([patch(bw, x, y, d), patch(nol, x, y, d)])); cand.append((x, y, p, float(row[x])))
+                    F.append(np.concatenate([fpatch(bwp, x, y), fpatch(nolp, x, y)])); cand.append((x, y, p, float(row[x])))
         if not cand: continue
         pr = clf.predict_proba(np.array(F))
         hits = [(round(1 - pr[i][0], 3), cand[i][:3], int(np.argmax(pr[i][1:])) + 1) for i in range(len(cand)) if pr[i][0] < 1 - thr]

@@ -3,3 +3,5 @@ pymupdf
 fastapi
 uvicorn
 python-multipart
+scikit-learn==1.9.1
+mido
