@@ -481,7 +481,7 @@ button.ghost2{background:transparent;color:var(--accent)}
     </section>
     <section id="h-laden"><h3>Noten laden</h3>
       <p><b>MusicXML</b> (.musicxml, .xml, .mxl) ist das beste Format. Es kommt aus MuseScore, Finale, Sibelius, Capella und den meisten Notenprogrammen über „Exportieren“. Akkordsymbole in der Datei werden übernommen, ebenso Wiederholungszeichen und 1./2. Schluss. Liedtext samt Silbentrennung und mehreren Strophen wird unter der Griffschrift gezeigt.</p>
-      <p><b>MIDI</b> (.mid) geht auch. Die höchste Spur wird zur Melodie, gleichzeitige Töne werden zu Doppelgriffen, die tiefste Spur liefert die Stufen. Eine Spur, die fast nur aus Akkorden besteht (etwa aus LilyPond), wird als Akkordspur erkannt: Sie wird nicht zur Melodie, sondern gibt die Stufen vor, und fehlt eine eigene Bassspur, kommt der Grundbass aus ihren Akkorden. Steht in der MIDI-Datei ein Liedtext, erscheint er unter der Griffschrift; ohne Trennstriche in der Datei steht jede Silbe für sich. Bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> gibt es zu fast jedem Volkstanz eine MIDI-Datei (Satz Franz Fuchs): Stück öffnen, „Midi-Datei downloaden“, hier hineinziehen.</p>
+      <p><b>MIDI</b> (.mid) geht auch. Die höchste Spur wird zur Melodie, gleichzeitige Töne werden zu Doppelgriffen, die tiefste Spur liefert die Stufen. Eine Spur, die fast nur aus Akkorden besteht (etwa aus LilyPond), wird als Akkordspur erkannt: Sie wird nicht zur Melodie, sondern gibt die Stufen vor, und fehlt eine eigene Bassspur, kommt der Grundbass aus ihren Akkorden. Liegen Melodie und Akkorde in einer Spur auf verschiedenen Kanälen, werden sie getrennt. Steht in der MIDI-Datei ein Liedtext, erscheint er unter der Griffschrift; ohne Trennstriche in der Datei steht jede Silbe für sich. Bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> gibt es zu fast jedem Volkstanz eine MIDI-Datei (Satz Franz Fuchs): Stück öffnen, „Midi-Datei downloaden“, hier hineinziehen.</p>
       <p>Hat eine MusicXML-Datei mehrere Stimmen, wählst du unter <b>Stimme</b> die Melodiestimme. <b>Stimmen im Diskant</b> bestimmt, ob nur die Melodie oder auch die 2., 3. und 4. Stimme aus der Datei mitgegriffen werden.</p>
     </section>
     <section id="h-audio"><h3>Aufnahme oder Audio-Datei in Noten</h3>
@@ -617,7 +617,7 @@ button.ghost2{background:transparent;color:var(--accent)}
     </section>
     <section id="e-laden"><h3>Loading music</h3>
       <p><b>MusicXML</b> (.musicxml, .xml, .mxl) is the best format. MuseScore, Finale, Sibelius, Capella and most notation programs write it via “Export”. Chord symbols in the file are used, as are repeat signs and first/second endings. Lyrics, including hyphenation and several verses, are shown below the Griffschrift.</p>
-      <p><b>MIDI</b> (.mid) works too. The highest track becomes the melody, simultaneous notes become double stops, and the lowest track supplies the harmonic degrees. A track made up almost entirely of chords (for example from LilyPond) is recognised as a chord track: it does not become the melody but sets the harmonic degrees, and if there is no separate bass track the bass notes are taken from its chords. If the MIDI file contains lyrics, they are shown below the Griffschrift; without hyphens in the file each syllable stands on its own. <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> has a MIDI file for almost every Austrian folk dance (arrangements by Franz Fuchs): open the tune, click “Midi-Datei downloaden”, drop the file here.</p>
+      <p><b>MIDI</b> (.mid) works too. The highest track becomes the melody, simultaneous notes become double stops, and the lowest track supplies the harmonic degrees. A track made up almost entirely of chords (for example from LilyPond) is recognised as a chord track: it does not become the melody but sets the harmonic degrees, and if there is no separate bass track the bass notes are taken from its chords. If melody and chords share one track on different channels, they are separated. If the MIDI file contains lyrics, they are shown below the Griffschrift; without hyphens in the file each syllable stands on its own. <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> has a MIDI file for almost every Austrian folk dance (arrangements by Franz Fuchs): open the tune, click “Midi-Datei downloaden”, drop the file here.</p>
       <p>If a MusicXML file has several parts, pick the melody under <b>Part</b>. <b>Voices in the treble</b> decides whether only the melody or also the second, third and fourth voice from the file are played.</p>
     </section>
     <section id="e-audio"><h3>Recording or audio file to music</h3>
@@ -1134,7 +1134,7 @@ let PARTS=[],TITLE="";
 let LASTXML="";   // zuletzt geladene Noten (für „Noten speichern“)
 function loadXMLText(txt){LASTXML=txt;
   const doc=new DOMParser().parseFromString(txt,"application/xml");
-  if(doc.querySelector("parsererror"))throw new Error("Die Datei ist kein lesbares MusicXML.");
+  if(doc.querySelector("parsererror"))throw new Error(TX("Die Datei ist kein lesbares MusicXML.","The file is not readable MusicXML."));
   if(doc.documentElement.nodeName==="score-timewise")throw new Error(TX("Diese Datei ist im Format „timewise“. Bitte als normales MusicXML (partwise) exportieren.","This file is in “timewise” format. Please export it as normal (partwise) MusicXML."));
   if(doc.documentElement.nodeName!=="score-partwise")throw new Error(TX("In der Datei wurde keine Partitur gefunden.","No score was found in this file."));
   PARTS=[...doc.querySelectorAll("score-partwise > part")];
@@ -2448,8 +2448,10 @@ function midiToXML(buf,title){
       else{const hi=st&0xF0,ch=st&15,a=u8(),c=(hi===0xC0||hi===0xD0)?0:u8();
         if(ch===9)continue;
         if(hi===0x90&&c>0)on[ch+"_"+a]=tick;
-        else if((hi===0x80||(hi===0x90&&c===0))&&on[ch+"_"+a]!=null){tr.notes.push({on:on[ch+"_"+a]/div,len:(tick-on[ch+"_"+a])/div,m:a});delete on[ch+"_"+a];}}}
-    p=end;if(tr.lyr.length)LY.push(tr.lyr);if(tr.notes.length)tracks.push(tr);
+        else if((hi===0x80||(hi===0x90&&c===0))&&on[ch+"_"+a]!=null){tr.notes.push({on:on[ch+"_"+a]/div,len:(tick-on[ch+"_"+a])/div,m:a,ch});delete on[ch+"_"+a];}}}
+    p=end;if(tr.lyr.length)LY.push(tr.lyr);
+    {const chs=[...new Set(tr.notes.map(n=>n.ch))];   // mehrere Kanäle in einer Spur (Format 0): je Kanal eine eigene Spur
+      if(chs.length>1)chs.forEach((c,i)=>tracks.push({notes:tr.notes.filter(n=>n.ch===c),lyr:[],txt:i?[]:tr.txt}));else if(tr.notes.length)tracks.push(tr);}
   }
   if(!tracks.length)throw new Error(TX("In der MIDI-Datei stehen keine Noten.","The MIDI file contains no notes."));
   const avg=t=>t.notes.reduce((s,n)=>s+n.m,0)/t.notes.length;
@@ -2539,7 +2541,7 @@ function midiToXML(buf,title){
     const last=[...items].reverse().find(it=>!it.rest);if(last&&last.ps[last.ps.length-1]%12===k)v+=4;
     const lb=bas.length?bas.reduce((a,b)=>a.on>b.on?a:b):null;if(lb&&lb.m%12===k)v+=4;
     if(v>bestK){bestK=v;keyPc=k;}}
-  const kE=[];[...ksE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const pc=mod(e.f*7+(e.mi?3:0),12),t=Q(e.t);if(kE.length&&Math.abs(kE[kE.length-1].t-t)<1e-6)kE[kE.length-1]={t,pc};else if(!kE.length||kE[kE.length-1].pc!==pc)kE.push({t,pc});});
+  const kE=[];[...ksE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const pc=mod(e.f*7,12),t=Q(e.t);if(kE.length&&Math.abs(kE[kE.length-1].t-t)<1e-6)kE[kE.length-1]={t,pc};else if(!kE.length||kE[kE.length-1].pc!==pc)kE.push({t,pc});});
   if(kE.length)kE[0].t=0;info.keyChanges=Math.max(0,kE.length-1);
   // Tonart der Datei nur, wenn sie zu den Tönen passt (sonst die geschätzte)
   const scaleFit=(k,a,b)=>{const sc=[0,2,4,5,7,9,11].map(x=>(x+k)%12);let v=0,tot=0;items.forEach(it=>{if(it.rest||it.on<a-1e-6||it.on>=b-1e-6)return;it.ps.forEach(m=>{tot+=it.dur;if(sc.includes(m%12))v+=it.dur;});});return tot?v/tot:1;};
@@ -2552,15 +2554,15 @@ function midiToXML(buf,title){
   bars.forEach((br,mi)=>{const L=br.len,b0=basIn(br.s,br.s+L);
     const r1=b0.find(n=>Math.abs(Q(n.on)-br.s)<1e-6)||b0[0]||null;
     const half=L>=4?b0.find(n=>Math.abs(Q(n.on)-(br.s+L/2))<1e-6):null;
-    const split=r1&&half&&mod(half.m-r1.m,12)!==0&&mod(half.m-r1.m,12)!==7&&mod(r1.m-half.m,12)!==7;
+    let split=r1&&half&&mod(half.m-r1.m,12)!==0&&mod(half.m-r1.m,12)!==7&&mod(r1.m-half.m,12)!==7;
+    if(chd.length&&L>=4&&r1&&half){const a=chd.find(x=>Q(x.on)<=br.s+1e-6&&x.end>br.s+1e-6),h=chd.find(x=>Math.abs(Q(x.on)-(br.s+L/2))<1e-6);if(a&&h&&(a.pc!==h.pc||a.minor!==h.minor))split=true;}   // Akkordspur wechselt in der Taktmitte
     if(split){units.push({mi,on:0,a:br.s,b:br.s+L/2,bp:r1.m});units.push({mi,on:L/2,a:br.s+L/2,b:br.s+L,bp:half.m});}
     else units.push({mi,on:0,a:br.s,b:br.s+L,bp:r1?r1.m:null});});
   const CH=[{o:0,mn:0,pr:0},{o:7,mn:0,pr:0,sev:1},{o:5,mn:0,pr:0.8},{o:2,mn:1,pr:1.8},{o:9,mn:1,pr:1.6},{o:2,mn:0,pr:2.0,sev:1},{o:4,mn:1,pr:2.4},{o:4,mn:0,pr:2.4,sev:1},{o:9,mn:0,pr:2.6,sev:1},{o:10,mn:0,pr:2.6}];
   const cands=k=>CH.map(c=>({pc:mod(k+c.o,12),minor:!!c.mn,pr:c.pr,sev:c.sev?mod(k+c.o+10,12):null}));
   const ucost=(u,c)=>{const tones=[c.pc,mod(c.pc+(c.minor?3:4),12),mod(c.pc+7,12)];let v=c.pr;
     // Akkordspur: der Akkord, der im Abschnitt am längsten klingt, gibt die Stufe vor
-    if(chd.length){let bx=null,bl=1e-6;for(const x of chd){const l=Math.min(u.b,x.end)-Math.max(u.a,Q(x.on));if(l>bl){bl=l;bx=x;}}
-      if(bx)v+=bx.pc===c.pc?(!!bx.minor===!!c.minor?-3:-1):2;}
+    if(u.cx){const bx=u.cx;v+=bx.pc===c.pc?(!!bx.minor===!!c.minor?-3:-1):2;}
     // Basstöne: der erste zählt voll, weitere auf Schlägen schwächer (Grundton–Quint-Wechsel zeigt den Grundton)
     {const bn=basIn(u.a,u.b).filter(n=>Math.abs(Q(n.on)-Math.round(Q(n.on)))<1e-6);const seen=new Set();let first=true;
       for(const n of bn){const o=Q(n.on);if(seen.has(o))continue;seen.add(o);const q=mod(n.m,12),w=first?1:0.6;first=false;v+=w*(q===c.pc?-2:q===tones[2]?-1:q===tones[1]?0.3:1.5);}
@@ -2569,7 +2571,8 @@ function midiToXML(buf,title){
     return v;};
   // Viterbi über die Abschnitte: gleicher Akkord kostet nichts, ein Wechsel wenig, V→I ist erwünscht
   let prev=null;const back=[];
-  units.forEach((u,i)=>{const C=cands(keyAt(u.a));u.C=C;const cur=C.map(c=>{const uc=ucost(u,c);if(!prev)return {v:uc,bk:-1};let best=1e9,bk=-1;
+  units.forEach(u=>{if(!chd.length)return;let bl=1e-6;for(const x of chd){const l=Math.min(u.b,x.end)-Math.max(u.a,Q(x.on));if(l>bl){bl=l;u.cx=x;}}});
+  units.forEach((u,i)=>{const C=cands(keyAt(u.a));if(u.cx&&!C.some(c=>c.pc===u.cx.pc&&c.minor===u.cx.minor))C.push({pc:u.cx.pc,minor:u.cx.minor,pr:0.5,sev:null});u.C=C;const cur=C.map(c=>{const uc=ucost(u,c);if(!prev)return {v:uc,bk:-1};let best=1e9,bk=-1;
       prev.forEach((p,j)=>{const pc=units[i-1].C[j];let tr=pc.pc===c.pc&&pc.minor===c.minor?0:0.4;if(!c.minor&&c.pc===keyAt(u.a)&&!pc.minor&&pc.pc===mod(keyAt(u.a)+7,12))tr-=0.2;const x=p.v+tr;if(x<best){best=x;bk=j;}});
       return {v:best+uc,bk};});back.push(cur);prev=cur;});
   const harm=[...Array(nM)].map(()=>[]);
