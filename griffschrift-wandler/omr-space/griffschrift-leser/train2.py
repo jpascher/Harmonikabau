@@ -2,7 +2,9 @@
 import numpy as np,pickle,sys
 from sklearn.ensemble import HistGradientBoostingClassifier as H
 S=np.load('/tmp/claude-0/gsr/synth_cache.npz');R=np.load('/tmp/claude-0/gsr/real_train.npz')
-X=np.concatenate([S['X'],R['X'],R['X']]);Y=np.concatenate([S['Y'],R['Y'],R['Y']]);Y[Y==4]=3
+rng=np.random.default_rng(0);RY=R['Y'];keep=np.r_[np.where(RY!=0)[0],rng.choice(np.where(RY==0)[0],min((RY==0).sum(),35000),replace=False)]
+SY=S['Y'];sk=np.r_[np.where(SY!=0)[0],rng.choice(np.where(SY==0)[0],int((SY==0).sum()*0.8),replace=False)]   # Speicher
+X=np.concatenate([S['X'][sk],R['X'][keep]]);Y=np.concatenate([SY[sk],RY[keep]]);Y[Y==4]=3
 _,inv=np.unique(X,axis=0,return_inverse=True);inv=inv.ravel()
 first={};bad=set()
 for k,y in zip(inv,Y):

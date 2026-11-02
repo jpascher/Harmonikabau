@@ -8,7 +8,8 @@ def folder(k):
         fs=glob.glob(f'/tmp/claude-0/fuchs/fuchs/{c}/GS*')
         if fs: return fs[0]
 def upscale(src,dst):
-    g=np.array(Image.open(src).convert('L'));g=cv2.resize(g,None,fx=3,fy=3,interpolation=cv2.INTER_CUBIC);cv2.imwrite(dst,g);return dst
+    im=Image.open(src).convert('RGBA');bg=Image.new('RGBA',im.size,(255,255,255,255));bg.alpha_composite(im)   # durchsichtiger Hintergrund -> weiß
+    g=np.array(bg.convert('L'));g=cv2.resize(g,None,fx=3,fy=3,interpolation=cv2.INTER_CUBIC);cv2.imwrite(dst,g);return dst
 def chords_det(det):
     out=[]
     for st in sorted(set(h['st'] for h in det)):
