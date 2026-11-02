@@ -1,11 +1,14 @@
 import cv2, numpy as np, json, sys, pickle
 sys.path.insert(0, '/tmp/claude-0/gsr'); import gsread as G; from train import patch, CL
+INK = 0.12
 clf = pickle.load(open('/tmp/claude-0/gsr/heads.pkl', 'rb'))
 
 def detect(path, scale=2, thr=0.5):
     g = cv2.imread(path, 0); _, bw = cv2.threshold(g, 200, 255, cv2.THRESH_BINARY_INV)
     out = []
-    for ys in G.staves(bw):
+    # Linien suchen mit hellerer Schwelle: gedruckte Notenlinien sind oft grau
+    _, bwl = cv2.threshold(g, 240, 255, cv2.THRESH_BINARY_INV)
+    for si, ys in enumerate(G.staves(bwl)):
         d = float(np.mean(np.diff(ys))); nol = G.stems_off(G.remove_lines(bw, ys, d), d); mid = ys[2]
         # Kandidaten: alle Lagen und Spalten, an denen nach Entfernen von Linien und Hälsen genug Tinte in Kopfgröße liegt
         ink = cv2.boxFilter((nol > 0).astype(np.float32), -1, (max(3, int(d * 0.9)), max(3, int(d * 0.6))))
@@ -15,7 +18,7 @@ def detect(path, scale=2, thr=0.5):
             if not (0 <= y < bw.shape[0]): continue
             row = ink[y]
             for x in range(int(d * 2), bw.shape[1] - int(d), 2):
-                if row[x] >= 0.28:
+                if row[x] >= INK:
                     F.append(np.concatenate([patch(bw, x, y, d), patch(nol, x, y, d)])); cand.append((x, y, p, float(row[x])))
         if not cand: continue
         pr = clf.predict_proba(np.array(F))
@@ -35,7 +38,7 @@ def detect(path, scale=2, thr=0.5):
             if all(abs(x - k[2][0]) > d * (1.3 if k[2][2] == p else 0.8) or abs(k[2][2] - p) > 1 for k in keep): keep.append((sc, gq, (x, y, p), c))
         keep = [(sc, xyp, c) for sc, gq, xyp, c in keep]
         for sc, (x, y, p), c in keep:
-            out.append({'x': x / scale, 'y': y / scale, 'p': p, 't': CL[clf.classes_[c]][0] if False else CL[c][0], 'fill': CL[c].endswith('f'), 'sc': round(float(sc), 2)})
+            out.append({'x': x / scale, 'y': y / scale, 'p': p, 't': CL[clf.classes_[c]][0] if False else CL[c][0], 'fill': CL[c].endswith('f'), 'sc': round(float(sc), 2), 'st': si, 'd': d / scale, 'mid': mid / scale})
     return out
 
 if __name__ == '__main__':

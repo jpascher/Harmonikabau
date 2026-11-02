@@ -25,7 +25,7 @@ def ocr():
 
 def read_line(path, scale=2):
     g = cv2.imread(path, 0); _, bw = cv2.threshold(g, 200, 255, cv2.THRESH_BINARY_INV)
-    st = G.staves(bw)
+    st = G.staves(cv2.threshold(g, 240, 255, cv2.THRESH_BINARY_INV)[1])  # Linien oft grau
     if not st: return [], []
     ys = st[0]; d = float(np.mean(np.diff(ys)))
     hs = detect(path, scale)
