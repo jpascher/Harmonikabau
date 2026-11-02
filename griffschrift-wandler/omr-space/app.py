@@ -1,13 +1,14 @@
-# Notenerkennung (OMR) für den Griffschrift-Wandler: Foto oder PDF gedruckter Noten -> MusicXML, mit homr
-# (https://github.com/liebharc/homr, AGPL-3.0). Läuft als Gradio-Space bei Hugging Face; der Wandler ruft die
-# Funktion „scan“ über die Gradio-Schnittstelle auf (/gradio_api/upload, /gradio_api/call/scan).
-import os, shutil, subprocess, tempfile, glob
+# Notenerkennung (OMR) für den Griffschrift-Wandler als Hugging Face Space (Gradio): Foto oder PDF -> MusicXML mit homr
+# (https://github.com/liebharc/homr, AGPL-3.0). Der Wandler ruft die Funktion „scan“ über die Gradio-Schnittstelle auf
+# (/gradio_api/upload, /gradio_api/call/scan). homr rechnet mit onnxruntime auf der CPU, eine Grafikkarte braucht es nicht.
+import os, tempfile
 import gradio as gr
+from omr_core import scan_file
 
-try:                      # ZeroGPU (kostenlos für ältere, bestätigte Konten): Funktion bekommt für die Dauer des Aufrufs eine GPU
+try:                      # ZeroGPU-Space (kostenlos für Konten älter als 30 Tage): Funktion muss so gekennzeichnet sein
     import spaces
-    gpu = spaces.GPU(duration=180)
-except Exception:         # CPU-Space (PRO) oder lokal: ohne Dekorator
+    gpu = spaces.GPU(duration=120)
+except Exception:         # CPU-Space oder lokal
     gpu = lambda f: f
 
 @gpu
@@ -15,24 +16,21 @@ def scan(file):
     if file is None:
         raise gr.Error("Keine Datei")
     src = file if isinstance(file, str) else file.name
-    work = tempfile.mkdtemp()
-    name = os.path.basename(src)
-    dst = os.path.join(work, name)
-    shutil.copy(src, dst)
-    # homr schreibt die MusicXML-Datei neben das Bild (gleicher Name, Endung .musicxml)
-    r = subprocess.run(["homr", dst], capture_output=True, text=True, timeout=900)
-    out = sorted(glob.glob(os.path.join(work, "*.musicxml")))
-    if r.returncode != 0 or not out:
-        raise gr.Error("Erkennung fehlgeschlagen: " + (r.stderr or r.stdout)[-800:])
-    return out[0]
+    try:
+        xml = scan_file(src, timeout=300, max_pages=4)
+    except Exception as e:
+        raise gr.Error("Erkennung fehlgeschlagen: " + str(e)[-400:])
+    out = os.path.join(tempfile.mkdtemp(), "noten.musicxml")
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(xml)
+    return out
 
 demo = gr.Interface(
     fn=scan,
     inputs=gr.File(label="Foto oder PDF gedruckter Noten", file_types=["image", ".pdf"]),
     outputs=gr.File(label="MusicXML"),
     title="Notenerkennung für den Griffschrift-Wandler",
-    description="Lädt ein Foto oder eine PDF gedruckter Noten und liefert MusicXML (homr). "
-                "Die Datei wird auf diesem Server verarbeitet und danach nicht aufbewahrt.",
+    description="Foto oder PDF gedruckter Noten → MusicXML (homr). Die Datei wird nur für die Erkennung verwendet und nicht aufbewahrt.",
     api_name="scan",
     flagging_mode="never",
 )

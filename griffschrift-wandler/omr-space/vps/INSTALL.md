@@ -1,6 +1,6 @@
 # Erkennungsserver auf dem eigenen virtuellen Server (hyperbox.org)
 
-Dieser Ordner enthält einen kleinen Webdienst, der Fotos oder PDFs gedruckter Noten mit homr in MusicXML umwandelt. Der Griffschrift-Wandler schickt die Datei nach dem Häkchen „Verstanden“ dorthin, fragt alle drei Sekunden nach dem Stand und lädt das Ergebnis direkt. Die Erkennung läuft als Auftrag, weil Cloudflare Antworten nach 100 Sekunden abbricht und eine Seite ein bis zwei Minuten brauchen kann. Hochgeladene Dateien liegen nur während der Erkennung in einem Temp-Ordner, Ergebnisse werden nach dem Abholen gelöscht, spätestens nach 15 Minuten. Es läuft immer nur eine Erkennung gleichzeitig, höchstens zehn Aufträge warten.
+Dieser Ordner enthält einen kleinen Webdienst, der Fotos oder PDFs gedruckter Noten mit homr in MusicXML umwandelt. Der Griffschrift-Wandler schickt die Datei nach dem Häkchen „Verstanden“ dorthin, fragt alle drei Sekunden nach dem Stand und lädt das Ergebnis direkt. Die Erkennung läuft als Auftrag, weil Cloudflare Antworten nach 100 Sekunden abbricht und eine mehrseitige PDF länger brauchen kann. Hochgeladene Dateien liegen nur während der Erkennung in einem Temp-Ordner, Ergebnisse werden nach dem Abholen gelöscht, spätestens nach 15 Minuten. Es läuft immer nur eine Erkennung gleichzeitig, höchstens zehn Aufträge warten.
 
 Voraussetzungen: Linux (die Befehle gelten für Debian oder Ubuntu), Python 3.11 oder 3.12, mindestens 4 GB Arbeitsspeicher (besser 8 GB; nachsehen mit `free -h`), einige GB freier Platz für Python-Pakete und Modelle. Eine Grafikkarte ist nicht nötig.
 
@@ -8,12 +8,12 @@ Voraussetzungen: Linux (die Befehle gelten für Debian oder Ubuntu), Python 3.11
 
     apt install python3 python3-venv nginx
     useradd --system --home /opt/griffschrift-omr --create-home omr
-    cp server.py requirements.txt /opt/griffschrift-omr/
+    cp server.py requirements.txt ../omr_core.py /opt/griffschrift-omr/
     cd /opt/griffschrift-omr
     sudo -u omr python3 -m venv venv
     sudo -u omr venv/bin/pip install -r requirements.txt
 
-Einmal von Hand testen; beim ersten Aufruf lädt homr seine Modelle herunter, das dauert:
+Einmal von Hand testen; beim ersten Aufruf lädt homr seine Modelle herunter, das dauert (homr rechnet mit onnxruntime auf der CPU; eine einzeilige Melodie braucht auf zwei Kernen etwa 10 bis 20 Sekunden, eine volle Seite entsprechend länger). PDFs zerlegt der Dienst selbst in Seitenbilder:
 
     sudo -u omr venv/bin/homr /pfad/zu/einem/notenfoto.png
 

@@ -2884,7 +2884,7 @@ async function omrSend(file,prog){const base=OMR_URL.replace(/\/$/,"");let pre=n
     const {id}=await r.json();const t0=Date.now();
     for(;;){await new Promise(z=>setTimeout(z,3000));const j=await (await fetch(base+"/job/"+id)).json();
       if(j.state==="done")break;if(j.state==="error"||j.detail)throw new Error(j.error||j.detail);
-      const s=Math.round((Date.now()-t0)/1000);prog&&prog(j.state==="queued"&&j.pos>0?TX(`Wartet auf den Server (${j.pos} Auftr${j.pos>1?"äge":"ag"} davor) … ${s} s`,`Waiting for the server (${j.pos} job${j.pos>1?"s":""} ahead) … ${s} s`):TX(`Erkennung läuft … ${s} s (etwa ein bis zwei Minuten pro Seite)`,`Recognition running … ${s} s (about one to two minutes per page)`));
+      const s=Math.round((Date.now()-t0)/1000);prog&&prog(j.state==="queued"&&j.pos>0?TX(`Wartet auf den Server (${j.pos} Auftr${j.pos>1?"äge":"ag"} davor) … ${s} s`,`Waiting for the server (${j.pos} job${j.pos>1?"s":""} ahead) … ${s} s`):TX(`Erkennung läuft … ${s} s (meist unter einer Minute pro Seite)`,`Recognition running … ${s} s (usually under a minute per page)`));
       if(Date.now()-t0>15*60*1000)throw new Error(TX("keine Antwort nach 15 Minuten","no answer after 15 minutes"));}
     const x=await fetch(base+"/job/"+id+"/xml");if(!x.ok)throw new Error("xml "+x.status);return await x.text();}
   // sonst Gradio (Hugging Face Space, omr-space/app.py)
@@ -2894,7 +2894,7 @@ async function omrSend(file,prog){const base=OMR_URL.replace(/\/$/,"");let pre=n
   const path=(await up.json())[0];
   const call=await fetch(base+pre+"/call/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({data:[{path,meta:{_type:"gradio.FileData"},orig_name:file.name}]})});
   if(!call.ok)throw new Error("call "+call.status);const {event_id}=await call.json();
-  prog&&prog(TX("Erkennung läuft … (etwa eine Minute pro Seite)","Recognition running … (about a minute per page)"));
+  prog&&prog(TX("Erkennung läuft … (meist unter einer Minute pro Seite)","Recognition running … (usually under a minute per page)"));
   const ev=await (await fetch(base+pre+"/call/scan/"+event_id)).text();
   const lines=ev.split("\n");let kind="",data=null;for(const l of lines){if(l.startsWith("event:"))kind=l.slice(6).trim();else if(l.startsWith("data:")){const d=l.slice(5).trim();if(kind==="complete")data=JSON.parse(d);else if(kind==="error")throw new Error(d||"error");}}
   if(!data||!data[0])throw new Error(TX("kein Ergebnis","no result"));const out=data[0],url=out.url||(base+pre+"/file="+out.path);

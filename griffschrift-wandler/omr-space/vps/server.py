@@ -6,7 +6,9 @@
 #   GET  /job/{id}        -> {"state": "queued"|"running"|"done"|"error", "pos": n, "error": "..."}
 #   GET  /job/{id}/xml    -> MusicXML (danach wird der Auftrag gelöscht)
 # Hochgeladene Dateien liegen nur bis zum Ende der Erkennung in einem Temp-Ordner; Ergebnisse höchstens 15 Minuten.
-import asyncio, glob, os, shutil, subprocess, tempfile, time, uuid
+import asyncio, glob, os, shutil, subprocess, sys, tempfile, time, uuid
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from omr_core import scan_file   # liegt im selben Ordner (beim Einrichten mitkopieren)
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
@@ -24,12 +26,7 @@ ORDER = []                 # Warteschlange (ids)
 lock = asyncio.Lock()      # immer nur eine Erkennung gleichzeitig (Arbeitsspeicher)
 
 def run_homr(path):
-    r = subprocess.run(["homr", path], capture_output=True, text=True, timeout=TIMEOUT)
-    out = sorted(glob.glob(os.path.join(os.path.dirname(path), "*.musicxml")))
-    if r.returncode != 0 or not out:
-        raise RuntimeError((r.stderr or r.stdout or "homr ohne Ergebnis")[-600:])
-    with open(out[0], encoding="utf-8") as f:
-        return f.read()
+    return scan_file(path, timeout=TIMEOUT)
 
 def cleanup():
     now = time.time()
