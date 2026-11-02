@@ -105,6 +105,7 @@ body.editing #griff .brk:hover,#griff .brk.on{fill:var(--extra);opacity:.35}
 @keyframes rflash{from{background:color-mix(in srgb,var(--accent) 18%,transparent)}to{background:transparent}}#griff.resetflash{animation:rflash 1s ease-out}
 button:disabled{opacity:.45;cursor:default}#edrange select{font:inherit;padding:4px}@media (max-width:760px){#edbar{bottom:72px}}#edbar #edtxt{font-weight:700;margin-right:4px;min-width:6em}
 #aubar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:53;max-width:calc(100vw - 24px);width:760px;padding:10px 12px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:8px}
+#scanbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:53;max-width:calc(100vw - 24px);width:760px;padding:10px 12px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:8px}#scanbar[hidden]{display:none!important}#scanbar .aurow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}#scanbar .scanwarn{font-size:13px;border-left:4px solid var(--zug);padding-left:8px;display:block}#scanbar .scanno,#scanst{font-size:13px;color:var(--muted)}#scanbar .scango{min-width:12em}
 #aubar[hidden]{display:none!important}#aubar .aurow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}#aubar audio{height:34px;max-width:100%}#autime{font-family:var(--f-mono);min-width:3em}#aust{font-size:13px;color:var(--muted)}#aurec.on{background:var(--zug);border-color:var(--zug);color:#fff}
 #crbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:51;max-width:calc(100vw - 24px);padding:8px 10px;border-radius:12px;background:var(--panel);border:2px solid var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.25)}#crbar[hidden],#crbar [hidden]{display:none!important}#crsetup,#crwork,#cropts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}#cropts{margin:6px 0;font-size:.92em}#cropts select{width:auto!important;min-width:0;flex:none!important;padding:2px 4px}#crbar select,#crbar input{font:inherit;padding:3px 5px}#crbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#crbar button.crback{border-color:var(--accent);font-weight:700}#crinfo{flex-basis:100%;text-align:center;font-variant-numeric:tabular-nums}.crcur{color:var(--accent);font-weight:700}.crkeys{font-size:.82em;opacity:.85}.crkeys kbd{border:1px solid var(--line);border-radius:4px;padding:0 4px;font:inherit}.crwarn{flex-basis:100%;text-align:center;font-size:.85em;color:var(--bad)}.crsep{opacity:.7}body.creating #edbar{display:none!important}@media (max-width:760px){#crbar{bottom:72px}}
 #edbar button{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;cursor:pointer}#edbar button:disabled{opacity:.4;cursor:default}
@@ -278,6 +279,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <label class="filebtn" for="file" tabindex="0" id="filelbl"><x-de>Noten öffnen (MusicXML / MIDI) …</x-de><x-en>Open music (MusicXML / MIDI) …</x-en></label>
       <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,.json,.mp3,.wav,.m4a,.ogg,.flac">
       <button id="audiobtn" type="button" class="ghost2"><x-de>🎤 Aufnahme / Audio …</x-de><x-en>🎤 Recording / audio …</x-en></button>
+      <button id="scanbtn" type="button" class="ghost2"><x-de>📷 Noten scannen …</x-de><x-en>📷 Scan sheet music …</x-en></button>
     </div>
     <div class="controls" style="margin-top:12px">
       <div class="field">
@@ -319,6 +321,17 @@ button.ghost2{background:transparent;color:var(--accent)}
         <span id="rctl"><span id="rtxt"></span> <label><x-de>spielen auf</x-de><x-en>play on</x-en> <select id="rplay"></select></label>
         <span class="rsep"><x-de>Takte</x-de><x-en>measures</x-en></span><button type="button" id="mcopy" title="Strg+C"><x-de>kopieren</x-de><x-en>copy</x-en></button><button type="button" id="mpaste" title="Strg+V"><x-de>einfügen danach</x-de><x-en>paste after</x-en></button><button type="button" id="mdel" title="Entf"><x-de>löschen</x-de><x-en>delete</x-en></button><span id="rclip"></span>
         <span class="rsep"><x-de>Tonhöhe</x-de><x-en>pitch</x-en></span><button type="button" id="rdn">− ½</button><button type="button" id="rup">+ ½</button> <span id="rshift"></span></span></div></div>
+    <div id="scanbar" hidden role="dialog" aria-label="Noten scannen">
+      <div class="aurow"><b><x-de>Gedruckte Noten scannen (Foto oder PDF → MusicXML)</x-de><x-en>Scan printed music (photo or PDF → MusicXML)</x-en></b></div>
+      <div class="aurow scanwarn"><x-de><b>Achtung:</b> Der Wandler selbst kann keine Noten aus Bildern lesen. Die folgenden Wege schicken dein Foto oder deine PDF an einen <b>fremden Server</b>; dort gelten die Bedingungen des Betreibers, nicht die des Wandlers. Nur Noten hochladen, die du weitergeben darfst. Ohne Versand geht es mit dem Programm Audiveris auf dem eigenen PC (siehe Hilfe).</x-de><x-en><b>Note:</b> the converter itself cannot read music from images. The following options send your photo or PDF to an <b>external server</b>; the operator’s terms apply there, not those of this converter. Only upload music you are allowed to share. Without uploading, use the Audiveris program on your own computer (see help).</x-en></div>
+      <div class="aurow"><label class="chk"><input id="scanok" type="checkbox"> <x-de>Verstanden: die Datei wird an einen fremden Dienst gesendet</x-de><x-en>Understood: the file is sent to an external service</x-en></label></div>
+      <div class="aurow"><button type="button" class="scango" data-u="https://homr.site" disabled>homr.site</button><span class="scanno"><x-de>kostenlos, ohne Konto, Fotos und PDF; private Vorführseite, oft nicht erreichbar</x-de><x-en>free, no account, photos and PDF; private demo site, often unavailable</x-en></span></div>
+      <div class="aurow"><button type="button" class="scango" data-u="https://musescore.com/import" disabled>musescore.com/import</button><span class="scanno"><x-de>PDF-Import von MuseScore (Konto nötig); Ergebnis in MuseScore öffnen und als MusicXML exportieren</x-de><x-en>MuseScore PDF import (account needed); open the result in MuseScore and export as MusicXML</x-en></span></div>
+      <div class="aurow"><button type="button" class="scango" data-u="https://www.soundslice.com/sheet-music-scanner/" disabled>Soundslice</button><span class="scanno"><x-de>Konto nötig; kostenlos 2 Probescans im Monat (1 Seite), mehr nur mit Abo</x-de><x-en>account needed; 2 free trial scans per month (1 page), more with a subscription</x-en></span></div>
+      <div class="aurow" id="scanown" hidden><b><x-de>Eigener Erkennungsserver:</x-de><x-en>Own recognition server:</x-en></b> <label class="filebtn" for="scanfile" tabindex="0"><x-de>Foto oder PDF senden …</x-de><x-en>Send photo or PDF …</x-en></label><input id="scanfile" type="file" accept="image/*,.pdf" hidden></div>
+      <div class="aurow"><x-de>Danach die gespeicherte MusicXML-Datei (.musicxml, .mxl) hier laden:</x-de><x-en>Then load the saved MusicXML file (.musicxml, .mxl) here:</x-en> <button type="button" id="scanload"><x-de>MusicXML öffnen …</x-de><x-en>Open MusicXML …</x-en></button><button type="button" id="scanclose"><x-de>Schließen</x-de><x-en>Close</x-en></button></div>
+      <div class="aurow" id="scanst"></div>
+    </div>
     <div id="aubar" hidden role="dialog" aria-label="Aufnahme in Noten umwandeln">
       <div class="aurow"><b><x-de>Aufnahme in Noten umwandeln</x-de><x-en>Turn a recording into music</x-en></b>
         <button type="button" id="aurec">● <x-de>Aufnehmen</x-de><x-en>Record</x-en></button><button type="button" id="austop" disabled>■ Stopp</button><span id="autime">0:00</span>
@@ -486,6 +499,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>Fehler ausbessern:</b> Keine Notenerkennung ist fehlerfrei. Typische Fehler sind falsche Notenwerte, vergessene Vorzeichen, Bögen als Haltebögen und durcheinandergeratene Stimmen. Am bequemsten öffnet man die .mxl-Datei vorher in <b>MuseScore</b> (kostenlos), hört sie sich an, bessert falsche Noten aus und exportiert sie wieder als MusicXML.</p>
       <p><b>Für gute Ergebnisse beim Scannen:</b> 300 dpi, Graustufen, gerade aufgelegt, keine Schatten am Rand. Saubere Druckausgaben werden viel besser erkannt als Handschrift oder Kopien von Kopien. Einstimmige Melodien mit Akkordsymbolen funktionieren am besten.</p>
       <p>MuseScore bietet außerdem über musescore.com einen eigenen PDF-Import an; dafür braucht man ein Konto, die Qualität ist ähnlich.</p>
+      <p><b>Knopf „📷 Noten scannen …“:</b> Er öffnet einen Dialog mit Online-Diensten, die ein Foto oder eine PDF gedruckter Noten erkennen: homr.site (kostenlos, ohne Konto, aber eine private Vorführseite, die oft nicht erreichbar ist), der PDF-Import von musescore.com (Konto nötig, Ergebnis in MuseScore als MusicXML exportieren) und Soundslice (Konto nötig, kostenlos nur zwei kleine Probescans im Monat). Weil dabei die Datei an einen fremden Server geht, für den dessen Betreiber und Bedingungen gelten, sind die Knöpfe erst nach dem Häkchen „Verstanden“ frei; der Dienst öffnet sich dann in einem neuen Tab, und die dort gespeicherte MusicXML-Datei lädt man mit „MusicXML öffnen …“ in den Wandler. Ohne Versand bleibt Audiveris auf dem eigenen PC. Für einen eigenen Erkennungsserver (homr in einem Hugging Face Space), der das Ergebnis direkt in den Wandler übergibt, liegen die Dateien im Ordner omr-space bereit; er ist nicht eingerichtet und daher ausgeblendet.</p>
     </section>
     <section id="h-instr"><h3>Instrument einstellen</h3>
       <p><b>Stimmung:</b> alle acht 4-Reiher-Stimmungen von F-B-Es-As bis C-F-B-Es (wie sie Strasser liefert), dazu Cis-Fis-H-E, D-G-C-F, Es-As-Des-Ges und E-A-D-G aus den Grifftabellen von Dieter Schaborak. Die Griffschrift bleibt bei jeder Stimmung gleich, nur die klingenden Töne verschieben sich.</p>
@@ -620,6 +634,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <p><b>Fixing mistakes:</b> no music recognition is perfect. Typical errors are wrong note values, missing accidentals, slurs read as ties and voices getting mixed up. The easiest way is to open the .mxl file in <b>MuseScore</b> (free) first, listen to it, correct wrong notes and export it again as MusicXML.</p>
       <p><b>For good scanning results:</b> 300 dpi, greyscale, page lying straight, no shadows at the edge. Clean printed music is recognised far better than handwriting or copies of copies. Single-line melodies with chord symbols work best.</p>
       <p>MuseScore also offers its own PDF import through musescore.com; it needs an account, and the quality is similar.</p>
+      <p><b>“📷 Scan sheet music …” button:</b> it opens a dialog with online services that recognise a photo or PDF of printed music: homr.site (free, no account, but a private demo site that is often unavailable), the PDF import of musescore.com (account needed, export the result from MuseScore as MusicXML) and Soundslice (account needed, only two small free trial scans per month). Because the file goes to an external server whose operator and terms apply, the buttons are only enabled after ticking “Understood”; the service then opens in a new tab, and the MusicXML file saved there is loaded into the converter with “Open MusicXML …”. Without uploading, Audiveris on your own computer remains. For an own recognition server (homr in a Hugging Face Space) that hands the result straight to the converter, the files are ready in the omr-space folder; it is not set up and therefore hidden.</p>
     </section>
     <section id="e-instr"><h3>Setting up the instrument</h3>
       <p><b>Tuning:</b> all eight 4-row tunings from F-B-Es-As (F-B♭-E♭-A♭) to C-F-B-Es (C-F-B♭-E♭), as supplied by Strasser, plus C♯-F♯-B-E, D-G-C-F, E♭-A♭-D♭-G♭ and E-A-D-G from Dieter Schaborak’s button charts. The Griffschrift is the same for every tuning; only the sounding pitches shift.</p>
@@ -2842,6 +2857,37 @@ async function loadVM(key){
     run();
   }catch(e){alert(TX("Dieses Stück wird aus dem Internet nachgeladen (Ordner midi/vm auf der GitHub-Seite). Dafür ist eine Internetverbindung nötig.","This tune is loaded from the internet (folder midi/vm on the GitHub page). An internet connection is required."));}
 }
+
+// ======== Noten scannen: externe Dienste (nur nach Bestätigung, öffnet einen neuen Tab) und – vorbereitet, standardmäßig aus –
+// ein eigener Erkennungsserver (homr in einem Hugging Face Space, siehe Ordner omr-space). Die Adresse des eigenen Servers steht in
+// OMR_URL; bleibt sie leer, ist die Direktübergabe ausgeblendet. Ohne Bestätigung wird nichts gesendet.
+const OMR_URL="";
+(function(){const bar=document.getElementById("scanbar"),ok=document.getElementById("scanok"),st=t=>document.getElementById("scanst").textContent=t;
+  const upd=()=>{bar.querySelectorAll(".scango").forEach(b=>b.disabled=!ok.checked);document.getElementById("scanown").hidden=!OMR_URL||!ok.checked;};
+  document.getElementById("scanbtn").addEventListener("click",()=>{bar.hidden=!bar.hidden;ok.checked=false;upd();st("");});
+  document.getElementById("scanclose").addEventListener("click",()=>{bar.hidden=true;});
+  ok.addEventListener("change",upd);
+  bar.querySelectorAll(".scango").forEach(b=>b.addEventListener("click",()=>{if(!ok.checked)return;window.open(b.dataset.u,"_blank","noopener");
+    st(TX("Der Dienst ist in einem neuen Tab offen. Dort Foto oder PDF hochladen, das Ergebnis als MusicXML speichern und dann hier „MusicXML öffnen …“.","The service is open in a new tab. Upload your photo or PDF there, save the result as MusicXML and then use “Open MusicXML …” here."));}));
+  document.getElementById("scanload").addEventListener("click",()=>document.getElementById("file").click());
+  document.getElementById("scanfile").addEventListener("change",async e=>{const f=e.target.files[0];e.target.value="";if(!f||!ok.checked||!OMR_URL)return;
+    try{st(TX(`Sende „${f.name}“ an den Erkennungsserver … (beim ersten Aufruf kann das Aufwachen des Servers einige Minuten dauern)`,`Sending “${f.name}” to the recognition server … (the first call may take a few minutes while the server wakes up)`));
+      const xml=await omrSend(f,t=>st(t));loadXMLText(xml);TITLE=f.name.replace(/\.[^.]+$/,"");CREDIT="";setPins(null);SRC={kind:"file",name:TITLE+".musicxml",xml:LASTXML};run();
+      st(TX("Fertig. Bitte die erkannten Noten prüfen, Fehler sind normal.","Done. Please check the recognised notes, errors are normal."));}
+    catch(err){st(TX("Der Erkennungsserver hat nicht geantwortet oder einen Fehler gemeldet: ","The recognition server did not answer or reported an error: ")+(err.message||err));}});})();
+// Gradio-Schnittstelle des eigenen Space: Datei hochladen, Aufruf „scan“ starten, Ergebnis (Ereignisstrom) abwarten, MusicXML holen
+async function omrSend(file,prog){const base=OMR_URL.replace(/\/$/,"");let pre=null;
+  for(const p of ["/gradio_api","" ]){const r=await fetch(base+p+"/config").catch(()=>null);if(r&&r.ok){pre=p;break;}}
+  if(pre==null)throw new Error(TX("Server nicht erreichbar","server not reachable"));
+  const fd=new FormData();fd.append("files",file);const up=await fetch(base+pre+"/upload",{method:"POST",body:fd});if(!up.ok)throw new Error("upload "+up.status);
+  const path=(await up.json())[0];
+  const call=await fetch(base+pre+"/call/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({data:[{path,meta:{_type:"gradio.FileData"},orig_name:file.name}]})});
+  if(!call.ok)throw new Error("call "+call.status);const {event_id}=await call.json();
+  prog&&prog(TX("Erkennung läuft … (etwa eine Minute pro Seite)","Recognition running … (about a minute per page)"));
+  const ev=await (await fetch(base+pre+"/call/scan/"+event_id)).text();
+  const lines=ev.split("\n");let kind="",data=null;for(const l of lines){if(l.startsWith("event:"))kind=l.slice(6).trim();else if(l.startsWith("data:")){const d=l.slice(5).trim();if(kind==="complete")data=JSON.parse(d);else if(kind==="error")throw new Error(d||"error");}}
+  if(!data||!data[0])throw new Error(TX("kein Ergebnis","no result"));const out=data[0],url=out.url||(base+pre+"/file="+out.path);
+  const r=await fetch(url);if(!r.ok)throw new Error("download "+r.status);return await r.text();}
 // ======== Melodie eingeben (Erstell-Modus): Noten über die Tastatur, Länge per Zahl vorwählen (1 2 4 8 6=Sechzehntel, Punkt = punktiert);
 // die Vorwahl bleibt, bis wieder eine Zahl getippt wird. Buchstaben c d e f g a h (b = B) innerhalb einer Oktavlage, Vorzeichen der Tonart gelten.
 // Intern eine fortlaufende Notenliste; Taktstriche (mit Überbindungen) entstehen beim Erzeugen des MusicXML.

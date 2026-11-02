@@ -1,0 +1,14 @@
+---
+title: Notenerkennung Griffschrift-Wandler
+emoji: 🎼
+colorFrom: green
+colorTo: gray
+sdk: gradio
+sdk_version: 5.9.1
+app_file: app.py
+pinned: false
+license: agpl-3.0
+---
+
+Notenerkennung (OMR) für den [Griffschrift-Wandler](https://jpascher.github.io/Harmonikabau/griffschrift-wandler/):
+Foto oder PDF gedruckter Noten → MusicXML, mit [homr](https://github.com/liebharc/homr) (AGPL-3.0).

@@ -1,0 +1,9 @@
+# Eigener Erkennungsserver für „Noten scannen“ (vorbereitet, nicht aktiv)
+
+Dieser Ordner enthält einen Hugging Face Space, der Fotos oder PDFs gedruckter Noten mit homr in MusicXML umwandelt. Der Wandler kann ihn direkt aufrufen: Man wählt im Dialog „📷 Noten scannen …“ nach der Bestätigung „Foto oder PDF senden …“, und das Ergebnis wird gleich geladen. Solange im Wandler keine Serveradresse eingetragen ist, bleibt dieser Weg ausgeblendet, und es gibt nur die Links zu den fremden Diensten.
+
+Zum Einrichten legt man auf huggingface.co unter dem eigenen Konto einen neuen Space mit dem SDK „Gradio“ an und lädt die drei Dateien app.py, requirements.txt und README.md hoch (README.md ersetzt die vorgegebene). Seit Juli 2026 laufen Gradio-Spaces auf der kostenlosen Hardware „CPU basic“ nur mit PRO-Abo (9 Dollar im Monat). Ohne Abo bleibt „ZeroGPU“: kostenlos, aber nur für Konten mit bestätigter E-Mail, die älter als 30 Tage sind, mit knappen Kontingenten; app.py ist dafür vorbereitet. Der erste Start dauert einige Minuten, weil homr seine Modelle lädt; danach etwa eine Minute pro Seite. Ein Space, der länger nicht benutzt wurde, schläft und braucht beim nächsten Aufruf wieder Zeit zum Aufwachen.
+
+Wenn der Space läuft, die Adresse des Space (zum Beispiel https://NAME-notenerkennung.hf.space) im Wandler in index.html bei `const OMR_URL="";` eintragen. Erst dann erscheint im Scan-Dialog „Eigener Erkennungsserver“. Die Datei wird auch dann nur nach dem Häkchen „Verstanden: die Datei wird an einen fremden Dienst gesendet“ gesendet.
+
+Die Anbindung im Wandler ist mit der Gradio-Schnittstelle geschrieben (Datei hochladen, Aufruf „scan“, Ergebnis abholen), aber ohne laufenden Space nicht erprobt. Falls der Browser den Aufruf wegen fremder Herkunft (CORS) ablehnt, muss im Space die Herkunft jpascher.github.io erlaubt werden.
