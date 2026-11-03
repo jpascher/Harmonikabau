@@ -98,6 +98,8 @@ Beim Scannen von Griffschrift stimmen die Notenwerte jetzt deutlich öfter. Der 
 
 LilyPond-Dateien (.ly) mit einstimmigen Liedern, Akkorden und Text lassen sich jetzt öffnen; weitere Strophen aus der Datei stehen unter der Griffschrift und werden mitgedruckt. Der Ausdruck kommt ohne die Kopf- und Fußzeile des Browsers aus und trägt unten die Adresse des Wandlers. MIDI-Dateien liefern zusätzlich Tempo und Moll-Tonart, und ein Auftakt wird auch dann erkannt, wenn erst die Akkordspur ihn verrät. Diese Teile hat Helmut Seitz beigesteuert; mit ihnen wurden alle 246 Lieder der Ebersberger Liedersammlung umgewandelt.
 
+Beim Scannen lassen sich jetzt bis zu vier Fotos auf einmal auswählen. Der Wandler fasst sie in der Reihenfolge der Dateinamen zu einem PDF zusammen, und der Erkennungsserver liest sie als aufeinanderfolgende Seiten eines Stücks.
+
 Offen sind noch die Notation der übrigen Bass-Zusatzknöpfe (außer Fis und As derzeit Tonname mit Stern), die Notenkopfrichtung bei Doppelgriffen nach Fuchs und die Erkennung von Auftakten in MIDI-Dateien.
 
 ## English
@@ -193,5 +195,7 @@ Playback can now start anywhere: double-clicking a note plays from that note, an
 When scanning Griffschrift, note values are now right much more often. The reader recognises triplets by the figure 3 and writes them to the MusicXML as real triplets, and a second note-value model, trained on real pages, confuses sixteenths with eighths less often.
 
 LilyPond files (.ly) with single-voice songs, chords and lyrics can now be opened; further verses from the file are shown below the Griffschrift and printed too. The printout no longer carries the browser's header and footer and shows the converter's address at the bottom. MIDI files now also supply tempo and minor key, and a pickup is recognised even when only the chord track reveals it. These parts were contributed by Helmut Seitz; with them all 246 songs of the Ebersberger song collection were converted.
+
+When scanning, up to four photos can now be selected at once. The converter combines them into one PDF in the order of their file names, and the recognition server reads them as consecutive pages of one tune.
 
 Still open: the notation of the remaining extra bass buttons (apart from F# and Ab currently the note name with a star), the note-head direction in double stops as described by Fuchs, and detecting pickups (anacruses) in MIDI files.
