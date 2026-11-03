@@ -42,7 +42,7 @@ def rests(bw,nol,ys,d,heads,bars):
         if any(0.6*d<px-cx<2.2*d and abs(py-cy)<0.8*d and 0.1<pa<0.3 and pw<0.7 for px,py,pw,ph,pa in comps): u=u*3//2
         out.append((cx,u))
     return out
-def fit_measure(P,rest_units,L,maxloss=6.0):
+def fit_measure(P,rest_units,L,maxloss=6.0,units=None):
     """P: Wahrscheinlichkeiten je Akkord über UNIT; wählt die Werte mit größter Wahrscheinlichkeit, deren Summe (mit Pausen) L ergibt."""
     T=L-sum(rest_units)
     if T<=0 or not len(P): return None
@@ -50,7 +50,7 @@ def fit_measure(P,rest_units,L,maxloss=6.0):
     for row in lp:
         nb={}
         for t,(sc,ch) in best.items():
-            for k,u in enumerate(UNIT):
+            for k,u in enumerate(UNIT if units is None else units[len(ch)]):
                 if t+u<=T and (t+u not in nb or nb[t+u][0]<sc+row[k]): nb[t+u]=(sc+row[k],ch+[k])
         best=nb
     if T not in best: return None

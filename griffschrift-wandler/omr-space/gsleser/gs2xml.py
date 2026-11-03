@@ -9,7 +9,11 @@ from assemble import button,pitch
 from fuchsread import druck_bars
 from rhythm import strip,beam_feats,dot_feat
 from measures import barlines,rests,fit_measure,UNIT
-RCLF=pickle.load(open((HERE if _os.path.exists(HERE+'/rhythm.pkl') else _os.path.join(HERE,'..','gsleser'))+'/rhythm.pkl','rb'))
+_RD=HERE if _os.path.exists(HERE+'/rhythm.pkl') else _os.path.join(HERE,'..','gsleser')
+RCLF=pickle.load(open(_RD+'/rhythm.pkl','rb'))
+# zweites Notenwert-Modell, angelernt an echten Seiten (Philipps Übungsstücke, Fuchs-Seiten mit MIDI); beide Urteile werden gemischt
+RCLF2=pickle.load(open(_RD+'/rhythm2.pkl','rb')) if _os.path.exists(_RD+'/rhythm2.pkl') and not _os.environ.get('NORH2') else None
+RW2=float(_os.environ.get('RW2','0.6'))
 SHIFT={'GCFB':-2,'ADGC':0,'BEsAsDes':1,'HEAD':2,'CFBEs':3,'FBEsAsDes':-4,'FBEsAs':-4,'EADG':-5,'DGCF':-7}
 def skew_angle(g):
     """Schräglage in Grad (Foto, schief eingelegter Scan): der Winkel, bei dem die Notenlinien am schärfsten waagrecht stehen."""
@@ -20,6 +24,23 @@ def skew_angle(g):
     best=max(np.arange(-4,4.01,0.25),key=score)
     best=max(np.arange(best-0.25,best+0.26,0.05),key=score)
     return float(best)
+# Triolen-Ziffer „3“ (16×20 Raster, aus Philipps Heft); Vergleich über Korrelation der Form
+_T3=np.array([int(c) for c in bin(int('01fc03fe07fe0f1f1c0f1c0f001f003e03fc03f800fc003c001c001ce01ce01cf03cf87c7ff83fe0',16))[2:].zfill(320)],np.float32).reshape(20,16)
+_T3=(_T3-_T3.mean())/_T3.std()
+def triplet_marks(nol,ys,d,thr=0.7):
+    """x-Lagen der Triolen-Ziffern 3 über oder unter dem System (nicht im System, dort steht die Taktangabe)."""
+    a=max(0,int(ys[0]-6*d));b=min(nol.shape[0],int(ys[4]+6*d));sub=nol[a:b]
+    n,lab,S,_=cv2.connectedComponentsWithStats((sub>0).astype(np.uint8));out=[]
+    for i in range(1,n):
+        x,y,w,h,_a=S[i]
+        if not(0.9*d<=h<=1.6*d and 0.6*d<=w<=1.3*d): continue
+        if abs(a+y+h/2-ys[2])<2.5*d: continue
+        c=cv2.resize(((lab[y:y+h,x:x+w]==i)*255).astype(np.uint8),(16,20),interpolation=cv2.INTER_AREA).astype(np.float32)
+        if c.std()==0: continue
+        if float((((c-c.mean())/c.std())*_T3).mean())>thr: out.append(x+w/2)
+    return out
+_DBG={}
+TRIP={3:2,4:4,6:4,9:6,12:8,18:12,24:16,36:24,48:32}   # Notenwert in einer Triole (zwei Drittel); 4 ist schon eine Triolenachtel
 def load_gray(path,target_d=18.0):
     im=Image.open(path).convert('RGBA');bg=Image.new('RGBA',im.size,(255,255,255,255));bg.alpha_composite(im);g=np.array(bg.convert('L'))
     a=skew_angle(g)
@@ -64,9 +85,13 @@ def read(path,shift=0,work=None,table=None):
         ys=st[si];d=(ys[4]-ys[0])/4;nl=G.remove_lines(bw,ys,d)
         fill=float(np.mean([h['fill'] for h,_,_ in hs]))
         feats.append(np.concatenate([strip(nl,x,ys[2],d,fill),np.array(beam_feats(nl,x,[h['y'] for h,_,_ in hs],d)+[dot_feat(nl,x,[h['y'] for h,_,_ in hs],d)])*20]).astype(np.float32))
-        items.append(dict(kind='n',st=si,x=x,dir=dr,heads=[(k[0],k[1],p) for _,k,p in hs]))
+        items.append(dict(kind='n',st=si,x=x,dir=dr,heads=[(k[0],k[1],p) for _,k,p in hs],fi=len(feats)-1))
+    _DBG['feats']=feats
     P=RCLF.predict_proba(np.array(feats)) if feats else np.zeros((0,len(RCLF.classes_)))
     P9=np.zeros((len(P),len(UNIT)));P9[:,RCLF.classes_]=P;lp=np.log(np.clip(P9,1e-6,1))
+    if RCLF2 is not None and len(feats):
+        Q9=np.zeros((len(P),len(UNIT)));Q9[:,RCLF2.classes_]=RCLF2.predict_proba(np.array(feats))
+        lp=(1-RW2)*np.log(np.clip(P9,1e-4,1))+RW2*np.log(np.clip(Q9,1e-4,1))
     for it,row in zip(items,lp): it['lp']=row
     meas=[]
     for si,ys in enumerate(st):
@@ -77,19 +102,28 @@ def read(path,shift=0,work=None,table=None):
         heads_xy=[(h['x'],h['y']) for c in C if c[0]['st']==si for h in c]
         bl=barlines(bw,ys,d,[x for x,_ in heads_xy]);nol=G.stems_off(G.remove_lines(bw,ys,d),d)
         rs=[dict(kind='r',st=si,x=x,u=u) for x,u in rests(bw,nol,ys,d,heads_xy,bl)]
-        edges=[0]+bl+[1e9]
+        edges=[0]+bl+[1e9];allg=[]
         for a,b in zip(edges,edges[1:]):
             ev=sorted([it for it in its if a<it['x']<b]+[r for r in rs if a<r['x']<b],key=lambda e:e['x'])
             grp=[]
             for e in ev:
                 if e['kind']=='n' and grp and grp[-1][0]['kind']=='n' and e['x']-grp[-1][-1]['x']<1.3*d: grp[-1].append(e)
                 else: grp.append([e])
-            if grp: meas.append((si,grp))
+            if grp: meas.append((si,grp));allg+=grp
+        # Triolen: die Gruppe unter/über der Ziffer 3 und ihre beiden Nachbarn
+        if allg and not _os.environ.get('NOTRIP'):
+            gx=[float(np.mean([e['x'] for e in g_])) for g_ in allg]
+            for mx in triplet_marks(nol,ys,d):
+                j=int(np.argmin([abs(x_-mx) for x_ in gx]))
+                if abs(gx[j]-mx)>3*d: continue
+                for g_ in allg[max(0,j-1):j+2]: g_[0]['trip']=True
     def gl(gr): return sum(e['lp'] for e in gr)
+    def uu(gr,u): return TRIP.get(u,u) if gr[0].get('trip') else u
     def length(m,ch=None):
-        t=0
+        t=0;k=0
         for q,gr in enumerate(m):
-            t+=gr[0]['u'] if gr[0]['kind']=='r' else UNIT[ch[q] if ch else int(np.argmax(gl(gr)))]
+            if gr[0]['kind']=='r': t+=uu(gr,gr[0]['u'])
+            else: t+=uu(gr,UNIT[ch[k] if ch else int(np.argmax(gl(gr)))]);k+=1
         return t
     cg=[c for c in collections.Counter(length(m) for _,m in meas).most_common() if c[0] in (18,24,36,48,72)];Lg=cg[0][0] if cg else 36
     # Taktlänge je System (Taktwechsel zwischen Teilen): häufigste Länge im System, wenn mindestens zwei Takte sie haben
@@ -103,13 +137,13 @@ def read(path,shift=0,work=None,table=None):
         notes=[q for q,gr in enumerate(m) if gr[0]['kind']=='n'];ch=[int(np.argmax(gl(m[q]))) for q in notes]
         if length(m)!=Lm and not (mi==0 and length(m)<Lm):
             PG=np.array([np.exp(gl(m[q])-gl(m[q]).max()) for q in notes]);PG=PG/PG.sum(1,keepdims=True) if len(PG) else PG
-            f=fit_measure(PG,[gr[0]['u'] for gr in m if gr[0]['kind']=='r'],Lm)
+            f=fit_measure(PG,[uu(gr,gr[0]['u']) for gr in m if gr[0]['kind']=='r'],Lm,units=[[uu(m[q],u) for u in UNIT] for q in notes])
             if f: ch=f
         evs=[];k=0
         for gr in m:
-            if gr[0]['kind']=='r': evs.append(dict(rest=True,u=gr[0]['u']))
+            if gr[0]['kind']=='r': evs.append(dict(rest=True,u=uu(gr,gr[0]['u']),trip=bool(gr[0].get('trip'))))
             else:
-                heads=sorted({h for e in gr for h in e['heads']},key=lambda h:-h[2]);evs.append(dict(rest=False,u=UNIT[ch[k]],dir=gr[0]['dir'],heads=heads));k+=1
+                heads=sorted({h for e in gr for h in e['heads']},key=lambda h:-h[2]);evs.append(dict(rest=False,fis=[e['fi'] for e in gr],mtrip=bool(gr[0].get('trip')),u=uu(gr,UNIT[ch[k]]),trip=bool(gr[0].get('trip')) or UNIT[ch[k]]==4,dir=gr[0]['dir'],heads=heads));k+=1
         out.append(evs);lens.append(Lm)
     try: _os.remove(work)
     except Exception: pass
@@ -132,6 +166,7 @@ def convert(paths,shift=0,title='Gescannte Griffschrift',table=None):
     if not allm: raise ValueError('Keine Griffschrift gefunden')
     return to_xml(allm,Lm,title,shift)
 STEP=['C','C','D','D','E','F','F','G','G','A','A','B'];ALT=[0,1,0,1,0,0,1,0,1,0,1,0]
+TRIPTYPE={2:('16th',0),4:('eighth',0),6:('eighth',1),8:('quarter',0),12:('quarter',1),16:('half',0),24:('half',1),32:('whole',0)}   # Notenart innerhalb einer Triole
 TYPE={3:('16th',0),4:('eighth',0),6:('eighth',0),9:('eighth',1),12:('quarter',0),18:('quarter',1),24:('half',0),36:('half',1),48:('whole',0)}
 def to_xml(meas,lens,title='Gescannte Griffschrift',shift=0):
     if not isinstance(lens,list): lens=[lens]*len(meas)
@@ -148,7 +183,7 @@ def to_xml(meas,lens,title='Gescannte Griffschrift',shift=0):
         elif lens[mi]!=lens[mi-1]: x.append(f'<attributes><time><beats>{beats}</beats><beat-type>{btype}</beat-type></time></attributes>')
         pos=0
         for e in evs:
-            ty,dot=TYPE.get(e['u'],('quarter',0));tm='<time-modification><actual-notes>3</actual-notes><normal-notes>2</normal-notes></time-modification>' if e['u']==4 else ''
+            tr=e.get('trip',e['u']==4);ty,dot=(TRIPTYPE if tr else TYPE).get(e['u'],TYPE.get(e['u'],('quarter',0)));tm='<time-modification><actual-notes>3</actual-notes><normal-notes>2</normal-notes></time-modification>' if tr else ''
             if e['rest']: x.append(f'<note><rest/><duration>{e["u"]}</duration><type>{ty}</type>{"<dot/>"*dot}{tm}</note>')
             else:
                 for q,(r,n,p) in enumerate(e['heads']):
