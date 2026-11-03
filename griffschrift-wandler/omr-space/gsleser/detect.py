@@ -5,9 +5,11 @@ INK = 0.12
 MOD = HERE if _os.path.exists(HERE+'/heads.pkl') else _os.path.join(HERE, '..', 'gsleser')   # Forschungsordner: Modelle aus gsleser
 clf = pickle.load(open(MOD+'/heads.pkl', 'rb'))
 # Dreiecke (4. Reihe in der Notation von Elke Margetich, z. B. Philipp Ramoner): eigener kleiner Klassifikator auf denselben Ausschnitten
-TRI = pickle.load(open(MOD+'/tri.pkl', 'rb')) if _os.path.exists(MOD+'/tri.pkl') else None
+_TP = _os.environ.get('GS_TRI', MOD+'/tri.pkl')
+TRI = pickle.load(open(_TP, 'rb')) if _os.path.exists(_TP) else None
 TRI_THR, TRI_HEAD, TRI_SURE = 0.5, 0.3, 0.95   # Dreieck, wenn dessen Klassifikator ≥ 0,5 meldet und der Kopf-Klassifikator ≥ 0,3 (oder Dreieck ≥ 0,95)
 CLX = CL + ['t_f', 't_h']
+TRI_BOOST = float(_os.environ.get('GS_TRIB', '0.25'))   # Vorrang der Dreieck-Meldungen beim Ausdünnen
 
 def detect(path, scale=2, thr=0.5):
     g = cv2.imread(path, 0); _, bw = cv2.threshold(g, 200, 255, cv2.THRESH_BINARY_INV)
@@ -24,7 +26,7 @@ def detect(path, scale=2, thr=0.5):
         def fpatch(pad, x, y):
             x0, y0 = int(round(x)) - r, int(round(y)) - r
             return cv2.resize(pad[y0 + 2 * r:y0 + 4 * r, x0 + 2 * r:x0 + 4 * r], (20, 20), interpolation=cv2.INTER_AREA).ravel()
-        for p in range(-13, 13):
+        for p in range(-12, 13):   # Lage -13 (sechseinhalb Linien unter dem System) kommt nicht vor, dort stehen die Bassbuchstaben
             y = int(round(mid + 0.5 - p * d / 2))
             if not (0 <= y < bw.shape[0]): continue
             row = ink[y]
@@ -50,7 +52,8 @@ def detect(path, scale=2, thr=0.5):
             if win.shape != t.shape: return 0.0
             tt = t.astype(np.float32); return float((win * tt).sum() / (np.sqrt((win * win).sum() * (tt * tt).sum()) + 1e-6))
         ref = sorted(((sc, good(x, y, c), (x, y, p), c) for sc, (x, y, p), c in hits), key=lambda r: (-r[0], -r[1]))
-        ref = sorted(ref, key=lambda r: -(r[0] * 0.5 + r[1]))
+        # Dreieck-Meldungen haben Vorrang vor runden Köpfen an derselben Stelle (der Kopf-Klassifikator hält Dreiecke oft für runde Köpfe)
+        ref = sorted(ref, key=lambda r: -(r[0] * 0.5 + r[1] + (TRI_BOOST if CLX[r[3]].startswith('t') else 0)))
         keep = []
         for sc, gq, (x, y, p), c in ref:
             # Dreieck neben Kreuz oder rundem Kopf eine Lage tiefer/höher (Sekunde links und rechts vom Hals) darf näher stehen

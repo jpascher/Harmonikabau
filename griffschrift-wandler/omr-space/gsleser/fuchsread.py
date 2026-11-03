@@ -12,7 +12,18 @@ def druck_bars(g):
         band=bw[y0:y1];h=cv2.morphologyEx(band,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(int(d*3),1)))
         h=cv2.morphologyEx(h,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(1,max(2,int(d*.25)))))
         n,lab,s,_=cv2.connectedComponentsWithStats(h)
-        out[si]=[(s[i,0],s[i,0]+s[i,2],y0+s[i,1]) for i in range(1,n) if s[i,2]>2*d]
+        L=[(s[i,0],s[i,0]+s[i,2],y0+s[i,1]) for i in range(1,n) if s[i,2]>2*d]
+        # Nur Druckstriche zählen: deutlich unter dem System und direkt unter Bassbuchstaben (nicht Triolen- oder
+        # Wiederholungsklammern, Bindebögen); Buchstaben = Teile in Schriftgröße knapp über dem Strich in seinem Bereich
+        if L and _os.environ.get('GS_DRUCK','1')=='1':
+            nb,_,sb,_=cv2.connectedComponentsWithStats(band)
+            let=[(sb[i,0],sb[i,0]+sb[i,2],y0+sb[i,1]+sb[i,3]) for i in range(1,nb) if 0.6*d<=sb[i,3]<=2.2*d and 0.2*d<=sb[i,2]<=2.5*d]
+            def ok(l):
+                a,b,y=l
+                if y<ys[4]+2.5*d: return False
+                return any(x1>a-0.5*d and x0<b+0.5*d and y-1.6*d<=yb<=y+0.2*d for x0,x1,yb in let)
+            L=[l for l in L if ok(l)]
+        out[si]=L
     return st,out
 def read_page(img):
     g=cv2.imread(img,0);st,bars=druck_bars(g);det=D.detect(img,1);C=chords_det(det);res=[]

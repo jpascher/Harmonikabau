@@ -13,7 +13,7 @@ def key(r, n): return (2 * (n - 6) + OFF[r], 'o' if r < 3 else ('x' if r == 3 el
 if __name__ == '__main__':
     pieces = sys.argv[2].split(',') if len(sys.argv) > 2 else list(PAGES)
     table = None if os.environ.get('T446') else D450
-    T = collections.Counter()
+    T = collections.Counter(); WR = []; EX = collections.Counter()
     for k in pieces:
         ev = []
         for p in PAGES[k]:
@@ -22,7 +22,7 @@ if __name__ == '__main__':
                 for e in m:
                     if not e['rest']: ev.append(e)
         A = [{(r, n) for r, n, _ in e['heads']} for e in ev]
-        B = pin_chords(PINS[k]); Bs = [{(r, n) for r, n, _ in b} for b in B]
+        B = pin_chords(PINS[k]); Bs = [{(r, n) for r, n, _ in b} for b in B]; TS = sorted({round(t_, 3) for t_, *_ in PINS[k]})
         pr = align([{key(r, n) for r, n in a} for a in A], [{key(r, n) for r, n in b} for b in Bs])
         st = collections.Counter(); st['pins'] = len(B); st['bild'] = len(A)
         # Tonhöhen: gelesene Töne gegen die bekannten (G-C-F-B)
@@ -30,9 +30,14 @@ if __name__ == '__main__':
             st['paar'] += 1; st['gleich'] += A[i] == Bs[j]
             bd = collections.Counter(d for _, _, d in B[j]).most_common(1)[0][0]; st['balg'] += ev[i]['dir'] == bd
             pa = sorted(p for _, _, p in ev[i]['heads']); pb = sorted(pi for _, pi, _, _, _ in [x for x in PINS[k] if False])
+            pin_p = {pi for t_, pi, r_, n_, d_ in PINS[k] if round(t_, 3) == TS[j]}; got_p = {p for _, _, p in ev[i]['heads']}
+            st['tsoll'] += len(pin_p); st['tok'] += len(pin_p & got_p); st['tfalsch'] += len(got_p - pin_p)
+            if got_p - pin_p and len(WR) < 40: WR.append((k, sorted(got_p), sorted(pin_p), ev[i].get('dir'), sorted(A[i]), sorted(Bs[j])))
             for (r, n) in Bs[j]: st[f's{r}'] += 1; st[f'g{r}'] += (r, n) in A[i]
-            for (r, n) in A[i] - Bs[j]: st[f'f{r}'] += 1
+            for (r, n) in A[i] - Bs[j]: st[f'f{r}'] += 1; EX[(r, n, 'leer' if not (A[i] & Bs[j]) else 'mit')] += 1
         T.update(st)
         print(k, dict(pins=st['pins'], bild=st['bild'], paar=st['paar'], gleich=st['gleich'], balg=st['balg']), flush=True)
     print('GESAMT gepaart', T['paar'], 'von', T['pins'], 'ganz gleich', T['gleich'], f"{T['gleich']/max(1,T['paar']):.3f}", 'Balg', f"{T['balg']/max(1,T['paar']):.3f}")
+    print(EX.most_common(25))
+    print('Töne richtig', T['tok'], 'von', T['tsoll'], f"{T['tok']/max(1,T['tsoll']):.3f}", 'falsch', T['tfalsch'])
     for r in (1, 2, 3, 4): print(f'Reihe {r}: soll {T[f"s{r}"]}, gefunden {T[f"g{r}"]} ({T[f"g{r}"]/max(1,T[f"s{r}"]):.3f}), überzählig {T[f"f{r}"]}')
