@@ -2821,7 +2821,7 @@ function lyToXML(srcRaw,fallbackTitle){
       fail(TX("Unerwarteter Text: ","Unexpected text: ")+r.slice(0,30));}}
   if(!scores.length)fail(TX("Kein \\score-Block gefunden.","No \\score block found."));
   const printed=scores.filter(s=>/\\layout\b/.test(s));   // ein zweiter \score nur für \midi (oft mit \unfoldRepeats) ist keine eigene Fassung
-  const score=printed[0]||scores[0];
+  const useScores=printed.length?printed:[scores[0]];   // mehrere gedruckte \score: z. B. eine letzte Strophe mit eigener Melodie, kommt als Abschnitt hinter das Lied
   // Tonhöhen: s = Stammtöne ab C0 (7 je Oktave), a = Vorzeichen
   const NAT=[0,2,4,5,7,9,11],LET="cdefgab",STEP="CDEFGAB";
   const midiOf=p=>{const o=Math.floor(p.s/7);return 12*(o+1)+NAT[p.s-o*7]+p.a;};
@@ -2938,27 +2938,33 @@ function lyToXML(srcRaw,fallbackTitle){
       out.push({x:w.replace(/_/g," ").replace(/~/g,"‿").replace(/\s+$/,"")});
     }}
   // Score zerlegen
-  const chordRaw=[],voiceRaw=[],lyrRaw=[];
+  const readScore=score=>{const chordRaw=[],voiceRaw=[],lyrRaw=[];
   {let i=0;const s=score;while(i<s.length){const m=/\\new\s+([A-Za-z]+)(\s*=\s*"[^"]*")?(\s*\\lyricsto\s*"[^"]*")?\s*/g;m.lastIndex=i;const x=m.exec(s);if(!x)break;const j=x.index+x[0].length;if(s[j]!=="{"){const b=blockAfter(s,j);if(!b)fail("\\new");i=b.e+1;}const b=blockAfter(s,j);if(!b)fail("\\new "+x[1]);
       if(x[1]==="ChordNames")chordRaw.push(b.body);else if(x[1]==="Voice"||x[1]==="Staff")voiceRaw.push(b.body);else if(x[1]==="Lyrics")lyrRaw.push(b.body);else fail(TX("Nicht unterstützt: ","Not supported: ")+"\\new "+x[1]);i=b.e+1;}
     if(!voiceRaw.length){const v=score.replace(/\\(midi|layout)\s*\{[^}]*\}/g,"").trim();if(!v)fail(TX("Keine Melodie gefunden.","No melody found."));voiceRaw.push(v);}
     if(voiceRaw.length>1)fail(TX("Mehrere Stimmen werden nicht unterstützt.","Several voices are not supported."));}
-  const M=newS("note");M.unfold=/\\unfoldRepeats\b/.test(score);parseMusic(voiceRaw[0],M,{rel:null,tr:[]});
-  if(!M.ev.some(e=>e.k==="n"))fail(TX("Die Melodie enthält keine Noten.","The melody contains no notes."));
+    return {chordRaw,voiceRaw,lyrRaw,unfold:/\\unfoldRepeats\b/.test(score)};};
+  const M=newS("note"),C=newS("chord"),parts=useScores.map(readScore),sections=[];
+  parts.forEach((b,bi)=>{const start=M.t,first=M.ev.length;M.unfold=C.unfold=b.unfold;M.tie=false;M.slur=0;M.beam=0;M.auto=true;M.last=480;M.prev=null;C.last=480;
+    parseMusic(b.voiceRaw[0],M,{rel:null,tr:[]});
+    if(M.ev.length===first||!M.ev.slice(first).some(e=>e.k==="n"))fail(TX("Die Melodie enthält keine Noten.","The melody contains no notes."));
+    C.t=start;b.chordRaw.forEach(r=>parseMusic(r,C,{rel:null,tr:[]}));sections.push({first,end:M.ev.length,lyrRaw:b.lyrRaw});
+    if(bi>0&&b.lyrRaw[0]){const lv=/^\s*\\([A-Za-z_][\w-]*)\s*$/.exec(b.lyrRaw[0]),lsrc=(lv&&vars[lv[1]])||b.lyrRaw[0],st=/stanza\s*=\s*"([^"]+)"/.exec(lsrc);
+      if(st){const raw=st[1].trim(),z=/^zu\s*(\d+)\.?$/.exec(raw),d=/^(\d+)\.?$/.exec(raw);M.words.push({t:start,x:z?TX(`zu Strophe ${z[1]}`,`to verse ${z[1]}`):d?TX(`Strophe ${d[1]}`,`Verse ${d[1]}`):raw});}}});
   if(M.tupN!==1||M.tupD!==1)fail("tuplet");
-  const C=newS("chord");C.unfold=M.unfold;chordRaw.forEach(r=>parseMusic(r,C,{rel:null,tr:[]}));
+  const hasChords=parts.some(b=>b.chordRaw.length);
   // \partial und \time gelten für das ganze Stück, auch wenn sie nur in der Akkordspur stehen
   [[M.partials,C.partials],[M.times,C.times]].forEach(([a,b])=>{b.forEach(x=>{if(!a.some(y=>y.t===x.t))a.push(x);});a.sort((p,q)=>p.t-q.t);});
   const end=M.t,info={tempo:M.tempo,pickup:M.partials.length&&M.partials[0].t===0?M.partials[0].len/480:0,lyrics:0,verses:0,chords:C.ev.length,transposed:!!M.transposed,warn:[]};
-  if(printed.length>1)info.warn.push(TX(`${printed.length-1} weiterer Notenblock nicht übernommen (nur der erste gilt)`,`${printed.length-1} further score not used (only the first counts)`));
+  info.sections=parts.length;
   // Silben auf die Noten verteilen: wie \lyricsto überspringt das Bindebögen, Haltebögen und von Hand gebalkte Noten ohne autoBeam
-  const notes=M.ev.filter(e=>e.k==="n"),free=notes.filter(e=>!e.mel);
   const syllabicOf=(arr,i)=>{const pc=i>0&&arr[i-1].cont,c=arr[i].cont;return pc?(c?"middle":"end"):(c?"begin":"single");};
-  lyrRaw.forEach((r,n)=>{const sy=[];parseLyrics(r,sy);if(!sy.length)return;let k=0;sy.forEach((y,j)=>{if(k>=free.length)return;const e=free[k++];if(!y.x)return;(e.lyr=e.lyr||[]).push({n:n+1,x:y.x,syl:syllabicOf(sy,j)});if(n===0)info.lyrics++;});
+  sections.forEach(sec=>{const free=M.ev.slice(sec.first,sec.end).filter(e=>e.k==="n"&&!e.mel);
+  sec.lyrRaw.forEach((r,n)=>{const sy=[];parseLyrics(r,sy);if(!sy.length)return;let k=0;sy.forEach((y,j)=>{if(k>=free.length)return;const e=free[k++];if(!y.x)return;(e.lyr=e.lyr||[]).push({n:n+1,x:y.x,syl:syllabicOf(sy,j)});if(n===0)info.lyrics++;});
     if(sy.length>free.length)info.warn.push(TX(`Text ${n+1}: ${sy.length-free.length} Silben mehr als Noten`,`Lyrics ${n+1}: ${sy.length-free.length} more syllables than notes`));
-    else if(n===0&&sy.length<free.length)info.warn.push(TX(`${free.length-sy.length} Noten ohne Silbe`,`${free.length-sy.length} notes without a syllable`));});
+    else if(n===0&&sy.length<free.length)info.warn.push(TX(`${free.length-sy.length} Noten ohne Silbe`,`${free.length-sy.length} notes without a syllable`));});});
   if(M.poly)info.warn.push(TX(`${M.poly} zweistimmige Stelle: nur die erste Stimme übernommen`,`${M.poly} two-voice passage: only the first voice was used`));
-  if(chordRaw.length&&C.t>end)info.warn.push(TX("Akkordspur länger als die Melodie","Chord track longer than the melody"));
+  if(hasChords&&C.t>end)info.warn.push(TX("Akkordspur länger als die Melodie","Chord track longer than the melody"));
   // Takte bilden
   const tsAt=t=>{let x=null;for(const e of M.times)if(e.t<=t)x=e;return x||{n:4,d:4};};
   const splits=[...new Set([...M.reps.map(x=>x.t),...M.ends.flatMap(x=>[x.a,x.b])])].filter(x=>x>0&&x<end);
