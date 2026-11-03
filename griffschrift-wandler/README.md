@@ -100,6 +100,8 @@ LilyPond-Dateien (.ly) mit einstimmigen Liedern, Akkorden und Text lassen sich j
 
 Beim Scannen lassen sich jetzt bis zu vier Fotos auf einmal auswählen. Der Wandler fasst sie in der Reihenfolge der Dateinamen zu einem PDF zusammen, und der Erkennungsserver liest sie als aufeinanderfolgende Seiten eines Stücks.
 
+Beim Scannen von Griffschrift werden jetzt auch die Bassbuchstaben unter den Notenlinien gelesen und an den Wandler übergeben; mit „Griffe aus der Griffschrift“ spielt er die Bässe dann so, wie sie im Heft stehen. Auf Fuchs-Seiten stimmen etwa 93 von 100 Buchstaben, auf Seiten aus Philipps Heft fast alle; die Zuordnung zur Zeit stimmt bei Fuchs in gut vier von fünf Fällen.
+
 Offen sind noch die Notation der übrigen Bass-Zusatzknöpfe (außer Fis und As derzeit Tonname mit Stern), die Notenkopfrichtung bei Doppelgriffen nach Fuchs und die Erkennung von Auftakten in MIDI-Dateien.
 
 ## English
@@ -197,5 +199,7 @@ When scanning Griffschrift, note values are now right much more often. The reade
 LilyPond files (.ly) with single-voice songs, chords and lyrics can now be opened; further verses from the file are shown below the Griffschrift and printed too. The printout no longer carries the browser's header and footer and shows the converter's address at the bottom. MIDI files now also supply tempo and minor key, and a pickup is recognised even when only the chord track reveals it. These parts were contributed by Helmut Seitz; with them all 246 songs of the Ebersberger song collection were converted.
 
 When scanning, up to four photos can now be selected at once. The converter combines them into one PDF in the order of their file names, and the recognition server reads them as consecutive pages of one tune.
+
+When scanning Griffschrift, the bass letters below the staff are now read as well and passed to the converter; with “Grips from the Griffschrift” it then plays the basses as written in the book. On Fuchs pages about 93 in 100 letters are right, on pages from Philipp's book almost all; the timing matches in more than four out of five cases on Fuchs pages.
 
 Still open: the notation of the remaining extra bass buttons (apart from F# and Ab currently the note name with a star), the note-head direction in double stops as described by Fuchs, and detecting pickups (anacruses) in MIDI files.

@@ -9,6 +9,7 @@ from assemble import button,pitch
 from fuchsread import druck_bars
 from rhythm import strip,beam_feats,dot_feat
 from measures import barlines,rests,fit_measure,UNIT
+import bassread as BR
 _RD=HERE if _os.path.exists(HERE+'/rhythm.pkl') else _os.path.join(HERE,'..','gsleser')
 RCLF=pickle.load(open(_RD+'/rhythm.pkl','rb'))
 # zweites Notenwert-Modell, angelernt an echten Seiten (Philipps Übungsstücke, Fuchs-Seiten mit MIDI); beide Urteile werden gemischt
@@ -62,8 +63,8 @@ def load_gray(path,target_d=18.0):
             if foto: g=cv2.divide(g,cv2.GaussianBlur(g,(0,0),20),scale=255)
             return g
     return None
-def read(path,shift=0,work=None,table=None):
-    """shift: Stimmung wie im Wandler (A-D-G-C = 0, G-C-F-B = -2 …)."""
+def read(path,shift=0,work=None,table=None,bass=None):
+    """shift: Stimmung wie im Wandler (A-D-G-C = 0, G-C-F-B = -2 …). bass: Liste, an die je Takt die gelesenen Bassbuchstaben (Lage im Takt in Zwölftel-Vierteln, Buchstabe) angehängt werden."""
     g=load_gray(path)
     if g is None: raise ValueError('Keine Notenlinien gefunden')
     if work is None:
@@ -95,7 +96,7 @@ def read(path,shift=0,work=None,table=None):
         Q9=np.zeros((len(P),len(UNIT)));Q9[:,RCLF2.classes_]=RCLF2.predict_proba(np.array(feats))
         lp=(1-RW2)*np.log(np.clip(P9,1e-4,1))+RW2*np.log(np.clip(Q9,1e-4,1))
     for it,row in zip(items,lp): it['lp']=row
-    meas=[]
+    meas=[];medge=[];letters={}
     for si,ys in enumerate(st):
         d=(ys[4]-ys[0])/4;its=sorted([it for it in items if it['st']==si],key=lambda it:it['x'])
         hxy=[]
@@ -105,13 +106,14 @@ def read(path,shift=0,work=None,table=None):
         bl=barlines(bw,ys,d,[x for x,_ in heads_xy]);nol=G.stems_off(G.remove_lines(bw,ys,d),d)
         rs=[dict(kind='r',st=si,x=x,u=u) for x,u in rests(bw,nol,ys,d,heads_xy,bl)]
         edges=[0]+bl+[1e9];allg=[]
+        if bass is not None and not _os.environ.get('NOBASS'): letters[si]=BR.read_letters(bw,st,si,d)
         for a,b in zip(edges,edges[1:]):
             ev=sorted([it for it in its if a<it['x']<b]+[r for r in rs if a<r['x']<b],key=lambda e:e['x'])
             grp=[]
             for e in ev:
                 if e['kind']=='n' and grp and grp[-1][0]['kind']=='n' and e['x']-grp[-1][-1]['x']<1.3*d: grp[-1].append(e)
                 else: grp.append([e])
-            if grp: meas.append((si,grp));allg+=grp
+            if grp: meas.append((si,grp));allg+=grp;medge.append((a,b,d))
         # Triolen: die Gruppe unter/über der Ziffer 3 und ihre beiden Nachbarn
         if allg and not _os.environ.get('NOTRIP'):
             gx=[float(np.mean([e['x'] for e in g_])) for g_ in allg]
@@ -147,6 +149,22 @@ def read(path,shift=0,work=None,table=None):
             else:
                 heads=sorted({h for e in gr for h in e['heads']},key=lambda h:-h[2]);evs.append(dict(rest=False,fis=[e['fi'] for e in gr],mtrip=bool(gr[0].get('trip')),u=uu(gr,UNIT[ch[k]]),trip=bool(gr[0].get('trip')) or UNIT[ch[k]]==4,dir=gr[0]['dir'],heads=heads));k+=1
         out.append(evs);lens.append(Lm)
+        if bass is not None:   # Bassbuchstaben des Takts: Lage über die Einsätze der Noten und Pausen (nächster Einsatz oder dazwischen auf Achtel gerundet)
+            a,b,d=medge[mi];xs=[];pos=0
+            for gr,e in zip(m,evs): xs.append((float(np.mean([q['x'] for q in gr])),pos));pos+=e['u']
+            bl_=[];ins=[(x,c if isinstance(c,tuple) else str(c)) for x,c in letters.get(si,[]) if a<x<b];T=pos if 0<pos<Lm else Lm
+            if ins and not _os.environ.get('BASS_ALL') and T%len(ins)==0 and T//len(ins) in (6,12,18,24,36):   # gleichmäßige Begleitung (häufigster Fall): Buchstaben auf gleich lange Schläge
+                bass.append([(i*(T//len(ins)),c) for i,(x,c) in enumerate(ins)]);continue
+            for x,c in ins:
+                j=int(np.argmin([abs(x-gx) for gx,_ in xs]))
+                if abs(x-xs[j][0])<0.9*d: q=xs[j][1]
+                else:
+                    L=[t for t in xs if t[0]<x];R=[t for t in xs if t[0]>x]
+                    l=L[-1] if L else (a,0);r=R[0] if R else (min(b,xs[-1][0]+3*d),Lm)
+                    q=l[1]+(x-l[0])/max(1e-6,r[0]-l[0])*(r[1]-l[1]);q=int(round(q/6)*6)
+                q=max(0,min(Lm-1,q))
+                if _os.environ.get('BASS_ALL') or not any(q==q2 for q2,_ in bl_): bl_.append((q,c))
+            bass.append(bl_)
     try: _os.remove(work)
     except Exception: pass
     return out,lens
@@ -162,20 +180,20 @@ def parse_table(s):
     except Exception: return None
 def convert(paths,shift=0,title='Gescannte Griffschrift',table=None):
     """Eine oder mehrere Seiten (Bilder) -> (MusicXML, Pins); Takte der Seiten hintereinander. table: Diskantbelegung des Wandlers (sonst 446 Normal)."""
-    allm=[];Lm=None
+    allm=[];Lm=None;bass=[]
     for p in paths:
-        m,L=read(p,shift,table=table);allm+=m;Lm=(Lm or [])+L
+        m,L=read(p,shift,table=table,bass=bass);allm+=m;Lm=(Lm or [])+L
     if not allm: raise ValueError('Keine Griffschrift gefunden')
-    return to_xml(allm,Lm,title,shift)
+    return to_xml(allm,Lm,title,shift,bass)
 STEP=['C','C','D','D','E','F','F','G','G','A','A','B'];ALT=[0,1,0,1,0,0,1,0,1,0,1,0]
 TRIPTYPE={2:('16th',0),4:('eighth',0),6:('eighth',1),8:('quarter',0),12:('quarter',1),16:('half',0),24:('half',1),32:('whole',0)}   # Notenart innerhalb einer Triole
 TYPE={3:('16th',0),4:('eighth',0),6:('eighth',0),9:('eighth',1),12:('quarter',0),18:('quarter',1),24:('half',0),36:('half',1),48:('whole',0)}
-def to_xml(meas,lens,title='Gescannte Griffschrift',shift=0):
+def to_xml(meas,lens,title='Gescannte Griffschrift',shift=0,bass=None):
     if not isinstance(lens,list): lens=[lens]*len(meas)
     def ts(L): return (L//12,4) if L%12==0 else (L//6,8)
     x=['<?xml version="1.0" encoding="UTF-8"?>','<score-partwise version="3.1">',f'<work><work-title>{title}</work-title></work>',
        '<part-list><score-part id="P1"><part-name>Melodie</part-name></score-part></part-list>','<part id="P1">']
-    pins=[];t0=0.0
+    pins=[];t0=0.0;bpins=[]
     for mi,evs in enumerate(meas):
         Lm=lens[mi];beats,btype=ts(Lm)
         imp=' implicit="yes"' if mi==0 and sum(e['u'] for e in evs)<Lm else ''
@@ -193,9 +211,12 @@ def to_xml(meas,lens,title='Gescannte Griffschrift',shift=0):
                     x.append(f'<note>{"<chord/>" if q else ""}<pitch><step>{STEP[p%12]}</step>{al}<octave>{p//12-1}</octave></pitch><duration>{e["u"]}</duration><type>{ty}</type>{"<dot/>"*dot}{tm}</note>')
                     pins.append([round(t0+pos/12,4),p,r,n,e['dir']])
             pos+=e['u']
+        if bass and mi<len(bass): bpins+=[[round(t0+q/12,4),c] for q,c in bass[mi]]
         x.append('</measure>');t0+=pos/12
     x+=['</part>','</score-partwise>']
-    return '\n'.join(x),{'sh':shift,'n':pins}
+    P={'sh':shift,'n':pins}
+    if bpins: P['b']=bpins   # Bassbuchstaben wie in der Griffschrift (Zeit in Vierteln, Name)
+    return '\n'.join(x),P
 if __name__=='__main__':
     sh=SHIFT[sys.argv[2] if len(sys.argv)>2 else 'ADGC'];meas,Lm=read(sys.argv[1],sh)
     xml,pins=to_xml(meas,Lm,shift=sh)
