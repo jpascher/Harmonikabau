@@ -17,7 +17,7 @@ def druck_bars(g):
         # Wiederholungsklammern, Bindebögen); Buchstaben = Teile in Schriftgröße knapp über dem Strich in seinem Bereich
         if L and _os.environ.get('GS_DRUCK','1')=='1':
             nb,_,sb,_=cv2.connectedComponentsWithStats(band)
-            let=[(sb[i,0],sb[i,0]+sb[i,2],y0+sb[i,1]+sb[i,3]) for i in range(1,nb) if 0.6*d<=sb[i,3]<=2.2*d and 0.2*d<=sb[i,2]<=2.5*d]
+            let=[(sb[i,0],sb[i,0]+sb[i,2],y0+sb[i,1]+sb[i,3]) for i in range(1,nb) if 0.6*d<=sb[i,3]<=3.2*d and 0.2*d<=sb[i,2]<=3.0*d]
             def ok(l):
                 a,b,y=l
                 if y<ys[4]+2.5*d: return False
