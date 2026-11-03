@@ -2477,14 +2477,14 @@ function midiToXML(buf,title){
   const u8=()=>b[p++],u16=()=>(b[p++]<<8)|b[p++],u32=()=>((b[p++]<<24)|(b[p++]<<16)|(b[p++]<<8)|b[p++])>>>0;
   const vl=()=>{let v=0,c;do{c=b[p++];v=(v<<7)|(c&127);}while(c&128&&p<b.length);return v;};
   p=8;u16();const nt=u16(),div=u16();if(div&0x8000)throw new Error(TX("Diese MIDI-Datei verwendet eine SMPTE-Zeitbasis, die wird nicht unterstützt.","This MIDI file uses SMPTE timing, which is not supported."));
-  const tracks=[],LY=[];const tsE=[],ksE=[];let ord=0;
+  const tracks=[],LY=[];const tsE=[],ksE=[];let ord=0,tempo0=null;
   const dec=d=>{try{return new TextDecoder("utf-8",{fatal:true}).decode(d);}catch(e){return new TextDecoder("windows-1252").decode(d);}};
   for(let t=0;t<nt&&p<b.length;t++){
     const id=String.fromCharCode(b[p],b[p+1],b[p+2],b[p+3]);p+=4;const len=u32(),end=Math.min(b.length,p+len);
     if(id!=="MTrk"){p=end;continue;}
     let tick=0,rs=0;const tr={notes:[],lyr:[],txt:[]},on={};
     while(p<end){tick+=vl();let st=b[p];if(st&128){p++;rs=st;}else st=rs;
-      if(st===0xFF){const ty=u8(),l=vl();const d=b.slice(p,p+l);p+=l;if(ty===0x58&&d[0]>0)tsE.push({t:tick/div,n:d[0],d:1<<d[1],o:ord++});if(ty===0x59)ksE.push({t:tick/div,f:(d[0]<<24)>>24,mi:d[1],o:ord++});if(ty===0x05)tr.lyr.push({t:tick/div,x:dec(d)});if(ty===0x01)tr.txt.push({t:tick/div,x:dec(d)});}
+      if(st===0xFF){const ty=u8(),l=vl();const d=b.slice(p,p+l);p+=l;if(ty===0x51&&tempo0===null&&l>=3)tempo0=(d[0]<<16)|(d[1]<<8)|d[2];if(ty===0x58&&d[0]>0)tsE.push({t:tick/div,n:d[0],d:1<<d[1],o:ord++});if(ty===0x59)ksE.push({t:tick/div,f:(d[0]<<24)>>24,mi:d[1],o:ord++});if(ty===0x05)tr.lyr.push({t:tick/div,x:dec(d)});if(ty===0x01)tr.txt.push({t:tick/div,x:dec(d)});}
       else if(st===0xF0||st===0xF7){p+=vl();}
       else{const hi=st&0xF0,ch=st&15,a=u8(),c=(hi===0xC0||hi===0xD0)?0:u8();
         if(ch===9)continue;
@@ -2520,7 +2520,7 @@ function midiToXML(buf,title){
     else{bas=mel.filter(n=>n.m<52);mel=mel.filter(n=>n.m>=52);}
   }
   const Q=x=>{const a=Math.round(x*4)/4,c=Math.round(x*3)/3;return Math.abs(a-x)<=Math.abs(c-x)+0.02?a:c;};
-  const info={tsFile:!!tsE.length,pickup:0,tsChanges:0,keyChanges:0,bassFixed:0,meters:[],chordTrack:chd.length>0,lyrics:0,verses:0};
+  const info={tsFile:!!tsE.length,pickup:0,tsChanges:0,keyChanges:0,bassFixed:0,meters:[],chordTrack:chd.length>0,lyrics:0,verses:0,tempo:tempo0?Math.max(30,Math.min(260,Math.round(60000000/tempo0))):0};
   // ===== 1. Taktart: alle Taktwechsel aus der Datei (an derselben Stelle gilt der letzte); ein Takt, der vor einem Wechsel nicht voll wird, bleibt kurz
   const secs=[];[...tsE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const t=Q(e.t);if(secs.length&&Math.abs(secs[secs.length-1].t-t)<1e-6)secs[secs.length-1]={t,n:e.n,d:e.d};else secs.push({t,n:e.n,d:e.d});});
   if(!secs.length){const g=guessMeter(mel,bas,Q);secs.push({t:0,n:g[0],d:g[1]});info.meterGuessed=true;}secs[0].t=0;
@@ -2529,11 +2529,17 @@ function midiToXML(buf,title){
   const lastT=Math.max(...mel.map(n=>n.on+n.len),...bas.map(n=>n.on+n.len));
   // Die Taktstriche laufen ab dem Anfang der Datei (Auftakte sind dort zu ganzen Takten aufgefüllt; an den Bassbuchstaben von Franz Fuchs
   // geprüft: bei 147 von 149 Stücken im 3/4-Takt richtig). Die Stelle der ersten Taktangabe ist dafür unzuverlässig und zählt nicht.
+  // Nicht aufgefüllter Auftakt (z. B. LilyPond-MIDI mit \partial): Die Akkordspur setzt erst nach dem Auftakt ein. Der Abstand zählt als Auftakt, wenn die
+  // Melodie vorher schon spielt und dadurch mehr Akkorde auf einen Taktanfang fallen als ohne Auftakt. Ohne Akkordspur bleibt es wie bisher.
+  const pickupOf=L=>{if(!chd.length||!mel.length)return 0;const c0=Q(chd[0].on),o=c0%L;if(o<1e-6||L-o<1e-6||Math.min(...mel.map(n=>Q(n.on)))>=c0-1e-6)return 0;
+    const onBar=d=>chd.filter(c=>{const r=((Q(c.on)-d)%L+L)%L;return r<1e-6||L-r<1e-6;}).length;
+    return onBar(o)>onBar(0)?o:0;};
   const bars=[];   // {s,len,n,d,full}
   secs.forEach((sc,i)=>{const S=sc.t,E=i+1<secs.length?secs[i+1].t:Math.max(lastT,S+1e-3),L=sc.n*4/sc.d;
-    const o=0;info.meters.push(sc.n+"/"+sc.d);
+    let o=i===0?pickupOf(L):0;if(o>=E-S-1e-6)o=0;if(i===0)info.pickup=o;info.meters.push(sc.n+"/"+sc.d);
     let t=S;if(o>1e-6){bars.push({s:S,len:o,n:sc.n,d:sc.d,full:false});t=S+o;}
-    while(t<E-1e-6){const len=Math.min(L,E-t);bars.push({s:t,len:i+1<secs.length?len:L,n:sc.n,d:sc.d,full:len>=L-1e-6});t+=L;}});
+    while(t<E-1e-6){const len=Math.min(L,E-t),short=info.pickup>1e-6&&i+1>=secs.length&&len<=L-info.pickup+1e-6;   // nach einem Auftakt ist der Schlusstakt um den Auftakt kürzer
+      bars.push({s:t,len:i+1<secs.length?len:(short?L-info.pickup:L),n:sc.n,d:sc.d,full:!short&&len>=L-1e-6});t+=L;}});
   if(!bars.length)bars.push({s:0,len:4,n:4,d:4,full:true});
   const total=bars[bars.length-1].s+bars[bars.length-1].len;
   const barAt=x=>{let lo=0,hi=bars.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(bars[m].s<=x+1e-6)lo=m;else hi=m-1;}return lo;};
@@ -2558,7 +2564,7 @@ function midiToXML(buf,title){
     const notes=items.filter(it=>!it.rest);
     streams.forEach(ev=>{
       ev=ev.map(e=>({t:e.t,x:e.x.replace(/[\r\n]+/g,"")})).filter(e=>e.x.replace(/^[\/\\]+/,"").trim());if(!ev.length)return;
-      const kar=ev.some(e=>/^[ \/\\]|\s$/.test(e.x));
+      const kar=ev.some(e=>/^[\/\\]/.test(e.x))||ev.filter(e=>/^ |\s$/.test(e.x)).length>=ev.length*0.2;   // Karaoke: Zeilenzeichen oder viele Wortabstände; einzelne Leerzeichen zählen nicht
       const sy=ev.map((e,i)=>{const raw=e.x.replace(/^[\/\\]+/,""),nx=i+1<ev.length?ev[i+1].x:" ";
         const cont=kar?(!/\s$/.test(raw)&&!/^[ \/\\]/.test(nx)):/-\s*$/.test(raw);
         return {t:Q(e.t),x:raw.trim().replace(/\s*-$/,"").trim(),cont};}).filter(e=>e.x);
@@ -2582,7 +2588,7 @@ function midiToXML(buf,title){
     const last=[...items].reverse().find(it=>!it.rest);if(last&&last.ps[last.ps.length-1]%12===k)v+=4;
     const lb=bas.length?bas.reduce((a,b)=>a.on>b.on?a:b):null;if(lb&&lb.m%12===k)v+=4;
     if(v>bestK){bestK=v;keyPc=k;}}
-  const kE=[];[...ksE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const pc=mod(e.f*7,12),t=Q(e.t);if(kE.length&&Math.abs(kE[kE.length-1].t-t)<1e-6)kE[kE.length-1]={t,pc};else if(!kE.length||kE[kE.length-1].pc!==pc)kE.push({t,pc});});
+  const kE=[];[...ksE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const pc=mod(e.f*7,12),t=Q(e.t),mi=e.mi===1;if(kE.length&&Math.abs(kE[kE.length-1].t-t)<1e-6)kE[kE.length-1]={t,pc,mi};else if(!kE.length||kE[kE.length-1].pc!==pc)kE.push({t,pc,mi});});
   if(kE.length)kE[0].t=0;info.keyChanges=Math.max(0,kE.length-1);
   // Tonart der Datei nur, wenn sie zu den Tönen passt (sonst die geschätzte)
   const scaleFit=(k,a,b)=>{const sc=[0,2,4,5,7,9,11].map(x=>(x+k)%12);let v=0,tot=0;items.forEach(it=>{if(it.rest||it.on<a-1e-6||it.on>=b-1e-6)return;it.ps.forEach(m=>{tot+=it.dur;if(sc.includes(m%12))v+=it.dur;});});return tot?v/tot:1;};
@@ -2630,9 +2636,9 @@ function midiToXML(buf,title){
   const pitchX=m=>`<pitch><step>${SN[m%12]}</step>${AL[m%12]?"<alter>1</alter>":""}<octave>${Math.floor(m/12)-1}</octave></pitch>`;
   let body="";
   meas.forEach((ms,mi)=>{const br=bars[mi],pv=mi?bars[mi-1]:null;
-    const at=mi===0?`<attributes><divisions>${DIV}</divisions><key><fifths>${fifthsOf(kE.length?kE[0].pc:keyPc)}</fifths><mode>major</mode></key><time><beats>${br.n}</beats><beat-type>${br.d}</beat-type></time></attributes>`:
+    const at=mi===0?`<attributes><divisions>${DIV}</divisions><key><fifths>${fifthsOf(kE.length?kE[0].pc:keyPc)}</fifths><mode>${kE.length&&kE[0].mi?"minor":"major"}</mode></key><time><beats>${br.n}</beats><beat-type>${br.d}</beat-type></time></attributes>`:
       (pv.n!==br.n||pv.d!==br.d?`<attributes><time><beats>${br.n}</beats><beat-type>${br.d}</beat-type></time></attributes>`:"");
-    body+=`<measure number="${mi+1}"${br.full?"":' implicit="yes"'}>`+at;
+    body+=`<measure number="${info.pickup>1e-6?mi:mi+1}"${br.full?"":' implicit="yes"'}>`+at;   // der Auftakt ist Takt 0, gezählt wird ab dem ersten vollen Takt
     if(!ms.length)body+=`<note><rest/><duration>${Math.max(1,Math.round(br.len*DIV))}</duration><voice>1</voice></note>`;
     for(const it of ms){
       const rel=it.on-br.s;
@@ -3045,6 +3051,7 @@ async function openFile(f){
       txt=await z.file(path).async("string");
     } else if(/\.midi?$/i.test(f.name)){
       txt=midiToXML(await f.arrayBuffer(),f.name.replace(/\.midi?$/i,""));
+      if(MIDI_INFO&&MIDI_INFO.tempo)document.getElementById("tempo").value=MIDI_INFO.tempo;   // eigene MIDI-Datei: erstes Tempo der Datei übernehmen
     } else if(/\.ly$/i.test(f.name)){
       const raw=await f.arrayBuffer();let t0;try{t0=new TextDecoder("utf-8",{fatal:true}).decode(raw);}catch(e){t0=new TextDecoder("windows-1252").decode(raw);}
       txt=lyToXML(t0,f.name.replace(/\.ly$/i,""));
@@ -3211,7 +3218,8 @@ async function loadVM(key){
     loadXMLText(midiToXML(buf,d[1]));CREDIT="Franz Fuchs, volksmusik.cc";PINSRC="fuchs";
     if(pins){FUCHS_PINS["vm:"+key]=pins;setPins("vm:"+key);}else setPins(null);
     run();
-  }catch(e){alert(TX("Dieses Stück wird aus dem Internet nachgeladen (Ordner midi/vm auf der GitHub-Seite). Dafür ist eine Internetverbindung nötig.","This tune is loaded from the internet (folder midi/vm on the GitHub page). An internet connection is required."));}
+  }catch(e){if(e.message!=="nicht erreichbar"){const st=document.getElementById("status"),sp=document.createElement("span");sp.className="err";sp.textContent=TX("Dieses Stück konnte nicht verarbeitet werden: ","This tune could not be processed: ")+e.message;st.innerHTML="";st.appendChild(sp);return;}   // Programmfehler nicht als fehlendes Internet melden
+    alert(TX("Dieses Stück wird aus dem Internet nachgeladen (Ordner midi/vm auf der GitHub-Seite). Dafür ist eine Internetverbindung nötig.","This tune is loaded from the internet (folder midi/vm on the GitHub page). An internet connection is required."));}
 }
 
 // ======== Noten scannen: externe Dienste (nur nach Bestätigung, öffnet einen neuen Tab) und – vorbereitet, standardmäßig aus –
