@@ -102,6 +102,8 @@ Beim Scannen lassen sich jetzt bis zu vier Fotos auf einmal auswählen. Der Wand
 
 Beim Scannen von Griffschrift werden jetzt auch die Bassbuchstaben unter den Notenlinien gelesen und an den Wandler übergeben; mit „Griffe aus der Griffschrift“ spielt er die Bässe dann so, wie sie im Heft stehen. Auf Fuchs-Seiten stimmen etwa 93 von 100 Buchstaben, auf Seiten aus Philipps Heft fast alle; die Zuordnung zur Zeit stimmt bei Fuchs in gut vier von fünf Fällen.
 
+Übereinander notierte Bassbuchstaben (Grundbass und Begleiter gleichzeitig, wie in den Heften von Max Rosenzopf) werden ebenfalls gelesen; der Wandler spielt dann beide und zeigt sie übereinander. Fotos von Heftseiten dürfen quer oder auf dem Kopf stehen, und eine gewölbte Seite wird vor dem Lesen geradegezogen. Auf einem Rosenzopf-Foto, das nicht zum Anlernen diente, stimmen 88 von 100 Bassbuchstaben.
+
 Offen sind noch die Notation der übrigen Bass-Zusatzknöpfe (außer Fis und As derzeit Tonname mit Stern), die Notenkopfrichtung bei Doppelgriffen nach Fuchs und die Erkennung von Auftakten in MIDI-Dateien.
 
 ## English
@@ -201,5 +203,7 @@ LilyPond files (.ly) with single-voice songs, chords and lyrics can now be opene
 When scanning, up to four photos can now be selected at once. The converter combines them into one PDF in the order of their file names, and the recognition server reads them as consecutive pages of one tune.
 
 When scanning Griffschrift, the bass letters below the staff are now read as well and passed to the converter; with “Grips from the Griffschrift” it then plays the basses as written in the book. On Fuchs pages about 93 in 100 letters are right, on pages from Philipp's book almost all; the timing matches in more than four out of five cases on Fuchs pages.
+
+Stacked bass letters (fundamental bass and chord at the same time, as in Max Rosenzopf's books) are read too; the converter then plays both and shows them one above the other. Photos of book pages may be sideways or upside down, and a curved page is straightened before reading. On a Rosenzopf photo that was not used for training, 88 in 100 bass letters are right.
 
 Still open: the notation of the remaining extra bass buttons (apart from F# and Ab currently the note name with a star), the note-head direction in double stops as described by Fuchs, and detecting pickups (anacruses) in MIDI files.

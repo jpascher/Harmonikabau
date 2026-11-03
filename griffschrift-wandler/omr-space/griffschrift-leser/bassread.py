@@ -18,18 +18,27 @@ def read_letters(bw, st, si, d):
     C = candidates(bw, st, si, d)
     if not C: return []
     P = M.predict_proba(np.array([f for _, f in C])); cl = M.classes_[P.argmax(1)]; pr = P.max(1)
-    let = [(b, c) for (b, _), c, q in zip(C, cl, pr) if c not in ('none', 'mark') and q > 0.6]
+    let = [(b, c) for (b, _), c, q in zip(C, cl, pr) if c not in ('none', 'mark') and q > float(_os.environ.get('BASS_Q', '0.4'))]
     if len(let) < 2: return []
     yc = np.median([b[1] + b[3] / 2 for b, _ in let])
     if _os.environ.get('BASS_ALL'):   # für das Anlernen: alle buchstabengroßen Flecken der Zeile mit Merkmal
         return [(b[0] + b[2] / 2, ('?', b, f, c)) for (b, f), c in zip(C, cl) if abs(b[1] + b[3] / 2 - yc) < 0.9 * d and 0.5 * d <= b[3] <= 2.4 * d]
-    let = [(b, c) for b, c in let if abs(b[1] + b[3] / 2 - yc) < 0.9 * d]   # nur die Buchstabenzeile
+    row = [(b, c) for b, c in let if abs(b[1] + b[3] / 2 - yc) < 0.9 * d]   # die Buchstabenzeile
+    # übereinander gesetzte Buchstaben (Grundbass und Begleiter gleichzeitig, z. B. bei Rosenzopf oder Michlbauer): ein zweiter Buchstabe
+    # knapp über oder unter einem Buchstaben der Zeile, an derselben Stelle
+    extra = [(b, c) for b, c in let if 0.9 * d <= abs(b[1] + b[3] / 2 - yc) <= 2.4 * d]
     marks = [b for (b, _), c in zip(C, cl) if c == 'mark']
-    out = []
-    for b, c in sorted(let, key=lambda t: t[0][0]):
+    def name(b, c):
         x0, y0, w, h = b
         if any(x0 + w - 0.2 * d <= m[0] <= x0 + w + 0.8 * d and m[1] < y0 + 0.6 * h for m in marks): c += "'"
-        out.append((x0 + w / 2, c))
+        return c
+    out = []
+    for b, c in sorted(row, key=lambda t: t[0][0]):
+        cx = b[0] + b[2] / 2; n = name(b, c)
+        st_ = [name(b2, c2) for b2, c2 in extra if abs(b2[0] + b2[2] / 2 - cx) < 0.6 * d]
+        if st_:   # Grundbass (groß) zuerst, dann Begleiter
+            n = '+'.join(sorted([n] + st_[:1], key=lambda q: q[0].islower()))
+        out.append((cx, n))
     return out
 
 def strip_long_lines(bw, d):
@@ -56,6 +65,13 @@ def candidates(bw, st, si, d):
     H, W = bw.shape; y0, y1 = band_of(st, si, H, d)
     if y1 - y0 < 1.5 * d: return []
     sub = strip_long_lines(bw[y0:y1], d)
+    # Notenhälse, die von oben in die Buchstabenzeile ragen, abschneiden (sonst kleben sie an Buchstaben, etwa bei Rosenzopf)
+    top = (sub[0] > 0) & (bw[max(0, y0 - 3):y0].min(0) > 0 if y0 >= 3 else sub[0] > 0)   # nur Striche, die schon über dem Band beginnen
+    for x in (np.where(top)[0] if not _os.environ.get('NOSTEMCUT') else []):
+        col = sub[:, x] > 0; L = int(np.argmin(col)) if not col.all() else len(col)
+        if L >= 0.5 * d:
+            sub[:L, x] = 0
+    sub = cv2.morphologyEx(sub, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))   # dünne, blasse Striche (Fotos) zusammenhalten
     n, lab, S, _ = cv2.connectedComponentsWithStats((sub > 0).astype(np.uint8))
     out = []
     for i in range(1, n):

@@ -12,7 +12,7 @@ def staves(bw):
     # benachbarte Zeilen zusammenfassen (Liniendicke)
     lines = []
     for y in rows:
-        if lines and y - lines[-1][-1] <= 1: lines[-1].append(y)
+        if lines and y - lines[-1][-1] <= 3: lines[-1].append(y)   # bis 2 Zeilen Lücke: bei Fotos ist eine Linie leicht schräg und zerfällt sonst in zwei
         else: lines.append([y])
     ys = [sum(l) / len(l) for l in lines]
     # alle Fünfergruppen bewerten (Schwankung der Abstände), die gleichmäßigsten zuerst nehmen, ohne Überlappung

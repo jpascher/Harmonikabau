@@ -1,7 +1,7 @@
 # Griffschrift-Bild -> MusicXML (Normalnoten) + Griffe für den Wandler (Pins: Zeit, Ton, Reihe, Knopf, Balgrichtung)
 import os as _os; HERE=_os.path.dirname(_os.path.abspath(__file__))
 import cv2,sys,json,pickle,collections,numpy as np,os as _os
-from PIL import Image
+from PIL import Image, ImageOps
 sys.path.insert(0,HERE)
 import gsread as G, detect as D
 from align import chords_det
@@ -44,8 +44,47 @@ def triplet_marks(nol,ys,d,thr=0.7):
     return out
 _DBG={}
 TRIP={3:2,4:4,6:4,9:6,12:8,18:12,24:16,36:24,48:32}   # Notenwert in einer Triole (zwei Drittel); 4 ist schon eine Triolenachtel
-def load_gray(path,target_d=18.0):
-    im=Image.open(path).convert('RGBA');bg=Image.new('RGBA',im.size,(255,255,255,255));bg.alpha_composite(im);g=np.array(bg.convert('L'))
+def dewarp(g,gs):
+    """Gewölbte Seite (Foto eines Hefts): Notenlinien steigen und fallen über die Breite. Je waagrechtem Streifen der Seite wird die
+    Verschiebung der Linien von Spalte zu Spalte gemessen und das Bild so verzogen, dass die Linien wieder waagrecht laufen."""
+    h,w=g.shape;k=max(1.0,max(h,w)/1600);sm=cv2.resize(gs,None,fx=1/k,fy=1/k,interpolation=cv2.INTER_AREA);H,W=sm.shape
+    bw=(sm<200).astype(np.uint8)*255;lin=cv2.morphologyEx(bw,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(max(15,W//40),1))).astype(np.float32)
+    NS,NB=16,6;sw=W//NS;bh=H//NB;L=12;S=np.zeros((NB,NS),np.float32)
+    for b in range(NB):
+        y0=max(0,b*bh-L);y1=min(H,(b+1)*bh+L);prof=[lin[y0:y1,q*sw:(q+1)*sw].sum(1) for q in range(NS)]
+        sh=[0.0]
+        for q in range(NS-1):
+            a_,b_=prof[q],prof[q+1]
+            if a_.sum()<5*255 or b_.sum()<5*255: sh.append(0.0);continue
+            best=max(range(-L,L+1),key=lambda t:float((a_[max(0,-t):len(a_)-max(0,t)]*b_[max(0,t):len(b_)-max(0,-t)]).sum()))
+            sh.append(float(best))
+        c=np.cumsum(sh);S[b]=c-c[NS//2]
+    if np.abs(S).max()<1.5: return g
+    S=cv2.GaussianBlur(S,(3,3),0.8)
+    F=cv2.resize(S,(w,h),interpolation=cv2.INTER_LINEAR)*k
+    mx,my=np.meshgrid(np.arange(w,dtype=np.float32),np.arange(h,dtype=np.float32))
+    return cv2.remap(g,mx,my+F,cv2.INTER_LINEAR,borderValue=255)
+def orient(g):
+    """Hochkant fotografierte Seite (quer im Bild): mehr senkrechte als waagrechte lange Striche -> um 90° drehen"""
+    sm=cv2.resize(g,None,fx=800/max(g.shape),fy=800/max(g.shape),interpolation=cv2.INTER_AREA)
+    sm=cv2.divide(sm,cv2.GaussianBlur(sm,(0,0),10),scale=255);bw=(sm<190).astype(np.uint8)*255
+    hz=cv2.morphologyEx(bw,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(40,1))).sum()
+    vt=cv2.morphologyEx(bw,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(1,40))).sum()
+    return cv2.rotate(g,cv2.ROTATE_90_CLOCKWISE) if vt>2*max(hz,1) else g
+def upside_down(g,st):
+    """Steht die Seite auf dem Kopf? Die Bassbuchstaben (viele kleine Flecken in einer Zeile) liegen dann über statt unter den Systemen."""
+    _,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV);n,lab,S_,C_=cv2.connectedComponentsWithStats(bw);sc=0
+    for ys in st:
+        d=(ys[4]-ys[0])/4;sm=[(C_[i][0],C_[i][1]) for i in range(1,n) if 0.5*d<=S_[i][3]<=2*d and S_[i][2]<=2*d]
+        below=sum(1 for x,y in sm if ys[4]+d<y<ys[4]+5*d);above=sum(1 for x,y in sm if ys[0]-5*d<y<ys[0]-d)
+        sc+=np.sign(above-below)*(abs(above-below)>3)
+    return len(st)>=3 and sc>0.7*len(st)
+def load_gray(path,target_d=18.0,_turn=True):
+    im=Image.open(path)
+    try: im=ImageOps.exif_transpose(im)   # Handyfotos: Drehung aus den Bilddaten
+    except Exception: pass
+    im=im.convert('RGBA');bg=Image.new('RGBA',im.size,(255,255,255,255));bg.alpha_composite(im);g=np.array(bg.convert('L'))
+    g=orient(g)
     a=skew_angle(g)
     if abs(a)>=0.2:   # schräge Vorlage gerade drehen, sonst findet die Liniensuche die Systeme nicht
         h,w=g.shape;g=cv2.warpAffine(g,cv2.getRotationMatrix2D((w/2,h/2),a,1.0),(w,h),flags=cv2.INTER_CUBIC,borderValue=255)
@@ -53,6 +92,8 @@ def load_gray(path,target_d=18.0):
     foto=bool(np.median(g)<250 or (hell.size and float(np.median(np.abs(hell-np.median(hell))))>=2))
     # bei Fotos die Helligkeit schon vor der Liniensuche ausgleichen: auf grauem Hintergrund liegt sonst alles unter der Linienschwelle
     gs=cv2.divide(g,cv2.GaussianBlur(g,(0,0),max(8.0,min(g.shape)/60)),scale=255) if foto else g
+    if foto and not _os.environ.get('NODEWARP'):
+        g=dewarp(g,gs);gs=cv2.divide(g,cv2.GaussianBlur(g,(0,0),max(8.0,min(g.shape)/60)),scale=255)
     for f in (1,2,3):
         gg=cv2.resize(gs,None,fx=f,fy=f,interpolation=cv2.INTER_CUBIC) if f>1 else gs
         st=G.staves(cv2.threshold(gg,240,255,cv2.THRESH_BINARY_INV)[1])
@@ -61,8 +102,20 @@ def load_gray(path,target_d=18.0):
             g=cv2.resize(g,None,fx=target_d/(d/f),fy=target_d/(d/f),interpolation=cv2.INTER_CUBIC)
             # Hintergrund ausgleichen, aber nur bei Fotos (grauer oder verrauschter Hintergrund); saubere Scans und Bilder bleiben unverändert
             if foto: g=cv2.divide(g,cv2.GaussianBlur(g,(0,0),20),scale=255)
+            if _turn and foto:   # Foto auf dem Kopf: um 180° drehen und noch einmal (nur bei Fotos; saubere Bilder stehen richtig)
+                st2=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1])
+                if st2 and upside_down(g,st2): return _load_rot(path,target_d)
             return g
     return None
+def _load_rot(path,target_d):
+    import tempfile;im=Image.open(path)
+    try: im=ImageOps.exif_transpose(im)
+    except Exception: pass
+    fn=tempfile.mktemp(suffix='.png');im.convert('RGB').rotate(180).save(fn)
+    try: return load_gray(fn,target_d,_turn=False)
+    finally:
+        try: _os.remove(fn)
+        except Exception: pass
 def read(path,shift=0,work=None,table=None,bass=None):
     """shift: Stimmung wie im Wandler (A-D-G-C = 0, G-C-F-B = -2 …). bass: Liste, an die je Takt die gelesenen Bassbuchstaben (Lage im Takt in Zwölftel-Vierteln, Buchstabe) angehängt werden."""
     g=load_gray(path)
