@@ -104,6 +104,8 @@ Beim Scannen von Griffschrift werden jetzt auch die Bassbuchstaben unter den Not
 
 Übereinander notierte Bassbuchstaben (Grundbass und Begleiter gleichzeitig, wie in den Heften von Max Rosenzopf) werden ebenfalls gelesen; der Wandler spielt dann beide und zeigt sie übereinander. Fotos von Heftseiten dürfen quer oder auf dem Kopf stehen, und eine gewölbte Seite wird vor dem Lesen geradegezogen. Auf einem Rosenzopf-Foto, das nicht zum Anlernen diente, stimmen 88 von 100 Bassbuchstaben.
 
+Ein Haltebogen über einen Zeilenumbruch wird jetzt geteilt gezeichnet, am Ende der einen und am Anfang der nächsten Zeile, statt als lange Linie quer über das Blatt (Beitrag von Helmut Seitz). Beim Scannen bleiben Seitenränder und das Nachbarblatt eines Hefts außerhalb der Systeme unberücksichtigt, und eine auf dem Kopf stehende Fotoseite wird sicherer erkannt.
+
 Offen sind noch die Notation der übrigen Bass-Zusatzknöpfe (außer Fis und As derzeit Tonname mit Stern), die Notenkopfrichtung bei Doppelgriffen nach Fuchs und die Erkennung von Auftakten in MIDI-Dateien.
 
 ## English
@@ -205,5 +207,7 @@ When scanning, up to four photos can now be selected at once. The converter comb
 When scanning Griffschrift, the bass letters below the staff are now read as well and passed to the converter; with “Grips from the Griffschrift” it then plays the basses as written in the book. On Fuchs pages about 93 in 100 letters are right, on pages from Philipp's book almost all; the timing matches in more than four out of five cases on Fuchs pages.
 
 Stacked bass letters (fundamental bass and chord at the same time, as in Max Rosenzopf's books) are read too; the converter then plays both and shows them one above the other. Photos of book pages may be sideways or upside down, and a curved page is straightened before reading. On a Rosenzopf photo that was not used for training, 88 in 100 bass letters are right.
+
+A tie across a line break is now drawn in two parts, at the end of one line and the start of the next, instead of as a long line across the page (contributed by Helmut Seitz). When scanning, page margins and the facing page of a book outside the staves are ignored, and an upside-down photo page is recognised more reliably.
 
 Still open: the notation of the remaining extra bass buttons (apart from F# and Ab currently the note name with a star), the note-head direction in double stops as described by Fuchs, and detecting pickups (anacruses) in MIDI files.

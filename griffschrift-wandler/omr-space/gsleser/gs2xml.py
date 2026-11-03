@@ -72,13 +72,16 @@ def orient(g):
     vt=cv2.morphologyEx(bw,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(1,40))).sum()
     return cv2.rotate(g,cv2.ROTATE_90_CLOCKWISE) if vt>2*max(hz,1) else g
 def upside_down(g,st):
-    """Steht die Seite auf dem Kopf? Die Bassbuchstaben (viele kleine Flecken in einer Zeile) liegen dann über statt unter den Systemen."""
-    _,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV);n,lab,S_,C_=cv2.connectedComponentsWithStats(bw);sc=0
-    for ys in st:
-        d=(ys[4]-ys[0])/4;sm=[(C_[i][0],C_[i][1]) for i in range(1,n) if 0.5*d<=S_[i][3]<=2*d and S_[i][2]<=2*d]
-        below=sum(1 for x,y in sm if ys[4]+d<y<ys[4]+5*d);above=sum(1 for x,y in sm if ys[0]-5*d<y<ys[0]-d)
-        sc+=np.sign(above-below)*(abs(above-below)>3)
-    return len(st)>=3 and sc>0.7*len(st)
+    """Steht die Seite auf dem Kopf? Gezählt werden sicher erkannte Bassbuchstaben unter den Systemen, einmal so und einmal um 180° gedreht;
+    auf dem Kopf stehende Buchstaben erkennt das Modell nicht."""
+    def cnt(im):
+        _,bw=cv2.threshold(im,200,255,cv2.THRESH_BINARY_INV);ss=G.staves(cv2.threshold(im,240,255,cv2.THRESH_BINARY_INV)[1]);n=0
+        for si in range(len(ss)): n+=len(BR.read_letters(bw,ss,si,(ss[si][4]-ss[si][0])/4))
+        return n
+    a=cnt(g)
+    if a>=3*len(st): return False
+    r=cnt(cv2.rotate(g,cv2.ROTATE_180))
+    return r>=max(8,1.5*a)
 def load_gray(path,target_d=18.0,_turn=True):
     im=Image.open(path)
     try: im=ImageOps.exif_transpose(im)   # Handyfotos: Drehung aus den Bilddaten
@@ -102,6 +105,7 @@ def load_gray(path,target_d=18.0,_turn=True):
             g=cv2.resize(g,None,fx=target_d/(d/f),fy=target_d/(d/f),interpolation=cv2.INTER_CUBIC)
             # Hintergrund ausgleichen, aber nur bei Fotos (grauer oder verrauschter Hintergrund); saubere Scans und Bilder bleiben unverändert
             if foto: g=cv2.divide(g,cv2.GaussianBlur(g,(0,0),20),scale=255)
+            if foto and _os.environ.get('GAMMA'): g=(255*(g/255.0)**float(_os.environ['GAMMA'])).astype(np.uint8)   # blasse Striche kräftiger
             if _turn and foto:   # Foto auf dem Kopf: um 180° drehen und noch einmal (nur bei Fotos; saubere Bilder stehen richtig)
                 st2=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1])
                 if st2 and upside_down(g,st2): return _load_rot(path,target_d)
@@ -120,6 +124,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     """shift: Stimmung wie im Wandler (A-D-G-C = 0, G-C-F-B = -2 …). bass: Liste, an die je Takt die gelesenen Bassbuchstaben (Lage im Takt in Zwölftel-Vierteln, Buchstabe) angehängt werden."""
     g=load_gray(path)
     if g is None: raise ValueError('Keine Notenlinien gefunden')
+    _DBG['g']=g
     if work is None:
         import tempfile;work=_tmp=tempfile.mktemp(suffix='.png')
     cv2.imwrite(work,g);_,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV)
@@ -128,12 +133,29 @@ def read(path,shift=0,work=None,table=None,bass=None):
     items=[]   # je System: Akkorde und Pausen
     feats=[]
     # Zeilenanfang je System (Taktangabe im ersten System nicht als Kopf lesen)
-    x_start={}
+    x_start={};x_ext={};foto_like=bool(np.median(g)<253)
     for si,ys in enumerate(st):
         row=np.where(bw[int(round(ys[0]))]>0)[0];x_start[si]=float(row.min()) if len(row) else 0.0
+        # Ausdehnung des Systems: Spalten, in denen (fast) alle fünf Linien Tinte haben; längstes Stück (Fotos: Seitenrand und Nachbarseite bleiben draußen)
+        hl=cv2.morphologyEx(bw[max(0,int(ys[0])-8):int(ys[4])+9],cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(max(5,int(2*(ys[4]-ys[0])/4)),1)));o0=max(0,int(ys[0])-8)
+        w_=max(1,int(0.25*(ys[4]-ys[0])/4));cols=sum((hl[max(0,int(round(y))-o0-w_):int(round(y))-o0+w_+1].max(0)>0).astype(np.int8) for y in ys)>=3
+        cols=cv2.dilate(cols.astype(np.uint8)[None],np.ones((1,9),np.uint8))[0]>0
+        runs=[];a_=None
+        for xx,v in enumerate(list(cols)+[False]):
+            if v and a_ is None: a_=xx
+            if not v and a_ is not None: runs.append((a_,xx));a_=None
+        dd=(ys[4]-ys[0])/4;mr=[]
+        for r in runs:   # Lücken bis 8 Linienabstände überbrücken (blasse Linienstücke)
+            if mr and r[0]-mr[-1][1]<8*dd: mr[-1]=(mr[-1][0],r[1])
+            else: mr.append(r)
+        runs=mr
+        if runs:
+            a_,b_=max(runs,key=lambda r:r[1]-r[0]);x_ext[si]=(float(a_),float(b_))
+            if foto_like: x_start[si]=float(a_)
     for c in C:
         si=c[0]['st'];x=float(np.median([h['x'] for h in c]))
         if si==0 and x<x_start[0]+6*(st[0][4]-st[0][0])/4: continue
+        if si in x_ext and not (x_ext[si][0]-0.5*(st[si][4]-st[si][0])/4<=x<=x_ext[si][1]+0.5*(st[si][4]-st[si][0])/4): continue   # außerhalb des Systems
         dr='D' if any(a-3<=x<=b+3 for a,b,_ in bars_d.get(si,[])) else 'Z'
         ks=[button(h['p'],h['t']) for h in c];ps=[pitch(r,n,dr,table) for r,n in ks]
         hs=[(h,k,p+off) for h,k,p in zip(c,ks,ps) if p]
@@ -141,7 +163,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
         ys=st[si];d=(ys[4]-ys[0])/4;nl=G.remove_lines(bw,ys,d)
         fill=float(np.mean([h['fill'] for h,_,_ in hs]))
         feats.append(np.concatenate([strip(nl,x,ys[2],d,fill),np.array(beam_feats(nl,x,[h['y'] for h,_,_ in hs],d)+[dot_feat(nl,x,[h['y'] for h,_,_ in hs],d)])*20]).astype(np.float32))
-        items.append(dict(kind='n',st=si,x=x,dir=dr,heads=[(k[0],k[1],p) for _,k,p in hs],fi=len(feats)-1))
+        items.append(dict(kind='n',st=si,x=x,dir=dr,heads=[(k[0],k[1],p) for _,k,p in hs],fi=len(feats)-1,hy=[(h['x'],h['y'],k[0]) for h,k,_ in hs]))
     _DBG['feats']=feats
     P=RCLF.predict_proba(np.array(feats)) if feats else np.zeros((0,len(RCLF.classes_)))
     P9=np.zeros((len(P),len(UNIT)));P9[:,RCLF.classes_]=P;lp=np.log(np.clip(P9,1e-6,1))
@@ -198,9 +220,9 @@ def read(path,shift=0,work=None,table=None,bass=None):
             if f: ch=f
         evs=[];k=0
         for gr in m:
-            if gr[0]['kind']=='r': evs.append(dict(rest=True,u=uu(gr,gr[0]['u']),trip=bool(gr[0].get('trip'))))
+            if gr[0]['kind']=='r': evs.append(dict(rest=True,dbg=(gr[0]['st'],[],gr[0]['x']),u=uu(gr,gr[0]['u']),trip=bool(gr[0].get('trip'))))
             else:
-                heads=sorted({h for e in gr for h in e['heads']},key=lambda h:-h[2]);evs.append(dict(rest=False,fis=[e['fi'] for e in gr],mtrip=bool(gr[0].get('trip')),u=uu(gr,UNIT[ch[k]]),trip=bool(gr[0].get('trip')) or UNIT[ch[k]]==4,dir=gr[0]['dir'],heads=heads));k+=1
+                heads=sorted({h for e in gr for h in e['heads']},key=lambda h:-h[2]);evs.append(dict(rest=False,dbg=(gr[0]['st'],[q for e in gr for q in e['hy']],gr[0]['x']),fis=[e['fi'] for e in gr],mtrip=bool(gr[0].get('trip')),u=uu(gr,UNIT[ch[k]]),trip=bool(gr[0].get('trip')) or UNIT[ch[k]]==4,dir=gr[0]['dir'],heads=heads));k+=1
         out.append(evs);lens.append(Lm)
         if bass is not None:   # Bassbuchstaben des Takts: Lage über die Einsätze der Noten und Pausen (nächster Einsatz oder dazwischen auf Achtel gerundet)
             a,b,d=medge[mi];xs=[];pos=0
