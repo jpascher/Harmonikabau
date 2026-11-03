@@ -11,14 +11,33 @@ from rhythm import strip,beam_feats,dot_feat
 from measures import barlines,rests,fit_measure,UNIT
 RCLF=pickle.load(open((HERE if _os.path.exists(HERE+'/rhythm.pkl') else _os.path.join(HERE,'..','gsleser'))+'/rhythm.pkl','rb'))
 SHIFT={'GCFB':-2,'ADGC':0,'BEsAsDes':1,'HEAD':2,'CFBEs':3,'FBEsAsDes':-4,'FBEsAs':-4,'EADG':-5,'DGCF':-7}
+def skew_angle(g):
+    """Schräglage in Grad (Foto, schief eingelegter Scan): der Winkel, bei dem die Notenlinien am schärfsten waagrecht stehen."""
+    sm=cv2.resize(g,None,fx=min(1.0,1200/max(g.shape)),fy=min(1.0,1200/max(g.shape)),interpolation=cv2.INTER_AREA)
+    bw=(sm<160).astype(np.float32);h,w=bw.shape;c=(w/2,h/2)
+    def score(a):
+        r=cv2.warpAffine(bw,cv2.getRotationMatrix2D(c,a,1.0),(w,h),flags=cv2.INTER_NEAREST);p=r.sum(1);return float((p*p).sum())
+    best=max(np.arange(-4,4.01,0.25),key=score)
+    best=max(np.arange(best-0.25,best+0.26,0.05),key=score)
+    return float(best)
 def load_gray(path,target_d=18.0):
     im=Image.open(path).convert('RGBA');bg=Image.new('RGBA',im.size,(255,255,255,255));bg.alpha_composite(im);g=np.array(bg.convert('L'))
+    a=skew_angle(g)
+    if abs(a)>=0.2:   # schräge Vorlage gerade drehen, sonst findet die Liniensuche die Systeme nicht
+        h,w=g.shape;g=cv2.warpAffine(g,cv2.getRotationMatrix2D((w/2,h/2),a,1.0),(w,h),flags=cv2.INTER_CUBIC,borderValue=255)
+    hell=g[g>200].astype(np.float32)   # Foto erkennen: grauer Hintergrund oder Rauschen im hellen Bereich (robust gegen geglättete Kanten sauberer Bilder)
+    foto=bool(np.median(g)<250 or (hell.size and float(np.median(np.abs(hell-np.median(hell))))>=2))
+    # bei Fotos die Helligkeit schon vor der Liniensuche ausgleichen: auf grauem Hintergrund liegt sonst alles unter der Linienschwelle
+    gs=cv2.divide(g,cv2.GaussianBlur(g,(0,0),max(8.0,min(g.shape)/60)),scale=255) if foto else g
     for f in (1,2,3):
-        gg=cv2.resize(g,None,fx=f,fy=f,interpolation=cv2.INTER_CUBIC) if f>1 else g
+        gg=cv2.resize(gs,None,fx=f,fy=f,interpolation=cv2.INTER_CUBIC) if f>1 else gs
         st=G.staves(cv2.threshold(gg,240,255,cv2.THRESH_BINARY_INV)[1])
         if st:
             d=float(np.median([np.mean(np.diff(s)) for s in st]))
-            return cv2.resize(g,None,fx=target_d/d*f/f if False else target_d/(d/f),fy=target_d/(d/f),interpolation=cv2.INTER_CUBIC)
+            g=cv2.resize(g,None,fx=target_d/(d/f),fy=target_d/(d/f),interpolation=cv2.INTER_CUBIC)
+            # Hintergrund ausgleichen, aber nur bei Fotos (grauer oder verrauschter Hintergrund); saubere Scans und Bilder bleiben unverändert
+            if foto: g=cv2.divide(g,cv2.GaussianBlur(g,(0,0),20),scale=255)
+            return g
     return None
 def read(path,shift=0,work=None,table=None):
     """shift: Stimmung wie im Wandler (A-D-G-C = 0, G-C-F-B = -2 …)."""
