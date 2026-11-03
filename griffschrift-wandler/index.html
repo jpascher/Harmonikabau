@@ -179,13 +179,24 @@ button:disabled{opacity:.45;cursor:default}#edrange select{font:inherit;padding:
 .endline{border-right:4px double var(--fg)}
 button.ghost2{background:transparent;color:var(--accent)}
 #griff svg.gsys{break-inside:avoid;page-break-inside:avoid}
+.verses{display:grid;grid-template-columns:fit-content(62%) minmax(0,1fr);gap:12px 36px;margin:18px 0 8px;font-size:14px;line-height:1.35}
+.verses[hidden]{display:none}
+@media (max-width:600px){.verses{grid-template-columns:minmax(0,1fr)}}
+.verse{break-inside:avoid;display:grid;grid-template-columns:auto 1fr;column-gap:8px}
+.verse:only-child,.verse:not(:has(b)){grid-column:1/-1}
+.verse span{white-space:pre-line;grid-column:2}
+.verse b{grid-column:1}
+.verse b:only-child{grid-column:1/-1}
+.verse:has(> b:only-child){grid-column:1/-1;break-after:avoid}
 @media print{
+  .verses{font-size:12px;margin-top:10px}
   :root{--bg:#fff;--panel:#fff;--fg:#000;--muted:#444;--line:#999;--accent:#000;--zug:#000;--druck:#000;--bad:#000;--extra:#000;color-scheme:light}
-  @page{size:A4;margin:12mm}
+  @page{size:A4;margin:0}   /* ohne Seitenrand druckt der Browser keine eigene Kopf- und Fußzeile mit der Adresse; den Rand gibt .wrap vor */
   body{background:#fff}
-  .wrap{max-width:none;padding:0;gap:0}
-  header .lead,.panel:has(.controls),.panel:has(#status),.sides,.notes,#lg-griff,#lg-tab,#ttl{display:none!important}
-  header h1{font-size:18px;margin:0 0 4px}
+  .wrap{max-width:none;padding:12mm 12mm 16mm;gap:0;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  header .lead,header h1,.hbtns,.panel:has(.controls),.panel:has(#status),.sides,.notes,#lg-griff,#lg-tab,#ttl{display:none!important}
+  .ptitle{display:block!important;font-family:"Zilla Slab",serif;font-size:18px;font-weight:700;margin:0 0 4px}
+  .pfoot{display:block!important;position:fixed;left:12mm;right:12mm;bottom:6mm;font-size:9px;color:#444;text-align:center}
   .panel{border:none;padding:0;border-radius:0}
   #griff{overflow:visible}
   #griff svg{width:100%!important;height:auto!important;max-width:100%}
@@ -202,6 +213,7 @@ button.ghost2{background:transparent;color:var(--accent)}
 
 <div class="wrap">
   <header>
+    <div class="ptitle" id="ptitle" style="display:none"></div><div class="pfoot" style="display:none">https://jpascher.github.io/Harmonikabau/griffschrift-wandler/</div>
     <div class="titlerow"><h1>Griffschrift-Wandler</h1><div class="hbtns"><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
     <p class="lead"><x-de>Normalnoten als MusicXML rein, Griffweise für die Steirische Harmonika raus. Das Programm legt die Stufen fest und wählt Grundbass und Begleiter so, dass der Bass flüssig läuft. Die Balgrichtung kommt vom Bass, die Melodie samt Doppelgriffen wird darauf abgestimmt.</x-de><x-en>Standard notation goes in as MusicXML, fingering for the Styrian accordion (Steirische Harmonika) comes out. The program works out the harmonic degrees and picks bass and chord buttons so the bass side flows smoothly. The bellows direction follows the bass; the melody, double stops included, is fitted to it.</x-en></p>
   </header>
@@ -277,7 +289,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <select id="voices"><option value="2">Melodie + 2. Stimme</option><option value="1">nur Melodie</option><option value="3">bis 3 Stimmen</option><option value="4">bis 4 Stimmen</option></select>
       </div>
       <label class="filebtn" for="file" tabindex="0" id="filelbl"><x-de>Noten öffnen (MusicXML / MIDI) …</x-de><x-en>Open music (MusicXML / MIDI) …</x-en></label>
-      <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,.json,.mp3,.wav,.m4a,.ogg,.flac">
+      <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,.ly,.json,.mp3,.wav,.m4a,.ogg,.flac">
       <button id="audiobtn" type="button" class="ghost2"><x-de>🎤 Aufnahme / Audio …</x-de><x-en>🎤 Recording / audio …</x-en></button>
       <button id="scanbtn" type="button" class="ghost2"><x-de>📷 Noten scannen …</x-de><x-en>📷 Scan sheet music …</x-en></button>
     </div>
@@ -422,6 +434,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <span><b style="color:var(--bad)">×</b> not playable, <b style="color:var(--bad)">red</b> = against the bass direction</span></x-en>
     </div>
     <div class="tab" id="tab" hidden></div>
+    <div class="verses" id="verses" hidden></div>
   </section>
 
   <button id="fplay" type="button" class="fplay">▶ Abspielen</button>
@@ -1143,9 +1156,16 @@ const mod=(a,b)=>((a%b)+b)%b;
 const STEP={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
 let PARTS=[],TITLE="";
 let LASTXML="";   // zuletzt geladene Noten (für „Noten speichern“)
+// Weitere Strophen unter dem Lied: <credit> vom Typ „lyrics“ (fett = Nummer oder Überschrift)
+function renderVerses(doc){const box=document.getElementById("verses");box.innerHTML="";
+  const list=[...doc.querySelectorAll("score-partwise > credit")].filter(c=>((c.querySelector("credit-type")||{}).textContent||"").trim()==="lyrics");
+  list.forEach(c=>{const d=document.createElement("div");d.className="verse";
+    [...c.querySelectorAll("credit-words")].forEach(w=>{const s=document.createElement(w.getAttribute("font-weight")==="bold"?"b":"span");s.textContent=w.textContent;d.appendChild(s);});box.appendChild(d);});
+  box.hidden=!list.length;}
 function loadXMLText(txt){LASTXML=txt;
   const doc=new DOMParser().parseFromString(txt,"application/xml");
   if(doc.querySelector("parsererror"))throw new Error(TX("Die Datei ist kein lesbares MusicXML.","The file is not readable MusicXML."));
+  renderVerses(doc);
   if(doc.documentElement.nodeName==="score-timewise")throw new Error(TX("Diese Datei ist im Format „timewise“. Bitte als normales MusicXML (partwise) exportieren.","This file is in “timewise” format. Please export it as normal (partwise) MusicXML."));
   if(doc.documentElement.nodeName!=="score-partwise")throw new Error(TX("In der Datei wurde keine Partitur gefunden.","No score was found in this file."));
   PARTS=[...doc.querySelectorAll("score-partwise > part")];
@@ -1488,7 +1508,7 @@ function resolve(){
   updateStatus();renderTab();renderGriff();
 }
 function creditText(){return CREDIT?TX("Satz: ","Arr. ")+CREDIT:"";}
-function setTitle(){const w=TX("Griffweise","Fingering");document.getElementById("ttl").textContent=(TITLE?(w+": "+TITLE):w)+(CREDIT?" ("+creditText()+")":"");}
+function setTitle(){const w=TX("Griffweise","Fingering");document.getElementById("ptitle").textContent=TITLE||(SRC&&SRC.name?String(SRC.name).replace(/\.[^.]+$/,""):"")||"Griffschrift";document.getElementById("ttl").textContent=(TITLE?(w+": "+TITLE):w)+(CREDIT?" ("+creditText()+")":"");}
 // Zahl aller Änderungen von Hand (für Statuszeile und Knopf „Änderungen zurücksetzen“)
 function editCount(){return Object.keys(NOTE_FORCE).length+Object.keys(SEG_FORCE).length+BREAKS.size+Object.keys(BASS_EDIT).length+Object.keys(BASS_KIND).length+Object.keys(PITCH_EDIT).length+
   Object.keys(SEG_HARM).length+DUR_OPS.length+Object.keys(MEAS_SHIFT).length+Object.keys(RANGE_PLAY).length+MEAS_OPS.length+Object.keys(BASS_DEL).length;}
@@ -1831,7 +1851,8 @@ function renderGriff(){
     let minP=-4,maxP=4;
     if(NORM)row.forEach(x=>x.m.ev.forEach(e=>{(e._nh||[]).forEach(h=>{minP=Math.min(minP,h.p);maxP=Math.max(maxP,h.p);});}));
     else row.forEach(x=>x.m.ev.forEach(e=>{const g=e.type==="note"?e._r.g:(e.type==="tie"?(e.src._r||{}).g:null);if(g)g.btns.forEach(q=>{const p=posOf(q.b);minP=Math.min(minP,p);maxP=Math.max(maxP,p);});}));
-    const y0=ytop+Math.max(40,maxP*ST+36);
+    const yTop=row.some(x=>(x.m.words&&x.m.words.length)||x.d.volta)?38:28;   // Platz über den Notenlinien: Teilbezeichnungen und Klammern brauchen mehr
+    const y0=ytop+maxP*ST+yTop;
     const yOf=p=>y0-p*ST;
     let bassY=y0+Math.max(50,-minP*ST+30),druckY=bassY+7,tabT=0,tabP=0;
     if(TABL){let ns=1;row.forEach(x=>x.m.ev.forEach(e=>{if(e.type==="note"&&e._r&&e._r.g)ns=Math.max(ns,e._r.g.btns.length);}));
@@ -1914,7 +1935,7 @@ function renderGriff(){
         s=`<rect x="${xh-11}" y="${hitT}" width="22" height="${hitB-hitT}" fill="transparent"/>`+s;
         const cls="gn"+(isNote&&r.against?" against":"")+(isNote&&(NOTE_FORCE[e.key]||PITCH_EDIT[e.key])?" forced":"")+(isNote&&SELX&&SELX.e===e?" selx":"");
         svg+=isNote?`<g class="${cls}" data-uid="${e._uid}" tabindex="0">${s}${hh}</g>`:`<g class="gn">${s}</g>`;
-        if(isNote&&nb)lyOf(x.mi,e).forEach(l=>{const i=l.ln,y=druckY+20+i*16,w=lyW(l.x);
+        if(isNote&&nb)lyOf(x.mi,e).forEach(l=>{const i=l.ln,y=druckY+17+i*16,w=lyW(l.x);
           if(pend[i])svg+=`<text class="lyr" x="${(pend[i].x+pend[i].w/2+xh-w/2)/2}" y="${y}" text-anchor="middle">-</text>`;
           svg+=`<text class="lyr" x="${xh}" y="${y}" text-anchor="middle">${l.x.replace(/&/g,"&amp;").replace(/</g,"&lt;")}</text>`;
           pend[i]=l.syl==="begin"||l.syl==="middle"?{x:xh,w}:null;});
@@ -1938,10 +1959,10 @@ function renderGriff(){
       if(!fin)svg+=`<rect class="brk${BREAKS.has(x.mi)?" on":""}" data-mi="${x.mi}" x="${mx-5}" y="${yOf(4)-6}" width="10" height="${8*ST+12}"><title>${TX("Zeile nach diesem Takt umbrechen","Start a new line after this measure")}</title></rect>`;
     });
     let nLy=0;if(nb)row.forEach(x=>x.m.ev.forEach(e=>lyOf(x.mi,e).forEach(l=>{nLy=Math.max(nLy,l.ln+1);})));
-    Object.entries(pend).forEach(([i,q])=>{if(q)svg+=`<text class="lyr" x="${q.x+q.w/2+6}" y="${druckY+20+i*16}" text-anchor="middle">-</text>`;});
-    parts.push({s:svg,h:druckY+18+(nLy?nLy*16+6:0)});
+    Object.entries(pend).forEach(([i,q])=>{if(q)svg+=`<text class="lyr" x="${q.x+q.w/2+6}" y="${druckY+17+i*16}" text-anchor="middle">-</text>`;});
+    parts.push({s:svg,h:druckY+(nLy?nLy*16+9:12)});
   });
-  const head=`<text class="hd" x="2" y="12">${TITLE?TITLE+" · ":""}${TABL?TX("Tabulatur Druck/Zug, für","Push/pull tablature, for"):(NORM?TX("Normalnoten, für","Standard notation, for"):(INST.disk&&INST.disk.rows===3?TX("Griffschrift 3-Reiher","Griffschrift, 3-row"):TX("Griffschrift 4-Reiher","Griffschrift, 4-row")))} ${stName()}, ${optText("disk",INST.disk)}${INST.diskOwn?TX(" (eigene Belegung)"," (own layout)"):""}, ${optText("bass",INST.bass)}${document.getElementById("bmoll").value==="tpl"?TX(" mit Moll auf Zug"," with minor on pull"):(MOLLSIG?TX(" (angepasst)"," (customised)"):"")}${CREDIT?" · "+creditText():""}</text>`;
+  const head=`<text class="hd" x="2" y="12">${TITLE&&!PRINT_W?TITLE+" · ":""}${TABL?TX("Tabulatur Druck/Zug, für","Push/pull tablature, for"):(NORM?TX("Normalnoten, für","Standard notation, for"):(INST.disk&&INST.disk.rows===3?TX("Griffschrift 3-Reiher","Griffschrift, 3-row"):TX("Griffschrift 4-Reiher","Griffschrift, 4-row")))} ${stName()}, ${optText("disk",INST.disk)}${INST.diskOwn?TX(" (eigene Belegung)"," (own layout)"):""}, ${optText("bass",INST.bass)}${document.getElementById("bmoll").value==="tpl"?TX(" mit Moll auf Zug"," with minor on pull"):(MOLLSIG?TX(" (angepasst)"," (customised)"):"")}${CREDIT?" · "+creditText():""}</text>`;
   host.innerHTML=`<svg class="ghead" width="${W}" height="20" viewBox="0 0 ${W} 20">${head.replace('y="12"','y="14"')}</svg>`+
     parts.map((q,i)=>`<svg class="gsys" width="${W}" height="${q.h}" viewBox="0 0 ${W} ${q.h}" role="img" aria-label="${TX("Griffschrift Zeile","Griffschrift line")} ${i+1}">${q.s}</svg>`).join("");
   // Klick auf Noten
@@ -2771,6 +2792,236 @@ async function auConvert(){if(!AU.buf)return;const btn=document.getElementById("
   document.getElementById("auconv").addEventListener("click",auConvert);})();
 
 // ======== Dateien
+// ======== LilyPond (.ly) → MusicXML: liest einstimmige Lieder mit Akkorden und Text (Aufbau wie in der Ebersberger Liedersammlung).
+// Eigenständig, ohne Zugriff auf die Seite. Unbekannte Befehle führen zu einer Fehlermeldung statt zu falschen Noten.
+let LY_INFO=null;   // was beim Einlesen geklärt wurde (Tempo, Auftakt, Silben, weitere Strophen, Hinweise)
+function lyToXML(srcRaw,fallbackTitle){
+  const fail=m=>{throw new Error(TX("LilyPond-Datei: ","LilyPond file: ")+m);};
+  const WHOLE=1920,DIV=480;
+  // Kommentare entfernen (Texte in Anführungszeichen bleiben)
+  const src=(()=>{let o="",i=0,q=false;const s=srcRaw;while(i<s.length){const c=s[i];
+    if(q){o+=c;if(c==="\\"&&i+1<s.length){o+=s[++i];}else if(c==='"')q=false;i++;continue;}
+    if(c==='"'){q=true;o+=c;i++;continue;}
+    if(c==="%"){if(s[i+1]==="{"){const e=s.indexOf("%}",i+2);i=e<0?s.length:e+2;}else{const e=s.indexOf("\n",i);i=e<0?s.length:e;}continue;}
+    o+=c;i++;}return o;})();
+  const blockEnd=(s,i)=>{let d=0,q=false;for(let j=i;j<s.length;j++){const c=s[j];if(q){if(c==="\\")j++;else if(c==='"')q=false;continue;}if(c==='"'){q=true;continue;}if(c==="{")d++;else if(c==="}"&&--d===0)return j;}fail(TX("Eine geschweifte Klammer wird nicht geschlossen.","A curly bracket is not closed."));};
+  const blockAfter=(s,from)=>{const a=s.indexOf("{",from);if(a<0)return null;const e=blockEnd(s,a);return {a,e,body:s.slice(a+1,e)};};
+  const unq=s=>s.replace(/\\(.)/g,"$1");
+  // Oberste Ebene: Zuweisungen, \header, \score, \markup
+  const vars={},marks=[],scores=[];let header="";
+  {let i=0;while(i<src.length){const r=src.slice(i);
+      const ws=/^\s+/.exec(r);if(ws){i+=ws[0].length;continue;}
+      const k=/^\\(header|paper|layout|score|markup|book|bookpart)\b/.exec(r);
+      if(k){const b=blockAfter(src,i);if(!b)fail(k[0]);if(k[1]==="header")header=b.body;else if(k[1]==="score")scores.push(b.body);else if(k[1]==="markup")marks.push(b.body);else if(k[1]==="book"||k[1]==="bookpart")fail(TX("\\book wird nicht unterstützt.","\\book is not supported."));i=b.e+1;continue;}
+      const v=/^\\version\s+"[^"]*"/.exec(r);if(v){i+=v[0].length;continue;}
+      const inc=/^\\(include|language)\b/.exec(r);if(inc)fail(`\\${inc[1]} `+TX("wird nicht unterstützt.","is not supported."));
+      const asg=/^([A-Za-z_][\w-]*)\s*=\s*/.exec(r);
+      if(asg){const st=i+asg[0].length,c=src[st];if(c==='"'||c==="#"){const m=/^("(?:[^"\\]|\\.)*"|\S+)/.exec(src.slice(st));i=st+m[0].length;continue;}
+        const b=blockAfter(src,st);if(!b)fail(TX("Unvollständige Zuweisung: ","Incomplete assignment: ")+asg[1]);vars[asg[1]]=src.slice(st,b.e+1);i=b.e+1;continue;}
+      fail(TX("Unerwarteter Text: ","Unexpected text: ")+r.slice(0,30));}}
+  if(!scores.length)fail(TX("Kein \\score-Block gefunden.","No \\score block found."));
+  const printed=scores.filter(s=>/\\layout\b/.test(s));   // ein zweiter \score nur für \midi (oft mit \unfoldRepeats) ist keine eigene Fassung
+  const score=printed[0]||scores[0];
+  // Tonhöhen: s = Stammtöne ab C0 (7 je Oktave), a = Vorzeichen
+  const NAT=[0,2,4,5,7,9,11],LET="cdefgab",STEP="CDEFGAB";
+  const midiOf=p=>{const o=Math.floor(p.s/7);return 12*(o+1)+NAT[p.s-o*7]+p.a;};
+  const parsePitch=(name,marksStr,oct)=>{const st=LET.indexOf(name[0]);const al=name.slice(1);const a=al===""?0:al==="is"?1:al==="es"||al==="s"?-1:al==="isis"?2:al==="eses"?-2:fail(TX("Unbekannter Ton: ","Unknown note: ")+name);
+    let m=0;for(const c of marksStr)m+=c==="'"?1:-1;return {st,a,m,oct};};
+  const PITCH=/^([a-g](?:eses|isis|es|is|s(?![a-z]))?)([',]*)/;
+  const absP=t=>{const x=PITCH.exec(t);if(!x)fail(TX("Tonangabe nicht lesbar: ","Cannot read pitch: ")+t);const p=parsePitch(x[1],x[2]);return {s:(3+p.m)*7+p.st,a:p.a};};
+  const applyTr=(p,tr)=>{let q=p;for(const x of tr){const m=midiOf(q)+x.dm,s=q.s+x.ds,o=Math.floor(s/7);q={s,a:m-(12*(o+1)+NAT[s-o*7])};}return q;};
+  const durTicks=(num,dots)=>{const n=+num;if(![1,2,4,8,16,32,64].includes(n))fail(TX("Notenwert nicht unterstützt: ","Note value not supported: ")+num);let d=WHOLE/n,add=d;for(let i=0;i<dots;i++){add/=2;d+=add;}return d;};
+  const KNOWN_NOARG=/^\\(autoBeamOff|autoBeamOn|breathe|break|pageBreak|noBreak|noBeam|germanChords|semiGermanChords|italianChords|frenchChords|fermata|parenthesize|unfoldRepeats|oneVoice|stemUp|stemDown|stemNeutral|slurUp|slurDown|slurNeutral|tieUp|tieDown|tieNeutral|dynamicUp|dynamicDown|dynamicNeutral|accent|staccato|tenuto|marcato|p|pp|f|ff|mf|mp|sf|sfz|cresc|decresc|dim|enddim|endcresc|startTextSpan|stopTextSpan|shortfermata|longfermata|trill|turn|mordent|prall|segno|coda|default|once)\b/;
+  // Musik lesen. S sammelt je Stimme die Ereignisse auf einer durchgehenden Zeitachse (geschriebene Form: volta nicht ausgeschrieben).
+  const newS=mode=>({mode,t:0,last:480,ev:[],times:[],partials:[],keys:[],bars:[],reps:[],ends:[],words:[],tempo:0,slur:0,beam:0,tie:false,auto:true,num:1,den:1,tupN:1,tupD:1,prev:null});
+  function parseMusic(raw,S,ctx){let i=0;
+    const rest=()=>raw.slice(i);const skipWs=()=>{while(i<raw.length&&/\s/.test(raw[i]))i++;};
+    const str=()=>{skipWs();if(raw[i]!=='"')return null;let j=i+1;while(j<raw.length&&raw[j]!=='"'){if(raw[j]==="\\")j++;j++;}const v=unq(raw.slice(i+1,j));i=j+1;return v;};
+    const scheme=()=>{skipWs();if(raw[i]!=="#")return false;i++;while(raw[i]==="#"||raw[i]==="'")i++;if(raw[i]==="("){let d=0;do{if(raw[i]==="(")d++;else if(raw[i]===")")d--;i++;}while(d>0&&i<raw.length);}else{while(i<raw.length&&!/[\s{}]/.test(raw[i]))i++;}return true;};
+    const block=()=>{skipWs();if(raw[i]!=="{")return null;const e=blockEnd(raw,i);const b=raw.slice(i+1,e);i=e+1;return b;};
+    const markup=()=>{skipWs();const b=block();if(b!==null)return (b.match(/"[^"]*"|[^\s{}\\]+(?=[\s}]|$)/g)||[]).map(s=>s.replace(/^"|"$/g,"")).join(" ").trim();const s=str();return s||"";};
+    // nächster musikalischer Ausdruck: { … }, \variable oder \befehl { … }
+    const exprRaw=()=>{skipWs();const st=i;if(raw[i]==="{"){i=blockEnd(raw,i)+1;return raw.slice(st,i);}const v=/^\\[A-Za-z_]+/.exec(rest());if(!v)fail(TX("Musikausdruck erwartet bei: ","Music expression expected at: ")+rest().slice(0,30));
+      if(/^\\(relative|transpose|chordmode|repeat|tuplet|times)$/.test(v[0])){const b=blockAfter(raw,i);if(!b)fail(v[0]);i=b.e+1;return raw.slice(st,i);}i+=v[0].length;return v[0];};
+    const addEvent=(e)=>{S.ev.push(e);S.t+=e.dur;};
+    const readDur=()=>{const d=/^\s*(\d+)(\.*)/.exec(rest());let nom;if(d){i+=d[0].length;nom=durTicks(d[1],d[2].length);S.last=nom;}else nom=S.last;const mu=/^\s*\*\s*(\d+)(?:\/(\d+))?/.exec(rest());let mul=1;if(mu){i+=mu[0].length;mul=+mu[1]/(+mu[2]||1);}return {nom,mul};};
+    const actual=(nom,mul)=>{const d=nom*mul*S.tupD/S.tupN;if(Math.abs(d-Math.round(d))>1e-6)fail(TX("Notenwert lässt sich nicht genau darstellen.","Note value cannot be represented exactly."));return Math.round(d);};
+    const relPitch=(st,a,m)=>{let s;if(ctx.rel){const r=ctx.rel.s,o=Math.floor(r/7);s=o*7+st;while(s-r>3)s-=7;while(r-s>3)s+=7;s+=m*7;}else s=(3+m)*7+st;const p={s,a};return p;};
+    const notePitch=t=>{const x=PITCH.exec(t);const p=parsePitch(x[1],x[2]);const q=relPitch(p.st,p.a,p.m);if(ctx.rel)ctx.rel=q;return q;};
+    const newNote=(ps,nom,mul)=>{S.lastPs=ps;const pending=S.tie;const mel=S.slur>0||pending||(S.beam>0&&!S.auto);S.tie=false;const e={k:"n",t:S.t,dur:actual(nom,mul),nom:nom*mul,tupN:S.tupN,tupD:S.tupD,ps:ps.map(p=>applyTr(p,ctx.tr)),mel,tieIn:pending,tieOut:false,slurOn:0,slurOff:0,ferm:false};addEvent(e);S.prev=e;};
+    while(true){skipWs();if(i>=raw.length)return;const c=raw[i];
+      if(c==="{"){const b=block();parseMusic(b,S,ctx);continue;}
+      if(c==="}")fail(TX("Überzählige geschweifte Klammer.","Extra curly bracket."));
+      if(raw.startsWith("<<",i)){const e=raw.indexOf(">>",i);if(e<0)fail("<<");const inner=raw.slice(i+2,e);i=e+2;const b=blockAfter(inner,0);if(!b||S.mode!=="note")fail(TX("Mehrstimmige Abschnitte (<< >>) werden nicht unterstützt.","Polyphonic sections (<< >>) are not supported."));
+        parseMusic(b.body,S,ctx);S.poly=(S.poly||0)+1;continue;}   // kurzer zweistimmiger Abschnitt: die erste Stimme gilt als Melodie, die Hinweiszeile meldet es
+      if(c==="|"){i++;continue;}
+      if(c==="~"){i++;if(S.prev&&S.prev.k==="n"){S.prev.tieOut=true;S.tie=true;}continue;}
+      if(c==="("){i++;S.slur++;if(S.prev&&S.prev.k==="n")S.prev.slurOn++;continue;}
+      if(c===")"){i++;S.slur=Math.max(0,S.slur-1);if(S.prev&&S.prev.k==="n")S.prev.slurOff++;continue;}
+      if(c==="["){i++;S.beam++;continue;}
+      if(c==="]"){i++;S.beam=Math.max(0,S.beam-1);continue;}
+      if(/^[\^_-]/.test(c)&&/^[\^_-]\s*("|\\[A-Za-z]|[.>^_+!-])/.test(rest())){const up=c==="^";i++;skipWs();
+        if(raw[i]==='"'){const s=str();if(up&&S.prev&&s.trim())S.words.push({t:S.prev.t,x:s.trim()});continue;}
+        if(raw.startsWith("\\markup",i)){i+=7;const s=markup();if(up&&S.prev&&s)S.words.push({t:S.prev.t,x:s});continue;}
+        if(raw.startsWith("\\fermata",i)){i+=8;if(S.prev&&S.prev.k==="n")S.prev.ferm=true;continue;}
+        if(raw[i]==="\\"){const u=/^\\[A-Za-z]+/.exec(rest());if(!KNOWN_NOARG.test(u[0]))fail(TX("Unbekannter Befehl: ","Unknown command: ")+u[0]);i+=u[0].length;continue;}
+        i++;continue;}
+      if(c==="\\"){
+        if(/^\\[()!<>\[\]]/.test(rest())){i+=2;continue;}
+        const m=/^\\[A-Za-z_]+/.exec(rest());if(!m)fail(TX("Unbekanntes Zeichen: ","Unknown symbol: ")+rest().slice(0,10));const cmd=m[0].slice(1);i+=m[0].length;
+        if(cmd==="fermata"){if(S.prev&&S.prev.k==="n")S.prev.ferm=true;continue;}
+        if(cmd==="autoBeamOff"){S.auto=false;continue;}
+        if(cmd==="autoBeamOn"){S.auto=true;continue;}
+        if(KNOWN_NOARG.test(m[0]))continue;
+        switch(cmd){
+          case "relative":{skipWs();const ref=PITCH.exec(rest());let r=null;if(ref&&raw[i]!=="{"){i+=ref[0].length;const p=parsePitch(ref[1],ref[2]);r={s:(3+p.m)*7+p.st,a:p.a};}const b=exprRaw();const old=ctx.rel;ctx.rel=r||{s:3*7,a:0};parseMusic(b,S,ctx);ctx.rel=old;continue;}
+          case "transpose":{skipWs();const a=/^\S+/.exec(rest())[0];i+=a.length;skipWs();const z=/^\S+/.exec(rest())[0];i+=z.length;const f=absP(a),g=absP(z);const b=exprRaw();const tr=ctx.tr;ctx.tr=tr.concat([{ds:g.s-f.s,dm:midiOf(g)-midiOf(f)}]);parseMusic(b,S,ctx);ctx.tr=tr;if(S.mode==="note"&&(g.s-f.s||midiOf(g)-midiOf(f)))S.transposed=true;continue;}
+          case "chordmode":{const b=exprRaw();parseMusic(b,S,ctx);continue;}
+          case "clef":{if(str()===null){const w=/^\S+/.exec(rest());i+=w?w[0].length:0;}continue;}
+          case "time":{skipWs();const t=/^(\d+)\/(\d+)/.exec(rest());if(!t)fail("\\time");i+=t[0].length;S.times.push({t:S.t,n:+t[1],d:+t[2]});continue;}
+          case "partial":{skipWs();const{nom,mul}=(()=>{const d=/^(\d+)(\.*)/.exec(rest());if(!d)fail("\\partial");i+=d[0].length;const mu=/^\s*\*\s*(\d+)(?:\/(\d+))?/.exec(rest());let mx=1;if(mu){i+=mu[0].length;mx=+mu[1]/(+mu[2]||1);}return {nom:durTicks(d[1],d[2].length),mul:mx};})();S.partials.push({t:S.t,len:nom*mul});continue;}
+          case "key":{skipWs();const p=PITCH.exec(rest());if(!p)fail("\\key");i+=p[0].length;const q=parsePitch(p[1],p[2]);skipWs();const md=/^\\([a-z]+)/.exec(rest());if(!md)fail("\\key");i+=md[0].length;if(md[1]!=="major"&&md[1]!=="minor")fail(TX("Kirchentonarten werden nicht unterstützt: ","Church modes are not supported: ")+md[1]);
+            const tn=applyTr({s:3*7+q.st,a:q.a},ctx.tr),st=((tn.s%7)+7)%7;let f=[0,2,4,-1,1,3,5][st]+7*tn.a-(md[1]==="minor"?3:0);while(f>7)f-=12;while(f<-7)f+=12;S.keys.push({t:S.t,f,minor:md[1]==="minor"});continue;}
+          case "tempo":{const s=str();if(s===null&&raw.startsWith("\\markup",(skipWs(),i))){i+=7;markup();}skipWs();const t=/^(\d+)(\.*)\s*=\s*(\d+)/.exec(rest());if(t){i+=t[0].length;if(!S.tempo)S.tempo=Math.round(+t[3]*durTicks(t[1],t[2].length)/480);}continue;}
+          case "bar":{const s=str();if(s===null)fail("\\bar");S.bars.push({t:S.t,s});continue;}
+          case "mark":{skipWs();const s=str();if(s!==null){if(s.trim())S.words.push({t:S.t,x:s.trim()});continue;}if(raw.startsWith("\\markup",i)){i+=7;const x=markup();if(x)S.words.push({t:S.t,x});continue;}if(raw.startsWith("\\default",i)){i+=8;continue;}fail("\\mark");}
+          case "markup":{markup();continue;}
+          case "set":case "override":{const e=/^[^=]*=/.exec(rest());if(!e)fail("\\"+cmd);i+=e[0].length;skipWs();if(!scheme()&&str()===null){const w=/^\S+/.exec(rest());if(w)i+=w[0].length;}continue;}
+          case "unset":case "revert":{skipWs();const w=/^\S+/.exec(rest());if(w)i+=w[0].length;continue;}
+          case "skip":{skipWs();const{nom,mul}=readDur();const d=actual(nom,mul);addEvent({k:"r",t:S.t,dur:d,nom:nom*mul,tupN:S.tupN,tupD:S.tupD,skip:true});S.prev=S.ev[S.ev.length-1];continue;}
+          case "times":case "tuplet":{skipWs();const fr=/^(\d+)\/(\d+)/.exec(rest());if(!fr)fail("\\"+cmd);i+=fr[0].length;skipWs();const sp=/^\d+(\.*)(?=\s*\{)/.exec(rest());if(sp)i+=sp[0].length;let N=+fr[1],D=+fr[2];if(cmd==="times"){const x=N;N=D;D=x;}const b=exprRaw();const a=S.tupN,z=S.tupD;S.tupN=a*N;S.tupD=z*D;parseMusic(b,S,ctx);S.tupN=a;S.tupD=z;continue;}
+          case "repeat":{skipWs();let kind=str();if(kind===null){const w=/^[a-z]+/.exec(rest());if(!w)fail("\\repeat");kind=w[0];i+=w[0].length;}skipWs();const nm=/^\d+/.exec(rest());if(!nm)fail("\\repeat");i+=nm[0].length;const N=+nm[0],b=exprRaw();
+            if(kind==="unfold"){for(let k=0;k<N;k++)parseMusic(b,S,ctx);continue;}
+            if(kind!=="volta")fail(TX("Wiederholungsart nicht unterstützt: ","Repeat type not supported: ")+kind);
+            if(S.unfold){skipWs();let alts=[];if(raw.startsWith("\\alternative",i)){i+=12;const al=block();if(al===null)fail("\\alternative");let j=0;while(j<al.length){while(j<al.length&&/\s/.test(al[j]))j++;if(j>=al.length)break;if(al[j]==="{"){const e=blockEnd(al,j);alts.push(al.slice(j+1,e));j=e+1;}else{const v=/^\\[A-Za-z_][\w-]*/.exec(al.slice(j));if(!v)fail("\\alternative");alts.push(v[0]);j+=v[0].length;}}}
+              for(let k=0;k<N;k++){parseMusic(b,S,ctx);if(alts.length)parseMusic(alts[Math.max(0,k-(N-alts.length))],S,ctx);}continue;}   // \unfoldRepeats im gedruckten \score: Wiederholung ausschreiben
+            S.reps.push({t:S.t,start:true});parseMusic(b,S,ctx);skipWs();
+            if(raw.startsWith("\\alternative",i)){i+=12;const al=block();if(al===null)fail("\\alternative");const parts=[];let j=0;while(j<al.length){while(j<al.length&&/\s/.test(al[j]))j++;if(j>=al.length)break;if(al[j]==="{"){const e=blockEnd(al,j);parts.push(al.slice(j+1,e));j=e+1;}else{const v=/^\\[A-Za-z_][\w-]*/.exec(al.slice(j));if(!v)fail("\\alternative");parts.push(v[0]);j+=v[0].length;}}
+              parts.forEach((p,k)=>{const n=k+1,t0=S.t;parseMusic(p,S,ctx);S.ends.push({a:t0,b:S.t,n,last:k===parts.length-1});if(k<parts.length-1)S.reps.push({t:S.t,end:true});});}
+            else S.reps.push({t:S.t,end:true});
+            continue;}
+          default:{const nm=cmd;if(Object.prototype.hasOwnProperty.call(vars,nm)){parseMusic(vars[nm],S,ctx);continue;}fail(TX("Unbekannter Befehl: ","Unknown command: ")+"\\"+nm);}
+        }}
+      if(c==="<"){const e=raw.indexOf(">",i);if(e<0)fail("<");const inner=raw.slice(i+1,e);i=e+1;const ps=[];let fst=null;for(const w of inner.split(/\s+/).filter(Boolean)){const x=PITCH.exec(w);if(!x)fail(TX("Akkord nicht lesbar: ","Cannot read chord: ")+inner);const q=notePitch(x[0]);if(!fst)fst=q;ps.push(q);}if(!ps.length)fail("<>");if(ctx.rel)ctx.rel=fst;const{nom,mul}=readDur();newNote(ps,nom,mul);continue;}
+      if(/^\d/.test(c)&&S.mode==="note"){if(!S.lastPs)fail(TX("Notenwert ohne Ton.","Note value without a pitch."));const{nom,mul}=readDur();newNote(S.lastPs,nom,mul);continue;}   // nur ein Notenwert: LilyPond wiederholt den letzten Ton
+      const rs=/^([srR])(?![a-z])/.exec(rest());
+      if(rs){i+=1;const{nom,mul}=readDur();const d=actual(nom,mul);if(S.mode==="note"){addEvent({k:"r",t:S.t,dur:d,nom:nom*mul,tupN:S.tupN,tupD:S.tupD,skip:rs[1]==="s"});}else S.t+=d;S.prev=S.ev[S.ev.length-1]||null;continue;}
+      const pm=PITCH.exec(rest());
+      if(pm){
+        if(S.mode==="chord"){i+=pm[0].length;const p=parsePitch(pm[1],pm[2]);const{nom,mul}=readDur();const q=/^:([\w.+^-]*)/.exec(rest());let kind="";if(q){i+=q[0].length;kind=q[1];}let bass=null;const bs=/^\/\+?([a-g](?:eses|isis|es|is|s(?![a-z]))?)[',]*/.exec(rest());if(bs){i+=bs[0].length;bass=applyTr({s:3*7+LET.indexOf(bs[1][0]),a:parsePitch(bs[1],"").a},ctx.tr);}
+          const root=applyTr({s:3*7+p.st,a:p.a},ctx.tr),d=actual(nom,mul);S.ev.push({k:"c",t:S.t,dur:d,root,kind,bass});S.t+=d;continue;}
+        i+=pm[0].length;while(raw[i]==="!"||raw[i]==="?")i++;const q=notePitch(pm[0]);const{nom,mul}=readDur();newNote([q],nom,mul);continue;}
+      fail(TX("Unerwartetes Zeichen im Notentext: ","Unexpected text in the music: ")+rest().slice(0,24));
+    }
+  }
+  // Text lesen
+  function parseLyrics(raw,out){let i=0;const s=raw;
+    while(i<s.length){const r=s.slice(i);const ws=/^\s+/.exec(r);if(ws){i+=ws[0].length;continue;}
+      if(s[i]==="{"||s[i]==="}"){i++;continue;}
+      if(r.startsWith("<<")||r.startsWith(">>")){i+=2;continue;}
+      const cm=/^\\([A-Za-z_][\w-]*)/.exec(r);
+      if(cm){i+=cm[0].length;const c=cm[1];
+        if(c==="set"||c==="override"){const e=/^[^=]*=\s*("(?:[^"\\]|\\.)*"|#\S+|\S+)/.exec(s.slice(i));if(e)i+=e[0].length;continue;}
+        if(c==="unset"||c==="revert"){const e=/^\s*\S+/.exec(s.slice(i));if(e)i+=e[0].length;continue;}
+        if(c==="skip"){const e=/^\s*\d+\.*(\s*\*\s*\d+)?/.exec(s.slice(i));if(e)i+=e[0].length;out.push({x:""});continue;}
+        if(c==="lyricmode"||c==="lyricsto"){if(c==="lyricsto"){const e=/^\s*"[^"]*"/.exec(s.slice(i));if(e)i+=e[0].length;}continue;}
+        if(c==="markup"){const b=blockAfter(s,i);if(b){i=b.e+1;}continue;}
+        if(c==="repeat"){const e=/^\s*"?[a-z]+"?\s*(\d+)\s*/.exec(s.slice(i));if(!e)fail("\\repeat");i+=e[0].length;const b=s[i]==="{"?blockAfter(s,i):null;if(!b)fail("\\repeat");for(let k=0;k<+e[1];k++)parseLyrics(b.body,out);i=b.e+1;continue;}
+        if(Object.prototype.hasOwnProperty.call(vars,c)){parseLyrics(vars[c],out);continue;}
+        fail(TX("Unbekannter Befehl im Text: ","Unknown command in the lyrics: ")+"\\"+c);}
+      if(r.startsWith("--")&&/^--(\s|$)/.test(r)){i+=2;if(out.length)out[out.length-1].cont=true;continue;}
+      if(r.startsWith("__")&&/^__(\s|$)/.test(r)){i+=2;continue;}
+      if(s[i]==='"'){const m=/^"((?:[^"\\]|\\.)*)"/.exec(r);if(!m)fail('"');i+=m[0].length;const x=unq(m[1]);if(x.trim()||x==="")out.push({x:x.trim()});else out.push({x:""});continue;}
+      const w=/^\S+/.exec(r)[0];i+=w.length;
+      if(/^\d+\.*$/.test(w))continue;   // Notenwert einer Silbe (z. B. „Ich 2.“), keine eigene Silbe
+      if(w==="_"){out.push({x:""});continue;}
+      out.push({x:w.replace(/_/g," ").replace(/~/g,"‿").replace(/\s+$/,"")});
+    }}
+  // Score zerlegen
+  const chordRaw=[],voiceRaw=[],lyrRaw=[];
+  {let i=0;const s=score;while(i<s.length){const m=/\\new\s+([A-Za-z]+)(\s*=\s*"[^"]*")?(\s*\\lyricsto\s*"[^"]*")?\s*/g;m.lastIndex=i;const x=m.exec(s);if(!x)break;const j=x.index+x[0].length;if(s[j]!=="{"){const b=blockAfter(s,j);if(!b)fail("\\new");i=b.e+1;}const b=blockAfter(s,j);if(!b)fail("\\new "+x[1]);
+      if(x[1]==="ChordNames")chordRaw.push(b.body);else if(x[1]==="Voice"||x[1]==="Staff")voiceRaw.push(b.body);else if(x[1]==="Lyrics")lyrRaw.push(b.body);else fail(TX("Nicht unterstützt: ","Not supported: ")+"\\new "+x[1]);i=b.e+1;}
+    if(!voiceRaw.length){const v=score.replace(/\\(midi|layout)\s*\{[^}]*\}/g,"").trim();if(!v)fail(TX("Keine Melodie gefunden.","No melody found."));voiceRaw.push(v);}
+    if(voiceRaw.length>1)fail(TX("Mehrere Stimmen werden nicht unterstützt.","Several voices are not supported."));}
+  const M=newS("note");M.unfold=/\\unfoldRepeats\b/.test(score);parseMusic(voiceRaw[0],M,{rel:null,tr:[]});
+  if(!M.ev.some(e=>e.k==="n"))fail(TX("Die Melodie enthält keine Noten.","The melody contains no notes."));
+  if(M.tupN!==1||M.tupD!==1)fail("tuplet");
+  const C=newS("chord");C.unfold=M.unfold;chordRaw.forEach(r=>parseMusic(r,C,{rel:null,tr:[]}));
+  // \partial und \time gelten für das ganze Stück, auch wenn sie nur in der Akkordspur stehen
+  [[M.partials,C.partials],[M.times,C.times]].forEach(([a,b])=>{b.forEach(x=>{if(!a.some(y=>y.t===x.t))a.push(x);});a.sort((p,q)=>p.t-q.t);});
+  const end=M.t,info={tempo:M.tempo,pickup:M.partials.length&&M.partials[0].t===0?M.partials[0].len/480:0,lyrics:0,verses:0,chords:C.ev.length,transposed:!!M.transposed,warn:[]};
+  if(printed.length>1)info.warn.push(TX(`${printed.length-1} weiterer Notenblock nicht übernommen (nur der erste gilt)`,`${printed.length-1} further score not used (only the first counts)`));
+  // Silben auf die Noten verteilen: wie \lyricsto überspringt das Bindebögen, Haltebögen und von Hand gebalkte Noten ohne autoBeam
+  const notes=M.ev.filter(e=>e.k==="n"),free=notes.filter(e=>!e.mel);
+  const syllabicOf=(arr,i)=>{const pc=i>0&&arr[i-1].cont,c=arr[i].cont;return pc?(c?"middle":"end"):(c?"begin":"single");};
+  lyrRaw.forEach((r,n)=>{const sy=[];parseLyrics(r,sy);if(!sy.length)return;let k=0;sy.forEach((y,j)=>{if(k>=free.length)return;const e=free[k++];if(!y.x)return;(e.lyr=e.lyr||[]).push({n:n+1,x:y.x,syl:syllabicOf(sy,j)});if(n===0)info.lyrics++;});
+    if(sy.length>free.length)info.warn.push(TX(`Text ${n+1}: ${sy.length-free.length} Silben mehr als Noten`,`Lyrics ${n+1}: ${sy.length-free.length} more syllables than notes`));
+    else if(n===0&&sy.length<free.length)info.warn.push(TX(`${free.length-sy.length} Noten ohne Silbe`,`${free.length-sy.length} notes without a syllable`));});
+  if(M.poly)info.warn.push(TX(`${M.poly} zweistimmige Stelle: nur die erste Stimme übernommen`,`${M.poly} two-voice passage: only the first voice was used`));
+  if(chordRaw.length&&C.t>end)info.warn.push(TX("Akkordspur länger als die Melodie","Chord track longer than the melody"));
+  // Takte bilden
+  const tsAt=t=>{let x=null;for(const e of M.times)if(e.t<=t)x=e;return x||{n:4,d:4};};
+  const splits=[...new Set([...M.reps.map(x=>x.t),...M.ends.flatMap(x=>[x.a,x.b])])].filter(x=>x>0&&x<end);
+  const bars=[];let no=M.partials.some(p=>p.t===0)?0:1;
+  {let t=0;while(t<end){const ts=tsAt(t),L=ts.n*WHOLE/ts.d,pt=M.partials.find(p=>p.t===t);let next=t+(pt?pt.len:L);const cut=[...M.times.map(e=>e.t),...M.partials.map(e=>e.t)].filter(x=>x>t).sort((a,b)=>a-b)[0];if(cut!==undefined&&cut<next)next=cut;
+      if(next>end)next=end;const short=next-t<L;const pts=[t,...splits.filter(x=>x>t&&x<next).sort((a,b)=>a-b),next];
+      for(let k=0;k+1<pts.length;k++){bars.push({s:pts[k],e:pts[k+1],no:String(no)+(k?"X".repeat(k):""),implicit:short||pts.length>2,ts});}
+      no++;t=next;}}
+  // XML schreiben
+  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  const TYPES=[[7680,"long"],[3840,"breve"],[1920,"whole"],[960,"half"],[480,"quarter"],[240,"eighth"],[120,"16th"],[60,"32nd"],[30,"64th"]];
+  const typeOf=nom=>{for(const[b,n]of TYPES){if(nom===b)return {n,dots:0};if(nom===b*1.5)return {n,dots:1};if(nom===b*1.75)return {n,dots:2};}return null;};
+  const pieces=(tick,tupN,tupD)=>{const out=[];let r=tick;while(r>0){let best=null;for(const[b]of TYPES)for(const f of [1.75,1.5,1]){const nom=b*f,d=nom*tupD/tupN;if(Number.isInteger(d)&&d<=r&&(!best||d>best.d))best={d,nom};}if(!best){out.push({d:r,nom:r*tupN/tupD,raw:true});break;}out.push(best);r-=best.d;}return out;};
+  const pitchX=p=>{const o=Math.floor(p.s/7);return `<pitch><step>${STEP[p.s-o*7]}</step>${p.a?`<alter>${p.a}</alter>`:""}<octave>${o}</octave></pitch>`;};
+  const KIND={"":"major",3:"major",m:"minor",7:"dominant",m7:"minor-seventh",maj7:"major-seventh",maj:"major-seventh",dim:"diminished",dim7:"diminished-seventh",aug:"augmented",6:"major-sixth",m6:"minor-sixth",9:"dominant-ninth",m9:"minor-ninth",sus4:"suspended-fourth",sus2:"suspended-second",sus:"suspended-fourth",4:"suspended-fourth",5:"power"};
+  const harmX=c=>{const k=KIND[c.kind];if(k===undefined)info.warn.push(TX("Akkordzusatz ","Chord suffix ")+c.kind);const o=Math.floor(c.root.s/7),st=STEP[c.root.s-o*7];let x=`<harmony><root><root-step>${st}</root-step>${c.root.a?`<root-alter>${c.root.a}</root-alter>`:""}</root><kind${k===undefined?` text="${esc(c.kind)}"`:""}>${k===undefined?(/^m/.test(c.kind)?"minor":"major"):k}</kind>`;
+    if(c.bass){const q=Math.floor(c.bass.s/7);x+=`<bass><bass-step>${STEP[c.bass.s-q*7]}</bass-step>${c.bass.a?`<bass-alter>${c.bass.a}</bass-alter>`:""}</bass>`;}return x+"</harmony>";};
+  const chordAt=new Map();C.ev.forEach(e=>{if(e.k==="c"&&!chordAt.has(e.t))chordAt.set(e.t,e);});
+  const cuts=new Set([...bars.map(b=>b.s),...bars.map(b=>b.e),...chordAt.keys()]);
+  const ls=[];let body="",prevTs=null,keyDone=-1;
+  const firstKey=M.keys[0];
+  bars.forEach((br,bi)=>{const at=[];
+    if(bi===0)at.push(`<divisions>${DIV}</divisions>`);
+    const kn=M.keys.filter((k,i)=>i>keyDone&&k.t<br.e&&(k.t>=br.s||bi===0));if(kn.length){const k=kn[kn.length-1];keyDone=M.keys.indexOf(k);at.push(`<key><fifths>${k.f}</fifths><mode>${k.minor?"minor":"major"}</mode></key>`);}else if(bi===0)at.push("<key><fifths>0</fifths><mode>major</mode></key>");
+    if(!prevTs||prevTs.n!==br.ts.n||prevTs.d!==br.ts.d){at.push(`<time><beats>${br.ts.n}</beats><beat-type>${br.ts.d}</beat-type></time>`);prevTs=br.ts;}
+    if(bi===0)at.push("<clef><sign>G</sign><line>2</line></clef>");
+    let x=`<measure number="${esc(br.no)}"${br.implicit?' implicit="yes"':""}>`;if(at.length)x+=`<attributes>${at.join("")}</attributes>`;
+    if(bi===0&&M.tempo)x+=`<direction placement="above"><direction-type><metronome><beat-unit>quarter</beat-unit><per-minute>${M.tempo}</per-minute></metronome></direction-type><sound tempo="${M.tempo}"/></direction>`;
+    const repS=M.reps.some(r=>r.start&&r.t===br.s),endS=M.ends.find(e=>e.a===br.s);
+    if(repS||endS)x+=`<barline location="left">${repS?'<repeat direction="forward"/>':""}${endS?`<ending number="${endS.n}" type="start"/>`:""}</barline>`;
+    M.words.filter(w=>w.t>=br.s&&w.t<br.e).forEach(w=>{x+=`<direction placement="above"><direction-type><words>${esc(w.x)}</words></direction-type></direction>`;});
+    M.ev.filter(e=>e.t<br.e&&e.t+e.dur>br.s).forEach(e=>{
+      const a=Math.max(e.t,br.s),z=Math.min(e.t+e.dur,br.e);const pts=[a,...[...cuts].filter(t=>t>a&&t<z).sort((p,q)=>p-q),z];
+      for(let k=0;k+1<pts.length;k++){const t0=pts[k],t1=pts[k+1];const ch=chordAt.get(t0);if(ch)x+=harmX(ch);
+        const pcs=pieces(t1-t0,e.tupN,e.tupD);let tp=t0;pcs.forEach((pc,pi)=>{const isFirst=tp===e.t,isLast=tp+pc.d===e.t+e.dur;const ty=typeOf(pc.nom);
+          const tm=e.tupN!==e.tupD?`<time-modification><actual-notes>${e.tupN}</actual-notes><normal-notes>${e.tupD}</normal-notes></time-modification>`:"";
+          const typeX=ty?`<type>${ty.n}</type>${"<dot/>".repeat(ty.dots)}`:"";
+          if(e.k==="r"){x+=`<note>${e.skip?' ':""}<rest/><duration>${pc.d}</duration><voice>1</voice>${typeX}${tm}</note>`.replace("<note> ",'<note print-object="no">');}
+          else e.ps.forEach((p,pn)=>{const tieS=(!isFirst||e.tieIn),tieE=(!isLast||e.tieOut);const nt=[];if(tieS)nt.push('<tied type="stop"/>');if(tieE)nt.push('<tied type="start"/>');
+            if(pn===0){if(isFirst)for(let q=0;q<e.slurOn;q++)nt.push('<slur type="start" number="1"/>');if(isLast)for(let q=0;q<e.slurOff;q++)nt.push('<slur type="stop" number="1"/>');if(isLast&&e.ferm)nt.push("<fermata/>");}
+            const lyX=pn===0&&isFirst&&e.lyr?e.lyr.map(l=>`<lyric number="${l.n}"><syllabic>${l.syl}</syllabic><text>${esc(l.x)}</text></lyric>`).join(""):"";
+            x+=`<note>${pn?"<chord/>":""}${pitchX(p)}<duration>${pc.d}</duration>${tieS?'<tie type="stop"/>':""}${tieE?'<tie type="start"/>':""}<voice>1</voice>${typeX}${tm}${nt.length?`<notations>${nt.join("")}</notations>`:""}${lyX}</note>`;});
+          tp+=pc.d;});}});
+    const repE=M.reps.some(r=>r.end&&r.t===br.e),endE=M.ends.find(e=>e.b===br.e),bl=M.bars.filter(b=>b.t===br.e).map(b=>b.s).pop(),isEnd=bi===bars.length-1;
+    const style=repE?"light-heavy":bl==="|."||(isEnd&&bl===undefined)?"light-heavy":bl==="||"?"light-light":null;
+    if(style||repE||endE)x+=`<barline location="right">${style?`<bar-style>${style}</bar-style>`:""}${endE?`<ending number="${endE.n}" type="${repE?"stop":"discontinue"}"/>`:""}${repE?'<repeat direction="backward"/>':""}</barline>`;
+    body+=x+"</measure>";ls.push(0);});
+  // Kopf und weitere Strophen
+  const hd=k=>{const m=new RegExp("(^|\\n)\\s*"+k+'\\s*=\\s*"((?:[^"\\\\]|\\\\.)*)"').exec(header);return m?unq(m[2]).trim():"";};
+  const title=hd("title")||fallbackTitle||"";
+  // Weitere Strophen und Texte aus \markup: \bold "…" oder „2.“ beginnt einen neuen Abschnitt, eine Leerzeile beendet ihn (Refrains und Hinweise bleiben erhalten)
+  const verses=[];marks.forEach(mk=>{let cur=null;for(const m of mk.matchAll(/(\\bold\s*)?"((?:[^"\\]|\\.)*)"/g)){const v=unq(m[2]).replace(/_/g," ").trim();
+      if(!v){if(cur&&cur.lines.length)cur=null;continue;}
+      if(m[1]||/^\d+\s*\.$/.test(v)){cur={n:v,lines:[]};verses.push(cur);continue;}
+      if(!cur){cur={n:"",lines:[]};verses.push(cur);}cur.lines.push(v);}});
+  info.verses=verses.length;info.verseText=verses;
+  const crea=[["composer",hd("composer")],["lyricist",hd("poet")],["arranger",hd("arranger")]].filter(x=>x[1]);
+  const rights=hd("tagline")||hd("copyright");
+  const credits=verses.map(v=>`<credit page="1"><credit-type>lyrics</credit-type>${v.n?`<credit-words font-weight="bold">${esc(v.n)}</credit-words>`:""}${v.lines.length?`<credit-words>${esc(v.lines.join("\n"))}</credit-words>`:""}</credit>`).join("");
+  LY_INFO=info;
+  return `<?xml version="1.0" encoding="UTF-8"?><score-partwise version="3.1"><work><work-title>${esc(title)}</work-title></work><identification>${crea.map(c=>`<creator type="${c[0]}">${esc(c[1])}</creator>`).join("")}${rights?`<rights>${esc(rights)}</rights>`:""}<encoding><software>Griffschrift-Wandler</software></encoding></identification>${credits}<part-list><score-part id="P1"><part-name>${esc(title||"Melodie")}</part-name></score-part></part-list><part id="P1">${body}</part></score-partwise>`;
+}
+// lyToXML ende
 async function openFile(f){
   const st=document.getElementById("status");
   if(/\.json$/i.test(f.name)){loadEdits(f);return;}
@@ -2788,8 +3039,13 @@ async function openFile(f){
       txt=await z.file(path).async("string");
     } else if(/\.midi?$/i.test(f.name)){
       txt=midiToXML(await f.arrayBuffer(),f.name.replace(/\.midi?$/i,""));
+    } else if(/\.ly$/i.test(f.name)){
+      const raw=await f.arrayBuffer();let t0;try{t0=new TextDecoder("utf-8",{fatal:true}).decode(raw);}catch(e){t0=new TextDecoder("windows-1252").decode(raw);}
+      txt=lyToXML(t0,f.name.replace(/\.ly$/i,""));
+      if(LY_INFO&&LY_INFO.tempo)document.getElementById("tempo").value=Math.max(30,Math.min(260,LY_INFO.tempo));
     } else txt=await f.text();
     stop();CREDIT="";loadXMLText(txt);SRC={kind:"file",name:f.name,xml:txt};run();
+    if(/\.ly$/i.test(f.name)&&LY_INFO&&LY_INFO.warn.length){const w=document.createElement("span");w.className="pill";w.textContent="LilyPond: "+LY_INFO.warn.join("; ");st.appendChild(w);}
   }catch(e){st.innerHTML=`<span class="err">${e.message}</span>`;}
 }
 document.getElementById("file").addEventListener("change",e=>{if(e.target.files[0])openFile(e.target.files[0]);});
