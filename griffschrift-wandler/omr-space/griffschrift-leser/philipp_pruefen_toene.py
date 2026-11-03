@@ -1,4 +1,4 @@
-# Prüfung an Philipps Heft (Arbeitsordner /tmp/philipp wie in tri_data.py): Köpfe je Reihe UND Tonhöhen (450 Öllerer/Schaborak, G-C-F-B)
+# Prüfung an Philipps Heft (Arbeitsordner /tmp/philipp): Köpfe je Reihe UND Tonhöhen (450 Öllerer/Schaborak, G-C-F-B)
 # Aufruf: python3 philipp_pruefen_toene.py ../gsleser stück,stück  [details]
 import sys, json, collections, numpy as np
 GS = sys.argv[1]; sys.path.insert(0, GS)
@@ -11,7 +11,7 @@ D450 = {"druck": {1: [98,30,25,4,7,12,16,19,24,28,31,36,40,43,32,98], 2: [98,98,
         "zug": {1: [98,25,30,7,11,14,17,21,23,26,29,33,35,38,41,98], 2: [98,98,18,10,12,16,19,22,24,28,31,34,38,40,43,98,98], 3: [98,98,9,15,17,21,24,27,29,33,36,39,43,45,98,98], 4: [98,98,14,20,22,26,29,32,34,38,41,44,48,98,98]}}
 def key(r, n): return (2 * (n - 6) + OFF[r], 'o' if r < 3 else ('x' if r == 3 else 't'))
 def run(pieces, detail=False):
-    T = collections.Counter(); miss = []; wrong = []
+    T = collections.Counter(); miss = []; wrong = []; extras = []; EXK = collections.Counter()
     for k in pieces:
         res = read_piece(k); B = pin_chords(PINS[k])
         A = [{(r, n) for _, _, (r, n) in c['heads']} for c in res]; Bs = [{(r, n) for r, n, _ in b} for b in B]
@@ -26,7 +26,10 @@ def run(pieces, detail=False):
             for r, n in b:
                 T[f's{r}'] += 1; T[f'g{r}'] += (r, n) in a
                 if (r, n) not in a: miss.append((k, res[i]['page'], res[i]['st'], round(res[i]['x']), r, n, sorted(a)))
-            for r, n in a - b: T[f'f{r}'] += 1
+            for r, n in a - b:
+                T[f'f{r}'] += 1; pp = 2 * (n - 6) + OFF[r]; bp = {2 * (n2 - 6) + OFF[r2] for r2, n2 in b}; ap = {2 * (n2 - 6) + OFF[r2] for r2, n2 in a if (r2, n2) != (r, n)}
+                kat = 'lage±1 eines richtigen' if (pp - 1 in bp and pp - 1 in ap) or (pp + 1 in bp and pp + 1 in ap) else ('gleiche Lage, andere Form' if pp in bp else ('Akkord ohne Treffer' if not (a & b) else 'sonst'))
+                EXK[kat] += 1; extras.append((k, res[i]['page'], res[i]['st'], round(res[i]['x']), r, n, kat, sorted(a), sorted(b)))
         T['pins'] += len(B)
         # Tonhöhen-Vergleich (unabhängig von der Schreibweise): gleiche Töne im gepaarten Akkord
         for i, j in pr:
@@ -39,7 +42,9 @@ def run(pieces, detail=False):
           '| Töne gleich (Akkord)', T['akk_ton_gleich'], f"{T['akk_ton_gleich']/max(1,T['paar']):.3f}",
           '| Töne richtig', T['ton_ok'], 'von', T['ton_soll'], f"{T['ton_ok']/max(1,T['ton_soll']):.3f}", 'falsch', T['ton_falsch'], 'davon wegen Balgrichtung', T['ton_falsch_balg'], '| Balg', f"{T['balg_ok']/max(1,T['paar']):.3f}")
     for r in (1, 2, 3, 4): print(f'  Reihe {r}: soll {T[f"s{r}"]}, gefunden {T[f"g{r}"]} ({T[f"g{r}"]/max(1,T[f"s{r}"]):.3f}), überzählig {T[f"f{r}"]}')
+    print('überzählige Köpfe nach Art:', dict(EXK))
     if detail:
+        json.dump(extras, open('/tmp/philipp/extras.json', 'w'))
         json.dump(miss, open('/tmp/philipp/miss.json', 'w')); json.dump(wrong, open('/tmp/philipp/wrong.json', 'w'))
     return T
 if __name__ == '__main__':
