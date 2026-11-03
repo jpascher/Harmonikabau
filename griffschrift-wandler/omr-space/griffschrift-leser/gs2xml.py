@@ -12,7 +12,9 @@ from measures import barlines,rests,fit_measure,UNIT
 _RD=HERE if _os.path.exists(HERE+'/rhythm.pkl') else _os.path.join(HERE,'..','gsleser')
 RCLF=pickle.load(open(_RD+'/rhythm.pkl','rb'))
 # zweites Notenwert-Modell, angelernt an echten Seiten (Philipps Übungsstücke, Fuchs-Seiten mit MIDI); beide Urteile werden gemischt
-RCLF2=pickle.load(open(_RD+'/rhythm2.pkl','rb')) if _os.path.exists(_RD+'/rhythm2.pkl') and not _os.environ.get('NORH2') else None
+import gzip as _gz
+_R2=_RD+'/rhythm2.pkl.gz'   # gepackt, damit die Datei klein bleibt
+RCLF2=pickle.load(_gz.open(_R2,'rb')) if _os.path.exists(_R2) and not _os.environ.get('NORH2') else None
 RW2=float(_os.environ.get('RW2','0.6'))
 SHIFT={'GCFB':-2,'ADGC':0,'BEsAsDes':1,'HEAD':2,'CFBEs':3,'FBEsAsDes':-4,'FBEsAs':-4,'EADG':-5,'DGCF':-7}
 def skew_angle(g):

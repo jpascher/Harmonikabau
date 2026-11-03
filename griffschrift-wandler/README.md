@@ -90,6 +90,14 @@ MIDI-Dateien mit eigener Akkordspur werden jetzt richtig gelesen. Manche Program
 
 Liedtext wird jetzt unter der Griffschrift gezeigt, ebenso in Normalnoten und Tabulatur. Aus MusicXML kommen Text, Silbentrennung und alle Strophen; aus MIDI-Dateien die Silben, bei Karaoke-Dateien mit der Trennung, die sich aus den Leerzeichen ergibt, sonst jede Silbe für sich. Auch viele Lieder unter den Volkstänzen von volksmusik.cc haben Text in der MIDI-Datei. Werden Wiederholungen zusammengefasst und hat der wiederholte Teil einen anderen Text, steht dieser als weitere Zeile darunter. Mit „Noten speichern“ wird der Text als MusicXML mitgespeichert.
 
+Der Ausdruck trägt oben groß den Titel des Stücks. Im Feld „Titel (für den Ausdruck)“ lässt er sich ändern oder neu eingeben; er wird mit der Bearbeitung gespeichert, die Landler-Erkennung und andere Einstellungen richten sich aber weiter nach dem ursprünglichen Titel.
+
+Abgespielt werden kann jetzt ab jeder Stelle: Ein Doppelklick auf eine Note spielt ab dieser Note, und während der Wiedergabe springt schon ein einfacher Klick auf eine Note dorthin, wie bei einem Audio-Spieler. In einer Übungsauswahl beginnt ein Klick an der angeklickten Note statt am Taktanfang.
+
+Beim Scannen von Griffschrift stimmen die Notenwerte jetzt deutlich öfter. Der Leser erkennt Triolen an der Ziffer 3 und schreibt sie als echte Triolen ins MusicXML, und ein zweites, an echten Seiten angelerntes Notenwert-Modell verwechselt Sechzehntel seltener mit Achteln.
+
+LilyPond-Dateien (.ly) mit einstimmigen Liedern, Akkorden und Text lassen sich jetzt öffnen; weitere Strophen aus der Datei stehen unter der Griffschrift und werden mitgedruckt. Der Ausdruck kommt ohne die Kopf- und Fußzeile des Browsers aus und trägt unten die Adresse des Wandlers. MIDI-Dateien liefern zusätzlich Tempo und Moll-Tonart, und ein Auftakt wird auch dann erkannt, wenn erst die Akkordspur ihn verrät. Diese Teile hat Helmut Seitz beigesteuert; mit ihnen wurden alle 246 Lieder der Ebersberger Liedersammlung umgewandelt.
+
 Offen sind noch die Notation der übrigen Bass-Zusatzknöpfe (außer Fis und As derzeit Tonname mit Stern), die Notenkopfrichtung bei Doppelgriffen nach Fuchs und die Erkennung von Auftakten in MIDI-Dateien.
 
 ## English
@@ -177,5 +185,13 @@ The automatic key checks all 25 transpositions (one octave up and down), the mos
 MIDI files with a separate chord track are now read correctly. Some programs, LilyPond for example, write the chords to a track of their own that lies as high as the melody or higher on average; until now that chord track became the melody. Now a track whose notes almost always start three or more at a time is recognised as a chord track: it sets the harmonic degrees, and if there is no separate bass track the bass notes are taken from the roots of its chords. Nothing changes for the arrangements by Franz Fuchs, where the accompaniment lies below the melody and is read as the bass as before. If melody and chords share one track on different channels (MIDI format 0), the channels are separated. Chords in the chord track that are not among the usual degrees of the key, such as the minor tonic of a song in a minor key, are kept, and if the chord changes in the middle of a bar, the bar is split. In addition, a MIDI file no longer opens by mistake in the window for audio recordings when the browser reports it as an audio file, as happens on Windows.
 
 Lyrics are now shown below the Griffschrift, and also in standard notation and tablature. From MusicXML come the text, hyphenation and all verses; from MIDI files the syllables, with the hyphenation that follows from the spaces in karaoke files, otherwise each syllable on its own. Many songs among the folk dances from volksmusik.cc also have lyrics in their MIDI files. When repeats are combined and the repeated section has different words, they appear as an extra line below. “Save music” stores the lyrics in the MusicXML as well.
+
+The printout shows the title of the tune in large type at the top. It can be changed or typed in the field “Title (for printing)” and is saved with the edits; the Landler detection and other settings still follow the original title.
+
+Playback can now start anywhere: double-clicking a note plays from that note, and while playback is running a single click on a note jumps there, like in an audio player. Inside a practice selection a click starts at the clicked note instead of at the start of the measure.
+
+When scanning Griffschrift, note values are now right much more often. The reader recognises triplets by the figure 3 and writes them to the MusicXML as real triplets, and a second note-value model, trained on real pages, confuses sixteenths with eighths less often.
+
+LilyPond files (.ly) with single-voice songs, chords and lyrics can now be opened; further verses from the file are shown below the Griffschrift and printed too. The printout no longer carries the browser's header and footer and shows the converter's address at the bottom. MIDI files now also supply tempo and minor key, and a pickup is recognised even when only the chord track reveals it. These parts were contributed by Helmut Seitz; with them all 246 songs of the Ebersberger song collection were converted.
 
 Still open: the notation of the remaining extra bass buttons (apart from F# and Ab currently the note name with a star), the note-head direction in double stops as described by Fuchs, and detecting pickups (anacruses) in MIDI files.

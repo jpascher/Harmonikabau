@@ -52,6 +52,9 @@ button[aria-pressed="true"]{background:var(--accent)!important;color:var(--panel
 .measure.selm{background:var(--zug-soft)}
 .fplay{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:0 4px 14px rgba(0,0,0,.25);padding:12px 18px;font-size:16px;border-radius:999px}
 .fplay.sel{background:var(--zug);border-color:var(--zug)}
+.ptitle{display:none;text-align:center;margin:0 0 10px}
+.ptitle .pt1{font-size:20px;font-weight:700}
+.ptitle .pt2{font-size:12px;margin-top:2px}
 .fsave{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(78px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:0 4px 14px rgba(0,0,0,.2);padding:9px 15px;font-size:14px;border-radius:999px;background:var(--panel);color:var(--accent);border:1px solid var(--accent)}
 #fsavemenu{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(124px + env(safe-area-inset-bottom,0px));z-index:52;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:8px;display:flex;flex-direction:column;gap:6px;max-width:calc(100vw - 36px)}
 @media (max-width:700px){body.creating .fsave,body.creating #fsavemenu{display:none!important}}   /* am Handy verdeckt die Eingabeleiste den Knopf; sie hat ihr eigenes „Als MusicXML speichern“ */
@@ -179,13 +182,24 @@ button:disabled{opacity:.45;cursor:default}#edrange select{font:inherit;padding:
 .endline{border-right:4px double var(--fg)}
 button.ghost2{background:transparent;color:var(--accent)}
 #griff svg.gsys{break-inside:avoid;page-break-inside:avoid}
+.verses{display:grid;grid-template-columns:fit-content(62%) minmax(0,1fr);gap:12px 36px;margin:18px 0 8px;font-size:14px;line-height:1.35}
+.verses[hidden]{display:none}
+@media (max-width:600px){.verses{grid-template-columns:minmax(0,1fr)}}
+.verse{break-inside:avoid;display:grid;grid-template-columns:auto 1fr;column-gap:8px}
+.verse:only-child,.verse:not(:has(b)){grid-column:1/-1}
+.verse span{white-space:pre-line;grid-column:2}
+.verse b{grid-column:1}
+.verse b:only-child{grid-column:1/-1}
+.verse:has(> b:only-child){grid-column:1/-1;break-after:avoid}
 @media print{
+  .verses{font-size:12px;margin-top:10px}
   :root{--bg:#fff;--panel:#fff;--fg:#000;--muted:#444;--line:#999;--accent:#000;--zug:#000;--druck:#000;--bad:#000;--extra:#000;color-scheme:light}
-  @page{size:A4;margin:12mm}
+  @page{size:A4;margin:0}   /* ohne Seitenrand druckt der Browser keine eigene Kopf- und Fußzeile mit der Adresse; den Rand gibt .wrap vor */
   body{background:#fff}
-  .wrap{max-width:none;padding:0;gap:0}
-  header .lead,.panel:has(.controls),.panel:has(#status),.sides,.notes,#lg-griff,#lg-tab,#ttl{display:none!important}
-  header h1{font-size:18px;margin:0 0 4px}
+  .wrap{max-width:none;padding:12mm 12mm 16mm;gap:0;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  header .lead,header h1,.hbtns,.panel:has(.controls),.panel:has(#status),.sides,.notes,#lg-griff,#lg-tab,#ttl{display:none!important}
+  .ptitle{display:block!important;font-family:"Zilla Slab",serif;margin:0 0 6px}
+  .pfoot{display:block!important;position:fixed;left:12mm;right:12mm;bottom:6mm;font-size:9px;color:#444;text-align:center}
   .panel{border:none;padding:0;border-radius:0}
   #griff{overflow:visible}
   #griff svg{width:100%!important;height:auto!important;max-width:100%}
@@ -202,6 +216,7 @@ button.ghost2{background:transparent;color:var(--accent)}
 
 <div class="wrap">
   <header>
+    <div class="pfoot" style="display:none">https://jpascher.github.io/Harmonikabau/griffschrift-wandler/</div>
     <div class="titlerow"><h1>Griffschrift-Wandler</h1><div class="hbtns"><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
     <p class="lead"><x-de>Normalnoten als MusicXML rein, Griffweise für die Steirische Harmonika raus. Das Programm legt die Stufen fest und wählt Grundbass und Begleiter so, dass der Bass flüssig läuft. Die Balgrichtung kommt vom Bass, die Melodie samt Doppelgriffen wird darauf abgestimmt.</x-de><x-en>Standard notation goes in as MusicXML, fingering for the Styrian accordion (Steirische Harmonika) comes out. The program works out the harmonic degrees and picks bass and chord buttons so the bass side flows smoothly. The bellows direction follows the bass; the melody, double stops included, is fitted to it.</x-en></p>
   </header>
@@ -233,6 +248,10 @@ button.ghost2{background:transparent;color:var(--accent)}
       <div class="field">
         <label for="transp"><x-de>Transponieren</x-de><x-en>Transpose</x-en></label>
         <select id="transp"></select>
+      </div>
+      <div class="field">
+        <label for="titlein"><x-de>Titel (für den Ausdruck)</x-de><x-en>Title (for printing)</x-en></label>
+        <input id="titlein" type="text" maxlength="120">
       </div>
       <div class="field">
         <label for="tempo"><x-de>Tempo (Viertel/min)</x-de><x-en>Tempo (quarters/min)</x-en></label>
@@ -277,8 +296,8 @@ button.ghost2{background:transparent;color:var(--accent)}
         <select id="voices"><option value="2">Melodie + 2. Stimme</option><option value="1">nur Melodie</option><option value="3">bis 3 Stimmen</option><option value="4">bis 4 Stimmen</option></select>
       </div>
       <label class="filebtn" for="file" tabindex="0" id="filelbl"><x-de>Noten öffnen (MusicXML / MIDI) …</x-de><x-en>Open music (MusicXML / MIDI) …</x-en></label>
-      <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,.json,.mp3,.wav,.m4a,.ogg,.flac">
-      <button id="audiobtn" type="button" class="ghost2"><x-de>🎤 Aufnahme / Audio …</x-de><x-en>🎤 Recording / audio …</x-en></button>
+      <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,.ly,.json,.mp3,.wav,.m4a,.ogg,.flac">
+      <button id="audiobtn" type="button" class="ghost2"><x-de>🎤 Aufnahme / Audio (Versuch) …</x-de><x-en>🎤 Recording / audio (experimental) …</x-en></button>
       <button id="scanbtn" type="button" class="ghost2"><x-de>📷 Noten scannen …</x-de><x-en>📷 Scan sheet music …</x-en></button>
     </div>
     <div class="controls" style="margin-top:12px">
@@ -312,7 +331,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <label class="filebtn ghostfile" for="edfile" tabindex="0" id="edload"><x-de>Bearbeitung laden …</x-de><x-en>Load edits …</x-en></label>
       <input id="edfile" type="file" accept=".json,.griff" hidden>
     </div>
-    <p class="edithelp" id="selhelp"><x-de>Zum Üben: über einer Notenzeile auf die <b>Taktnummer</b> klicken wählt den Takt, mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. „Abspielen“ (oben oder der runde Knopf rechts unten) spielt dann nur diese Takte, mit „Schleife“ immer wieder. Ein Klick auf eine Note <b>in</b> der Auswahl startet ab diesem Takt, ein Klick auf eine Note außerhalb spielt nur diesen Griff an.</x-de><x-en>To practise: click the <b>measure number</b> above a line of music to select that measure; <b>Shift-click</b> another measure number to select a range. “Play” (at the top, or the round button at the bottom right) then plays only those measures, over and over with “Loop”. Clicking a note <b>inside</b> the selection starts from that measure; clicking a note outside it just sounds that one grip.</x-en></p>
+    <p class="edithelp" id="selhelp"><x-de>Zum Üben: über einer Notenzeile auf die <b>Taktnummer</b> klicken wählt den Takt, mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. „Abspielen“ (oben oder der runde Knopf rechts unten) spielt dann nur diese Takte, mit „Schleife“ immer wieder. Ein Klick auf eine Note <b>in</b> der Auswahl startet ab dieser Note, ein Klick auf eine Note außerhalb spielt nur diesen Griff an; ein Doppelklick spielt ab jeder Note.</x-de><x-en>To practise: click the <b>measure number</b> above a line of music to select that measure; <b>Shift-click</b> another measure number to select a range. “Play” (at the top, or the round button at the bottom right) then plays only those measures, over and over with “Loop”. Clicking a note <b>inside</b> the selection starts from that note; clicking a note outside it just sounds that one grip; a double-click plays from any note.</x-en></p>
     <div id="edbar" hidden role="toolbar" aria-label="Bearbeiten"><span id="edpiece"><b><x-de>Ganzes Stück:</x-de><x-en>Whole tune:</x-en></b> <button type="button" data-p="-12" title="Oktave tiefer">−8va</button><button type="button" data-p="-1" title="Halbton tiefer">− ½</button><button type="button" data-p="1" title="Halbton höher">+ ½</button><button type="button" data-p="12" title="Oktave höher">+8va</button> <span id="edpsh"></span></span><span id="edtxt"></span>
       <button type="button" data-a="o-" title="Oktave tiefer (Bild ab)">−8va</button><button type="button" data-a="-" title="Halbton tiefer (−)">− ½</button><button type="button" data-a="+" title="Halbton höher (+)">+ ½</button><button type="button" data-a="o+" title="Oktave höher (Bild auf)">+8va</button>
       <button type="button" data-a="ncopy" title="Strg+C"><x-de>Note kopieren</x-de><x-en>Copy note</x-en></button><button type="button" data-a="npaste" title="Strg+V"><x-de>einfügen</x-de><x-en>paste</x-en></button><button type="button" data-a="l-"><x-de>kürzer</x-de><x-en>shorter</x-en></button><button type="button" data-a="l+"><x-de>länger</x-de><x-en>longer</x-en></button><button type="button" data-a="mm"><x-de>Dur/Moll</x-de><x-en>major/minor</x-en></button>
@@ -396,6 +415,7 @@ button.ghost2{background:transparent;color:var(--accent)}
   </section>
 
   <section class="panel">
+    <div class="ptitle" id="ptitle"><div class="pt1"></div><div class="pt2"></div></div>
     <h2 id="ttl">Griffweise</h2>
     <div class="legend" id="lg-griff" style="margin:0 0 14px">
       <x-de><span>Jede Note ist ein Knopf: 2. Reihe auf den Linien (Gleichton = Knopf 6 auf der Mittellinie), 1. Reihe in den Zwischenräumen, 3. und 4. Reihe mit Kreuz</span>
@@ -422,6 +442,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <span><b style="color:var(--bad)">×</b> not playable, <b style="color:var(--bad)">red</b> = against the bass direction</span></x-en>
     </div>
     <div class="tab" id="tab" hidden></div>
+    <div class="verses" id="verses" hidden></div>
   </section>
 
   <button id="fplay" type="button" class="fplay">▶ Abspielen</button>
@@ -483,6 +504,7 @@ button.ghost2{background:transparent;color:var(--accent)}
     <section id="h-laden"><h3>Noten laden</h3>
       <p><b>MusicXML</b> (.musicxml, .xml, .mxl) ist das beste Format. Es kommt aus MuseScore, Finale, Sibelius, Capella und den meisten Notenprogrammen über „Exportieren“. Akkordsymbole in der Datei werden übernommen, ebenso Wiederholungszeichen und 1./2. Schluss. Liedtext samt Silbentrennung und mehreren Strophen wird unter der Griffschrift gezeigt.</p>
       <p><b>MIDI</b> (.mid) geht auch. Die höchste Spur wird zur Melodie, gleichzeitige Töne werden zu Doppelgriffen, die tiefste Spur liefert die Stufen. Eine Spur, die fast nur aus Akkorden besteht (etwa aus LilyPond), wird als Akkordspur erkannt: Sie wird nicht zur Melodie, sondern gibt die Stufen vor, und fehlt eine eigene Bassspur, kommt der Grundbass aus ihren Akkorden. Liegen Melodie und Akkorde in einer Spur auf verschiedenen Kanälen, werden sie getrennt. Steht in der MIDI-Datei ein Liedtext, erscheint er unter der Griffschrift; ohne Trennstriche in der Datei steht jede Silbe für sich. Bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> gibt es zu fast jedem Volkstanz eine MIDI-Datei (Satz Franz Fuchs): Stück öffnen, „Midi-Datei downloaden“, hier hineinziehen.</p>
+      <p><b>LilyPond</b> (.ly) geht ebenfalls, für einstimmige Lieder mit Akkorden und Text, so wie sie etwa in der Ebersberger Liedersammlung stehen. Weitere Strophen aus der Datei stehen unter der Griffschrift und werden mitgedruckt. Befehle, die der Wandler nicht kennt, führen zu einer Fehlermeldung statt zu falschen Noten. Das Einlesen von LilyPond hat Helmut Seitz beigesteuert.</p>
       <p>Hat eine MusicXML-Datei mehrere Stimmen, wählst du unter <b>Stimme</b> die Melodiestimme. <b>Stimmen im Diskant</b> bestimmt, ob nur die Melodie oder auch die 2., 3. und 4. Stimme aus der Datei mitgegriffen werden.</p>
     </section>
     <section id="h-audio"><h3>Aufnahme oder Audio-Datei in Noten</h3>
@@ -549,12 +571,12 @@ button.ghost2{background:transparent;color:var(--accent)}
     <section id="h-ueben"><h3>Üben und Abspielen</h3>
       <ul>
         <li><b>Takte wählen:</b> Über der Notenzeile auf die kleine <b>Taktnummer</b> klicken; mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. Alternativ „Üben: Takt von – bis“ ausfüllen.</li>
-        <li><b>Abspielen:</b> Der obere Knopf oder der runde Knopf rechts unten spielt die gewählten Takte, mit <b>Schleife</b> immer wieder. Ein Klick auf eine Note in der Auswahl startet ab diesem Takt.</li>
+        <li><b>Abspielen:</b> Der obere Knopf oder der runde Knopf rechts unten spielt die gewählten Takte, mit <b>Schleife</b> immer wieder. Ein Klick auf eine Note in der Auswahl startet ab dieser Note.</li>
         <li><b>Tempo</b> in Vierteln pro Minute einstellen, zum Üben langsamer.</li>
         <li><b>Lautstärke Bass ↔ Diskant:</b> In der Mitte klingen beide voll. Nach links (B) wird der Diskant leiser, ganz links ist nur der Bass zu hören; nach rechts (D) wird der Bass leiser, ganz rechts nur der Diskant. Der Regler wirkt auch während des Abspielens und wird im Browser gemerkt.</li>
         <li><b>Klang:</b> „Aufnahme (Harmonika)“ spielt mit Tonaufnahmen von Johann Pascher, je Ton eine kurze Schleife aus den Aufnahmen seiner Akkordsuche (hyperbox.org); auch Grundbässe und Begleiter werden daraus zusammengesetzt. Die Aufnahmen werden beim ersten Abspielen geladen (etwa 1 MB) und danach im Browser zwischengespeichert. „Synthetisch“ ist der erzeugte Ton wie bisher; er klingt auch, solange die Aufnahmen noch nicht geladen sind. Zur Herkunft der Aufnahmen siehe <a href="#h-recht">Urheberrecht</a>.</li>
         <li><b>Noten mitscrollen</b> ausschalten, wenn man beim Abspielen lieber die Knöpfe im Diskant- und Bassbild verfolgt; die Seite bleibt dann stehen. Die Einstellung wird im Browser gemerkt.</li>
-        <li>Ein Klick auf eine Note außerhalb der Auswahl spielt nur diesen Griff und zeigt den Knopf im Diskant- und Bassbild.</li>
+        <li>Ein Klick auf eine Note außerhalb der Auswahl spielt nur diesen Griff und zeigt den Knopf im Diskant- und Bassbild; ein Doppelklick spielt ab dieser Note.</li>
         <li><b>„Auswahl löschen“</b> spielt wieder das ganze Stück; der Knopf leuchtet kurz auf, und in der Statuszeile steht, ob eine Auswahl gelöscht wurde.</li>
       </ul>
     </section>
@@ -582,7 +604,8 @@ button.ghost2{background:transparent;color:var(--accent)}
     </section>
     <section id="h-druck"><h3>Zeilen und Drucken</h3>
       <p><b>Takte je Zeile:</b> automatisch nach Platz oder fest 2 bis 8. Einzelne Umbrüche setzt du im Bearbeiten-Modus über den Taktstrich.</p>
-      <p><b>Drucken</b> gibt nur die Griffschrift aus, schwarz auf weiß, auf A4. Im Druckdialog des Browsers kannst du auch „Als PDF speichern“ wählen. In der Claude-Vorschau ist Drucken gesperrt; dort die Seite unter jpascher.github.io/Harmonikabau/griffschrift-wandler/ öffnen.</p>
+      <p><b>Drucken</b> gibt nur die Griffschrift aus, schwarz auf weiß, auf A4. Im Druckdialog des Browsers kannst du auch „Als PDF speichern“ wählen. In der Claude-Vorschau ist Drucken gesperrt; dort die Seite unter jpascher.github.io/Harmonikabau/griffschrift-wandler/ öffnen. Oben auf dem Ausdruck steht groß der Titel des Stücks; im Feld „Titel (für den Ausdruck)“ lässt er sich ändern oder neu eingeben, und er wird mit der Bearbeitung gespeichert.</p>
+      <p><b>Abspielen ab einer Stelle:</b> Ein Doppelklick auf eine Note spielt ab dieser Note. Läuft die Wiedergabe schon, genügt ein einfacher Klick auf eine Note, dann springt sie dorthin, wie bei einem Audio-Spieler. Ist eine Übungsauswahl gesetzt, beginnt ein Klick in der Auswahl an der angeklickten Note.</p>
     </section>
     <section id="h-grenzen"><h3>Grenzen und Tipps</h3>
       <ul>
@@ -619,6 +642,7 @@ button.ghost2{background:transparent;color:var(--accent)}
     <section id="e-laden"><h3>Loading music</h3>
       <p><b>MusicXML</b> (.musicxml, .xml, .mxl) is the best format. MuseScore, Finale, Sibelius, Capella and most notation programs write it via “Export”. Chord symbols in the file are used, as are repeat signs and first/second endings. Lyrics, including hyphenation and several verses, are shown below the Griffschrift.</p>
       <p><b>MIDI</b> (.mid) works too. The highest track becomes the melody, simultaneous notes become double stops, and the lowest track supplies the harmonic degrees. A track made up almost entirely of chords (for example from LilyPond) is recognised as a chord track: it does not become the melody but sets the harmonic degrees, and if there is no separate bass track the bass notes are taken from its chords. If melody and chords share one track on different channels, they are separated. If the MIDI file contains lyrics, they are shown below the Griffschrift; without hyphens in the file each syllable stands on its own. <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> has a MIDI file for almost every Austrian folk dance (arrangements by Franz Fuchs): open the tune, click “Midi-Datei downloaden”, drop the file here.</p>
+      <p><b>LilyPond</b> (.ly) works as well, for single-voice songs with chords and lyrics, as found for example in the Ebersberger song collection. Further verses from the file are shown below the Griffschrift and are printed too. Commands the converter does not know lead to an error message rather than to wrong notes. LilyPond import was contributed by Helmut Seitz.</p>
       <p>If a MusicXML file has several parts, pick the melody under <b>Part</b>. <b>Voices in the treble</b> decides whether only the melody or also the second, third and fourth voice from the file are played.</p>
     </section>
     <section id="e-audio"><h3>Recording or audio file to music</h3>
@@ -685,12 +709,12 @@ button.ghost2{background:transparent;color:var(--accent)}
     <section id="e-ueben"><h3>Practice and playback</h3>
       <ul>
         <li><b>Selecting measures:</b> click the small <b>measure number</b> above the line of music; <b>Shift-click</b> another measure number to make a range. Or fill in “Practice: measures from – to”.</li>
-        <li><b>Play:</b> the button at the top or the round button at the bottom right plays the selected measures, over and over with <b>Loop</b>. Clicking a note inside the selection starts from that measure.</li>
+        <li><b>Play:</b> the button at the top or the round button at the bottom right plays the selected measures, over and over with <b>Loop</b>. Clicking a note inside the selection starts from that note.</li>
         <li>Set the <b>tempo</b> in quarter notes per minute; slower for practising.</li>
         <li><b>Volume bass ↔ treble:</b> in the middle both play at full volume. To the left (B) the treble gets quieter, fully left only the bass is heard; to the right (T) the bass gets quieter, fully right only the treble. The slider also works during playback and is remembered in the browser.</li>
         <li><b>Sound:</b> “Recording (accordion)” plays with sound recordings by Johann Pascher, one short loop per note taken from the recordings of his chord finder (hyperbox.org); bass notes and chords are built from them as well. The recordings are loaded the first time you play (about 1 MB) and then kept in the browser. “Synthetic” is the generated sound as before; it is also heard while the recordings are not loaded yet. For where the recordings come from, see <a href="#e-recht">Copyright</a>.</li>
         <li>Turn off <b>Scroll with the notes</b> if you would rather follow the buttons on the treble and bass diagrams during playback; the page then stays where it is. The setting is remembered in the browser.</li>
-        <li>Clicking a note outside the selection plays just that grip and shows the button on the treble and bass diagrams.</li>
+        <li>Clicking a note outside the selection plays just that grip and shows the button on the treble and bass diagrams; a double-click plays from that note.</li>
         <li><b>“Clear selection”</b> goes back to playing the whole tune; the button lights up briefly and the status line says whether a selection was cleared.</li>
       </ul>
     </section>
@@ -718,7 +742,8 @@ button.ghost2{background:transparent;color:var(--accent)}
     </section>
     <section id="e-druck"><h3>Lines and printing</h3>
       <p><b>Measures per line:</b> automatic to fit the space, or a fixed 2 to 8. Single line breaks are set in edit mode via the bar line.</p>
-      <p><b>Print</b> outputs only the Griffschrift, black on white, on A4. In the browser's print dialog you can also choose “Save as PDF”. Printing is blocked in the Claude preview; open the page at jpascher.github.io/Harmonikabau/griffschrift-wandler/ instead.</p>
+      <p><b>Print</b> outputs only the Griffschrift, black on white, on A4. In the browser's print dialog you can also choose “Save as PDF”. Printing is blocked in the Claude preview; open the page at jpascher.github.io/Harmonikabau/griffschrift-wandler/ instead. The title of the tune is printed in large type at the top; you can change it or type a new one in the field “Title (for printing)”, and it is saved with your edits.</p>
+      <p><b>Playing from a given point:</b> double-click a note to play from that note. While playback is running, a single click on a note is enough: playback jumps there, like in an audio player. If a practice selection is set, a click inside the selection starts at the clicked note.</p>
     </section>
     <section id="e-grenzen"><h3>Limits and tips</h3>
       <ul>
@@ -1141,11 +1166,19 @@ const mod=(a,b)=>((a%b)+b)%b;
 
 // ======== MusicXML
 const STEP={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
-let PARTS=[],TITLE="";
+let PARTS=[],TITLE="",PTITLE=null;   // PTITLE: von Hand eingegebener Titel für Anzeige und Ausdruck
+function showTitle(){return PTITLE!=null?PTITLE:TITLE;}
 let LASTXML="";   // zuletzt geladene Noten (für „Noten speichern“)
-function loadXMLText(txt){LASTXML=txt;
+// Weitere Strophen unter dem Lied: <credit> vom Typ „lyrics“ (fett = Nummer oder Überschrift)
+function renderVerses(doc){const box=document.getElementById("verses");box.innerHTML="";
+  const list=[...doc.querySelectorAll("score-partwise > credit")].filter(c=>((c.querySelector("credit-type")||{}).textContent||"").trim()==="lyrics");
+  list.forEach(c=>{const d=document.createElement("div");d.className="verse";
+    [...c.querySelectorAll("credit-words")].forEach(w=>{const s=document.createElement(w.getAttribute("font-weight")==="bold"?"b":"span");s.textContent=w.textContent;d.appendChild(s);});box.appendChild(d);});
+  box.hidden=!list.length;}
+function loadXMLText(txt){LASTXML=txt;PTITLE=null;
   const doc=new DOMParser().parseFromString(txt,"application/xml");
   if(doc.querySelector("parsererror"))throw new Error(TX("Die Datei ist kein lesbares MusicXML.","The file is not readable MusicXML."));
+  renderVerses(doc);
   if(doc.documentElement.nodeName==="score-timewise")throw new Error(TX("Diese Datei ist im Format „timewise“. Bitte als normales MusicXML (partwise) exportieren.","This file is in “timewise” format. Please export it as normal (partwise) MusicXML."));
   if(doc.documentElement.nodeName!=="score-partwise")throw new Error(TX("In der Datei wurde keine Partitur gefunden.","No score was found in this file."));
   PARTS=[...doc.querySelectorAll("score-partwise > part")];
@@ -1488,7 +1521,9 @@ function resolve(){
   updateStatus();renderTab();renderGriff();
 }
 function creditText(){return CREDIT?TX("Satz: ","Arr. ")+CREDIT:"";}
-function setTitle(){const w=TX("Griffweise","Fingering");document.getElementById("ttl").textContent=(TITLE?(w+": "+TITLE):w)+(CREDIT?" ("+creditText()+")":"");}
+function setTitle(){const w=TX("Griffweise","Fingering"),T=showTitle();document.getElementById("ttl").textContent=(T?(w+": "+T):w)+(CREDIT?" ("+creditText()+")":"");
+  const pt=document.getElementById("ptitle");if(pt){pt.querySelector(".pt1").textContent=T||(PTITLE==null&&SRC&&SRC.name?String(SRC.name).replace(/\.[^.]+$/,""):"");pt.querySelector(".pt2").textContent=creditText();}   // ohne Titel: Dateiname
+  const ti=document.getElementById("titlein");if(ti&&document.activeElement!==ti)ti.value=T||"";}
 // Zahl aller Änderungen von Hand (für Statuszeile und Knopf „Änderungen zurücksetzen“)
 function editCount(){return Object.keys(NOTE_FORCE).length+Object.keys(SEG_FORCE).length+BREAKS.size+Object.keys(BASS_EDIT).length+Object.keys(BASS_KIND).length+Object.keys(PITCH_EDIT).length+
   Object.keys(SEG_HARM).length+DUR_OPS.length+Object.keys(MEAS_SHIFT).length+Object.keys(RANGE_PLAY).length+MEAS_OPS.length+Object.keys(BASS_DEL).length;}
@@ -1600,9 +1635,11 @@ function renderTab(){
         d.title=tip.join("\n")+(r.oct?"\n"+TX("Ton um eine Oktave versetzt, weil es ihn in der Originallage nicht gibt","note moved by an octave because it does not exist at the original pitch"):"")+(g?`\n${g.dir==="Z"?TX("Zug","pull"):TX("Druck","push")}${r.against?TX(" (gegen die Bassrichtung)"," (against the bass direction)"):""}`:"");
         d.tabIndex=0;d.dataset.uid=e._uid;
         const act=ev=>{if(EDIT){const kk=ev&&ev.target&&ev.target.closest&&ev.target.closest(".k[data-pi]");pickNote(e,kk&&+kk.dataset.pi>=0?+kk.dataset.pi:null);return;}
-          if(SEL&&DISPLAY.slice(SEL.a,SEL.b+1).some(x=>x.mi===mi)){if(playing)stop();else startPlay(mi);return;}
+          if(playing){startPlay(mi,e.on);return;}   // beim Abspielen: an die angeklickte Stelle springen
+          if(SEL&&DISPLAY.slice(SEL.a,SEL.b+1).some(x=>x.mi===mi)){startPlay(mi,e.on);return;}
           markCur(e._uid,null);drawKbd(g,extShown(r));const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.concat(extShown(r).map(q=>q.m)).forEach(p=>beep(p,0.45));};
         d.addEventListener("click",act);d.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
+        d.addEventListener("dblclick",ev=>{if(EDIT)return;ev.preventDefault();whenSound(()=>startPlay(mi,e.on));});   // Doppelklick: ab hier abspielen
       }
       top.appendChild(d);
     });
@@ -1831,7 +1868,8 @@ function renderGriff(){
     let minP=-4,maxP=4;
     if(NORM)row.forEach(x=>x.m.ev.forEach(e=>{(e._nh||[]).forEach(h=>{minP=Math.min(minP,h.p);maxP=Math.max(maxP,h.p);});}));
     else row.forEach(x=>x.m.ev.forEach(e=>{const g=e.type==="note"?e._r.g:(e.type==="tie"?(e.src._r||{}).g:null);if(g)g.btns.forEach(q=>{const p=posOf(q.b);minP=Math.min(minP,p);maxP=Math.max(maxP,p);});}));
-    const y0=ytop+Math.max(40,maxP*ST+36);
+    const yTop=row.some(x=>(x.m.words&&x.m.words.length)||x.d.volta)?38:28;   // Platz über den Notenlinien: Teilbezeichnungen und Klammern brauchen mehr
+    const y0=ytop+maxP*ST+yTop;
     const yOf=p=>y0-p*ST;
     let bassY=y0+Math.max(50,-minP*ST+30),druckY=bassY+7,tabT=0,tabP=0;
     if(TABL){let ns=1;row.forEach(x=>x.m.ev.forEach(e=>{if(e.type==="note"&&e._r&&e._r.g)ns=Math.max(ns,e._r.g.btns.length);}));
@@ -1914,7 +1952,7 @@ function renderGriff(){
         s=`<rect x="${xh-11}" y="${hitT}" width="22" height="${hitB-hitT}" fill="transparent"/>`+s;
         const cls="gn"+(isNote&&r.against?" against":"")+(isNote&&(NOTE_FORCE[e.key]||PITCH_EDIT[e.key])?" forced":"")+(isNote&&SELX&&SELX.e===e?" selx":"");
         svg+=isNote?`<g class="${cls}" data-uid="${e._uid}" tabindex="0">${s}${hh}</g>`:`<g class="gn">${s}</g>`;
-        if(isNote&&nb)lyOf(x.mi,e).forEach(l=>{const i=l.ln,y=druckY+20+i*16,w=lyW(l.x);
+        if(isNote&&nb)lyOf(x.mi,e).forEach(l=>{const i=l.ln,y=druckY+17+i*16,w=lyW(l.x);
           if(pend[i])svg+=`<text class="lyr" x="${(pend[i].x+pend[i].w/2+xh-w/2)/2}" y="${y}" text-anchor="middle">-</text>`;
           svg+=`<text class="lyr" x="${xh}" y="${y}" text-anchor="middle">${l.x.replace(/&/g,"&amp;").replace(/</g,"&lt;")}</text>`;
           pend[i]=l.syl==="begin"||l.syl==="middle"?{x:xh,w}:null;});
@@ -1938,10 +1976,10 @@ function renderGriff(){
       if(!fin)svg+=`<rect class="brk${BREAKS.has(x.mi)?" on":""}" data-mi="${x.mi}" x="${mx-5}" y="${yOf(4)-6}" width="10" height="${8*ST+12}"><title>${TX("Zeile nach diesem Takt umbrechen","Start a new line after this measure")}</title></rect>`;
     });
     let nLy=0;if(nb)row.forEach(x=>x.m.ev.forEach(e=>lyOf(x.mi,e).forEach(l=>{nLy=Math.max(nLy,l.ln+1);})));
-    Object.entries(pend).forEach(([i,q])=>{if(q)svg+=`<text class="lyr" x="${q.x+q.w/2+6}" y="${druckY+20+i*16}" text-anchor="middle">-</text>`;});
-    parts.push({s:svg,h:druckY+18+(nLy?nLy*16+6:0)});
+    Object.entries(pend).forEach(([i,q])=>{if(q)svg+=`<text class="lyr" x="${q.x+q.w/2+6}" y="${druckY+17+i*16}" text-anchor="middle">-</text>`;});
+    parts.push({s:svg,h:druckY+(nLy?nLy*16+9:12)});
   });
-  const head=`<text class="hd" x="2" y="12">${TITLE?TITLE+" · ":""}${TABL?TX("Tabulatur Druck/Zug, für","Push/pull tablature, for"):(NORM?TX("Normalnoten, für","Standard notation, for"):(INST.disk&&INST.disk.rows===3?TX("Griffschrift 3-Reiher","Griffschrift, 3-row"):TX("Griffschrift 4-Reiher","Griffschrift, 4-row")))} ${stName()}, ${optText("disk",INST.disk)}${INST.diskOwn?TX(" (eigene Belegung)"," (own layout)"):""}, ${optText("bass",INST.bass)}${document.getElementById("bmoll").value==="tpl"?TX(" mit Moll auf Zug"," with minor on pull"):(MOLLSIG?TX(" (angepasst)"," (customised)"):"")}${CREDIT?" · "+creditText():""}</text>`;
+  const head=`<text class="hd" x="2" y="12">${showTitle()&&!PRINT_W?showTitle().replace(/[<&]/g,"")+" · ":""}${TABL?TX("Tabulatur Druck/Zug, für","Push/pull tablature, for"):(NORM?TX("Normalnoten, für","Standard notation, for"):(INST.disk&&INST.disk.rows===3?TX("Griffschrift 3-Reiher","Griffschrift, 3-row"):TX("Griffschrift 4-Reiher","Griffschrift, 4-row")))} ${stName()}, ${optText("disk",INST.disk)}${INST.diskOwn?TX(" (eigene Belegung)"," (own layout)"):""}, ${optText("bass",INST.bass)}${document.getElementById("bmoll").value==="tpl"?TX(" mit Moll auf Zug"," with minor on pull"):(MOLLSIG?TX(" (angepasst)"," (customised)"):"")}${CREDIT?" · "+creditText():""}</text>`;
   host.innerHTML=`<svg class="ghead" width="${W}" height="20" viewBox="0 0 ${W} 20">${head.replace('y="12"','y="14"')}</svg>`+
     parts.map((q,i)=>`<svg class="gsys" width="${W}" height="${q.h}" viewBox="0 0 ${W} ${q.h}" role="img" aria-label="${TX("Griffschrift Zeile","Griffschrift line")} ${i+1}">${q.s}</svg>`).join("");
   // Klick auf Noten
@@ -1950,9 +1988,11 @@ function renderGriff(){
     const act=ev=>{const e=byUid[el.dataset.uid];if(!e)return;
       if(EDIT){const hm=ev&&ev.target&&ev.target.dataset?ev.target.dataset.m:null;const pi=hm!=null?e.midis.indexOf(+hm-BT):-1;pickNote(e,pi>=0&&e.midis.length>1?pi:null);return;}
       const mi=e._mi;
-      if(SEL&&mi!=null&&DISPLAY.slice(SEL.a,SEL.b+1).some(d=>d.mi===mi)){if(playing)stop();else startPlay(mi);return;}
+      if(playing&&mi!=null){startPlay(mi,e.on);return;}   // beim Abspielen: an die angeklickte Stelle springen
+      if(SEL&&mi!=null&&DISPLAY.slice(SEL.a,SEL.b+1).some(d=>d.mi===mi)){startPlay(mi,e.on);return;}
       const r=e._r;markCur(e._uid,null);drawKbd(r.g,extShown(r));const sg=R.segs[r.si];drawBass(sg&&sg.pick,"both");r.pitches.concat(extShown(r).map(q=>q.m)).forEach(p=>beep(p,0.45));};
     el.addEventListener("click",act);el.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act();}});
+    el.addEventListener("dblclick",ev=>{const e=byUid[el.dataset.uid];if(EDIT||!e||e._mi==null)return;ev.preventDefault();whenSound(()=>startPlay(e._mi,e.on));});   // Doppelklick: ab hier abspielen
   });
   host.querySelectorAll(".chit").forEach(el=>el.addEventListener("click",()=>{const s=R.segs[+el.dataset.si];if(!s)return;if(EDIT)pickChord(s);else if(s.pick)drawBass(s.pick,"both");}));
   host.querySelectorAll(".bhit").forEach(el=>el.addEventListener("click",ev=>{const s=R.segs[+el.dataset.si];if(!s)return;
@@ -2368,6 +2408,7 @@ function whenSound(fn){if(SOUND!=="rec"||SMP_OK.every(k=>SMP[k]))return fn();
   Promise.race([smpPreload(),new Promise(r=>setTimeout(r,4000))]).then(fn);}
 document.getElementById("play").addEventListener("click",()=>{if(playing){stop();return;}whenSound(()=>startPlay(null));});
 document.getElementById("fplay").addEventListener("click",()=>{if(playing){stop();return;}whenSound(()=>startPlay(null));});
+document.getElementById("titlein").addEventListener("input",ev=>{PTITLE=ev.target.value;setTitle();if(R)renderGriff();});
 // Speichern immer erreichbar (wie Abspielen): Noten als MusicXML oder die Bearbeitung; im Eingabemodus das ganze Stück in der gewählten Form
 (function(){const b=document.getElementById("fsave"),mn=document.getElementById("fsavemenu"),close=()=>{mn.hidden=true;};
   b.addEventListener("click",e=>{e.stopPropagation();const cr=CREATE&&CR&&CR.on;document.getElementById("fsjson").hidden=cr;
@@ -2382,13 +2423,14 @@ function updatePlayLabels(){
   document.getElementById("play").textContent=lbl;document.getElementById("fplay").textContent=lbl;
   document.getElementById("fplay").classList.toggle("sel",!!SEL);
 }
-// fromMi: Takt (Index in P.measures), ab dem innerhalb der Auswahl begonnen wird
-function startPlay(fromMi){
+// fromMi: Takt (Index in P.measures), ab dem innerhalb der Auswahl begonnen wird; fromOn: Einsatz im Takt (Viertel), ab dem gespielt wird
+function startPlay(fromMi,fromOn){
   if(!R)return;stop();
   const a=ac();const dest=newMaster();
   const q=60/(+document.getElementById("tempo").value||100);
   // welche Takte: Übungsauswahl (in Anzeigereihenfolge) oder das ganze Stück
-  const seq=SEL?DISPLAY.slice(SEL.a,SEL.b+1).map(d=>d.mi):P.measures.map((m,mi)=>mi);
+  let seq=SEL?DISPLAY.slice(SEL.a,SEL.b+1).map(d=>d.mi):P.measures.map((m,mi)=>mi);
+  if(fromMi!=null&&!seq.includes(fromMi))seq=P.measures.map((m,mi)=>mi);   // angeklickte Stelle außerhalb der Auswahl: ganzes Stück
   const loop=document.getElementById("loop").checked;
   const evs=[];let mt=0;const MAZ=isMaz();   // Mazurka: kurze Töne
   // bei zusammengefassten Wiederholungen die angezeigten Noten des ersten Durchgangs markieren
@@ -2408,7 +2450,7 @@ function startPlay(fromMi){
   });
   evs.sort((x,y)=>x.t-y.t);
   if(!evs.length)return;
-  let off=0;if(fromMi!=null){for(const mi of seq){if(mi===fromMi)break;off+=lLen(P.measures[mi])*q;}if(off>=mt-1e-9)off=0;}
+  let off=0;if(fromMi!=null){for(const mi of seq){if(mi===fromMi){if(fromOn)off+=lWarp(P.measures[mi],fromOn)*q;break;}off+=lLen(P.measures[mi])*q;}if(off>=mt-1e-9)off=0;}
   let start=a.currentTime+0.15-off,i=0;while(i<evs.length&&evs[i].t<off-1e-9)i++;
   const tick=()=>{
     const horizon=a.currentTime+0.35;
@@ -2456,14 +2498,14 @@ function midiToXML(buf,title){
   const u8=()=>b[p++],u16=()=>(b[p++]<<8)|b[p++],u32=()=>((b[p++]<<24)|(b[p++]<<16)|(b[p++]<<8)|b[p++])>>>0;
   const vl=()=>{let v=0,c;do{c=b[p++];v=(v<<7)|(c&127);}while(c&128&&p<b.length);return v;};
   p=8;u16();const nt=u16(),div=u16();if(div&0x8000)throw new Error(TX("Diese MIDI-Datei verwendet eine SMPTE-Zeitbasis, die wird nicht unterstützt.","This MIDI file uses SMPTE timing, which is not supported."));
-  const tracks=[],LY=[];const tsE=[],ksE=[];let ord=0;
+  const tracks=[],LY=[];const tsE=[],ksE=[];let ord=0,tempo0=null;
   const dec=d=>{try{return new TextDecoder("utf-8",{fatal:true}).decode(d);}catch(e){return new TextDecoder("windows-1252").decode(d);}};
   for(let t=0;t<nt&&p<b.length;t++){
     const id=String.fromCharCode(b[p],b[p+1],b[p+2],b[p+3]);p+=4;const len=u32(),end=Math.min(b.length,p+len);
     if(id!=="MTrk"){p=end;continue;}
     let tick=0,rs=0;const tr={notes:[],lyr:[],txt:[]},on={};
     while(p<end){tick+=vl();let st=b[p];if(st&128){p++;rs=st;}else st=rs;
-      if(st===0xFF){const ty=u8(),l=vl();const d=b.slice(p,p+l);p+=l;if(ty===0x58&&d[0]>0)tsE.push({t:tick/div,n:d[0],d:1<<d[1],o:ord++});if(ty===0x59)ksE.push({t:tick/div,f:(d[0]<<24)>>24,mi:d[1],o:ord++});if(ty===0x05)tr.lyr.push({t:tick/div,x:dec(d)});if(ty===0x01)tr.txt.push({t:tick/div,x:dec(d)});}
+      if(st===0xFF){const ty=u8(),l=vl();const d=b.slice(p,p+l);p+=l;if(ty===0x51&&tempo0===null&&l>=3)tempo0=(d[0]<<16)|(d[1]<<8)|d[2];if(ty===0x58&&d[0]>0)tsE.push({t:tick/div,n:d[0],d:1<<d[1],o:ord++});if(ty===0x59)ksE.push({t:tick/div,f:(d[0]<<24)>>24,mi:d[1],o:ord++});if(ty===0x05)tr.lyr.push({t:tick/div,x:dec(d)});if(ty===0x01)tr.txt.push({t:tick/div,x:dec(d)});}
       else if(st===0xF0||st===0xF7){p+=vl();}
       else{const hi=st&0xF0,ch=st&15,a=u8(),c=(hi===0xC0||hi===0xD0)?0:u8();
         if(ch===9)continue;
@@ -2499,7 +2541,7 @@ function midiToXML(buf,title){
     else{bas=mel.filter(n=>n.m<52);mel=mel.filter(n=>n.m>=52);}
   }
   const Q=x=>{const a=Math.round(x*4)/4,c=Math.round(x*3)/3;return Math.abs(a-x)<=Math.abs(c-x)+0.02?a:c;};
-  const info={tsFile:!!tsE.length,pickup:0,tsChanges:0,keyChanges:0,bassFixed:0,meters:[],chordTrack:chd.length>0,lyrics:0,verses:0};
+  const info={tsFile:!!tsE.length,pickup:0,tsChanges:0,keyChanges:0,bassFixed:0,meters:[],chordTrack:chd.length>0,lyrics:0,verses:0,tempo:tempo0?Math.max(30,Math.min(260,Math.round(60000000/tempo0))):0};
   // ===== 1. Taktart: alle Taktwechsel aus der Datei (an derselben Stelle gilt der letzte); ein Takt, der vor einem Wechsel nicht voll wird, bleibt kurz
   const secs=[];[...tsE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const t=Q(e.t);if(secs.length&&Math.abs(secs[secs.length-1].t-t)<1e-6)secs[secs.length-1]={t,n:e.n,d:e.d};else secs.push({t,n:e.n,d:e.d});});
   if(!secs.length){const g=guessMeter(mel,bas,Q);secs.push({t:0,n:g[0],d:g[1]});info.meterGuessed=true;}secs[0].t=0;
@@ -2508,11 +2550,17 @@ function midiToXML(buf,title){
   const lastT=Math.max(...mel.map(n=>n.on+n.len),...bas.map(n=>n.on+n.len));
   // Die Taktstriche laufen ab dem Anfang der Datei (Auftakte sind dort zu ganzen Takten aufgefüllt; an den Bassbuchstaben von Franz Fuchs
   // geprüft: bei 147 von 149 Stücken im 3/4-Takt richtig). Die Stelle der ersten Taktangabe ist dafür unzuverlässig und zählt nicht.
+  // Nicht aufgefüllter Auftakt (z. B. LilyPond-MIDI mit \partial): Die Akkordspur setzt erst nach dem Auftakt ein. Der Abstand zählt als Auftakt, wenn die
+  // Melodie vorher schon spielt und dadurch mehr Akkorde auf einen Taktanfang fallen als ohne Auftakt. Ohne Akkordspur bleibt es wie bisher.
+  const pickupOf=L=>{if(!chd.length||!mel.length)return 0;const c0=Q(chd[0].on),o=c0%L;if(o<1e-6||L-o<1e-6||Math.min(...mel.map(n=>Q(n.on)))>=c0-1e-6)return 0;
+    const onBar=d=>chd.filter(c=>{const r=((Q(c.on)-d)%L+L)%L;return r<1e-6||L-r<1e-6;}).length;
+    return onBar(o)>onBar(0)?o:0;};
   const bars=[];   // {s,len,n,d,full}
   secs.forEach((sc,i)=>{const S=sc.t,E=i+1<secs.length?secs[i+1].t:Math.max(lastT,S+1e-3),L=sc.n*4/sc.d;
-    const o=0;info.meters.push(sc.n+"/"+sc.d);
+    let o=i===0?pickupOf(L):0;if(o>=E-S-1e-6)o=0;if(i===0)info.pickup=o;info.meters.push(sc.n+"/"+sc.d);
     let t=S;if(o>1e-6){bars.push({s:S,len:o,n:sc.n,d:sc.d,full:false});t=S+o;}
-    while(t<E-1e-6){const len=Math.min(L,E-t);bars.push({s:t,len:i+1<secs.length?len:L,n:sc.n,d:sc.d,full:len>=L-1e-6});t+=L;}});
+    while(t<E-1e-6){const len=Math.min(L,E-t),short=info.pickup>1e-6&&i+1>=secs.length&&len<=L-info.pickup+1e-6;   // nach einem Auftakt ist der Schlusstakt um den Auftakt kürzer
+      bars.push({s:t,len:i+1<secs.length?len:(short?L-info.pickup:L),n:sc.n,d:sc.d,full:!short&&len>=L-1e-6});t+=L;}});
   if(!bars.length)bars.push({s:0,len:4,n:4,d:4,full:true});
   const total=bars[bars.length-1].s+bars[bars.length-1].len;
   const barAt=x=>{let lo=0,hi=bars.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(bars[m].s<=x+1e-6)lo=m;else hi=m-1;}return lo;};
@@ -2537,7 +2585,7 @@ function midiToXML(buf,title){
     const notes=items.filter(it=>!it.rest);
     streams.forEach(ev=>{
       ev=ev.map(e=>({t:e.t,x:e.x.replace(/[\r\n]+/g,"")})).filter(e=>e.x.replace(/^[\/\\]+/,"").trim());if(!ev.length)return;
-      const kar=ev.some(e=>/^[ \/\\]|\s$/.test(e.x));
+      const kar=ev.some(e=>/^[\/\\]/.test(e.x))||ev.filter(e=>/^ |\s$/.test(e.x)).length>=ev.length*0.2;   // Karaoke: Zeilenzeichen oder viele Wortabstände; einzelne Leerzeichen zählen nicht
       const sy=ev.map((e,i)=>{const raw=e.x.replace(/^[\/\\]+/,""),nx=i+1<ev.length?ev[i+1].x:" ";
         const cont=kar?(!/\s$/.test(raw)&&!/^[ \/\\]/.test(nx)):/-\s*$/.test(raw);
         return {t:Q(e.t),x:raw.trim().replace(/\s*-$/,"").trim(),cont};}).filter(e=>e.x);
@@ -2561,7 +2609,7 @@ function midiToXML(buf,title){
     const last=[...items].reverse().find(it=>!it.rest);if(last&&last.ps[last.ps.length-1]%12===k)v+=4;
     const lb=bas.length?bas.reduce((a,b)=>a.on>b.on?a:b):null;if(lb&&lb.m%12===k)v+=4;
     if(v>bestK){bestK=v;keyPc=k;}}
-  const kE=[];[...ksE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const pc=mod(e.f*7,12),t=Q(e.t);if(kE.length&&Math.abs(kE[kE.length-1].t-t)<1e-6)kE[kE.length-1]={t,pc};else if(!kE.length||kE[kE.length-1].pc!==pc)kE.push({t,pc});});
+  const kE=[];[...ksE].sort((x,y)=>x.t-y.t||x.o-y.o).forEach(e=>{const pc=mod(e.f*7,12),t=Q(e.t),mi=e.mi===1;if(kE.length&&Math.abs(kE[kE.length-1].t-t)<1e-6)kE[kE.length-1]={t,pc,mi};else if(!kE.length||kE[kE.length-1].pc!==pc)kE.push({t,pc,mi});});
   if(kE.length)kE[0].t=0;info.keyChanges=Math.max(0,kE.length-1);
   // Tonart der Datei nur, wenn sie zu den Tönen passt (sonst die geschätzte)
   const scaleFit=(k,a,b)=>{const sc=[0,2,4,5,7,9,11].map(x=>(x+k)%12);let v=0,tot=0;items.forEach(it=>{if(it.rest||it.on<a-1e-6||it.on>=b-1e-6)return;it.ps.forEach(m=>{tot+=it.dur;if(sc.includes(m%12))v+=it.dur;});});return tot?v/tot:1;};
@@ -2609,9 +2657,9 @@ function midiToXML(buf,title){
   const pitchX=m=>`<pitch><step>${SN[m%12]}</step>${AL[m%12]?"<alter>1</alter>":""}<octave>${Math.floor(m/12)-1}</octave></pitch>`;
   let body="";
   meas.forEach((ms,mi)=>{const br=bars[mi],pv=mi?bars[mi-1]:null;
-    const at=mi===0?`<attributes><divisions>${DIV}</divisions><key><fifths>${fifthsOf(kE.length?kE[0].pc:keyPc)}</fifths><mode>major</mode></key><time><beats>${br.n}</beats><beat-type>${br.d}</beat-type></time></attributes>`:
+    const at=mi===0?`<attributes><divisions>${DIV}</divisions><key><fifths>${fifthsOf(kE.length?kE[0].pc:keyPc)}</fifths><mode>${kE.length&&kE[0].mi?"minor":"major"}</mode></key><time><beats>${br.n}</beats><beat-type>${br.d}</beat-type></time></attributes>`:
       (pv.n!==br.n||pv.d!==br.d?`<attributes><time><beats>${br.n}</beats><beat-type>${br.d}</beat-type></time></attributes>`:"");
-    body+=`<measure number="${mi+1}"${br.full?"":' implicit="yes"'}>`+at;
+    body+=`<measure number="${info.pickup>1e-6?mi:mi+1}"${br.full?"":' implicit="yes"'}>`+at;   // der Auftakt ist Takt 0, gezählt wird ab dem ersten vollen Takt
     if(!ms.length)body+=`<note><rest/><duration>${Math.max(1,Math.round(br.len*DIV))}</duration><voice>1</voice></note>`;
     for(const it of ms){
       const rel=it.on-br.s;
@@ -2771,6 +2819,242 @@ async function auConvert(){if(!AU.buf)return;const btn=document.getElementById("
   document.getElementById("auconv").addEventListener("click",auConvert);})();
 
 // ======== Dateien
+// ======== LilyPond (.ly) → MusicXML: liest einstimmige Lieder mit Akkorden und Text (Aufbau wie in der Ebersberger Liedersammlung).
+// Eigenständig, ohne Zugriff auf die Seite. Unbekannte Befehle führen zu einer Fehlermeldung statt zu falschen Noten.
+let LY_INFO=null;   // was beim Einlesen geklärt wurde (Tempo, Auftakt, Silben, weitere Strophen, Hinweise)
+function lyToXML(srcRaw,fallbackTitle){
+  const fail=m=>{throw new Error(TX("LilyPond-Datei: ","LilyPond file: ")+m);};
+  const WHOLE=1920,DIV=480;
+  // Kommentare entfernen (Texte in Anführungszeichen bleiben)
+  const src=(()=>{let o="",i=0,q=false;const s=srcRaw;while(i<s.length){const c=s[i];
+    if(q){o+=c;if(c==="\\"&&i+1<s.length){o+=s[++i];}else if(c==='"')q=false;i++;continue;}
+    if(c==='"'){q=true;o+=c;i++;continue;}
+    if(c==="%"){if(s[i+1]==="{"){const e=s.indexOf("%}",i+2);i=e<0?s.length:e+2;}else{const e=s.indexOf("\n",i);i=e<0?s.length:e;}continue;}
+    o+=c;i++;}return o;})();
+  const blockEnd=(s,i)=>{let d=0,q=false;for(let j=i;j<s.length;j++){const c=s[j];if(q){if(c==="\\")j++;else if(c==='"')q=false;continue;}if(c==='"'){q=true;continue;}if(c==="{")d++;else if(c==="}"&&--d===0)return j;}fail(TX("Eine geschweifte Klammer wird nicht geschlossen.","A curly bracket is not closed."));};
+  const blockAfter=(s,from)=>{const a=s.indexOf("{",from);if(a<0)return null;const e=blockEnd(s,a);return {a,e,body:s.slice(a+1,e)};};
+  const unq=s=>s.replace(/\\(.)/g,"$1");
+  // Oberste Ebene: Zuweisungen, \header, \score, \markup
+  const vars={},marks=[],scores=[];let header="";
+  {let i=0;while(i<src.length){const r=src.slice(i);
+      const ws=/^\s+/.exec(r);if(ws){i+=ws[0].length;continue;}
+      const k=/^\\(header|paper|layout|score|markup|book|bookpart)\b/.exec(r);
+      if(k){const b=blockAfter(src,i);if(!b)fail(k[0]);if(k[1]==="header")header=b.body;else if(k[1]==="score")scores.push(b.body);else if(k[1]==="markup")marks.push(b.body);else if(k[1]==="book"||k[1]==="bookpart")fail(TX("\\book wird nicht unterstützt.","\\book is not supported."));i=b.e+1;continue;}
+      const v=/^\\version\s+"[^"]*"/.exec(r);if(v){i+=v[0].length;continue;}
+      const inc=/^\\(include|language)\b/.exec(r);if(inc)fail(`\\${inc[1]} `+TX("wird nicht unterstützt.","is not supported."));
+      const asg=/^([A-Za-z_][\w-]*)\s*=\s*/.exec(r);
+      if(asg){const st=i+asg[0].length,c=src[st];if(c==='"'||c==="#"){const m=/^("(?:[^"\\]|\\.)*"|\S+)/.exec(src.slice(st));i=st+m[0].length;continue;}
+        const b=blockAfter(src,st);if(!b)fail(TX("Unvollständige Zuweisung: ","Incomplete assignment: ")+asg[1]);vars[asg[1]]=src.slice(st,b.e+1);i=b.e+1;continue;}
+      fail(TX("Unerwarteter Text: ","Unexpected text: ")+r.slice(0,30));}}
+  if(!scores.length)fail(TX("Kein \\score-Block gefunden.","No \\score block found."));
+  const printed=scores.filter(s=>/\\layout\b/.test(s));   // ein zweiter \score nur für \midi (oft mit \unfoldRepeats) ist keine eigene Fassung
+  const useScores=printed.length?printed:[scores[0]];   // mehrere gedruckte \score: z. B. eine letzte Strophe mit eigener Melodie, kommt als Abschnitt hinter das Lied
+  // Tonhöhen: s = Stammtöne ab C0 (7 je Oktave), a = Vorzeichen
+  const NAT=[0,2,4,5,7,9,11],LET="cdefgab",STEP="CDEFGAB";
+  const midiOf=p=>{const o=Math.floor(p.s/7);return 12*(o+1)+NAT[p.s-o*7]+p.a;};
+  const parsePitch=(name,marksStr,oct)=>{const st=LET.indexOf(name[0]);const al=name.slice(1);const a=al===""?0:al==="is"?1:al==="es"||al==="s"?-1:al==="isis"?2:al==="eses"?-2:fail(TX("Unbekannter Ton: ","Unknown note: ")+name);
+    let m=0;for(const c of marksStr)m+=c==="'"?1:-1;return {st,a,m,oct};};
+  const PITCH=/^([a-g](?:eses|isis|es|is|s(?![a-z]))?)([',]*)/;
+  const absP=t=>{const x=PITCH.exec(t);if(!x)fail(TX("Tonangabe nicht lesbar: ","Cannot read pitch: ")+t);const p=parsePitch(x[1],x[2]);return {s:(3+p.m)*7+p.st,a:p.a};};
+  const applyTr=(p,tr)=>{let q=p;for(const x of tr){const m=midiOf(q)+x.dm,s=q.s+x.ds,o=Math.floor(s/7);q={s,a:m-(12*(o+1)+NAT[s-o*7])};}return q;};
+  const durTicks=(num,dots)=>{const n=+num;if(![1,2,4,8,16,32,64].includes(n))fail(TX("Notenwert nicht unterstützt: ","Note value not supported: ")+num);let d=WHOLE/n,add=d;for(let i=0;i<dots;i++){add/=2;d+=add;}return d;};
+  const KNOWN_NOARG=/^\\(autoBeamOff|autoBeamOn|breathe|break|pageBreak|noBreak|noBeam|germanChords|semiGermanChords|italianChords|frenchChords|fermata|parenthesize|unfoldRepeats|oneVoice|stemUp|stemDown|stemNeutral|slurUp|slurDown|slurNeutral|tieUp|tieDown|tieNeutral|dynamicUp|dynamicDown|dynamicNeutral|accent|staccato|tenuto|marcato|p|pp|f|ff|mf|mp|sf|sfz|cresc|decresc|dim|enddim|endcresc|startTextSpan|stopTextSpan|shortfermata|longfermata|trill|turn|mordent|prall|segno|coda|default|once)\b/;
+  // Musik lesen. S sammelt je Stimme die Ereignisse auf einer durchgehenden Zeitachse (geschriebene Form: volta nicht ausgeschrieben).
+  const newS=mode=>({mode,t:0,last:480,ev:[],times:[],partials:[],keys:[],bars:[],reps:[],ends:[],words:[],tempo:0,slur:0,beam:0,tie:false,auto:true,num:1,den:1,tupN:1,tupD:1,prev:null});
+  function parseMusic(raw,S,ctx){let i=0;
+    const rest=()=>raw.slice(i);const skipWs=()=>{while(i<raw.length&&/\s/.test(raw[i]))i++;};
+    const str=()=>{skipWs();if(raw[i]!=='"')return null;let j=i+1;while(j<raw.length&&raw[j]!=='"'){if(raw[j]==="\\")j++;j++;}const v=unq(raw.slice(i+1,j));i=j+1;return v;};
+    const scheme=()=>{skipWs();if(raw[i]!=="#")return false;i++;while(raw[i]==="#"||raw[i]==="'")i++;if(raw[i]==="("){let d=0;do{if(raw[i]==="(")d++;else if(raw[i]===")")d--;i++;}while(d>0&&i<raw.length);}else{while(i<raw.length&&!/[\s{}]/.test(raw[i]))i++;}return true;};
+    const block=()=>{skipWs();if(raw[i]!=="{")return null;const e=blockEnd(raw,i);const b=raw.slice(i+1,e);i=e+1;return b;};
+    const markup=()=>{skipWs();const b=block();if(b!==null)return (b.match(/"[^"]*"|[^\s{}\\]+(?=[\s}]|$)/g)||[]).map(s=>s.replace(/^"|"$/g,"")).join(" ").trim();const s=str();return s||"";};
+    // nächster musikalischer Ausdruck: { … }, \variable oder \befehl { … }
+    const exprRaw=()=>{skipWs();const st=i;if(raw[i]==="{"){i=blockEnd(raw,i)+1;return raw.slice(st,i);}const v=/^\\[A-Za-z_]+/.exec(rest());if(!v)fail(TX("Musikausdruck erwartet bei: ","Music expression expected at: ")+rest().slice(0,30));
+      if(/^\\(relative|transpose|chordmode|repeat|tuplet|times)$/.test(v[0])){const b=blockAfter(raw,i);if(!b)fail(v[0]);i=b.e+1;return raw.slice(st,i);}i+=v[0].length;return v[0];};
+    const addEvent=(e)=>{S.ev.push(e);S.t+=e.dur;};
+    const readDur=()=>{const d=/^\s*(\d+)(\.*)/.exec(rest());let nom;if(d){i+=d[0].length;nom=durTicks(d[1],d[2].length);S.last=nom;}else nom=S.last;const mu=/^\s*\*\s*(\d+)(?:\/(\d+))?/.exec(rest());let mul=1;if(mu){i+=mu[0].length;mul=+mu[1]/(+mu[2]||1);}return {nom,mul};};
+    const actual=(nom,mul)=>{const d=nom*mul*S.tupD/S.tupN;if(Math.abs(d-Math.round(d))>1e-6)fail(TX("Notenwert lässt sich nicht genau darstellen.","Note value cannot be represented exactly."));return Math.round(d);};
+    const relPitch=(st,a,m)=>{let s;if(ctx.rel){const r=ctx.rel.s,o=Math.floor(r/7);s=o*7+st;while(s-r>3)s-=7;while(r-s>3)s+=7;s+=m*7;}else s=(3+m)*7+st;const p={s,a};return p;};
+    const notePitch=t=>{const x=PITCH.exec(t);const p=parsePitch(x[1],x[2]);const q=relPitch(p.st,p.a,p.m);if(ctx.rel)ctx.rel=q;return q;};
+    const newNote=(ps,nom,mul)=>{S.lastPs=ps;const pending=S.tie;const mel=S.slur>0||pending||(S.beam>0&&!S.auto);S.tie=false;const e={k:"n",t:S.t,dur:actual(nom,mul),nom:nom*mul,tupN:S.tupN,tupD:S.tupD,ps:ps.map(p=>applyTr(p,ctx.tr)),mel,tieIn:pending,tieOut:false,slurOn:0,slurOff:0,ferm:false};addEvent(e);S.prev=e;};
+    while(true){skipWs();if(i>=raw.length)return;const c=raw[i];
+      if(c==="{"){const b=block();parseMusic(b,S,ctx);continue;}
+      if(c==="}")fail(TX("Überzählige geschweifte Klammer.","Extra curly bracket."));
+      if(raw.startsWith("<<",i)){const e=raw.indexOf(">>",i);if(e<0)fail("<<");const inner=raw.slice(i+2,e);i=e+2;const b=blockAfter(inner,0);if(!b||S.mode!=="note")fail(TX("Mehrstimmige Abschnitte (<< >>) werden nicht unterstützt.","Polyphonic sections (<< >>) are not supported."));
+        parseMusic(b.body,S,ctx);S.poly=(S.poly||0)+1;continue;}   // kurzer zweistimmiger Abschnitt: die erste Stimme gilt als Melodie, die Hinweiszeile meldet es
+      if(c==="|"){i++;continue;}
+      if(c==="~"){i++;if(S.prev&&S.prev.k==="n"){S.prev.tieOut=true;S.tie=true;}continue;}
+      if(c==="("){i++;S.slur++;if(S.prev&&S.prev.k==="n")S.prev.slurOn++;continue;}
+      if(c===")"){i++;S.slur=Math.max(0,S.slur-1);if(S.prev&&S.prev.k==="n")S.prev.slurOff++;continue;}
+      if(c==="["){i++;S.beam++;continue;}
+      if(c==="]"){i++;S.beam=Math.max(0,S.beam-1);continue;}
+      if(/^[\^_-]/.test(c)&&/^[\^_-]\s*("|\\[A-Za-z]|[.>^_+!-])/.test(rest())){const up=c==="^";i++;skipWs();
+        if(raw[i]==='"'){const s=str();if(up&&S.prev&&s.trim())S.words.push({t:S.prev.t,x:s.trim()});continue;}
+        if(raw.startsWith("\\markup",i)){i+=7;const s=markup();if(up&&S.prev&&s)S.words.push({t:S.prev.t,x:s});continue;}
+        if(raw.startsWith("\\fermata",i)){i+=8;if(S.prev&&S.prev.k==="n")S.prev.ferm=true;continue;}
+        if(raw[i]==="\\"){const u=/^\\[A-Za-z]+/.exec(rest());if(!KNOWN_NOARG.test(u[0]))fail(TX("Unbekannter Befehl: ","Unknown command: ")+u[0]);i+=u[0].length;continue;}
+        i++;continue;}
+      if(c==="\\"){
+        if(/^\\[()!<>\[\]]/.test(rest())){i+=2;continue;}
+        const m=/^\\[A-Za-z_]+/.exec(rest());if(!m)fail(TX("Unbekanntes Zeichen: ","Unknown symbol: ")+rest().slice(0,10));const cmd=m[0].slice(1);i+=m[0].length;
+        if(cmd==="fermata"){if(S.prev&&S.prev.k==="n")S.prev.ferm=true;continue;}
+        if(cmd==="autoBeamOff"){S.auto=false;continue;}
+        if(cmd==="autoBeamOn"){S.auto=true;continue;}
+        if(KNOWN_NOARG.test(m[0]))continue;
+        switch(cmd){
+          case "relative":{skipWs();const ref=PITCH.exec(rest());let r=null;if(ref&&raw[i]!=="{"){i+=ref[0].length;const p=parsePitch(ref[1],ref[2]);r={s:(3+p.m)*7+p.st,a:p.a};}const b=exprRaw();const old=ctx.rel;ctx.rel=r||{s:3*7,a:0};parseMusic(b,S,ctx);ctx.rel=old;continue;}
+          case "transpose":{skipWs();const a=/^\S+/.exec(rest())[0];i+=a.length;skipWs();const z=/^\S+/.exec(rest())[0];i+=z.length;const f=absP(a),g=absP(z);const b=exprRaw();const tr=ctx.tr;ctx.tr=tr.concat([{ds:g.s-f.s,dm:midiOf(g)-midiOf(f)}]);parseMusic(b,S,ctx);ctx.tr=tr;if(S.mode==="note"&&(g.s-f.s||midiOf(g)-midiOf(f)))S.transposed=true;continue;}
+          case "chordmode":{const b=exprRaw();parseMusic(b,S,ctx);continue;}
+          case "clef":{if(str()===null){const w=/^\S+/.exec(rest());i+=w?w[0].length:0;}continue;}
+          case "time":{skipWs();const t=/^(\d+)\/(\d+)/.exec(rest());if(!t)fail("\\time");i+=t[0].length;S.times.push({t:S.t,n:+t[1],d:+t[2]});continue;}
+          case "partial":{skipWs();const{nom,mul}=(()=>{const d=/^(\d+)(\.*)/.exec(rest());if(!d)fail("\\partial");i+=d[0].length;const mu=/^\s*\*\s*(\d+)(?:\/(\d+))?/.exec(rest());let mx=1;if(mu){i+=mu[0].length;mx=+mu[1]/(+mu[2]||1);}return {nom:durTicks(d[1],d[2].length),mul:mx};})();S.partials.push({t:S.t,len:nom*mul});continue;}
+          case "key":{skipWs();const p=PITCH.exec(rest());if(!p)fail("\\key");i+=p[0].length;const q=parsePitch(p[1],p[2]);skipWs();const md=/^\\([a-z]+)/.exec(rest());if(!md)fail("\\key");i+=md[0].length;if(md[1]!=="major"&&md[1]!=="minor")fail(TX("Kirchentonarten werden nicht unterstützt: ","Church modes are not supported: ")+md[1]);
+            const tn=applyTr({s:3*7+q.st,a:q.a},ctx.tr),st=((tn.s%7)+7)%7;let f=[0,2,4,-1,1,3,5][st]+7*tn.a-(md[1]==="minor"?3:0);while(f>7)f-=12;while(f<-7)f+=12;S.keys.push({t:S.t,f,minor:md[1]==="minor"});continue;}
+          case "tempo":{const s=str();if(s===null&&raw.startsWith("\\markup",(skipWs(),i))){i+=7;markup();}skipWs();const t=/^(\d+)(\.*)\s*=\s*(\d+)/.exec(rest());if(t){i+=t[0].length;if(!S.tempo)S.tempo=Math.round(+t[3]*durTicks(t[1],t[2].length)/480);}continue;}
+          case "bar":{const s=str();if(s===null)fail("\\bar");S.bars.push({t:S.t,s});continue;}
+          case "mark":{skipWs();const s=str();if(s!==null){if(s.trim())S.words.push({t:S.t,x:s.trim()});continue;}if(raw.startsWith("\\markup",i)){i+=7;const x=markup();if(x)S.words.push({t:S.t,x});continue;}if(raw.startsWith("\\default",i)){i+=8;continue;}fail("\\mark");}
+          case "markup":{markup();continue;}
+          case "set":case "override":{const e=/^[^=]*=/.exec(rest());if(!e)fail("\\"+cmd);i+=e[0].length;skipWs();if(!scheme()&&str()===null){const w=/^\S+/.exec(rest());if(w)i+=w[0].length;}continue;}
+          case "unset":case "revert":{skipWs();const w=/^\S+/.exec(rest());if(w)i+=w[0].length;continue;}
+          case "skip":{skipWs();const{nom,mul}=readDur();const d=actual(nom,mul);addEvent({k:"r",t:S.t,dur:d,nom:nom*mul,tupN:S.tupN,tupD:S.tupD,skip:true});S.prev=S.ev[S.ev.length-1];continue;}
+          case "times":case "tuplet":{skipWs();const fr=/^(\d+)\/(\d+)/.exec(rest());if(!fr)fail("\\"+cmd);i+=fr[0].length;skipWs();const sp=/^\d+(\.*)(?=\s*\{)/.exec(rest());if(sp)i+=sp[0].length;let N=+fr[1],D=+fr[2];if(cmd==="times"){const x=N;N=D;D=x;}const b=exprRaw();const a=S.tupN,z=S.tupD;S.tupN=a*N;S.tupD=z*D;parseMusic(b,S,ctx);S.tupN=a;S.tupD=z;continue;}
+          case "repeat":{skipWs();let kind=str();if(kind===null){const w=/^[a-z]+/.exec(rest());if(!w)fail("\\repeat");kind=w[0];i+=w[0].length;}skipWs();const nm=/^\d+/.exec(rest());if(!nm)fail("\\repeat");i+=nm[0].length;const N=+nm[0],b=exprRaw();
+            if(kind==="unfold"){for(let k=0;k<N;k++)parseMusic(b,S,ctx);continue;}
+            if(kind!=="volta")fail(TX("Wiederholungsart nicht unterstützt: ","Repeat type not supported: ")+kind);
+            if(S.unfold){skipWs();let alts=[];if(raw.startsWith("\\alternative",i)){i+=12;const al=block();if(al===null)fail("\\alternative");let j=0;while(j<al.length){while(j<al.length&&/\s/.test(al[j]))j++;if(j>=al.length)break;if(al[j]==="{"){const e=blockEnd(al,j);alts.push(al.slice(j+1,e));j=e+1;}else{const v=/^\\[A-Za-z_][\w-]*/.exec(al.slice(j));if(!v)fail("\\alternative");alts.push(v[0]);j+=v[0].length;}}}
+              for(let k=0;k<N;k++){parseMusic(b,S,ctx);if(alts.length)parseMusic(alts[Math.max(0,k-(N-alts.length))],S,ctx);}continue;}   // \unfoldRepeats im gedruckten \score: Wiederholung ausschreiben
+            S.reps.push({t:S.t,start:true});parseMusic(b,S,ctx);skipWs();
+            if(raw.startsWith("\\alternative",i)){i+=12;const al=block();if(al===null)fail("\\alternative");const parts=[];let j=0;while(j<al.length){while(j<al.length&&/\s/.test(al[j]))j++;if(j>=al.length)break;if(al[j]==="{"){const e=blockEnd(al,j);parts.push(al.slice(j+1,e));j=e+1;}else{const v=/^\\[A-Za-z_][\w-]*/.exec(al.slice(j));if(!v)fail("\\alternative");parts.push(v[0]);j+=v[0].length;}}
+              parts.forEach((p,k)=>{const n=k+1,t0=S.t;parseMusic(p,S,ctx);S.ends.push({a:t0,b:S.t,n,last:k===parts.length-1});if(k<parts.length-1)S.reps.push({t:S.t,end:true});});}
+            else S.reps.push({t:S.t,end:true});
+            continue;}
+          default:{const nm=cmd;if(Object.prototype.hasOwnProperty.call(vars,nm)){parseMusic(vars[nm],S,ctx);continue;}fail(TX("Unbekannter Befehl: ","Unknown command: ")+"\\"+nm);}
+        }}
+      if(c==="<"){const e=raw.indexOf(">",i);if(e<0)fail("<");const inner=raw.slice(i+1,e);i=e+1;const ps=[];let fst=null;for(const w of inner.split(/\s+/).filter(Boolean)){const x=PITCH.exec(w);if(!x)fail(TX("Akkord nicht lesbar: ","Cannot read chord: ")+inner);const q=notePitch(x[0]);if(!fst)fst=q;ps.push(q);}if(!ps.length)fail("<>");if(ctx.rel)ctx.rel=fst;const{nom,mul}=readDur();newNote(ps,nom,mul);continue;}
+      if(/^\d/.test(c)&&S.mode==="note"){if(!S.lastPs)fail(TX("Notenwert ohne Ton.","Note value without a pitch."));const{nom,mul}=readDur();newNote(S.lastPs,nom,mul);continue;}   // nur ein Notenwert: LilyPond wiederholt den letzten Ton
+      const rs=/^([srR])(?![a-z])/.exec(rest());
+      if(rs){i+=1;const{nom,mul}=readDur();const d=actual(nom,mul);if(S.mode==="note"){addEvent({k:"r",t:S.t,dur:d,nom:nom*mul,tupN:S.tupN,tupD:S.tupD,skip:rs[1]==="s"});}else S.t+=d;S.prev=S.ev[S.ev.length-1]||null;continue;}
+      const pm=PITCH.exec(rest());
+      if(pm){
+        if(S.mode==="chord"){i+=pm[0].length;const p=parsePitch(pm[1],pm[2]);const{nom,mul}=readDur();const q=/^:([\w.+^-]*)/.exec(rest());let kind="";if(q){i+=q[0].length;kind=q[1];}let bass=null;const bs=/^\/\+?([a-g](?:eses|isis|es|is|s(?![a-z]))?)[',]*/.exec(rest());if(bs){i+=bs[0].length;bass=applyTr({s:3*7+LET.indexOf(bs[1][0]),a:parsePitch(bs[1],"").a},ctx.tr);}
+          const root=applyTr({s:3*7+p.st,a:p.a},ctx.tr),d=actual(nom,mul);S.ev.push({k:"c",t:S.t,dur:d,root,kind,bass});S.t+=d;continue;}
+        i+=pm[0].length;while(raw[i]==="!"||raw[i]==="?")i++;const q=notePitch(pm[0]);const{nom,mul}=readDur();newNote([q],nom,mul);continue;}
+      fail(TX("Unerwartetes Zeichen im Notentext: ","Unexpected text in the music: ")+rest().slice(0,24));
+    }
+  }
+  // Text lesen
+  function parseLyrics(raw,out){let i=0;const s=raw;
+    while(i<s.length){const r=s.slice(i);const ws=/^\s+/.exec(r);if(ws){i+=ws[0].length;continue;}
+      if(s[i]==="{"||s[i]==="}"){i++;continue;}
+      if(r.startsWith("<<")||r.startsWith(">>")){i+=2;continue;}
+      const cm=/^\\([A-Za-z_][\w-]*)/.exec(r);
+      if(cm){i+=cm[0].length;const c=cm[1];
+        if(c==="set"||c==="override"){const e=/^[^=]*=\s*("(?:[^"\\]|\\.)*"|#\S+|\S+)/.exec(s.slice(i));if(e)i+=e[0].length;continue;}
+        if(c==="unset"||c==="revert"){const e=/^\s*\S+/.exec(s.slice(i));if(e)i+=e[0].length;continue;}
+        if(c==="skip"){const e=/^\s*\d+\.*(\s*\*\s*\d+)?/.exec(s.slice(i));if(e)i+=e[0].length;out.push({x:""});continue;}
+        if(c==="lyricmode"||c==="lyricsto"){if(c==="lyricsto"){const e=/^\s*"[^"]*"/.exec(s.slice(i));if(e)i+=e[0].length;}continue;}
+        if(c==="markup"){const b=blockAfter(s,i);if(b){i=b.e+1;}continue;}
+        if(c==="repeat"){const e=/^\s*"?[a-z]+"?\s*(\d+)\s*/.exec(s.slice(i));if(!e)fail("\\repeat");i+=e[0].length;const b=s[i]==="{"?blockAfter(s,i):null;if(!b)fail("\\repeat");for(let k=0;k<+e[1];k++)parseLyrics(b.body,out);i=b.e+1;continue;}
+        if(Object.prototype.hasOwnProperty.call(vars,c)){parseLyrics(vars[c],out);continue;}
+        fail(TX("Unbekannter Befehl im Text: ","Unknown command in the lyrics: ")+"\\"+c);}
+      if(r.startsWith("--")&&/^--(\s|$)/.test(r)){i+=2;if(out.length)out[out.length-1].cont=true;continue;}
+      if(r.startsWith("__")&&/^__(\s|$)/.test(r)){i+=2;continue;}
+      if(s[i]==='"'){const m=/^"((?:[^"\\]|\\.)*)"/.exec(r);if(!m)fail('"');i+=m[0].length;const x=unq(m[1]);if(x.trim()||x==="")out.push({x:x.trim()});else out.push({x:""});continue;}
+      const w=/^\S+/.exec(r)[0];i+=w.length;
+      if(/^\d+\.*$/.test(w))continue;   // Notenwert einer Silbe (z. B. „Ich 2.“), keine eigene Silbe
+      if(w==="_"){out.push({x:""});continue;}
+      out.push({x:w.replace(/_/g," ").replace(/~/g,"‿").replace(/\s+$/,"")});
+    }}
+  // Score zerlegen
+  const readScore=score=>{const chordRaw=[],voiceRaw=[],lyrRaw=[];
+  {let i=0;const s=score;while(i<s.length){const m=/\\new\s+([A-Za-z]+)(\s*=\s*"[^"]*")?(\s*\\lyricsto\s*"[^"]*")?\s*/g;m.lastIndex=i;const x=m.exec(s);if(!x)break;const j=x.index+x[0].length;if(s[j]!=="{"){const b=blockAfter(s,j);if(!b)fail("\\new");i=b.e+1;}const b=blockAfter(s,j);if(!b)fail("\\new "+x[1]);
+      if(x[1]==="ChordNames")chordRaw.push(b.body);else if(x[1]==="Voice"||x[1]==="Staff")voiceRaw.push(b.body);else if(x[1]==="Lyrics")lyrRaw.push(b.body);else fail(TX("Nicht unterstützt: ","Not supported: ")+"\\new "+x[1]);i=b.e+1;}
+    if(!voiceRaw.length){const v=score.replace(/\\(midi|layout)\s*\{[^}]*\}/g,"").trim();if(!v)fail(TX("Keine Melodie gefunden.","No melody found."));voiceRaw.push(v);}
+    if(voiceRaw.length>1)fail(TX("Mehrere Stimmen werden nicht unterstützt.","Several voices are not supported."));}
+    return {chordRaw,voiceRaw,lyrRaw,unfold:/\\unfoldRepeats\b/.test(score)};};
+  const M=newS("note"),C=newS("chord"),parts=useScores.map(readScore),sections=[];
+  parts.forEach((b,bi)=>{const start=M.t,first=M.ev.length;M.unfold=C.unfold=b.unfold;M.tie=false;M.slur=0;M.beam=0;M.auto=true;M.last=480;M.prev=null;C.last=480;
+    parseMusic(b.voiceRaw[0],M,{rel:null,tr:[]});
+    if(M.ev.length===first||!M.ev.slice(first).some(e=>e.k==="n"))fail(TX("Die Melodie enthält keine Noten.","The melody contains no notes."));
+    C.t=start;b.chordRaw.forEach(r=>parseMusic(r,C,{rel:null,tr:[]}));sections.push({first,end:M.ev.length,lyrRaw:b.lyrRaw});
+    if(bi>0&&b.lyrRaw[0]){const lv=/^\s*\\([A-Za-z_][\w-]*)\s*$/.exec(b.lyrRaw[0]),lsrc=(lv&&vars[lv[1]])||b.lyrRaw[0],st=/stanza\s*=\s*"([^"]+)"/.exec(lsrc);
+      if(st){const raw=st[1].trim(),z=/^zu\s*(\d+)\.?$/.exec(raw),d=/^(\d+)\.?$/.exec(raw);M.words.push({t:start,x:z?TX(`zu Strophe ${z[1]}`,`to verse ${z[1]}`):d?TX(`Strophe ${d[1]}`,`Verse ${d[1]}`):raw});}}});
+  if(M.tupN!==1||M.tupD!==1)fail("tuplet");
+  const hasChords=parts.some(b=>b.chordRaw.length);
+  // \partial und \time gelten für das ganze Stück, auch wenn sie nur in der Akkordspur stehen
+  [[M.partials,C.partials],[M.times,C.times]].forEach(([a,b])=>{b.forEach(x=>{if(!a.some(y=>y.t===x.t))a.push(x);});a.sort((p,q)=>p.t-q.t);});
+  const end=M.t,info={tempo:M.tempo,pickup:M.partials.length&&M.partials[0].t===0?M.partials[0].len/480:0,lyrics:0,verses:0,chords:C.ev.length,transposed:!!M.transposed,warn:[]};
+  info.sections=parts.length;
+  // Silben auf die Noten verteilen: wie \lyricsto überspringt das Bindebögen, Haltebögen und von Hand gebalkte Noten ohne autoBeam
+  const syllabicOf=(arr,i)=>{const pc=i>0&&arr[i-1].cont,c=arr[i].cont;return pc?(c?"middle":"end"):(c?"begin":"single");};
+  sections.forEach(sec=>{const free=M.ev.slice(sec.first,sec.end).filter(e=>e.k==="n"&&!e.mel);
+  sec.lyrRaw.forEach((r,n)=>{const sy=[];parseLyrics(r,sy);if(!sy.length)return;let k=0;sy.forEach((y,j)=>{if(k>=free.length)return;const e=free[k++];if(!y.x)return;(e.lyr=e.lyr||[]).push({n:n+1,x:y.x,syl:syllabicOf(sy,j)});if(n===0)info.lyrics++;});
+    if(sy.length>free.length)info.warn.push(TX(`Text ${n+1}: ${sy.length-free.length} Silben mehr als Noten`,`Lyrics ${n+1}: ${sy.length-free.length} more syllables than notes`));
+    else if(n===0&&sy.length<free.length)info.warn.push(TX(`${free.length-sy.length} Noten ohne Silbe`,`${free.length-sy.length} notes without a syllable`));});});
+  if(M.poly)info.warn.push(TX(`${M.poly} zweistimmige Stelle: nur die erste Stimme übernommen`,`${M.poly} two-voice passage: only the first voice was used`));
+  if(hasChords&&C.t>end)info.warn.push(TX("Akkordspur länger als die Melodie","Chord track longer than the melody"));
+  // Takte bilden
+  const tsAt=t=>{let x=null;for(const e of M.times)if(e.t<=t)x=e;return x||{n:4,d:4};};
+  const splits=[...new Set([...M.reps.map(x=>x.t),...M.ends.flatMap(x=>[x.a,x.b])])].filter(x=>x>0&&x<end);
+  const bars=[];let no=M.partials.some(p=>p.t===0)?0:1;
+  {let t=0;while(t<end){const ts=tsAt(t),L=ts.n*WHOLE/ts.d,pt=M.partials.find(p=>p.t===t);let next=t+(pt?pt.len:L);const cut=[...M.times.map(e=>e.t),...M.partials.map(e=>e.t)].filter(x=>x>t).sort((a,b)=>a-b)[0];if(cut!==undefined&&cut<next)next=cut;
+      if(next>end)next=end;const short=next-t<L;const pts=[t,...splits.filter(x=>x>t&&x<next).sort((a,b)=>a-b),next];
+      for(let k=0;k+1<pts.length;k++){bars.push({s:pts[k],e:pts[k+1],no:String(no)+(k?"X".repeat(k):""),implicit:short||pts.length>2,ts});}
+      no++;t=next;}}
+  // XML schreiben
+  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  const TYPES=[[7680,"long"],[3840,"breve"],[1920,"whole"],[960,"half"],[480,"quarter"],[240,"eighth"],[120,"16th"],[60,"32nd"],[30,"64th"]];
+  const typeOf=nom=>{for(const[b,n]of TYPES){if(nom===b)return {n,dots:0};if(nom===b*1.5)return {n,dots:1};if(nom===b*1.75)return {n,dots:2};}return null;};
+  const pieces=(tick,tupN,tupD)=>{const out=[];let r=tick;while(r>0){let best=null;for(const[b]of TYPES)for(const f of [1.75,1.5,1]){const nom=b*f,d=nom*tupD/tupN;if(Number.isInteger(d)&&d<=r&&(!best||d>best.d))best={d,nom};}if(!best){out.push({d:r,nom:r*tupN/tupD,raw:true});break;}out.push(best);r-=best.d;}return out;};
+  const pitchX=p=>{const o=Math.floor(p.s/7);return `<pitch><step>${STEP[p.s-o*7]}</step>${p.a?`<alter>${p.a}</alter>`:""}<octave>${o}</octave></pitch>`;};
+  const KIND={"":"major",3:"major",m:"minor",7:"dominant",m7:"minor-seventh",maj7:"major-seventh",maj:"major-seventh",dim:"diminished",dim7:"diminished-seventh",aug:"augmented",6:"major-sixth",m6:"minor-sixth",9:"dominant-ninth",m9:"minor-ninth",sus4:"suspended-fourth",sus2:"suspended-second",sus:"suspended-fourth",4:"suspended-fourth",5:"power"};
+  const harmX=c=>{const k=KIND[c.kind];if(k===undefined)info.warn.push(TX("Akkordzusatz ","Chord suffix ")+c.kind);const o=Math.floor(c.root.s/7),st=STEP[c.root.s-o*7];let x=`<harmony><root><root-step>${st}</root-step>${c.root.a?`<root-alter>${c.root.a}</root-alter>`:""}</root><kind${k===undefined?` text="${esc(c.kind)}"`:""}>${k===undefined?(/^m/.test(c.kind)?"minor":"major"):k}</kind>`;
+    if(c.bass){const q=Math.floor(c.bass.s/7);x+=`<bass><bass-step>${STEP[c.bass.s-q*7]}</bass-step>${c.bass.a?`<bass-alter>${c.bass.a}</bass-alter>`:""}</bass>`;}return x+"</harmony>";};
+  const chordAt=new Map();C.ev.forEach(e=>{if(e.k==="c"&&!chordAt.has(e.t))chordAt.set(e.t,e);});
+  const cuts=new Set([...bars.map(b=>b.s),...bars.map(b=>b.e),...chordAt.keys()]);
+  const ls=[];let body="",prevTs=null,keyDone=-1;
+  const firstKey=M.keys[0];
+  bars.forEach((br,bi)=>{const at=[];
+    if(bi===0)at.push(`<divisions>${DIV}</divisions>`);
+    const kn=M.keys.filter((k,i)=>i>keyDone&&k.t<br.e&&(k.t>=br.s||bi===0));if(kn.length){const k=kn[kn.length-1];keyDone=M.keys.indexOf(k);at.push(`<key><fifths>${k.f}</fifths><mode>${k.minor?"minor":"major"}</mode></key>`);}else if(bi===0)at.push("<key><fifths>0</fifths><mode>major</mode></key>");
+    if(!prevTs||prevTs.n!==br.ts.n||prevTs.d!==br.ts.d){at.push(`<time><beats>${br.ts.n}</beats><beat-type>${br.ts.d}</beat-type></time>`);prevTs=br.ts;}
+    if(bi===0)at.push("<clef><sign>G</sign><line>2</line></clef>");
+    let x=`<measure number="${esc(br.no)}"${br.implicit?' implicit="yes"':""}>`;if(at.length)x+=`<attributes>${at.join("")}</attributes>`;
+    if(bi===0&&M.tempo)x+=`<direction placement="above"><direction-type><metronome><beat-unit>quarter</beat-unit><per-minute>${M.tempo}</per-minute></metronome></direction-type><sound tempo="${M.tempo}"/></direction>`;
+    const repS=M.reps.some(r=>r.start&&r.t===br.s),endS=M.ends.find(e=>e.a===br.s);
+    if(repS||endS)x+=`<barline location="left">${repS?'<repeat direction="forward"/>':""}${endS?`<ending number="${endS.n}" type="start"/>`:""}</barline>`;
+    M.words.filter(w=>w.t>=br.s&&w.t<br.e).forEach(w=>{x+=`<direction placement="above"><direction-type><words>${esc(w.x)}</words></direction-type></direction>`;});
+    M.ev.filter(e=>e.t<br.e&&e.t+e.dur>br.s).forEach(e=>{
+      const a=Math.max(e.t,br.s),z=Math.min(e.t+e.dur,br.e);const pts=[a,...[...cuts].filter(t=>t>a&&t<z).sort((p,q)=>p-q),z];
+      for(let k=0;k+1<pts.length;k++){const t0=pts[k],t1=pts[k+1];const ch=chordAt.get(t0);if(ch)x+=harmX(ch);
+        const pcs=pieces(t1-t0,e.tupN,e.tupD);let tp=t0;pcs.forEach((pc,pi)=>{const isFirst=tp===e.t,isLast=tp+pc.d===e.t+e.dur;const ty=typeOf(pc.nom);
+          const tm=e.tupN!==e.tupD?`<time-modification><actual-notes>${e.tupN}</actual-notes><normal-notes>${e.tupD}</normal-notes></time-modification>`:"";
+          const typeX=ty?`<type>${ty.n}</type>${"<dot/>".repeat(ty.dots)}`:"";
+          if(e.k==="r"){x+=`<note>${e.skip?' ':""}<rest/><duration>${pc.d}</duration><voice>1</voice>${typeX}${tm}</note>`.replace("<note> ",'<note print-object="no">');}
+          else e.ps.forEach((p,pn)=>{const tieS=(!isFirst||e.tieIn),tieE=(!isLast||e.tieOut);const nt=[];if(tieS)nt.push('<tied type="stop"/>');if(tieE)nt.push('<tied type="start"/>');
+            if(pn===0){if(isFirst)for(let q=0;q<e.slurOn;q++)nt.push('<slur type="start" number="1"/>');if(isLast)for(let q=0;q<e.slurOff;q++)nt.push('<slur type="stop" number="1"/>');if(isLast&&e.ferm)nt.push("<fermata/>");}
+            const lyX=pn===0&&isFirst&&e.lyr?e.lyr.map(l=>`<lyric number="${l.n}"><syllabic>${l.syl}</syllabic><text>${esc(l.x)}</text></lyric>`).join(""):"";
+            x+=`<note>${pn?"<chord/>":""}${pitchX(p)}<duration>${pc.d}</duration>${tieS?'<tie type="stop"/>':""}${tieE?'<tie type="start"/>':""}<voice>1</voice>${typeX}${tm}${nt.length?`<notations>${nt.join("")}</notations>`:""}${lyX}</note>`;});
+          tp+=pc.d;});}});
+    const repE=M.reps.some(r=>r.end&&r.t===br.e),endE=M.ends.find(e=>e.b===br.e),bl=M.bars.filter(b=>b.t===br.e).map(b=>b.s).pop(),isEnd=bi===bars.length-1;
+    const style=repE?"light-heavy":bl==="|."||(isEnd&&bl===undefined)?"light-heavy":bl==="||"?"light-light":null;
+    if(style||repE||endE)x+=`<barline location="right">${style?`<bar-style>${style}</bar-style>`:""}${endE?`<ending number="${endE.n}" type="${repE?"stop":"discontinue"}"/>`:""}${repE?'<repeat direction="backward"/>':""}</barline>`;
+    body+=x+"</measure>";ls.push(0);});
+  // Kopf und weitere Strophen
+  const hd=k=>{const m=new RegExp("(^|\\n)\\s*"+k+'\\s*=\\s*"((?:[^"\\\\]|\\\\.)*)"').exec(header);return m?unq(m[2]).trim():"";};
+  const title=hd("title")||fallbackTitle||"";
+  // Weitere Strophen und Texte aus \markup: \bold "…" oder „2.“ beginnt einen neuen Abschnitt, eine Leerzeile beendet ihn (Refrains und Hinweise bleiben erhalten)
+  const verses=[];marks.forEach(mk=>{let cur=null;for(const m of mk.matchAll(/(\\bold\s*)?"((?:[^"\\]|\\.)*)"/g)){const v=unq(m[2]).replace(/_/g," ").trim();
+      if(!v){if(cur&&cur.lines.length)cur=null;continue;}
+      if(m[1]||/^\d+\s*\.$/.test(v)){cur={n:v,lines:[]};verses.push(cur);continue;}
+      if(!cur){cur={n:"",lines:[]};verses.push(cur);}cur.lines.push(v);}});
+  info.verses=verses.length;info.verseText=verses;
+  const crea=[["composer",hd("composer")],["lyricist",hd("poet")],["arranger",hd("arranger")]].filter(x=>x[1]);
+  const rights=hd("tagline")||hd("copyright");
+  const credits=verses.map(v=>`<credit page="1"><credit-type>lyrics</credit-type>${v.n?`<credit-words font-weight="bold">${esc(v.n)}</credit-words>`:""}${v.lines.length?`<credit-words>${esc(v.lines.join("\n"))}</credit-words>`:""}</credit>`).join("");
+  LY_INFO=info;
+  return `<?xml version="1.0" encoding="UTF-8"?><score-partwise version="3.1"><work><work-title>${esc(title)}</work-title></work><identification>${crea.map(c=>`<creator type="${c[0]}">${esc(c[1])}</creator>`).join("")}${rights?`<rights>${esc(rights)}</rights>`:""}<encoding><software>Griffschrift-Wandler</software></encoding></identification>${credits}<part-list><score-part id="P1"><part-name>${esc(title||"Melodie")}</part-name></score-part></part-list><part id="P1">${body}</part></score-partwise>`;
+}
+// lyToXML ende
 async function openFile(f){
   const st=document.getElementById("status");
   if(/\.json$/i.test(f.name)){loadEdits(f);return;}
@@ -2788,8 +3072,14 @@ async function openFile(f){
       txt=await z.file(path).async("string");
     } else if(/\.midi?$/i.test(f.name)){
       txt=midiToXML(await f.arrayBuffer(),f.name.replace(/\.midi?$/i,""));
+      if(MIDI_INFO&&MIDI_INFO.tempo)document.getElementById("tempo").value=MIDI_INFO.tempo;   // eigene MIDI-Datei: erstes Tempo der Datei übernehmen
+    } else if(/\.ly$/i.test(f.name)){
+      const raw=await f.arrayBuffer();let t0;try{t0=new TextDecoder("utf-8",{fatal:true}).decode(raw);}catch(e){t0=new TextDecoder("windows-1252").decode(raw);}
+      txt=lyToXML(t0,f.name.replace(/\.ly$/i,""));
+      if(LY_INFO&&LY_INFO.tempo)document.getElementById("tempo").value=Math.max(30,Math.min(260,LY_INFO.tempo));
     } else txt=await f.text();
     stop();CREDIT="";loadXMLText(txt);SRC={kind:"file",name:f.name,xml:txt};run();
+    if(/\.ly$/i.test(f.name)&&LY_INFO&&LY_INFO.warn.length){const w=document.createElement("span");w.className="pill";w.textContent="LilyPond: "+LY_INFO.warn.join("; ");st.appendChild(w);}
   }catch(e){st.innerHTML=`<span class="err">${e.message}</span>`;}
 }
 document.getElementById("file").addEventListener("change",e=>{if(e.target.files[0])openFile(e.target.files[0]);});
@@ -2949,7 +3239,8 @@ async function loadVM(key){
     loadXMLText(midiToXML(buf,d[1]));CREDIT="Franz Fuchs, volksmusik.cc";PINSRC="fuchs";
     if(pins){FUCHS_PINS["vm:"+key]=pins;setPins("vm:"+key);}else setPins(null);
     run();
-  }catch(e){alert(TX("Dieses Stück wird aus dem Internet nachgeladen (Ordner midi/vm auf der GitHub-Seite). Dafür ist eine Internetverbindung nötig.","This tune is loaded from the internet (folder midi/vm on the GitHub page). An internet connection is required."));}
+  }catch(e){if(e.message!=="nicht erreichbar"){const st=document.getElementById("status"),sp=document.createElement("span");sp.className="err";sp.textContent=TX("Dieses Stück konnte nicht verarbeitet werden: ","This tune could not be processed: ")+e.message;st.innerHTML="";st.appendChild(sp);return;}   // Programmfehler nicht als fehlendes Internet melden
+    alert(TX("Dieses Stück wird aus dem Internet nachgeladen (Ordner midi/vm auf der GitHub-Seite). Dafür ist eine Internetverbindung nötig.","This tune is loaded from the internet (folder midi/vm on the GitHub page). An internet connection is required."));}
 }
 
 // ======== Noten scannen: externe Dienste (nur nach Bestätigung, öffnet einen neuen Tab) und – vorbereitet, standardmäßig aus –
@@ -3395,7 +3686,7 @@ let SRC=null;
 const SAVE_SEL=["part","voices","form","lpr","view","gstyle","bname","acc","lart","stimm","disk","bass","bmoll","dmode","transp","fill"],SAVE_CHK=["usepin","msub","fill4"];
 function saveEdits(){if(!P||!SRC){alert(TX("Zuerst ein Stück laden.","Load a tune first."));return;}
   const bk=document.getElementById("bass").value,ob=document.getElementById("bmoll").value==="own"&&OWN_BASS[bk]?{flips:[...OWN_BASS[bk].flips],set:OWN_BASS[bk].set}:null;
-  const d={app:"griffschrift-wandler",version:1,saved:new Date().toISOString(),title:TITLE,src:SRC,BT,
+  const d={app:"griffschrift-wandler",version:1,saved:new Date().toISOString(),title:TITLE,ptitle:PTITLE,src:SRC,BT,
     sel:Object.fromEntries(SAVE_SEL.map(id=>[id,document.getElementById(id).value])),chk:Object.fromEntries(SAVE_CHK.map(id=>[id,document.getElementById(id).checked])),ownBass:ob,
     ownDisk:document.getElementById("dmode").value==="own"?{disk:document.getElementById("disk").value,set:ownDisk(document.getElementById("disk").value)}:null,
     edits:{NOTE_FORCE,SEG_FORCE,BREAKS:[...BREAKS],BASS_EDIT,BASS_KIND,BASS_DEL,PITCH_EDIT,SEG_HARM,DUR_OPS,MEAS_SHIFT,RANGE_PLAY,MEAS_OPS},
@@ -3415,6 +3706,7 @@ async function loadEdits(f){const st=document.getElementById("status");
     for(const id of SAVE_SEL)if(d.sel&&d.sel[id]!=null)ch(id,d.sel[id]);for(const id of SAVE_CHK)if(d.chk&&d.chk[id]!=null)ch(id,d.chk[id]);if(d.chk&&d.chk.fill3!=null&&!(d.sel&&d.sel.fill!=null))ch("fill",d.chk.fill3?(d.sel&&d.sel.voices==="4"?"4":"3"):(d.sel&&d.sel.voices==="4"?"4":"0"));   // ältere Speicherstände
     if(d.ownDisk&&d.ownDisk.disk){OWN_DISK[d.ownDisk.disk]=d.ownDisk.set||{};saveOwnDisk(d.ownDisk.disk);}
     if(d.ownBass||d.ownDisk){buildInstrument();}
+    PTITLE=d.ptitle!=null?d.ptitle:null;
     const E=d.edits;NOTE_FORCE=E.NOTE_FORCE||{};SEG_FORCE=E.SEG_FORCE||{};BREAKS=new Set(E.BREAKS||[]);BASS_EDIT=E.BASS_EDIT||{};BASS_KIND=E.BASS_KIND||{};
     PITCH_EDIT=E.PITCH_EDIT||{};SEG_HARM=E.SEG_HARM||{};DUR_OPS=E.DUR_OPS||[];MEAS_SHIFT=E.MEAS_SHIFT||{};RANGE_PLAY=E.RANGE_PLAY||{};MEAS_OPS=E.MEAS_OPS||[];BASS_DEL=E.BASS_DEL||{};CLIP=null;SEL=null;SELX=null;
     run();
