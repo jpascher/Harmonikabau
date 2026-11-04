@@ -4,6 +4,7 @@ import cv2, numpy as np, json, sys
 
 FOTO_LINES = False   # wird von gs2xml für Fotos eingeschaltet
 _UNION = [False]
+_GAP = [3]
 def staves(bw):
     """5-Linien-Systeme über die waagrechte Projektion finden; liefert Liste von 5 y-Werten."""
     h, w = bw.shape
@@ -18,9 +19,21 @@ def staves(bw):
     # benachbarte Zeilen zusammenfassen (Liniendicke)
     lines = []
     for y in rows:
-        if lines and y - lines[-1][-1] <= 3: lines[-1].append(y)   # bis 2 Zeilen Lücke: bei Fotos ist eine Linie leicht schräg und zerfällt sonst in zwei
+        if lines and y - lines[-1][-1] <= _GAP[0]: lines[-1].append(y)   # bis 2 Zeilen Lücke: bei Fotos ist eine Linie leicht schräg und zerfällt sonst in zwei
         else: lines.append([y])
-    ys = [sum(l) / len(l) for l in lines]
+    if FOTO_LINES and _os.environ.get('GS_SPLITLINES', '1') == '1':
+        # stark schräge Linien (gewölbte Fotoseite) verschmelzen über die Nachbarzeilen zu einem breiten Band: an tiefen Einbrüchen teilen
+        sp = []
+        for l in lines:
+            if len(l) < 8: sp.append(l); continue
+            mx = max(p3[y] for y in l); cur = []
+            for y in l:
+                if p3[y] < 0.35 * mx:
+                    if cur: sp.append(cur); cur = []
+                else: cur.append(y)
+            if cur: sp.append(cur)
+        lines = sp
+    ys = [float(np.average(l, weights=[max(p3[y], 1e-6) for y in l])) if FOTO_LINES and _GAP[0] > 3 else sum(l) / len(l) for l in lines]
     # alle Fünfergruppen bewerten (Schwankung der Abstände), die gleichmäßigsten zuerst nehmen, ohne Überlappung
     cand = []
     for i in range(len(ys) - 4):
@@ -41,6 +54,12 @@ def staves(bw):
         finally: globals()['FOTO_LINES'] = old; _UNION[0] = False
         for g in more:
             if all(g[4] < o[0] - 2 or g[0] > o[4] + 2 for o in out): out.append(g)
+        if _os.environ.get('GS_SPLITLINES', '1') == '1':   # dazu: Zeilen mit bis zu 4 Lücken zusammenfassen (schräge Linien mit Bruchstücken dazwischen)
+            _UNION[0] = True; _GAP[0] = 5
+            try: more = staves(bw)
+            finally: _UNION[0] = False; _GAP[0] = 3
+            for g in more:
+                if all(g[4] < o[0] - 2 or g[0] > o[4] + 2 for o in out): out.append(g)
         out.sort(key=lambda g: g[0])
     return out
 

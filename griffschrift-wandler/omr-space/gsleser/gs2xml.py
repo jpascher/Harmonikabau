@@ -1,6 +1,6 @@
 # Griffschrift-Bild -> MusicXML (Normalnoten) + Griffe für den Wandler (Pins: Zeit, Ton, Reihe, Knopf, Balgrichtung)
 import os as _os; HERE=_os.path.dirname(_os.path.abspath(__file__))
-import cv2,sys,json,pickle,collections,numpy as np,os as _os
+import cv2,sys,json,pickle,collections,re,numpy as np,os as _os
 from PIL import Image, ImageOps
 sys.path.insert(0,HERE)
 import gsread as G, detect as D
@@ -17,6 +17,7 @@ import gzip as _gz
 _R2=_os.environ.get('GS_RH2',_RD+'/rhythm2.pkl.gz')   # gepackt, damit die Datei klein bleibt
 RCLF2=pickle.load(_gz.open(_R2,'rb')) if _os.path.exists(_R2) and not _os.environ.get('NORH2') else None
 RW2=float(_os.environ.get('RW2','0.6'))
+GERUEST=_os.environ.get('GS_GERUEST','0')=='1'   # Gerüst (Takte, Notenwerte, Pausen) aus homr; Versuch, voreingestellt aus
 SHIFT={'GCFB':-2,'ADGC':0,'BEsAsDes':1,'HEAD':2,'CFBEs':3,'FBEsAsDes':-4,'FBEsAs':-4,'EADG':-5,'DGCF':-7}
 def skew_angle(g):
     """Schräglage in Grad (Foto, schief eingelegter Scan): der Winkel, bei dem die Notenlinien am schärfsten waagrecht stehen."""
@@ -84,7 +85,7 @@ def upside_down(g,st):
     if max(a,r)>=len(st): return r>=max(8,1.5*a)
     # kaum Bassbuchstaben unter den Systemen (etwa Steinkellner: Buchstaben über dem System): der Titel steht oben;
     # die größte Schrift außerhalb der Systeme nur unterhalb der Systeme heißt: Seite liegt auf dem Kopf
-    if _os.environ.get('GS_TITLETURN','0')!='1' or not st: return False
+    if _os.environ.get('GS_TITLETURN','0')!='1' or not st: return r>=max(8,1.5*a)
     d=float(np.median([(s_[4]-s_[0])/4 for s_ in st]));_,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV)
     def big(y0,y1):
         y0=max(0,int(y0));y1=min(bw.shape[0],int(y1))
@@ -133,6 +134,119 @@ def _load_rot(path,target_d):
     finally:
         try: _os.remove(fn)
         except Exception: pass
+# Schreibweisen: je eigene Regeln. „auto“ nimmt die allgemeinen Regeln; erkennt die Texterkennung einen Bearbeiter, wird dessen Schreibweise gewählt.
+#   xmark: vorgesetztes Kreuz = nur Hinweis auf die Kreuzreihe (kein eigener Ton); druck: Druckstriche dick/dünn/automatisch
+STYLE_RULES={
+ 'auto':        dict(xmark=True,  druck='auto'),
+ 'fuchs':       dict(xmark=False, druck='dick'),
+ 'michlbauer':  dict(xmark=True,  druck='auto'),
+ 'rosenzopf':   dict(xmark=True,  druck='duenn'),
+ 'margetich':   dict(xmark=False, druck='auto'),
+ 'bayerisch':   dict(xmark=False, druck='auto'),
+ 'steinkellner':dict(xmark=False, druck='auto'),
+}
+STYLE=['auto']
+def set_style(name):
+    name=(name or 'auto').strip().lower()
+    STYLE[0]=name if name in STYLE_RULES else 'auto'
+    import fuchsread as _F;_F.DRUCK_MODE[0]=STYLE_RULES[STYLE[0]]['druck']
+    return STYLE[0]
+# Texterkennung (Tesseract, deutsch): Titel, Bearbeiter, Teilbezeichnungen; nur Plausibles wird übernommen
+TEIL_WOERTER=['Einleitung','Vorspiel','Tanz','Trio','Fine','D.S.','D.C.','Coda','Zwischenspiel','Schluss','Ende']
+BEARB_STIL=[('rosenzopf','rosenzopf'),('michlbauer','michlbauer'),('wachtberg','michlbauer'),('fuchs','fuchs'),('steinkellner','steinkellner'),
+            ('margetich','margetich'),('kiener','bayerisch'),('kiermeier','bayerisch'),('heimatpflege','bayerisch'),('knöpferl','bayerisch'),('schaborak','bayerisch')]
+def _plaus(t):
+    t=t.strip(" .,:;-–|_'\"")
+    if len(t)<3: return ''
+    let=sum(c.isalpha() for c in t);voc=sum(c.lower() in 'aeiouäöüy' for c in t)
+    return t if let>=0.6*len(t.replace(' ','')) and voc>=1 and let>=3 else ''
+def page_text(g,st):
+    """Text oberhalb des ersten Systems (Titel, Bearbeiter) und Teilbezeichnungen auf der Seite. Ohne Tesseract: leer."""
+    out=dict(titel='',bearbeiter='',teile=[],stil='')
+    if _os.environ.get('GS_OCR','1')!='1': return out
+    try: import pytesseract
+    except Exception: return out
+    try:
+        d=(st[0][4]-st[0][0])/4 if st else 18.0;top=int(max(0,(st[0][0]-1.5*d) if st else g.shape[0]*0.2))
+        lines={};words_all=[]
+        if top>2*d:
+            D_=pytesseract.image_to_data(g[:top],lang='deu',output_type=pytesseract.Output.DICT,config='--psm 3')
+            for i,w in enumerate(D_['text']):
+                w=w.strip()
+                if not w: continue
+                try: cf=float(D_['conf'][i])
+                except Exception: cf=-1
+                k=(D_['block_num'][i],D_['par_num'][i],D_['line_num'][i]);lines.setdefault(k,[]).append((w,cf,D_['height'][i],D_['left'][i]))
+        L=[]
+        for k,ws in lines.items():
+            good=[w for w in ws if w[1]>=55]
+            if not good: continue
+            txt=' '.join(w[0] for w in sorted(good,key=lambda w:w[3]));h=float(np.median([w[2] for w in good]));L.append((txt,h,float(np.mean([w[1] for w in good]))))
+        for txt,h,cf in L:
+            low=txt.lower()
+            if any(k in low for k in ('bearb','eingerichtet','satz:','arr.','gesetzt')) and not out['bearbeiter']:
+                b_=re.sub(r'^.*?(bearbeitung|bearb\.?|eingerichtet von|eingerichtet für|satz|arr\.?)\s*:?\s*','',txt,flags=re.I).strip()
+                out['bearbeiter']='' if re.search(r'eingerichtet\s+für',txt,flags=re.I) else (_plaus(b_) or '')   # „eingerichtet für die Steirische“ nennt keine Person
+        cand=[(h,txt) for txt,h,cf in L if cf>=65 and not any(k in txt.lower() for k in ('bearb','eingerichtet','satz:','musik:','volksweise','komponist'))]
+        if cand:
+            h,txt=max(cand);txt=re.sub(r'^\s*(nr\.?\s*)?\d+\s*[.)]?\s*','',txt,flags=re.I).strip()
+            if h>=1.2*d: out['titel']=_plaus(txt)
+        # Teilbezeichnungen: ganze Seite, nur bekannte Wörter
+        T=pytesseract.image_to_string(g,lang='deu',config='--psm 11')
+        for w in TEIL_WOERTER:
+            if re.search(r'(?<![A-Za-zÄÖÜäöü])'+re.escape(w)+r'(?![A-Za-zÄÖÜäöü])',T,flags=re.I) and w not in out['teile']: out['teile'].append(w)
+        alltxt=(out['bearbeiter']+' '+' '.join(t for t,_,_ in L)).lower()
+        for k,s_ in BEARB_STIL:
+            if k in alltxt: out['stil']=s_;break
+    except Exception: pass
+    return out
+XDROP=[]   # weggelassene vorgesetzte Kreuze (für die Pausensuche: ihre Tinte ist keine Pause)
+def cross_marks(det):
+    """Vorgesetzte Kreuze (Rosenzopf, Michlbauer): ein Kreuz knapp links vor einem runden Kopf in derselben Lage ist keine eigene Note,
+    sondern zeigt nur die Reihe an. Das Kreuz fällt weg, der Kopf dahinter gilt als Kreuzkopf (3./4. Reihe). GS_XMARK=0: aus"""
+    XDROP.clear()
+    if _os.environ.get('GS_XMARK','1')!='1' or not STYLE_RULES[STYLE[0]]['xmark']: return det
+    drop=set()
+    for i,h in enumerate(det):
+        if h['t']!='x': continue
+        best=None
+        for j,o in enumerate(det):
+            if o['t']!='o' or o['st']!=h['st'] or o['p']!=h['p']: continue
+            dx=o['x']-h['x']
+            if 0.5*h['d']<dx<float(_os.environ.get('GS_XMARKD','2.4'))*h['d'] and (best is None or dx<best[0]): best=(dx,j)
+        if best: drop.add(i);det[best[1]]=dict(det[best[1]],t='x',xmark=True);XDROP.append(h)
+    # übrige Kreuze derselben Spalte ohne runden Kopf in ihrer Lage (Kopf übersehen): als Kreuzkopf in die Spalte des Akkords rücken
+    W=float(_os.environ.get('GS_XMARKD','2.4'))
+    for i,h in enumerate(det):
+        if i in drop or h['t']!='x' or h.get('xmark'): continue
+        cand=[o for o in det if o.get('xmark') and o['st']==h['st'] and 0.5*h['d']<o['x']-h['x']<W*h['d'] and abs(o['p']-h['p'])<=3]
+        if cand: det[i]=dict(h,x=min(cand,key=lambda o:o['x']-h['x'])['x'],xmark=True)
+    return [h for i,h in enumerate(det) if i not in drop]
+def segno_filter(det,bw,st):
+    """Segno-Zeichen (Rosenzopf: am Teilbeginn und am Schluss) wird als Köpfe gelesen. Erkennung: die Köpfe liegen in einem Tintenfleck
+    von mindestens 2,6 Linienabständen Höhe ohne geraden Hals (längster senkrechter Strich unter 1,6 Linienabständen). GS_SEGNO=0: aus"""
+    if _os.environ.get('GS_SEGNO','0')!='1' or not det: return det   # erprobt, trennt das Segno noch nicht sicher von dichten Akkorden: aus
+    out=[];cache={}
+    for h in det:
+        si=h['st']
+        if si>=len(st): out.append(h);continue
+        if si not in cache:
+            ys=st[si];d=(ys[4]-ys[0])/4;nl=G.remove_lines(bw,ys,d);t=max(0,int(ys[0]-2*d));b=min(bw.shape[0],int(ys[4]+2*d))
+            sub=cv2.morphologyEx(nl[t:b],cv2.MORPH_CLOSE,np.ones((max(3,int(0.4*d)),1),np.uint8))
+            n_,lab,S_,_=cv2.connectedComponentsWithStats((sub>0).astype(np.uint8));bad=set()
+            for i in range(1,n_):
+                x,y,w,hh,a=S_[i]
+                if hh<2.6*d or not (0.9*d<=w<=2.8*d): continue
+                m=(lab[y:y+hh,x:x+w]==i);run=0
+                for c in range(m.shape[1]):
+                    col=np.concatenate([[0],m[:,c].astype(np.int8),[0]]);e=np.flatnonzero(np.diff(col))
+                    if len(e): run=max(run,int((e[1::2]-e[::2]).max()))
+                if run<1.6*d: bad.add(i)
+            cache[si]=(t,lab,bad)
+        t,lab,bad=cache[si];yy=int(h['y'])-t;xx=int(h['x'])
+        if bad and 0<=yy<lab.shape[0] and 0<=xx<lab.shape[1] and lab[yy,xx] in bad: continue
+        out.append(h)
+    return out
 def thick_bar_filter(det,bw):
     """Köpfe auf dicken Taktstrichen (Wiederholungszeichen, Schlussstrich) verwerfen: auf Fotos liest das Kopfmodell
     die dicke senkrechte Linie oft als Kopf oder Kreuz und verdeckt damit auch den Taktstrich (GS_THICK=0: aus)"""
@@ -157,7 +271,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     if work is None:
         import tempfile;work=_tmp=tempfile.mktemp(suffix='.png')
     cv2.imwrite(work,g);_,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV)
-    st,bars_d=druck_bars(g);det=thick_bar_filter(D.detect(work,1),bw);C=chords_det(det)
+    st,bars_d=druck_bars(g);det=cross_marks(segno_filter(thick_bar_filter(D.detect(work,1),bw),bw,st));C=chords_det(det)
     off=shift+2   # Tabelle in assemble.py gilt für G-C-F-B (shift -2)
     items=[]   # je System: Akkorde und Pausen
     fills=[];dots=[]
@@ -190,11 +304,25 @@ def read(path,shift=0,work=None,table=None,bass=None):
         if runs:
             a_,b_=max(runs,key=lambda r:r[1]-r[0]);x_ext[si]=(float(a_),float(b_))
             if foto_like: x_start[si]=float(a_)
+    # Taktangabe im ersten System: statt pauschal 6 Linienabstände nach dem Zeilenanfang nur die Ziffern selbst (zwei übereinander stehende
+    # Flecken von etwa 2 Linienabständen Höhe) und davor Schlüssel/TAB-Zeichen; ein Akkord gleich nach der Taktangabe bleibt (Rosenzopf, Philipp)
+    _tsr=[None]
+    def _ts_skip(x):
+        d0=(st[0][4]-st[0][0])/4
+        if _os.environ.get('GS_TSOLD')=='1': return x<x_start[0]+6*d0
+        if _tsr[0] is None:
+            ys0=st[0];x0=int(x_start[0]);x1=int(min(bw.shape[1],x_start[0]+7*d0));nl0=G.remove_lines(bw,ys0,d0)
+            sub=cv2.morphologyEx(nl0[int(ys0[0]-0.3*d0):int(ys0[4]+0.3*d0),x0:x1],cv2.MORPH_CLOSE,np.ones((max(3,int(0.4*d0)),1),np.uint8));n_,_,S_,_=cv2.connectedComponentsWithStats((sub>0).astype(np.uint8))
+            dig=[(x0+S_[i][0],x0+S_[i][0]+S_[i][2]) for i in range(1,n_) if 1.3*d0<=S_[i][3]<=4.6*d0 and 0.7*d0<=S_[i][2]<=2.7*d0]
+            if dig:   # nur die linke Gruppe (Ziffern übereinander); ein Akkord gleich danach sieht ähnlich aus, steht aber rechts davon
+                l0=min(dig);dig=[q for q in dig if q[0]<l0[1]]
+            _tsr[0]=(min(a for a,_ in dig)-0.3*d0,max(b for _,b in dig)+0.3*d0) if dig else (x_start[0],x_start[0]+6*d0)
+        a_,b_=_tsr[0];return x<x_start[0]+1.5*d0 or a_<=x<=b_
     for c in C:
         si=c[0]['st'];x=float(np.median([h['x'] for h in c]))
         xo=[h['x'] for h in c if h['t']!='x']   # Kreuze links vor dem Akkord: Lage des Akkords (und Hals) nach den runden Köpfen
         if xo and len(xo)<len(c) and all(h['x']<min(xo)-0.5*h['d'] for h in c if h['t']=='x'): x=float(np.median(xo))
-        if si==0 and x<x_start[0]+6*(st[0][4]-st[0][0])/4: continue
+        if si==0 and _ts_skip(x): continue
         if si in x_ext and not (x_ext[si][0]-0.5*(st[si][4]-st[si][0])/4<=x<=x_ext[si][1]+0.5*(st[si][4]-st[si][0])/4): continue   # außerhalb des Systems
         dr='D' if any(a-3<=x<=b+3 for a,b,_ in bars_d.get(si,[])) else 'Z'
         ks=[button(h['p'],h['t']) for h in c];ps=[pitch(r,n,dr,table) for r,n in ks]
@@ -203,7 +331,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
         ys=st[si];d=(ys[4]-ys[0])/4;nl=G.remove_lines(bw,ys,d)
         fill=float(np.mean([h['fill'] for h,_,_ in hs]));fills.append(fill)
         dots.append(dot_feat(dot_img(si,d,nl),x,[h['y'] for h,_,_ in hs],d));feats.append(np.concatenate([strip(nl,x,ys[2],d,fill),np.array(beam_feats(nl,x,[h['y'] for h,_,_ in hs],d)+[dots[-1]])*20]).astype(np.float32))
-        items.append(dict(kind='n',st=si,x=x,dir=dr,heads=[(k[0],k[1],p) for _,k,p in hs],fi=len(feats)-1,hy=[(h['x'],h['y'],k[0]) for h,k,_ in hs]))
+        items.append(dict(kind='n',st=si,x=x,dir=dr,heads=[(k[0],k[1],p) for _,k,p in hs],fi=len(feats)-1,hy=[(h['x'],h['y'],k[0]) for h,k,_ in hs],ps=[h['p'] for h,_,_ in hs]))
     _DBG['feats']=feats;_DBG['x_ext']=x_ext;_DBG['x_start']=x_start
     P=RCLF.predict_proba(np.array(feats)) if feats else np.zeros((0,len(RCLF.classes_)))
     P9=np.zeros((len(P),len(UNIT)));P9[:,RCLF.classes_]=P;lp=np.log(np.clip(P9,1e-6,1))
@@ -227,7 +355,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
         hxy=[]
         for it in its:
             for r_,n_,p_ in it['heads']: hxy.append((it['x'],0))
-        heads_xy=[(h['x'],h['y']) for c in C if c[0]['st']==si for h in c]
+        heads_xy=[(h['x'],h['y']) for c in C if c[0]['st']==si for h in c]+[(h['x'],h['y']) for h in XDROP if h['st']==si]
         bl=barlines(bw,ys,d,[x for x,_ in heads_xy]);nol=G.stems_off(G.remove_lines(bw,ys,d),d)
         rs=[dict(kind='r',st=si,x=x,u=u) for x,u in rests(bw,nol,ys,d,heads_xy,bl)]
         edges=[0]+bl+[1e9];allg=[]
@@ -246,7 +374,11 @@ def read(path,shift=0,work=None,table=None,bass=None):
                 j=int(np.argmin([abs(x_-mx) for x_ in gx]))
                 if abs(gx[j]-mx)>3*d: continue
                 for g_ in allg[max(0,j-1):j+2]: g_[0]['trip']=True
-    def gl(gr): return sum(e['lp'] for e in gr)
+    # Gerüst aus der Notenerkennung (GS_GERUEST=1): Takte, Notenwerte und Pausen von homr, Köpfe und Balgrichtung vom Leser (gerust.py)
+    if GERUEST and (not G.FOTO_LINES or _os.environ.get('GS_GERUESTFOTO')=='1'):   # auf Fotos gehen damit mehr Takte nicht auf, daher nur saubere Seiten
+        import gerust as GR
+        _DBG['gerust']={};meas,medge=GR.rebuild(g,st,x_ext,meas,medge,button,pitch,table,off,_DBG['gerust'])
+    def gl(gr): return sum(e['lp'] for e in gr) if 'lp' in gr[0] else np.zeros(len(UNIT))
     def uu(gr,u): return TRIP.get(u,u) if gr[0].get('trip') else u
     def letter_times(mi,si,m,Lm):
         """Fotos: Die Bassbuchstaben stehen auf den Schlägen und bilden ein Zeitraster. Einsätze der Noten und Pausen über ihre Lage
@@ -275,7 +407,8 @@ def read(path,shift=0,work=None,table=None,bass=None):
     def length(m,ch=None):
         t=0;k=0
         for q,gr in enumerate(m):
-            if gr[0]['kind']=='r': t+=uu(gr,gr[0]['u'])
+            if gr[0].get('hu') is not None: t+=gr[0]['hu'];k+=gr[0]['kind']!='r'
+            elif gr[0]['kind']=='r': t+=uu(gr,gr[0]['u'])
             else: t+=uu(gr,UNIT[ch[k] if ch else int(np.argmax(gl(gr)))]);k+=1
         return t
     cg=[c for c in collections.Counter(length(m) for _,m in meas).most_common() if c[0] in (18,24,36,48,72)];Lg=cg[0][0] if cg else 36
@@ -288,15 +421,21 @@ def read(path,shift=0,work=None,table=None,bass=None):
     for mi,(si,m) in enumerate(meas):
         Lm=Ls[si]
         notes=[q for q,gr in enumerate(m) if gr[0]['kind']=='n'];ch=[int(np.argmax(gl(m[q]))) for q in notes]
-        lch=letter_times(mi,si,m,Lm) if ((G.FOTO_LINES or _os.environ.get('GS_LETALL','1')=='1') and not _os.environ.get('NOLETTIME')) else None
-        if lch: ch=lch
+        hm=all(gr[0].get('hu') is not None for gr in m)   # Takt aus dem homr-Gerüst: Notenwerte stehen fest
+        lch=letter_times(mi,si,m,Lm) if (not hm and (G.FOTO_LINES or _os.environ.get('GS_LETALL','1')=='1') and not _os.environ.get('NOLETTIME')) else None
+        if hm: pass
+        elif lch: ch=lch
         elif length(m)!=Lm and not (mi==0 and length(m)<Lm):
             PG=np.array([np.exp(gl(m[q])-gl(m[q]).max()) for q in notes]);PG=PG/PG.sum(1,keepdims=True) if len(PG) else PG
             f=fit_measure(maxloss=float(_os.environ.get('GS_FITLOSS','12' if G.FOTO_LINES else '6')),P=PG,rest_units=[uu(gr,gr[0]['u']) for gr in m if gr[0]['kind']=='r'],L=Lm,units=[[uu(m[q],u) for u in UNIT] for q in notes])
             if f: ch=f
         evs=[];k=0
         for gr in m:
-            if gr[0]['kind']=='r': evs.append(dict(rest=True,dbg=(gr[0]['st'],[],gr[0]['x']),u=uu(gr,gr[0]['u']),trip=bool(gr[0].get('trip'))))
+            if gr[0].get('hu') is not None:
+                if gr[0]['kind']=='r': evs.append(dict(rest=True,dbg=(gr[0]['st'],[],gr[0]['x']),u=gr[0]['hu'],trip=bool(gr[0].get('htrip'))))
+                else:
+                    heads=sorted({h for e in gr for h in e['heads']},key=lambda h:-h[2]);evs.append(dict(rest=False,dbg=(gr[0]['st'],[q for e in gr for q in e['hy']],gr[0]['x']),fis=[e['fi'] for e in gr],mtrip=bool(gr[0].get('htrip')),u=gr[0]['hu'],trip=bool(gr[0].get('htrip')),dir=gr[0]['dir'],heads=heads));k+=1
+            elif gr[0]['kind']=='r': evs.append(dict(rest=True,dbg=(gr[0]['st'],[],gr[0]['x']),u=uu(gr,gr[0]['u']),trip=bool(gr[0].get('trip'))))
             else:
                 heads=sorted({h for e in gr for h in e['heads']},key=lambda h:-h[2]);evs.append(dict(rest=False,dbg=(gr[0]['st'],[q for e in gr for q in e['hy']],gr[0]['x']),fis=[e['fi'] for e in gr],mtrip=bool(gr[0].get('trip')),u=uu(gr,UNIT[ch[k]]),trip=bool(gr[0].get('trip')) or UNIT[ch[k]]==4,dir=gr[0]['dir'],heads=heads));k+=1
         out.append(evs);lens.append(Lm)
@@ -358,10 +497,18 @@ def pruefbild(g,meas,lens,num0,maxw=1600):
         else: cv2.putText(c,a[0],a[1],cv2.FONT_HERSHEY_SIMPLEX,a[2],a[3],max(1,int(a[2]*2.2)))
     if c.shape[1]>maxw: c=cv2.resize(c,(maxw,int(c.shape[0]*maxw/c.shape[1])),interpolation=cv2.INTER_AREA)
     return cv2.imencode('.jpg',c,[cv2.IMWRITE_JPEG_QUALITY,72])[1].tobytes()
-def convert(paths,shift=0,title='Gescannte Griffschrift',table=None,bilder=None):
+def convert(paths,shift=0,title='Gescannte Griffschrift',table=None,bilder=None,style='auto',text=None):
     """Eine oder mehrere Seiten (Bilder) -> (MusicXML, Pins); Takte der Seiten hintereinander. table: Diskantbelegung des Wandlers (sonst 446 Normal).
     bilder: Liste, an die je Seite ein Kontrollbild (JPEG-Bytes) angehängt wird; die Pins bekommen dann 'offen' (Nummern der Takte, die nicht aufgehen)."""
     allm=[];Lm=None;bass=[];seiten=[]
+    st_=set_style(style)
+    if text is not None:   # Texterkennung auf der ersten Seite; bei „automatisch“ wählt ein erkannter Bearbeiter die Schreibweise
+        try:
+            g0=load_gray(paths[0]);T=page_text(g0,G.staves(cv2.threshold(g0,240,255,cv2.THRESH_BINARY_INV)[1])) if g0 is not None else {}
+        except Exception: T={}
+        text.update(T or {})
+        if st_=='auto' and text.get('stil'): set_style(text['stil'])
+        text['schreibweise']=STYLE[0]
     for p in paths:
         m,L=read(p,shift,table=table,bass=bass)
         if bilder is not None: seiten.append((_DBG['g'],len(allm),m,L))
@@ -375,6 +522,7 @@ def convert(paths,shift=0,title='Gescannte Griffschrift',table=None,bilder=None)
             except Exception: pass
         P['offen']=[n0+i for i,(m,L) in enumerate(zip(allm,Lm)) if sum(e['u'] for e in m)!=L and not (i==0 and n0==0)]
         P['takte']=len(allm)
+    set_style('auto')
     return xml,P
 STEP=['C','C','D','D','E','F','F','G','G','A','A','B'];ALT=[0,1,0,1,0,0,1,0,1,0,1,0]
 TRIPTYPE={2:('16th',0),4:('eighth',0),6:('eighth',1),8:('quarter',0),12:('quarter',1),16:('half',0),24:('half',1),32:('whole',0)}   # Notenart innerhalb einer Triole

@@ -13,3 +13,5 @@ Erprobt am 2. November 2026 vom Wandler auf jpascher.github.io aus: Eine gesetzt
 Für einen eigenen virtuellen Server gibt es im Unterordner vps eine Fassung ohne Hugging Face mit eigener Anleitung (vps/INSTALL.md); sie nutzt dieselbe omr_core.py. Der Wandler erkennt selbst, welche Art Server unter `OMR_URL` steht.
 
 Der Griffschrift-Leser kann zusätzlich das Zerlegungsnetz von homr verwenden (Versuch, siehe griffschrift-leser/LIESMICH.md, sechzehnter Durchgang). Eingeschaltet wird das ohne Änderung am Code in den Einstellungen des Space unter „Variables and secrets → New variable“ mit GS_HOMR = 1 und GS_HOMRADD = 0.8; der Space startet danach neu. Löscht man die beiden Variablen wieder, liest er wie bisher. Eine Seite braucht damit etwa acht Sekunden länger.
+
+Ebenso lässt sich das Gerüst aus der Notenerkennung zuschalten (siehe griffschrift-leser/LIESMICH.md, achtzehnter Durchgang): Dafür muss gerust.py im Ordner gsleser liegen, und unter „Variables and secrets“ wird GS_GERUEST = 1 gesetzt. Takte, Notenwerte und Pausen sauberer Seiten kommen dann von homr, Fotos liest der Leser wie bisher. Ohne die Variable ändert sich nichts.

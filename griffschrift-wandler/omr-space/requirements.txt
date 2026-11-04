@@ -3,3 +3,4 @@ pymupdf
 spaces
 scikit-learn==1.9.1
 mido
+pytesseract

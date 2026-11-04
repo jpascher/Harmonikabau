@@ -4,13 +4,16 @@ import cv2,sys,json,glob,numpy as np,mido
 sys.path.insert(0,HERE);import detect as D, gsread as G
 from align import chords_det,upscale
 from assemble import button,pitch
-def druck_bars(g):
-    _,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV);st=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1]);out={}
+def _druck(g,bw,st,thin):
+    out={}
     for si,ys in enumerate(st):
         d=float(np.mean(np.diff(ys)));y0=int(ys[4]+1.5*d);y1=int(min(ys[4]+14*d,(st[si+1][0]-2.5*d) if si+1<len(st) else g.shape[0]))
         if y1<=y0+2: out[si]=[];continue   # nächstes System zu nah
-        band=bw[y0:y1];h=cv2.morphologyEx(band,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(int(d*3),1)))
-        h=cv2.morphologyEx(h,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(1,max(2,int(d*.25)))))
+        band=bw[y0:y1]
+        # dünne Druckstriche (Rosenzopf; auf Fotos oft blass und unterbrochen): kleine Lücken schließen, keine Mindestdicke
+        hb=cv2.morphologyEx(band,cv2.MORPH_CLOSE,cv2.getStructuringElement(cv2.MORPH_RECT,(max(3,int(d*.6)),1))) if thin else band
+        h=cv2.morphologyEx(hb,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(int(d*3),1)))
+        if not thin: h=cv2.morphologyEx(h,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(1,max(2,int(d*.25)))))
         n,lab,s,_=cv2.connectedComponentsWithStats(h)
         L=[(s[i,0],s[i,0]+s[i,2],y0+s[i,1]) for i in range(1,n) if s[i,2]>2*d]
         # Nur Druckstriche zählen: deutlich unter dem System und direkt unter Bassbuchstaben (nicht Triolen- oder
@@ -24,7 +27,18 @@ def druck_bars(g):
                 return any(x1>a-0.5*d and x0<b+0.5*d and y-1.6*d<=yb<=y+0.2*d for x0,x1,yb in let)
             L=[l for l in L if ok(l)]
         out[si]=L
-    return st,out
+    return out
+DRUCK_MODE=['auto']   # von gs2xml je Schreibweise gesetzt: 'auto', 'dick' (Fuchs, Philipp), 'duenn' (Rosenzopf)
+def druck_bars(g):
+    """Druckstriche je System. Fuchs und Philipp setzen dicke Balken, Rosenzopf dünne Striche. Gesucht wird zuerst nach dicken;
+    finden sich als dünne Striche deutlich längere (mehr als doppelt so viel Länge), gilt die Seite als Seite mit dünnen Strichen (GS_THINDRUCK=0: aus)."""
+    _,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV);st=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1])
+    thick=_druck(g,bw,st,False)
+    if _os.environ.get('GS_THINDRUCK','1')!='1' or DRUCK_MODE[0]=='dick': return st,thick
+    thin=_druck(g,bw,st,True)
+    if DRUCK_MODE[0]=='duenn': return st,thin
+    lt=sum(b-a for L in thick.values() for a,b,_ in L);ln=sum(b-a for L in thin.values() for a,b,_ in L)
+    return st,(thin if ln>2*lt+1 else thick)
 def read_page(img):
     g=cv2.imread(img,0);st,bars=druck_bars(g);det=D.detect(img,1);C=chords_det(det);res=[]
     for c in C:
