@@ -2,13 +2,19 @@
 import os as _os; HERE=_os.path.dirname(_os.path.abspath(__file__))
 import cv2, numpy as np, json, sys
 
+FOTO_LINES = False   # wird von gs2xml für Fotos eingeschaltet
+_UNION = [False]
 def staves(bw):
     """5-Linien-Systeme über die waagrechte Projektion finden; liefert Liste von 5 y-Werten."""
     h, w = bw.shape
     # nur lange waagrechte Striche zählen (Balken und Köpfe fallen weg, sonst verschmelzen sie mit einer Linie)
     lin = cv2.morphologyEx(bw, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (max(20, int(w * 0.08)), 1)))
     prof = lin.sum(axis=1) / 255
-    rows = [y for y in range(h) if prof[y] > 0.3 * prof.max() and prof[y] > 0.15 * w]   # 0,3: auch kurze Systeme (z. B. vor „Fine“); fünf gleich weite Linien filtern den Rest
+    # leicht schräge Linien (Fotos) verteilen sich auf zwei, drei Zeilen: benachbarte Zeilen mitzählen; Bezugsgröße ohne Ausreißer
+    # (ein dunkler Seitenrand ergäbe sonst ein Maximum, neben dem alle Notenlinien zu schwach wirken)
+    p3 = np.convolve(prof, np.ones(3), 'same') if FOTO_LINES else prof
+    big = p3[p3 > 0.15 * w]; ref = np.percentile(big, 90) if FOTO_LINES and len(big) >= 10 else p3.max()
+    rows = [y for y in range(h) if p3[y] > 0.3 * ref and p3[y] > 0.15 * w]   # 0,3: auch kurze Systeme (z. B. vor „Fine“); fünf gleich weite Linien filtern den Rest
     # benachbarte Zeilen zusammenfassen (Liniendicke)
     lines = []
     for y in rows:
@@ -27,7 +33,25 @@ def staves(bw):
         # gleichmäßig ausgleichen (eine Linie kann durch einen anliegenden Balken leicht verschoben sein)
         k = np.arange(5); a1, a0 = np.polyfit(k, g, 1); out.append([float(a0 + a1 * q) for q in k])
     out.sort(key=lambda g: g[0])
+    if FOTO_LINES and not _UNION[0]:   # bei Fotos auch die strengere Suche ohne Zeilen-Zusammenfassung, fehlende Systeme ergänzen
+        _UNION[0] = True
+        try:
+            global FOTO_LINES_SAVE
+            old = FOTO_LINES; globals()['FOTO_LINES'] = False; more = staves(bw)
+        finally: globals()['FOTO_LINES'] = old; _UNION[0] = False
+        for g in more:
+            if all(g[4] < o[0] - 2 or g[0] > o[4] + 2 for o in out): out.append(g)
+        out.sort(key=lambda g: g[0])
     return out
+
+def clean_gray(g, d, thr=60):
+    """Fotos: Linien und Hälse im Graubild entfernen (Öffnen mit langem waagrechtem bzw. senkrechtem Element) und dann schwellen;
+    verträgt leicht schräge und blasse Linien besser als remove_lines/stems_off auf dem Schwarzweißbild"""
+    inv = 255 - g
+    lines = cv2.morphologyEx(inv, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (max(5, int(2 * d)), 1)))
+    vert = cv2.morphologyEx(inv, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (1, max(5, int(2.2 * d)))))
+    cl = cv2.subtract(cv2.subtract(inv, lines), vert)
+    return ((cl > thr) * 255).astype(np.uint8)
 
 def remove_lines(bw, ys, d):
     """Notenlinien (und Hilfslinien) entfernen: waagrechte dünne Strukturen löschen, die nicht von Köpfen bedeckt sind."""

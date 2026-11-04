@@ -1,21 +1,35 @@
 import os as _os; HERE=_os.path.dirname(_os.path.abspath(__file__))
 import cv2, numpy as np, json, sys, pickle
 sys.path.insert(0, HERE); import gsread as G; from train import patch, CL
-INK = 0.12
+import os as _os0
+INK = float(_os0.environ.get('GS_INK', '0.12'))
 MOD = HERE if _os.path.exists(HERE+'/heads.pkl') else _os.path.join(HERE, '..', 'gsleser')   # Forschungsordner: Modelle aus gsleser
 clf = pickle.load(open(MOD+'/heads.pkl', 'rb'))
 # Dreiecke (4. Reihe in der Notation von Elke Margetich, z. B. Philipp Ramoner): eigener kleiner Klassifikator auf denselben Ausschnitten
-TRI = pickle.load(open(MOD+'/tri.pkl', 'rb')) if _os.path.exists(MOD+'/tri.pkl') else None
+_TP = _os.environ.get('GS_TRI', MOD+'/tri.pkl')
+TRI = pickle.load(open(_TP, 'rb')) if _os.path.exists(_TP) else None
 TRI_THR, TRI_HEAD, TRI_SURE = 0.5, 0.3, 0.95   # Dreieck, wenn dessen Klassifikator ≥ 0,5 meldet und der Kopf-Klassifikator ≥ 0,3 (oder Dreieck ≥ 0,95)
 CLX = CL + ['t_f', 't_h']
+TRI_MIN = int(_os.environ.get('GS_TRIMIN', '3')); TRI_FRAC = float(_os.environ.get('GS_TRIFRAC', '0.6'))   # Seite mit Dreieck-Köpfen?
+TRI_NB = float(_os.environ.get('GS_TRINB', '0.7'))   # Dreieck neben anderem Kopf eine Lage daneben: näher als so viele Linienabstände = derselbe Kopf
+BEAM = _os.environ.get('GS_BEAM', '1') == '1'; BEAM_L = float(_os.environ.get('GS_BEAML', '1.8')); BEAM_F = float(_os.environ.get('GS_BEAMF', '0.5'))
+import gzip as _gz
+# zweites Kopfmodell für Fotos (angelernt an Wandler-Bildern, die wie Handyfotos verschlechtert wurden: blasse, dünne, unscharfe Striche);
+# wird nur bei Fotos zugemischt, saubere Seiten lesen wie bisher
+_H2 = MOD + '/heads2.pkl.gz'
+H2 = pickle.load(_gz.open(_H2, 'rb')) if _os.path.exists(_H2) and not _os.environ.get('NOH2') else None
+H2_W = float(_os.environ.get('GS_H2W', '0.5'))   # Mischgewicht; an einer nicht angelernten Rosenzopf-Seite am besten
+TRI_BOOST = float(_os.environ.get('GS_TRIB', '0.25'))   # Vorrang der Dreieck-Meldungen beim Ausdünnen
 
 def detect(path, scale=2, thr=0.5):
     g = cv2.imread(path, 0); _, bw = cv2.threshold(g, 200, 255, cv2.THRESH_BINARY_INV)
     out = []
     # Linien suchen mit hellerer Schwelle: gedruckte Notenlinien sind oft grau
     _, bwl = cv2.threshold(g, 240, 255, cv2.THRESH_BINARY_INV)
+    staves_res = []
     for si, ys in enumerate(G.staves(bwl)):
-        d = float(np.mean(np.diff(ys))); nol = G.stems_off(G.remove_lines(bw, ys, d), d); mid = ys[2]
+        d = float(np.mean(np.diff(ys))); mid = ys[2]
+        nol = G.clean_gray(g, d, int(_os.environ.get('GS_CLT', '60'))) if (G.FOTO_LINES and _os.environ.get('GS_CLEAN')) else G.stems_off(G.remove_lines(bw, ys, d), d)
         # Kandidaten: alle Lagen und Spalten, an denen nach Entfernen von Linien und Hälsen genug Tinte in Kopfgröße liegt
         ink = cv2.boxFilter((nol > 0).astype(np.float32), -1, (max(3, int(d * 0.9)), max(3, int(d * 0.6))))
         cand = []; F = []
@@ -24,7 +38,7 @@ def detect(path, scale=2, thr=0.5):
         def fpatch(pad, x, y):
             x0, y0 = int(round(x)) - r, int(round(y)) - r
             return cv2.resize(pad[y0 + 2 * r:y0 + 4 * r, x0 + 2 * r:x0 + 4 * r], (20, 20), interpolation=cv2.INTER_AREA).ravel()
-        for p in range(-13, 13):
+        for p in range(-12, 13):   # Lage -13 (sechseinhalb Linien unter dem System) kommt nicht vor, dort stehen die Bassbuchstaben
             y = int(round(mid + 0.5 - p * d / 2))
             if not (0 <= y < bw.shape[0]): continue
             row = ink[y]
@@ -33,14 +47,18 @@ def detect(path, scale=2, thr=0.5):
                     F.append(np.concatenate([fpatch(bwp, x, y), fpatch(nolp, x, y)])); cand.append((x, y, p, float(row[x])))
         if not cand: continue
         F = np.array(F); pr = clf.predict_proba(F)
+        if H2 is not None and H2_W > 0 and G.FOTO_LINES:
+            p2 = np.zeros_like(pr); p2[:, H2.classes_] = H2.predict_proba(F); pr = (1 - H2_W) * pr + H2_W * p2
         pt = TRI.predict_proba(F) if TRI is not None else None
-        hits = []
-        for i in range(len(cand)):
-            tp = pt[i][1] + pt[i][2] if pt is not None else 0
-            if cand[i][2] % 2 == 0 and tp >= TRI_THR and (1 - pr[i][0] >= TRI_HEAD or tp >= TRI_SURE):   # 4. Reihe liegt immer auf geraden Lagen
-                hits.append((round(float(tp), 3), cand[i][:3], 5 if pt[i][1] >= pt[i][2] else 6))
-            elif pr[i][0] < 1 - thr:
-                hits.append((round(1 - pr[i][0], 3), cand[i][:3], int(np.argmax(pr[i][1:])) + 1))
+        def make_hits(tri_on):
+            hits = []
+            for i in range(len(cand)):
+                tp = pt[i][1] + pt[i][2] if pt is not None else 0
+                if tri_on and cand[i][2] % 2 == 0 and tp >= TRI_THR and (1 - pr[i][0] >= TRI_HEAD or tp >= TRI_SURE):   # 4. Reihe liegt immer auf geraden Lagen
+                    hits.append((round(float(tp), 3), cand[i][:3], 5 if pt[i][1] >= pt[i][2] else 6))
+                elif pr[i][0] < 1 - thr:
+                    hits.append((round(1 - pr[i][0], 3), cand[i][:3], int(np.argmax(pr[i][1:])) + 1))
+            return hits
         # Formgüte: Übereinstimmung mit einer Kopfvorlage genau an der Stelle (trennt echte Köpfe von Treffern eine Halbstufe daneben)
         T = G.templates(d)
         def good(x, y, c):
@@ -49,17 +67,36 @@ def detect(path, scale=2, thr=0.5):
             win = nol[max(0, y0):y0 + hh, max(0, x0):x0 + ww].astype(np.float32)
             if win.shape != t.shape: return 0.0
             tt = t.astype(np.float32); return float((win * tt).sum() / (np.sqrt((win * win).sum() * (tt * tt).sum()) + 1e-6))
-        ref = sorted(((sc, good(x, y, c), (x, y, p), c) for sc, (x, y, p), c in hits), key=lambda r: (-r[0], -r[1]))
-        ref = sorted(ref, key=lambda r: -(r[0] * 0.5 + r[1]))
-        keep = []
-        for sc, gq, (x, y, p), c in ref:
-            # Dreieck neben Kreuz oder rundem Kopf eine Lage tiefer/höher (Sekunde links und rechts vom Hals) darf näher stehen
-            def apart(k):
-                if abs(k[2][2] - p) > 1: return True
-                lim = d * (1.3 if k[2][2] == p else (0.45 if (k[3] >= 5) != (c >= 5) else 0.8))
-                return abs(x - k[2][0]) > lim
-            if all(apart(k) for k in keep): keep.append((sc, gq, (x, y, p), c))
-        keep = [(sc, xyp, c) for sc, gq, xyp, c in keep]
+        bm = cv2.morphologyEx(nol, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (max(3, int(d * BEAM_L)), 1))) if BEAM else None
+        def select(hits):
+            ref = sorted(((sc, good(x, y, c), (x, y, p), c) for sc, (x, y, p), c in hits), key=lambda r: (-r[0], -r[1]))
+            # Dreieck-Meldungen haben Vorrang vor runden Köpfen an derselben Stelle (der Kopf-Klassifikator hält Dreiecke oft für runde Köpfe)
+            ref = sorted(ref, key=lambda r: -(r[0] * 0.5 + r[1] + (TRI_BOOST if CLX[r[3]].startswith('t') else 0)))
+            keep = []
+            for sc, gq, (x, y, p), c in ref:
+                # Dreieck neben Kreuz oder rundem Kopf eine Lage tiefer/höher (Sekunde links und rechts vom Hals) darf näher stehen
+                def apart(k):
+                    if abs(k[2][2] - p) > 1: return True
+                    lim = d * (1.3 if k[2][2] == p else (TRI_NB if (k[3] >= 5) != (c >= 5) else 0.8))
+                    return abs(x - k[2][0]) > lim
+                if all(apart(k) for k in keep): keep.append((sc, gq, (x, y, p), c))
+            keep = [(sc, xyp, c) for sc, gq, xyp, c in keep]
+            # Balken (dicke waagrechte Striche unter/über Notengruppen) sind keine Köpfe: Meldungen, deren Kopffläche
+            # überwiegend auf einem langen waagrechten Strich liegt, verwerfen
+            if bm is not None:
+                def on_beam(x, y):
+                    hx, hy = int(d * 0.6), int(d * 0.35); win = bm[max(0, int(y) - hy):int(y) + hy + 1, max(0, int(x) - hx):int(x) + hx + 1]
+                    return win.size and (win > 0).mean() > BEAM_F
+                keep = [k for k in keep if not on_beam(k[1][0], k[1][1])]
+            return keep
+        k_tri = select(make_hits(True)); k_no = select(make_hits(False))
+        staves_res.append((si, d, mid, k_tri, k_no))
+    # Dreiecke gibt es nur in der Schreibweise mit Dreieck-Köpfen (z. B. Elke Margetich). Auf einer Seite ohne solche Köpfe meldet
+    # der Dreieck-Klassifikator nur vereinzelt und unsicher etwas; dann gilt die Lesung ohne Dreiecke für die ganze Seite.
+    tri = [sc for _, _, _, kt, _ in staves_res for sc, _, c in kt if c >= 5]
+    tri_page = len(tri) >= TRI_MIN and sum(t >= 0.9 for t in tri) >= TRI_FRAC * len(tri)
+    for si, d, mid, k_tri, k_no in staves_res:
+        keep = k_tri if tri_page else k_no
         for sc, (x, y, p), c in keep:
             out.append({'x': x / scale, 'y': y / scale, 'p': p, 't': CLX[c][0], 'fill': CLX[c].endswith('f'), 'sc': round(float(sc), 2), 'st': si, 'd': d / scale, 'mid': mid / scale})
     return out

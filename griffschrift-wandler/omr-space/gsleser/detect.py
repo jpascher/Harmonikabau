@@ -1,7 +1,8 @@
 import os as _os; HERE=_os.path.dirname(_os.path.abspath(__file__))
 import cv2, numpy as np, json, sys, pickle
 sys.path.insert(0, HERE); import gsread as G; from train import patch, CL
-INK = 0.12
+import os as _os0
+INK = float(_os0.environ.get('GS_INK', '0.12'))
 MOD = HERE if _os.path.exists(HERE+'/heads.pkl') else _os.path.join(HERE, '..', 'gsleser')   # Forschungsordner: Modelle aus gsleser
 clf = pickle.load(open(MOD+'/heads.pkl', 'rb'))
 # Dreiecke (4. Reihe in der Notation von Elke Margetich, z. B. Philipp Ramoner): eigener kleiner Klassifikator auf denselben Ausschnitten
@@ -12,6 +13,12 @@ CLX = CL + ['t_f', 't_h']
 TRI_MIN = int(_os.environ.get('GS_TRIMIN', '3')); TRI_FRAC = float(_os.environ.get('GS_TRIFRAC', '0.6'))   # Seite mit Dreieck-Köpfen?
 TRI_NB = float(_os.environ.get('GS_TRINB', '0.7'))   # Dreieck neben anderem Kopf eine Lage daneben: näher als so viele Linienabstände = derselbe Kopf
 BEAM = _os.environ.get('GS_BEAM', '1') == '1'; BEAM_L = float(_os.environ.get('GS_BEAML', '1.8')); BEAM_F = float(_os.environ.get('GS_BEAMF', '0.5'))
+import gzip as _gz
+# zweites Kopfmodell für Fotos (angelernt an Wandler-Bildern, die wie Handyfotos verschlechtert wurden: blasse, dünne, unscharfe Striche);
+# wird nur bei Fotos zugemischt, saubere Seiten lesen wie bisher
+_H2 = MOD + '/heads2.pkl.gz'
+H2 = pickle.load(_gz.open(_H2, 'rb')) if _os.path.exists(_H2) and not _os.environ.get('NOH2') else None
+H2_W = float(_os.environ.get('GS_H2W', '0.5'))   # Mischgewicht; an einer nicht angelernten Rosenzopf-Seite am besten
 TRI_BOOST = float(_os.environ.get('GS_TRIB', '0.25'))   # Vorrang der Dreieck-Meldungen beim Ausdünnen
 
 def detect(path, scale=2, thr=0.5):
@@ -21,7 +28,8 @@ def detect(path, scale=2, thr=0.5):
     _, bwl = cv2.threshold(g, 240, 255, cv2.THRESH_BINARY_INV)
     staves_res = []
     for si, ys in enumerate(G.staves(bwl)):
-        d = float(np.mean(np.diff(ys))); nol = G.stems_off(G.remove_lines(bw, ys, d), d); mid = ys[2]
+        d = float(np.mean(np.diff(ys))); mid = ys[2]
+        nol = G.clean_gray(g, d, int(_os.environ.get('GS_CLT', '60'))) if (G.FOTO_LINES and _os.environ.get('GS_CLEAN')) else G.stems_off(G.remove_lines(bw, ys, d), d)
         # Kandidaten: alle Lagen und Spalten, an denen nach Entfernen von Linien und Hälsen genug Tinte in Kopfgröße liegt
         ink = cv2.boxFilter((nol > 0).astype(np.float32), -1, (max(3, int(d * 0.9)), max(3, int(d * 0.6))))
         cand = []; F = []
@@ -39,6 +47,8 @@ def detect(path, scale=2, thr=0.5):
                     F.append(np.concatenate([fpatch(bwp, x, y), fpatch(nolp, x, y)])); cand.append((x, y, p, float(row[x])))
         if not cand: continue
         F = np.array(F); pr = clf.predict_proba(F)
+        if H2 is not None and H2_W > 0 and G.FOTO_LINES:
+            p2 = np.zeros_like(pr); p2[:, H2.classes_] = H2.predict_proba(F); pr = (1 - H2_W) * pr + H2_W * p2
         pt = TRI.predict_proba(F) if TRI is not None else None
         def make_hits(tri_on):
             hits = []

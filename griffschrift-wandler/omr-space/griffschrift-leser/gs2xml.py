@@ -49,7 +49,7 @@ def dewarp(g,gs):
     Verschiebung der Linien von Spalte zu Spalte gemessen und das Bild so verzogen, dass die Linien wieder waagrecht laufen."""
     h,w=g.shape;k=max(1.0,max(h,w)/1600);sm=cv2.resize(gs,None,fx=1/k,fy=1/k,interpolation=cv2.INTER_AREA);H,W=sm.shape
     bw=(sm<200).astype(np.uint8)*255;lin=cv2.morphologyEx(bw,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(max(15,W//40),1))).astype(np.float32)
-    NS,NB=16,6;sw=W//NS;bh=H//NB;L=12;S=np.zeros((NB,NS),np.float32)
+    NS,NB=int(_os.environ.get('DW_NS','16')),int(_os.environ.get('DW_NB','6'));sw=W//NS;bh=H//NB;L=12;S=np.zeros((NB,NS),np.float32)
     for b in range(NB):
         y0=max(0,b*bh-L);y1=min(H,(b+1)*bh+L);prof=[lin[y0:y1,q*sw:(q+1)*sw].sum(1) for q in range(NS)]
         sh=[0.0]
@@ -95,6 +95,7 @@ def load_gray(path,target_d=18.0,_turn=True):
     foto=bool(np.median(g)<250 or (hell.size and float(np.median(np.abs(hell-np.median(hell))))>=2))
     # bei Fotos die Helligkeit schon vor der Liniensuche ausgleichen: auf grauem Hintergrund liegt sonst alles unter der Linienschwelle
     gs=cv2.divide(g,cv2.GaussianBlur(g,(0,0),max(8.0,min(g.shape)/60)),scale=255) if foto else g
+    G.FOTO_LINES=foto
     if foto and not _os.environ.get('NODEWARP'):
         g=dewarp(g,gs);gs=cv2.divide(g,cv2.GaussianBlur(g,(0,0),max(8.0,min(g.shape)/60)),scale=255)
     for f in (1,2,3):
@@ -131,6 +132,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     st,bars_d=druck_bars(g);det=D.detect(work,1);C=chords_det(det)
     off=shift+2   # Tabelle in assemble.py gilt für G-C-F-B (shift -2)
     items=[]   # je System: Akkorde und Pausen
+    fills=[]
     feats=[]
     # Zeilenanfang je System (Taktangabe im ersten System nicht als Kopf lesen)
     x_start={};x_ext={};foto_like=bool(np.median(g)<253)
@@ -161,7 +163,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
         hs=[(h,k,p+off) for h,k,p in zip(c,ks,ps) if p]
         if not hs: continue
         ys=st[si];d=(ys[4]-ys[0])/4;nl=G.remove_lines(bw,ys,d)
-        fill=float(np.mean([h['fill'] for h,_,_ in hs]))
+        fill=float(np.mean([h['fill'] for h,_,_ in hs]));fills.append(fill)
         feats.append(np.concatenate([strip(nl,x,ys[2],d,fill),np.array(beam_feats(nl,x,[h['y'] for h,_,_ in hs],d)+[dot_feat(nl,x,[h['y'] for h,_,_ in hs],d)])*20]).astype(np.float32))
         items.append(dict(kind='n',st=si,x=x,dir=dr,heads=[(k[0],k[1],p) for _,k,p in hs],fi=len(feats)-1,hy=[(h['x'],h['y'],k[0]) for h,k,_ in hs]))
     _DBG['feats']=feats
@@ -170,6 +172,12 @@ def read(path,shift=0,work=None,table=None,bass=None):
     if RCLF2 is not None and len(feats):
         Q9=np.zeros((len(P),len(UNIT)));Q9[:,RCLF2.classes_]=RCLF2.predict_proba(np.array(feats))
         lp=(1-RW2)*np.log(np.clip(P9,1e-4,1))+RW2*np.log(np.clip(Q9,1e-4,1))
+    # hohle Köpfe sind Halbe oder länger, volle Köpfe kürzer (weiche Vorgabe, das Modell kann sie mit klaren Hinweisen überstimmen)
+    FP=float(_os.environ.get('GS_FILLPEN','0'))   # erprobt: auf Rosenzopf-Fotos schlechter, daher aus
+    for i_,(it,f_) in enumerate(zip(items,fills)):
+        if FP>0:
+            for k_,u_ in enumerate(UNIT):
+                if (f_<0.5 and u_<24) or (f_>=0.5 and u_>=24): lp[i_][k_]-=FP
     for it,row in zip(items,lp): it['lp']=row
     meas=[];medge=[];letters={}
     for si,ys in enumerate(st):
