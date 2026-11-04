@@ -16,7 +16,7 @@ BEAM = _os.environ.get('GS_BEAM', '1') == '1'; BEAM_L = float(_os.environ.get('G
 import gzip as _gz
 # zweites Kopfmodell für Fotos (angelernt an Wandler-Bildern, die wie Handyfotos verschlechtert wurden: blasse, dünne, unscharfe Striche);
 # wird nur bei Fotos zugemischt, saubere Seiten lesen wie bisher
-_H2 = MOD + '/heads2.pkl.gz'
+_H2 = _os.environ.get('GS_H2', MOD + '/heads2.pkl.gz')
 H2 = pickle.load(_gz.open(_H2, 'rb')) if _os.path.exists(_H2) and not _os.environ.get('NOH2') else None
 H2_W = float(_os.environ.get('GS_H2W', '0.5'))   # Mischgewicht; an einer nicht angelernten Rosenzopf-Seite am besten
 TRI_BOOST = float(_os.environ.get('GS_TRIB', '0.25'))   # Vorrang der Dreieck-Meldungen beim Ausdünnen

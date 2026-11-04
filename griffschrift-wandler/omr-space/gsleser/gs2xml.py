@@ -161,6 +161,8 @@ def read(path,shift=0,work=None,table=None,bass=None):
             if foto_like: x_start[si]=float(a_)
     for c in C:
         si=c[0]['st'];x=float(np.median([h['x'] for h in c]))
+        xo=[h['x'] for h in c if h['t']!='x']   # Kreuze links vor dem Akkord: Lage des Akkords (und Hals) nach den runden Köpfen
+        if xo and len(xo)<len(c) and all(h['x']<min(xo)-0.5*h['d'] for h in c if h['t']=='x'): x=float(np.median(xo))
         if si==0 and x<x_start[0]+6*(st[0][4]-st[0][0])/4: continue
         if si in x_ext and not (x_ext[si][0]-0.5*(st[si][4]-st[si][0])/4<=x<=x_ext[si][1]+0.5*(st[si][4]-st[si][0])/4): continue   # außerhalb des Systems
         dr='D' if any(a-3<=x<=b+3 for a,b,_ in bars_d.get(si,[])) else 'Z'

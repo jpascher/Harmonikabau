@@ -12,6 +12,7 @@ def upscale(src,dst):
     im=Image.open(src).convert('RGBA');bg=Image.new('RGBA',im.size,(255,255,255,255));bg.alpha_composite(im)   # durchsichtiger Hintergrund -> weiß
     g=np.array(bg.convert('L'));g=cv2.resize(g,None,fx=3,fy=3,interpolation=cv2.INTER_CUBIC);cv2.imwrite(dst,g);return dst
 SEC=float(_os.environ.get('GS_SEC','1.5'))
+XL=float(_os.environ.get('GS_XL','1.8'))   # Kreuz links vor dem Akkord (gleiche Lage wie ein Kopf rechts daneben): gehört zum Akkord; 0 = aus
 def chords_det(det):
     out=[]
     for st in sorted(set(h['st'] for h in det)):
@@ -20,6 +21,11 @@ def chords_det(det):
             if out and out[-1][0]['st']==st:
                 c=out[-1];dx=h['x']-np.median([q['x'] for q in c])
                 if dx<0.8*d: c.append(h);continue
+                # Kreuze links neben vollen Köpfen derselben Lage (z. B. Michlbauer: großes X vor dem Akkord): Abstand zu den runden Köpfen messen
+                if XL and h['t']!='x' and any(q['t']=='x' for q in c):
+                    co=[q for q in c if q['t']!='x']; cx=[q for q in c if q['t']=='x']
+                    if co and h['x']-np.median([q['x'] for q in co])<0.8*d: c.append(h);continue
+                    if not co and h['x']-max(q['x'] for q in cx)<XL*d and min(abs(h['p']-q['p']) for q in cx)<=1: c.append(h);continue
                 # Sekunde am Hals: ein Kopf auf der anderen Halsseite, genau eine Lage neben einem Kopf des Akkords (z. B. Dreieck links, Kreuz rechts)
                 if dx<SEC*d and min(abs(h['p']-q['p']) for q in c)==1: c.append(h);continue
             out.append([h])

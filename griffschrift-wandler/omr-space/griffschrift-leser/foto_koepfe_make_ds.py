@@ -20,11 +20,12 @@ def run(key):
         H = [dict(x=h['x'], p=h['p'], c=('x_f' if h['t'] == 'x' else ('o_f' if h['fill'] else 'o_h')) if h['t'] in 'ox' else 'o_f') for h in det if h['st'] == si]
         for h in H:
             if h['x'] > lab.XMAX or h['x'] < getattr(lab, 'XMIN', 0): h['c'] = 'none'
-        for x, p, c in lab.L.get(si, []):
+        for e in lab.L.get(si, []):
+            x, p, c = e[:3]; fix = len(e) > 3   # vierter Eintrag: Lage genau so übernehmen
             cand = [h for h in H if h['p'] == p and abs(h['x'] - x) < 0.8 * d]
             if cand: min(cand, key=lambda h: abs(h['x'] - x))['c'] = c
             else:   # ergänzen: genaue Lage über die meiste Tinte in der Nähe
-                y = ypos(p); best = max(range(int(x - 0.6 * d), int(x + 0.6 * d)), key=lambda xx: int(nol[max(0, y - 4):y + 5, max(0, xx - 6):xx + 7].sum()))
+                y = ypos(p); best = x if fix else max(range(int(x - 0.6 * d), int(x + 0.6 * d)), key=lambda xx: int(nol[max(0, y - 4):y + 5, max(0, xx - 6):xx + 7].sum()))
                 H.append(dict(x=float(best), p=p, c=c))
         pos = [(h['x'], ypos(h['p'])) for h in H if h['c'] != 'none']
         for h in H:
