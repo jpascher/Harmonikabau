@@ -132,7 +132,12 @@ def read(path,shift=0,work=None,table=None,bass=None):
     st,bars_d=druck_bars(g);det=D.detect(work,1);C=chords_det(det)
     off=shift+2   # Tabelle in assemble.py gilt für G-C-F-B (shift -2)
     items=[]   # je System: Akkorde und Pausen
-    fills=[]
+    fills=[];dots=[]
+    _dc={}
+    def dot_img(si,d,nl):   # Fotos: Punkte im Graubild ohne Linien suchen (remove_lines lässt dort Linienreste stehen, die am Punkt kleben)
+        if not (G.FOTO_LINES and _os.environ.get('GS_DOTCLEAN')): return nl   # erprobt: im Graubild sind die Punkte zu klein, daher aus
+        if si not in _dc: _dc[si]=G.clean_gray(g,d,int(_os.environ.get('GS_DOTT','60')))
+        return _dc[si]
     feats=[]
     # Zeilenanfang je System (Taktangabe im ersten System nicht als Kopf lesen)
     x_start={};x_ext={};foto_like=bool(np.median(g)<253)
@@ -164,7 +169,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
         if not hs: continue
         ys=st[si];d=(ys[4]-ys[0])/4;nl=G.remove_lines(bw,ys,d)
         fill=float(np.mean([h['fill'] for h,_,_ in hs]));fills.append(fill)
-        feats.append(np.concatenate([strip(nl,x,ys[2],d,fill),np.array(beam_feats(nl,x,[h['y'] for h,_,_ in hs],d)+[dot_feat(nl,x,[h['y'] for h,_,_ in hs],d)])*20]).astype(np.float32))
+        dots.append(dot_feat(dot_img(si,d,nl),x,[h['y'] for h,_,_ in hs],d));feats.append(np.concatenate([strip(nl,x,ys[2],d,fill),np.array(beam_feats(nl,x,[h['y'] for h,_,_ in hs],d)+[dots[-1]])*20]).astype(np.float32))
         items.append(dict(kind='n',st=si,x=x,dir=dr,heads=[(k[0],k[1],p) for _,k,p in hs],fi=len(feats)-1,hy=[(h['x'],h['y'],k[0]) for h,k,_ in hs]))
     _DBG['feats']=feats
     P=RCLF.predict_proba(np.array(feats)) if feats else np.zeros((0,len(RCLF.classes_)))
@@ -173,11 +178,15 @@ def read(path,shift=0,work=None,table=None,bass=None):
         Q9=np.zeros((len(P),len(UNIT)));Q9[:,RCLF2.classes_]=RCLF2.predict_proba(np.array(feats))
         lp=(1-RW2)*np.log(np.clip(P9,1e-4,1))+RW2*np.log(np.clip(Q9,1e-4,1))
     # hohle Köpfe sind Halbe oder länger, volle Köpfe kürzer (weiche Vorgabe, das Modell kann sie mit klaren Hinweisen überstimmen)
-    FP=float(_os.environ.get('GS_FILLPEN','0'))   # erprobt: auf Rosenzopf-Fotos schlechter, daher aus
+    FP=float(_os.environ.get('GS_FILLPEN','0'))
+    DP=float(_os.environ.get('GS_DOTPEN','0'))   # erprobt, ohne Gewinn: aus   # erprobt: auf Rosenzopf-Fotos schlechter, daher aus
     for i_,(it,f_) in enumerate(zip(items,fills)):
+        if G.FOTO_LINES and dots[i_]>0.5 and DP>0:   # Fotos: ein klar erkannter Punkt spricht für einen punktierten Wert
+            for k_,u_ in enumerate(UNIT):
+                if u_ not in (9,18,36): lp[i_][k_]-=DP
         if FP>0:
             for k_,u_ in enumerate(UNIT):
-                if (f_<0.5 and u_<24) or (f_>=0.5 and u_>=24): lp[i_][k_]-=FP
+                if (f_<0.5 and u_<24) or (f_>=0.5 and u_>=24 and not _os.environ.get('FP_HOLONLY')): lp[i_][k_]-=FP
     for it,row in zip(items,lp): it['lp']=row
     meas=[];medge=[];letters={}
     for si,ys in enumerate(st):
@@ -206,6 +215,30 @@ def read(path,shift=0,work=None,table=None,bass=None):
                 for g_ in allg[max(0,j-1):j+2]: g_[0]['trip']=True
     def gl(gr): return sum(e['lp'] for e in gr)
     def uu(gr,u): return TRIP.get(u,u) if gr[0].get('trip') else u
+    def letter_times(mi,si,m,Lm):
+        """Fotos: Die Bassbuchstaben stehen auf den Schlägen und bilden ein Zeitraster. Einsätze der Noten und Pausen über ihre Lage
+        zwischen den Buchstaben bestimmen (auf Achtel gerundet), Dauern als Abstand zum nächsten Einsatz. None, wenn es nicht aufgeht."""
+        if any(gr[0].get('trip') for gr in m) or not letters.get(si): return None
+        a,b,dd=medge[mi];L_=sorted(x for x,c in letters[si] if a<x<b);k=len(L_)
+        if k<2 or Lm%k: return None
+        step=Lm//k;sx=(L_[-1]-L_[0])/(k-1)
+        if sx<1.5*dd: return None
+        A=[(L_[0]-sx,-step)]+[(x,i*step) for i,x in enumerate(L_)]+[(L_[-1]+sx,Lm)]
+        def tx(x):
+            for (x1,t1),(x2,t2) in zip(A,A[1:]):
+                if x<=x2: return t1+(x-x1)/max(1e-6,x2-x1)*(t2-t1)
+            return Lm
+        grid=6 if step%6==0 else 3
+        ts=[max(0,int(round(tx(float(np.mean([e['x'] for e in gr])))/grid)*grid)) for gr in m]
+        if any(t2<=t1 for t1,t2 in zip(ts,ts[1:])) or ts[0]!=0 or ts[-1]>=Lm: return None
+        us=[t2-t1 for t1,t2 in zip(ts,ts[1:])]+[Lm-ts[-1]];out=[]
+        for gr,u in zip(m,us):
+            if gr[0]['kind']=='r':
+                if u!=gr[0]['u']: return None
+            else:
+                if u not in UNIT: return None
+                out.append(UNIT.index(u))
+        return out
     def length(m,ch=None):
         t=0;k=0
         for q,gr in enumerate(m):
@@ -217,14 +250,16 @@ def read(path,shift=0,work=None,table=None,bass=None):
     Ls={}
     for si in set(si for si,_ in meas):
         cs=[c for c in collections.Counter(length(m) for s_,m in meas if s_==si).most_common() if c[0] in (18,24,36,48,72)]
-        Ls[si]=cs[0][0] if cs and cs[0][1]>=2 else Lg   # nur übliche Taktarten (3/8, 2/4, 3/4, 4/4, 6/4)
+        nm_=sum(1 for s_,_ in meas if s_==si);Ls[si]=cs[0][0] if cs and cs[0][1]>=2 and (not G.FOTO_LINES or cs[0][0]==Lg or cs[0][1]>=max(3,0.5*nm_)) else Lg   # Fotos: Abweichung vom Stück nur bei klarer Mehrheit im System   # nur übliche Taktarten (3/8, 2/4, 3/4, 4/4, 6/4)
     out=[];lens=[]
     for mi,(si,m) in enumerate(meas):
         Lm=Ls[si]
         notes=[q for q,gr in enumerate(m) if gr[0]['kind']=='n'];ch=[int(np.argmax(gl(m[q]))) for q in notes]
-        if length(m)!=Lm and not (mi==0 and length(m)<Lm):
+        lch=letter_times(mi,si,m,Lm) if (G.FOTO_LINES and not _os.environ.get('NOLETTIME')) else None
+        if lch: ch=lch
+        elif length(m)!=Lm and not (mi==0 and length(m)<Lm):
             PG=np.array([np.exp(gl(m[q])-gl(m[q]).max()) for q in notes]);PG=PG/PG.sum(1,keepdims=True) if len(PG) else PG
-            f=fit_measure(PG,[uu(gr,gr[0]['u']) for gr in m if gr[0]['kind']=='r'],Lm,units=[[uu(m[q],u) for u in UNIT] for q in notes])
+            f=fit_measure(maxloss=float(_os.environ.get('GS_FITLOSS','12' if G.FOTO_LINES else '6')),P=PG,rest_units=[uu(gr,gr[0]['u']) for gr in m if gr[0]['kind']=='r'],L=Lm,units=[[uu(m[q],u) for u in UNIT] for q in notes])
             if f: ch=f
         evs=[];k=0
         for gr in m:

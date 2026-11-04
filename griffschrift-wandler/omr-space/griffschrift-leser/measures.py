@@ -34,7 +34,7 @@ def rests(bw,nol,ys,d,heads,bars):
         if any(abs(cx-hx)<1.0*d and abs(cy-hy)<1.2*d for hx,hy in heads): continue
         if any(abs(cx-b)<0.6*d for b in bars) or cx<4*d: continue
         c=(cy-ys[2])/d;fillr=a/(w*h)
-        if 2.5<=h<=3.5 and 0.8<=w<=1.4 and 0.38<=fillr<=0.65 and abs(c)<1: u=12            # Viertelpause
+        if (2.5<=h<=3.5 and 0.8<=w<=1.4 or G.FOTO_LINES and 2.0<=h<=3.5 and 0.6<=w<=1.4) and 0.38<=fillr<=0.65 and abs(c)<1: u=12            # Viertelpause (auf Fotos etwa bei Rosenzopf kleiner)
         elif 1.5<=h<=2.2 and 0.9<=w<=1.4 and 0.35<=fillr<=0.6 and abs(c)<0.8: u=6        # Achtelpause
         elif 0.5<=h<=0.95 and 1.05<=w<=1.7 and fillr>0.6 and -1.1<c<0.1: u=24 if c>-0.5 else 48   # Halbe/Ganze Pause
         else: continue
