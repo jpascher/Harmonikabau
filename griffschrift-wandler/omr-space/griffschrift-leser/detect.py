@@ -47,7 +47,7 @@ def detect(path, scale=2, thr=0.5):
                     F.append(np.concatenate([fpatch(bwp, x, y), fpatch(nolp, x, y)])); cand.append((x, y, p, float(row[x])))
         if not cand: continue
         F = np.array(F); pr = clf.predict_proba(F)
-        if H2 is not None and H2_W > 0 and G.FOTO_LINES:
+        if H2 is not None and H2_W > 0 and (G.FOTO_LINES or _os.environ.get('GS_H2ALL')):   # GS_H2ALL: Fotomodell auch auf Scans zumischen (Versuch)
             p2 = np.zeros_like(pr); p2[:, H2.classes_] = H2.predict_proba(F); pr = (1 - H2_W) * pr + H2_W * p2
         pt = TRI.predict_proba(F) if TRI is not None else None
         def make_hits(tri_on):

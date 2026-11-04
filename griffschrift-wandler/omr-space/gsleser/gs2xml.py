@@ -81,7 +81,19 @@ def upside_down(g,st):
     a=cnt(g)
     if a>=8*len(st): return False   # viele sicher gelesene Buchstaben: steht richtig (bei weniger immer auch gedreht zählen; auf dem Kopf liest das Modell auch einige)
     r=cnt(cv2.rotate(g,cv2.ROTATE_180))
-    return r>=max(8,1.5*a)
+    if max(a,r)>=len(st): return r>=max(8,1.5*a)
+    # kaum Bassbuchstaben unter den Systemen (etwa Steinkellner: Buchstaben über dem System): der Titel steht oben;
+    # die größte Schrift außerhalb der Systeme nur unterhalb der Systeme heißt: Seite liegt auf dem Kopf
+    if _os.environ.get('GS_TITLETURN','0')!='1' or not st: return False
+    d=float(np.median([(s_[4]-s_[0])/4 for s_ in st]));_,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV)
+    def big(y0,y1):
+        y0=max(0,int(y0));y1=min(bw.shape[0],int(y1))
+        if y1-y0<2*d: return 0.0
+        n,_,S,_=cv2.connectedComponentsWithStats((bw[y0:y1]>0).astype(np.uint8))
+        hs=[S[i][3] for i in range(1,n) if 1.8*d<=S[i][3]<=6*d and S[i][2]<=6*d and S[i][4]>0.25*S[i][2]*S[i][3]]
+        return float(np.percentile(hs,90)) if len(hs)>=3 else 0.0
+    up=big(0,st[0][0]-1.5*d);dn=big(st[-1][4]+6*d,bw.shape[0])
+    return dn>=2.2*d and dn>=1.3*up
 def load_gray(path,target_d=18.0,_turn=True):
     im=Image.open(path)
     try: im=ImageOps.exif_transpose(im)   # Handyfotos: Drehung aus den Bilddaten
@@ -107,7 +119,7 @@ def load_gray(path,target_d=18.0,_turn=True):
             # Hintergrund ausgleichen, aber nur bei Fotos (grauer oder verrauschter Hintergrund); saubere Scans und Bilder bleiben unverändert
             if foto: g=cv2.divide(g,cv2.GaussianBlur(g,(0,0),20),scale=255)
             if foto and _os.environ.get('GAMMA'): g=(255*(g/255.0)**float(_os.environ['GAMMA'])).astype(np.uint8)   # blasse Striche kräftiger
-            if _turn and foto:   # Foto auf dem Kopf: um 180° drehen und noch einmal (nur bei Fotos; saubere Bilder stehen richtig)
+            if _turn and (foto or _os.environ.get('GS_TURNALL','0')=='1'):   # Foto auf dem Kopf (GS_TURNALL=1: auch saubere Scans prüfen, Versuch): um 180° drehen und noch einmal (nur bei Fotos; saubere Bilder stehen richtig)
                 st2=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1])
                 if st2 and upside_down(g,st2): return _load_rot(path,target_d)
             return g
@@ -276,7 +288,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     for mi,(si,m) in enumerate(meas):
         Lm=Ls[si]
         notes=[q for q,gr in enumerate(m) if gr[0]['kind']=='n'];ch=[int(np.argmax(gl(m[q]))) for q in notes]
-        lch=letter_times(mi,si,m,Lm) if (G.FOTO_LINES and not _os.environ.get('NOLETTIME')) else None
+        lch=letter_times(mi,si,m,Lm) if ((G.FOTO_LINES or _os.environ.get('GS_LETALL','1')=='1') and not _os.environ.get('NOLETTIME')) else None
         if lch: ch=lch
         elif length(m)!=Lm and not (mi==0 and length(m)<Lm):
             PG=np.array([np.exp(gl(m[q])-gl(m[q]).max()) for q in notes]);PG=PG/PG.sum(1,keepdims=True) if len(PG) else PG

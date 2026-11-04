@@ -18,6 +18,8 @@ def page_views(g):
         return V[si]
     return st,view
 
+import os as _os
+BEAMCONN=_os.environ.get('GS_BEAMCONN','1')=='1'   # nur am Hals hängende Balken/Fähnchen zählen (Fingersätze und Akzente über dem Hals, etwa bei Michlbauer, sonst als Fähnchen gelesen)
 def beam_feats(nl,cx,ys_heads,d):
     """Hals suchen (längste senkrechte Linie nahe den Köpfen), an seinem Ende Balken/Fähnchen links und rechts zählen, Punkt rechts."""
     H,W=nl.shape;top=int(min(ys_heads));bot=int(max(ys_heads));best=(0,0,0,0)
@@ -43,6 +45,12 @@ def beam_feats(nl,cx,ys_heads,d):
         x=int(sx+side*0.45*d)   # Balken nur am Halsende zählen, nicht bis zum Kopf
         if not 0<=x<W: out.append(0);continue
         y0,y1=sorted((ey,int(ey-dr*max(0.6*d,min(1.7*d,L-1.3*d)))));seg=nl[max(0,y0-2):min(H,y1+2),x]>0
+        if BEAMCONN and seg.any():
+            # nur Striche zählen, die am Hals hängen (Balken, Fähnchen); Fingersätze und Akzente über dem Hals stehen frei
+            ya=max(0,y0-2);xa,xb=sorted((sx,x));band=nl[ya:ya+len(seg),xa:xb+1]>0
+            conn=band.all(1) if band.shape[1] else seg
+            conn=conn|np.r_[False,conn[:-1]]|np.r_[conn[1:],False]
+            seg=seg&conn
         runs=int(np.sum(np.diff(seg.astype(np.int8))==1)+(1 if len(seg) and seg[0] else 0));out.append(runs)
     # Punkt rechts vom Kopf (kleiner Fleck), auf Kopfhöhe oder knapp darüber
     hy=int(np.mean(ys_heads));win=nl[max(0,hy-int(.6*d)):hy+int(.3*d)+1,int(cx+0.9*d):int(cx+2*d)]
