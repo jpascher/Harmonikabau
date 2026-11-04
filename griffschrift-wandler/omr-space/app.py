@@ -45,13 +45,20 @@ def scan_gs(file, shift, layout=""):
             for i, pg in enumerate(doc):
                 if i >= 4: break
                 fn = os.path.join(tmp, f"s{i}.png"); pg.get_pixmap(dpi=200).save(fn); pages.append(fn)
-        xml, pins = gs2xml.convert(pages, shift=int(shift or 0), table=gs2xml.parse_table(layout))
+        bilder = []   # Kontrollbilder je Seite (JPEG): erkannte Köpfe, Notenwerte, nicht aufgehende Takte
+        xml, pins = gs2xml.convert(pages, shift=int(shift or 0), table=gs2xml.parse_table(layout), bilder=bilder)
     except Exception as e:
         raise gr.Error("Erkennung fehlgeschlagen: " + str(e)[-400:])
-    out = os.path.join(tempfile.mkdtemp(), "griffschrift.json")
+    import base64
+    tmp = tempfile.mkdtemp(); out = os.path.join(tmp, "griffschrift.json"); imgs = []
+    for i, b in enumerate(bilder):
+        fn = os.path.join(tmp, f"kontrollbild_{i + 1}.jpg")
+        with open(fn, "wb") as f:
+            f.write(b)
+        imgs.append(fn)
     with open(out, "w", encoding="utf-8") as f:
-        json.dump({"xml": xml, "pins": pins}, f)
-    return out
+        json.dump({"xml": xml, "pins": pins, "bild": ["data:image/jpeg;base64," + base64.b64encode(b).decode() for b in bilder]}, f)
+    return out, imgs
 
 nn = gr.Interface(
     fn=scan,
@@ -69,9 +76,9 @@ gs = gr.Interface(
     inputs=[gr.File(label="Foto oder PDF gedruckter Griffschrift", file_types=["image", ".pdf"]),
             gr.Number(label="Stimmung als Verschiebung (A-D-G-C = 0, G-C-F-B = -2, B-Es-As-Des = 1 …)", value=0, precision=0),
             gr.Textbox(label="Diskantbelegung als JSON (leer = 446 Normal; der Wandler schickt seine eingestellte Belegung mit)", value="")],
-    outputs=gr.File(label="JSON mit MusicXML und Griffen"),
+    outputs=[gr.File(label="JSON mit MusicXML und Griffen"), gr.Gallery(label="Kontrollbild", columns=1, height="auto")],
     title="Griffschrift lesen (Versuch)",
-    description="Gedruckte Steirische Griffschrift (3- und 4-Reiher; Stil Franz Fuchs, 4. Reihe auch als Dreieck wie bei Elke Margetich) → Normalnoten (MusicXML) und Griffe mit Balgrichtung für den Griffschrift-Wandler. Versuchsstand.",
+    description="Gedruckte Steirische Griffschrift (3- und 4-Reiher; Stil Franz Fuchs, 4. Reihe auch als Dreieck wie bei Elke Margetich) → Normalnoten (MusicXML) und Griffe mit Balgrichtung für den Griffschrift-Wandler. Versuchsstand. Das Kontrollbild zeigt, was gelesen wurde: Kreise um die erkannten Köpfe (Farbe = Reihe: 1 blau, 2 grün, 3 rot, 4 lila), über dem System der Notenwert (8 Achtel, 4 Viertel, 4. punktierte Viertel, P Pause), unter dem System die Taktnummer; rot hinterlegte Takte mit „!“ gehen nicht auf.",
     api_name="scan_gs",
     flagging_mode="never",
     delete_cache=(1800, 3600),

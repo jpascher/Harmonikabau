@@ -8,13 +8,13 @@ from align import chords_det
 from assemble import button,pitch
 from fuchsread import druck_bars
 from rhythm import strip,beam_feats,dot_feat
-from measures import barlines,rests,fit_measure,UNIT
+from measures import barlines,rests,fit_measure,UNIT,straight_bar
 import bassread as BR
 _RD=HERE if _os.path.exists(HERE+'/rhythm.pkl') else _os.path.join(HERE,'..','gsleser')
 RCLF=pickle.load(open(_RD+'/rhythm.pkl','rb'))
 # zweites Notenwert-Modell, angelernt an echten Seiten (Philipps Übungsstücke, Fuchs-Seiten mit MIDI); beide Urteile werden gemischt
 import gzip as _gz
-_R2=_RD+'/rhythm2.pkl.gz'   # gepackt, damit die Datei klein bleibt
+_R2=_os.environ.get('GS_RH2',_RD+'/rhythm2.pkl.gz')   # gepackt, damit die Datei klein bleibt
 RCLF2=pickle.load(_gz.open(_R2,'rb')) if _os.path.exists(_R2) and not _os.environ.get('NORH2') else None
 RW2=float(_os.environ.get('RW2','0.6'))
 SHIFT={'GCFB':-2,'ADGC':0,'BEsAsDes':1,'HEAD':2,'CFBEs':3,'FBEsAsDes':-4,'FBEsAs':-4,'EADG':-5,'DGCF':-7}
@@ -79,7 +79,7 @@ def upside_down(g,st):
         for si in range(len(ss)): n+=len(BR.read_letters(bw,ss,si,(ss[si][4]-ss[si][0])/4))
         return n
     a=cnt(g)
-    if a>=3*len(st): return False
+    if a>=8*len(st): return False   # viele sicher gelesene Buchstaben: steht richtig (bei weniger immer auch gedreht zählen; auf dem Kopf liest das Modell auch einige)
     r=cnt(cv2.rotate(g,cv2.ROTATE_180))
     return r>=max(8,1.5*a)
 def load_gray(path,target_d=18.0,_turn=True):
@@ -121,6 +121,22 @@ def _load_rot(path,target_d):
     finally:
         try: _os.remove(fn)
         except Exception: pass
+def thick_bar_filter(det,bw):
+    """Köpfe auf dicken Taktstrichen (Wiederholungszeichen, Schlussstrich) verwerfen: auf Fotos liest das Kopfmodell
+    die dicke senkrechte Linie oft als Kopf oder Kreuz und verdeckt damit auch den Taktstrich (GS_THICK=0: aus)"""
+    if _os.environ.get('GS_THICK','1')=='0' or not det or not G.FOTO_LINES: return det   # nur Fotos: auf sauberen Seiten kostet es echte Akkorde
+    out=[];cache={}
+    for h in det:
+        k=h['st']
+        if k not in cache:
+            d=h['d'];top=int(round(h['mid']-2*d));bot=int(round(h['mid']+2*d))
+            if top<0 or bot>=bw.shape[0]: cache[k]=[]
+            else:
+                ins=(bw[top:bot+1]>0).mean(0)>0.92;e=np.flatnonzero(np.diff(np.concatenate([[0],ins.astype(np.int8),[0]])))
+                cache[k]=[(a+b_)/2 for a,b_ in zip(e[::2],e[1::2]) if 0.3*d<=b_-a<=0.9*d and straight_bar(bw,top,bot,a,b_,d)]
+        if any(abs(h['x']-x)<0.8*h['d'] for x in cache[k]): continue
+        out.append(h)
+    return out
 def read(path,shift=0,work=None,table=None,bass=None):
     """shift: Stimmung wie im Wandler (A-D-G-C = 0, G-C-F-B = -2 …). bass: Liste, an die je Takt die gelesenen Bassbuchstaben (Lage im Takt in Zwölftel-Vierteln, Buchstabe) angehängt werden."""
     g=load_gray(path)
@@ -129,7 +145,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     if work is None:
         import tempfile;work=_tmp=tempfile.mktemp(suffix='.png')
     cv2.imwrite(work,g);_,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV)
-    st,bars_d=druck_bars(g);det=D.detect(work,1);C=chords_det(det)
+    st,bars_d=druck_bars(g);det=thick_bar_filter(D.detect(work,1),bw);C=chords_det(det)
     off=shift+2   # Tabelle in assemble.py gilt für G-C-F-B (shift -2)
     items=[]   # je System: Akkorde und Pausen
     fills=[];dots=[]
@@ -144,8 +160,11 @@ def read(path,shift=0,work=None,table=None,bass=None):
     for si,ys in enumerate(st):
         row=np.where(bw[int(round(ys[0]))]>0)[0];x_start[si]=float(row.min()) if len(row) else 0.0
         # Ausdehnung des Systems: Spalten, in denen (fast) alle fünf Linien Tinte haben; längstes Stück (Fotos: Seitenrand und Nachbarseite bleiben draußen)
-        hl=cv2.morphologyEx(bw[max(0,int(ys[0])-8):int(ys[4])+9],cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(max(5,int(2*(ys[4]-ys[0])/4)),1)));o0=max(0,int(ys[0])-8)
-        w_=max(1,int(0.25*(ys[4]-ys[0])/4));cols=sum((hl[max(0,int(round(y))-o0-w_):int(round(y))-o0+w_+1].max(0)>0).astype(np.int8) for y in ys)>=3
+        # Toleranz um jede Linie (GS_XEXTW, in Linienabständen): auf gewölbten Fotoseiten laufen die Linien bis zu einem halben Abstand von ihrer Höhe weg
+        _xw=float(_os.environ.get('GS_XEXTW','0.45' if (foto_like or G.FOTO_LINES) else '0.25'));_pad=int(8+_xw*(ys[4]-ys[0])/4)
+        hl=cv2.morphologyEx(bw[max(0,int(ys[0])-_pad):int(ys[4])+_pad+1],cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(max(5,int(2*(ys[4]-ys[0])/4)),1)));o0=max(0,int(ys[0])-_pad)
+        w_=max(1,int(_xw*(ys[4]-ys[0])/4));cols=sum((hl[max(0,int(round(y))-o0-w_):int(round(y))-o0+w_+1].max(0)>0).astype(np.int8) for y in ys)>=3
+        # volle Tintenblöcke breiter als 1,5 Linienabstände (Stempel, Aufkleber) sind kein System; Taktstriche und Wiederholungszeichen bleiben
         cols=cv2.dilate(cols.astype(np.uint8)[None],np.ones((1,9),np.uint8))[0]>0
         runs=[];a_=None
         for xx,v in enumerate(list(cols)+[False]):
@@ -173,7 +192,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
         fill=float(np.mean([h['fill'] for h,_,_ in hs]));fills.append(fill)
         dots.append(dot_feat(dot_img(si,d,nl),x,[h['y'] for h,_,_ in hs],d));feats.append(np.concatenate([strip(nl,x,ys[2],d,fill),np.array(beam_feats(nl,x,[h['y'] for h,_,_ in hs],d)+[dots[-1]])*20]).astype(np.float32))
         items.append(dict(kind='n',st=si,x=x,dir=dr,heads=[(k[0],k[1],p) for _,k,p in hs],fi=len(feats)-1,hy=[(h['x'],h['y'],k[0]) for h,k,_ in hs]))
-    _DBG['feats']=feats
+    _DBG['feats']=feats;_DBG['x_ext']=x_ext;_DBG['x_start']=x_start
     P=RCLF.predict_proba(np.array(feats)) if feats else np.zeros((0,len(RCLF.classes_)))
     P9=np.zeros((len(P),len(UNIT)));P9[:,RCLF.classes_]=P;lp=np.log(np.clip(P9,1e-6,1))
     if RCLF2 is not None and len(feats):
@@ -298,13 +317,53 @@ def parse_table(s):
             out[dr]={int(r):[int(v) for v in a][:40] for r,a in t[dr].items() if int(r) in (1,2,3,4)}
         return out if all(len(out[dr])==4 for dr in out) else None
     except Exception: return None
-def convert(paths,shift=0,title='Gescannte Griffschrift',table=None):
-    """Eine oder mehrere Seiten (Bilder) -> (MusicXML, Pins); Takte der Seiten hintereinander. table: Diskantbelegung des Wandlers (sonst 446 Normal)."""
-    allm=[];Lm=None;bass=[]
+PB_COL={1:(220,90,0),2:(0,150,0),3:(0,0,220),4:(190,0,190)}   # Reihe 1 blau, 2 grün, 3 rot, 4 lila (BGR)
+PB_UN={2:'16T',3:'16',4:'8T',6:'8',8:'4T',9:'8.',12:'4',16:'2T',18:'4.',24:'2',36:'2.',48:'1'}
+def pruefbild(g,meas,lens,num0,maxw=1600):
+    """Kontrollbild einer Seite: erkannte Köpfe (Farbe = Reihe), Notenwert über dem System, Taktnummer darunter;
+    Takte, deren Länge nicht aufgeht, rot hinterlegt. Ohne Wörter im Bild (Erklärung steht im Wandler). Rückgabe: JPEG-Bytes."""
+    st=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1]);c=cv2.cvtColor(g,cv2.COLOR_GRAY2BGR);ov=c.copy()
+    fs=lambda d:max(0.4,d/26);lab=[]
+    for mi,(m,L) in enumerate(zip(meas,lens)):
+        if not m: continue
+        ok=sum(e['u'] for e in m)==L;by={}
+        for e in m: by.setdefault(e['dbg'][0],[]).append(e)
+        for si,es in by.items():
+            if si>=len(st): continue
+            ys=st[si];d=(ys[4]-ys[0])/4;xs=[e['dbg'][2] for e in es]
+            if not ok: cv2.rectangle(ov,(int(min(xs)-0.9*d),int(ys[0]-1.2*d)),(int(max(xs)+0.9*d),int(ys[4]+1.2*d)),(150,150,255),-1)
+            for e in es:
+                for hx,hy,r in e['dbg'][1]: lab.append(('c',(int(hx),int(hy)),int(d*0.6),PB_COL.get(r,(0,0,0)),max(2,int(d/9))))
+                t=('P' if e['rest'] else '')+PB_UN.get(e['u'],str(e['u']))
+                lab.append(('t',t,(int(e['dbg'][2]-0.4*d),int(ys[0]-1.5*d)),fs(d),(0,0,200) if e['rest'] else (150,60,0)))
+        si,_,x=m[-1]['dbg']
+        if si<len(st):
+            ys=st[si];d=(ys[4]-ys[0])/4
+            lab.append(('t',str(num0+mi)+('' if ok else '!'),(int(x+0.6*d),int(ys[4]+2.3*d)),fs(d)*1.2,(0,130,0) if ok else (0,0,230)))
+    c=cv2.addWeighted(ov,0.35,c,0.65,0)
+    for k,*a in lab:
+        if k=='c': cv2.circle(c,a[0],a[1],a[2],a[3])
+        else: cv2.putText(c,a[0],a[1],cv2.FONT_HERSHEY_SIMPLEX,a[2],a[3],max(1,int(a[2]*2.2)))
+    if c.shape[1]>maxw: c=cv2.resize(c,(maxw,int(c.shape[0]*maxw/c.shape[1])),interpolation=cv2.INTER_AREA)
+    return cv2.imencode('.jpg',c,[cv2.IMWRITE_JPEG_QUALITY,72])[1].tobytes()
+def convert(paths,shift=0,title='Gescannte Griffschrift',table=None,bilder=None):
+    """Eine oder mehrere Seiten (Bilder) -> (MusicXML, Pins); Takte der Seiten hintereinander. table: Diskantbelegung des Wandlers (sonst 446 Normal).
+    bilder: Liste, an die je Seite ein Kontrollbild (JPEG-Bytes) angehängt wird; die Pins bekommen dann 'offen' (Nummern der Takte, die nicht aufgehen)."""
+    allm=[];Lm=None;bass=[];seiten=[]
     for p in paths:
-        m,L=read(p,shift,table=table,bass=bass);allm+=m;Lm=(Lm or [])+L
+        m,L=read(p,shift,table=table,bass=bass)
+        if bilder is not None: seiten.append((_DBG['g'],len(allm),m,L))
+        allm+=m;Lm=(Lm or [])+L
     if not allm: raise ValueError('Keine Griffschrift gefunden')
-    return to_xml(allm,Lm,title,shift,bass)
+    xml,P=to_xml(allm,Lm,title,shift,bass)
+    if bilder is not None:
+        n0=0 if sum(e['u'] for e in allm[0])<Lm[0] else 1   # Nummern wie im MusicXML (Auftakt = 0)
+        for g,a,m,L in seiten:
+            try: bilder.append(pruefbild(g,m,L,n0+a))
+            except Exception: pass
+        P['offen']=[n0+i for i,(m,L) in enumerate(zip(allm,Lm)) if sum(e['u'] for e in m)!=L and not (i==0 and n0==0)]
+        P['takte']=len(allm)
+    return xml,P
 STEP=['C','C','D','D','E','F','F','G','G','A','A','B'];ALT=[0,1,0,1,0,0,1,0,1,0,1,0]
 TRIPTYPE={2:('16th',0),4:('eighth',0),6:('eighth',1),8:('quarter',0),12:('quarter',1),16:('half',0),24:('half',1),32:('whole',0)}   # Notenart innerhalb einer Triole
 TYPE={3:('16th',0),4:('eighth',0),6:('eighth',0),9:('eighth',1),12:('quarter',0),18:('quarter',1),24:('half',0),36:('half',1),48:('whole',0)}
