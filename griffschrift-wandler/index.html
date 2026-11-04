@@ -37,7 +37,7 @@ h2{font-family:var(--f-display);font-weight:500;font-size:20px;margin:0 0 10px}
 .controls{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:end}
 .field{display:grid;gap:4px;min-width:0}
 .field label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-select,input[type=number]{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);max-width:100%}
+select,input[type=number],#selfrom,#selto{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);max-width:100%}
 button,.filebtn{font:inherit;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:var(--panel);cursor:pointer}
 .filebtn{background:transparent;color:var(--accent);position:relative;display:inline-block}
 button:focus-visible,select:focus-visible,input:focus-visible,.filebtn:focus-within{outline:3px solid var(--zug);outline-offset:2px}
@@ -295,7 +295,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <label for="voices"><x-de>Stimmen im Diskant</x-de><x-en>Voices in the treble</x-en></label>
         <select id="voices"><option value="2">Melodie + 2. Stimme</option><option value="1">nur Melodie</option><option value="3">bis 3 Stimmen</option><option value="4">bis 4 Stimmen</option></select>
       </div>
-      <label class="filebtn" for="file" tabindex="0" id="filelbl"><x-de>Noten öffnen (MusicXML / MIDI) …</x-de><x-en>Open music (MusicXML / MIDI) …</x-en></label>
+      <label class="filebtn" for="file" tabindex="0" id="filelbl"><x-de>Noten öffnen (MusicXML / MIDI / LilyPond) …</x-de><x-en>Open music (MusicXML / MIDI / LilyPond) …</x-en></label>
       <input id="file" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,.ly,.json,.mp3,.wav,.m4a,.ogg,.flac">
       <button id="audiobtn" type="button" class="ghost2"><x-de>🎤 Aufnahme / Audio (Versuch) …</x-de><x-en>🎤 Recording / audio (experimental) …</x-en></button>
       <button id="scanbtn" type="button" class="ghost2"><x-de>📷 Noten scannen …</x-de><x-en>📷 Scan sheet music …</x-en></button>
@@ -311,7 +311,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       </div>
       <div class="field">
         <label for="selfrom"><x-de>Üben: Takt von – bis</x-de><x-en>Practice: measures from – to</x-en></label>
-        <div style="display:flex;gap:6px;align-items:center"><input id="selfrom" type="number" min="1" style="width:5em" placeholder="von"><span>–</span><input id="selto" type="number" min="1" style="width:5em" placeholder="bis"></div>
+        <div style="display:flex;gap:6px;align-items:center"><input id="selfrom" type="text" autocomplete="off" style="width:5em" placeholder="von"><span>–</span><input id="selto" type="text" autocomplete="off" style="width:5em" placeholder="bis"></div>
       </div>
       <label class="chk"><input id="loop" type="checkbox" checked> <x-de>Schleife</x-de><x-en>Loop</x-en></label>
       <label class="chk"><x-de>Begleitung</x-de><x-en>Accompaniment</x-en> <select id="acc"><option value="auto">Automatisch</option><option value="wb">Mit Wechselbass</option><option value="landler">Landler (ohne Wechselbass)</option></select></label>
@@ -394,7 +394,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <label class="chk"><input id="crover" type="checkbox"> <x-de>überschreiben</x-de><x-en>overwrite</x-en></label><label class="chk"><input id="cr2nd" type="checkbox" checked> <x-de>beim Beenden 2. Stimme ergänzen:</x-de><x-en>add 2nd voice when done:</x-en> <select id="cr2kind"><option value="mix" data-de="Terzen/Sexten und Zerlegungen" data-en="thirds/sixths and broken chords">Terzen/Sexten und Zerlegungen</option><option value="terz" data-de="nur Terzen/Sexten" data-en="thirds/sixths only">nur Terzen/Sexten</option></select></label><button type="button" id="crrand2" title="Neue Zufallsmelodie"><x-de>🎲 neu würfeln</x-de><x-en>🎲 roll again</x-en></button><button type="button" id="crundo" title="Strg+Z"><x-de>↶ Schritt zurück</x-de><x-en>↶ Undo step</x-en></button><button type="button" id="crsave"><x-de>Als MusicXML speichern</x-de><x-en>Save as MusicXML</x-en></button><button type="button" id="crsetupbtn"><x-de>Neu beginnen …</x-de><x-en>Start over …</x-en></button><button type="button" id="crback" class="crback"><x-de>Fertig – zurück zum Normalmodus</x-de><x-en>Done – back to normal mode</x-en></button></div>
     </div>
     <p id="edithelp" class="edithelp" hidden><span class="semi"><button id="semdn" type="button" class="ghost2" title="−1">− <x-de>Halbton</x-de><x-en>semitone</x-en></button><button id="semup" type="button" class="ghost2" title="+1">+ <x-de>Halbton</x-de><x-en>semitone</x-en></button><button id="bkind" type="button" class="ghost2" title="G"><x-de>Begleiter ↔ Grundbass</x-de><x-en>Chord ↔ bass button</x-en></button> <span id="selinfo"></span></span><br><x-de>Bearbeiten: <b>Note</b> oder <b>Bassbuchstaben</b> anklicken = auswählen, dann <b>+</b> / <b>−</b> (Tasten oder Knöpfe) = einen Halbton höher / tiefer; ein einzelner Notenkopf (Griffschrift) bzw. Ton (Griff-Tabelle) wählt nur diesen Ton · Bassbuchstabe + <b>G</b> oder Knopf „Begleiter ↔ Grundbass“ = Begleiter zum Grundbass machen und zurück · Note + <b>Strg+C</b> oder „Note kopieren“, dann andere Note + <b>Strg+V</b> oder „einfügen“ = Tonhöhe übertragen (ein ganzer Griff ersetzt den Griff, ein einzelner Notenkopf ersetzt den gewählten Ton oder kommt zum Griff dazu; die Notenlänge bleibt) · Bassbuchstabe + <b>Entf</b> oder Knopf „Bass löschen“ = diesen Grundbass/Begleiter weglassen (es erscheint „–“; nochmal = wiederherstellen), bei gewähltem Akkordnamen alle Bässe des Abschnitts · <b>nochmal anklicken</b> = Balgrichtung umschalten (Note: dieser Griff, Bassbuchstabe: ganzer Bassabschnitt) · <b>Taktstrich</b> anklicken = Zeile danach umbrechen (nochmal = aufheben). Geänderte Stellen sind blau.</x-de><x-en>Edit: click a <b>note</b> or a <b>bass letter</b> = select it, then <b>+</b> / <b>−</b> (keys or buttons) = one semitone up / down; clicking a single note head (Griffschrift) or note (grip table) selects only that note · bass letter + <b>G</b> or the “Chord ↔ bass button” button = turn a chord button into a bass button and back · note + <b>Ctrl+C</b> or “Copy note”, then another note + <b>Ctrl+V</b> or “paste” = transfer the pitch (a whole grip replaces the grip, a single note head replaces the selected note or is added to the grip; the note length stays) · bass letter + <b>Del</b> or the “Delete bass” button = leave out this bass note/chord button (a “–” appears; again = restore), with a chord name selected all basses of the section · <b>click again</b> = switch the bellows direction (note: that grip, bass letter: the whole bass section) · click a <b>bar line</b> = start a new line after it (click again to undo). Changed spots are blue.</x-en></p>
-    <div id="drop" class="drop"><x-de>Oder Datei hierher ziehen: MusicXML (.musicxml, .xml, .mxl) oder MIDI (.mid). Viele Volkstänze gibt es als MIDI bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): Seite eines Stücks öffnen, „Midi-Datei downloaden“, Datei hier hineinziehen. Gescannte Noten oder PDF? Siehe <a href="#" class="pdfhelp">Hilfe → PDF und Scans</a>.</x-de><x-en>Or drop a file here: MusicXML (.musicxml, .xml, .mxl) or MIDI (.mid). Many Austrian folk dances are available as MIDI at <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): open a tune's page, click “Midi-Datei downloaden”, drop the file here. Scanned music or PDF? See <a href="#" class="pdfhelp">Help → PDF and scans</a>.</x-en></div>
+    <div id="drop" class="drop"><x-de>Oder Datei hierher ziehen: MusicXML (.musicxml, .xml, .mxl), MIDI (.mid) oder LilyPond (.ly). Viele Volkstänze gibt es als MIDI bei <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): Seite eines Stücks öffnen, „Midi-Datei downloaden“, Datei hier hineinziehen. Gescannte Noten oder PDF? Siehe <a href="#" class="pdfhelp">Hilfe → PDF und Scans</a>.</x-de><x-en>Or drop a file here: MusicXML (.musicxml, .xml, .mxl), MIDI (.mid) or LilyPond (.ly). Many Austrian folk dances are available as MIDI at <a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a> (Franz Fuchs): open a tune's page, click “Midi-Datei downloaden”, drop the file here. Scanned music or PDF? See <a href="#" class="pdfhelp">Help → PDF and scans</a>.</x-en></div>
   </section>
 
   <section class="panel">
@@ -494,7 +494,7 @@ button.ghost2{background:transparent;color:var(--accent)}
     <section id="h-start"><h3>Schnellstart</h3>
       <ol>
         <li>Oben <b>Stimmung</b>, <b>Diskant</b> und <b>Bass</b> deiner Harmonika einstellen.</li>
-        <li>Auf <b>„Noten öffnen“</b> klicken und eine MusicXML- oder MIDI-Datei wählen, oder die Datei in das gestrichelte Feld ziehen. Zum Ausprobieren gibt es unter <b>Beispiele</b> fertige Stücke.</li>
+        <li>Auf <b>„Noten öffnen“</b> klicken und eine MusicXML-, MIDI- oder LilyPond-Datei wählen, oder die Datei in das gestrichelte Feld ziehen. Zum Ausprobieren gibt es unter <b>Beispiele</b> fertige Stücke.</li>
         <li>Die Griffschrift erscheint unten. <b>„Abspielen“</b> spielt das Stück vor, die Knöpfe leuchten auf dem Diskant- und Bassbild mit.</li>
         <li>Mit <b>„Drucken“</b> kommt die Griffschrift auf Papier oder als PDF.</li>
       </ol>
@@ -632,7 +632,7 @@ button.ghost2{background:transparent;color:var(--accent)}
     <section id="e-start"><h3>Quick start</h3>
       <ol>
         <li>At the top, set the <b>Tuning</b>, <b>Treble</b> and <b>Bass</b> to match your accordion.</li>
-        <li>Click <b>“Open music”</b> and choose a MusicXML or MIDI file, or drag the file onto the dashed box. To try things out, <b>Examples</b> has ready-made tunes.</li>
+        <li>Click <b>“Open music”</b> and choose a MusicXML, MIDI or LilyPond file, or drag the file onto the dashed box. To try things out, <b>Examples</b> has ready-made tunes.</li>
         <li>The Griffschrift appears below. <b>“Play”</b> plays the tune, and the buttons light up on the treble and bass diagrams as it goes.</li>
         <li><b>“Print”</b> puts the Griffschrift on paper or into a PDF.</li>
       </ol>
@@ -1198,7 +1198,7 @@ function parsePart(part){
     const ev=[];let pos=0;const mIdx=measures.length;let cur=0,lastOn=0;const bn=[];
     let repStart=false,repEnd=false,ending=null;
     m.querySelectorAll(":scope > barline").forEach(bl=>{const r=bl.querySelector("repeat");if(r){if(r.getAttribute("direction")==="forward")repStart=true;else repEnd=true;}
-      const en=bl.querySelector("ending");if(en&&en.getAttribute("type")==="start")ending=(en.getAttribute("number")||"1").split(",")[0].trim();});
+      const en=bl.querySelector("ending");if(en&&en.getAttribute("type")==="start")ending=noTags((en.getAttribute("number")||"1").split(",")[0].trim())||"1";});
     const words=[...m.querySelectorAll(":scope > direction words")].map(w=>w.textContent.trim()).filter(Boolean);   // Teilbezeichnungen (Trio, Zwei …)
     for(const el of m.children){
       if(el.nodeName==="attributes"){
@@ -1241,7 +1241,7 @@ function parsePart(part){
         ev.push(e);pos+=dur;prevNote=e;
       }
     }
-    measures.push({no:m.getAttribute("number")||String(measures.length+1),ev,len:Math.max(pos,0.0001),beats,tsN,tsD,repStart,repEnd,ending,words,bass:bn.filter(n=>!n.multi&&n.on>=-1e-9)});
+    measures.push({no:noTags(m.getAttribute("number")||"")||String(measures.length+1),ev,len:Math.max(pos,0.0001),beats,tsN,tsD,repStart,repEnd,ending,words,bass:bn.filter(n=>!n.multi&&n.on>=-1e-9)});
   }
   return {measures,keyPc:mod(keyFifths*7,12),minor};
 }
@@ -2119,7 +2119,7 @@ function cloneMeasures(ms){const map=new Map();const out=ms.map(m=>{const ev=m.e
   return out;}
 function applyMeasOps(){if(!P||!MEAS_OPS.length)return;const M=P.measures,base=parseInt(M[0]&&M[0].no)||0;{let o=0;M.forEach(m=>{m._po=o;o+=m.len;});}
   for(const o of MEAS_OPS){if(o.op==="del")M.splice(o.a,o.b-o.a+1);else if(o.op==="copy"&&o.a<M.length){const c=cloneMeasures(M.slice(o.a,o.b+1));M.splice(Math.min(o.at,M.length),0,...c);}}
-  M.forEach((m,i)=>{m.no=String(base+i);m.ev.forEach(e=>{if(e.type==="note"){e.key=i+":"+e.on.toFixed(4);e._mi=i;}});});P._off=null;P.pinOff=M.map(m=>m._po);}
+  let n=base-1;M.forEach((m,i)=>{const sx=i?/^\d+(\D+)$/.exec(m.no):null;if(!sx)n++;m.no=String(n)+(sx?sx[1]:"");m.ev.forEach(e=>{if(e.type==="note"){e.key=i+":"+e.on.toFixed(4);e._mi=i;}});});P._off=null;P.pinOff=M.map(m=>m._po);}
 // Index-Abbildung auf alle Änderungen anwenden: f(alter Index) -> Liste neuer Indizes
 function remapEdits(f){const rk=st=>{const o={};for(const k in st){const i=k.indexOf(":"),mi=+k.slice(0,i),rest=k.slice(i);for(const n of f(mi))o[n+rest]=Array.isArray(st[k])?st[k].slice():(st[k]&&typeof st[k]==="object"?{...st[k]}:st[k]);}return o;};
   const ri=st=>{const o={};for(const k in st){if(k==="all"){o.all=st.all;continue;}for(const n of f(+k))o[n]=st[k]&&typeof st[k]==="object"?{...st[k]}:st[k];}return o;};
@@ -2214,7 +2214,7 @@ function syncSelInputs(){
 function selFromInputs(){
   if(!P)return;const prevSel=JSON.stringify(SEL);const fv=document.getElementById("selfrom").value.trim(),tv=document.getElementById("selto").value.trim();
   if(!fv){SEL=null;}else{
-    const find=no=>DISPLAY.findIndex(d=>String(P.measures[d.mi].no)===String(no));
+    const find=no=>DISPLAY.findIndex(d=>String(P.measures[d.mi].no).toUpperCase()===String(no).toUpperCase());
     const a=find(fv),b=tv?find(tv):a;
     SEL=(a>=0&&b>=0)?{a:Math.min(a,b),b:Math.max(a,b)}:null;
   }
@@ -2260,7 +2260,10 @@ document.getElementById("helpclose").addEventListener("click",()=>helpDlg.close(
 helpDlg.addEventListener("click",e=>{if(e.target===helpDlg)helpDlg.close();});
 helpDlg.querySelectorAll(".helptoc a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();const t=document.getElementById(a.getAttribute("href").slice(1));if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}));
 // ======== Drucken
-function printPrep(on){PRINT_W=on?860:0;if(R){renderGriff();}}
+let PAGE_TITLE=null;   // Der Browser schlägt den Seitentitel als PDF-Dateinamen vor: beim Drucken die Überschrift, danach wieder der alte Titel
+function printName(on){if(on){const t=(document.querySelector("#ptitle .pt1").textContent||TITLE||"").trim();if(PAGE_TITLE==null)PAGE_TITLE=document.title;if(t)document.title=t;}
+  else if(PAGE_TITLE!=null){document.title=PAGE_TITLE;PAGE_TITLE=null;}}
+function printPrep(on){PRINT_W=on?860:0;if(R){renderGriff();}printName(on);}
 window.addEventListener("beforeprint",()=>printPrep(true));
 window.addEventListener("afterprint",()=>printPrep(false));
 document.getElementById("print").addEventListener("click",()=>{
@@ -2969,15 +2972,15 @@ function lyToXML(srcRaw,fallbackTitle){
       out.push({x:w.replace(/_/g," ").replace(/~/g,"‿").replace(/\s+$/,"")});
     }}
   // Score zerlegen
-  const readScore=score=>{const chordRaw=[],voiceRaw=[],lyrRaw=[];
+  const readScore=score=>{const chordRaw=[],voiceRaw=[],lyrRaw=[];let poly=false;
   {let i=0;const s=score;while(i<s.length){const m=/\\new\s+([A-Za-z]+)(\s*=\s*"[^"]*")?(\s*\\lyricsto\s*"[^"]*")?\s*/g;m.lastIndex=i;const x=m.exec(s);if(!x)break;const j=x.index+x[0].length;if(s[j]!=="{"){const b=blockAfter(s,j);if(!b)fail("\\new");i=b.e+1;}const b=blockAfter(s,j);if(!b)fail("\\new "+x[1]);
-      if(x[1]==="ChordNames")chordRaw.push(b.body);else if(x[1]==="Voice"||x[1]==="Staff")voiceRaw.push(b.body);else if(x[1]==="Lyrics")lyrRaw.push(b.body);else fail(TX("Nicht unterstützt: ","Not supported: ")+"\\new "+x[1]);i=b.e+1;}
+      if(x[1]==="ChordNames")chordRaw.push(b.body);else if(x[1]==="Voice"||x[1]==="Staff"){voiceRaw.push(b.body);if(s.startsWith("<<",j)&&/^\s*(?:\\\\\s*)?(?:\\relative[^{}]*)?\{/.test(s.slice(b.e+1)))poly=true;}else if(x[1]==="Lyrics")lyrRaw.push(b.body);else fail(TX("Nicht unterstützt: ","Not supported: ")+"\\new "+x[1]);i=b.e+1;}
     if(!voiceRaw.length){const v=score.replace(/\\(midi|layout)\s*\{[^}]*\}/g,"").trim();if(!v)fail(TX("Keine Melodie gefunden.","No melody found."));voiceRaw.push(v);}
     if(voiceRaw.length>1)fail(TX("Mehrere Stimmen werden nicht unterstützt.","Several voices are not supported."));}
-    return {chordRaw,voiceRaw,lyrRaw,unfold:/\\unfoldRepeats\b/.test(score)};};
+    return {chordRaw,voiceRaw,lyrRaw,poly,unfold:/\\unfoldRepeats\b/.test(score)};};
   const M=newS("note"),C=newS("chord"),parts=useScores.map(readScore),sections=[];
   parts.forEach((b,bi)=>{const start=M.t,first=M.ev.length;M.unfold=C.unfold=b.unfold;M.tie=false;M.slur=0;M.beam=0;M.auto=true;M.last=480;M.prev=null;C.last=480;
-    parseMusic(b.voiceRaw[0],M,{rel:null,tr:[]});
+    parseMusic(b.voiceRaw[0],M,{rel:null,tr:[]});if(b.poly)M.poly=(M.poly||0)+1;
     if(M.ev.length===first||!M.ev.slice(first).some(e=>e.k==="n"))fail(TX("Die Melodie enthält keine Noten.","The melody contains no notes."));
     C.t=start;b.chordRaw.forEach(r=>parseMusic(r,C,{rel:null,tr:[]}));sections.push({first,end:M.ev.length,lyrRaw:b.lyrRaw});
     if(bi>0&&b.lyrRaw[0]){const lv=/^\s*\\([A-Za-z_][\w-]*)\s*$/.exec(b.lyrRaw[0]),lsrc=(lv&&vars[lv[1]])||b.lyrRaw[0],st=/stanza\s*=\s*"([^"]+)"/.exec(lsrc);
@@ -3084,7 +3087,7 @@ async function openFile(f){
     } else txt=await f.text();
     stop();CREDIT="";loadXMLText(txt);SRC={kind:"file",name:f.name,xml:txt};run();
     if(/\.ly$/i.test(f.name)&&LY_INFO&&LY_INFO.warn.length){const w=document.createElement("span");w.className="pill";w.textContent="LilyPond: "+LY_INFO.warn.join("; ");st.appendChild(w);}
-  }catch(e){st.innerHTML=`<span class="err">${e.message}</span>`;}
+  }catch(e){showErr(st,e.message);}
 }
 document.getElementById("file").addEventListener("change",e=>{if(e.target.files[0])openFile(e.target.files[0]);});
 const drop=document.getElementById("drop");
@@ -3712,10 +3715,13 @@ function crSaveXML(){if(!CR||!CR.nl.length)return;let xml;if(CR.formOK){const X=
 
 // ======== Bearbeitung speichern und laden (JSON-Datei, landet im Download-Ordner)
 let SRC=null;
+// Text aus Dateien nie als HTML einsetzen: Taktnummern und Klammern ohne Sonderzeichen, Fehlermeldungen als reiner Text
+function noTags(s){return String(s).replace(/[<>&"'`]/g,"");}
+function showErr(st,msg){const sp=document.createElement("span");sp.className="err";sp.textContent=msg;st.replaceChildren(sp);}
 const SAVE_SEL=["part","voices","form","lpr","view","gstyle","bname","acc","lart","stimm","disk","bass","bmoll","dmode","transp","fill"],SAVE_CHK=["usepin","msub","fill4"];
 function saveEdits(){if(!P||!SRC){alert(TX("Zuerst ein Stück laden.","Load a tune first."));return;}
   const bk=document.getElementById("bass").value,ob=document.getElementById("bmoll").value==="own"&&OWN_BASS[bk]?{flips:[...OWN_BASS[bk].flips],set:OWN_BASS[bk].set}:null;
-  const d={app:"griffschrift-wandler",version:1,saved:new Date().toISOString(),title:TITLE,ptitle:PTITLE,src:SRC,BT,
+  const d={app:"griffschrift-wandler",version:1,saved:new Date().toISOString(),title:TITLE,ptitle:PTITLE,src:SRC,BT,tempo:document.getElementById("tempo").value,
     sel:Object.fromEntries(SAVE_SEL.map(id=>[id,document.getElementById(id).value])),chk:Object.fromEntries(SAVE_CHK.map(id=>[id,document.getElementById(id).checked])),ownBass:ob,
     ownDisk:document.getElementById("dmode").value==="own"?{disk:document.getElementById("disk").value,set:ownDisk(document.getElementById("disk").value)}:null,
     edits:{NOTE_FORCE,SEG_FORCE,BREAKS:[...BREAKS],BASS_EDIT,BASS_KIND,BASS_DEL,PITCH_EDIT,SEG_HARM,DUR_OPS,MEAS_SHIFT,RANGE_PLAY,MEAS_OPS},
@@ -3736,6 +3742,7 @@ async function loadEdits(f){const st=document.getElementById("status");
     if(d.ownDisk&&d.ownDisk.disk){OWN_DISK[d.ownDisk.disk]=d.ownDisk.set||{};saveOwnDisk(d.ownDisk.disk);}
     if(d.ownBass||d.ownDisk){buildInstrument();}
     PTITLE=d.ptitle!=null?d.ptitle:null;
+    if(+d.tempo>=30&&+d.tempo<=260)document.getElementById("tempo").value=+d.tempo;
     const E=d.edits;NOTE_FORCE=E.NOTE_FORCE||{};SEG_FORCE=E.SEG_FORCE||{};BREAKS=new Set(E.BREAKS||[]);BASS_EDIT=E.BASS_EDIT||{};BASS_KIND=E.BASS_KIND||{};
     PITCH_EDIT=E.PITCH_EDIT||{};SEG_HARM=E.SEG_HARM||{};DUR_OPS=E.DUR_OPS||[];MEAS_SHIFT=E.MEAS_SHIFT||{};RANGE_PLAY=E.RANGE_PLAY||{};MEAS_OPS=E.MEAS_OPS||[];BASS_DEL=E.BASS_DEL||{};CLIP=null;SEL=null;SELX=null;
     run();
@@ -3744,7 +3751,7 @@ async function loadEdits(f){const st=document.getElementById("status");
     updEdbar();
     const n=Object.keys(NOTE_FORCE).length+Object.keys(SEG_FORCE).length+BREAKS.size+Object.keys(BASS_EDIT).length+Object.keys(BASS_KIND).length+Object.keys(PITCH_EDIT).length+Object.keys(SEG_HARM).length+DUR_OPS.length+Object.keys(MEAS_SHIFT).length+Object.keys(RANGE_PLAY).length+MEAS_OPS.length+Object.keys(BASS_DEL).length;
     const pill=document.createElement("span");pill.className="pill";pill.textContent=TX(`Bearbeitung geladen (${n} Änderungen, gespeichert ${new Date(d.saved).toLocaleString("de-AT")})`,`Edits loaded (${n} changes, saved ${new Date(d.saved).toLocaleString("en-GB")})`);st.appendChild(pill);
-  }catch(e){st.innerHTML=`<span class="err">${e.message}</span>`;}}
+  }catch(e){showErr(st,e.message);}}
 document.getElementById("edsave").addEventListener("click",saveEdits);
 // Noten des geladenen Stücks als MusicXML (bei selbst erstellten Stücken das ganze Stück samt Zwei, Trio und 2. Stimme; Griff-Änderungen stehen in „Bearbeitung speichern“)
 document.getElementById("xmlsave").addEventListener("click",()=>{if(!P||!LASTXML){alert(TX("Zuerst ein Stück laden.","Load a tune first."));return;}
