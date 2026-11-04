@@ -330,6 +330,7 @@ button.ghost2{background:transparent;color:var(--accent)}
       <button id="xmlsave" type="button" class="ghost2"><x-de>Noten speichern (MusicXML) ⤓</x-de><x-en>Save music (MusicXML) ⤓</x-en></button>
       <label class="filebtn ghostfile" for="edfile" tabindex="0" id="edload"><x-de>Bearbeitung laden …</x-de><x-en>Load edits …</x-en></label>
       <input id="edfile" type="file" accept=".json,.griff" hidden>
+      <button id="setreset" type="button" class="ghost2"><x-de>Einstellungen zurücksetzen</x-de><x-en>Reset settings</x-en></button>
     </div>
     <p class="edithelp" id="selhelp"><x-de>Zum Üben: über einer Notenzeile auf die <b>Taktnummer</b> klicken wählt den Takt, mit <b>Umschalt-Klick</b> auf eine weitere Taktnummer wird ein Bereich daraus. „Abspielen“ (oben oder der runde Knopf rechts unten) spielt dann nur diese Takte, mit „Schleife“ immer wieder. Ein Klick auf eine Note <b>in</b> der Auswahl startet ab dieser Note, ein Klick auf eine Note außerhalb spielt nur diesen Griff an; ein Doppelklick spielt ab jeder Note.</x-de><x-en>To practise: click the <b>measure number</b> above a line of music to select that measure; <b>Shift-click</b> another measure number to select a range. “Play” (at the top, or the round button at the bottom right) then plays only those measures, over and over with “Loop”. Clicking a note <b>inside</b> the selection starts from that note; clicking a note outside it just sounds that one grip; a double-click plays from any note.</x-en></p>
     <div id="edbar" hidden role="toolbar" aria-label="Bearbeiten"><span id="edpiece"><b><x-de>Ganzes Stück:</x-de><x-en>Whole tune:</x-en></b> <button type="button" data-p="-12" title="Oktave tiefer">−8va</button><button type="button" data-p="-1" title="Halbton tiefer">− ½</button><button type="button" data-p="1" title="Halbton höher">+ ½</button><button type="button" data-p="12" title="Oktave höher">+8va</button> <span id="edpsh"></span></span><span id="edtxt"></span>
@@ -3806,5 +3807,14 @@ function setLang(l){LANG=l==="en"?"en":"de";{const r=document.getElementById("rr
 })();
 document.getElementById("lang").addEventListener("click",()=>setLang(LANG==="en"?"de":"en"));
 applyStaticLang();updatePlayLabels();
+// Instrument und Ansicht zwischen den Besuchen merken (nur was nicht zum einzelnen Stück gehört; die übrigen Einstellungen haben eigene Schlüssel)
+(function(){const ids=["stimm","disk","dmode","bass","bmoll","voices","view","lpr","form"],el=id=>document.getElementById(id);
+  let off=false;const save=()=>{if(off)return;try{localStorage.setItem("gw-settings",JSON.stringify(Object.fromEntries(ids.map(id=>[id,el(id).value]))));}catch(e){}};
+  try{const s=JSON.parse(localStorage.getItem("gw-settings"));if(s){ids.forEach(id=>{if([...el(id).options].some(o=>o.value===s[id]))el(id).value=s[id];});
+    ["stimm","voices","view","lpr","form"].forEach(id=>el(id).dispatchEvent(new Event("change")));}}catch(e){}
+  ids.forEach(id=>el(id).addEventListener("change",save));window.addEventListener("pagehide",save);
+  // Zurücksetzen: Sprache, App-Weg und eigene Knopfbelegungen (gw-bass-*, gw-disk-*) bleiben; ohne „off“ schriebe pagehide die alten Werte zurück
+  el("setreset").addEventListener("click",()=>{if(!confirm(TX("Alle gemerkten Einstellungen auf die Voreinstellung zurücksetzen? Eigene Knopfbelegungen bleiben gespeichert. Die Seite lädt neu, nicht gespeicherte Änderungen am Stück gehen verloren.","Reset all remembered settings to the defaults? Your own button layouts stay saved. The page reloads; unsaved changes to the tune are lost.")))return;
+    off=true;try{["settings","acc","lart","gstyle","fill","fill3","fill4","bname","sound","bal","mollsub","pin","follow"].forEach(k=>localStorage.removeItem("gw-"+k));}catch(e){}location.reload();});})();
 loadDemo(dsel.value);
 </script>
