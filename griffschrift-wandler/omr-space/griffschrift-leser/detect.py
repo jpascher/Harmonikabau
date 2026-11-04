@@ -21,9 +21,39 @@ H2 = pickle.load(_gz.open(_H2, 'rb')) if _os.path.exists(_H2) and not _os.enviro
 H2_W = float(_os.environ.get('GS_H2W', '0.5'))   # Mischgewicht; an einer nicht angelernten Rosenzopf-Seite am besten
 TRI_BOOST = float(_os.environ.get('GS_TRIB', '0.25'))   # Vorrang der Dreieck-Meldungen beim Ausdünnen
 
+# Kandidaten-Vorauswahl mit dem Zerlegungsnetz von homr (Versuch, GS_HOMR=1): homr findet Notenlinien, Hälse und runde Köpfe
+# sehr verlässlich, Kreuze meldet es meist als Vorzeichen. Kopfkandidaten werden deshalb nur dort geprüft, wo das Netz einen Kopf
+# oder ein Vorzeichen sieht (etwas aufgeweitet); welche Kopfform es ist, entscheidet weiter der eigene Klassifikator.
+HOMR = _os.environ.get('GS_HOMR', '0') == '1'
+HOMR_DIL = float(_os.environ.get('GS_HOMRDIL', '0.35'))   # Aufweitung der Masken in Linienabständen
+HOMR_MODE = _os.environ.get('GS_HOMRMODE', 'round')
+HOMR_ADD = float(_os.environ.get('GS_HOMRADD', '0'))   # > 0: runder Kopf auch ohne eigenen Treffer, wenn das Netz die Kopffläche mindestens so weit abdeckt (fremde Schriften)
+_HCACHE = {}
+def homr_masks(g):
+    import zlib; key = (g.shape, zlib.crc32(g[::7, ::7].tobytes()))
+    if key in _HCACHE: return _HCACHE[key]
+    _dc = _os.environ.get('GS_HOMRCACHE')   # Ordner für zwischengespeicherte Masken (nur für Prüfläufe)
+    _fn = _os.path.join(_dc, '%d_%d_%x.npz' % (g.shape[0], g.shape[1], key[1] & 0xffffffff)) if _dc else None
+    if _fn and _os.path.exists(_fn):
+        res = dict(np.load(_fn)); _HCACHE.clear(); _HCACHE[key] = res; return res
+    from homr.resize import resize_image
+    from homr import color_adjust
+    from homr.segmentation.inference_segnet import extract
+    from homr.main import download_weights
+    download_weights(False, False, False)
+    bgr = cv2.cvtColor(g, cv2.COLOR_GRAY2BGR); img = resize_image(bgr); pre = color_adjust.apply_clahe(img)
+    r = extract(pre, '', step_size=320, use_cache=False, use_gpu_inference=False)
+    H, W = g.shape
+    up = lambda m: cv2.resize(m.astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST)
+    res = dict(notehead=up(r.notehead), clefs_keys=up(r.clefs_keys), stems=up(r.stems_rests), staff=up(r.staff))
+    if _fn: _os.makedirs(_dc, exist_ok=True); np.savez_compressed(_fn, **res)
+    _HCACHE.clear(); _HCACHE[key] = res
+    return res
+
 def detect(path, scale=2, thr=0.5):
     g = cv2.imread(path, 0); _, bw = cv2.threshold(g, 200, 255, cv2.THRESH_BINARY_INV)
     out = []
+    HM = homr_masks(g) if HOMR else None
     # Linien suchen mit hellerer Schwelle: gedruckte Notenlinien sind oft grau
     _, bwl = cv2.threshold(g, 240, 255, cv2.THRESH_BINARY_INV)
     staves_res = []
@@ -32,6 +62,14 @@ def detect(path, scale=2, thr=0.5):
         nol = G.clean_gray(g, d, int(_os.environ.get('GS_CLT', '60'))) if (G.FOTO_LINES and _os.environ.get('GS_CLEAN')) else G.stems_off(G.remove_lines(bw, ys, d), d)
         # Kandidaten: alle Lagen und Spalten, an denen nach Entfernen von Linien und Hälsen genug Tinte in Kopfgröße liegt
         ink = cv2.boxFilter((nol > 0).astype(np.float32), -1, (max(3, int(d * 0.9)), max(3, int(d * 0.6))))
+        gate = None; cov = None
+        if HM is not None:
+            k_ = max(3, int(d * HOMR_DIL) * 2 + 1); se_ = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k_, k_))
+            if HOMR_MODE == 'all':   # alle Kandidaten nur an Netz-Köpfen oder -Vorzeichen
+                ink = ink * cv2.dilate(((HM['notehead'] > 0) | (HM['clefs_keys'] > 0)).astype(np.uint8), se_)
+            else:                    # nur runde Köpfe brauchen die Bestätigung des Netzes; Kreuze und Dreiecke kennt es nicht
+                gate = cv2.dilate((HM['notehead'] > 0).astype(np.uint8), se_)
+        cov = cv2.boxFilter((HM['notehead'] > 0).astype(np.float32), -1, (max(3, int(d * 0.9)), max(3, int(d * 0.6)))) if (HM is not None and HOMR_ADD > 0) else None
         cand = []; F = []
         # einmal je System rändern statt bei jedem Ausschnitt (gleiches Ergebnis wie train.patch, aber viel schneller)
         r = int(d * 0.9); bwp = cv2.copyMakeBorder(bw, r * 2, r * 2, r * 2, r * 2, cv2.BORDER_CONSTANT, value=0); nolp = cv2.copyMakeBorder(nol, r * 2, r * 2, r * 2, r * 2, cv2.BORDER_CONSTANT, value=0)
@@ -57,7 +95,11 @@ def detect(path, scale=2, thr=0.5):
                 if tri_on and cand[i][2] % 2 == 0 and tp >= TRI_THR and (1 - pr[i][0] >= TRI_HEAD or tp >= TRI_SURE):   # 4. Reihe liegt immer auf geraden Lagen
                     hits.append((round(float(tp), 3), cand[i][:3], 5 if pt[i][1] >= pt[i][2] else 6))
                 elif pr[i][0] < 1 - thr:
-                    hits.append((round(1 - pr[i][0], 3), cand[i][:3], int(np.argmax(pr[i][1:])) + 1))
+                    c_ = int(np.argmax(pr[i][1:])) + 1
+                    if gate is not None and CLX[c_].startswith('o') and not gate[int(cand[i][1]), int(cand[i][0])]: continue
+                    hits.append((round(1 - pr[i][0], 3), cand[i][:3], c_))
+                elif cov is not None and cov[int(cand[i][1]), int(cand[i][0])] >= HOMR_ADD:
+                    hits.append((round(float(cov[int(cand[i][1]), int(cand[i][0])]) * 0.6, 3), cand[i][:3], 1 if pr[i][1] >= pr[i][2] else 2))
             return hits
         # Formgüte: Übereinstimmung mit einer Kopfvorlage genau an der Stelle (trennt echte Köpfe von Treffern eine Halbstufe daneben)
         T = G.templates(d)
