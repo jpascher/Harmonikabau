@@ -351,6 +351,16 @@ def thick_bar_filter(det,bw):
         if any(abs(h['x']-x)<0.8*h['d'] for x in cache[k]): continue
         out.append(h)
     return out
+def _koepfe(work,g,st):
+    """Köpfe der Seite: bisheriger Erkenner (detect.py) oder, mit GS_YOLO=1 und vorhandenem Modell, der gelernte Erkenner (yolo_koepfe.py)."""
+    if _os.environ.get('GS_YOLO','0')=='1':
+        try:
+            import yolo_koepfe as YK
+            if YK.vorhanden():
+                det=YK.detect(g,st);D.LAST['tri_page']=sum(1 for h in det if h['t']=='t')>=3;D.LAST['yolo']=len(det)
+                return det
+        except Exception as e: D.LAST['yolo']='Fehler: '+str(e)[:80]
+    return D.detect(work,1)
 def read(path,shift=0,work=None,table=None,bass=None):
     """shift: Stimmung wie im Wandler (A-D-G-C = 0, G-C-F-B = -2 …). bass: Liste, an die je Takt die gelesenen Bassbuchstaben (Lage im Takt in Zwölftel-Vierteln, Buchstabe) angehängt werden."""
     g=load_gray(path)
@@ -372,7 +382,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     if _vk:
         det=_vk;D.LAST['tri_page']=False;XDROP.clear();C=chords_det(det)
     else:
-        det=hollow_stack(prefix_marks(cross_marks(segno_filter(thick_bar_filter(D.detect(work,1),bw),bw,st)),bw,st),bw,st);C=chords_det(det)
+        det=hollow_stack(prefix_marks(cross_marks(segno_filter(thick_bar_filter(_koepfe(work,g,st),bw),bw,st)),bw,st),bw,st);C=chords_det(det)
     off=shift+2   # Tabelle in assemble.py gilt für G-C-F-B (shift -2)
     items=[]   # je System: Akkorde und Pausen
     fills=[];dots=[]
