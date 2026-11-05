@@ -366,7 +366,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <button type="button" id="ovzo">−</button><button type="button" id="ovzi">+</button>
         <span id="ovsel" style="min-width:12em"></span>
         <button type="button" id="ovapply"><b><x-de>Übernehmen</x-de><x-en>Apply</x-en></b></button><button type="button" id="ovcancel"><x-de>Schließen</x-de><x-en>Close</x-en></button>
-        <span class="scanno" style="flex-basis:100%"><x-de>Kopf anklicken, dann: ↑ ↓ Lage, X rund/Kreuz, Entf löschen; 1 2 4 8 6 Notenwert (Ganze, Halbe, Viertel, Achtel, Sechzehntel), Punkt punktiert, D/Z Balgrichtung. Umschalt-Klick auf das System fügt dem nächsten Akkord einen runden Kopf hinzu, mit Alt ein Kreuz; Doppelklick auf eine freie Stelle setzt dort eine neue Viertel ein (mit Alt als Kreuz); Entf auf einer Pause entfernt sie ganz. Grau ist die Vorlage, farbig das Ergebnis (blau Druck, orange Zug); rot hinterlegte Takte gehen nicht auf.</x-de><x-en>Click a head, then: ↑ ↓ position, X round/cross, Del delete; 1 2 4 8 6 duration (whole, half, quarter, eighth, sixteenth), period dotted, D/Z bellows. Shift-click on the staff adds a round head to the nearest chord, with Alt a cross; double-click on a free spot inserts a new quarter note there (with Alt as a cross); Del on a rest removes it entirely. Grey is the original, colour the result (blue push, orange pull); measures shaded red do not add up.</x-en></span>
+        <span class="scanno" style="flex-basis:100%"><x-de>Kopf anklicken, dann: ↑ ↓ Lage, X rund/Kreuz, Entf löschen; 1 2 4 8 6 Notenwert (Ganze, Halbe, Viertel, Achtel, Sechzehntel), Punkt punktiert, D/Z Balgrichtung. Umschalt-Klick auf das System fügt dem nächsten Akkord einen runden Kopf hinzu, mit Alt ein Kreuz; Doppelklick auf eine freie Stelle setzt dort eine neue Viertel ein (mit Alt als Kreuz); P macht aus der gewählten Note eine Pause gleichen Werts (eine fehlende Pause also: Doppelklick, P, Notenwert); Entf auf einer Pause entfernt sie ganz. Grau ist die Vorlage, farbig das Ergebnis (blau Druck, orange Zug); rot hinterlegte Takte gehen nicht auf.</x-de><x-en>Click a head, then: ↑ ↓ position, X round/cross, Del delete; 1 2 4 8 6 duration (whole, half, quarter, eighth, sixteenth), period dotted, D/Z bellows. Shift-click on the staff adds a round head to the nearest chord, with Alt a cross; double-click on a free spot inserts a new quarter note there (with Alt as a cross); P turns the selected note into a rest of the same value (so for a missing rest: double-click, P, duration); Del on a rest removes it entirely. Grey is the original, colour the result (blue push, orange pull); measures shaded red do not add up.</x-en></span>
       </div>
       <div id="ovscroll" style="flex:1;overflow:auto"><div id="ovwrap" style="position:relative;margin:0 auto;transform-origin:0 0"><img id="ovimg" alt="" style="display:block;width:100%;opacity:.45"><svg id="ovsvg" style="position:absolute;left:0;top:0;width:100%;height:100%"></svg></div></div>
     </div>
@@ -3341,7 +3341,7 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
   const upd=()=>{bar.querySelectorAll(".scango").forEach(b=>b.disabled=!ok.checked);document.getElementById("scanown").hidden=!OMR_URL||!ok.checked;try{document.getElementById("scanhost").textContent=OMR_URL?new URL(OMR_URL).host:"";}catch(e){}};
   const okSaved=()=>{try{return localStorage.getItem("gw-scanok")==="1";}catch(e){return false;}};
   const cons=document.getElementById("scanconsent");
-  const applyOk=()=>{ok.checked=okSaved();document.getElementById("scanokrow").hidden=ok.checked;bar.querySelector(".scanwarn").hidden=ok.checked;upd();};
+  const applyOk=()=>{ok.checked=okSaved();document.getElementById("scanokrow").hidden=ok.checked;bar.querySelector(".scanwarn").hidden=ok.checked;const sn=document.querySelector("#scanown .scanno");if(sn)sn.hidden=ok.checked;upd();};
   document.getElementById("scanbtn").addEventListener("click",()=>{bar.hidden=!bar.hidden;st("");applyOk();if(!bar.hidden&&!okSaved())cons.hidden=false;});
   document.getElementById("scanconsentyes").addEventListener("click",()=>{try{localStorage.setItem("gw-scanok","1");}catch(e){}cons.hidden=true;applyOk();});
   document.getElementById("scanconsentno").addEventListener("click",()=>{cons.hidden=true;bar.hidden=true;});
@@ -3420,6 +3420,7 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
     else if(k==="Delete"||k==="Backspace"){if(!e.r){e.h.splice(SEL.hi,1);if(!e.h.length){e.r=true;delete e.d;SEL.hi=-1;}else SEL.hi=0;}else{m.e.splice(SEL.ei,1);SEL=null;}}   // Pause: Ereignis ganz entfernen
     else if({"1":48,"2":24,"4":12,"8":6,"6":3}[k])setDur(e,{"1":48,"2":24,"4":12,"8":6,"6":3}[k]);
     else if(k===".")toggleDot(e);
+    else if(!e.r&&(k==="p"||k==="P")){e.r=true;e.h=[];delete e.d;e.ts=e.te=false;SEL.hi=-1;}   // Note zur Pause machen (Wert bleibt)
     else if(!e.r&&(k==="d"||k==="D"))e.d="D";else if(!e.r&&(k==="z"||k==="Z"))e.d="Z";
     else done=false;
     if(done){ev.preventDefault();draw();}});
@@ -3469,6 +3470,8 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
     x.push('</part>','</score-partwise>');
     const keepTitle=TITLE;loadXMLText(x.join("\n"));TITLE=keepTitle;CREDIT="";PINSRC="scan";const P={sh:ED.sh,n:pins};if(bp.length)P.b=bp;setPins("scan",{scan:P});USEPIN=true;const up=$("usepin");if(up)up.checked=true;
     SRC={kind:"file",name:(TITLE||"Scan")+".musicxml",xml:LASTXML};SCANED=JSON.parse(JSON.stringify(ED));run();
+    const bad=[];meas.forEach((m,mi)=>{const su=m.e.reduce((q,e)=>q+e.u,0);if(su!==m.L&&!(mi===0&&su<m.L)&&!(mi===meas.length-1&&su<m.L))bad.push(firstImp?mi:mi+1);});
+    $("scanst").textContent=TX(`Bearbeitet übernommen: ${meas.length-bad.length} von ${meas.length} Takten gehen auf`,`Edits applied: ${meas.length-bad.length} of ${meas.length} measures add up`)+(bad.length?TX(`; nicht auf geht: Takt ${bad.join(", ")}.`,`; not adding up: measure ${bad.join(", ")}.`):".");
     $("ovsel").textContent=TX("Übernommen.","Applied.")+(fehl?TX(` ${fehl} Köpfe ohne Knopf auf diesem Instrument wurden weggelassen.`,` ${fehl} heads without a button on this instrument were left out.`):"");});
 })();
 // Mehrere Fotos → ein PDF mit einer Seite je Foto (JPEG unverändert eingebettet). Seitengröße so, dass der Server beim Rendern mit 200 dpi

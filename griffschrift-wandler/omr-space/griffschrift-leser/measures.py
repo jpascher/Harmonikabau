@@ -56,6 +56,7 @@ UNIT=[3,4,6,9,12,18,24,36,48]   # Notenwerte aus rhythm.DUR in Zwölftel-Viertel
 def rests(bw,nol,ys,d,heads,bars):
     """Pausen: Tintenflecken im System, die kein Kopf, Hals, Balken oder Taktstrich sind; nach Größe eingeteilt."""
     top,bot=int(ys[0]-d),int(ys[4]+d);band=nol[top:bot].copy()
+    if _os.environ.get('GS_RCLEAN','1')=='1' and not G.FOTO_LINES: band=cv2.morphologyEx(band,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(1,2)))   # saubere Seiten: ein Pixel hohe Linienreste ablösen (hängen sonst an blassen Achtelpausen); auf Fotos schadet das
     band=cv2.morphologyEx(band,cv2.MORPH_CLOSE,cv2.getStructuringElement(cv2.MORPH_RECT,(1,max(3,int(d*.4)))))   # Lücken der entfernten Linien schließen
     n,lab,s,_=cv2.connectedComponentsWithStats((band>0).astype(np.uint8));out=[];comps=[]
     for i in range(1,n):
