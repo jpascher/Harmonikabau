@@ -354,9 +354,11 @@ def thick_bar_filter(det,bw):
 ERKENNER=''   # vom Space je Scan gesetzt: 'alt' oder 'yolo'; leer = Variable GS_YOLO entscheidet
 def _koepfe(work,g,st):
     """Köpfe der Seite: bisheriger Erkenner (detect.py) oder der gelernte Erkenner (yolo_koepfe.py), wenn das Modell vorhanden ist.
-    Wahl: ERKENNER (aus dem Wandler) vor der Space-Variablen GS_YOLO=1."""
+    Wahl: ERKENNER (aus dem Wandler) vor der Space-Variablen GS_YOLO=1. Fotos liest auch bei GS_YOLO=1 der bisherige Erkenner,
+    weil der gelernte dort mehr Takte offen lässt (GS_YOLOFOTO=1 nimmt ihn auch für Fotos); ERKENNER='yolo' gilt immer."""
     D.LAST['erkenner']='alt'
-    if ERKENNER=='yolo' or (ERKENNER!='alt' and _os.environ.get('GS_YOLO','0')=='1'):
+    _foto_alt=bool(G.FOTO_LINES) and _os.environ.get('GS_YOLOFOTO','0')!='1'
+    if ERKENNER=='yolo' or (ERKENNER!='alt' and _os.environ.get('GS_YOLO','0')=='1' and not _foto_alt):
         try:
             import yolo_koepfe as YK
             if YK.vorhanden():
