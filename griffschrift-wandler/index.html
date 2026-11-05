@@ -3404,7 +3404,8 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
         if(e.r)return;const col=COL[e.d]||"#555",hollow=(e.t?e.u*1.5:e.u)>=24;
         e.h.forEach(([r,n],hi)=>{const p=lagep(r,n),y=mid+0.5-p*d/2,sel=SEL&&SEL.mi===mi&&SEL.ei===ei&&SEL.hi===hi;
           let g=el("g",{style:"cursor:pointer"},svg);
-          if(isX(r)){const a=0.45*d;el("path",{d:`M${e.x-a} ${y-a}L${e.x+a} ${y+a}M${e.x-a} ${y+a}L${e.x+a} ${y-a}`,stroke:col,"stroke-width":d/5},g);if(hollow)el("circle",{cx:e.x,cy:y,r:0.6*d,fill:"none",stroke:col,"stroke-width":d/10},g);}
+          if(r===4&&pg.tri){const t=`M${e.x} ${y-0.58*d}L${e.x-0.66*d} ${y+0.5*d}L${e.x+0.66*d} ${y+0.5*d}Z`;el("path",{d:t,fill:hollow?"none":col,stroke:col,"stroke-width":d/6},g);}   // Seiten mit Dreiecken: 4. Reihe als Dreieck
+          else if(isX(r)){const a=0.45*d;el("path",{d:`M${e.x-a} ${y-a}L${e.x+a} ${y+a}M${e.x-a} ${y+a}L${e.x+a} ${y-a}`,stroke:col,"stroke-width":d/5},g);if(hollow)el("circle",{cx:e.x,cy:y,r:0.6*d,fill:"none",stroke:col,"stroke-width":d/10},g);}
           else el("ellipse",{cx:e.x,cy:y,rx:0.62*d,ry:0.45*d,transform:`rotate(-20 ${e.x} ${y})`,fill:hollow?"none":col,stroke:col,"stroke-width":d/6},g);
           el("rect",{x:e.x-0.8*d,y:y-0.6*d,width:1.6*d,height:1.2*d,fill:"transparent",stroke:sel?"#ff00ff":"none","stroke-width":d/8},g);
           g.addEventListener("click",ev=>{ev.stopPropagation();SEL={mi,ei,hi};draw();});});

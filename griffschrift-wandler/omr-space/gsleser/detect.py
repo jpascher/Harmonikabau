@@ -56,6 +56,36 @@ def homr_masks(g):
     return res
 
 LAST = {}
+HT_SC = 0.951   # Sicherheit der Formprüfung (eigener Wert, damit sie die Entscheidung „Seite mit Dreiecken“ nicht beeinflusst)
+HTRI = _os.environ.get('GS_HTRI', '1') == '1'   # hohle Dreiecke (4. Reihe ab der Halben, Margetich/Philipp) über ihre Form prüfen
+def htri_score(bwd, nol2, thk, x, y, d, w=0.66, hu=0.58, hd=0.5):
+    """Hohles Dreieck mit Spitze oben an (x, y)? Beide Seiten und die Grundlinie tragen Tinte, die Grundlinie läuft nicht seitlich
+    weiter (Balken), innen (ohne Halsspalte) und links und rechts oben außen ist es leer, die Diagonalen innen sind leer (sonst Kreuz,
+    auch im Kreis), und kein dicker Balken liegt in der Nähe. Der Dreieck-Klassifikator übersieht diese dünnen Umrisse oft, vor allem
+    mit Hilfslinien."""
+    def frac(p0, p1, im, n=12, t0=0.12, t1=0.88):
+        c = 0
+        for t in np.linspace(t0, t1, n):
+            px = int(round(p0[0] + (p1[0] - p0[0]) * t)); py = int(round(p0[1] + (p1[1] - p0[1]) * t))
+            if 0 <= py < im.shape[0] and 0 <= px < im.shape[1] and im[py, px]: c += 1
+        return c / n
+    def box(im, x0, x1, y0, y1):
+        win = im[max(0, int(y0)):int(y1) + 1, max(0, int(x0)):int(x1) + 1]; return (win > 0).mean() if win.size else 1
+    apex = (x, y - hu * d); yb = y + hd * d
+    bs = frac((x - 0.5 * d, yb), (x + 0.5 * d, yb), bwd, t0=0.05, t1=0.95)   # Grundlinie (liegt zwischen den Notenlinien)
+    ext = min(frac((x - 1.4 * d, yb), (x - 0.85 * d, yb), bwd), frac((x + 0.85 * d, yb), (x + 1.4 * d, yb), bwd))
+    lim = min(bs + 0.15, 1.3 - ext)
+    if lim < 0.8: return False
+    if min(frac((x - w * d, yb), apex, bwd), frac((x + w * d, yb), apex, bwd)) < 0.8: return False
+    if box(thk, x - 0.7 * d, x + 0.7 * d, y - 0.7 * d, y + 0.6 * d) * 3 >= 0.35: return False   # dicker Balken in der Nähe
+    inn = max(box(nol2, x - 0.30 * d, x - 0.12 * d, y, y + 0.25 * d), box(nol2, x + 0.12 * d, x + 0.30 * d, y, y + 0.25 * d))
+    out = min(box(nol2, x - 0.7 * d, x - 0.3 * d, y - 0.6 * d, y - 0.3 * d), box(nol2, x + 0.3 * d, x + 0.7 * d, y - 0.6 * d, y - 0.3 * d))
+    ox, oy = max(0, int(x - d)), max(0, int(y - d))
+    nd = cv2.dilate(nol2[oy:int(y + d), ox:int(x + d)], np.ones((3, 3), np.uint8))
+    dg = min(frac((x - 0.32 * d - ox, y - 0.32 * d - oy), (x + 0.32 * d - ox, y + 0.32 * d - oy), nd, t0=0.2, t1=0.8),
+             frac((x - 0.32 * d - ox, y + 0.32 * d - oy), (x + 0.32 * d - ox, y - 0.32 * d - oy), nd, t0=0.2, t1=0.8))
+    spitz = max(box(nol2, x - 0.45 * d, x - 0.28 * d, y - 0.45 * d, y - 0.3 * d), box(nol2, x + 0.28 * d, x + 0.45 * d, y - 0.45 * d, y - 0.3 * d))   # oben spitz, nicht rund (hohle runde Köpfe)
+    return max(inn, dg - 0.15) < 0.35 and out < 0.35 and spitz < 0.3
 def detect(path, scale=2, thr=0.5):
     g = cv2.imread(path, 0); _, bw = cv2.threshold(g, 200, 255, cv2.THRESH_BINARY_INV)
     out = []
@@ -96,10 +126,19 @@ def detect(path, scale=2, thr=0.5):
         if H3 is not None and H3_W > 0 and not G.FOTO_LINES:
             p3 = np.zeros_like(pr); p3[:, H3.classes_] = H3.predict_proba(F); pr = (1 - H3_W) * pr + H3_W * p3
         pt = TRI.predict_proba(F) if TRI is not None else None
+        ht = set()
+        if HTRI and TRI is not None and not G.FOTO_LINES:
+            bwd_ = cv2.dilate(bw, np.ones((3, 3), np.uint8))
+            thk_ = cv2.morphologyEx(cv2.morphologyEx(bw, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (max(3, int(d * 1.8)), 1))), cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (1, max(3, int(d * 0.3)))))
+            nol2_ = cv2.subtract(bw, cv2.morphologyEx(bw, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_RECT, (max(3, int(d * 1.6)), 1))))
+            for i, (x, y, p, _) in enumerate(cand):
+                if p % 2 == 0 and -8 <= p <= 12 and htri_score(bwd_, nol2_, thk_, x, y, d): ht.add(i)
         def make_hits(tri_on):
             hits = []
             for i in range(len(cand)):
                 tp = pt[i][1] + pt[i][2] if pt is not None else 0
+                if tri_on and i in ht:
+                    hits.append((HT_SC, cand[i][:3], 6)); continue
                 if tri_on and cand[i][2] % 2 == 0 and tp >= TRI_THR and (1 - pr[i][0] >= TRI_HEAD or tp >= TRI_SURE):   # 4. Reihe liegt immer auf geraden Lagen
                     hits.append((round(float(tp), 3), cand[i][:3], 5 if pt[i][1] >= pt[i][2] else 6))
                 elif pr[i][0] < 1 - thr:
@@ -143,7 +182,7 @@ def detect(path, scale=2, thr=0.5):
         staves_res.append((si, d, mid, k_tri, k_no))
     # Dreiecke gibt es nur in der Schreibweise mit Dreieck-Köpfen (z. B. Elke Margetich). Auf einer Seite ohne solche Köpfe meldet
     # der Dreieck-Klassifikator nur vereinzelt und unsicher etwas; dann gilt die Lesung ohne Dreiecke für die ganze Seite.
-    tri = [sc for _, _, _, kt, _ in staves_res for sc, _, c in kt if c >= 5]
+    tri = [sc for _, _, _, kt, _ in staves_res for sc, _, c in kt if c >= 5 and sc != HT_SC]   # nur der Klassifikator entscheidet, ob die Seite Dreiecke hat
     tri_page = len(tri) >= TRI_MIN and sum(t >= 0.9 for t in tri) >= TRI_FRAC * len(tri)
     LAST['tri_page'] = bool(tri_page)   # für gs2xml: Seite in Dreieck-Schreibweise (Margetich)
     for si, d, mid, k_tri, k_no in staves_res:

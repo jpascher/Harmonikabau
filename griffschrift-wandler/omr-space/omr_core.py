@@ -28,6 +28,41 @@ def _merge(files):
             n += 1; m.set("number", str(n)); part.append(m)
     return ET.tostring(root, encoding="unicode", xml_declaration=True)
 
+def _ties(xml):
+    """homr schreibt Haltebögen als Bindebögen (slur). Ein Bogen von einem Akkord zum unmittelbar folgenden mit genau denselben
+    Tönen ist ein Haltebogen: dort werden die Bögen durch tie/tied ersetzt, sonst würde der Ton zweimal angeschlagen."""
+    try: root = ET.fromstring(xml.encode("utf-8") if isinstance(xml, str) else xml)
+    except ET.ParseError: return xml
+    def pit(n):
+        p = n.find("pitch")
+        if p is None: return None
+        al = p.find("alter")
+        return (p.findtext("step"), p.findtext("octave"), al.text if al is not None else "0")
+    for part in root.iter("part"):
+        groups = []
+        for m in part.iter("measure"):
+            for n in m.findall("note"):
+                if n.find("chord") is not None and groups: groups[-1].append(n)
+                else: groups.append([n])
+        def slurs(g, typ): return [(n, sl) for n in g for nt in n.findall("notations") for sl in nt.findall("slur") if sl.get("type") == typ]
+        for g1, g2 in zip(groups, groups[1:]):
+            st, sp = slurs(g1, "start"), slurs(g2, "stop")
+            if not st or not sp: continue
+            p1 = sorted(filter(None, map(pit, g1))); p2 = sorted(filter(None, map(pit, g2)))
+            if not p1 or p1 != p2: continue
+            for g, typ, lst in ((g1, "start", st), (g2, "stop", sp)):
+                for n, sl in lst:
+                    for nt in n.findall("notations"):
+                        if sl in list(nt): nt.remove(sl)
+                for n in g:
+                    if n.find("pitch") is None: continue
+                    kids = list(n); i = next((k + 1 for k, c in enumerate(kids) if c.tag == "duration"), len(kids))
+                    n.insert(i, ET.Element("tie", type=typ))
+                    nt = n.find("notations")
+                    if nt is None: nt = ET.SubElement(n, "notations")
+                    nt.append(ET.Element("tied", type=typ))
+    return ET.tostring(root, encoding="unicode", xml_declaration=True)
+
 def scan_file(path, timeout=600, max_pages=8):
     ext = os.path.splitext(path)[1].lower()
     work = tempfile.mkdtemp(prefix="omrc-")
@@ -48,7 +83,9 @@ def scan_file(path, timeout=600, max_pages=8):
         outs = [_homr(i, timeout) for i in imgs]
         if len(outs) == 1:
             with open(outs[0], encoding="utf-8") as f:
-                return f.read()
-        return _merge(outs)
+                xml = f.read()
+        else:
+            xml = _merge(outs)
+        return _ties(xml) if os.environ.get("OMR_TIES", "1") == "1" else xml
     finally:
         shutil.rmtree(work, ignore_errors=True)

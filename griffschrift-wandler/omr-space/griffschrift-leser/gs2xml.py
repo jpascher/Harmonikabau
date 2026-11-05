@@ -656,7 +656,11 @@ def pruefbild(g,meas,lens,num0,maxw=1600,bass=None):
                     p=2*(n-6)+OFF_.get(r,0);y=int(round(mid+0.5-p*d/2));ysum.append(y)
                     for lp in range(6,abs(p)//2*2+1,2):   # Hilfslinien
                         yl=int(round(mid+0.5-(lp if p>0 else -lp)*d/2));cv2.line(c,(int(x-0.9*d),yl),(int(x+0.9*d),yl),col,1)
-                    if r>=3:
+                    if r==4 and D.LAST.get('tri_page'):   # Seiten mit Dreiecken (Margetich, Philipp): 4. Reihe als Dreieck, hohl ab der Halben
+                        tp_=np.array([[x,y-int(0.58*d)],[x-int(0.66*d),y+int(0.5*d)],[x+int(0.66*d),y+int(0.5*d)]],np.int32)
+                        if hollow: cv2.polylines(c,[tp_],True,col,lw)
+                        else: cv2.fillPoly(c,[tp_],col)
+                    elif r>=3:
                         a_=int(0.45*d);cv2.line(c,(x-a_,y-a_),(x+a_,y+a_),col,lw);cv2.line(c,(x-a_,y+a_),(x+a_,y-a_),col,lw)
                         if hollow: cv2.circle(c,(x,y),int(0.6*d),col,max(1,lw//2))
                     else:
@@ -695,7 +699,7 @@ def edit_page(g,meas,lens,num0,a0,bass=None,maxw=1600):
             evs.append(ev)
         ms.append(dict(n=num0+mi,i=a0+mi,L=int(L),e=evs,f=(m[0].get('mflags') if m else None) or {},w=(m[0].get('words') if m else None) or [],b=[[int(q),str(c)] for q,c in (bass[mi] if bass and mi<len(bass) else [])]))
     jpg=cv2.imencode('.jpg',im,[cv2.IMWRITE_JPEG_QUALITY,60])[1].tobytes()
-    return dict(img='data:image/jpeg;base64,'+base64.b64encode(jpg).decode(),w=im.shape[1],h=im.shape[0],st=[[round(float(y)*k,1) for y in ys] for ys in st],m=ms)
+    return dict(img='data:image/jpeg;base64,'+base64.b64encode(jpg).decode(),w=im.shape[1],h=im.shape[0],st=[[round(float(y)*k,1) for y in ys] for ys in st],m=ms,tri=bool(D.LAST.get('tri_page')))
 def split_double(path):
     """Quer liegende Doppelseite (zwei Notenseiten nebeneinander, z. B. aufgeschlagenes Heft): findet die Liniensuche auf der ganzen
     Seite keine Systeme, wird an der hellsten Spalte nahe der Mitte geteilt und jede Hälfte als eigene Seite gelesen. GS_SPLIT=0: aus"""
