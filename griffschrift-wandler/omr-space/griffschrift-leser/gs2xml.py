@@ -375,7 +375,14 @@ def read(path,shift=0,work=None,table=None,bass=None):
         bl=barlines(bw,ys,d,[x for x,_ in heads_xy]);nol=G.stems_off(G.remove_lines(bw,ys,d),d)
         rs=[dict(kind='r',st=si,x=x,u=u) for x,u in rests(bw,nol,ys,d,heads_xy,bl)]
         edges=[0]+bl+[1e9];allg=[]
-        if bass is not None and not _os.environ.get('NOBASS'): letters[si]=BR.read_letters(bw,st,si,d)
+        if bass is not None and not _os.environ.get('NOBASS'):
+            _vb=None
+            if _vk:
+                try:
+                    import vektor as VK;_bb=VK.load_bass(path)
+                    if _bb is not None: _vb=VK.letters_from_bass(_bb,g.shape[1]/Image.open(path).size[0],st,si)
+                except Exception: _vb=None
+            letters[si]=_vb if _vb else BR.read_letters(bw,st,si,d)   # Vektor-PDF: Bassbuchstaben aus der Textebene
         for a,b in zip(edges,edges[1:]):
             ev=sorted([it for it in its if a<it['x']<b]+[r for r in rs if a<r['x']<b],key=lambda e:e['x'])
             grp=[]
