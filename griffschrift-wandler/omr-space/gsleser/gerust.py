@@ -10,7 +10,8 @@ DIAT = 'CDEFGAB'
 CLEF_REF = {'G': ('G', 4), 'F': ('F', 3), 'C': ('C', 4)}
 MINMATCH = float(os.environ.get('GS_GMIN', '0.5'))   # Anteil zugeordneter Akkorde, ab dem homr für ein System gilt
 MAXLOSS = float(os.environ.get('GS_GLOSS', '0.15'))   # bleibt mehr als dieser Anteil der Akkorde des Lesers ohne homr-Gegenstück, gilt für das ganze System der Leser
-TAKTWEISE = os.environ.get('GS_GTAKT', '1') == '1'   # Takte mit Akkorden, die nur der Leser sieht: diese Takte vom Leser
+TAKTWEISE = os.environ.get('GS_GTAKT', '1') == '1'
+QUAL = float(os.environ.get('GS_GQUAL', '0.6'))   # so viele von homrs eigenen Takten im System müssen gleich lang sein, sonst gilt der Leser   # Takte mit Akkorden, die nur der Leser sieht: diese Takte vom Leser
 
 
 def _diat(step, octv):
@@ -139,6 +140,23 @@ def rebuild(g, st, x_ext, meas, medge, button, pitch, table, off, stats=None):
         if not cand or not groups:
             newm += [(si, m) for m, _ in mine]; newe += [e for _, e in mine]; continue
         ev = cand[0]
+        # Selbstprüfung: homrs eigene Takte im System (ohne ersten und letzten) sollen überwiegend gleich lang sein;
+        # sonst hat homr das System nicht verstanden (z. B. dichte Akkorde mit Dreiecken bei Philipp) und der Leser gilt
+        sm_ = []; c_ = 0; seen = False
+        for e in ev:
+            if e[0] == 'bar':
+                if seen: sm_.append(c_)
+                c_ = 0; seen = False
+            else: c_ += e[1]; seen = True
+        if seen: sm_.append(c_)
+        inner = sm_[1:-1] if len(sm_) > 3 else sm_
+        if inner:
+            import collections as _co
+            top = _co.Counter(inner).most_common(1)[0][1]
+            if top < QUAL * len(inner):
+                newm += [(si, m) for m, _ in mine]; newe += [e for _, e in mine]
+                if stats is not None: stats['unstimmig'] = stats.get('unstimmig', 0) + 1
+                continue
         A = [[p for it in gr for p in it.get('ps', [])] for gr in groups]
         hn = [k for k, e in enumerate(ev) if e[0] == 'note']
         # homr liest die Lagen in manchen Systemen durchgehend um eine oder zwei Stufen verschoben (Schlüssel, Linienlage):
