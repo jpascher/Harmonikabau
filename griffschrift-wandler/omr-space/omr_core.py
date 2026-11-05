@@ -63,6 +63,36 @@ def _ties(xml):
                     nt.append(ET.Element("tied", type=typ))
     return ET.tostring(root, encoding="unicode", xml_declaration=True)
 
+def _title(img):
+    """Titel aus der Seite lesen: die Textzeile mit der größten Schrift im oberen Viertel (homr nimmt manchmal den Untertitel)."""
+    try:
+        import pytesseract
+        from PIL import Image
+        im = Image.open(img).convert("L"); w, h = im.size; top = im.crop((0, 0, w, int(h * 0.25)))
+        D = pytesseract.image_to_data(top, lang="deu+ita+eng" if "ita" in pytesseract.get_languages() else "deu", config="--psm 3", output_type=pytesseract.Output.DICT)
+        lines = {}
+        for i, t in enumerate(D["text"]):
+            t = (t or "").strip()
+            if not t or float(D["conf"][i]) < 60: continue
+            k = (D["block_num"][i], D["par_num"][i], D["line_num"][i]); lines.setdefault(k, []).append((D["left"][i], t, D["height"][i]))
+        best = None
+        for ws in lines.values():
+            txt = " ".join(t for _, t, _h in sorted(ws)); hgt = sorted(x[2] for x in ws)[len(ws) // 2]
+            if sum(ch.isalpha() for ch in txt) < 3: continue
+            if best is None or hgt > best[0]: best = (hgt, txt)
+        return best[1] if best else None
+    except Exception:
+        return None
+
+def _set_title(xml, title):
+    if not title: return xml
+    import html
+    t = html.escape(title.title() if title.isupper() else title)
+    if "<work-title>" in xml:
+        import re
+        return re.sub(r"<work-title>.*?</work-title>", "<work-title>" + t + "</work-title>", xml, count=1, flags=re.S)
+    return xml
+
 def scan_file(path, timeout=600, max_pages=8):
     ext = os.path.splitext(path)[1].lower()
     work = tempfile.mkdtemp(prefix="omrc-")
@@ -86,6 +116,8 @@ def scan_file(path, timeout=600, max_pages=8):
                 xml = f.read()
         else:
             xml = _merge(outs)
-        return _ties(xml) if os.environ.get("OMR_TIES", "1") == "1" else xml
+        xml = _ties(xml) if os.environ.get("OMR_TIES", "1") == "1" else xml
+        if os.environ.get("OMR_TITLE", "1") == "1": xml = _set_title(xml, _title(imgs[0]))
+        return xml
     finally:
         shutil.rmtree(work, ignore_errors=True)

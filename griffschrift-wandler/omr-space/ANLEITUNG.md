@@ -21,3 +21,5 @@ Seit dem neunzehnten Durchgang gehören in den Ordner gsleser zusätzlich vektor
 Seit dem einundzwanzigsten Durchgang gibt app.py beim Griffschrift-Scan zusätzlich das Feld seiten zurück (entzerrte Seiten mit den erkannten Ereignissen); daraus baut der Wandler die bearbeitbare Überlagerung. Dafür müssen app.py und gsleser/gs2xml.py gemeinsam erneuert werden.
 
 Haltebögen bei Normalnoten: homr schreibt Haltebögen als Bindebögen, der Wandler hat den gehaltenen Ton deshalb ein zweites Mal angeschlagen. omr_core.py ersetzt jetzt einen Bogen zwischen zwei unmittelbar aufeinanderfolgenden Akkorden mit genau denselben Tönen durch einen Haltebogen (OMR_TIES = 0 schaltet das ab). Beim Walzer „Sul Bondone“ (eingescannte Seite) waren alle 13 Bögen solche Haltebögen; homr las dort 169 von 179 Akkorden genau so, wie sie in der dazu gelieferten MIDI-Datei stehen.
+
+Seit dem achtundzwanzigsten Durchgang setzt omr_core.py bei Normalnoten den Titel aus der Textzeile mit der größten Schrift im oberen Seitenviertel (OMR_TITLE = 0 schaltet das ab); dafür braucht der Space Tesseract, das seit v135 in packages.txt steht.

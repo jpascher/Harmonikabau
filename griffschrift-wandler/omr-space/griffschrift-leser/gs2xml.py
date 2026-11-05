@@ -71,7 +71,11 @@ def orient(g):
     sm=cv2.divide(sm,cv2.GaussianBlur(sm,(0,0),10),scale=255);bw=(sm<190).astype(np.uint8)*255
     hz=cv2.morphologyEx(bw,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(40,1))).sum()
     vt=cv2.morphologyEx(bw,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(1,40))).sum()
-    return cv2.rotate(g,cv2.ROTATE_90_CLOCKWISE) if vt>2*max(hz,1) else g
+    if vt>2*max(hz,1):
+        # senkrechte Zierrahmen oder Randlinien: stehen schon so Notensysteme im Bild, nicht drehen
+        if len(G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1]))>=2: return g
+        return cv2.rotate(g,cv2.ROTATE_90_CLOCKWISE)
+    return g
 def upside_down(g,st):
     """Steht die Seite auf dem Kopf? Gezählt werden sicher erkannte Bassbuchstaben unter den Systemen, einmal so und einmal um 180° gedreht;
     auf dem Kopf stehende Buchstaben erkennt das Modell nicht."""
@@ -475,7 +479,9 @@ def read(path,shift=0,work=None,table=None,bass=None):
                 ps_=it.get('ps') or []
                 if ps_ and len(ps_)==len(it.get('heads',[])):
                     up_=_hl(it,True) if max(ps_)>=8 else True;dn_=_hl(it,False) if min(ps_)<=-8 else True
-                    keep_=[k for k,q in enumerate(ps_) if not (q>=8 and not up_ or q<=-8 and not dn_)]   # einzelne Köpfe ohne Hilfslinie weglassen (Text über dem Akkord)
+                    hy_=it.get('hy') if isinstance(it.get('hy'),list) and len(it.get('hy'))==len(ps_) else None
+                    nb_=lambda k:any(abs((hy_[k][0] if hy_ else it['x'])-b_)<1.5*d for b_ in bl)   # Zierstriche über/unter einem Wiederholungsstrich (Rosenzopf) sind keine Hilfslinien
+                    keep_=[k for k,q in enumerate(ps_) if not ((q>=8 and not up_) or (q<=-8 and not dn_) or (G.FOTO_LINES and abs(q)>=6 and len(ps_)==1 and nb_(k)))]   # einzelne Köpfe ohne Hilfslinie weglassen (Text über dem Akkord)
                     if not keep_: continue
                     if len(keep_)<len(ps_):
                         it=dict(it)
@@ -874,16 +880,24 @@ def split_double(path):
     try:
         im=Image.open(path);im=ImageOps.exif_transpose(im);W,H=im.size
         if W<1.2*H: return [path]
-        g=load_gray(path)
-        if g is not None and G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1]): return [path]
+        g=load_gray(path);n0=len(G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1])) if g is not None else 0
+        if n0 and W<1.3*H: return [path]
         a=np.array(im.convert('L')).astype(np.float32);col=(a<128).mean(0);lo,hi=int(W*0.4),int(W*0.6)
         x=lo+int(np.argmin(np.convolve(col[lo:hi],np.ones(15)/15,'same')))
-        import tempfile;out=[]
+        import tempfile;out=[];n1=0;rel=[]
         for box in ((0,0,x,H),(x,0,W,H)):
             fn=tempfile.mktemp(suffix='.png');im.crop(box).save(fn)
             g2=load_gray(fn)
-            if g2 is not None: out.append(fn)
-        return out or [path]
+            if g2 is not None:
+                ss=G.staves(cv2.threshold(g2,240,255,cv2.THRESH_BINARY_INV)[1])
+                if ss: out.append(fn);n1+=len(ss);rel.append([s_[2]/g2.shape[0] for s_ in ss])
+        if not n0: return out or [path]
+        # Doppelseite: die Hälften haben zusammen deutlich mehr Systeme als das ganze Blatt, und die Systeme links und rechts stehen
+        # auf verschiedener Höhe (bei einer breiten Einzelseite laufen sie durch und liegen in beiden Hälften gleich hoch)
+        if len(rel)==2 and n1>n0*1.5:
+            same=sum(1 for a_ in rel[0] if any(abs(a_-b_)<0.015 for b_ in rel[1]))
+            if same<0.5*min(len(rel[0]),len(rel[1])) or n0<0.6*min(len(rel[0]),len(rel[1])): return out
+        return [path]
     except Exception:
         return [path]
 def convert(paths,shift=0,title='Gescannte Griffschrift',table=None,bilder=None,style='auto',text=None,seiten_out=None):

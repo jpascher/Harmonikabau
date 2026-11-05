@@ -47,6 +47,15 @@ def staves(bw):
         # gleichmäßig ausgleichen (eine Linie kann durch einen anliegenden Balken leicht verschoben sein)
         k = np.arange(5); a1, a0 = np.polyfit(k, g, 1); out.append([float(a0 + a1 * q) for q in k])
     out.sort(key=lambda g: g[0])
+    if not FOTO_LINES and not _UNION[0] and out and _os.environ.get('GS_FAINTSCAN', '1') == '1':   # Scans von Kopien: dünne, unterbrochene Linien einzelner Systeme
+        dm = float(np.median([(o[4] - o[0]) / 4 for o in out]))
+        _UNION[0] = True; _THR[0] = 0.15
+        try: more = staves(bw)
+        finally: _UNION[0] = False; _THR[0] = 0.3
+        for g in more:
+            dg = (g[4] - g[0]) / 4
+            if abs(dg - dm) <= 0.12 * dm and all(g[4] < o[0] - 2 * dm or g[0] > o[4] + 2 * dm for o in out): out.append(g)
+        out.sort(key=lambda g: g[0])
     if FOTO_LINES and not _UNION[0]:   # bei Fotos auch die strengere Suche ohne Zeilen-Zusammenfassung, fehlende Systeme ergänzen
         _UNION[0] = True
         try:
