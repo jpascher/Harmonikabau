@@ -383,6 +383,13 @@ def read(path,shift=0,work=None,table=None,bass=None):
                     if _bb is not None: _vb=VK.letters_from_bass(_bb,g.shape[1]/Image.open(path).size[0],st,si)
                 except Exception: _vb=None
             letters[si]=_vb if _vb else BR.read_letters(bw,st,si,d)   # Vektor-PDF: Bassbuchstaben aus der Textebene
+        if not G.FOTO_LINES and _os.environ.get('GS_BARDOTS','1')=='1':   # „Köpfe“ direkt am Taktstrich sind Wiederholungspunkte (Fuchs: dicker Strich mit Punkten)
+            its=[it for it in its if not any(abs(it['x']-x_)<0.8*d for x_ in bl)]
+        if not G.FOTO_LINES and _os.environ.get('GS_LEDGER','1')=='1':   # Köpfe weit über oder unter dem System brauchen Hilfslinien; ohne sind es Zahlen oder Text (etwa „MM = 92“)
+            def _hl(it,up):
+                yy=int(round(ys[0]-d if up else ys[4]+d));x0,x1=int(it['x']-0.9*d),int(it['x']+0.9*d)
+                return max(((bw[max(0,yy+k),max(0,x0):x1]>0).mean() for k in range(-2,3)),default=0)>0.6
+            its=[it for it in its if not (it.get('ps') and (min(it['ps'])>=8 and not _hl(it,True) or max(it['ps'])<=-8 and not _hl(it,False)))]
         for a,b in zip(edges,edges[1:]):
             ev=sorted([it for it in its if a<it['x']<b]+[r for r in rs if a<r['x']<b],key=lambda e:e['x'])
             grp=[]

@@ -46,7 +46,8 @@ def barlines(bw,ys,d,heads_x):
     res=[]
     for g in out:
         x=float(np.mean(g))
-        if len(g)>(0.9 if G.FOTO_LINES else 0.6)*d: continue           # zu breit: Balken o. ä. (auf Fotos sind dicke Wiederholungsstriche breiter)
+        if len(g)>(0.9 if G.FOTO_LINES else 0.75 if _os.environ.get('GS_BARW','1')=='1' else 0.6)*d: continue           # zu breit: Balken o. ä. (auf Fotos sind dicke Wiederholungsstriche breiter; bei Fuchs bis 0,6 d)
+        if len(g)>0.6*d and not G.FOTO_LINES and sum(abs(x-h)<0.3*d for h in heads_x)>=2: continue   # breiter Strich mitten in einem Akkord (Michlbauer): Köpfe übereinander, kein Wiederholungsstrich
         if len(g)<0.3*d and any(abs(x-h)<0.9*d for h in heads_x): continue   # Hals eines Kopfes (dicke Striche wie beim Wiederholungszeichen sind keine Hälse; ein Punkt daneben wird manchmal als Kopf gelesen)
         if res and x-res[-1]<0.9*d: res[-1]=(res[-1]+x)/2;continue   # Doppelstrich zusammenfassen
         res.append(x)
@@ -70,7 +71,7 @@ def rests(bw,nol,ys,d,heads,bars):
         elif 0.5<=h<=0.95 and 1.05<=w<=1.7 and fillr>0.6 and -1.1<c<0.1: u=24 if c>-0.5 else 48   # Halbe/Ganze Pause
         else: continue
         # Punkt rechts daneben verlängert um die Hälfte
-        if any(0.6*d<px-cx<2.2*d and abs(py-cy)<0.8*d and 0.1<pa<0.3 and pw<0.7 for px,py,pw,ph,pa in comps): u=u*3//2
+        if any(0.6*d<px-cx<2.2*d and abs(py-cy)<0.8*d and 0.1<pa<0.3 and pw<0.7 and not any(0<bx-px<1.2*d for bx in bars) for px,py,pw,ph,pa in comps): u=u*3//2   # Wiederholungspunkte vor dem Taktstrich zählen nicht
         out.append((cx,u))
     return out
 def fit_measure(P,rest_units,L,maxloss=6.0,units=None):
