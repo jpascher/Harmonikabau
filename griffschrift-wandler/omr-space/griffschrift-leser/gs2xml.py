@@ -263,8 +263,9 @@ def prefix_marks(det,bw,st):
     return [h for k,h in enumerate(det) if k not in drop]
 def segno_filter(det,bw,st):
     """Segno-Zeichen (Rosenzopf: am Teilbeginn und am Schluss) wird als Köpfe gelesen. Erkennung: die Köpfe liegen in einem Tintenfleck
-    von mindestens 2,6 Linienabständen Höhe ohne geraden Hals (längster senkrechter Strich unter 1,6 Linienabständen). GS_SEGNO=0: aus"""
-    if _os.environ.get('GS_SEGNO','0')!='1' or not det: return det   # erprobt, trennt das Segno noch nicht sicher von dichten Akkorden: aus
+    von mindestens 2,6 Linienabständen Höhe ohne geraden Hals (längster senkrechter Strich unter 1,6 Linienabständen), direkt neben
+    einem dicken Taktstrich (Wiederholung, Schluss). GS_SEGNO=0: aus"""
+    if _os.environ.get('GS_SEGNO','1')!='1' or not det: return det   # nur neben einem dicken Taktstrich (sonst nicht sicher von dichten Akkorden zu trennen)
     out=[];cache={}
     for h in det:
         si=h['st']
@@ -276,11 +277,19 @@ def segno_filter(det,bw,st):
             for i in range(1,n_):
                 x,y,w,hh,a=S_[i]
                 if hh<2.6*d or not (0.9*d<=w<=2.8*d): continue
-                m=(lab[y:y+hh,x:x+w]==i);run=0
+                m=(lab[y:y+hh,x:x+w]==i);run=0;many=0
                 for c in range(m.shape[1]):
                     col=np.concatenate([[0],m[:,c].astype(np.int8),[0]]);e=np.flatnonzero(np.diff(col))
-                    if len(e): run=max(run,int((e[1::2]-e[::2]).max()))
-                if run<1.6*d: bad.add(i)
+                    if len(e): run=max(run,int((e[1::2]-e[::2]).max()));many+=len(e)//2>=4
+                spiral=w>=1.4*d and many>=0.5*m.shape[1]   # Rosenzopf: gewundenes Zeichen, viele schräge Striche übereinander
+                if run>=1.6*d and not spiral: continue
+                # daneben (bis 2,5 Linienabstände) ein dicker Strich über die ganze Systemhöhe: Wiederholung oder Schluss
+                def thick(lo,hi):
+                    lo,hi=max(0,int(lo)),min(bw.shape[1],int(hi))
+                    if hi<=lo: return False
+                    cov=((bw[int(ys[0]):int(ys[4])+1,lo:hi]>0).mean(0)>0.9).astype(np.int8)
+                    r_=np.flatnonzero(np.diff(np.concatenate([[0],cov,[0]])));return any(b2-a2>=0.3*d for a2,b2 in zip(r_[::2],r_[1::2]))
+                if thick(x+w,x+w+2.5*d) or thick(x-2.5*d,x): bad.add(i)
             cache[si]=(t,lab,bad)
         t,lab,bad=cache[si];yy=int(h['y'])-t;xx=int(h['x'])
         if bad and 0<=yy<lab.shape[0] and 0<=xx<lab.shape[1] and lab[yy,xx] in bad: continue
@@ -419,7 +428,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
                     if _bb is not None: _vb=VK.letters_from_bass(_bb,g.shape[1]/Image.open(path).size[0],st,si)
                 except Exception: _vb=None
             letters[si]=_vb if _vb else BR.read_letters(bw,st,si,d)   # Vektor-PDF: Bassbuchstaben aus der Textebene
-        if not G.FOTO_LINES and _os.environ.get('GS_BARDOTS','1')=='1':   # „Köpfe“ direkt am Taktstrich sind Wiederholungspunkte (Fuchs: dicker Strich mit Punkten)
+        if _os.environ.get('GS_BARDOTS','1')=='1':   # „Köpfe“ direkt am Taktstrich sind Wiederholungspunkte (Fuchs: dicker Strich mit Punkten)
             its=[it for it in its if not any(abs(it['x']-x_)<0.8*d for x_ in bl)]
         if _os.environ.get('GS_LEDGER','1')=='1':   # Köpfe weit über oder unter dem System brauchen Hilfslinien; ohne sind es Zahlen oder Text (etwa „MM = 92“)
             def _hl(it,up):
@@ -657,6 +666,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
                 if gr[0].get('tie_start'): e['tie_start']=True
                 if gr[0].get('tie_stop'): e['tie_stop']=True
         if evs and m and m[0][0].get('mflags'): evs[0]['mflags']=dict(m[0][0]['mflags'])
+        if evs and mi<len(medge) and medge[mi][1]<g.shape[1]: evs[0]['mx']=[float(medge[mi][0]),float(medge[mi][1])]   # Taktgrenzen im Bild (für Kontrollbild und Editor)
         if evs and mi in _VOLTA and not (evs[0].get('mflags') or {}).get('volta'):
             mf_=evs[0].setdefault('mflags',{});mf_['volta']=_VOLTA[mi]
             if _VOLTA_END.get(mi,mi)==mi: mf_['volta_stop']=True
@@ -723,6 +733,14 @@ def pruefbild_alt(g,meas,lens,num0,maxw=1600):
     if c.shape[1]>maxw: c=cv2.resize(c,(maxw,int(c.shape[0]*maxw/c.shape[1])),interpolation=cv2.INTER_AREA)
     return cv2.imencode('.jpg',c,[cv2.IMWRITE_JPEG_QUALITY,72])[1].tobytes()
 PB_DIR={'D':(200,90,0),'Z':(0,110,230)}   # Druck blau, Zug orange (BGR)
+def _xq(tx,q,L,xe):
+    """Lage eines Zeitpunkts q (Zwölftel-Viertel im Takt) im Bild: zwischen den Einsätzen, nach dem letzten bis zum Taktstrich verteilt."""
+    if not tx: return xe
+    for (p0,x0),(p1,x1) in zip(tx,tx[1:]):
+        if p0<=q<=p1: return x0+(x1-x0)*(q-p0)/max(1,p1-p0)
+    p0,x0=tx[-1]
+    if q<=p0: return tx[0][1]
+    return x0+(xe-x0)*(q-p0)/max(1,L-p0)
 def pruefbild(g,meas,lens,num0,maxw=1600,bass=None):
     """Kontrollbild als Überlagerung: das entzerrte Original blass in Grau, darüber in Farbe, was im erzeugten Ergebnis steht
     (Köpfe an der Lage aus Reihe und Knopf, rund oder Kreuz, hohl ab der Halben; Hals, Fähnchen, Punkt; Pausen; Taktstriche grün;
@@ -767,7 +785,7 @@ def pruefbild(g,meas,lens,num0,maxw=1600,bass=None):
                 if e.get('trip'): cv2.putText(c,'3',(int(x-0.3*d),int(min(ysum)-3.8*d)),cv2.FONT_HERSHEY_SIMPLEX,fs(d)*0.9,col,1)
                 if e.get('tie_start'): cv2.ellipse(c,(int(x+1.2*d),int(max(ysum)+0.8*d)),(int(1.2*d),int(0.5*d)),0,0,180,col,max(1,lw//2))
             # Taktstrich am Ende des Takts (Mitte zwischen letztem Ereignis und nächstem Takt) und Taktnummer
-            xe=int(max(xs)+1.1*d);cv2.line(c,(xe,int(ys[0])),(xe,int(ys[4])),(0,160,0),max(1,lw//2))
+            mx_=es[0].get('mx');xe=int(mx_[1]-0.15*d) if mx_ and mx_[1]>max(xs)+0.5*d else int(max(xs)+1.1*d);cv2.line(c,(xe,int(ys[0])),(xe,int(ys[4])),(0,160,0),max(1,lw//2))   # Taktstrich an der Taktgrenze der Vorlage
             mf=es[0].get('mflags') or {}
             def _rep(xb_,sgn):   # Wiederholungszeichen: dicker grüner Strich, zwei Punkte auf der Seite des wiederholten Teils
                 cv2.line(c,(int(xb_),int(ys[0])),(int(xb_),int(ys[4])),(0,160,0),max(3,int(0.3*d)))
@@ -779,7 +797,7 @@ def pruefbild(g,meas,lens,num0,maxw=1600,bass=None):
             # Bassbuchstaben aus dem Ergebnis: Lage über die Einsätze
             if bass and mi<len(bass) and bass[mi]:
                 for q,cn in bass[mi]:
-                    xq=min(tx,key=lambda t:abs(t[0]-q))[1] if tx else xs[0]
+                    xq=_xq(tx,q,L,xe-0.9*d)
                     cv2.putText(c,str(cn),(int(xq-0.4*d),int(ys[4]+4.6*d)),cv2.FONT_HERSHEY_SIMPLEX,fs(d)*1.2,(150,0,150),max(1,int(fs(d)*2.4)))
     if c.shape[1]>maxw: c=cv2.resize(c,(maxw,int(c.shape[0]*maxw/c.shape[1])),interpolation=cv2.INTER_AREA)
     return cv2.imencode('.jpg',c,[cv2.IMWRITE_JPEG_QUALITY,75])[1].tobytes()
@@ -796,7 +814,7 @@ def edit_page(g,meas,lens,num0,a0,bass=None,maxw=1600):
             ev=dict(x=round(float(e['dbg'][2])*k,1),s=int(e['dbg'][0]),u=int(e['u']),r=bool(e['rest']),t=bool(e.get('trip')))
             if not e['rest']: ev.update(d=e.get('dir','Z'),h=[[int(r),int(n)] for r,n,_ in e['heads']],ts=bool(e.get('tie_start')),te=bool(e.get('tie_stop')))
             evs.append(ev)
-        ms.append(dict(n=num0+mi,i=a0+mi,L=int(L),e=evs,f=(m[0].get('mflags') if m else None) or {},w=(m[0].get('words') if m else None) or [],b=[[int(q),str(c)] for q,c in (bass[mi] if bass and mi<len(bass) else [])]))
+        mx_=(m[0].get('mx') if m else None);ms.append(dict(n=num0+mi,i=a0+mi,L=int(L),e=evs,mx=[round(v*k,1) for v in mx_] if mx_ else None,f=(m[0].get('mflags') if m else None) or {},w=(m[0].get('words') if m else None) or [],b=[[int(q),str(c)] for q,c in (bass[mi] if bass and mi<len(bass) else [])]))
     jpg=cv2.imencode('.jpg',im,[cv2.IMWRITE_JPEG_QUALITY,60])[1].tobytes()
     return dict(img='data:image/jpeg;base64,'+base64.b64encode(jpg).decode(),w=im.shape[1],h=im.shape[0],st=[[round(float(y)*k,1) for y in ys] for ys in st],m=ms,tri=bool(D.LAST.get('tri_page')))
 def split_double(path):

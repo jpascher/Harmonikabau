@@ -1202,7 +1202,11 @@ function renderVerses(doc){const box=document.getElementById("verses");box.inner
   list.forEach(c=>{const d=document.createElement("div");d.className="verse";
     [...c.querySelectorAll("credit-words")].forEach(w=>{const s=document.createElement(w.getAttribute("font-weight")==="bold"?"b":"span");s.textContent=w.textContent;d.appendChild(s);});box.appendChild(d);});
   box.hidden=!list.length;}
-function loadXMLText(txt){LASTXML=txt;PTITLE=null;ED2_PREV=null;   // neues Stück: „2. Stimme zurücknehmen“ gilt nicht mehr
+// Beispiel-Auswahl: bei eigenen Noten (Datei, Scan, Bearbeitung) nicht mehr das zuletzt gewählte Beispiel anzeigen
+let DEMOLOAD=false;
+function markOwn(){const ds=document.getElementById("demo");if(!ds)return;let o=ds.querySelector('option[value="own:"]');
+  if(!o){o=document.createElement("option");o.value="own:";o.disabled=true;ds.insertBefore(o,ds.firstChild);}o.textContent=TX("– eigene Noten –","– own music –");ds.value="own:";}
+function loadXMLText(txt){if(DEMOLOAD)DEMOLOAD=false;else markOwn();LASTXML=txt;PTITLE=null;ED2_PREV=null;   // neues Stück: „2. Stimme zurücknehmen“ gilt nicht mehr
 
   const doc=new DOMParser().parseFromString(txt,"application/xml");
   if(doc.querySelector("parsererror"))throw new Error(TX("Die Datei ist kein lesbares MusicXML.","The file is not readable MusicXML."));
@@ -3276,7 +3280,7 @@ function bassBtnByName(n){const f=x=>BBTN.find(b=>bassNameP(b,/[a-z]/.test(x[0])
 function setPins(key,tab){CURPIN=(tab||FUCHS_PINS)[key]||null;BASSPIN=null;if(CURPIN){const b=CURPIN.b||(window.FUCHS_BASS&&FUCHS_BASS[key]);if(b){BASSPIN=new Map();for(const [t,l] of b)BASSPIN.set(Math.round(t*12),l);}}PINIDX=null;if(CURPIN){PINIDX=new Map();for(const x of CURPIN.n){const k=Math.round(x[0]*12);if(!PINIDX.has(k))PINIDX.set(k,[]);PINIDX.get(k).push(x);}}
   document.getElementById("pinbox").hidden=!CURPIN;}
 function loadDemo(v){
-  stop();SRC={kind:"demo",v};
+  DEMOLOAD=true;stop();SRC={kind:"demo",v};
   if(v.startsWith("phx:"))return loadPhilipp(v.slice(4));
   if(v.startsWith("vm:"))return loadVM(v.slice(3));
   if(v.startsWith("mid:")){const d=FUCHS_MIDI[v.slice(4)];const bin=atob(d.b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
@@ -3397,9 +3401,10 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
     pg.m.forEach((m,mi)=>{if(!m.e.length)return;const sum=m.e.reduce((a,e)=>a+e.u,0),S=staffOf(pg,m.e[0].s);if(!S)return;const {ys,d,mid}=S;
       const xs=m.e.map(e=>e.x),x0=Math.min(...xs)-0.9*d,x1=Math.max(...xs)+0.9*d;
       if(sum!==m.L&&!(m.i===0&&sum<m.L))el("rect",{x:x0,y:ys[0]-1.2*d,width:x1-x0,height:ys[4]-ys[0]+2.4*d,fill:"rgba(255,80,80,.18)"},svg);
-      el("line",{x1:x1+0.2*d,y1:ys[0],x2:x1+0.2*d,y2:ys[4],stroke:"#00a000","stroke-width":Math.max(1,d/8)},svg);
+      const xb=m.mx&&m.mx[1]>Math.max(...xs)+0.5*d?m.mx[1]-0.15*d:x1+0.2*d;   // Taktstrich an der Taktgrenze der Vorlage
+      el("line",{x1:xb,y1:ys[0],x2:xb,y2:ys[4],stroke:"#00a000","stroke-width":Math.max(1,d/8)},svg);
       const f=m.f||{},rep=(xb,sg)=>{el("line",{x1:xb,y1:ys[0],x2:xb,y2:ys[4],stroke:"#00a000","stroke-width":d*0.3},svg);[mid-0.5*d,mid+0.5*d].forEach(yy=>el("circle",{cx:xb+sg*0.6*d,cy:yy,r:d*0.22,fill:"#00a000"},svg));};   // Wiederholungszeichen
-      if(f.rep_end)rep(x1+0.4*d,-1);if(f.rep_start)rep(x0-0.5*d,1);
+      if(f.rep_end)rep(xb+0.2*d,-1);if(f.rep_start)rep(x0-0.5*d,1);
       if(f.volta){const vt=el("text",{x:x0,y:ys[0]-2.6*d,"font-size":d,fill:"#00a000"},svg);vt.textContent=f.volta+".";}
       const tn=el("text",{x:x1-0.4*d,y:ys[4]+2.3*d,fill:sum===m.L?"#008000":"#d00000","font-size":d*0.9},svg);tn.textContent=m.n+(sum===m.L?"":"!");
       m.e.forEach((e,ei)=>{const lab=el("text",{x:e.x-0.5*d,y:ys[0]-1.5*d,"font-size":d*0.85,fill:e.r?"#c00000":"#7a3c00",style:"cursor:pointer"},svg);lab.textContent=(e.r?"P":"")+(UNIT_TX[e.u]||e.u);
@@ -3413,7 +3418,9 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
           el("rect",{x:e.x-0.8*d,y:y-0.6*d,width:1.6*d,height:1.2*d,fill:"transparent",stroke:sel?"#ff00ff":"none","stroke-width":d/8},g);
           g.addEventListener("click",ev=>{ev.stopPropagation();SEL={mi,ei,hi};draw();});});
         const top=Math.min(...e.h.map(([r,n])=>mid+0.5-lagep(r,n)*d/2));if((e.t?e.u*1.5:e.u)<48)el("line",{x1:e.x+0.6*d,y1:top,x2:e.x+0.6*d,y2:top-3.2*d,stroke:col,"stroke-width":d/10},svg);});
-      m.b.forEach(([q,c])=>{let pos=0,bx=m.e[0].x;for(const e of m.e){if(pos<=q)bx=e.x;pos+=e.u;}const t=el("text",{x:bx-0.4*d,y:ys[4]+4.4*d,"font-size":d*1.1,fill:"#a000a0"},svg);t.textContent=c;});});
+      const tx=[];{let pos=0;m.e.forEach(e=>{tx.push([pos,e.x]);pos+=e.u;});}
+      const xq=q=>{for(let i=0;i+1<tx.length;i++){const [p0,a0]=tx[i],[p1,a1]=tx[i+1];if(p0<=q&&q<=p1)return a0+(a1-a0)*(q-p0)/Math.max(1,p1-p0);}const [p0,a0]=tx[tx.length-1];return q<=p0?tx[0][1]:a0+(xb-0.9*d-a0)*(q-p0)/Math.max(1,m.L-p0);};   // Bass nach Zeit zwischen den Einsätzen bzw. bis zum Taktstrich
+      m.b.forEach(([q,c])=>{const t=el("text",{x:xq(q)-0.4*d,y:ys[4]+4.4*d,"font-size":d*1.1,fill:"#a000a0"},svg);t.textContent=c;});});
     const s=SEL&&pg.m[SEL.mi]&&pg.m[SEL.mi].e[SEL.ei];$("ovsel").textContent=s?TX(`Takt ${pg.m[SEL.mi].n}: `,`Measure ${pg.m[SEL.mi].n}: `)+(s.r?TX("Pause ","rest ")+(UNIT_TX[s.u]||s.u):(UNIT_TX[s.u]||s.u)+" · "+(s.d==="D"?TX("Druck","push"):TX("Zug","pull"))+" · "+s.h.map(([r,n])=>r+"/"+n).join(" ")):"";}
   function setDur(e,base){const dot=[9,18,36].includes(e.t?e.u*1.5:e.u);let u=base*(dot&&base<48?1.5:1);if(e.t)u=u*2/3;if(Number.isInteger(u))e.u=u;}
   function toggleDot(e){const raw=e.t?e.u*1.5:e.u,base={9:6,18:12,36:24}[raw];let u=base?base:({6:9,12:18,24:36}[raw]||raw);if(e.t)u=u*2/3;if(Number.isInteger(u))e.u=u;}

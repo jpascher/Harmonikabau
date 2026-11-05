@@ -5,6 +5,7 @@ import cv2, numpy as np, json, sys
 FOTO_LINES = False   # wird von gs2xml für Fotos eingeschaltet
 _UNION = [False]
 _GAP = [3]
+_THR = [0.3]   # Anteil der kräftigsten Linien, ab dem eine Zeile als Notenlinie zählt
 def staves(bw):
     """5-Linien-Systeme über die waagrechte Projektion finden; liefert Liste von 5 y-Werten."""
     h, w = bw.shape
@@ -15,7 +16,7 @@ def staves(bw):
     # (ein dunkler Seitenrand ergäbe sonst ein Maximum, neben dem alle Notenlinien zu schwach wirken)
     p3 = np.convolve(prof, np.ones(3), 'same') if FOTO_LINES else prof
     big = p3[p3 > 0.15 * w]; ref = np.percentile(big, 90) if FOTO_LINES and len(big) >= 10 else p3.max()
-    rows = [y for y in range(h) if p3[y] > 0.3 * ref and p3[y] > 0.15 * w]   # 0,3: auch kurze Systeme (z. B. vor „Fine“); fünf gleich weite Linien filtern den Rest
+    rows = [y for y in range(h) if p3[y] > _THR[0] * ref and p3[y] > (0.15 if _THR[0] >= 0.3 else 0.12) * w]   # 0,3: auch kurze Systeme (z. B. vor „Fine“); fünf gleich weite Linien filtern den Rest
     # benachbarte Zeilen zusammenfassen (Liniendicke)
     lines = []
     for y in rows:
@@ -60,6 +61,14 @@ def staves(bw):
             finally: _UNION[0] = False; _GAP[0] = 3
             for g in more:
                 if all(g[4] < o[0] - 2 or g[0] > o[4] + 2 for o in out): out.append(g)
+        if out and _os.environ.get('GS_FAINTLINES', '1') == '1':   # blasse Systeme (graue Linien, etwa am Seitenende): mit niedrigerer Schwelle suchen,
+            dm = float(np.median([(o[4] - o[0]) / 4 for o in out]))   # nur Systeme mit dem Linienabstand der übrigen in freien Bereichen übernehmen
+            _UNION[0] = True; _GAP[0] = 5; _THR[0] = 0.12
+            try: more = staves(bw)
+            finally: _UNION[0] = False; _GAP[0] = 3; _THR[0] = 0.3
+            for g in more:
+                dg = (g[4] - g[0]) / 4
+                if abs(dg - dm) <= 0.15 * dm and all(g[4] < o[0] - 2 * dm or g[0] > o[4] + 2 * dm for o in out): out.append(g)
         out.sort(key=lambda g: g[0])
     return out
 
