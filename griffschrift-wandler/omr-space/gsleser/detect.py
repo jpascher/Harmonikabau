@@ -19,6 +19,11 @@ import gzip as _gz
 _H2 = _os.environ.get('GS_H2', MOD + '/heads2.pkl.gz')
 H2 = pickle.load(_gz.open(_H2, 'rb')) if _os.path.exists(_H2) and not _os.environ.get('NOH2') else None
 H2_W = float(_os.environ.get('GS_H2W', '0.5'))   # Mischgewicht; an einer nicht angelernten Rosenzopf-Seite am besten
+# drittes Kopfmodell für saubere Scans fremder Schreibweisen (angelernt an Vektor-PDFs mit genauen Köpfen aus der Textebene,
+# MC-Score und Finale, auch verschlechtert wie Scans); wird nur bei sauberen Seiten zugemischt (GS_H3W)
+_H3 = _os.environ.get('GS_H3', MOD + '/heads3.pkl.gz')
+H3 = pickle.load(_gz.open(_H3, 'rb')) if _os.path.exists(_H3) and not _os.environ.get('NOH3') else None
+H3_W = float(_os.environ.get('GS_H3W', '0.5'))
 TRI_BOOST = float(_os.environ.get('GS_TRIB', '0.25'))   # Vorrang der Dreieck-Meldungen beim Ausdünnen
 
 # Kandidaten-Vorauswahl mit dem Zerlegungsnetz von homr (Versuch, GS_HOMR=1): homr findet Notenlinien, Hälse und runde Köpfe
@@ -50,6 +55,7 @@ def homr_masks(g):
     _HCACHE.clear(); _HCACHE[key] = res
     return res
 
+LAST = {}
 def detect(path, scale=2, thr=0.5):
     g = cv2.imread(path, 0); _, bw = cv2.threshold(g, 200, 255, cv2.THRESH_BINARY_INV)
     out = []
@@ -87,6 +93,8 @@ def detect(path, scale=2, thr=0.5):
         F = np.array(F); pr = clf.predict_proba(F)
         if H2 is not None and H2_W > 0 and (G.FOTO_LINES or _os.environ.get('GS_H2ALL')):   # GS_H2ALL: Fotomodell auch auf Scans zumischen (Versuch)
             p2 = np.zeros_like(pr); p2[:, H2.classes_] = H2.predict_proba(F); pr = (1 - H2_W) * pr + H2_W * p2
+        if H3 is not None and H3_W > 0 and not G.FOTO_LINES:
+            p3 = np.zeros_like(pr); p3[:, H3.classes_] = H3.predict_proba(F); pr = (1 - H3_W) * pr + H3_W * p3
         pt = TRI.predict_proba(F) if TRI is not None else None
         def make_hits(tri_on):
             hits = []
@@ -137,6 +145,7 @@ def detect(path, scale=2, thr=0.5):
     # der Dreieck-Klassifikator nur vereinzelt und unsicher etwas; dann gilt die Lesung ohne Dreiecke für die ganze Seite.
     tri = [sc for _, _, _, kt, _ in staves_res for sc, _, c in kt if c >= 5]
     tri_page = len(tri) >= TRI_MIN and sum(t >= 0.9 for t in tri) >= TRI_FRAC * len(tri)
+    LAST['tri_page'] = bool(tri_page)   # für gs2xml: Seite in Dreieck-Schreibweise (Margetich)
     for si, d, mid, k_tri, k_no in staves_res:
         keep = k_tri if tri_page else k_no
         for sc, (x, y, p), c in keep:

@@ -40,15 +40,16 @@ def _units(rh):
 
 
 _RUN = {}
+FOTO = False   # von gs2xml gesetzt: Seite ist ein Foto
 def homr_systems(g, st, x_ext):
     """Jedes System des Lesers (fünf Linienhöhen, Ausdehnung) mit homr lesen; die Systeme selbst kommen vom Leser, weil homrs eigene
     Systemsuche Anker (Schlüssel, Taktstriche) braucht, die in Griffschrift oft fehlen. Ergebnis je System: Liste von Ereignissen
     ('bar',) | ('rest', u, trip) | ('note', u, trip, [Lagen]) oder None."""
     import zlib
-    key = (g.shape, zlib.crc32(g[::5, ::5].tobytes()), len(st))
+    key = (g.shape, zlib.crc32(g[::5, ::5].tobytes()), len(st), bool(FOTO and os.environ.get('GS_GFOTOHOMR', '1') == '1'))
     if key in _RUN: return _RUN[key]
     _dc = os.environ.get('GS_GCACHE')   # Ordner für zwischengespeicherte homr-Lesungen (nur Prüfläufe)
-    _fn = os.path.join(_dc, '%d_%d_%x_%d.json' % (g.shape[0], g.shape[1], key[1], len(st))) if _dc else None
+    _fn = os.path.join(_dc, '%d_%d_%x_%d%s.json' % (g.shape[0], g.shape[1], key[1], len(st), '_fh' if key[3] else '')) if _dc else None
     if _fn and os.path.exists(_fn):
         import json
         out = [None if e is None else [tuple(x) for x in e] for e in json.load(open(_fn))]
@@ -71,6 +72,27 @@ def homr_systems(g, st, x_ext):
         x0, x1 = x_ext.get(si, (0, g.shape[1] - 1))
         pts = [StaffPoint(float(x) * sc, [float(y) * sc for y in ys], 0) for x in np.arange(x0, x1, 10)]
         staffs.append(MultiStaff([Staff(pts)], []))
+    # Fotos (Versuch, GS_GFOTOHOMR=1): gewölbte Linien sind als gerade Systeme schlecht beschrieben; dann homrs eigene Systemsuche
+    # mit Linienverlauf verwenden, jedes homr-System dem Leser-System gleicher Höhe zuordnen
+    if FOTO and os.environ.get('GS_GFOTOHOMR', '1') == '1':
+        try:
+            import homr.main as HM, tempfile
+            from concurrent.futures import Future
+            HM.autocrop = lambda im: im
+            def _nt(*a, **k):
+                f = Future(); f.set_result(''); return f
+            HM.detect_title = _nt
+            tmp = tempfile.mktemp(suffix='.png'); cv2.imwrite(tmp, g)
+            ms_h, img_h, _, _ = HM.detect_staffs_in_image(tmp, HM.ProcessingConfig(False, False, False, False, -1, False, False, False))
+            os.remove(tmp)
+            if img_h.shape[:2] == img.shape[:2]:
+                img = img_h
+                for si, ys in enumerate(st):
+                    d_ = (ys[4] - ys[0]) / 4 * sc; my = ys[2] * sc
+                    best = min(((abs((m.staffs[0].min_y + m.staffs[0].max_y) / 2 - my), m) for m in ms_h), default=None, key=lambda t: t[0])
+                    if best and best[0] < 1.5 * d_ and len(best[1].staffs) == 1: staffs[si] = best[1]
+        except Exception:
+            pass
     regions = StaffRegions(staffs)
     out = []
     for si, ms in enumerate(staffs):

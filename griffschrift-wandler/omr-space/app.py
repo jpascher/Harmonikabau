@@ -45,6 +45,11 @@ def scan_gs(file, shift, layout=""):
             for i, pg in enumerate(doc):
                 if i >= 4: break
                 fn = os.path.join(tmp, f"s{i}.png"); pg.get_pixmap(dpi=200).save(fn); pages.append(fn)
+            try:   # Vektor-PDF (MC-Score, Finale): Köpfe aus der Textebene neben die Seitenbilder legen (gsleser/vektor.py)
+                import vektor
+                vektor.save_sidecars(src, pages, 200)
+            except Exception:
+                pass
         bilder = []   # Kontrollbilder je Seite (JPEG): erkannte Köpfe, Notenwerte, nicht aufgehende Takte
         # Schreibweise: steckt im Belegungs-JSON als „style“ (so bleiben ältere Wandler und die Schnittstelle mit drei Werten gültig); fehlt sie: automatisch
         style = "auto"

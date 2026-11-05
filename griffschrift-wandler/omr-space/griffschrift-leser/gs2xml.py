@@ -144,6 +144,8 @@ STYLE_RULES={
  'margetich':   dict(xmark=False, druck='auto'),
  'bayerisch':   dict(xmark=False, druck='auto'),
  'steinkellner':dict(xmark=False, druck='auto'),
+ 'pacher':      dict(xmark=False, druck='auto'),   # Günther Pacher (MC-Score): Kreuze vor runden Köpfen sind eigene Köpfe der 3. Reihe
+ 'klausner':    dict(xmark=False, druck='auto'),   # Hubert Klausner und Stefan Sirtl (Finale): ebenso
 }
 STYLE=['auto']
 def set_style(name):
@@ -154,7 +156,8 @@ def set_style(name):
 # Texterkennung (Tesseract, deutsch): Titel, Bearbeiter, Teilbezeichnungen; nur Plausibles wird übernommen
 TEIL_WOERTER=['Einleitung','Vorspiel','Tanz','Trio','Fine','D.S.','D.C.','Coda','Zwischenspiel','Schluss','Ende']
 BEARB_STIL=[('rosenzopf','rosenzopf'),('michlbauer','michlbauer'),('wachtberg','michlbauer'),('fuchs','fuchs'),('steinkellner','steinkellner'),
-            ('margetich','margetich'),('kiener','bayerisch'),('kiermeier','bayerisch'),('heimatpflege','bayerisch'),('knöpferl','bayerisch'),('schaborak','bayerisch')]
+            ('margetich','margetich'),('kiener','bayerisch'),('kiermeier','bayerisch'),('heimatpflege','bayerisch'),('knöpferl','bayerisch'),('schaborak','bayerisch'),
+            ('pacher','pacher'),('klausner','klausner'),('sirtl','klausner')]
 def _plaus(t):
     t=t.strip(" .,:;-–|_'\"")
     if len(t)<3: return ''
@@ -271,7 +274,20 @@ def read(path,shift=0,work=None,table=None,bass=None):
     if work is None:
         import tempfile;work=_tmp=tempfile.mktemp(suffix='.png')
     cv2.imwrite(work,g);_,bw=cv2.threshold(g,200,255,cv2.THRESH_BINARY_INV)
-    st,bars_d=druck_bars(g);det=cross_marks(segno_filter(thick_bar_filter(D.detect(work,1),bw),bw,st));C=chords_det(det)
+    st,bars_d=druck_bars(g)
+    # Vektor-PDF (MC-Score, Finale): Köpfe aus der Textebene statt aus dem Bild (vektor.py, GS_VEKTOR=0 schaltet ab)
+    _vk=None
+    try:
+        import vektor as VK;_vh=VK.load(path)
+        if _vh:
+            _W,_H=Image.open(path).size
+            if abs(g.shape[0]/g.shape[1]-_H/_W)<0.01: _vk=VK.det_from_heads(_vh,g.shape[1]/_W,st)
+    except Exception: _vk=None
+    _DBG['vektor']=len(_vk) if _vk else 0
+    if _vk:
+        det=_vk;D.LAST['tri_page']=False;XDROP.clear();C=chords_det(det)
+    else:
+        det=cross_marks(segno_filter(thick_bar_filter(D.detect(work,1),bw),bw,st));C=chords_det(det)
     off=shift+2   # Tabelle in assemble.py gilt für G-C-F-B (shift -2)
     items=[]   # je System: Akkorde und Pausen
     fills=[];dots=[]
@@ -374,9 +390,11 @@ def read(path,shift=0,work=None,table=None,bass=None):
                 j=int(np.argmin([abs(x_-mx) for x_ in gx]))
                 if abs(gx[j]-mx)>3*d: continue
                 for g_ in allg[max(0,j-1):j+2]: g_[0]['trip']=True
+    _DBG['gerust']=None
     # Gerüst aus der Notenerkennung (GS_GERUEST=1): Takte, Notenwerte und Pausen von homr, Köpfe und Balgrichtung vom Leser (gerust.py)
-    if GERUEST and (not G.FOTO_LINES or _os.environ.get('GS_GERUESTFOTO')=='1'):   # auf Fotos gehen damit mehr Takte nicht auf, daher nur saubere Seiten
+    if GERUEST and (not G.FOTO_LINES or _os.environ.get('GS_GERUESTFOTO','1')=='1') and not (D.LAST.get('tri_page') and _os.environ.get('GS_GERUESTTRI','0')!='1'):   # Seiten mit Dreiecken (Philipp/Margetich): homr liest sie schlecht, daher Leser   # Fotos: mit homrs eigener Systemsuche (gerust.py, GS_GFOTOHOMR); GS_GERUESTFOTO=0 nimmt Fotos aus
         import gerust as GR
+        GR.FOTO=bool(G.FOTO_LINES)
         _DBG['gerust']={};meas,medge=GR.rebuild(g,st,x_ext,meas,medge,button,pitch,table,off,_DBG['gerust'])
     def gl(gr): return sum(e['lp'] for e in gr) if 'lp' in gr[0] else np.zeros(len(UNIT))
     def uu(gr,u): return TRIP.get(u,u) if gr[0].get('trip') else u
@@ -518,10 +536,30 @@ def pruefbild(g,meas,lens,num0,maxw=1600):
         else: cv2.putText(c,a[0],a[1],cv2.FONT_HERSHEY_SIMPLEX,a[2],a[3],max(1,int(a[2]*2.2)))
     if c.shape[1]>maxw: c=cv2.resize(c,(maxw,int(c.shape[0]*maxw/c.shape[1])),interpolation=cv2.INTER_AREA)
     return cv2.imencode('.jpg',c,[cv2.IMWRITE_JPEG_QUALITY,72])[1].tobytes()
+def split_double(path):
+    """Quer liegende Doppelseite (zwei Notenseiten nebeneinander, z. B. aufgeschlagenes Heft): findet die Liniensuche auf der ganzen
+    Seite keine Systeme, wird an der hellsten Spalte nahe der Mitte geteilt und jede Hälfte als eigene Seite gelesen. GS_SPLIT=0: aus"""
+    if _os.environ.get('GS_SPLIT','1')!='1': return [path]
+    try:
+        im=Image.open(path);im=ImageOps.exif_transpose(im);W,H=im.size
+        if W<1.2*H: return [path]
+        g=load_gray(path)
+        if g is not None and G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1]): return [path]
+        a=np.array(im.convert('L')).astype(np.float32);col=(a<128).mean(0);lo,hi=int(W*0.4),int(W*0.6)
+        x=lo+int(np.argmin(np.convolve(col[lo:hi],np.ones(15)/15,'same')))
+        import tempfile;out=[]
+        for box in ((0,0,x,H),(x,0,W,H)):
+            fn=tempfile.mktemp(suffix='.png');im.crop(box).save(fn)
+            g2=load_gray(fn)
+            if g2 is not None: out.append(fn)
+        return out or [path]
+    except Exception:
+        return [path]
 def convert(paths,shift=0,title='Gescannte Griffschrift',table=None,bilder=None,style='auto',text=None):
     """Eine oder mehrere Seiten (Bilder) -> (MusicXML, Pins); Takte der Seiten hintereinander. table: Diskantbelegung des Wandlers (sonst 446 Normal).
     bilder: Liste, an die je Seite ein Kontrollbild (JPEG-Bytes) angehängt wird; die Pins bekommen dann 'offen' (Nummern der Takte, die nicht aufgehen)."""
     allm=[];Lm=None;bass=[];seiten=[]
+    paths=[q for p_ in paths for q in split_double(p_)]   # quer liegende Doppelseiten in zwei Seiten teilen
     st_=set_style(style)
     if text is not None:   # Texterkennung auf der ersten Seite; bei „automatisch“ wählt ein erkannter Bearbeiter die Schreibweise
         try:
