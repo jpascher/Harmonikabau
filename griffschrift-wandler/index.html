@@ -3398,6 +3398,9 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
       const xs=m.e.map(e=>e.x),x0=Math.min(...xs)-0.9*d,x1=Math.max(...xs)+0.9*d;
       if(sum!==m.L&&!(m.i===0&&sum<m.L))el("rect",{x:x0,y:ys[0]-1.2*d,width:x1-x0,height:ys[4]-ys[0]+2.4*d,fill:"rgba(255,80,80,.18)"},svg);
       el("line",{x1:x1+0.2*d,y1:ys[0],x2:x1+0.2*d,y2:ys[4],stroke:"#00a000","stroke-width":Math.max(1,d/8)},svg);
+      const f=m.f||{},rep=(xb,sg)=>{el("line",{x1:xb,y1:ys[0],x2:xb,y2:ys[4],stroke:"#00a000","stroke-width":d*0.3},svg);[mid-0.5*d,mid+0.5*d].forEach(yy=>el("circle",{cx:xb+sg*0.6*d,cy:yy,r:d*0.22,fill:"#00a000"},svg));};   // Wiederholungszeichen
+      if(f.rep_end)rep(x1+0.4*d,-1);if(f.rep_start)rep(x0-0.5*d,1);
+      if(f.volta){const vt=el("text",{x:x0,y:ys[0]-2.6*d,"font-size":d,fill:"#00a000"},svg);vt.textContent=f.volta+".";}
       const tn=el("text",{x:x1-0.4*d,y:ys[4]+2.3*d,fill:sum===m.L?"#008000":"#d00000","font-size":d*0.9},svg);tn.textContent=m.n+(sum===m.L?"":"!");
       m.e.forEach((e,ei)=>{const lab=el("text",{x:e.x-0.5*d,y:ys[0]-1.5*d,"font-size":d*0.85,fill:e.r?"#c00000":"#7a3c00",style:"cursor:pointer"},svg);lab.textContent=(e.r?"P":"")+(UNIT_TX[e.u]||e.u);
         lab.addEventListener("click",ev=>{ev.stopPropagation();SEL={mi,ei,hi:e.r?-1:0};draw();});

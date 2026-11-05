@@ -225,6 +225,42 @@ def cross_marks(det):
         cand=[o for o in det if o.get('xmark') and o['st']==h['st'] and 0.5*h['d']<o['x']-h['x']<W*h['d'] and abs(o['p']-h['p'])<=3]
         if cand: det[i]=dict(h,x=min(cand,key=lambda o:o['x']-h['x'])['x'],xmark=True)
     return [h for i,h in enumerate(det) if i not in drop]
+def prefix_marks(det,bw,st):
+    """Vorgesetzte Kreuze, die der Kopferkenner nicht als Kopf meldet (Rosenzopf: kräftiges Doppelkreuz knapp links vor dem runden Kopf).
+    Ein runder Kopf gilt als Kreuzkopf, wenn 0,9–2,1 Linienabstände links in derselben Höhe ein Fleck in Kopfgröße liegt, der deutlich
+    weniger gefüllt ist als der Kopf selbst und eine Kreuzform hat (beide Diagonalen tragen Tinte). Ein dort gemeldeter runder Kopf
+    derselben Lage fällt weg. GS_XPREFIX=0: aus"""
+    if _os.environ.get('GS_XPREFIX','1')!='1' or not STYLE_RULES[STYLE[0]]['xmark'] or not det: return det
+    nl={};drop=set();out=[]
+    def box(im,x,y,hw,hh):
+        w_=im[max(0,int(y-hh)):int(y+hh)+1,max(0,int(x-hw)):int(x+hw)+1];return (w_>0).mean() if w_.size else 0
+    def diag(im,x,y,r):
+        c=0
+        for t in np.linspace(-0.8,0.8,9):
+            for sx,sy in ((1,1),(1,-1)):
+                px,py=int(round(x+sx*t*r)),int(round(y+sy*t*r))
+                if 0<=py<im.shape[0] and 0<=px<im.shape[1] and im[py,px]: c+=1
+        return c/18
+    for i,h in enumerate(det):
+        if h['t']!='o' or h.get('xmark') or h['st']>=len(st): continue
+        si=h['st'];ys=st[si];d=(ys[4]-ys[0])/4
+        if si not in nl: nl[si]=cv2.dilate(G.remove_lines(bw,ys,d),np.ones((3,3),np.uint8))
+        im=nl[si];fh=box(im,h['x'],h['y'],0.45*d,0.32*d)
+        best=None
+        for dx in np.arange(0.9*d,2.15*d,max(1.0,d/9)):
+            x=h['x']-dx;f=box(im,x,h['y'],0.45*d,0.32*d)
+            if 0.3<=f<=min(0.68,fh-0.1) and diag(im,x,h['y'],0.45*d)>=0.75:
+                # rechts davon bis zum Kopf eine Lücke (sonst ist es der Kopf selbst oder ein Balken)
+                gap=box(im,(x+h['x'])/2,h['y'],0.08*d,0.25*d)
+                lo_,hi_=max(0,int(x-0.8*d)),int(x+0.8*d)
+                bar_=((bw[int(ys[0]):int(ys[4])+1,lo_:hi_]>0).mean(0)>0.9).any() if hi_>lo_ else False   # Taktstrich/Wiederholung daneben: Punkte, kein Kreuz
+                lm_=box(im,x-0.7*d,h['y'],0.1*d,0.25*d)   # links vom Kreuz frei (dichte Akkordfolgen haben dort den nächsten Kopf)
+                if gap<0.5 and lm_<0.5 and not bar_ and (best is None or f<best[1]): best=(x,f)
+        if best:
+            det[i]=dict(h,t='x',xmark=True)
+            for j,o in enumerate(det):
+                if j!=i and o['st']==si and o['p']==h['p'] and abs(o['x']-best[0])<0.6*d: drop.add(j)
+    return [h for k,h in enumerate(det) if k not in drop]
 def segno_filter(det,bw,st):
     """Segno-Zeichen (Rosenzopf: am Teilbeginn und am Schluss) wird als Köpfe gelesen. Erkennung: die Köpfe liegen in einem Tintenfleck
     von mindestens 2,6 Linienabständen Höhe ohne geraden Hals (längster senkrechter Strich unter 1,6 Linienabständen). GS_SEGNO=0: aus"""
@@ -287,7 +323,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     if _vk:
         det=_vk;D.LAST['tri_page']=False;XDROP.clear();C=chords_det(det)
     else:
-        det=cross_marks(segno_filter(thick_bar_filter(D.detect(work,1),bw),bw,st));C=chords_det(det)
+        det=prefix_marks(cross_marks(segno_filter(thick_bar_filter(D.detect(work,1),bw),bw,st)),bw,st);C=chords_det(det)
     off=shift+2   # Tabelle in assemble.py gilt für G-C-F-B (shift -2)
     items=[]   # je System: Akkorde und Pausen
     fills=[];dots=[]
@@ -385,11 +421,23 @@ def read(path,shift=0,work=None,table=None,bass=None):
             letters[si]=_vb if _vb else BR.read_letters(bw,st,si,d)   # Vektor-PDF: Bassbuchstaben aus der Textebene
         if not G.FOTO_LINES and _os.environ.get('GS_BARDOTS','1')=='1':   # „Köpfe“ direkt am Taktstrich sind Wiederholungspunkte (Fuchs: dicker Strich mit Punkten)
             its=[it for it in its if not any(abs(it['x']-x_)<0.8*d for x_ in bl)]
-        if not G.FOTO_LINES and _os.environ.get('GS_LEDGER','1')=='1':   # Köpfe weit über oder unter dem System brauchen Hilfslinien; ohne sind es Zahlen oder Text (etwa „MM = 92“)
+        if _os.environ.get('GS_LEDGER','1')=='1':   # Köpfe weit über oder unter dem System brauchen Hilfslinien; ohne sind es Zahlen oder Text (etwa „MM = 92“)
             def _hl(it,up):
                 yy=int(round(ys[0]-d if up else ys[4]+d));x0,x1=int(it['x']-0.9*d),int(it['x']+0.9*d)
                 return max(((bw[max(0,yy+k),max(0,x0):x1]>0).mean() for k in range(-2,3)),default=0)>0.6
-            its=[it for it in its if not (it.get('ps') and (min(it['ps'])>=8 and not _hl(it,True) or max(it['ps'])<=-8 and not _hl(it,False)))]
+            its2=[]
+            for it in its:
+                ps_=it.get('ps') or []
+                if ps_ and len(ps_)==len(it.get('heads',[])):
+                    up_=_hl(it,True) if max(ps_)>=8 else True;dn_=_hl(it,False) if min(ps_)<=-8 else True
+                    keep_=[k for k,q in enumerate(ps_) if not (q>=8 and not up_ or q<=-8 and not dn_)]   # einzelne Köpfe ohne Hilfslinie weglassen (Text über dem Akkord)
+                    if not keep_: continue
+                    if len(keep_)<len(ps_):
+                        it=dict(it)
+                        for f_ in ('heads','ps','hy'):
+                            if isinstance(it.get(f_),list) and len(it[f_])==len(ps_): it[f_]=[it[f_][k] for k in keep_]
+                its2.append(it)
+            its=its2
         for a,b in zip(edges,edges[1:]):
             ev=sorted([it for it in its if a<it['x']<b]+[r for r in rs if a<r['x']<b],key=lambda e:e['x'])
             grp=[]
@@ -505,13 +553,60 @@ def read(path,shift=0,work=None,table=None,bass=None):
                 for k_,(xa,xb,num) in enumerate(vols):
                     ms_i=[mi_ for mi_,(s_,_) in enumerate(meas) if s_==si]
                     if not ms_i: continue
+                    ov=lambda mi_:min(xb,medge[mi_][1])-max(xa,medge[mi_][0])   # Überdeckung Klammer/Takt
                     start=min(ms_i,key=lambda mi_:0 if medge[mi_][0]<=xa+0.5*d<medge[mi_][1] else min(abs(xa-medge[mi_][0]),abs(xa-medge[mi_][1])))
+                    if ov(start)<0.5*min(xb-xa,medge[start][1]-medge[start][0]):   # Anfang knapp vor dem Taktstrich: Takt mit der größten Überdeckung
+                        start=max(ms_i,key=ov)
                     end=min(ms_i,key=lambda mi_:0 if medge[mi_][0]<xb-0.5*d<=medge[mi_][1] else min(abs(xb-medge[mi_][0]),abs(xb-medge[mi_][1])))
                     _VOLTA[start]=num;_VOLTA_END[start]=max(start,end)
         except Exception: pass
         ks_=sorted(_VOLTA)   # eine Klammer endet spätestens vor der nächsten
         for a_,b_ in zip(ks_,ks_[1:]):
             if _VOLTA_END.get(a_,a_)>=b_: _VOLTA_END[a_]=b_-1
+    # Wiederholungszeichen über die Punkte: zwei Punkte in den beiden mittleren Zwischenräumen knapp rechts vom Taktanfang
+    # (Wiederholung beginnt) oder knapp links vom Taktende (Wiederholung endet). homr übersieht sie vor allem auf Fotos (GS_REPDOTS=0: aus)
+    _DBG['repdots']=0
+    if _os.environ.get('GS_WIEDERHOLUNG','1')=='1' and _os.environ.get('GS_REPDOTS','1')=='1':
+        try:
+            _nl={}
+            def _dots(si,ys,d,xa,xb,side):
+                if si not in _nl: _nl[si]=G.remove_lines(bw,ys,d)
+                y1,y2=(ys[1]+ys[2])/2,(ys[2]+ys[3])/2;xa,xb=max(0,int(xa)),min(bw.shape[1],int(xb))
+                if xb-xa<3: return False
+                win=_nl[si][int(ys[1]):int(ys[3])+1,xa:xb]
+                n_,_,S_,C_=cv2.connectedComponentsWithStats((win>0).astype(np.uint8));hit=[]
+                for i in range(1,n_):
+                    w_,h_,a_=S_[i][2],S_[i][3],S_[i][4]
+                    if 0.2*d<=w_<=0.75*d and 0.2*d<=h_<=0.75*d and a_>=0.5*w_*h_: hit.append((C_[i][0]+xa,C_[i][1]+int(ys[1])))
+                up=[(x,y) for x,y in hit if abs(y-y1)<0.45*d];dn=[(x,y) for x,y in hit if abs(y-y2)<0.45*d]
+                px=[(u+v)/2 for u,uy in up for v,vy in dn if abs(u-v)<0.4*d and 0.7*d<vy-uy<1.3*d]   # zwei Punkte genau übereinander, eine Linie Abstand
+                if not px: return False
+                # daneben (zur Taktgrenze hin) ein doppelter Strich über die ganze Systemhöhe: dünn und dick
+                for x0 in px:
+                    lo,hi=(int(x0-1.4*d),int(x0-0.2*d)) if side=='l' else (int(x0+0.2*d),int(x0+1.4*d))
+                    lo,hi=max(0,lo),min(bw.shape[1],hi)
+                    cov=(bw[int(ys[0]):int(ys[4])+1,lo:hi]>0).mean(0)>0.9
+                    runs=np.flatnonzero(np.diff(np.concatenate([[0],cov.astype(np.int8),[0]])))
+                    wid=[b2-a2 for a2,b2 in zip(runs[::2],runs[1::2])]
+                    if len(wid)>=2 or any(w2>=0.3*d for w2 in wid): return True
+                return False
+            for mi,(si,m) in enumerate(meas):
+                if not m: continue
+                a_,b_,d=medge[mi];ys=st[si]
+                xs_=[gr[0]['x'] for gr in m]
+                if b_>bw.shape[1]:   # letzter Takt im System: Ende der Notenlinien
+                    row=(bw[int(ys[0])-1:int(ys[0])+2].max(0)>0);nz=np.flatnonzero(row);b_=float(nz[-1]) if nz.size else max(xs_)+3*d
+                fst=a_<=0 or min(xs_)-a_>3.4*d   # erster Takt im System (Anfang ist der Rand der Notenlinien)
+                if fst: a_=min(xs_)-3.4*d   # erster Takt im System: Zeichen kurz vor der ersten Note
+                mf=m[0][0].setdefault('mflags',{})
+                if not mf.get('rep_start') and _dots(si,ys,d,a_-0.5*d,a_+1.8*d if not fst else min(xs_)-0.3*d,'l'): mf['rep_start']=True;_DBG['repdots']+=1
+                if not mf.get('rep_end') and _dots(si,ys,d,b_-1.8*d,b_+0.5*d,'r'): mf['rep_end']=True;_DBG['repdots']+=1
+                if not mf: del m[0][0]['mflags']
+        except Exception as e_: _DBG['repdots']=str(e_)[:80]
+        # Klammer direkt nach einem Wiederholungsende ist die 2.; fehlt davor die 1., gilt der Takt mit dem Wiederholungsende als 1. Klammer
+        for k_ in sorted(_VOLTA):
+            if _VOLTA[k_]==1 and k_>0 and k_-1 not in _VOLTA and meas[k_-1][0]==meas[k_][0] and meas[k_-1][1] and (meas[k_-1][1][0][0].get('mflags') or {}).get('rep_end'):
+                _VOLTA[k_]=2;_VOLTA[k_-1]=1;_VOLTA_END[k_-1]=k_-1
     _DBG['worte']=dict(_WORDS);_DBG['volta']=dict(_VOLTA)
     out=[];lens=[];_VSTOP=set()
     for mi,(si,m) in enumerate(meas):
@@ -674,7 +769,11 @@ def pruefbild(g,meas,lens,num0,maxw=1600,bass=None):
             # Taktstrich am Ende des Takts (Mitte zwischen letztem Ereignis und nächstem Takt) und Taktnummer
             xe=int(max(xs)+1.1*d);cv2.line(c,(xe,int(ys[0])),(xe,int(ys[4])),(0,160,0),max(1,lw//2))
             mf=es[0].get('mflags') or {}
-            if mf.get('rep_end'): cv2.circle(c,(xe-int(0.5*d),int(mid-0.5*d)),max(2,int(0.15*d)),(0,160,0),-1);cv2.circle(c,(xe-int(0.5*d),int(mid+0.5*d)),max(2,int(0.15*d)),(0,160,0),-1)
+            def _rep(xb_,sgn):   # Wiederholungszeichen: dicker grüner Strich, zwei Punkte auf der Seite des wiederholten Teils
+                cv2.line(c,(int(xb_),int(ys[0])),(int(xb_),int(ys[4])),(0,160,0),max(3,int(0.3*d)))
+                for yy_ in (mid-0.5*d,mid+0.5*d): cv2.circle(c,(int(xb_+sgn*0.6*d),int(yy_)),max(3,int(0.22*d)),(0,160,0),-1)
+            if mf.get('rep_end'): _rep(xe+0.2*d,-1)
+            if mf.get('rep_start'): _rep(min(xs)-1.4*d,1)
             if mf.get('volta'): cv2.putText(c,f"{mf['volta']}.",(int(min(xs)-0.5*d),int(ys[0]-2.6*d)),cv2.FONT_HERSHEY_SIMPLEX,fs(d),(0,160,0),max(1,int(fs(d)*2)))
             cv2.putText(c,str(num0+mi)+('' if ok else '!'),(int(xe-0.6*d),int(ys[4]+2.3*d)),cv2.FONT_HERSHEY_SIMPLEX,fs(d)*1.1,(0,130,0) if ok else (0,0,230),max(1,int(fs(d)*2.2)))
             # Bassbuchstaben aus dem Ergebnis: Lage über die Einsätze
