@@ -2,24 +2,43 @@
 # Klassen: 0 rund voll, 1 rund hohl, 2 Kreuz, 3 Kreuz im Kreis, 4 Dreieck voll, 5 Dreieck hohl, 6 vorgesetztes Doppelkreuz.
 # Liefert Einträge im Format von detect.detect (x, y, p, t, fill, sc, st, d, mid). Die Seite wird in Ausschnitte von 960 Bildpunkten
 # mit Überlappung zerlegt, wie beim Lernen. Modell: griffschrift_koepfe.onnx neben dieser Datei (GS_YOLOMODELL: anderer Pfad).
-import os, numpy as np, cv2
+# Liegen statt der ganzen Datei nur Teile griffschrift_koepfe.onnx.00, .01 … daneben (über die Weboberfläche von Hugging Face
+# lassen sich nur kleinere Dateien hochladen), werden sie beim ersten Gebrauch im Temp-Ordner zusammengesetzt.
+import os, glob, tempfile, numpy as np, cv2
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 T = 960
 _SESS = [None]
 
 
+def _teile(fn):
+    return sorted(glob.glob(fn + '.[0-9][0-9]'))
+
+
+def _modell():
+    fn = os.environ.get('GS_YOLOMODELL', os.path.join(HERE, 'griffschrift_koepfe.onnx'))
+    if os.path.exists(fn) or not _teile(fn): return fn
+    ziel = os.path.join(tempfile.gettempdir(), 'griffschrift_koepfe.onnx')
+    if not os.path.exists(ziel):
+        tmp = ziel + '.%d' % os.getpid()
+        with open(tmp, 'wb') as o:
+            for t in _teile(fn): o.write(open(t, 'rb').read())
+        os.replace(tmp, ziel)
+    return ziel
+
+
 def _sess():
     if _SESS[0] is None:
         import onnxruntime as ort
-        fn = os.environ.get('GS_YOLOMODELL', os.path.join(HERE, 'griffschrift_koepfe.onnx'))
+        fn = _modell()
         if not os.path.exists(fn): return None
         _SESS[0] = ort.InferenceSession(fn, providers=['CPUExecutionProvider'])
     return _SESS[0]
 
 
 def vorhanden():
-    return os.path.exists(os.environ.get('GS_YOLOMODELL', os.path.join(HERE, 'griffschrift_koepfe.onnx')))
+    fn = os.environ.get('GS_YOLOMODELL', os.path.join(HERE, 'griffschrift_koepfe.onnx'))
+    return os.path.exists(fn) or bool(_teile(fn))
 
 
 def _nms(b, s, thr):
