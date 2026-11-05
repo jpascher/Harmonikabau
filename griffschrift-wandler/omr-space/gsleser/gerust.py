@@ -9,7 +9,8 @@ import cv2, numpy as np
 DIAT = 'CDEFGAB'
 CLEF_REF = {'G': ('G', 4), 'F': ('F', 3), 'C': ('C', 4)}
 MINMATCH = float(os.environ.get('GS_GMIN', '0.5'))   # Anteil zugeordneter Akkorde, ab dem homr für ein System gilt
-MAXLOSS = float(os.environ.get('GS_GLOSS', '0.05'))   # höchstens so viele Akkorde des Lesers dürfen ohne homr-Gegenstück bleiben, sonst gilt der Leser
+MAXLOSS = float(os.environ.get('GS_GLOSS', '0.15'))   # bleibt mehr als dieser Anteil der Akkorde des Lesers ohne homr-Gegenstück, gilt für das ganze System der Leser
+TAKTWEISE = os.environ.get('GS_GTAKT', '1') == '1'   # Takte mit Akkorden, die nur der Leser sieht: diese Takte vom Leser
 
 
 def _diat(step, octv):
@@ -202,12 +203,49 @@ def rebuild(g, st, x_ext, meas, medge, button, pitch, table, off, stats=None):
                 if hs: cur.append([dict(kind='n', st=si, x=xs[k], dir=dr, heads=hs, fi=-1, hy=[], hu=e[1], htrip=e[2], nurhomr=True)])
                 elif True: cur.append([dict(kind='r', st=si, x=xs[k], u=e[1], hu=e[1], htrip=e[2])])
         if cur: ms_.append(cur)
+        # Taktstrich, den homr übersehen hat: Ist ein Takt länger als die übliche Taktlänge und liegt ein Taktstrich des Lesers
+        # zwischen zwei seiner Ereignisse, wird dort geteilt
+        sums = [sum(gr[0]['hu'] for gr in m) for m in ms_]
+        if sums:
+            import collections
+            Lh = collections.Counter(sums).most_common(1)[0][0]
+            rbars = [e[1] for _, e in mine][:-1]
+            spl = []
+            for m, sm in zip(ms_, sums):
+                parts = [m]
+                if sm > Lh:
+                    for bx in rbars:
+                        last = parts[-1]
+                        for q in range(1, len(last)):
+                            if last[q - 1][0]['x'] < bx < last[q][0]['x']:
+                                parts[-1:] = [last[:q], last[q:]]; break
+                    if len(parts) > 1 and stats is not None: stats['geteilt'] = stats.get('geteilt', 0) + len(parts) - 1
+                spl += parts
+            ms_ = spl
         if stats is not None:
             stats['nurhomr'] = stats.get('nurhomr', 0) + sum(1 for k, e in enumerate(ev) if e[0] == 'note' and k not in match)
             stats['nurleser'] = stats.get('nurleser', 0) + len(A) - len(pr)
+        matched_r = {i for i, _ in pr}; spans = []
         for q, m in enumerate(ms_):
             x0 = min(it['x'] for gr in m for it in gr); x1 = max(it['x'] for gr in m for it in gr)
             a = (x0 + max(it['x'] for gr in ms_[q - 1] for it in gr)) / 2 if q else x0 - 2 * d
             b = (x1 + min(it['x'] for gr in ms_[q + 1] for it in gr)) / 2 if q + 1 < len(ms_) else x1 + 3 * d
-            newm.append((si, m)); newe.append((a, b, d))
+            spans.append((m, (a, b, d)))
+        # Takte, in denen der Leser Akkorde sieht, die homr fehlen: dort gelten die Takte des Lesers (Notenwerte vom Leser),
+        # damit keine Töne verloren gehen; der Rest des Systems behält homrs Rhythmus
+        if TAKTWEISE:
+            ux = [float(np.mean([it['x'] for it in groups[i]])) for i in range(len(A)) if i not in matched_r]
+            rc = [float(np.mean([it['x'] for gr in m for it in gr])) for m, _ in mine]
+            used = set(); out_ = []
+            for m, (a, b, d_) in spans:
+                if any(a <= x < b for x in ux):
+                    rm = [q for q, c in enumerate(rc) if a <= c < b and q not in used]
+                    if rm:
+                        for q in rm: used.add(q); out_.append(mine[q])
+                        if stats is not None: stats['takte_leser'] = stats.get('takte_leser', 0) + 1
+                        continue
+                if any(a <= c < b for q, c in enumerate(rc) if q in used): continue   # schon durch Leser-Takte ersetzt
+                out_.append((m, (a, b, d_)))
+            spans = out_
+        for m, e in spans: newm.append((si, m)); newe.append(e)
     return newm, newe

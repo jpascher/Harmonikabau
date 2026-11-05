@@ -422,6 +422,27 @@ def read(path,shift=0,work=None,table=None,bass=None):
         Lm=Ls[si]
         notes=[q for q,gr in enumerate(m) if gr[0]['kind']=='n'];ch=[int(np.argmax(gl(m[q]))) for q in notes]
         hm=all(gr[0].get('hu') is not None for gr in m)   # Takt aus dem homr-Gerüst: Notenwerte stehen fest
+        if hm and sum(gr[0]['hu'] for gr in m)!=Lm and not (mi==0 and sum(gr[0]['hu'] for gr in m)<Lm) and _os.environ.get('GS_GFIT','1')=='1':
+            # geht ein homr-Takt nicht auf, wählt der Leser die Notenwerte selbst (Taktstriche bleiben von homr), homrs Wert als starker Vorschlag
+            notes_=[gr for gr in m if gr[0]['kind']!='r']
+            if notes_ and all('lp' in gr[0] or gr[0].get('nurhomr') for gr in notes_):
+                PG=[]
+                for gr in notes_:
+                    v=np.array(gl(gr)) if 'lp' in gr[0] else np.full(len(UNIT),-8.0)
+                    hu_=gr[0]['hu'];base=TRIP.get(hu_,hu_) if False else hu_
+                    if gr[0].get('htrip'):
+                        inv={vv:kk for kk,vv in TRIP.items()};base=inv.get(hu_,hu_)
+                    if base in UNIT: v=v.copy();v[UNIT.index(base)]+=float(_os.environ.get('GS_GPRIOR','2.0'))
+                    PG.append(np.exp(v-v.max()))
+                PG=np.array(PG);PG=PG/PG.sum(1,keepdims=True)
+                rest_u=[gr[0]['hu'] for gr in m if gr[0]['kind']=='r']
+                f=fit_measure(maxloss=float(_os.environ.get('GS_FITLOSS','12' if G.FOTO_LINES else '6')),P=PG,rest_units=rest_u,L=Lm,units=[[(TRIP.get(u,u) if gr[0].get('htrip') else u) for u in UNIT] for gr in notes_])
+                if f:
+                    k_=0
+                    for gr in m:
+                        if gr[0]['kind']=='r': continue
+                        u_=UNIT[f[k_]];gr[0]['hu']=TRIP.get(u_,u_) if gr[0].get('htrip') else u_;k_+=1
+                    _DBG.setdefault('gerust',{})['nachgewaehlt']=_DBG.get('gerust',{}).get('nachgewaehlt',0)+1
         lch=letter_times(mi,si,m,Lm) if (not hm and (G.FOTO_LINES or _os.environ.get('GS_LETALL','1')=='1') and not _os.environ.get('NOLETTIME')) else None
         if hm: pass
         elif lch: ch=lch
