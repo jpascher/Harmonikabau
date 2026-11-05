@@ -49,7 +49,7 @@ def homr_systems(g, st, x_ext):
     key = (g.shape, zlib.crc32(g[::5, ::5].tobytes()), len(st), bool(FOTO and os.environ.get('GS_GFOTOHOMR', '1') == '1'))
     if key in _RUN: return _RUN[key]
     _dc = os.environ.get('GS_GCACHE')   # Ordner für zwischengespeicherte homr-Lesungen (nur Prüfläufe)
-    _fn = os.path.join(_dc, '%d_%d_%x_%d%s.json' % (g.shape[0], g.shape[1], key[1], len(st), '_fh' if key[3] else '')) if _dc else None
+    _fn = os.path.join(_dc, '%d_%d_%x_%d%s_v2.json' % (g.shape[0], g.shape[1], key[1], len(st), '_fh' if key[3] else '')) if _dc else None
     if _fn and os.path.exists(_fn):
         import json
         out = [None if e is None else [tuple(x) for x in e] for e in json.load(open(_fn))]
@@ -103,7 +103,8 @@ def homr_systems(g, st, x_ext):
             r = s.rhythm
             if r.startswith('clef'): clef = r; continue
             if r == 'chord': chord = True; continue
-            if 'barline' in r or 'repeat' in r: ev.append(('bar',)); chord = False; continue
+            if 'barline' in r or 'repeat' in r: ev.append(('bar', r)); chord = False; continue
+            if r.startswith('volta'): ev.append(('volta', r)); chord = False; continue
             if r.startswith('rest'):
                 u, tr = _units(r)
                 if u: ev.append(('rest', u, tr))
@@ -113,8 +114,12 @@ def homr_systems(g, st, x_ext):
                 m = re.match(r'([A-G])(\d)', s.pitch or '')
                 if not u or not m: chord = False; continue
                 p = _diat(m.group(1), m.group(2)) - _mid(clef)
-                if chord and ev and ev[-1][0] == 'note': ev[-1][3].append(p)
-                else: ev.append(('note', u, tr, [p]))
+                sl = s.slur if isinstance(s.slur, str) else ''
+                sl = ('S' if 'slurStart' in sl else '') + ('E' if 'slurStop' in sl else '')   # Bogen beginnt / endet an dieser Note
+                if chord and ev and ev[-1][0] == 'note':
+                    ev[-1][3].append(p)
+                    if sl and len(ev[-1]) > 4: ev[-1][4] = ''.join(sorted(set(ev[-1][4] + sl)))
+                else: ev.append(['note', u, tr, [p], sl])
                 chord = False
         out.append(ev)
     if _fn:
@@ -169,7 +174,7 @@ def rebuild(g, st, x_ext, meas, medge, button, pitch, table, off, stats=None):
             if e[0] == 'bar':
                 if seen: sm_.append(c_)
                 c_ = 0; seen = False
-            else: c_ += e[1]; seen = True
+            elif e[0] in ('note', 'rest'): c_ += e[1]; seen = True
         if seen: sm_.append(c_)
         inner = sm_[1:-1] if len(sm_) > 3 else sm_
         if inner:
@@ -225,24 +230,51 @@ def rebuild(g, st, x_ext, meas, medge, button, pitch, table, off, stats=None):
         def ndir(k):
             q = min(match, key=lambda q: abs(q - k)) if match else None
             return groups[match[q]][0]['dir'] if q is not None else 'Z'
-        cur = []; ms_ = []
+        cur = []; ms_ = []; fl = {}; nxt = {}; volta_n = [0]; act = [False]
+        def _close():
+            nonlocal cur, fl
+            if cur:
+                cur[0][0]['mflags'] = dict(fl); ms_.append(cur)
+            cur = []; fl = dict(nxt); nxt.clear()
         for k, e in enumerate(ev):
             if e[0] == 'bar':
-                if cur: ms_.append(cur); cur = []
+                kind = e[1] if len(e) > 1 else 'barline'
+                if kind in ('repeatEnd', 'repeatEndStart'):
+                    fl['rep_end'] = True
+                    if act[0]: fl['volta_stop'] = True; act[0] = False   # 1. Klammer endet mit dem Wiederholungsstrich
+                if cur: _close()
+                if kind in ('repeatStart', 'repeatEndStart'): fl['rep_start'] = True; volta_n[0] = 0
+                continue
+            if e[0] == 'volta':
+                if e[1] == 'voltaStart':
+                    if act[0] and ms_: ms_[-1][0][0].setdefault('mflags', {})['volta_stop'] = True
+                    volta_n[0] += 1; fl['volta'] = volta_n[0]; act[0] = True
+                elif e[1] in ('voltaStop', 'voltaDiscontinue') and act[0]:
+                    if cur: fl['volta_stop'] = True
+                    elif ms_: ms_[-1][0][0].setdefault('mflags', {})['volta_stop'] = True
+                    act[0] = False
                 continue
             if e[0] == 'rest':
                 cur.append([dict(kind='r', st=si, x=xs[k], u=e[1], hu=e[1], htrip=e[2])])
             elif k in match:
                 gr = [dict(it) for it in groups[match[k]]]
-                gr[0]['hu'] = e[1]; gr[0]['htrip'] = e[2]; cur.append(gr)
+                gr[0]['hu'] = e[1]; gr[0]['htrip'] = e[2]; gr[0]['hslur'] = e[4] if len(e) > 4 else ''; cur.append(gr)
             else:   # Note, die nur homr kennt: runde Köpfe an seinen Lagen, Balgrichtung wie die nächste zugeordnete Note
                 dr = ndir(k); hs = []
                 for p in sorted(set(q + hsh for q in e[3])):
                     r_, n_ = button(p, 'o'); pi = pitch(r_, n_, dr, table)
                     if pi: hs.append((r_, n_, pi + off))
-                if hs: cur.append([dict(kind='n', st=si, x=xs[k], dir=dr, heads=hs, fi=-1, hy=[], hu=e[1], htrip=e[2], nurhomr=True)])
+                if hs: cur.append([dict(kind='n', st=si, x=xs[k], dir=dr, heads=hs, fi=-1, hy=[], hu=e[1], htrip=e[2], nurhomr=True, hslur=e[4] if len(e) > 4 else '')])
                 elif True: cur.append([dict(kind='r', st=si, x=xs[k], u=e[1], hu=e[1], htrip=e[2])])
-        if cur: ms_.append(cur)
+        if cur: _close()
+        if act[0] and ms_: ms_[-1][0][0].setdefault('mflags', {})['volta_stop'] = True   # Klammer am Zeilenende schließen
+        # Haltebögen: ein Bogen von einer Note zur nächsten mit denselben Köpfen (gleiche Reihe und gleicher Knopf) ist ein Haltebogen
+        seq = [(gr, None) for m in ms_ for gr in m if gr[0]['kind'] != 'r']
+        for (g1, _), (g2, _) in zip(seq, seq[1:]):
+            h1 = {(r_, n_) for it in g1 for r_, n_, _p in it.get('heads', [])}; h2 = {(r_, n_) for it in g2 for r_, n_, _p in it.get('heads', [])}
+            if h1 and h1 == h2 and g1[0].get('hslur', '').count('S') and g2[0].get('hslur', '').count('E') and g1[0]['dir'] == g2[0]['dir']:
+                g1[0]['tie_start'] = True; g2[0]['tie_stop'] = True
+                if stats is not None: stats['haltebogen'] = stats.get('haltebogen', 0) + 1
         # Taktstrich, den homr übersehen hat: Ist ein Takt länger als die übliche Taktlänge und liegt ein Taktstrich des Lesers
         # zwischen zwei seiner Ereignisse, wird dort geteilt
         sums = [sum(gr[0]['hu'] for gr in m) for m in ms_]

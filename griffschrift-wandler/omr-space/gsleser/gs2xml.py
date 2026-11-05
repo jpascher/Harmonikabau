@@ -442,7 +442,71 @@ def read(path,shift=0,work=None,table=None,bass=None):
     for si in set(si for si,_ in meas):
         cs=[c for c in collections.Counter(length(m) for s_,m in meas if s_==si).most_common() if c[0] in (18,24,36,48,72)]
         nm_=sum(1 for s_,_ in meas if s_==si);Ls[si]=cs[0][0] if cs and cs[0][1]>=2 and (not G.FOTO_LINES or cs[0][0]==Lg or cs[0][1]>=max(3,0.5*nm_)) else Lg   # Fotos: Abweichung vom Stück nur bei klarer Mehrheit im System   # nur übliche Taktarten (3/8, 2/4, 3/4, 4/4, 6/4)
-    out=[];lens=[]
+    # Textzeichen über den Systemen (Einleitung, Trio, Fine, D.C. …) mit Lage: dem Takt zuordnen, über dem sie stehen (GS_WORTE=0: aus)
+    _WORDS={};_VOLTA={};_VOLTA_END={}
+    if _os.environ.get('GS_WORTE','1')=='1':
+        try:
+            import pytesseract
+            D_=pytesseract.image_to_data(g,lang='deu',config='--psm 11',output_type=pytesseract.Output.DICT)
+            want={w.lower().replace(' ',''):w for w in TEIL_WOERTER}
+            for i_,txt in enumerate(D_['text']):
+                t_=(txt or '').strip().replace(' ','')
+                if not t_ or float(D_['conf'][i_])<55: continue
+                key_=t_.lower().rstrip(':,;')
+                vm=re.match(r'^\[?([12])\.\]?$',t_)
+                if vm and float(D_['conf'][i_])>=30:   # Volta-Klammer „1.“ / „2.“ knapp über dem System
+                    cx=D_['left'][i_]+D_['width'][i_]/2;cy=D_['top'][i_]+D_['height'][i_]/2
+                    cand=[(ys[0]-cy,si) for si,ys in enumerate(st) if 0<ys[0]-cy<((ys[4]-ys[0])/4)*4]
+                    if cand:
+                        si_=min(cand)[1];ms_i=[mi_ for mi_,(s_,_) in enumerate(meas) if s_==si_ and medge[mi_][0]-((st[si_][4]-st[si_][0])/4)<=cx<medge[mi_][1]]
+                        if ms_i: _VOLTA[ms_i[0]]=int(vm.group(1))
+                    continue
+                if key_ not in want: continue
+                cx=D_['left'][i_]+D_['width'][i_]/2;cy=D_['top'][i_]+D_['height'][i_]/2
+                cand=[(ys[0]-cy,si) for si,ys in enumerate(st) if -((ys[4]-ys[0])/4)*1.0<ys[0]-cy<((ys[4]-ys[0])/4)*6]
+                if not cand: continue
+                si_=min(cand)[1]
+                ms_i=[mi_ for mi_,(s_,_) in enumerate(meas) if s_==si_]
+                if not ms_i: continue
+                best=min(ms_i,key=lambda mi_:0 if medge[mi_][0]<=cx<medge[mi_][1] else min(abs(cx-medge[mi_][0]),abs(cx-medge[mi_][1])))
+                if want[key_] not in _WORDS.setdefault(best,[]): _WORDS[best].append(want[key_])
+        except Exception: _WORDS={}
+    # Volta-Klammern geometrisch: waagrechter Strich 1–5 Linienabstände über dem System, links mit Haken nach unten; Ziffer darin einzeln lesen
+    if _os.environ.get('GS_VOLTA','1')=='1':
+        try:
+            import pytesseract
+            for si,ys in enumerate(st):
+                d=(ys[4]-ys[0])/4;y0=max(0,int(ys[0]-4.5*d));y1=int(ys[0]-1.0*d)
+                if y1-y0<d: continue
+                band=bw[y0:y1];hz=cv2.morphologyEx(band,cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(max(5,int(3*d)),1)))
+                n_,lab_,S_,_=cv2.connectedComponentsWithStats((hz>0).astype(np.uint8))
+                vols=[]
+                for i in range(1,n_):
+                    x,y,w,h,_a=S_[i]
+                    if w<6*d or h>0.35*d: continue   # Klammer: lang und dünn (Balken sind kürzer, Druckstriche dicker)
+                    yy=y0+y;xl=x
+                    hook=bw[yy:int(yy+1.2*d),max(0,xl-2):xl+int(0.3*d)]
+                    if hook.size==0 or (hook.max(1)>0).mean()<0.7: continue   # kein Haken links: Balken o. Ä.
+                    crop=g[int(yy+0.15*d):int(yy+1.7*d),int(xl+0.15*d):int(xl+2.2*d)]
+                    num=None
+                    if crop.size:
+                        crop=cv2.resize(crop,None,fx=3,fy=3,interpolation=cv2.INTER_CUBIC)
+                        t=pytesseract.image_to_string(crop,config='--psm 7 -c tessedit_char_whitelist=12.').strip()
+                        mm_=re.search(r'[12]',t);num=int(mm_.group(0)) if mm_ else None
+                    vols.append((xl,xl+w,num))
+                vols=sorted(vols);vols=[(xa,xb,num if num else (2 if k_ and xa-vols[k_-1][1]<1.5*d else 1)) for k_,(xa,xb,num) in enumerate(vols)]   # Nummer: direkt anschließende Klammer ist die 2.
+                for k_,(xa,xb,num) in enumerate(vols):
+                    ms_i=[mi_ for mi_,(s_,_) in enumerate(meas) if s_==si]
+                    if not ms_i: continue
+                    start=min(ms_i,key=lambda mi_:0 if medge[mi_][0]<=xa+0.5*d<medge[mi_][1] else min(abs(xa-medge[mi_][0]),abs(xa-medge[mi_][1])))
+                    end=min(ms_i,key=lambda mi_:0 if medge[mi_][0]<xb-0.5*d<=medge[mi_][1] else min(abs(xb-medge[mi_][0]),abs(xb-medge[mi_][1])))
+                    _VOLTA[start]=num;_VOLTA_END[start]=max(start,end)
+        except Exception: pass
+        ks_=sorted(_VOLTA)   # eine Klammer endet spätestens vor der nächsten
+        for a_,b_ in zip(ks_,ks_[1:]):
+            if _VOLTA_END.get(a_,a_)>=b_: _VOLTA_END[a_]=b_-1
+    _DBG['worte']=dict(_WORDS);_DBG['volta']=dict(_VOLTA)
+    out=[];lens=[];_VSTOP=set()
     for mi,(si,m) in enumerate(meas):
         Lm=Ls[si]
         notes=[q for q,gr in enumerate(m) if gr[0]['kind']=='n'];ch=[int(np.argmax(gl(m[q]))) for q in notes]
@@ -484,6 +548,19 @@ def read(path,shift=0,work=None,table=None,bass=None):
             elif gr[0]['kind']=='r': evs.append(dict(rest=True,dbg=(gr[0]['st'],[],gr[0]['x']),u=uu(gr,gr[0]['u']),trip=bool(gr[0].get('trip'))))
             else:
                 heads=sorted({h for e in gr for h in e['heads']},key=lambda h:-h[2]);evs.append(dict(rest=False,dbg=(gr[0]['st'],[q for e in gr for q in e['hy']],gr[0]['x']),fis=[e['fi'] for e in gr],mtrip=bool(gr[0].get('trip')),u=uu(gr,UNIT[ch[k]]),trip=bool(gr[0].get('trip')) or UNIT[ch[k]]==4,dir=gr[0]['dir'],heads=heads));k+=1
+        # Haltebögen und Taktzeichen (Wiederholung, Volta) aus dem homr-Gerüst an die Ereignisse hängen
+        _ni=[gr for gr in m]
+        for gr,e in zip(_ni,evs):
+            if not e['rest']:
+                if gr[0].get('tie_start'): e['tie_start']=True
+                if gr[0].get('tie_stop'): e['tie_stop']=True
+        if evs and m and m[0][0].get('mflags'): evs[0]['mflags']=dict(m[0][0]['mflags'])
+        if evs and mi in _VOLTA and not (evs[0].get('mflags') or {}).get('volta'):
+            mf_=evs[0].setdefault('mflags',{});mf_['volta']=_VOLTA[mi]
+            if _VOLTA_END.get(mi,mi)==mi: mf_['volta_stop']=True
+            else: _VSTOP.add(_VOLTA_END[mi])
+        if evs and mi in _VSTOP: evs[0].setdefault('mflags',{})['volta_stop']=True
+        if evs and _WORDS.get(mi): evs[0]['words']=_WORDS[mi]
         out.append(evs);lens.append(Lm)
         if bass is not None:   # Bassbuchstaben des Takts: Lage über die Einsätze der Noten und Pausen (nächster Einsatz oder dazwischen auf Achtel gerundet)
             a,b,d=medge[mi];xs=[];pos=0
@@ -516,7 +593,7 @@ def parse_table(s):
     except Exception: return None
 PB_COL={1:(220,90,0),2:(0,150,0),3:(0,0,220),4:(190,0,190)}   # Reihe 1 blau, 2 grün, 3 rot, 4 lila (BGR)
 PB_UN={2:'16T',3:'16',4:'8T',6:'8',8:'4T',9:'8.',12:'4',16:'2T',18:'4.',24:'2',36:'2.',48:'1'}
-def pruefbild(g,meas,lens,num0,maxw=1600):
+def pruefbild_alt(g,meas,lens,num0,maxw=1600):
     """Kontrollbild einer Seite: erkannte Köpfe (Farbe = Reihe), Notenwert über dem System, Taktnummer darunter;
     Takte, deren Länge nicht aufgeht, rot hinterlegt. Ohne Wörter im Bild (Erklärung steht im Wandler). Rückgabe: JPEG-Bytes."""
     st=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1]);c=cv2.cvtColor(g,cv2.COLOR_GRAY2BGR);ov=c.copy()
@@ -543,6 +620,75 @@ def pruefbild(g,meas,lens,num0,maxw=1600):
         else: cv2.putText(c,a[0],a[1],cv2.FONT_HERSHEY_SIMPLEX,a[2],a[3],max(1,int(a[2]*2.2)))
     if c.shape[1]>maxw: c=cv2.resize(c,(maxw,int(c.shape[0]*maxw/c.shape[1])),interpolation=cv2.INTER_AREA)
     return cv2.imencode('.jpg',c,[cv2.IMWRITE_JPEG_QUALITY,72])[1].tobytes()
+PB_DIR={'D':(200,90,0),'Z':(0,110,230)}   # Druck blau, Zug orange (BGR)
+def pruefbild(g,meas,lens,num0,maxw=1600,bass=None):
+    """Kontrollbild als Überlagerung: das entzerrte Original blass in Grau, darüber in Farbe, was im erzeugten Ergebnis steht
+    (Köpfe an der Lage aus Reihe und Knopf, rund oder Kreuz, hohl ab der Halben; Hals, Fähnchen, Punkt; Pausen; Taktstriche grün;
+    Bassbuchstaben). Farbe nach Balgrichtung: Druck blau, Zug orange. Takte, die nicht aufgehen, rot hinterlegt. GS_PB=alt: frühere Ansicht."""
+    st=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1])
+    base=cv2.cvtColor(g,cv2.COLOR_GRAY2BGR);c=(255-(255-base.astype(np.float32))*0.35).astype(np.uint8)   # Original blass
+    OFF_={1:-1,2:0,3:1,4:2};fs=lambda d:max(0.4,d/26)
+    for mi,(m,L) in enumerate(zip(meas,lens)):
+        if not m: continue
+        ok=sum(e['u'] for e in m)==L;by={}
+        for e in m: by.setdefault(e['dbg'][0],[]).append(e)
+        for si,es in by.items():
+            if si>=len(st): continue
+            ys=st[si];d=(ys[4]-ys[0])/4;mid=ys[2];xs=[e['dbg'][2] for e in es]
+            if not ok:
+                ov=c.copy();cv2.rectangle(ov,(int(min(xs)-0.9*d),int(ys[0]-1.2*d)),(int(max(xs)+0.9*d),int(ys[4]+1.2*d)),(170,170,255),-1);c=cv2.addWeighted(ov,0.4,c,0.6,0)
+            lw=max(2,int(d/8))
+            pos=0;tx=[]
+            for e in es:
+                x=int(e['dbg'][2]);tx.append((pos,x));pos+=e['u']
+                if e['rest']:
+                    cv2.putText(c,'P'+PB_UN.get(e['u'],str(e['u'])),(int(x-0.5*d),int(mid+0.4*d)),cv2.FONT_HERSHEY_SIMPLEX,fs(d),(0,0,200),max(1,int(fs(d)*2.2)));continue
+                col=PB_DIR.get(e.get('dir'),(80,80,80));u=e['u'];base_u=u if not e.get('trip') else {2:3,4:6,8:12,16:24,24:36,32:48}.get(u,u)
+                hollow=base_u>=24;ysum=[]
+                for r,n,pch in e['heads']:
+                    p=2*(n-6)+OFF_.get(r,0);y=int(round(mid+0.5-p*d/2));ysum.append(y)
+                    for lp in range(6,abs(p)//2*2+1,2):   # Hilfslinien
+                        yl=int(round(mid+0.5-(lp if p>0 else -lp)*d/2));cv2.line(c,(int(x-0.9*d),yl),(int(x+0.9*d),yl),col,1)
+                    if r>=3:
+                        a_=int(0.45*d);cv2.line(c,(x-a_,y-a_),(x+a_,y+a_),col,lw);cv2.line(c,(x-a_,y+a_),(x+a_,y-a_),col,lw)
+                        if hollow: cv2.circle(c,(x,y),int(0.6*d),col,max(1,lw//2))
+                    else:
+                        cv2.ellipse(c,(x,y),(int(0.62*d),int(0.45*d)),-20,0,360,col,-1 if not hollow else lw)
+                if base_u<48 and ysum:   # Hals nach oben, Fähnchen nach Notenwert
+                    xs_=x+int(0.6*d);top=min(ysum)-int(3.3*d);cv2.line(c,(xs_,max(ysum)),(xs_,top),col,max(1,lw//2))
+                    for k in range({3:2,6:1,9:1}.get(base_u,0)): cv2.line(c,(xs_,top+int(k*0.7*d)),(xs_+int(0.9*d),top+int(k*0.7*d)+int(0.7*d)),col,lw)
+                    if base_u in (9,18,36): cv2.circle(c,(x+int(1.1*d),min(ysum)-int(0.2*d)),max(2,int(0.15*d)),col,-1)
+                if e.get('trip'): cv2.putText(c,'3',(int(x-0.3*d),int(min(ysum)-3.8*d)),cv2.FONT_HERSHEY_SIMPLEX,fs(d)*0.9,col,1)
+                if e.get('tie_start'): cv2.ellipse(c,(int(x+1.2*d),int(max(ysum)+0.8*d)),(int(1.2*d),int(0.5*d)),0,0,180,col,max(1,lw//2))
+            # Taktstrich am Ende des Takts (Mitte zwischen letztem Ereignis und nächstem Takt) und Taktnummer
+            xe=int(max(xs)+1.1*d);cv2.line(c,(xe,int(ys[0])),(xe,int(ys[4])),(0,160,0),max(1,lw//2))
+            mf=es[0].get('mflags') or {}
+            if mf.get('rep_end'): cv2.circle(c,(xe-int(0.5*d),int(mid-0.5*d)),max(2,int(0.15*d)),(0,160,0),-1);cv2.circle(c,(xe-int(0.5*d),int(mid+0.5*d)),max(2,int(0.15*d)),(0,160,0),-1)
+            if mf.get('volta'): cv2.putText(c,f"{mf['volta']}.",(int(min(xs)-0.5*d),int(ys[0]-2.6*d)),cv2.FONT_HERSHEY_SIMPLEX,fs(d),(0,160,0),max(1,int(fs(d)*2)))
+            cv2.putText(c,str(num0+mi)+('' if ok else '!'),(int(xe-0.6*d),int(ys[4]+2.3*d)),cv2.FONT_HERSHEY_SIMPLEX,fs(d)*1.1,(0,130,0) if ok else (0,0,230),max(1,int(fs(d)*2.2)))
+            # Bassbuchstaben aus dem Ergebnis: Lage über die Einsätze
+            if bass and mi<len(bass) and bass[mi]:
+                for q,cn in bass[mi]:
+                    xq=min(tx,key=lambda t:abs(t[0]-q))[1] if tx else xs[0]
+                    cv2.putText(c,str(cn),(int(xq-0.4*d),int(ys[4]+4.6*d)),cv2.FONT_HERSHEY_SIMPLEX,fs(d)*1.2,(150,0,150),max(1,int(fs(d)*2.4)))
+    if c.shape[1]>maxw: c=cv2.resize(c,(maxw,int(c.shape[0]*maxw/c.shape[1])),interpolation=cv2.INTER_AREA)
+    return cv2.imencode('.jpg',c,[cv2.IMWRITE_JPEG_QUALITY,75])[1].tobytes()
+def edit_page(g,meas,lens,num0,a0,bass=None,maxw=1600):
+    """Daten zum Nachbearbeiten einer Seite im Wandler: entzerrtes Bild (grau, JPEG), Systeme (Linienhöhen) und je Takt die Ereignisse
+    mit Lage im Bild, Notenwert, Balgrichtung und Köpfen (Reihe, Knopf). Koordinaten in Bildpunkten des gelieferten Bildes."""
+    import base64
+    k=min(1.0,maxw/g.shape[1]);im=cv2.resize(g,None,fx=k,fy=k,interpolation=cv2.INTER_AREA) if k<1 else g
+    st=G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1])
+    ms=[]
+    for mi,(m,L) in enumerate(zip(meas,lens)):
+        evs=[]
+        for e in m:
+            ev=dict(x=round(float(e['dbg'][2])*k,1),s=int(e['dbg'][0]),u=int(e['u']),r=bool(e['rest']),t=bool(e.get('trip')))
+            if not e['rest']: ev.update(d=e.get('dir','Z'),h=[[int(r),int(n)] for r,n,_ in e['heads']],ts=bool(e.get('tie_start')),te=bool(e.get('tie_stop')))
+            evs.append(ev)
+        ms.append(dict(n=num0+mi,i=a0+mi,L=int(L),e=evs,f=(m[0].get('mflags') if m else None) or {},w=(m[0].get('words') if m else None) or [],b=[[int(q),str(c)] for q,c in (bass[mi] if bass and mi<len(bass) else [])]))
+    jpg=cv2.imencode('.jpg',im,[cv2.IMWRITE_JPEG_QUALITY,60])[1].tobytes()
+    return dict(img='data:image/jpeg;base64,'+base64.b64encode(jpg).decode(),w=im.shape[1],h=im.shape[0],st=[[round(float(y)*k,1) for y in ys] for ys in st],m=ms)
 def split_double(path):
     """Quer liegende Doppelseite (zwei Notenseiten nebeneinander, z. B. aufgeschlagenes Heft): findet die Liniensuche auf der ganzen
     Seite keine Systeme, wird an der hellsten Spalte nahe der Mitte geteilt und jede Hälfte als eigene Seite gelesen. GS_SPLIT=0: aus"""
@@ -562,7 +708,7 @@ def split_double(path):
         return out or [path]
     except Exception:
         return [path]
-def convert(paths,shift=0,title='Gescannte Griffschrift',table=None,bilder=None,style='auto',text=None):
+def convert(paths,shift=0,title='Gescannte Griffschrift',table=None,bilder=None,style='auto',text=None,seiten_out=None):
     """Eine oder mehrere Seiten (Bilder) -> (MusicXML, Pins); Takte der Seiten hintereinander. table: Diskantbelegung des Wandlers (sonst 446 Normal).
     bilder: Liste, an die je Seite ein Kontrollbild (JPEG-Bytes) angehängt wird; die Pins bekommen dann 'offen' (Nummern der Takte, die nicht aufgehen)."""
     allm=[];Lm=None;bass=[];seiten=[]
@@ -584,7 +730,10 @@ def convert(paths,shift=0,title='Gescannte Griffschrift',table=None,bilder=None,
     if bilder is not None:
         n0=0 if sum(e['u'] for e in allm[0])<Lm[0] else 1   # Nummern wie im MusicXML (Auftakt = 0)
         for g,a,m,L in seiten:
-            try: bilder.append(pruefbild(g,m,L,n0+a))
+            if seiten_out is not None:
+                try: seiten_out.append(edit_page(g,m,L,n0+a,a,bass[a:a+len(m)] if bass else None))
+                except Exception: pass
+            try: bilder.append(pruefbild(g,m,L,n0+a,bass=bass[a:a+len(m)] if bass else None) if _os.environ.get('GS_PB','ueber')=='ueber' else pruefbild_alt(g,m,L,n0+a))
             except Exception: pass
         P['offen']=[n0+i for i,(m,L) in enumerate(zip(allm,Lm)) if sum(e['u'] for e in m)!=L and not (i==0 and n0==0)]
         P['takte']=len(allm)
@@ -598,7 +747,8 @@ def to_xml(meas,lens,title='Gescannte Griffschrift',shift=0,bass=None):
     def ts(L): return (L//12,4) if L%12==0 else (L//6,8)
     x=['<?xml version="1.0" encoding="UTF-8"?>','<score-partwise version="3.1">',f'<work><work-title>{title}</work-title></work>',
        '<part-list><score-part id="P1"><part-name>Melodie</part-name></score-part></part-list>','<part id="P1">']
-    pins=[];t0=0.0;bpins=[]
+    pins=[];t0=0.0;bpins=[];cur_volta=[None]
+    REP=_os.environ.get('GS_WIEDERHOLUNG','1')=='1'   # Wiederholungen, Volten, Haltebögen, Textzeichen ins MusicXML
     for mi,evs in enumerate(meas):
         Lm=lens[mi];beats,btype=ts(Lm)
         imp=' implicit="yes"' if mi==0 and sum(e['u'] for e in evs)<Lm else ''
@@ -606,6 +756,18 @@ def to_xml(meas,lens,title='Gescannte Griffschrift',shift=0,bass=None):
         x.append(f'<measure number="{mi if first_imp else mi+1}"{imp}>')
         if mi==0: x.append(f'<attributes><divisions>12</divisions><key><fifths>0</fifths></key><time><beats>{beats}</beats><beat-type>{btype}</beat-type></time><clef><sign>G</sign><line>2</line></clef></attributes>')
         elif lens[mi]!=lens[mi-1]: x.append(f'<attributes><time><beats>{beats}</beats><beat-type>{btype}</beat-type></time></attributes>')
+        mf=(evs[0].get('mflags') or {}) if (evs and REP) else {}
+        if mf.get('volta')==1 and not mf.get('volta_stop'):   # 1. Klammer ohne Ende: bis zum nächsten Wiederholungsstrich (höchstens 4 Takte), sonst 1 Takt
+            end_=next((j for j in range(mi,min(len(meas),mi+4)) if meas[j] and (meas[j][0].get('mflags') or {}).get('rep_end')),mi)
+            if meas[end_]: meas[end_][0].setdefault('mflags',{})['volta_stop']=True
+            mf=(evs[0].get('mflags') or {})
+        if mf.get('rep_start') or mf.get('volta'):
+            bl='<barline location="left">'
+            if mf.get('volta'): cur_volta[0]=mf['volta'];bl+=f'<ending number="{mf["volta"]}" type="start"/>'
+            if mf.get('rep_start'): bl+='<repeat direction="forward"/>'
+            x.append(bl+'</barline>')
+        if evs and REP:
+            for w_ in evs[0].get('words',[]): x.append(f'<direction placement="above"><direction-type><words>{w_}</words></direction-type></direction>')
         pos=0
         for e in evs:
             tr=e.get('trip',e['u']==4);ty,dot=(TRIPTYPE if tr else TYPE).get(e['u'],TYPE.get(e['u'],('quarter',0)));tm='<time-modification><actual-notes>3</actual-notes><normal-notes>2</normal-notes></time-modification>' if tr else ''
@@ -613,10 +775,17 @@ def to_xml(meas,lens,title='Gescannte Griffschrift',shift=0,bass=None):
             else:
                 for q,(r,n,p) in enumerate(e['heads']):
                     al=f'<alter>1</alter>' if ALT[p%12] else ''
-                    x.append(f'<note>{"<chord/>" if q else ""}<pitch><step>{STEP[p%12]}</step>{al}<octave>{p//12-1}</octave></pitch><duration>{e["u"]}</duration><type>{ty}</type>{"<dot/>"*dot}{tm}</note>')
+                    ti=(('<tie type="stop"/>' if e.get('tie_stop') else '')+('<tie type="start"/>' if e.get('tie_start') else '')) if REP else ''
+                    tn=(('<notations>'+('<tied type="stop"/>' if e.get('tie_stop') else '')+('<tied type="start"/>' if e.get('tie_start') else '')+'</notations>') if ti else '')
+                    x.append(f'<note>{"<chord/>" if q else ""}<pitch><step>{STEP[p%12]}</step>{al}<octave>{p//12-1}</octave></pitch><duration>{e["u"]}</duration>{ti}<type>{ty}</type>{"<dot/>"*dot}{tm}{tn}</note>')
                     pins.append([round(t0+pos/12,4),p,r,n,e['dir']])
             pos+=e['u']
         if bass and mi<len(bass): bpins+=[[round(t0+q/12,4),c] for q,c in bass[mi]]
+        if mf.get('rep_end') or mf.get('volta_stop'):
+            bl='<barline location="right"><bar-style>light-heavy</bar-style>' if mf.get('rep_end') else '<barline location="right">'
+            if mf.get('volta_stop') and cur_volta[0]: bl+=f'<ending number="{cur_volta[0]}" type="stop"/>';cur_volta[0]=None
+            if mf.get('rep_end'): bl+='<repeat direction="backward"/>'
+            x.append(bl+'</barline>')
         x.append('</measure>');t0+=pos/12
     x+=['</part>','</score-partwise>']
     P={'sh':shift,'n':pins}

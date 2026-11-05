@@ -17,3 +17,5 @@ Der Griffschrift-Leser kann zusätzlich das Zerlegungsnetz von homr verwenden (V
 Ebenso lässt sich das Gerüst aus der Notenerkennung zuschalten (siehe griffschrift-leser/LIESMICH.md, achtzehnter Durchgang): Dafür muss gerust.py im Ordner gsleser liegen, und unter „Variables and secrets“ wird GS_GERUEST = 1 gesetzt. Takte, Notenwerte und Pausen sauberer Seiten kommen dann von homr, Fotos liest der Leser wie bisher. Ohne die Variable ändert sich nichts.
 
 Seit dem neunzehnten Durchgang gehören in den Ordner gsleser zusätzlich vektor.py (Köpfe aus Vektor-PDFs) und das dritte Kopfmodell heads3.pkl.gz; app.py legt bei PDFs die Kopfdateien neben die Seitenbilder. Das Gerüst gilt nun auch für Fotos; wer das nicht will, setzt GS_GERUESTFOTO = 0, und NOH3 = 1 schaltet das dritte Kopfmodell ab.
+
+Seit dem einundzwanzigsten Durchgang gibt app.py beim Griffschrift-Scan zusätzlich das Feld seiten zurück (entzerrte Seiten mit den erkannten Ereignissen); daraus baut der Wandler die bearbeitbare Überlagerung. Dafür müssen app.py und gsleser/gs2xml.py gemeinsam erneuert werden.

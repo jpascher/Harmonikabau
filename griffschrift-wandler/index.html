@@ -344,14 +344,31 @@ button.ghost2{background:transparent;color:var(--accent)}
     <div id="scanbar" hidden role="dialog" aria-label="Noten scannen">
       <div class="aurow"><b><x-de>Gedruckte Noten scannen (Foto oder PDF → MusicXML)</x-de><x-en>Scan printed music (photo or PDF → MusicXML)</x-en></b></div>
       <div class="aurow scanwarn"><x-de><b>Achtung:</b> Der Wandler selbst kann keine Noten aus Bildern lesen. Die folgenden Wege schicken dein Foto oder deine PDF an einen <b>fremden Server</b>; dort gelten die Bedingungen des Betreibers, nicht die des Wandlers. Nur Noten hochladen, die du weitergeben darfst. Ohne Versand geht es mit dem Programm Audiveris auf dem eigenen PC (siehe Hilfe).</x-de><x-en><b>Note:</b> the converter itself cannot read music from images. The following options send your photo or PDF to an <b>external server</b>; the operator’s terms apply there, not those of this converter. Only upload music you are allowed to share. Without uploading, use the Audiveris program on your own computer (see help).</x-en></div>
-      <div class="aurow"><label class="chk"><input id="scanok" type="checkbox"> <x-de>Verstanden: die Datei wird an einen fremden Dienst gesendet</x-de><x-en>Understood: the file is sent to an external service</x-en></label></div>
+      <div class="aurow" id="scanokrow"><label class="chk"><input id="scanok" type="checkbox"> <x-de>Verstanden: die Datei wird an einen fremden Dienst gesendet</x-de><x-en>Understood: the file is sent to an external service</x-en></label></div>
       <div class="aurow"><button type="button" class="scango" data-u="https://homr.site" disabled>homr.site</button><span class="scanno"><x-de>kostenlos, ohne Konto, Fotos und PDF; private Vorführseite, oft nicht erreichbar</x-de><x-en>free, no account, photos and PDF; private demo site, often unavailable</x-en></span></div>
       <div class="aurow"><button type="button" class="scango" data-u="https://musescore.com/import" disabled>musescore.com/import</button><span class="scanno"><x-de>PDF-Import von MuseScore (Konto nötig); Ergebnis in MuseScore öffnen und als MusicXML exportieren</x-de><x-en>MuseScore PDF import (account needed); open the result in MuseScore and export as MusicXML</x-en></span></div>
       <div class="aurow"><button type="button" class="scango" data-u="https://www.soundslice.com/sheet-music-scanner/" disabled>Soundslice</button><span class="scanno"><x-de>Konto nötig; kostenlos 2 Probescans im Monat (1 Seite), mehr nur mit Abo</x-de><x-en>account needed; 2 free trial scans per month (1 page), more with a subscription</x-en></span></div>
       <div class="aurow" id="scanown" hidden><b><x-de>Erkennungsserver des Wandlers</x-de><x-en>The converter’s recognition server</x-en> (<span id="scanhost"></span>):</b> <select id="scankind"><option value="nn" data-de="Normalnoten" data-en="standard notation">Normalnoten</option><option value="gs" data-de="Griffschrift (Versuch)" data-en="Griffschrift (experimental)">Griffschrift (Versuch)</option></select> <select id="scanstyle" hidden title="Schreibweise der Griffschrift / Griffschrift notation"><option value="auto" data-de="Schreibweise: automatisch" data-en="Notation: automatic">Schreibweise: automatisch</option><option value="fuchs">Fuchs</option><option value="michlbauer">Michlbauer</option><option value="rosenzopf">Rosenzopf</option><option value="margetich" data-de="Margetich (4. Reihe als Dreieck)" data-en="Margetich (4th row as triangle)">Margetich (4. Reihe als Dreieck)</option><option value="bayerisch" data-de="bayerisch" data-en="Bavarian">bayerisch</option><option value="pacher">Pacher</option><option value="klausner">Klausner/Sirtl</option><option value="steinkellner" data-de="Steinkellner (Bassbuchstaben über dem System)" data-en="Steinkellner (bass letters above the staff)">Steinkellner (Bassbuchstaben über dem System)</option></select> <label class="filebtn" for="scanfile" tabindex="0"><x-de>Fotos oder PDF senden …</x-de><x-en>Send photos or PDF …</x-en></label><input id="scanfile" type="file" accept="image/*,.pdf" multiple hidden><span class="scanno"><x-de>läuft im Hugging-Face-Konto des Wandler-Autors; die Datei wird nur für die Erkennung verwendet und nach spätestens einer Stunde gelöscht; das Ergebnis erscheint gleich im Wandler. Bei Griffschrift wird mit der eingestellten Stimmung gelesen, die Griffe und Balgrichtungen des Bildes werden übernommen. Mehrere Fotos auf einmal gewählt (bis zu vier) gelten als Seiten eines Stücks, in der Reihenfolge der Dateinamen.</x-de><x-en>runs in the converter author’s Hugging Face account; the file is only used for recognition and deleted after one hour at most; the result appears straight in the converter. Griffschrift is read with the selected tuning; the grips and bellows directions from the image are kept. Several photos chosen at once (up to four) count as the pages of one tune, in the order of their file names.</x-en></span></div>
       <div class="aurow"><x-de>Danach die gespeicherte MusicXML-Datei (.musicxml, .mxl) hier laden:</x-de><x-en>Then load the saved MusicXML file (.musicxml, .mxl) here:</x-en> <button type="button" id="scanload"><x-de>MusicXML öffnen …</x-de><x-en>Open MusicXML …</x-en></button><button type="button" id="scanclose"><x-de>Schließen</x-de><x-en>Close</x-en></button></div>
       <div class="aurow" id="scanst"></div>
-      <div class="aurow" id="scanchk" hidden><button type="button" id="scanimg"><x-de>Kontrollbild ansehen</x-de><x-en>Show check image</x-en></button><span class="scanno"><x-de>zeigt, was gelesen wurde: Kreise um die erkannten Köpfe (Farbe = Reihe: 1 blau, 2 grün, 3 rot, 4 lila), über dem System der gelesene Notenwert (8 Achtel, 4 Viertel, 4. punktierte Viertel, 2 Halbe, 16 Sechzehntel, T Triole, P Pause), unter dem System die Taktnummer; rot hinterlegte Takte mit „!“ gehen in der Länge nicht auf. Köpfe ohne Kreis wurden übersehen.</x-de><x-en>shows what was read: circles around the recognised heads (colour = row: 1 blue, 2 green, 3 red, 4 purple), above the staff the duration read (8 eighth, 4 quarter, 4. dotted quarter, 2 half, 16 sixteenth, T triplet, P rest), below the staff the measure number; measures shaded red with “!” do not add up. Heads without a circle were missed.</x-en></span></div>
+      <div class="aurow" id="scanchk" hidden><button type="button" id="scanimg"><x-de>Kontrollbild ansehen</x-de><x-en>Show check image</x-en></button><button type="button" id="scanedit" hidden><x-de>Überlagerung bearbeiten …</x-de><x-en>Edit overlay …</x-en></button><span class="scanno"><x-de>legt das Ergebnis über die Vorlage: Die entzerrte Seite ist blass grau, darüber steht in Farbe, was gelesen wurde – Köpfe an der Stelle ihres Knopfs (rund für die 1. und 2. Reihe, Kreuz für die 3. und 4., hohl ab der Halben), Hals, Fähnchen und Punkt nach dem Notenwert, Pausen als P mit Wert, Taktstriche grün, darunter die Taktnummer und lila die Bassbuchstaben. Blau heißt Druck, orange Zug. Rot hinterlegte Takte mit „!“ gehen in der Länge nicht auf. Wo ein grauer Kopf ohne Farbe bleibt, wurde er übersehen; wo Farbe neben dem Grau steht, ist Lage, Reihe oder Notenwert falsch gelesen.</x-de><x-en>lays the result over the original: the straightened page is pale grey, and on top of it, in colour, is what was read – heads where their button is (round for rows 1 and 2, cross for rows 3 and 4, hollow from the half note up), stem, flag and dot according to the duration, rests as P with their value, bar lines in green, below them the measure number and the bass letters in purple. Blue means push, orange pull. Measures shaded red with “!” do not add up. A grey head without colour was missed; colour next to the grey means position, row or duration was read wrongly.</x-en></span></div>
+    </div>
+    <div id="scanconsent" hidden role="dialog" aria-modal="true" style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60;display:flex;align-items:center;justify-content:center">
+      <div style="background:var(--bg,#fff);color:inherit;max-width:560px;margin:16px;padding:18px 20px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.35)">
+        <p><b><x-de>Noten scannen: Datei geht an einen fremden Server</x-de><x-en>Scanning music: the file goes to an external server</x-en></b></p>
+        <p><x-de>Der Wandler selbst kann keine Noten aus Bildern lesen. Zum Erkennen wird dein Foto oder deine PDF an einen fremden Server geschickt (Erkennungsserver des Wandlers bei Hugging Face oder einer der anderen Dienste); dort gelten die Bedingungen des Betreibers. Nur Noten hochladen, die du weitergeben darfst. Diese Frage kommt nur einmal; „Einstellungen zurücksetzen“ stellt sie wieder.</x-de><x-en>The converter itself cannot read music from images. For recognition your photo or PDF is sent to an external server (the converter’s recognition server at Hugging Face or one of the other services); the operator’s terms apply there. Only upload music you may pass on. This question appears only once; “Reset settings” brings it back.</x-en></p>
+        <p style="text-align:right;margin:0"><button type="button" id="scanconsentno"><x-de>Abbrechen</x-de><x-en>Cancel</x-en></button> <button type="button" id="scanconsentyes"><b><x-de>Verstanden</x-de><x-en>Understood</x-en></b></button></p>
+      </div></div>
+    <div id="ovled" hidden role="dialog" aria-label="Überlagerung bearbeiten" style="position:fixed;inset:0;z-index:55;background:#777;display:flex;flex-direction:column">
+      <div id="ovtool" style="background:var(--bg,#fff);padding:6px 10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px">
+        <b><x-de>Überlagerung bearbeiten</x-de><x-en>Edit overlay</x-en></b>
+        <button type="button" id="ovprev">◀</button><span id="ovpage"></span><button type="button" id="ovnext">▶</button>
+        <button type="button" id="ovzo">−</button><button type="button" id="ovzi">+</button>
+        <span id="ovsel" style="min-width:12em"></span>
+        <button type="button" id="ovapply"><b><x-de>Übernehmen</x-de><x-en>Apply</x-en></b></button><button type="button" id="ovcancel"><x-de>Schließen</x-de><x-en>Close</x-en></button>
+        <span class="scanno" style="flex-basis:100%"><x-de>Kopf anklicken, dann: ↑ ↓ Lage, X rund/Kreuz, Entf löschen; 1 2 4 8 6 Notenwert (Ganze, Halbe, Viertel, Achtel, Sechzehntel), Punkt punktiert, D/Z Balgrichtung. Umschalt-Klick auf das System fügt dem nächsten Akkord einen runden Kopf hinzu, mit Alt ein Kreuz; Doppelklick auf eine freie Stelle setzt dort eine neue Viertel ein (mit Alt als Kreuz); Entf auf einer Pause entfernt sie ganz. Grau ist die Vorlage, farbig das Ergebnis (blau Druck, orange Zug); rot hinterlegte Takte gehen nicht auf.</x-de><x-en>Click a head, then: ↑ ↓ position, X round/cross, Del delete; 1 2 4 8 6 duration (whole, half, quarter, eighth, sixteenth), period dotted, D/Z bellows. Shift-click on the staff adds a round head to the nearest chord, with Alt a cross; double-click on a free spot inserts a new quarter note there (with Alt as a cross); Del on a rest removes it entirely. Grey is the original, colour the result (blue push, orange pull); measures shaded red do not add up.</x-en></span>
+      </div>
+      <div id="ovscroll" style="flex:1;overflow:auto"><div id="ovwrap" style="position:relative;margin:0 auto;transform-origin:0 0"><img id="ovimg" alt="" style="display:block;width:100%;opacity:.45"><svg id="ovsvg" style="position:absolute;left:0;top:0;width:100%;height:100%"></svg></div></div>
     </div>
     <div id="aubar" hidden role="dialog" aria-label="Aufnahme in Noten umwandeln">
       <div class="aurow"><b><x-de>Aufnahme in Noten umwandeln</x-de><x-en>Turn a recording into music</x-en></b>
@@ -3319,9 +3336,16 @@ async function loadVM(key){
 // OMR_URL; bleibt sie leer, ist die Direktübergabe ausgeblendet. Ohne Bestätigung wird nichts gesendet.
 const OMR_URL="https://jpascher-notenerkennung.hf.space";   // z. B. "https://scan.hyperbox.org" (eigener Server, Ordner omr-space/vps) oder die Adresse eines Hugging Face Space
 let SCANIMG=[];   // Kontrollbilder der letzten Griffschrift-Lesung (data:-URLs, vom Erkennungsserver)
+let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbeiten (Bild, Systeme, Ereignisse je Takt)
 (function(){const bar=document.getElementById("scanbar"),ok=document.getElementById("scanok"),st=t=>document.getElementById("scanst").textContent=t;
   const upd=()=>{bar.querySelectorAll(".scango").forEach(b=>b.disabled=!ok.checked);document.getElementById("scanown").hidden=!OMR_URL||!ok.checked;try{document.getElementById("scanhost").textContent=OMR_URL?new URL(OMR_URL).host:"";}catch(e){}};
-  document.getElementById("scanbtn").addEventListener("click",()=>{bar.hidden=!bar.hidden;ok.checked=false;upd();st("");});
+  const okSaved=()=>{try{return localStorage.getItem("gw-scanok")==="1";}catch(e){return false;}};
+  const cons=document.getElementById("scanconsent");
+  const applyOk=()=>{ok.checked=okSaved();document.getElementById("scanokrow").hidden=ok.checked;bar.querySelector(".scanwarn").hidden=ok.checked;upd();};
+  document.getElementById("scanbtn").addEventListener("click",()=>{bar.hidden=!bar.hidden;st("");applyOk();if(!bar.hidden&&!okSaved())cons.hidden=false;});
+  document.getElementById("scanconsentyes").addEventListener("click",()=>{try{localStorage.setItem("gw-scanok","1");}catch(e){}cons.hidden=true;applyOk();});
+  document.getElementById("scanconsentno").addEventListener("click",()=>{cons.hidden=true;bar.hidden=true;});
+  ok.addEventListener("change",()=>{if(ok.checked){try{localStorage.setItem("gw-scanok","1");}catch(e){}}});
   document.getElementById("scanclose").addEventListener("click",()=>{bar.hidden=true;});
   ok.addEventListener("change",upd);
   {const k=document.getElementById("scankind"),sy=document.getElementById("scanstyle");const u2=()=>{sy.hidden=k.value!=="gs";};k.addEventListener("change",u2);u2();}
@@ -3347,15 +3371,106 @@ let SCANIMG=[];   // Kontrollbilder der letzten Griffschrift-Lesung (data:-URLs,
         SRC={kind:"file",name:TITLE+".musicxml",xml:LASTXML};run();
         // Kontrollbild und nicht aufgehende Takte (ältere Server liefern beides nicht)
         SCANIMG=Array.isArray(res.bild)?res.bild:[];document.getElementById("scanchk").hidden=!SCANIMG.length;
+        SCANED=Array.isArray(res.seiten)&&res.seiten.length?{seiten:res.seiten,sh:(res.pins||{}).sh||0,title:TITLE}:null;document.getElementById("scanedit").hidden=!SCANED;
         const P=res.pins||{},tk=P.takte,of=Array.isArray(P.offen)?P.offen:null;
-        const SWN={auto:["automatisch","automatic"],fuchs:["Fuchs","Fuchs"],michlbauer:["Michlbauer","Michlbauer"],rosenzopf:["Rosenzopf","Rosenzopf"],margetich:["Margetich","Margetich"],bayerisch:["bayerisch","Bavarian"],steinkellner:["Steinkellner","Steinkellner"]};
+        const SWN={auto:["automatisch","automatic"],fuchs:["Fuchs","Fuchs"],michlbauer:["Michlbauer","Michlbauer"],rosenzopf:["Rosenzopf","Rosenzopf"],margetich:["Margetich","Margetich"],bayerisch:["bayerisch","Bavarian"],steinkellner:["Steinkellner","Steinkellner"],pacher:["Pacher","Pacher"],klausner:["Klausner/Sirtl","Klausner/Sirtl"]};
         const info=[tx.titel?TX("Titel: ","Title: ")+tx.titel:"",tx.bearbeiter?TX("Bearbeitung: ","Arranged by: ")+tx.bearbeiter:"",tx.teile&&tx.teile.length?TX("Teile: ","Sections: ")+tx.teile.join(", "):"",tx.schreibweise?TX("gelesen als ","read as ")+TX(...(SWN[tx.schreibweise]||[tx.schreibweise,tx.schreibweise])):""].filter(Boolean).join(" · ");
         if(tk&&of){st((info?info+". ":"")+TX(`Fertig: ${tk-of.length} von ${tk} Takten gehen auf`+(of.length?`; nicht auf geht: Takt ${of.join(", ")}`:"")+". Bitte mit dem Kontrollbild prüfen, Fehler sind normal.",
           `Done: ${tk-of.length} of ${tk} measures add up`+(of.length?`; not adding up: measure ${of.join(", ")}`:"")+". Please check against the check image, errors are normal."));return;}}
-      else{SCANIMG=[];document.getElementById("scanchk").hidden=true;const xml=await omrSend(f,t=>st(t));loadXMLText(xml);TITLE=f.name.replace(/\.[^.]+$/,"");CREDIT="";setPins(null);SRC={kind:"file",name:TITLE+".musicxml",xml:LASTXML};run();}
+      else{SCANIMG=[];SCANED=null;document.getElementById("scanchk").hidden=true;const xml=await omrSend(f,t=>st(t));loadXMLText(xml);TITLE=f.name.replace(/\.[^.]+$/,"");CREDIT="";setPins(null);SRC={kind:"file",name:TITLE+".musicxml",xml:LASTXML};run();}
       st(TX("Fertig. Bitte die erkannten Noten prüfen, Fehler sind normal.","Done. Please check the recognised notes, errors are normal."));}
     catch(err){if(err&&err.local){st(err.message);return;}let m=String(err.message||err);if(LANG==="en")[["Erkennung fehlgeschlagen","recognition failed"],["Keine Notenlinien gefunden","no staff lines found"],["Keine Griffschrift gefunden","no Griffschrift found"],["Keine Datei","no file"],["Gerade zu viele Aufträge, bitte später noch einmal","too many jobs right now, please try again later"],["Nur Bilder (PNG, JPG …) oder PDF","only images (PNG, JPG …) or PDF"]].forEach(([d,e])=>{m=m.split(d).join(e);});
       st(TX("Der Erkennungsserver hat nicht geantwortet oder einen Fehler gemeldet: ","The recognition server did not answer or reported an error: ")+m);}});})();
+// ======== Überlagerung bearbeiten: Ergebnis der Griffschrift-Lesung über der entzerrten Vorlage korrigieren und übernehmen ========
+(function(){
+  const $=id=>document.getElementById(id),NS="http://www.w3.org/2000/svg";
+  const OFFR={1:-1,2:0,3:1,4:2},COL={D:"#0058c8",Z:"#e06a00"};
+  let ED=null,PG=0,SEL=null,ZOOM=1;   // SEL: {mi (Index in Seite), ei, hi}
+  const lagep=(r,n)=>2*(n-6)+OFFR[r];
+  const knopf=(p,kreuz)=>{const rows=kreuz?[3,4]:[1,2];const r=((p-OFFR[rows[0]])%2+2)%2===0?rows[0]:rows[1];return [r,Math.floor((p-OFFR[r])/2)+6];};
+  const isX=r=>r>=3;
+  const UNIT_TX={2:"16T",3:"16",4:"8T",6:"8",8:"4T",9:"8.",12:"4",16:"2T",18:"4.",24:"2",36:"2.",48:"1"};
+  function staffOf(pg,s){const ys=pg.st[s];if(!ys)return null;const d=(ys[4]-ys[0])/4;return {ys,d,mid:ys[2]};}
+  function el(tag,at,par){const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);if(par)par.appendChild(e);return e;}
+  function draw(){const pg=ED.seiten[PG],svg=$("ovsvg");svg.innerHTML="";svg.setAttribute("viewBox",`0 0 ${pg.w} ${pg.h}`);
+    $("ovimg").src=pg.img;$("ovwrap").style.width=(pg.w*ZOOM)+"px";$("ovpage").textContent=TX(`Seite ${PG+1}/${ED.seiten.length}`,`Page ${PG+1}/${ED.seiten.length}`);
+    pg.m.forEach((m,mi)=>{if(!m.e.length)return;const sum=m.e.reduce((a,e)=>a+e.u,0),S=staffOf(pg,m.e[0].s);if(!S)return;const {ys,d,mid}=S;
+      const xs=m.e.map(e=>e.x),x0=Math.min(...xs)-0.9*d,x1=Math.max(...xs)+0.9*d;
+      if(sum!==m.L&&!(m.i===0&&sum<m.L))el("rect",{x:x0,y:ys[0]-1.2*d,width:x1-x0,height:ys[4]-ys[0]+2.4*d,fill:"rgba(255,80,80,.18)"},svg);
+      el("line",{x1:x1+0.2*d,y1:ys[0],x2:x1+0.2*d,y2:ys[4],stroke:"#00a000","stroke-width":Math.max(1,d/8)},svg);
+      const tn=el("text",{x:x1-0.4*d,y:ys[4]+2.3*d,fill:sum===m.L?"#008000":"#d00000","font-size":d*0.9},svg);tn.textContent=m.n+(sum===m.L?"":"!");
+      m.e.forEach((e,ei)=>{const lab=el("text",{x:e.x-0.5*d,y:ys[0]-1.5*d,"font-size":d*0.85,fill:e.r?"#c00000":"#7a3c00",style:"cursor:pointer"},svg);lab.textContent=(e.r?"P":"")+(UNIT_TX[e.u]||e.u);
+        lab.addEventListener("click",ev=>{ev.stopPropagation();SEL={mi,ei,hi:e.r?-1:0};draw();});
+        if(e.r)return;const col=COL[e.d]||"#555",hollow=(e.t?e.u*1.5:e.u)>=24;
+        e.h.forEach(([r,n],hi)=>{const p=lagep(r,n),y=mid+0.5-p*d/2,sel=SEL&&SEL.mi===mi&&SEL.ei===ei&&SEL.hi===hi;
+          let g=el("g",{style:"cursor:pointer"},svg);
+          if(isX(r)){const a=0.45*d;el("path",{d:`M${e.x-a} ${y-a}L${e.x+a} ${y+a}M${e.x-a} ${y+a}L${e.x+a} ${y-a}`,stroke:col,"stroke-width":d/5},g);if(hollow)el("circle",{cx:e.x,cy:y,r:0.6*d,fill:"none",stroke:col,"stroke-width":d/10},g);}
+          else el("ellipse",{cx:e.x,cy:y,rx:0.62*d,ry:0.45*d,transform:`rotate(-20 ${e.x} ${y})`,fill:hollow?"none":col,stroke:col,"stroke-width":d/6},g);
+          el("rect",{x:e.x-0.8*d,y:y-0.6*d,width:1.6*d,height:1.2*d,fill:"transparent",stroke:sel?"#ff00ff":"none","stroke-width":d/8},g);
+          g.addEventListener("click",ev=>{ev.stopPropagation();SEL={mi,ei,hi};draw();});});
+        const top=Math.min(...e.h.map(([r,n])=>mid+0.5-lagep(r,n)*d/2));if((e.t?e.u*1.5:e.u)<48)el("line",{x1:e.x+0.6*d,y1:top,x2:e.x+0.6*d,y2:top-3.2*d,stroke:col,"stroke-width":d/10},svg);});
+      m.b.forEach(([q,c])=>{let pos=0,bx=m.e[0].x;for(const e of m.e){if(pos<=q)bx=e.x;pos+=e.u;}const t=el("text",{x:bx-0.4*d,y:ys[4]+4.4*d,"font-size":d*1.1,fill:"#a000a0"},svg);t.textContent=c;});});
+    const s=SEL&&pg.m[SEL.mi]&&pg.m[SEL.mi].e[SEL.ei];$("ovsel").textContent=s?TX(`Takt ${pg.m[SEL.mi].n}: `,`Measure ${pg.m[SEL.mi].n}: `)+(s.r?TX("Pause ","rest ")+(UNIT_TX[s.u]||s.u):(UNIT_TX[s.u]||s.u)+" · "+(s.d==="D"?TX("Druck","push"):TX("Zug","pull"))+" · "+s.h.map(([r,n])=>r+"/"+n).join(" ")):"";}
+  function setDur(e,base){const dot=[9,18,36].includes(e.t?e.u*1.5:e.u);let u=base*(dot&&base<48?1.5:1);if(e.t)u=u*2/3;if(Number.isInteger(u))e.u=u;}
+  function toggleDot(e){const raw=e.t?e.u*1.5:e.u,base={9:6,18:12,36:24}[raw];let u=base?base:({6:9,12:18,24:36}[raw]||raw);if(e.t)u=u*2/3;if(Number.isInteger(u))e.u=u;}
+  document.addEventListener("keydown",ev=>{if($("ovled").hidden||!SEL)return;const pg=ED.seiten[PG],m=pg.m[SEL.mi],e=m&&m.e[SEL.ei];if(!e)return;let done=true;
+    const k=ev.key;
+    if(!e.r&&(k==="ArrowUp"||k==="ArrowDown")){const [r,n]=e.h[SEL.hi],[r2,n2]=knopf(lagep(r,n)+(k==="ArrowUp"?1:-1),isX(r));e.h[SEL.hi]=[r2,n2];}
+    else if(!e.r&&(k==="x"||k==="X")){const [r,n]=e.h[SEL.hi];e.h[SEL.hi]=knopf(lagep(r,n),!isX(r));}
+    else if(k==="Delete"||k==="Backspace"){if(!e.r){e.h.splice(SEL.hi,1);if(!e.h.length){e.r=true;delete e.d;SEL.hi=-1;}else SEL.hi=0;}else{m.e.splice(SEL.ei,1);SEL=null;}}   // Pause: Ereignis ganz entfernen
+    else if({"1":48,"2":24,"4":12,"8":6,"6":3}[k])setDur(e,{"1":48,"2":24,"4":12,"8":6,"6":3}[k]);
+    else if(k===".")toggleDot(e);
+    else if(!e.r&&(k==="d"||k==="D"))e.d="D";else if(!e.r&&(k==="z"||k==="Z"))e.d="Z";
+    else done=false;
+    if(done){ev.preventDefault();draw();}});
+  const ovClick=(ev,neu)=>{const pg=ED.seiten[PG],svg=$("ovsvg"),pt=svg.createSVGPoint();pt.x=ev.clientX;pt.y=ev.clientY;const q=pt.matrixTransform(svg.getScreenCTM().inverse());
+    if(neu){   // neue Note (Viertel) an dieser Stelle einfügen, im Takt nach der Lage eingereiht
+      let bs=null;pg.st.forEach((ys,s)=>{const d=(ys[4]-ys[0])/4;if(q.y>ys[0]-6*d&&q.y<ys[4]+6*d){const dd=Math.abs(q.y-ys[2]);if(!bs||dd<bs.dd)bs={dd,s,d,mid:ys[2]};}});if(!bs)return;
+      let bm=null;pg.m.forEach((m,mi)=>{if(!m.e.length||m.e[0].s!==bs.s)return;const xs=m.e.map(e=>e.x),a=Math.min(...xs)-1.5*bs.d,b=Math.max(...xs)+1.5*bs.d,dd=q.x<a?a-q.x:q.x>b?q.x-b:0;if(!bm||dd<bm.dd)bm={dd,mi};});if(!bm)return;
+      const m=pg.m[bm.mi],p=Math.round((bs.mid+0.5-q.y)*2/bs.d),kb=knopf(p,ev.altKey),nb=m.e.reduce((a,e)=>Math.abs(e.x-q.x)<Math.abs(a.x-q.x)?e:a,m.e[0]);
+      const ne={x:q.x,s:bs.s,u:12,r:false,t:false,d:nb.d||"Z",h:[kb],ts:false,te:false};let at=m.e.findIndex(e=>e.x>q.x);if(at<0)at=m.e.length;m.e.splice(at,0,ne);SEL={mi:bm.mi,ei:at,hi:0};draw();return;}
+    let best=null;pg.m.forEach((m,mi)=>m.e.forEach((e,ei)=>{const S=staffOf(pg,e.s);if(!S)return;const dd=Math.abs(e.x-q.x)+(q.y<S.ys[0]-6*S.d||q.y>S.ys[4]+6*S.d?1e9:0);if(!best||dd<best.dd)best={dd,mi,ei,S};}));
+    if(!best||best.dd>2*best.S.d)return;const e=pg.m[best.mi].e[best.ei],p=Math.round((best.S.mid+0.5-q.y)*2/best.S.d),kb=knopf(p,ev.altKey);
+    if(e.r){e.r=false;e.d=e.d||"Z";e.h=[];}if(!e.h.some(([r,n])=>r===kb[0]&&n===kb[1]))e.h.push(kb);SEL={mi:best.mi,ei:best.ei,hi:e.h.length-1};draw();};
+  $("ovsvg").addEventListener("click",ev=>{if(ev.shiftKey)ovClick(ev,false);});
+  $("ovsvg").addEventListener("dblclick",ev=>{if(ev.target.closest&&ev.target.closest("g"))return;ev.preventDefault();ovClick(ev,true);});   // Doppelklick auf freie Stelle: neue Note
+  $("ovprev").addEventListener("click",()=>{if(PG>0){PG--;SEL=null;draw();}});
+  $("ovnext").addEventListener("click",()=>{if(ED&&PG<ED.seiten.length-1){PG++;SEL=null;draw();}});
+  $("ovzi").addEventListener("click",()=>{ZOOM=Math.min(3,ZOOM*1.25);draw();});
+  $("ovzo").addEventListener("click",()=>{ZOOM=Math.max(0.4,ZOOM/1.25);draw();});
+  $("ovcancel").addEventListener("click",()=>{$("ovled").hidden=true;});
+  $("scanedit").addEventListener("click",()=>{if(!SCANED)return;ED=JSON.parse(JSON.stringify(SCANED));PG=0;SEL=null;ZOOM=Math.min(1,(window.innerWidth-20)/ED.seiten[0].w);$("ovled").hidden=false;draw();});
+  // Übernehmen: MusicXML und Griffe aus den bearbeiteten Ereignissen neu bauen (wie gs2xml.to_xml), Töne nach dem eingestellten Instrument
+  const STEP=["C","C","D","D","E","F","F","G","G","A","A","B"],ALT=[0,1,0,1,0,0,1,0,1,0,1,0];
+  const TYPE={3:["16th",0],4:["eighth",0],6:["eighth",0],9:["eighth",1],12:["quarter",0],18:["quarter",1],24:["half",0],36:["half",1],48:["whole",0]};
+  const TRIPTYPE={2:["16th",0],4:["eighth",0],6:["eighth",1],8:["quarter",0],12:["quarter",1],16:["half",0],24:["half",1],32:["whole",0]};
+  function pitchOfRN(r,n,d){const b=BTNS.find(x=>x.row===r&&x.num===n&&!x.extra);return b?(d==="D"?b.druck:b.zug):null;}
+  $("ovapply").addEventListener("click",()=>{const meas=[];ED.seiten.forEach(pg=>pg.m.forEach(m=>meas.push(m)));meas.sort((a,b)=>a.i-b.i);
+    const x=['<?xml version="1.0" encoding="UTF-8"?>','<score-partwise version="3.1">',`<work><work-title>${noTags(ED.title||"")}</work-title></work>`,'<part-list><score-part id="P1"><part-name>Melodie</part-name></score-part></part-list>','<part id="P1">'];
+    const pins=[],bp=[];let t0=0,firstImp=false,curV=null,fehl=0;
+    meas.forEach((m,mi)=>{const L=m.L,ts=L%12===0?[L/12,4]:[L/6,8],sum=m.e.reduce((a,e)=>a+e.u,0),imp=mi===0&&sum<L;if(mi===0)firstImp=imp;
+      x.push(`<measure number="${firstImp?mi:mi+1}"${imp?' implicit="yes"':''}>`);
+      if(mi===0)x.push(`<attributes><divisions>12</divisions><key><fifths>0</fifths></key><time><beats>${ts[0]}</beats><beat-type>${ts[1]}</beat-type></time><clef><sign>G</sign><line>2</line></clef></attributes>`);
+      else if(meas[mi-1].L!==L)x.push(`<attributes><time><beats>${ts[0]}</beats><beat-type>${ts[1]}</beat-type></time></attributes>`);
+      const f=m.f||{};if(f.rep_start||f.volta){let bl='<barline location="left">';if(f.volta){curV=f.volta;bl+=`<ending number="${f.volta}" type="start"/>`;}if(f.rep_start)bl+='<repeat direction="forward"/>';x.push(bl+'</barline>');}
+      (m.w||[]).forEach(w=>x.push(`<direction placement="above"><direction-type><words>${noTags(w)}</words></direction-type></direction>`));
+      let pos=0;
+      m.e.forEach(e=>{const tr=!!e.t,tt=(tr?TRIPTYPE:TYPE)[e.u]||TYPE[e.u]||["quarter",0],tm=tr?'<time-modification><actual-notes>3</actual-notes><normal-notes>2</normal-notes></time-modification>':'';
+        if(e.r||!e.h.length)x.push(`<note><rest/><duration>${e.u}</duration><type>${tt[0]}</type>${"<dot/>".repeat(tt[1])}${tm}</note>`);
+        else{const hs=e.h.map(([r,n])=>[r,n,pitchOfRN(r,n,e.d)]).filter(h=>{if(h[2]==null){fehl++;return false;}return true;}).sort((a,b)=>b[2]-a[2]);
+          if(!hs.length)x.push(`<note><rest/><duration>${e.u}</duration><type>${tt[0]}</type>${"<dot/>".repeat(tt[1])}${tm}</note>`);
+          hs.forEach(([r,n,p],q)=>{const ti=(e.te?'<tie type="stop"/>':'')+(e.ts?'<tie type="start"/>':''),tn=ti?'<notations>'+(e.te?'<tied type="stop"/>':'')+(e.ts?'<tied type="start"/>':'')+'</notations>':'';
+            x.push(`<note>${q?"<chord/>":""}<pitch><step>${STEP[p%12]}</step>${ALT[p%12]?"<alter>1</alter>":""}<octave>${Math.floor(p/12)-1}</octave></pitch><duration>${e.u}</duration>${ti}<type>${tt[0]}</type>${"<dot/>".repeat(tt[1])}${tm}${tn}</note>`);
+            pins.push([Math.round((t0+pos/12)*1e4)/1e4,p,r,n,e.d]);});}
+        pos+=e.u;});
+      (m.b||[]).forEach(([q,c])=>bp.push([Math.round((t0+q/12)*1e4)/1e4,c]));
+      if(f.rep_end||f.volta_stop){let bl='<barline location="right">'+(f.rep_end?'<bar-style>light-heavy</bar-style>':'');if(f.volta_stop&&curV){bl+=`<ending number="${curV}" type="stop"/>`;curV=null;}if(f.rep_end)bl+='<repeat direction="backward"/>';x.push(bl+'</barline>');}
+      x.push('</measure>');t0+=pos/12;});
+    x.push('</part>','</score-partwise>');
+    const keepTitle=TITLE;loadXMLText(x.join("\n"));TITLE=keepTitle;CREDIT="";PINSRC="scan";const P={sh:ED.sh,n:pins};if(bp.length)P.b=bp;setPins("scan",{scan:P});USEPIN=true;const up=$("usepin");if(up)up.checked=true;
+    SRC={kind:"file",name:(TITLE||"Scan")+".musicxml",xml:LASTXML};SCANED=JSON.parse(JSON.stringify(ED));run();
+    $("ovsel").textContent=TX("Übernommen.","Applied.")+(fehl?TX(` ${fehl} Köpfe ohne Knopf auf diesem Instrument wurden weggelassen.`,` ${fehl} heads without a button on this instrument were left out.`):"");});
+})();
 // Mehrere Fotos → ein PDF mit einer Seite je Foto (JPEG unverändert eingebettet). Seitengröße so, dass der Server beim Rendern mit 200 dpi
 // wieder die Pixelgröße des Fotos erhält; sehr große Fotos werden auf 3200 Pixel Kantenlänge verkleinert.
 async function imagesToPdf(files){const enc=new TextEncoder(),parts=[],offs=[];let len=0;
@@ -3898,6 +4013,6 @@ applyStaticLang();updatePlayLabels();
   ids.forEach(id=>el(id).addEventListener("change",save));window.addEventListener("pagehide",save);
   // Zurücksetzen: Sprache, App-Weg und eigene Knopfbelegungen (gw-bass-*, gw-disk-*) bleiben; ohne „off“ schriebe pagehide die alten Werte zurück
   el("setreset").addEventListener("click",()=>{if(!confirm(TX("Alle gemerkten Einstellungen auf die Voreinstellung zurücksetzen? Eigene Knopfbelegungen bleiben gespeichert. Die Seite lädt neu, nicht gespeicherte Änderungen am Stück gehen verloren.","Reset all remembered settings to the defaults? Your own button layouts stay saved. The page reloads; unsaved changes to the tune are lost.")))return;
-    off=true;try{["settings","acc","lart","gstyle","fill","fill3","fill4","bname","sound","bal","mollsub","pin","follow"].forEach(k=>localStorage.removeItem("gw-"+k));}catch(e){}location.reload();});})();
+    off=true;try{["settings","acc","lart","gstyle","fill","fill3","fill4","bname","sound","bal","mollsub","pin","follow","scanok"].forEach(k=>localStorage.removeItem("gw-"+k));}catch(e){}location.reload();});})();
 loadDemo(dsel.value);
 </script>

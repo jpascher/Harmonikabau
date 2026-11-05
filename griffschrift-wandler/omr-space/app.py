@@ -58,7 +58,8 @@ def scan_gs(file, shift, layout=""):
         except Exception:
             pass
         text = {}   # Texterkennung (Tesseract): Titel, Bearbeiter, Teilbezeichnungen, gewählte Schreibweise
-        xml, pins = gs2xml.convert(pages, shift=int(shift or 0), table=gs2xml.parse_table(layout), bilder=bilder, style=style, text=text)
+        seiten = []   # Daten zum Nachbearbeiten im Wandler (entzerrtes Bild, Systeme, Ereignisse je Takt)
+        xml, pins = gs2xml.convert(pages, shift=int(shift or 0), table=gs2xml.parse_table(layout), bilder=bilder, style=style, text=text, seiten_out=seiten)
     except Exception as e:
         raise gr.Error("Erkennung fehlgeschlagen: " + str(e)[-400:])
     import base64
@@ -69,7 +70,7 @@ def scan_gs(file, shift, layout=""):
             f.write(b)
         imgs.append(fn)
     with open(out, "w", encoding="utf-8") as f:
-        json.dump({"xml": xml, "pins": pins, "text": text, "bild": ["data:image/jpeg;base64," + base64.b64encode(b).decode() for b in bilder]}, f)
+        json.dump({"xml": xml, "pins": pins, "text": text, "bild": ["data:image/jpeg;base64," + base64.b64encode(b).decode() for b in bilder], "seiten": seiten}, f)
     return out, imgs
 
 nn = gr.Interface(
