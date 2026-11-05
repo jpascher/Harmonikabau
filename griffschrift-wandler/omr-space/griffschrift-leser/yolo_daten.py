@@ -2,7 +2,10 @@
 # mehrere Systeme werden zu einer Seite gestapelt, die Seite wird zufällig wie ein Scan, eine Kopie oder ein Handyfoto verschlechtert
 # (Unschärfe, Rauschen, ungleiche Helligkeit, leichte Drehung und Verzerrung, dünnere oder dickere Striche, JPEG) und in Ausschnitte
 # von 960 × 960 Bildpunkten geschnitten. Ausgabe im YOLO-Format (images/, labels/, data.yaml).
-# Aufruf: python3 yolo_daten.py ROHORDNER AUSGABEORDNER [SEITEN]
+# Jedes System wird auf einen Linienabstand um 18 Bildpunkte gebracht, wie ihn der Leser (load_gray) für jede Seite herstellt.
+# Ein Teil der Seiten wird wie die Fuchs-Blätter aus einer niedrig aufgelösten Vorlage hochgerechnet. Liegen echte Seiten mit
+# Rahmen vor (yolo_fuchs_seiten.py), wird jede vierte Seite eine davon, jedesmal anders verschlechtert.
+# Aufruf: python3 yolo_daten.py ROHORDNER AUSGABEORDNER [SEITEN] [ECHTORDNER]
 import sys, os, json, glob, random
 import numpy as np, cv2
 
@@ -15,16 +18,41 @@ def lade(raw):
     for f in sorted(glob.glob(os.path.join(raw, '*.json'))):
         j = json.load(open(f)); im = cv2.imread(f[:-5] + '.png', cv2.IMREAD_GRAYSCALE)
         if im is None or not j.get('boxes'): continue
-        s = im.shape[1] / j['w']
-        out.append((im, [(c, x * s, y * s, w * s, h * s) for c, x, y, w, h in j['boxes']]))
+        s = im.shape[1] / j['w']; ys = j.get('staff') or []
+        d = (ys[4] - ys[0]) / 4 * s if len(ys) >= 5 else 8 * s
+        out.append((im, [(c, x * s, y * s, w * s, h * s) for c, x, y, w, h in j['boxes']], d))
     return out
+
+
+def lade_echt(ordner):
+    out = []
+    for f in sorted(glob.glob(os.path.join(ordner or '', '*.json'))):
+        im = cv2.imread(f[:-5] + '.png', cv2.IMREAD_GRAYSCALE); j = json.load(open(f))
+        if im is not None and j.get('boxes'): out.append((im, [tuple(b) for b in j['boxes']]))
+    return out
+
+
+def echte_seite(echt, rnd):
+    im, bx = rnd.choice(echt); k = rnd.uniform(0.88, 1.12)
+    im = cv2.resize(im, None, fx=k, fy=k, interpolation=cv2.INTER_AREA if k < 1 else cv2.INTER_LINEAR)
+    return im, [(c, x * k, y * k, w * k, h * k) for c, x, y, w, h in bx]
+
+
+def grob(pg, rnd):
+    """wie eine niedrig aufgelöste Vorlage (GIF), die hochgerechnet wurde: Punkte werden Kästchen, Linien grau und unscharf"""
+    f = rnd.uniform(2.3, 3.2); H, W = pg.shape
+    kl = cv2.resize(pg, (max(1, int(W / f)), max(1, int(H / f))), interpolation=cv2.INTER_AREA)
+    if rnd.random() < 0.6: kl = np.where(kl < rnd.randint(110, 170), 0, 255).astype(np.uint8)
+    return cv2.resize(kl, (W, H), interpolation=rnd.choice([cv2.INTER_LINEAR, cv2.INTER_CUBIC, cv2.INTER_NEAREST]))
 
 
 def seite(sys_, rnd):
     """4–8 Systeme untereinander auf weißem Blatt, auf eine gemeinsame Breite gebracht."""
-    W = rnd.randint(1500, 2300); teile = []; boxen = []; y = rnd.randint(60, 250)
-    for im, bx in rnd.sample(sys_, k=min(len(sys_), rnd.randint(4, 8))):
-        k = W / im.shape[1] * rnd.uniform(0.85, 1.0); im2 = cv2.resize(im, None, fx=k, fy=k, interpolation=cv2.INTER_AREA)
+    dz = rnd.uniform(15.5, 21.0); teile = []; boxen = []; y = rnd.randint(60, 250)
+    wahl = rnd.sample(sys_, k=min(len(sys_), rnd.randint(4, 8)))
+    W = max(int(im.shape[1] * dz / d) for im, _, d in wahl) + 40
+    for im, bx, d in wahl:
+        k = dz / d * rnd.uniform(0.97, 1.03); im2 = cv2.resize(im, None, fx=k, fy=k, interpolation=cv2.INTER_AREA if k < 1 else cv2.INTER_LINEAR)
         x0 = rnd.randint(20, max(21, W - im2.shape[1] + 20))
         teile.append((im2, x0, y)); boxen += [(c, x0 + x * k, y + yy * k, w * k, h * k) for c, x, yy, w, h in bx]
         y += im2.shape[0] + rnd.randint(10, 120)
@@ -37,11 +65,11 @@ def seite(sys_, rnd):
 def verschlechtern(pg, boxen, rnd):
     art = rnd.choice(['sauber', 'scan', 'kopie', 'foto', 'foto'])
     g = pg.astype(np.float32)
-    if art in ('kopie', 'foto'):   # Striche dünner oder dicker
-        k = np.ones((2, 2), np.uint8)
-        g = cv2.erode(g, k) if rnd.random() < 0.5 else cv2.dilate(g, k)
+    if art in ('kopie', 'foto'):   # Striche dünner oder dicker (auf Fotos auch deutlich dicker)
+        k = np.ones((3, 3) if art == 'foto' and rnd.random() < 0.4 else (2, 2), np.uint8)
+        g = cv2.erode(g, k) if rnd.random() < 0.55 else cv2.dilate(g, k)
     if art != 'sauber':
-        g = cv2.GaussianBlur(g, (0, 0), rnd.uniform(0.3, 1.6 if art == 'foto' else 0.9))
+        g = cv2.GaussianBlur(g, (0, 0), rnd.uniform(0.3, 2.2 if art == 'foto' else 0.9))
     H, W = g.shape
     M = np.eye(3, dtype=np.float32)
     if art in ('scan', 'kopie', 'foto'):   # leichte Drehung, bei Fotos auch Verzerrung
@@ -57,7 +85,7 @@ def verschlechtern(pg, boxen, rnd):
         grad = 0.55 + 0.4 * (np.cos(xx / W * rnd.uniform(1, 4) + rnd.uniform(0, 6)) * 0.5 + 0.5) * (np.cos(yy / H * rnd.uniform(1, 4)) * 0.5 + 0.5)
         g = g * grad + rnd.uniform(-20, 10)
         g = g + np.random.normal(0, rnd.uniform(3, 12), g.shape)
-        g = (g - g.min()) / max(1e-3, g.max() - g.min()) * rnd.uniform(160, 255) + rnd.uniform(0, 40)
+        g = (g - g.min()) / max(1e-3, g.max() - g.min()) * rnd.uniform(110, 255) + rnd.uniform(0, 70)   # auch flau: graue Köpfe auf grauem Papier
     elif art in ('scan', 'kopie'):
         g = g + np.random.normal(0, rnd.uniform(1, 6), g.shape)
     g = np.clip(g, 0, 255).astype(np.uint8)
@@ -88,12 +116,16 @@ def ausschnitte(g, boxen, rnd, n):
 if __name__ == '__main__':
     raw, ziel = sys.argv[1], sys.argv[2]; n_seiten = int(sys.argv[3]) if len(sys.argv) > 3 else 600
     rnd = random.Random(7); np.random.seed(7)
-    sys_ = lade(raw); print('Systeme', len(sys_))
+    sys_ = lade(raw); echt = lade_echt(sys.argv[4] if len(sys.argv) > 4 else None); print('Systeme', len(sys_), 'echte Seiten', len(echt))
     for teil in ('train', 'val'):
         os.makedirs(os.path.join(ziel, 'images', teil), exist_ok=True); os.makedirs(os.path.join(ziel, 'labels', teil), exist_ok=True)
     k = 0
     for i in range(n_seiten):
-        pg, bx = seite(sys_, rnd); g, bx = verschlechtern(pg, bx, rnd)
+        if echt and i % 4 == 3: pg, bx = echte_seite(echt, rnd)
+        else:
+            pg, bx = seite(sys_, rnd)
+            if rnd.random() < 0.2: pg = grob(pg, rnd)
+        g, bx = verschlechtern(pg, bx, rnd)
         teil = 'val' if i % 10 == 0 else 'train'
         for crop, lab in ausschnitte(g, bx, rnd, 3):
             fn = f"s{i:05d}_{k:06d}"; cv2.imwrite(os.path.join(ziel, 'images', teil, fn + '.jpg'), crop, [cv2.IMWRITE_JPEG_QUALITY, 92])

@@ -3,7 +3,8 @@
 //   0 runder Kopf voll, 1 runder Kopf hohl, 2 Kreuz, 3 Kreuz im Kreis, 4 Dreieck voll, 5 Dreieck hohl,
 //   6 vorgesetztes Doppelkreuz (Rosenzopf; der Kopf rechts davon ist dann rund und zählt als Kreuzkopf)
 // Für das Modell zählt nur die Form, nicht Reihe oder Ton; Kreuze werden darum zufällig zu Dreiecken oder zu runden Köpfen mit
-// vorgesetztem Doppelkreuz umgezeichnet. Seitenaufbau und Fotofehler macht yolo_daten.py.
+// vorgesetztem Doppelkreuz umgezeichnet; in der Schreibweise 4 werden volle Kreuze wie in den Fuchs-Blättern als fünf Punkte gesetzt
+// (Würfelfünf aus der niedrig aufgelösten Vorlage). Seitenaufbau und Fotofehler macht yolo_daten.py.
 // Aufruf (im Ordner griffschrift-wandler einen Webserver starten: python3 -m http.server 8798):
 //   node yolo_erzeuge_wandlerbilder.js AUSGABEORDNER STARTWERT ANZAHL_STUECKE
 const {chromium}=require('playwright');const fs=require('fs');
@@ -26,8 +27,8 @@ const URL=process.env.WANDLER||'http://127.0.0.1:8798/index.html?lang=de';
   }catch(e){continue;}
   await pg.waitForTimeout(1500);
   const n=await pg.evaluate(()=>document.querySelectorAll('#griff svg.gsys').length);
-  // je Stück eine Schreibweise: 0 Fuchs (Kreuze), 1 Margetich (4. Reihe Dreieck), 2 Rosenzopf (vorgesetzte Doppelkreuze), 3 gemischt
-  const art=Math.floor(rnd()*4);
+  // je Stück eine Schreibweise: 0 Kreuze, 1 Margetich (4. Reihe Dreieck), 2 Rosenzopf (vorgesetzte Doppelkreuze), 3 gemischt, 4 Fuchs-Punkte
+  const art=Math.floor(rnd()*5);
   for(let i=0;i<n;i++){
    const gt=await pg.evaluate(([i,sd,art])=>{let s0=sd;const rnd=()=>{s0=(s0*9301+49297)%233280;return s0/233280;};
     const NS='http://www.w3.org/2000/svg';
@@ -46,12 +47,16 @@ const URL=process.env.WANDLER||'http://127.0.0.1:8798/index.html?lang=de';
       [...g.querySelectorAll('path')].forEach(p=>{const m=(p.getAttribute('d')||'').match(/^M([-\d.]+) ([-\d.]+) L([-\d.]+) ([-\d.]+) M/);if(!m)return;
         const cx=(+m[1]+ +m[3])/2,cy=(+m[2]+ +m[4])/2,hollow=+(p.getAttribute('stroke-width')||2)<2;
         const circ=[...g.querySelectorAll('circle:not(.hh)')].find(c=>Math.abs(+c.getAttribute('cx')-cx)<0.6&&Math.abs(+c.getAttribute('cy')-cy)<0.6);
-        const wahl=art===1?(rnd()<0.6?'t':'x'):art===2?(hollow?'x':(rnd()<0.75?'p':'x')):art===3?['x','t','p'][Math.floor(rnd()*3)]:'x';
+        const wahl=art===1?(rnd()<0.6?'t':'x'):art===2?(hollow?'x':(rnd()<0.75?'p':'x')):art===3?['x','t','p'][Math.floor(rnd()*3)]:art===4&&!hollow?'f':'x';
         if(wahl==='t'){   // Dreieck, Spitze oben, hohl ab der Halben
           if(circ)circ.remove();const poly=document.createElementNS(NS,'polygon');
           poly.setAttribute('points',`${cx-tw/2},${cy+th/2} ${cx+tw/2},${cy+th/2} ${cx},${cy-th/2}`);
           poly.setAttribute('style',hollow?`fill:none;stroke:#000;stroke-width:${tsw}`:'fill:#000;stroke:#000;stroke-width:0.5');
           p.replaceWith(poly);items.push([poly,hollow?5:4]);}
+        else if(wahl==='f'){   // Fuchs: fünf Punkte als Kreuz
+          if(circ)circ.remove();const gp=document.createElementNS(NS,'g');const u=4.5*xs,o=(0.66+0.12*rnd())*u,a=(0.5+0.14*rnd())*u;   // u: halbe Breite des gewöhnlichen Kreuzes
+          for(const [sx,sy] of [[-1,-1],[1,-1],[0,0],[-1,1],[1,1]]){const q=document.createElementNS(NS,'rect');q.setAttribute('x',cx+sx*o-a/2);q.setAttribute('y',cy+sy*o-a/2);q.setAttribute('width',a);q.setAttribute('height',a);if(rnd()<0.5){q.setAttribute('rx',a/2);q.setAttribute('ry',a/2);}q.setAttribute('style','fill:#000');gp.appendChild(q);}
+          p.replaceWith(gp);items.push([gp,2]);}
         else if(wahl==='p'){   // runder Kopf mit vorgesetztem Doppelkreuz (Rosenzopf)
           if(circ)circ.remove();const e=document.createElementNS(NS,'ellipse');e.setAttribute('cx',cx);e.setAttribute('cy',cy);e.setAttribute('rx',5.4*es);e.setAttribute('ry',3.9*es);
           e.setAttribute('transform',`rotate(-20 ${cx} ${cy})`);e.setAttribute('style','fill:#000');p.replaceWith(e);items.push([e,0]);
