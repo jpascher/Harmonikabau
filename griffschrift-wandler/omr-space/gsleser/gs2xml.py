@@ -241,26 +241,62 @@ def prefix_marks(det,bw,st):
                 px,py=int(round(x+sx*t*r)),int(round(y+sy*t*r))
                 if 0<=py<im.shape[0] and 0<=px<im.shape[1] and im[py,px]: c+=1
         return c/18
+    nl0={}
+    def sides(im,x,y,d):   # Seitenmitten des Flecks: beim Kreuz leer (Arme gehen über die Ecken), beim vollen Kopf Tinte
+        c=0
+        for px,py in ((x-0.42*d,y),(x+0.42*d,y),(x,y-0.36*d),(x,y+0.36*d)):
+            w_=im[max(0,int(py)-1):int(py)+2,max(0,int(px)-1):int(px)+2]
+            c+=bool(w_.size and (w_>0).mean()>0.5)
+        return c
     for i,h in enumerate(det):
         if h['t']!='o' or h.get('xmark') or h['st']>=len(st): continue
         si=h['st'];ys=st[si];d=(ys[4]-ys[0])/4
-        if si not in nl: nl[si]=cv2.dilate(G.remove_lines(bw,ys,d),np.ones((3,3),np.uint8))
+        if si not in nl: nl0[si]=G.remove_lines(bw,ys,d);nl[si]=cv2.dilate(nl0[si],np.ones((3,3),np.uint8))
         im=nl[si];fh=box(im,h['x'],h['y'],0.45*d,0.32*d)
         best=None
         for dx in np.arange(0.9*d,2.15*d,max(1.0,d/9)):
             x=h['x']-dx;f=box(im,x,h['y'],0.45*d,0.32*d)
-            if 0.3<=f<=min(0.68,fh-0.1) and diag(im,x,h['y'],0.45*d)>=0.75:
+            kreuz=G.FOTO_LINES and sides(nl0[si],x,h['y'],d)<=1 and f<=min(0.88,fh-0.06) and dx>=1.0*d and not any(o is not h and o['st']==si and o['t']=='o' and abs(o['x']-x)<0.5*d and abs(o['y']-h['y'])<0.6*d for o in det)   # Kreuzform deutlich: auch dicht am Kopf, aber nicht dort, wo ein anderer Kopf gemeldet ist (dichte Akkordfolgen)
+            if (0.3<=f<=min(0.68,fh-0.1) or kreuz) and diag(im,x,h['y'],0.45*d)>=0.75:
                 # rechts davon bis zum Kopf eine Lücke (sonst ist es der Kopf selbst oder ein Balken)
                 gap=box(im,(x+h['x'])/2,h['y'],0.08*d,0.25*d)
                 lo_,hi_=max(0,int(x-0.8*d)),int(x+0.8*d)
                 bar_=((bw[int(ys[0]):int(ys[4])+1,lo_:hi_]>0).mean(0)>0.9).any() if hi_>lo_ else False   # Taktstrich/Wiederholung daneben: Punkte, kein Kreuz
                 lm_=box(im,x-0.7*d,h['y'],0.1*d,0.25*d)   # links vom Kreuz frei (dichte Akkordfolgen haben dort den nächsten Kopf)
-                if gap<0.5 and lm_<0.5 and not bar_ and (best is None or f<best[1]): best=(x,f)
+                if (kreuz or gap<0.5 and lm_<0.5) and not bar_ and (best is None or f<best[1]): best=(x,f)
         if best:
             det[i]=dict(h,t='x',xmark=True)
             for j,o in enumerate(det):
                 if j!=i and o['st']==si and o['p']==h['p'] and abs(o['x']-best[0])<0.6*d: drop.add(j)
     return [h for k,h in enumerate(det) if k not in drop]
+def hollow_stack(det,bw,st):
+    """Fotos: hohle Köpfe übereinander (Halbe-Akkorde in Terzen, die Köpfe berühren sich) meldet der Kopferkenner oft nur einmal.
+    Über und unter einem gemeldeten hohlen Kopf wird in Terzabstand (zwei Lagen) mit der Vorlage des hohlen Kopfes nachgesehen;
+    passt sie deutlich (und besser als ein voller Kopf), kommt dort ein hohler Kopf dazu. GS_HSTACK=0: aus"""
+    if _os.environ.get('GS_HSTACK','1')!='1' or not G.FOTO_LINES or not det: return det
+    nl={};add=[]
+    for h in det:
+        if h['t']!='o' or h['fill'] or h['st']>=len(st): continue
+        si=h['st'];ys=st[si];d=(ys[4]-ys[0])/4;mid=ys[2]
+        if si not in nl: nl[si]=(G.remove_lines(bw,ys,d),G.templates(d))
+        im,T=nl[si]
+        def good(x,y,key):
+            t=T[key];hh,ww=t.shape;y0,x0=int(round(y))-hh//2,int(round(x))-ww//2;b_=0.0;tt=t.astype(np.float32)
+            for dy in (-2,0,2):
+                for dx in (-2,0,2):
+                    win=im[max(0,y0+dy):y0+dy+hh,max(0,x0+dx):x0+dx+ww].astype(np.float32)
+                    if win.shape!=t.shape: continue
+                    b_=max(b_,float((win*tt).sum()/(np.sqrt((win*win).sum()*(tt*tt).sum())+1e-6)))
+            return b_
+        for step in (-2,2):
+            p=h['p']
+            for _ in range(3):
+                p+=step;y=mid+0.5-p*d/2
+                if any(o['st']==si and o['p']==p and abs(o['x']-h['x'])<0.8*d for o in det+add): continue
+                gh,gf=good(h['x'],y,'o_h'),good(h['x'],y,'o_f')
+                if gh<0.55 or gh<gf+0.03: break
+                add.append(dict(h,y=float(y),p=p,sc=round(gh,2),stack=True))
+    return det+add
 def segno_filter(det,bw,st):
     """Segno-Zeichen (Rosenzopf: am Teilbeginn und am Schluss) wird als Köpfe gelesen. Erkennung: die Köpfe liegen in einem Tintenfleck
     von mindestens 2,6 Linienabständen Höhe ohne geraden Hals (längster senkrechter Strich unter 1,6 Linienabständen), direkt neben
@@ -332,7 +368,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     if _vk:
         det=_vk;D.LAST['tri_page']=False;XDROP.clear();C=chords_det(det)
     else:
-        det=prefix_marks(cross_marks(segno_filter(thick_bar_filter(D.detect(work,1),bw),bw,st)),bw,st);C=chords_det(det)
+        det=hollow_stack(prefix_marks(cross_marks(segno_filter(thick_bar_filter(D.detect(work,1),bw),bw,st)),bw,st),bw,st);C=chords_det(det)
     off=shift+2   # Tabelle in assemble.py gilt für G-C-F-B (shift -2)
     items=[]   # je System: Akkorde und Pausen
     fills=[];dots=[]
@@ -512,11 +548,23 @@ def read(path,shift=0,work=None,table=None,bass=None):
         try:
             import pytesseract
             D_=pytesseract.image_to_data(g,lang='deu',config='--psm 11',output_type=pytesseract.Output.DICT)
-            want={w.lower().replace(' ',''):w for w in TEIL_WOERTER}
+            want={w.lower().replace(' ','').rstrip('.'):w for w in TEIL_WOERTER}
+            used_=set()
             for i_,txt in enumerate(D_['text']):
                 t_=(txt or '').strip().replace(' ','')
-                if not t_ or float(D_['conf'][i_])<55: continue
-                key_=t_.lower().rstrip(':,;')
+                if not t_ or float(D_['conf'][i_])<55 or i_ in used_: continue
+                key_=t_.lower().replace(',','.').rstrip(':,;').rstrip('.')
+                if key_ in ('d','d.') and i_+1<len(D_['text']) and D_['line_num'][i_+1]==D_['line_num'][i_] and (D_['text'][i_+1] or '').strip().lower().rstrip('.') in ('s','c'):
+                    used_.add(i_+1);key_='d.'+D_['text'][i_+1].strip().lower().rstrip('.');t_='D.'+key_[-1].upper()+'.'   # „D. S.“ in zwei Teilen gelesen
+                if key_ in ('d.s','d.c','ds','dc'):   # Sprunganweisung mit Rest der Zeile: „D.S. al Fine dann Trio“
+                    ph=[]   # ganze Zeile: „Trio D.S. al Fine“, „D.S. al Fine dann Trio“
+                    for j_ in range(len(D_['text'])):
+                        if D_['block_num'][j_]!=D_['block_num'][i_] or D_['line_num'][j_]!=D_['line_num'][i_]: continue
+                        w_=(D_['text'][j_] or '').strip()
+                        if j_==i_: ph.append('D.'+key_[-1].upper()+'.')
+                        elif j_ in used_ and j_==i_+1: continue
+                        elif w_ and float(D_['conf'][j_])>=40: ph.append(w_);used_.add(j_)
+                    want[key_]=re.sub(r'\bTr[lI1]o\b','Trio',' '.join(ph))
                 vm=re.match(r'^\[?([12])\.\]?$',t_)
                 if vm and float(D_['conf'][i_])>=30:   # Volta-Klammer „1.“ / „2.“ knapp über dem System
                     cx=D_['left'][i_]+D_['width'][i_]/2;cy=D_['top'][i_]+D_['height'][i_]/2
@@ -528,6 +576,8 @@ def read(path,shift=0,work=None,table=None,bass=None):
                 if key_ not in want: continue
                 cx=D_['left'][i_]+D_['width'][i_]/2;cy=D_['top'][i_]+D_['height'][i_]/2
                 cand=[(ys[0]-cy,si) for si,ys in enumerate(st) if -((ys[4]-ys[0])/4)*1.0<ys[0]-cy<((ys[4]-ys[0])/4)*6]
+                if not cand and key_ in ('fine','d.s','d.c','ds','dc'):   # Fine und Sprunganweisungen stehen oft unter dem System (unter den Bassbuchstaben)
+                    cand=[(cy-ys[4],si) for si,ys in enumerate(st) if 0<cy-ys[4]<((ys[4]-ys[0])/4)*9]
                 if not cand: continue
                 si_=min(cand)[1]
                 ms_i=[mi_ for mi_,(s_,_) in enumerate(meas) if s_==si_]
@@ -547,10 +597,10 @@ def read(path,shift=0,work=None,table=None,bass=None):
                 vols=[]
                 for i in range(1,n_):
                     x,y,w,h,_a=S_[i]
-                    if w<6*d or h>0.35*d: continue   # Klammer: lang und dünn (Balken sind kürzer, Druckstriche dicker)
+                    if w<6*d or h>(0.45 if w>=10*d else 0.35)*d: continue   # Klammer: lang und dünn (Balken sind kürzer, Druckstriche dicker; lange schräge Klammern auf Fotos etwas dicker)
                     yy=y0+y;xl=x
                     hook=bw[yy:int(yy+1.2*d),max(0,xl-2):xl+int(0.3*d)]
-                    if hook.size==0 or (hook.max(1)>0).mean()<0.7: continue   # kein Haken links: Balken o. Ä.
+                    if hook.size==0 or (hook.max(1)>0).mean()<(0.3 if w>=8*d else 0.7): continue   # kein Haken links: Balken o. Ä. (lange Klammern mit kurzem Haken, Michlbauer)
                     crop=g[int(yy+0.15*d):int(yy+1.7*d),int(xl+0.15*d):int(xl+2.2*d)]
                     num=None
                     if crop.size:
