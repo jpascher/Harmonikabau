@@ -52,14 +52,21 @@ def scan_gs(file, shift, layout=""):
                 pass
         bilder = []   # Kontrollbilder je Seite (JPEG): erkannte Köpfe, Notenwerte, nicht aufgehende Takte
         # Schreibweise: steckt im Belegungs-JSON als „style“ (so bleiben ältere Wandler und die Schnittstelle mit drei Werten gültig); fehlt sie: automatisch
-        style = "auto"
+        style = "auto"; erkenner = ""
         try:
-            style = (json.loads(layout) if layout else {}).get("style") or "auto"
+            lj = json.loads(layout) if layout else {}
+            style = lj.get("style") or "auto"
+            erkenner = lj.get("erkenner") or ""   # Kopf-Erkenner je Scan: "alt" = bisheriger, "yolo" = gelernter; leer = Space-Variable GS_YOLO
         except Exception:
             pass
+        gs2xml.ERKENNER = erkenner if erkenner in ("alt", "yolo") else ""
         text = {}   # Texterkennung (Tesseract): Titel, Bearbeiter, Teilbezeichnungen, gewählte Schreibweise
         seiten = []   # Daten zum Nachbearbeiten im Wandler (entzerrtes Bild, Systeme, Ereignisse je Takt)
         xml, pins = gs2xml.convert(pages, shift=int(shift or 0), table=gs2xml.parse_table(layout), bilder=bilder, style=style, text=text, seiten_out=seiten)
+        try:
+            text["erkenner"] = gs2xml.D.LAST.get("erkenner", "")   # welcher Kopf-Erkenner wirklich lief (ohne Modell: bisheriger)
+        except Exception:
+            pass
     except Exception as e:
         raise gr.Error("Erkennung fehlgeschlagen: " + str(e)[-400:])
     import base64

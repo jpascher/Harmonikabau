@@ -351,13 +351,16 @@ def thick_bar_filter(det,bw):
         if any(abs(h['x']-x)<0.8*h['d'] for x in cache[k]): continue
         out.append(h)
     return out
+ERKENNER=''   # vom Space je Scan gesetzt: 'alt' oder 'yolo'; leer = Variable GS_YOLO entscheidet
 def _koepfe(work,g,st):
-    """Köpfe der Seite: bisheriger Erkenner (detect.py) oder, mit GS_YOLO=1 und vorhandenem Modell, der gelernte Erkenner (yolo_koepfe.py)."""
-    if _os.environ.get('GS_YOLO','0')=='1':
+    """Köpfe der Seite: bisheriger Erkenner (detect.py) oder der gelernte Erkenner (yolo_koepfe.py), wenn das Modell vorhanden ist.
+    Wahl: ERKENNER (aus dem Wandler) vor der Space-Variablen GS_YOLO=1."""
+    D.LAST['erkenner']='alt'
+    if ERKENNER=='yolo' or (ERKENNER!='alt' and _os.environ.get('GS_YOLO','0')=='1'):
         try:
             import yolo_koepfe as YK
             if YK.vorhanden():
-                det=YK.detect(g,st);D.LAST['tri_page']=sum(1 for h in det if h['t']=='t')>=3;D.LAST['yolo']=len(det)
+                det=YK.detect(g,st);D.LAST['tri_page']=sum(1 for h in det if h['t']=='t')>=3;D.LAST['yolo']=len(det);D.LAST['erkenner']='yolo'
                 return det
         except Exception as e: D.LAST['yolo']='Fehler: '+str(e)[:80]
     return D.detect(work,1)
