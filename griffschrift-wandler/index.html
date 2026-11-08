@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <link id="manif" rel="manifest" href="manifest.webmanifest">
+<script>/* Oberfläche: klassisch (Voreinstellung) oder neu; ?ui=neu bzw. ?ui=klassisch wählt sie und merkt sie sich */try{const q=new URLSearchParams(location.search).get("ui");if(q==="neu"||q==="klassisch")localStorage.setItem("gw-ui",q);if(localStorage.getItem("gw-ui")==="neu")document.documentElement.classList.add("ui-neu");}catch(e){}</script>
 <!-- Am Handy zuerst nur eine Verknüpfung (Chrome-Lesezeichen mit Symbol); die eigene App erst, wenn man sie im Handy-Fenster einschaltet -->
 <script>try{if(/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)&&localStorage.getItem("gw-inst")!=="app")document.getElementById("manif").href="manifest-link.webmanifest";}catch(e){}</script>
 <link rel="icon" href="icon-192.png">
@@ -214,12 +215,72 @@ button.ghost2{background:transparent;color:var(--accent)}
   .measure{break-inside:avoid}
   .ev.cur,.beat.cur{background:none}
 }
+
+/* ===== Neue Oberfläche (umschaltbar, nur bei html.ui-neu) ===== */
+html.ui-neu:not(.ui-fertig) .wrap{visibility:hidden}
+html.ui-neu{scroll-padding-top:16px;scroll-padding-bottom:calc(var(--pbh,60px) + 48px)}
+html.ui-neu .lead{margin-top:4px}
+html.ui-neu .tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);flex-wrap:wrap}
+html.ui-neu .tabs button{background:transparent;color:var(--muted);border:none;border-bottom:3px solid transparent;border-radius:6px 6px 0 0;margin-bottom:-2px;padding:9px 18px}
+html.ui-neu .tabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);background:var(--panel)}
+html.ui-neu .tabhost{position:relative;min-width:0}
+html.ui-neu .tabpane{display:grid;gap:22px;min-width:0}
+html.ui-neu .tabpane.off{position:absolute;left:0;right:0;top:0;height:0;overflow:hidden;visibility:hidden}
+html.ui-neu #griffctl{display:grid;gap:14px}
+html.ui-neu #griffctl>.edithelp{margin:0}
+html.ui-neu .toprow{align-items:center}
+html.ui-neu #ldbody{display:grid;gap:14px;padding:14px;border:1px solid var(--line);border-radius:8px}
+html.ui-neu #ldbody .drop{margin:0;padding:6px 10px;font-size:14px}
+html.ui-neu .ldcols{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr);gap:14px 28px}
+html.ui-neu .ldcol{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;align-content:start;min-width:0}
+html.ui-neu .ldcol+.ldcol{border-left:1px solid var(--line);padding-left:28px}
+html.ui-neu .ldcol h3{font-family:var(--f-display);font-weight:500;font-size:17px;margin:0}
+html.ui-neu .ldcol .controls{gap:10px 14px}
+html.ui-neu .ldcol .controls>*{max-width:100%;min-width:0}
+html.ui-neu .ldcol .chk{padding-bottom:0}
+html.ui-neu .ldcol button,html.ui-neu .ldcol .filebtn{padding:6px 11px;font-size:14px}
+html.ui-neu .ldcol .field select{width:auto;max-width:100%;text-overflow:ellipsis}
+html.ui-neu #umw .controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;align-items:end}
+html.ui-neu #umw label.chk:has(select){display:grid;gap:4px;white-space:normal;padding:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+html.ui-neu #umw select{width:100%;font-size:15px;letter-spacing:normal;text-transform:none;font-weight:400;padding:5px 8px;text-overflow:ellipsis}
+html.ui-neu #umw label.chk:has(input){padding:0;align-items:flex-start}
+html.ui-neu #umwsum{margin:0;font-size:14px;color:var(--muted)}
+html.ui-neu #ldbody:not([hidden])~#umwsum{display:none}
+html.ui-neu #lgbox .legend{margin:12px 0 0!important}
+html.ui-neu summary{cursor:pointer;font-weight:600;color:var(--accent)}
+html.ui-neu #titlein{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);max-width:100%}
+html.ui-neu .savewrap{position:relative;display:inline-flex}
+html.ui-neu .fsave{position:static;box-shadow:none;padding:8px 14px;font-size:inherit;border-radius:6px}
+html.ui-neu #fsavemenu{position:absolute;left:0;right:auto;top:100%;bottom:auto;margin-top:4px;width:max-content}
+html.ui-neu #playbar{position:sticky;bottom:0;z-index:40;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:8px 12px;box-shadow:0 -3px 12px rgba(0,0,0,.12)}
+html.ui-neu #playbar button{padding:6px 12px}
+html.ui-neu #play.sel{background:var(--zug);border-color:var(--zug)}
+html.ui-neu .pf{display:inline-flex;gap:6px;align-items:center;font-size:14px;font-weight:600;color:var(--muted)}
+html.ui-neu #playbar .chk{padding-bottom:0}
+html.ui-neu #playbar #tempo{width:3.8em}
+html.ui-neu #playbar #selfrom,html.ui-neu #playbar #selto{width:3em}
+html.ui-neu #playbar input[type=number],html.ui-neu #playbar #selfrom,html.ui-neu #playbar #selto,html.ui-neu #playbar select{padding:5px 7px}
+html.ui-neu #playbar #sound{width:7.5em;text-overflow:ellipsis}
+html.ui-neu #playbar .balrow input{width:64px}
+html.ui-neu .pchk{display:inline-flex}
+html.ui-neu #pmorebtn{display:none}
+html.ui-neu #edbar,html.ui-neu #aubar,html.ui-neu #scanbar,html.ui-neu #crbar{bottom:calc(var(--pbh,60px) + 8px)!important;max-height:calc(100vh - var(--pbh,60px) - 16px);overflow-y:auto}
+html.ui-neu .setbody{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+html.ui-neu .tipbox{position:fixed;z-index:60;max-width:300px;padding:7px 10px;border-radius:6px;background:var(--fg);color:var(--panel);font-size:13px;font-weight:400;line-height:1.35;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none}
+@media (max-width:760px){html.ui-neu .ldcols{grid-template-columns:minmax(0,1fr)}html.ui-neu .ldcol+.ldcol{border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:14px}}
+@media (max-width:700px){html.ui-neu #pmorebtn{display:inline-block}html.ui-neu #playbar:not(.open) .pmore{display:none}html.ui-neu .tabs button{flex:1 1 0;padding:9px 6px}}
+@media print{
+  #uibtn{display:none!important}
+  html.ui-neu .tipbox,html.ui-neu .tabs,html.ui-neu #playbar,html.ui-neu #lgbox,html.ui-neu #tab-disk,html.ui-neu #tab-bass,html.ui-neu #griffctl,html.ui-neu #uirest{display:none!important}
+  html.ui-neu .tabpane.off#tab-griff{position:static;height:auto;overflow:visible;visibility:visible}
+  html.ui-neu .tabhost,html.ui-neu .tabpane{display:block}
+}
 </style>
 
 <div class="wrap">
   <header>
     <div class="pfoot" style="display:none">https://jpascher.github.io/Harmonikabau/griffschrift-wandler/</div>
-    <div class="titlerow"><h1>Griffschrift-Wandler</h1><div class="hbtns"><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
+    <div class="titlerow"><h1>Griffschrift-Wandler</h1><div class="hbtns"><button id="uibtn" type="button" class="ghost2"></button><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
     <p class="lead"><x-de>Normalnoten als MusicXML rein, Griffweise für die Steirische Harmonika raus. Das Programm legt die Stufen fest und wählt Grundbass und Begleiter so, dass der Bass flüssig läuft. Die Balgrichtung kommt vom Bass, die Melodie samt Doppelgriffen wird darauf abgestimmt.</x-de><x-en>Standard notation goes in as MusicXML, fingering for the Styrian accordion (Steirische Harmonika) comes out. The program works out the harmonic degrees and picks bass and chord buttons so the bass side flows smoothly. The bellows direction follows the bass; the melody, double stops included, is fitted to it.</x-en></p>
   </header>
 
@@ -311,6 +372,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <label for="lpr"><x-de>Takte je Zeile</x-de><x-en>Measures per line</x-en></label>
         <select id="lpr"><option value="0">automatisch</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option></select>
       </div>
+      <label class="chk" title=""><input id="koepfr" type="checkbox"> <x-de>Köpfe nach Reihe versetzen</x-de><x-en>Offset heads by row</x-en></label>
       <div class="field">
         <label for="selfrom"><x-de>Üben: Takt von – bis</x-de><x-en>Practice: measures from – to</x-en></label>
         <div style="display:flex;gap:6px;align-items:center"><input id="selfrom" type="text" autocomplete="off" style="width:5em" placeholder="von"><span>–</span><input id="selto" type="text" autocomplete="off" style="width:5em" placeholder="bis"></div>
@@ -639,7 +701,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li>Bei MIDI-Dateien kann ein Auftakt die Takteinteilung verschieben; MusicXML ist hier zuverlässiger.</li>
         <li>Töne, die es auf dem gewählten Instrument nicht gibt, versetzt das Programm um eine Oktave, wenn es sie dort gibt; ist der Ton dort schon im Griff, entfällt die Verdopplung. Die Statuszeile zeigt, wie viele Töne oktaviert wurden. Nur was auch so nicht greifbar ist, erscheint in der Tabelle als ×; dann hilft oft eine andere Lage unter „Transponieren“.</li>
         <li>Die 4. Reihe nimmt das Programm nur, wenn es nötig ist: wenn ein Ton in der Balgrichtung nur dort liegt, oder wenn sonst ein Griff über alle vier Reihen, ein zu weiter Griff oder eine Note mit Kreuz als Sekunde daneben entstehen würde.</li>
-        <li>Notenköpfe bei Doppelgriffen werden noch nicht nach außen/innen ausgerichtet.</li>
+        <li>Notenköpfe bei Mehrklängen stehen wie in gedruckter Griffschrift übereinander. Mit dem Häkchen „Köpfe nach Reihe versetzen“ stehen Griffe über mehrere Reihen nebeneinander: die kleinste Reihe im Griff rechts, die anderen links (bei drei Reihen nur die kleinste rechts). Das zeigt, wie man wirklich greift, und ist für schlechtere Augen leichter zu lesen; der Takt wird dabei etwas breiter.</li>
         <li>Für Bass-Zusatzknöpfe gibt es keinen einheitlichen Buchstaben; Fis- und As-Knöpfe heißen Fis/fis und As/as, alle anderen tragen den Tonnamen mit Stern.</li>
       </ul>
     </section>
@@ -781,7 +843,7 @@ button.ghost2{background:transparent;color:var(--accent)}
         <li>In MIDI files a pickup (anacrusis) can shift the measure boundaries; MusicXML is more reliable here.</li>
         <li>Notes that do not exist on the chosen instrument are moved by an octave if they exist there; if that note is already in the grip, the doubling is dropped. The status line shows how many notes were moved. Only notes that cannot be played even then appear as × in the table; another key under “Transpose” often helps.</li>
         <li>The program only uses the 4th row when it has to: when a note lies only there in that bellows direction, or when otherwise a grip across all four rows, a grip that is too wide, or a note with a cross next to it as a second would result.</li>
-        <li>Note heads in double stops are not yet offset to the left and right.</li>
+        <li>Note heads of chords stand on top of each other as in printed Griffschrift. With the box “Offset heads by row” ticked, grips across several rows stand side by side: the lowest row number in the grip on the right, the others on the left (across three rows only the lowest goes right). This shows how the grip is really played and is easier to read for weaker eyes; the measure gets a little wider.</li>
         <li>There is no standard letter for extra bass buttons; F# and Ab buttons are called F#/f# and Ab/ab, all others carry the note name with a star.</li>
       </ul>
     </section>
@@ -836,7 +898,7 @@ const OPT={
   lpr:{"0":["automatisch","automatic"]},
   bmoll:{std:["wie Belegung","as in the layout"],tpl:["Vorlage: Moll auf Zug (Paralleltonarten)","Template: minor on pull (relative minors)"],own:["eigene (im Bassbild anklicken)","custom (click in the bass diagram)"]}
 };
-function applyStaticLang(){setTimeout(syncDemoSel,0);
+function applyStaticLang(){uiLang();setTimeout(syncDemoSel,0);
   document.documentElement.lang=LANG;document.documentElement.classList.toggle("en",LANG==="en");
   for(const id in OPT){const s=document.getElementById(id);if(!s)continue;[...s.options].forEach(o=>{const t=OPT[id][o.value];if(t)o.textContent=t[LANG==="en"?1:0];});}
   const og=(id,de,en)=>{const g=document.getElementById(id);if(g)g.label=TX(de,en);};
@@ -1583,7 +1645,7 @@ function flashMsg(t){const st=document.getElementById("status");if(!st)return;co
 function updateStatus(){
   const st=document.getElementById("status"),bt=BT;
   const kn=CHN[mod(P.keyPc+bt+(P.minor?9:0),12)],key=(P.minor&&LANG!=="en"?kn.toLowerCase():kn)+(P.minor?TX("-Moll"," minor"):TX("-Dur"," major"));
-  const nf=editCount();updResetBtn(nf);
+  const nf=editCount();updResetBtn(nf);updUmwSum();
   st.innerHTML=`<span class="pill">${R.n} ${TX("Griffe","grips")}</span>`+
     `<span class="pill warn">${R.changes} ${TX("Balgwechsel",R.changes===1?"bellows change":"bellows changes")}</span>`+
     `<span class="pill">${R.bmoves} ${TX("Bassknopf-Wechsel",R.bmoves===1?"bass button change":"bass button changes")}</span>`+
@@ -1878,6 +1940,15 @@ function prepNorm(){const K=keySpell(normKey());
     else if(e.type==="tie"&&e.src&&e.src._nh)e._nh=e.src._nh.map(h=>({...h,acc:null}));});});
   return K;}
 const ACCS={"1":"♯","-1":"♭","0":"♮","2":"𝄪","-2":"𝄫"};
+// Mehrklänge über mehrere Reihen eines Takts (für den Platz der seitlich versetzten Köpfe); links = Hals nach unten, Köpfe weichen nach links aus
+let KOPFR=false;try{KOPFR=localStorage.getItem("gw-koepfr")==="1";}catch(e){}
+function mehrReihen(m){const kn=e=>{const r=e.type==="note"?e._r:((e.src||{})._r||{});return r&&r.g?r.g.btns.map(q=>q.b).concat(extShown(r).map(q=>q.b)):[];};
+  const grp={};m.ev.forEach(e=>{if((e.type==="note"||e.type==="tie")&&e.dur<=0.5+1e-9){const k=Math.floor(e.on+1e-9);(grp[k]=grp[k]||[]).push(e);}});
+  const hoch=e=>{const gr=grp[Math.floor(e.on+1e-9)],src=gr&&gr.length>1&&e.dur<=0.5+1e-9?gr:[e],ps=src.flatMap(kn).map(posOf);return ps.reduce((a,b)=>a+b,0)/Math.max(1,ps.length)<0;};
+  const nt=m.ev.filter(e=>e.type==="note"||e.type==="tie"),out=nt.filter(e=>new Set(kn(e).map(b=>b.row)).size>1).map(e=>({on:e.on,links:!hoch(e),px:10}));
+  // einzelne Achtel und Sechzehntel mit Hals nach oben: das Fähnchen ragt nach rechts, dahinter 5 Pixel mehr
+  nt.filter(e=>e.dur<1-1e-9&&kn(e).length&&!(e.dur<=0.5+1e-9&&(grp[Math.floor(e.on+1e-9)]||[]).length>1)&&hoch(e)).forEach(e=>out.push({on:e.on,links:false,px:5}));
+  return out;}
 function renderGriff(){
   const host=document.getElementById("griff");if(host.hidden)return;
   const W=PRINT_W||Math.max(340,(host.clientWidth||900)-2);
@@ -1894,7 +1965,7 @@ function renderGriff(){
       alsOf[mi].forEach((k,j)=>{const f=P.measures[k].ev[i];if(f&&f.type===e.type&&f.lyr)f.lyr.forEach(l=>out.push({...l,ln:nb*(j+1)+LYI[l.n]}));});}return out;};
   const ms=DISPLAY.map((d,di)=>{const m=P.measures[d.mi];const durs=m.ev.map(e=>e.dur).filter(q=>q>0);const md=Math.min(1,...durs);let qw=Math.max(30,15/md);
     if(nb)m.ev.forEach(e=>{if(e.dur>0)lyOf(d.mi,e).forEach(l=>{qw=Math.max(qw,Math.min(140,(lyW(l.x)+8)/e.dur));});});   // Platz für die Silben
-    const pad=(d.repStart?12:0);return {m,mi:d.mi,d,di,qw,pad,w:m.len*qw+20+pad+(d.repEnd?12:0)};});
+    const pad=(d.repStart?12:0),xs=NORM||!KOPFR?[]:mehrReihen(m);return {m,mi:d.mi,d,di,qw,pad,off:on=>xs.filter(x=>x.on<on-1e-9||(x.links&&Math.abs(x.on-on)<1e-9)).reduce((t,x)=>t+x.px,0),w:m.len*qw+20+pad+(d.repEnd?12:0)+xs.reduce((t,x)=>t+x.px,0)};});
   const LPR=+document.getElementById("lpr").value||0;
   const systems=[];let cur=[],cw=0;
   ms.forEach(x=>{const lead=(systems.length===0&&cur.length===0?40:10)+keyW;
@@ -1932,7 +2003,7 @@ function renderGriff(){
     if(TABL){for(const [y,t] of [[tabT,TX("Zug","Pull")],[tabP,TX("Druck","Push")]])svg+=`<line class="tl" x1="2" x2="${xEnd}" y1="${y}" y2="${y}"/><text class="tll" x="3" y="${y-4}">${t}</text>`;}
     let mx=lead;
     row.forEach((x,k)=>{
-      const m=x.m,mw=x.w*scale,qw=x.qw*scale,X=on=>mx+(10+x.pad)*scale+on*qw;
+      const m=x.m,mw=x.w*scale,qw=x.qw*scale,X=on=>mx+(10+x.pad+x.off(on))*scale+on*qw;
       if(SEL&&x.di>=SEL.a&&x.di<=SEL.b)svg+=`<rect class="selbg" x="${mx}" y="${yOf(4)-18}" width="${mw}" height="${druckY-yOf(4)+22}"/>`;
       const bad_=measBad(DISPLAY[x.di]?DISPLAY[x.di].mi:-1);if(bad_)svg+=`<rect class="mbad" x="${mx}" y="${yOf(4)-8}" width="${mw}" height="${yOf(-4)-yOf(4)+16}"><title>${TX("Takt geht in der Länge nicht auf","Measure does not add up")}</title></rect>`;
       svg+=`<text class="mn${bad_?" mnbad":""}" x="${mx+2}" y="${yOf(4)-5}">${m.no}${bad_?'<tspan class="mnx">!</tspan>':""}</text>`;if(m.words&&m.words.length)svg+=`<text class="pw" x="${mx+2}" y="${yOf(4)-26}">${m.words.join(" ").replace(/[<&]/g,"")}</text>`;
@@ -1967,17 +2038,21 @@ function renderGriff(){
         let si=stemInfo.get(e);
         const up=si?si.up:(hs.reduce((a,h)=>a+h.p,0)/hs.length<0);
         let s="",hh="";let hitT=yOf(hs[hs.length-1].p)-8,hitB=yOf(hs[0].p)+8;
+        // Mehrklang über mehrere Reihen: die kleinste Reihe im Griff steht rechts, alle anderen links, der Hals zwischen beiden Spalten
+        // (Hals nach oben: linke Spalte am Hals, rechte daneben; Hals nach unten umgekehrt). Liegt alles auf einer Reihe, bleibt es senkrecht.
+        const rws=NORM||!KOPFR?[]:[...new Set(hs.map(h=>h.row))],rRow=rws.length>1?Math.min(...rws):null;
+        const lgL=xh-9-(rRow!=null&&!up?10:0),lgR=xh+9+(rRow!=null&&up?10:0);
         // Hilfslinien
         const lo=hs[0].p,hi=hs[hs.length-1].p;
-        for(let q=-6;q>=lo;q-=2)s+=`<line class="lg" x1="${xh-9}" x2="${xh+9}" y1="${yOf(q)}" y2="${yOf(q)}"/>`;
-        for(let q=6;q<=hi;q+=2)s+=`<line class="lg" x1="${xh-9}" x2="${xh+9}" y1="${yOf(q)}" y2="${yOf(q)}"/>`;
+        for(let q=-6;q>=lo;q-=2)s+=`<line class="lg" x1="${lgL}" x2="${lgR}" y1="${yOf(q)}" y2="${yOf(q)}"/>`;
+        for(let q=6;q<=hi;q+=2)s+=`<line class="lg" x1="${lgL}" x2="${lgR}" y1="${yOf(q)}" y2="${yOf(q)}"/>`;
         // Köpfe (Sekunden versetzt)
         hs.forEach((h,i)=>{
-          const sh=(i>0&&h.p-hs[i-1].p===1&&!hs[i-1].shift)?(up?10:-10):0;h.shift=sh;
+          const sh=rRow!=null?(up?(h.row===rRow?10:0):(h.row===rRow?0:-10)):(i>0&&h.p-hs[i-1].p===1&&!hs[i-1].shift)?(up?10:-10):0;h.shift=sh;
           const cx=xh+sh,cy=yOf(h.p),cc=h.ext?"var(--muted)":(h.extra?"var(--extra)":"currentColor");
           if(h.row>=3){s+=`<path d="M${cx-4.5} ${cy-4.5} L${cx+4.5} ${cy+4.5} M${cx-4.5} ${cy+4.5} L${cx+4.5} ${cy-4.5}" style="stroke:${cc}" stroke-width="${filled?2.2:1.3}"/>`;if(!filled)s+=`<circle cx="${cx}" cy="${cy}" r="5.6" fill="none" style="stroke:${cc}" stroke-width="1"/>`;}
           else s+=`<ellipse cx="${cx}" cy="${cy}" rx="5.4" ry="3.9" transform="rotate(-20 ${cx} ${cy})" style="fill:${filled&&!h.ext?cc:"none"};stroke:${cc}" stroke-width="${h.ext?1.2:1.5}"${h.ext?' stroke-dasharray="2 1.5"':""}/>`;
-          if(dotted)s+=`<circle cx="${xh+11}" cy="${h.p%2===0?yOf(h.p+1):cy}" r="1.7" fill="currentColor"/>`;
+          if(dotted)s+=`<circle cx="${xh+11+(rRow!=null&&up?10:0)}" cy="${h.p%2===0?yOf(h.p+1):cy}" r="1.7" fill="currentColor"/>`;
           if(NORM&&h.acc!=null)s+=`<text class="acc" x="${cx-12}" y="${cy+4}" text-anchor="middle">${ACCS[String(h.acc)]}</text>`;
           if(h.m!=null&&isNote)hh+=`<circle class="hh" data-m="${h.m}" cx="${cx}" cy="${cy}" r="5" fill="transparent"/>`;
         });
@@ -2364,6 +2439,8 @@ document.getElementById("reset").addEventListener("click",()=>{BASS_DEL={};NOTE_
 document.getElementById("semup").addEventListener("click",()=>shiftSel(1));document.getElementById("bkind").addEventListener("click",toggleKind);document.getElementById("semdn").addEventListener("click",()=>shiftSel(-1));
 document.getElementById("form").addEventListener("change",()=>{if(!P)return;stop();SEL=null;syncSelInputs();buildDisplay();updateStatus();renderTab();renderGriff();});
 document.getElementById("lpr").addEventListener("change",()=>{if(R)renderGriff();});
+// Köpfe nach Reihe versetzen (Vorschlag Helmut Seitz): abschaltbar, voreingestellt aus — gedruckte Griffschrift setzt Mehrklänge übereinander, und die Lernbilder des Griffschrift-Lesers brauchen das gewohnte Bild
+(function(){const c=document.getElementById("koepfr");c.checked=KOPFR;c.addEventListener("change",()=>{KOPFR=c.checked;try{localStorage.setItem("gw-koepfr",KOPFR?"1":"0");}catch(e){}if(R)renderGriff();});})();
 document.getElementById("filelbl").addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();document.getElementById("file").click();}});
 // ======== Hilfe
 const helpDlg=document.getElementById("help");
@@ -2548,7 +2625,7 @@ function updatePlayLabels(){
   document.getElementById("fplay").classList.toggle("sel",!!SEL);
 }
 // fromMi: Takt (Index in P.measures), ab dem innerhalb der Auswahl begonnen wird; fromOn: Einsatz im Takt (Viertel), ab dem gespielt wird
-function startPlay(fromMi,fromOn){
+function startPlay(fromMi,fromOn){followReset();
   if(!R)return;stop();
   const a=ac();const dest=newMaster();
   const q=60/(+document.getElementById("tempo").value||100);
@@ -4015,7 +4092,7 @@ let SRC=null;
 // Text aus Dateien nie als HTML einsetzen: Taktnummern und Klammern ohne Sonderzeichen, Fehlermeldungen als reiner Text
 function noTags(s){return String(s).replace(/[<>&"'`]/g,"");}
 function showErr(st,msg){const sp=document.createElement("span");sp.className="err";sp.textContent=msg;st.replaceChildren(sp);}
-const SAVE_SEL=["part","voices","form","lpr","view","gstyle","bname","acc","lart","stimm","disk","bass","bmoll","dmode","transp","fill"],SAVE_CHK=["usepin","msub","fill4"];
+const SAVE_SEL=["part","voices","form","lpr","view","gstyle","bname","acc","lart","stimm","disk","bass","bmoll","dmode","transp","fill"],SAVE_CHK=["usepin","msub","fill4","koepfr"];
 function saveEdits(){if(!P||!SRC){alert(TX("Zuerst ein Stück laden.","Load a tune first."));return;}
   const bk=document.getElementById("bass").value,ob=document.getElementById("bmoll").value==="own"&&OWN_BASS[bk]?{flips:[...OWN_BASS[bk].flips],set:OWN_BASS[bk].set}:null;
   const d={app:"griffschrift-wandler",version:1,saved:new Date().toISOString(),title:TITLE,ptitle:PTITLE,src:SRC,BT,tempo:document.getElementById("tempo").value,
@@ -4118,6 +4195,144 @@ applyStaticLang();updatePlayLabels();
   ids.forEach(id=>el(id).addEventListener("change",save));window.addEventListener("pagehide",save);
   // Zurücksetzen: Sprache, App-Weg und eigene Knopfbelegungen (gw-bass-*, gw-disk-*) bleiben; ohne „off“ schriebe pagehide die alten Werte zurück
   el("setreset").addEventListener("click",()=>{if(!confirm(TX("Alle gemerkten Einstellungen auf die Voreinstellung zurücksetzen? Eigene Knopfbelegungen bleiben gespeichert. Die Seite lädt neu, nicht gespeicherte Änderungen am Stück gehen verloren.","Reset all remembered settings to the defaults? Your own button layouts stay saved. The page reloads; unsaved changes to the tune are lost.")))return;
-    off=true;try{["settings","acc","lart","gstyle","fill","fill3","fill4","bname","sound","bal","mollsub","pin","follow","scanok","scanmodel"].forEach(k=>localStorage.removeItem("gw-"+k));}catch(e){}location.reload();});})();
+    off=true;try{["settings","acc","lart","gstyle","fill","fill3","fill4","bname","sound","bal","mollsub","pin","follow","scanok","scanmodel","koepfr","ui"].forEach(k=>localStorage.removeItem("gw-"+k));}catch(e){}location.reload();});})();
 loadDemo(dsel.value);
+
+// ======== Oberfläche klassisch / neu ========
+// Die klassische Seite ist die Voreinstellung. Bei „neu“ ordnet uiNeu() die vorhandenen Elemente anhand ihrer IDs in Reiter,
+// ein Menü „Noten und Umwandlung“ und eine Abspielleiste um. Nichts wird doppelt angelegt, alle Ereignisse bleiben, die Logik ist dieselbe.
+var UI=document.documentElement.classList.contains("ui-neu")?"neu":"klassisch",CURTAB="griff",FOLLOW_PAUSED=false,FOLLOW_EL=null;
+// Mitscrollen: in der neuen Oberfläche nur im Reiter Griffschrift und nicht, solange man selbst gescrollt hat
+function followOK(el){FOLLOW_EL=el;return (UI!=="neu"||CURTAB==="griff")&&!FOLLOW_PAUSED;}
+function followReset(){FOLLOW_PAUSED=false;const g=document.getElementById("pgoto");if(g)g.hidden=true;}
+function updUmwSum(){const box=document.getElementById("umwsum");if(!box)return;const t=id=>{const e=document.getElementById(id),o=e&&e.options[e.selectedIndex];return o?o.text.trim():"";};
+  box.textContent=TX("Umwandlung: ","Conversion: ")+[t("part"),t("transp"),t("gstyle")].filter(Boolean).join(" · ");}
+function uiLang(){const b=document.getElementById("uibtn");if(b){b.textContent=UI==="neu"?TX("Klassische Oberfläche","Classic layout"):TX("Neue Oberfläche","New layout");
+    b.title=UI==="neu"?TX("Zur gewohnten Oberfläche mit allen Einstellungen auf einen Blick","Back to the familiar layout with all settings at a glance"):TX("Aufgeräumte Oberfläche mit Reitern und Abspielleiste","Tidied layout with tabs and a playback bar");}
+  if(UI!=="neu")return;
+  [["msub","Fehlt ein Moll-Begleiter, spielt das Programm den Dur-Begleiter der kleinen Terz darüber (g-Moll: B-Dur-Begleiter). Ohne Häkchen bleibt der Grundbass allein.","If a minor chord button is missing, the program plays the major chord a minor third up (G minor: B flat major). Unticked, the bass note stays alone."],
+   ["gstyle","Wo ein Ton auf mehreren Knöpfen liegt: Ramoner greift auch über Reihe 2 bis 4, Fuchs bleibt eher in Reihe 1 bis 3.","Where a note is on several buttons: Ramoner also uses rows 2 to 4, Fuchs stays mostly in rows 1 to 3."],
+   ["usepin","Übernimmt die Griffe aus der Griffschrift, statt sie selbst zu suchen.","Takes the grips from the Griffschrift instead of searching for them."],
+   ["fill4","Wählt die Griffe bevorzugt so, dass sich bei Bedarf bis zu vier Töne greifen lassen.","Prefers grips that can be extended to up to four notes if needed."],
+   ["fill","Vorschlag: zusätzliche Töne grau gestrichelt, leise. Fest: wie normale Griffe in der Griffschrift und im Ausdruck.","Suggestion: extra notes as grey dashed heads, quiet. Fixed: like normal grips in the Griffschrift and the printout."],
+   ["dmode","„eigene“: im Diskantbild einen Knopf anklicken und seinen Ton ändern.","“own”: click a button in the treble picture and change its note."],
+   ["bmoll","Belegung der Begleiter: wie gewählt, als Vorlage mit Moll auf Zug, oder eigene (im Bassbild anklicken).","Chord buttons: as in the layout, the template with minor on pull, or your own (click in the bass picture)."],
+   ["bname","Nur die Buchstaben der Bassknöpfe ändern sich, die Griffschrift bleibt gleich.","Only the letters of the bass buttons change; the Griffschrift stays the same."],
+   ["selclear","Hebt den Übungsbereich auf, es spielt wieder das ganze Stück.","Clears the practice range; the whole tune plays again."]
+  ].forEach(([id,de,en])=>{const e=document.getElementById(id);if(e)(e.closest("label.chk")||e.closest(".field")||e).dataset.tip=TX(de,en);});updUmwSum();}
+document.getElementById("uibtn").addEventListener("click",()=>{const to=UI==="neu"?"klassisch":"neu";let ok=false;try{localStorage.setItem("gw-ui",to);ok=localStorage.getItem("gw-ui")===to;}catch(e){}
+  stop();location.href=location.pathname+(ok?"":"?ui="+to)+location.hash;});
+function uiNeu(){const $=id=>document.getElementById(id),X=(de,en)=>`<x-de>${de}</x-de><x-en>${en}</x-en>`;
+  const need=["play","stimm","disk","bass","part","transp","voices","view","lpr","form","fill","demo","file","filelbl","kbd","bkbd","griff","status","fsave","fsavemenu","tempo","selfrom","selto","bal","sound","loop","follow","edbar","drop","edithelp","selhelp"];
+  if(need.some(id=>!$(id))){console.warn("Neue Oberfläche: Element fehlt, klassische bleibt",need.filter(id=>!$(id)));return false;}
+  const wrap=document.querySelector(".wrap"),header=wrap.querySelector("header"),ctl=$("play").closest("section"),griffP=$("griff").closest("section"),statP=$("status").closest("section");
+  const fld=id=>{const e=$(id);return e&&(e.closest("label.chk")||e.closest(".field")||e);};   // zuerst das Häkchen- oder Auswahl-Label, dann das Feld (manche Felder enthalten ein zweites Label)
+  const host=document.createElement("div");host.id="uineu";host.style.display="contents";
+  host.innerHTML=`<nav class="tabs" role="tablist" aria-label="Bereiche"><button type="button" role="tab" data-tab="griff" aria-selected="true">Griffschrift</button><button type="button" role="tab" data-tab="disk" aria-selected="false">${X("Diskant","Treble")}</button><button type="button" role="tab" data-tab="bass" aria-selected="false">Bass</button></nav>
+  <div class="tabhost">
+   <div class="tabpane" id="tab-griff">
+    <section class="panel" id="griffctl">
+     <div class="controls toprow"><button id="ldbtn" type="button" aria-expanded="true" aria-controls="ldbody">${X("Noten und Umwandlung ▾","Music and conversion ▾")}</button><span class="savewrap"><i data-r="fsave"></i><i data-r="fsavemenu"></i></span><i data-r="print"></i><i data-r="edit"></i><i data-r="reset"></i></div>
+     <div id="ldbody"><div class="ldcols">
+      <div class="ldcol"><h3>${X("1. Noten laden","1. Load music")}</h3><div class="controls"><i data-r="filelbl"></i><i data-r="file"></i><i data-r="scanbtn"></i><i data-r="audiobtn"></i><i data-r="create"></i><i data-r="crgen"></i><i data-r="edload"></i><i data-r="edfile"></i><i data-s="demo"></i></div></div>
+      <div class="ldcol" id="umw"><h3>${X("2. Umwandlung","2. Conversion")}</h3><div class="controls"><i data-s="part"></i><i data-s="transp"></i><i data-s="voices"></i><i data-s="acc"></i><i data-s="lart"></i><i data-s="gstyle"></i><i data-s="msub"></i><i data-s="usepin"></i><i data-s="fill4"></i></div></div>
+     </div><i data-r="drop"></i></div>
+     <i data-r="edithelp"></i><p id="umwsum"></p>
+     <div class="controls"><i data-s="titlein"></i><i data-s="view"></i><i data-s="lpr"></i><i data-s="form"></i><i data-s="fill"></i><i data-s="koepfr"></i></div>
+    </section>
+    <i data-p="griff"></i><i data-p="status"></i>
+    <details class="panel" id="lgbox"><summary>${X("Zeichenerklärung und Üben","Legend and practice")}</summary><i data-r="lg-griff"></i><i data-r="lg-tab"></i><i data-r="selhelp"></i></details>
+   </div>
+   <div class="tabpane off" id="tab-disk"><section class="panel"><div class="controls"><i data-s="stimm"></i><i data-s="disk"></i><i data-s="dmode"></i></div></section><i data-p="kbd"></i></div>
+   <div class="tabpane off" id="tab-bass"><section class="panel"><div class="controls"><div class="field"><label for="stimm2">${X("Stimmung","Tuning")}</label><select id="stimm2"></select></div><i data-s="bass"></i><i data-s="bmoll"></i><i data-s="bname"></i></div></section><i data-p="bkbd"></i></div>
+  </div>
+  <div class="panel" id="playbar" role="toolbar" aria-label="Abspielen"><i data-r="play"></i><label class="pf">Tempo <i data-r="tempo"></i></label><button id="pmorebtn" type="button" class="ghost2" aria-expanded="false">${X("Mehr","More")}</button><button id="pgoto" type="button" class="ghost2" hidden>${X("Zur aktuellen Stelle","Back to current spot")}</button><span class="pf pmore">${X("Takt","Measures")} <i data-r="selfrom"></i><span>–</span><i data-r="selto"></i></span><span class="pmore"><i data-r="selclear"></i></span><span class="pmore pchk"><i data-s="loop"></i></span><span class="pmore pchk"><i data-s="follow"></i></span><label class="pf pmore">${X("Klang","Sound")} <i data-r="sound"></i></label><span class="pf pmore"><i data-q=".balrow"></i></span></div>
+  <dialog id="setdlg" class="help" aria-labelledby="setttl"><div class="helphead"><h2 id="setttl">${X("Einstellungen","Settings")}</h2><button id="setclose" type="button" class="ghost2">${X("Schließen ✕","Close ✕")}</button></div><div class="helpbody setbody"><button id="instbtn" type="button" class="ghost2">${X("Programm installieren","Install the program")}</button><i data-r="setreset"></i></div></dialog>`;
+  header.after(host);
+  // Platzhalter füllen: data-s = Feld samt Beschriftung, data-r = das Element selbst, data-p = das ganze Panel, data-q = Selektor
+  host.querySelectorAll("i[data-s],i[data-r],i[data-p],i[data-q]").forEach(ph=>{const d=ph.dataset;
+    const n=d.s?fld(d.s):d.r?$(d.r):d.p?$(d.p).closest(".panel,section"):document.querySelector(d.q);if(n)ph.replaceWith(n);else ph.remove();});
+  // Was übrig bleibt, wandert in einen unsichtbaren Rest (IDs bleiben erreichbar); feste Leisten und Fenster kommen zur Steuerung
+  const rest=document.createElement("div");rest.id="uirest";rest.hidden=true;wrap.appendChild(rest);
+  [...ctl.children].filter(c=>c.id&&!c.classList.contains("controls")).forEach(c=>$("griffctl").appendChild(c));
+  ["helpbtn","pcbtn","mobbtn","edsave","xmlsave","fplay"].forEach(id=>{const e=$(id);if(e){e.hidden=true;rest.appendChild(e);}});
+  // Neue Bedienelemente, die Pascher später in die klassische Steuerung setzt, bleiben sichtbar: Abschnitt „Weitere Einstellungen“
+  const left=[...ctl.querySelectorAll(".controls select,.controls input:not([type=hidden]),.controls button,.controls label.filebtn")].filter(e=>!e.hidden&&!e.closest("[hidden]"));
+  if(left.length){const more=document.createElement("section");more.className="panel";more.innerHTML=`<h2>${X("Weitere Einstellungen","More settings")}</h2><div class="controls"></div>`;
+    left.map(e=>e.closest(".field")||e.closest("label")||e).filter((e,i,a)=>a.indexOf(e)===i).forEach(e=>more.lastChild.appendChild(e));$("griffctl").after(more);}
+  rest.appendChild(ctl);document.querySelectorAll(".wrap>section.sides,.wrap>section.notes").forEach(x=>rest.appendChild(x));
+  if(statP.parentNode&&statP.parentNode!==host)rest.appendChild(statP);
+  // Texte
+  const lead=header.querySelector(".lead");if(lead)lead.innerHTML=X("Noten in Griffschrift für die Steirische Harmonika","Sheet music to Griffschrift for the Styrian accordion");
+  $("drop").innerHTML=X("Oder Datei hierher ziehen: MusicXML, MIDI oder LilyPond","Or drop a file here: MusicXML, MIDI or LilyPond");
+  {const fl=$("follow").closest("label");if(fl){const d=fl.querySelector("x-de"),e=fl.querySelector("x-en");if(d)d.textContent="Mitscrollen";if(e)e.textContent="Follow";}}
+  uiHelp(lead);
+  // Programm installieren: am Handy die Handy-Anleitung, am PC die PC-Wege samt Weg zum QR-Code
+  {const pb=$("pcdlg")&&$("pcdlg").querySelector(".helpbody");if(pb)pb.insertAdjacentHTML("beforeend",`<p><button id="pc2mob" type="button">${X("Aufs Handy holen","Get it on your phone")}</button> ${X("Zeigt einen QR-Code zum Scannen und die Anleitung für Android und iPhone.","Shows a QR code to scan and the instructions for Android and iPhone.")}</p>`);}
+  uiWire();return true;}
+// Hilfe: Orte der Knöpfe in der neuen Oberfläche; Einleitung und „So entscheidet das Programm“ von der Startseite
+function uiHelp(lead){const H=document.getElementById("help");if(!H)return;
+  const swap=(a,b)=>{for(const el of H.querySelectorAll("p,li"))if(el.innerHTML.includes(a)){el.innerHTML=el.innerHTML.split(a).join(b);}};
+  [['Oben <b>Stimmung</b>, <b>Diskant</b> und <b>Bass</b> deiner Harmonika einstellen.','In den Reitern <b>Diskant</b> und <b>Bass</b> Stimmung und Belegung deiner Harmonika einstellen.'],
+   ['At the top, set the <b>Tuning</b>, <b>Treble</b> and <b>Bass</b> to match your accordion.','On the <b>Treble</b> and <b>Bass</b> tabs, set the tuning and layout to match your accordion.'],
+   ['Auf <b>„Noten öffnen“</b> klicken','Unter <b>„Noten und Umwandlung“</b> auf <b>„Noten öffnen“</b> klicken'],['Click <b>“Open music”</b> and choose','Under <b>“Music and conversion”</b>, click <b>“Open music”</b> and choose'],
+   ['Die Griffschrift erscheint unten.','Die Griffschrift erscheint darunter.'],['spielt das Stück vor, die Knöpfe leuchten auf dem Diskant- und Bassbild mit.','in der Leiste unten spielt das Stück vor; in den Reitern Diskant und Bass leuchten die Knöpfe mit.'],
+   ['plays the tune, and the buttons light up on the treble and bass diagrams as it goes.','in the bar at the bottom plays the tune; on the Treble and Bass tabs the buttons light up as it goes.'],
+   ['Alternativ „Üben: Takt von – bis“ ausfüllen.','Alternativ in der Leiste unten „Takt“ von – bis ausfüllen.'],['Or fill in “Practice: measures from – to”.','Or fill in “Measures” from – to in the bar at the bottom.'],
+   ['Der obere Knopf oder der runde Knopf rechts unten spielt','Der Knopf „Abspielen“ in der Leiste unten spielt'],['the button at the top or the round button at the bottom right plays','the “Play” button in the bar at the bottom plays'],
+   ['<b>Lautstärke Bass ↔ Diskant:</b>','<b>Lautstärke (Regler B–D in der Leiste):</b>'],['<b>Volume bass ↔ treble:</b>','<b>Volume (slider B–T in the bar):</b>'],
+   ['<b>Noten mitscrollen</b> ausschalten, wenn man beim Abspielen lieber die Knöpfe im Diskant- und Bassbild verfolgt; die Seite bleibt dann stehen.','<b>Mitscrollen</b> führt die Griffschrift beim Abspielen mit. Scrollt man selbst, pausiert es, und „Zur aktuellen Stelle“ holt die Stelle zurück. Ausgeschaltet bleibt die Seite stehen. Beim Wechsel in die Reiter Diskant und Bass spielt das Stück weiter.'],
+   ['Turn off <b>Scroll with the notes</b> if you would rather follow the buttons on the treble and bass diagrams during playback; the page then stays where it is.','<b>Follow</b> keeps the Griffschrift in view during playback. If you scroll yourself it pauses, and “Back to current spot” returns to the current note. Turned off, the page stays where it is. Switching to the Treble and Bass tabs keeps the tune playing.'],
+   ['Der runde Knopf „Speichern ⤓“ über „Abspielen“ ist immer da und bietet','Der Knopf „Speichern ⤓“ oben bietet'],['The round “Save ⤓” button above “Play” is always there and offers','The “Save ⤓” button at the top offers'],
+   ['„Noten speichern (MusicXML) ⤓“','„Speichern ⤓ → Noten (MusicXML)“'],['„Bearbeitung speichern ⤓“','„Speichern ⤓ → Bearbeitung“'],['„Bearbeitung speichern“','„Speichern ⤓ → Bearbeitung“'],
+   ['“Save music (MusicXML) ⤓”','“Save ⤓ → Music (MusicXML)”'],['“Save edits ⤓”','“Save ⤓ → Edits”'],['“Save edits”','“Save ⤓ → Edits”'],
+   ['Oben in der Statuszeile siehst du,','In der Statuszeile unter der Griffschrift siehst du,'],['The status line at the top shows','The status line below the Griffschrift shows'],
+   ['„Moll-Ersatz“ unter „Bassknöpfe anpassen“','„Moll-Ersatz“ unter „Noten und Umwandlung“'],['“Minor substitute” checkbox under “Adjust bass buttons”','“Minor substitute” checkbox under “Music and conversion”'],
+   ['die Auswahl „Bassbezeichnung“ unter „Ansicht“','die Auswahl „Bassbezeichnung“ im Reiter Bass'],['the “Bass names” selection below “View”','the “Bass names” selection on the Bass tab'],
+   ['(neben „Bearbeiten“)','(unter „Noten und Umwandlung“)'],
+   ['Der Knopf „Für den PC ⤓“ oben bietet','„Programm installieren“ unter ⚙ bietet am PC'],['the “For your PC ⤓” button at the top offers','“Install the program” under ⚙ offers on a PC'],
+   ['Der Knopf „Fürs Handy 📱“ zeigt am PC','„Programm installieren“ unter ⚙ zeigt am PC über „Aufs Handy holen“'],['the “For your phone 📱” button shows','“Install the program” under ⚙ shows via “Get it on your phone”']
+  ].forEach(([a,b])=>swap(a,b));
+  const lg=H.querySelector("#h-logik h3"),le=H.querySelector("#e-logik h3"),notes=document.querySelector(".notes");
+  const lt=l=>{const x=lead&&lead.dataset.alt;return x?JSON.parse(x)[l]:"";};
+  if(notes){const ud=notes.querySelector("ul.i-de"),ue=notes.querySelector("ul.i-en");if(lg&&ud)lg.insertAdjacentHTML("afterend",`<ul>${ud.innerHTML}</ul>`);if(le&&ue)le.insertAdjacentHTML("afterend",`<ul>${ue.innerHTML}</ul>`);}
+  if(lead){const d=lt("de"),e=lt("en");if(lg&&d)lg.insertAdjacentHTML("afterend",`<p>${d}</p>`);if(le&&e)le.insertAdjacentHTML("afterend",`<p>${e}</p>`);}
+  const vm='<a href="https://www.volksmusik.cc/volkstanz/griffschrifta.htm" target="_blank" rel="noopener">volksmusik.cc</a>';
+  const hl=H.querySelector("#h-laden h3"),el=H.querySelector("#e-laden h3");
+  if(hl)hl.insertAdjacentHTML("afterend",`<p>Alle Wege stehen unter <b>„Noten und Umwandlung“</b>, dort lässt sich eine Datei auch hineinziehen. Viele Volkstänze gibt es als MIDI bei ${vm} (Franz Fuchs): Seite eines Stücks öffnen, „Midi-Datei downloaden“, Datei hineinziehen.</p>`);
+  if(el)el.insertAdjacentHTML("afterend",`<p>All the ways are under <b>“Music and conversion”</b>, where you can also drop a file. Many Austrian folk dances are available as MIDI at ${vm} (Franz Fuchs): open a tune's page, click “Midi-Datei downloaden”, drop the file.</p>`);}
+// Ereignisse der neuen Oberfläche
+function uiWire(){const $=id=>document.getElementById(id),st=$("stimm"),st2=$("stimm2");
+  const syncSt=()=>{if(st2.innerHTML!==st.innerHTML)st2.innerHTML=st.innerHTML;st2.value=st.value;};
+  st2.addEventListener("change",()=>{st.value=st2.value;st.dispatchEvent(new Event("change"));syncSt();});st.addEventListener("change",syncSt);
+  const tabs=[...document.querySelectorAll(".tabs [data-tab]")];
+  const show=name=>{CURTAB=name;tabs.forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===name)));["griff","disk","bass"].forEach(n=>$("tab-"+n).classList.toggle("off",n!==name));syncSt();window.scrollTo(0,0);};
+  tabs.forEach(b=>b.addEventListener("click",()=>show(b.dataset.tab)));syncSt();
+  const ld=$("ldbody"),lb=$("ldbtn"),ldSet=o=>{ld.hidden=!o;lb.setAttribute("aria-expanded",String(o));};
+  const ldTop=()=>{if(!ld.hidden)$("griffctl").scrollIntoView({block:"start",behavior:"smooth"});};
+  lb.addEventListener("click",()=>{ldSet(ld.hidden);ldTop();});
+  ["file","demo","edfile"].forEach(id=>{const e=$(id);if(e)e.addEventListener("change",()=>setTimeout(ldTop,50));});
+  ["scanbtn","audiobtn","create","crgen"].forEach(id=>{const e=$(id);if(e)e.addEventListener("click",()=>ldSet(false));});
+  window.addEventListener("dragenter",e=>{if(e.dataTransfer&&[...e.dataTransfer.types].includes("Files")){show("griff");ldSet(true);}});
+  const tip=document.createElement("div");tip.className="tipbox";tip.hidden=true;tip.setAttribute("role","tooltip");document.body.appendChild(tip);let tipT=0,tipEl=null;
+  const tipHide=()=>{clearTimeout(tipT);tip.hidden=true;tipEl=null;};
+  document.addEventListener("mouseover",e=>{const t=e.target.closest&&e.target.closest("[data-tip]");if(t===tipEl)return;tipHide();if(!t)return;tipEl=t;
+    tipT=setTimeout(()=>{tip.textContent=t.dataset.tip;tip.hidden=false;const r=t.getBoundingClientRect(),w=tip.offsetWidth,h=tip.offsetHeight;
+      tip.style.left=Math.max(8,Math.min(r.left,innerWidth-w-8))+"px";tip.style.top=(r.top-h-8>8?r.top-h-8:r.bottom+8)+"px";},300);});
+  document.addEventListener("mousedown",tipHide,true);window.addEventListener("scroll",tipHide,true);
+  const sd=$("setdlg"),gear=document.createElement("button");gear.id="setbtn";gear.type="button";gear.className="ghost2";gear.textContent="⚙";gear.title=TX("Einstellungen","Settings");gear.setAttribute("aria-label",gear.title);
+  document.querySelector(".hbtns").appendChild(gear);gear.addEventListener("click",()=>{try{sd.showModal();}catch(e){sd.setAttribute("open","");}});$("setclose").addEventListener("click",()=>sd.close());
+  $("instbtn").addEventListener("click",()=>{sd.close();$(/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)?"mobbtn":"pcbtn").click();});
+  if($("pc2mob"))$("pc2mob").addEventListener("click",()=>{$("pcdlg").close();$("mobbtn").click();});
+  const pb=$("playbar"),setH=()=>document.documentElement.style.setProperty("--pbh",pb.offsetHeight+"px");setH();if(window.ResizeObserver)new ResizeObserver(setH).observe(pb);
+  $("pmorebtn").addEventListener("click",e=>{const o=pb.classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",String(o));});
+  const pause=e=>{if(!playing||CURTAB!=="griff"||!$("follow").checked||(e.target&&e.target.closest&&e.target.closest("#playbar")))return;FOLLOW_PAUSED=true;$("pgoto").hidden=false;};
+  window.addEventListener("wheel",pause,{passive:true});window.addEventListener("touchmove",pause,{passive:true});window.addEventListener("mousedown",e=>{if(e.target===document.documentElement)pause(e);});
+  $("pgoto").addEventListener("click",()=>{followReset();if(FOLLOW_EL)FOLLOW_EL.scrollIntoView({block:"center",behavior:"smooth"});});
+  $("play").addEventListener("click",followReset,true);$("follow").addEventListener("change",followReset);
+  const upd=()=>$("play").classList.toggle("sel",!!SEL);document.addEventListener("click",()=>setTimeout(upd,0),true);}
+{const lead=document.querySelector("header .lead");if(lead){const d=lead.querySelector("x-de"),e=lead.querySelector("x-en");lead.dataset.alt=JSON.stringify({de:d?d.innerHTML:"",en:e?e.innerHTML:""});}}
+if(UI==="neu"){let ok=false;try{ok=uiNeu();}catch(e){console.error("Neue Oberfläche:",e);}
+  if(!ok){UI="klassisch";document.documentElement.classList.remove("ui-neu");}else document.documentElement.classList.add("ui-fertig");}
+uiLang();
 </script>
