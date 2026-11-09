@@ -2010,8 +2010,9 @@ function renderGriff(){
       const mselSvg=`<rect class="msel" data-di="${x.di}" x="${mx}" y="${yOf(4)-18}" width="24" height="16"><title>${TX(`Takt ${m.no} zum Üben wählen (Umschalt-Klick: Bereich)`,`Select measure ${m.no} for practice (Shift-click: range)`)}</title></rect>`;
       if(x.d.repStart){svg+=`<rect class="rp" x="${mx}" y="${yOf(4)}" width="3" height="${8*ST}"/><line class="sl" x1="${mx+6}" x2="${mx+6}" y1="${yOf(4)}" y2="${yOf(-4)}"/><circle class="rp" cx="${mx+10}" cy="${yOf(1)}" r="1.8"/><circle class="rp" cx="${mx+10}" cy="${yOf(-1)}" r="1.8"/>`;}
       if(x.d.volta){const first=x.di===0||DISPLAY[x.di-1].volta!==x.d.volta,lastV=x.di===DISPLAY.length-1||DISPLAY[x.di+1].volta!==x.d.volta;const vy=yOf(Math.max(4,0))-20;
-        svg+=`<path class="vt" d="M${mx+2} ${first?vy+10:vy} L${mx+2} ${vy} L${mx+mw-3} ${vy}${lastV&&x.d.volta==="1"?" L"+(mx+mw-3)+" "+(vy+10):""}"/>`;
-        if(first)svg+=`<text class="vl" x="${mx+6}" y="${vy+10}">${x.d.volta}.</text>`;}
+        svg+=`<path class="vt" d="M${mx+2} ${first?vy+6:vy} L${mx+2} ${vy} L${mx+mw-3} ${vy}${lastV&&x.d.volta==="1"?" L"+(mx+mw-3)+" "+(vy+10):""}"/>`;
+        // Klammerzahl rechts neben die Taktnummer setzen (sonst steht sie genau über der Nummer)
+        if(first)svg+=`<text class="vl" x="${mx+8+(String(m.no).length+(bad_?1:0))*6.2}" y="${vy+10}">${x.d.volta}.</text>`;}
       // Balkengruppen (Achtel innerhalb eines Schlags)
       const beamG={};m.ev.forEach((e,i)=>{if((e.type==="note"||e.type==="tie")&&e.dur<=0.5+1e-9){const k2=Math.floor(e.on+1e-9);(beamG[k2]=beamG[k2]||[]).push(e);}});
       const inBeam=new Map();Object.values(beamG).forEach(gr=>{if(gr.length>1)gr.forEach(e=>inBeam.set(e,gr));});
@@ -3003,7 +3004,7 @@ async function auConvert(){if(!AU.buf)return;const btn=document.getElementById("
     else notes=toNotes(AU.fc[String(runs[0][1])],document.getElementById("aukind").value!=="acc");
     const kind=runs.length===2?"acc":document.getElementById("aukind").value,bpm=+document.getElementById("autempo").value||0,ts=document.getElementById("auts").value,grid=+document.getElementById("augrid").value||0,shift=document.getElementById("aushift").checked;
     const r=auNotesToMidi(notes,kind,bpm,ts,grid,shift);AU.last={notes,r};if(!r||!r.nMel)throw new Error(TX("In der Aufnahme wurden keine Töne erkannt.","No notes were recognised in the recording."));
-    stop();CREDIT="";setPins(null);const title=AU.name||TX("Aufnahme","Recording");
+    stop();crQuit();CREDIT="";setPins(null);const title=AU.name||TX("Aufnahme","Recording");
     loadXMLText(midiToXML(r.midi,title));TITLE=title;SRC={kind:"file",name:title+".mid",xml:LASTXML};run();
     auStatus(TX(`Fertig: ${r.nMel} Melodietöne${r.nBass?`, ${r.nBass} Basstöne`:""}, Tempo etwa ${r.bpm} Viertel/min. Passt es nicht, Tempo (doppelt oder halb so viel) oder Takt vorgeben und erneut umwandeln.`,
       `Done: ${r.nMel} melody notes${r.nBass?`, ${r.nBass} bass notes`:""}, tempo about ${r.bpm} quarters/min. If it is off, set the tempo (double or half) or the time signature and convert again.`));
@@ -3279,7 +3280,7 @@ async function openFile(f){
       txt=lyToXML(t0,f.name.replace(/\.ly$/i,""));
       if(LY_INFO&&LY_INFO.tempo)document.getElementById("tempo").value=Math.max(30,Math.min(260,LY_INFO.tempo));
     } else txt=await f.text();
-    stop();CREDIT="";loadXMLText(txt);SRC={kind:"file",name:f.name,xml:txt};run();
+    stop();crQuit();CREDIT="";loadXMLText(txt);SRC={kind:"file",name:f.name,xml:txt};run();
     if(/\.ly$/i.test(f.name)&&LY_INFO&&LY_INFO.warn.length){const w=document.createElement("span");w.className="pill";w.textContent="LilyPond: "+LY_INFO.warn.join("; ");st.appendChild(w);}
   }catch(e){showErr(st,e.message);}
 }
@@ -3390,7 +3391,7 @@ function bassBtnByName(n){const f=x=>BBTN.find(b=>bassNameP(b,/[a-z]/.test(x[0])
 function setPins(key,tab){CURPIN=(tab||FUCHS_PINS)[key]||null;BASSPIN=null;if(CURPIN){const b=CURPIN.b||(window.FUCHS_BASS&&FUCHS_BASS[key]);if(b){BASSPIN=new Map();for(const [t,l] of b)BASSPIN.set(Math.round(t*12),l);}}PINIDX=null;if(CURPIN){PINIDX=new Map();for(const x of CURPIN.n){const k=Math.round(x[0]*12);if(!PINIDX.has(k))PINIDX.set(k,[]);PINIDX.get(k).push(x);}}
   document.getElementById("pinbox").hidden=!CURPIN;}
 function loadDemo(v){
-  DEMOLOAD=true;stop();SRC={kind:"demo",v};
+  DEMOLOAD=true;stop();crQuit();SRC={kind:"demo",v};
   if(v.startsWith("phx:"))return loadPhilipp(v.slice(4));
   if(v.startsWith("vm:"))return loadVM(v.slice(3));
   if(v.startsWith("mid:")){const d=FUCHS_MIDI[v.slice(4)];const bin=atob(d.b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
@@ -3481,7 +3482,7 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
         const sty=document.getElementById("scanstyle").value||"auto";   // Schreibweise reist im Belegungs-JSON mit; ältere Server übergehen sie
         const res=JSON.parse(await omrSend(f,t=>st(t),{kind:"gs",shift:INST.stimm.shift,layout:JSON.stringify(Object.assign({},INST.dtab,{style:sty},document.getElementById("scanmodel").value?{erkenner:document.getElementById("scanmodel").value}:{}))}));
         const tx=res.text||{};
-        loadXMLText(res.xml);TITLE=(tx.titel||"").trim()||f.name.replace(/\.[^.]+$/,"");CREDIT="";PINSRC="scan";setPins("scan",{scan:res.pins});USEPIN=true;const up=document.getElementById("usepin");if(up)up.checked=true;
+        crQuit();loadXMLText(res.xml);TITLE=(tx.titel||"").trim()||f.name.replace(/\.[^.]+$/,"");CREDIT="";PINSRC="scan";setPins("scan",{scan:res.pins});USEPIN=true;const up=document.getElementById("usepin");if(up)up.checked=true;
         SRC={kind:"file",name:TITLE+".musicxml",xml:LASTXML};run();
         // Kontrollbild und nicht aufgehende Takte (ältere Server liefern beides nicht)
         SCANIMG=Array.isArray(res.bild)?res.bild:[];document.getElementById("scanchk").hidden=!SCANIMG.length;
@@ -3491,7 +3492,7 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
         const info=[tx.titel?TX("Titel: ","Title: ")+tx.titel:"",tx.bearbeiter?TX("Bearbeitung: ","Arranged by: ")+tx.bearbeiter:"",tx.teile&&tx.teile.length?TX("Teile: ","Sections: ")+tx.teile.join(", "):"",tx.schreibweise?TX("gelesen als ","read as ")+TX(...(SWN[tx.schreibweise]||[tx.schreibweise,tx.schreibweise])):"",tx.erkenner?TX("Erkenner: ","Detector: ")+(tx.erkenner==="yolo"?TX("gelernt (YOLO)","trained (YOLO)"):TX("bisheriger","previous")):""].filter(Boolean).join(" · ");
         if(tk&&of){st((info?info+". ":"")+TX(`Fertig: ${tk-of.length} von ${tk} Takten gehen auf`+(of.length?`; nicht auf geht: Takt ${of.join(", ")}`:"")+". Bitte mit dem Kontrollbild prüfen, Fehler sind normal.",
           `Done: ${tk-of.length} of ${tk} measures add up`+(of.length?`; not adding up: measure ${of.join(", ")}`:"")+". Please check against the check image, errors are normal."));return;}}
-      else{SCANIMG=[];SCANED=null;document.getElementById("scanchk").hidden=true;const xml=await omrSend(f,t=>st(t));loadXMLText(xml);TITLE=f.name.replace(/\.[^.]+$/,"");CREDIT="";setPins(null);SRC={kind:"file",name:TITLE+".musicxml",xml:LASTXML};run();}
+      else{SCANIMG=[];SCANED=null;document.getElementById("scanchk").hidden=true;const xml=await omrSend(f,t=>st(t));crQuit();loadXMLText(xml);TITLE=f.name.replace(/\.[^.]+$/,"");CREDIT="";setPins(null);SRC={kind:"file",name:TITLE+".musicxml",xml:LASTXML};run();}
       st(TX("Fertig. Bitte die erkannten Noten prüfen, Fehler sind normal.","Done. Please check the recognised notes, errors are normal."));}
     catch(err){if(err&&err.local){st(err.message);return;}let m=String(err.message||err);if(LANG==="en")[["Erkennung fehlgeschlagen","recognition failed"],["Keine Notenlinien gefunden","no staff lines found"],["Keine Griffschrift gefunden","no Griffschrift found"],["Keine Datei","no file"],["Gerade zu viele Aufträge, bitte später noch einmal","too many jobs right now, please try again later"],["Nur Bilder (PNG, JPG …) oder PDF","only images (PNG, JPG …) or PDF"]].forEach(([d,e])=>{m=m.split(d).join(e);});
       st(TX("Der Erkennungsserver hat nicht geantwortet oder einen Fehler gemeldet: ","The recognition server did not answer or reported an error: ")+m);}});})();
@@ -3647,7 +3648,7 @@ let SCANED=null;   // Seitendaten der letzten Griffschrift-Lesung zum Nachbearbe
       if(f.rep_end||f.volta_stop){let bl='<barline location="right">'+(f.rep_end?'<bar-style>light-heavy</bar-style>':'');if(f.volta_stop&&curV){bl+=`<ending number="${curV}" type="stop"/>`;curV=null;}if(f.rep_end)bl+='<repeat direction="backward"/>';x.push(bl+'</barline>');}
       x.push('</measure>');t0+=pos/12;});
     x.push('</part>','</score-partwise>');
-    const keepTitle=TITLE;loadXMLText(x.join("\n"));TITLE=keepTitle;CREDIT="";PINSRC="scan";const P={sh:ED.sh,n:pins};if(bp.length)P.b=bp;setPins("scan",{scan:P});USEPIN=true;const up=$("usepin");if(up)up.checked=true;
+    crQuit();const keepTitle=TITLE;loadXMLText(x.join("\n"));TITLE=keepTitle;CREDIT="";PINSRC="scan";const P={sh:ED.sh,n:pins};if(bp.length)P.b=bp;setPins("scan",{scan:P});USEPIN=true;const up=$("usepin");if(up)up.checked=true;
     SRC={kind:"file",name:(TITLE||"Scan")+".musicxml",xml:LASTXML};SCANED=JSON.parse(JSON.stringify(ED));run();
     const bad=[];meas.forEach((m,mi)=>{const su=m.e.reduce((q,e)=>q+e.u,0);if(su!==m.L&&!(mi===0&&su<m.L)&&!(mi===meas.length-1&&su<m.L))bad.push(firstImp?mi:mi+1);});
     $("scanst").textContent=TX(`Bearbeitet übernommen: ${meas.length-bad.length} von ${meas.length} Takten gehen auf`,`Edits applied: ${meas.length-bad.length} of ${meas.length} measures add up`)+(bad.length?TX(`; nicht auf geht: Takt ${bad.join(", ")}.`,`; not adding up: measure ${bad.join(", ")}.`):".");
@@ -4065,6 +4066,10 @@ function crClose(){CREATE=false;document.body.classList.remove("creating");docum
   if(CR&&CR.on&&document.getElementById("cr2nd").checked&&CR.nl.length){const n=crSecond();if(n){crRender();const k2=document.getElementById("cr2kind").value;setTimeout(()=>flashMsg(TX(`2. Stimme ergänzt (${n} Töne, ${k2==="terz"?"Terzen und Sexten":"Terzen, Sexten und Zerlegungen"})`,`2nd voice added (${n} notes, ${k2==="terz"?"thirds and sixths":"thirds, sixths and broken chords"})`)),600);}}
   if(CR){const was=CR.on;CR.on=false;const t=document.getElementById("transp");if(CR.prevT!=null&&!(INST.dia&&CR.rand)&&[...t.options].some(o=>o.value===CR.prevT))t.value=CR.prevT;
     if(CR.nl.length){if(was&&CR.formOK)crFormRender();else run();}}}
+// Ein anderes Stück wird geladen (Beispiel, Datei, Scan, Aufnahme, Bearbeitung): Eingabemodus still beenden, ohne die eingegebene Melodie
+// wieder darüber zu zeichnen; Transponieren wie beim Beenden zurückstellen (sonst bliebe es auf 0 statt „Automatisch“)
+function crQuit(){if(!CREATE&&!(CR&&CR.on))return;CREATE=false;document.body.classList.remove("creating");document.getElementById("crbar").hidden=true;
+  if(CR){CR.on=false;const t=document.getElementById("transp");if(CR.prevT!=null&&!(INST.dia&&CR.rand)&&[...t.options].some(o=>o.value===CR.prevT))t.value=CR.prevT;}}
 // im Eingabemodus: das ganze Stück in der gewählten Form (Zwei und Trio wie beim Beenden, Wiederholungen ausgeschrieben, damit es beim Wiederladen auch so abgespielt wird)
 function crSaveXML(){if(!CR||!CR.nl.length)return;let xml;if(CR.formOK){const X=crFormFlat(crFormBuild());xml=crXML(X.nl,X.bass);}else xml=crXML();
   saveBlob((CR.title||"Melodie").replace(/[\\/:*?"<>|]+/g,"").trim().replace(/\s+/g,"_")+".musicxml",new Blob([xml],{type:"application/vnd.recordare.musicxml+xml"}));}
@@ -4105,7 +4110,7 @@ function saveEdits(){if(!P||!SRC){alert(TX("Zuerst ein Stück laden.","Load a tu
   saveBlob(nm+"_Griffschrift-Bearbeitung.json",new Blob([JSON.stringify(d)],{type:"application/json"}));}
 async function loadEdits(f){const st=document.getElementById("status");
   try{const d=JSON.parse(await f.text());if(d.app!=="griffschrift-wandler"||!d.src||!d.edits)throw new Error(TX("Das ist keine gespeicherte Bearbeitung des Griffschrift-Wandlers.","This is not a saved edit of the Griffschrift converter."));
-    stop();
+    stop();crQuit();
     if(d.src.kind==="demo"){const ds=document.getElementById("demo");if(![...ds.options].some(o=>o.value===d.src.v))throw new Error(TX("Das Stück dieser Bearbeitung gibt es in dieser Version nicht.","The tune of this edit does not exist in this version."));await loadDemo(d.src.v);}
     else{loadXMLText(d.src.xml);CREDIT="";setPins(null);SRC=d.src;}
     if(d.create){CR={...d.create,cur:d.create.nl.length,len:1,dot:false,oct:60,undo:[],on:false,over:false,formOK:true,prevT:null};const cf=document.getElementById("crform");if(d.create.crform)cf.value=d.create.crform;}
