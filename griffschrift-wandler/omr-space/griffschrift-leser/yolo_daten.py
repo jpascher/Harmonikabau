@@ -4,7 +4,8 @@
 # von 960 × 960 Bildpunkten geschnitten. Ausgabe im YOLO-Format (images/, labels/, data.yaml).
 # Jedes System wird auf einen Linienabstand um 18 Bildpunkte gebracht, wie ihn der Leser (load_gray) für jede Seite herstellt.
 # Ein Teil der Seiten wird wie die Fuchs-Blätter aus einer niedrig aufgelösten Vorlage hochgerechnet. Liegen echte Seiten mit
-# Rahmen vor (yolo_fuchs_seiten.py), wird jede vierte Seite eine davon, jedesmal anders verschlechtert.
+# Rahmen vor (yolo_fuchs_seiten.py, yolo_foto_seiten.py), wird jede vierte Seite (ECHT_JEDE) eine davon, jedesmal anders verschlechtert;
+# echte Fotos ("foto": true) nur leicht, weil sie schon wie Fotos aussehen.
 # Aufruf: python3 yolo_daten.py ROHORDNER AUSGABEORDNER [SEITEN] [ECHTORDNER]
 import sys, os, json, glob, random
 import numpy as np, cv2
@@ -28,14 +29,21 @@ def lade_echt(ordner):
     out = []
     for f in sorted(glob.glob(os.path.join(ordner or '', '*.json'))):
         im = cv2.imread(f[:-5] + '.png', cv2.IMREAD_GRAYSCALE); j = json.load(open(f))
-        if im is not None and j.get('boxes'): out.append((im, [tuple(b) for b in j['boxes']]))
+        if im is not None and j.get('boxes'): out.append((im, [tuple(b) for b in j['boxes']], bool(j.get('foto'))))
     return out
 
 
 def echte_seite(echt, rnd):
-    im, bx = rnd.choice(echt); k = rnd.uniform(0.88, 1.12)
+    im, bx, foto = rnd.choice(echt); k = rnd.uniform(0.88, 1.12)
     im = cv2.resize(im, None, fx=k, fy=k, interpolation=cv2.INTER_AREA if k < 1 else cv2.INTER_LINEAR)
-    return im, [(c, x * k, y * k, w * k, h * k) for c, x, y, w, h in bx]
+    return im, [(c, x * k, y * k, w * k, h * k) for c, x, y, w, h in bx], foto
+
+
+def leicht(g, rnd):
+    """echte Fotos sind schon unscharf und ungleich hell: nur etwas Rauschen, Helligkeit und JPEG"""
+    g = g.astype(np.float32) * rnd.uniform(0.85, 1.05) + rnd.uniform(-15, 10) + np.random.normal(0, rnd.uniform(0, 4), g.shape)
+    g = np.clip(g, 0, 255).astype(np.uint8)
+    return cv2.imdecode(cv2.imencode('.jpg', g, [cv2.IMWRITE_JPEG_QUALITY, rnd.randint(50, 92)])[1], cv2.IMREAD_GRAYSCALE)
 
 
 def grob(pg, rnd):
@@ -119,13 +127,15 @@ if __name__ == '__main__':
     sys_ = lade(raw); echt = lade_echt(sys.argv[4] if len(sys.argv) > 4 else None); print('Systeme', len(sys_), 'echte Seiten', len(echt))
     for teil in ('train', 'val'):
         os.makedirs(os.path.join(ziel, 'images', teil), exist_ok=True); os.makedirs(os.path.join(ziel, 'labels', teil), exist_ok=True)
-    k = 0
+    k = 0; jede = int(os.environ.get('ECHT_JEDE', '4'))   # jede n-te Seite ist eine echte (dritter Lernlauf: 2)
     for i in range(n_seiten):
-        if echt and i % 4 == 3: pg, bx = echte_seite(echt, rnd)
+        foto = False
+        if echt and i % jede == jede - 1: pg, bx, foto = echte_seite(echt, rnd)
         else:
             pg, bx = seite(sys_, rnd)
             if rnd.random() < 0.2: pg = grob(pg, rnd)
-        g, bx = verschlechtern(pg, bx, rnd)
+        if foto: g = leicht(pg, rnd)
+        else: g, bx = verschlechtern(pg, bx, rnd)
         teil = 'val' if i % 10 == 0 else 'train'
         for crop, lab in ausschnitte(g, bx, rnd, 3):
             fn = f"s{i:05d}_{k:06d}"; cv2.imwrite(os.path.join(ziel, 'images', teil, fn + '.jpg'), crop, [cv2.IMWRITE_JPEG_QUALITY, 92])

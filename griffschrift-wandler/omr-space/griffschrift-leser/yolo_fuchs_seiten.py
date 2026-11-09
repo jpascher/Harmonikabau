@@ -4,7 +4,7 @@
 # die der MIDI-Satz anders ausschreibt). Unsichere, nicht bestätigte Funde bleiben ohne Rahmen im Bild.
 # Seiten, auf denen zu viele bekannte Griffe fehlen, werden ausgelassen. Nur jede zweite Seite (nach Namen) wird genommen,
 # die übrigen bleiben für die Prüfung. Die Blätter selbst kommen nicht ins Repository.
-# Aufruf: python3 yolo_fuchs_seiten.py FUCHSORDNER PINSORDNER AUSGABEORDNER
+# Aufruf: python3 yolo_fuchs_seiten.py FUCHSORDNER PINSORDNER AUSGABEORDNER [PRÜFLISTE]
 #   FUCHSORDNER: <name>gs/GS*.gif bzw. u_<name>.png (hochskaliert), PINSORDNER: <name>.pins.json
 import sys, os, glob, json
 import numpy as np, cv2
@@ -46,8 +46,11 @@ def seite(img, pins, mindest=0.9, sicher=0.9):
 if __name__ == '__main__':
     fu, pn, ziel = sys.argv[1:4]; os.makedirs(ziel, exist_ok=True)
     namen = sorted(os.path.basename(f.rstrip('/'))[:-2] for f in glob.glob(os.path.join(fu, '*gs/')))
+    # mit Prüfliste (viertes Argument, z. B. yolo_pruefseiten.txt): alle Seiten außer denen der Liste; sonst jede zweite wie bisher
+    pruef = {l.strip() for l in open(sys.argv[4]) if l.strip()} if len(sys.argv) > 4 else None
     for n, k in enumerate(namen):
-        if n % 2: continue   # jede zweite Seite bleibt für die Prüfung
+        if (k in pruef) if pruef is not None else n % 2: continue   # bleibt für die Prüfung
+        if not os.path.exists(os.path.join(pn, k + '.pins.json')): continue
         img = os.path.join(os.path.dirname(fu.rstrip('/')), f'u_{k}.png')
         if not os.path.exists(img): upscale(glob.glob(os.path.join(fu, k + 'gs', 'GS*'))[0], img)
         r = seite(img, json.load(open(os.path.join(pn, k + '.pins.json')))['n'])
