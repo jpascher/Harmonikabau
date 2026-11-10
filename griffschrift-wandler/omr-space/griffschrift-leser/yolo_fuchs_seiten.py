@@ -56,5 +56,5 @@ if __name__ == '__main__':
         r = seite(img, json.load(open(os.path.join(pn, k + '.pins.json')))['n'])
         if r is None or r.get('skip'): print(k, 'ausgelassen', r and r['recall']); continue
         cv2.imwrite(os.path.join(ziel, f'fuchs_{k}.png'), r['g'])
-        json.dump(dict(boxes=[[int(c), round(x, 1), round(y, 1), round(w, 1), round(h, 1)] for c, x, y, w, h in r['boxen']]), open(os.path.join(ziel, f'fuchs_{k}.json'), 'w'))
+        json.dump(dict(boxes=[[int(c), round(float(x), 1), round(float(y), 1), round(float(w), 1), round(float(h), 1)] for c, x, y, w, h in r['boxen']]), open(os.path.join(ziel, f'fuchs_{k}.json'), 'w'))
         print(k, 'Köpfe', len(r['boxen']), 'ohne Rahmen', r['weg'], 'gefunden', r['recall'])

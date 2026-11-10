@@ -66,6 +66,6 @@ if __name__ == '__main__':
         except Exception as e: print(k, 'Fehler', str(e)[:80]); continue
         if r is None or len(r['boxen']) < 30: print(k, 'ausgelassen', r and len(r['boxen'])); continue
         cv2.imwrite(os.path.join(ziel, f'foto_{k}.png'), r['g'])
-        json.dump(dict(foto=True, boxes=[[int(c), round(x, 1), round(y, 1), round(w, 1), round(h, 1)] for c, x, y, w, h in r['boxen']]),
+        json.dump(dict(foto=True, boxes=[[int(c), round(float(x), 1), round(float(y), 1), round(float(w), 1), round(float(h), 1)] for c, x, y, w, h in r['boxen']]),
                   open(os.path.join(ziel, f'foto_{k}.json'), 'w'))
         print(k, 'Köpfe', len(r['boxen']), 'abgedeckt', r['weiss'], '(bisher', r['alt'], 'gelernt', r['yolo'], ')', 'Foto' if r['foto'] else 'Scan', flush=True)
