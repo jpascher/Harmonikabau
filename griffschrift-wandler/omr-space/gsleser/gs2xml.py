@@ -366,6 +366,26 @@ def _koepfe(work,g,st):
                 return det
         except Exception as e: D.LAST['yolo']='Fehler: '+str(e)[:80]
     return D.detect(work,1)
+def tri_rund(g,det,st):
+    """Kopie des Graubilds für homr: jedes Dreieck weiß abdecken, die Notenlinien dort wieder ziehen und an derselben Stelle einen
+    runden Kopf zeichnen (voll, wenn das Dreieck voll war, sonst hohl). Die übrigen Köpfe bleiben unverändert."""
+    g2=g.copy();H,W=g2.shape[:2]
+    for h in det:
+        if h.get('t')!='t': continue
+        d=float(h.get('d') or 0)
+        if d<=2: continue
+        x,y=float(h['x']),float(h['y'])
+        x0,x1=int(max(0,x-0.72*d)),int(min(W,x+0.72*d+1));y0,y1=int(max(0,y-0.58*d)),int(min(H,y+0.58*d+1))
+        g2[y0:y1,x0:x1]=255
+        lw=max(1,int(round(0.1*d)))
+        si=h.get('st')
+        if si is not None and 0<=si<len(st):
+            for ly in st[si]:
+                if y0-lw<=ly<=y1+lw: cv2.line(g2,(x0,int(round(ly))),(x1-1,int(round(ly))),0,lw)
+        ax=(max(2,int(round(0.6*d))),max(2,int(round(0.42*d))))
+        if h.get('fill'): cv2.ellipse(g2,(int(round(x)),int(round(y))),ax,-20,0,360,0,-1)
+        else: cv2.ellipse(g2,(int(round(x)),int(round(y))),ax,-20,0,360,0,max(1,int(round(0.14*d))))
+    return g2
 def read(path,shift=0,work=None,table=None,bass=None):
     """shift: Stimmung wie im Wandler (A-D-G-C = 0, G-C-F-B = -2 …). bass: Liste, an die je Takt die gelesenen Bassbuchstaben (Lage im Takt in Zwölftel-Vierteln, Buchstabe) angehängt werden."""
     g=load_gray(path)
@@ -520,10 +540,16 @@ def read(path,shift=0,work=None,table=None,bass=None):
                 for g_ in allg[max(0,j-1):j+2]: g_[0]['trip']=True
     _DBG['gerust']=None
     # Gerüst aus der Notenerkennung (GS_GERUEST=1): Takte, Notenwerte und Pausen von homr, Köpfe und Balgrichtung vom Leser (gerust.py)
-    if GERUEST and (not G.FOTO_LINES or _os.environ.get('GS_GERUESTFOTO','1')=='1') and not (D.LAST.get('tri_page') and _os.environ.get('GS_GERUESTTRI','0')!='1'):   # Seiten mit Dreiecken (Philipp/Margetich): homr liest sie schlecht, daher Leser   # Fotos: mit homrs eigener Systemsuche (gerust.py, GS_GFOTOHOMR); GS_GERUESTFOTO=0 nimmt Fotos aus
+    # Dreieck-Seiten (Philipp/Margetich): homr liest Dreiecke schlecht. Für homr wird daher eine Kopie gelesen, in der jedes Dreieck
+    # durch einen runden Kopf ersetzt ist (voll/hohl wie das Dreieck; Hals, Fähnchen, Balken bleiben). Kopfform und Reihe kommen
+    # weiter vom Original. GS_GERUESTTRI=0 schaltet homr auf Dreieck-Seiten ganz ab (Stand vor v159).
+    _tri=bool(D.LAST.get('tri_page'))
+    if GERUEST and (not G.FOTO_LINES or _os.environ.get('GS_GERUESTFOTO','1')=='1') and not (_tri and _os.environ.get('GS_GERUESTTRI','1')=='0'):   # Seiten mit Dreiecken (Philipp/Margetich): homr liest sie schlecht, daher Leser   # Fotos: mit homrs eigener Systemsuche (gerust.py, GS_GFOTOHOMR); GS_GERUESTFOTO=0 nimmt Fotos aus
         import gerust as GR
         GR.FOTO=bool(G.FOTO_LINES)
-        _DBG['gerust']={};meas,medge=GR.rebuild(g,st,x_ext,meas,medge,button,pitch,table,off,_DBG['gerust'])
+        _gh=tri_rund(g,det,st) if _tri else g
+        _DBG['gerust']={};meas,medge=GR.rebuild(_gh,st,x_ext,meas,medge,button,pitch,table,off,_DBG['gerust'])
+        if _tri: _DBG['gerust']['tri_rund']=True
     def gl(gr): return sum(e['lp'] for e in gr) if 'lp' in gr[0] else np.zeros(len(UNIT))
     def uu(gr,u): return TRIP.get(u,u) if gr[0].get('trip') else u
     def letter_times(mi,si,m,Lm):
