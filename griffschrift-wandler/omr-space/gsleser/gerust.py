@@ -294,6 +294,26 @@ def rebuild(g, st, x_ext, meas, medge, button, pitch, table, off, stats=None):
                     if len(parts) > 1 and stats is not None: stats['geteilt'] = stats.get('geteilt', 0) + len(parts) - 1
                 spl += parts
             ms_ = spl
+            # Überzählige Pausen: Ist ein Takt um genau die Summe einiger Pausen zu lang, die homr meldet, werden diese Pausen
+            # weggelassen (gemessen 11.11.2026 auf Fotos: z. B. 6 3 P6 3 6 3 P6 3 in einem 2/4-Takt, 12 12 P12 12 P12 im 3/4-Takt).
+            # Bevorzugt wenige Pausen, bei Gleichstand die späteren. Nur wenn die übliche Taktlänge im System klar ist.
+            if os.environ.get('GS_GPAUSEN', '1') == '1':
+                sums = [sum(gr[0]['hu'] for gr in m) for m in ms_]
+                if sums and len(sums) >= 3:
+                    import collections, itertools
+                    Lh, nL = collections.Counter(sums).most_common(1)[0]
+                    if nL >= 0.5 * len(sums):
+                        for q, (m, sm) in enumerate(zip(ms_, sums)):
+                            if sm <= Lh: continue
+                            ex = sm - Lh; rs = [k for k, gr in enumerate(m) if gr[0]['kind'] == 'r' and gr[0].get('hu')]
+                            best = None
+                            for n_ in range(1, min(len(rs), 4) + 1):
+                                for comb in itertools.combinations(rs[::-1], n_):
+                                    if sum(m[k][0]['hu'] for k in comb) == ex: best = set(comb); break
+                                if best: break
+                            if best and len(m) - len(best) > 0:
+                                ms_[q] = [gr for k, gr in enumerate(m) if k not in best]
+                                if stats is not None: stats['pausen_weg'] = stats.get('pausen_weg', 0) + len(best)
         if stats is not None:
             stats['nurhomr'] = stats.get('nurhomr', 0) + sum(1 for k, e in enumerate(ev) if e[0] == 'note' and k not in match)
             stats['nurleser'] = stats.get('nurleser', 0) + len(A) - len(pr)

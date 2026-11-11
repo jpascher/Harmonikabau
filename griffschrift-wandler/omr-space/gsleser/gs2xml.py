@@ -352,6 +352,12 @@ def thick_bar_filter(det,bw):
         out.append(h)
     return out
 ERKENNER=''   # vom Space je Scan gesetzt: 'alt' oder 'yolo'; leer = Variable GS_YOLO entscheidet
+def tri_seite(det):
+    """Seite in Dreieck-Schreibweise (Margetich/Philipp)? Gemessen am 11.11.2026: Philipps Notenseiten haben mindestens 8 sichere
+    Dreiecke (sc>=0.6) und mindestens 5 % Dreiecke unter allen Köpfen; die fälschlich eingestuften Seiten (Schaborak, Boarischer,
+    Kiermeier) höchstens 12 sichere Dreiecke bei höchstens 3,8 %. Bisher genügten 3 Dreiecke. GS_TRIMIN/GS_TRIANTEIL zum Anpassen."""
+    t=[h for h in det if h['t']=='t' and h.get('sc',1)>=0.6]
+    return len(t)>=int(_os.environ.get('GS_TRIMIN_Y','6')) and len(t)>=float(_os.environ.get('GS_TRIANTEIL','0.045'))*max(1,len(det))
 def _koepfe(work,g,st):
     """Köpfe der Seite: bisheriger Erkenner (detect.py) oder der gelernte Erkenner (yolo_koepfe.py), wenn das Modell vorhanden ist.
     Wahl: ERKENNER (aus dem Wandler) vor der Space-Variablen GS_YOLO=1. Fotos liest auch bei GS_YOLO=1 der bisherige Erkenner,
@@ -362,7 +368,7 @@ def _koepfe(work,g,st):
         try:
             import yolo_koepfe as YK
             if YK.vorhanden():
-                det=YK.detect(g,st);D.LAST['tri_page']=sum(1 for h in det if h['t']=='t')>=3;D.LAST['yolo']=len(det);D.LAST['erkenner']='yolo'
+                det=YK.detect(g,st);D.LAST['tri_page']=tri_seite(det);D.LAST['yolo']=len(det);D.LAST['erkenner']='yolo'
                 return det
         except Exception as e: D.LAST['yolo']='Fehler: '+str(e)[:80]
     return D.detect(work,1)
@@ -370,8 +376,9 @@ def tri_rund(g,det,st):
     """Kopie des Graubilds für homr: jedes Dreieck weiß abdecken, die Notenlinien dort wieder ziehen und an derselben Stelle einen
     runden Kopf zeichnen (voll, wenn das Dreieck voll war, sonst hohl). Die übrigen Köpfe bleiben unverändert."""
     g2=g.copy();H,W=g2.shape[:2]
+    arten=('t','x') if _os.environ.get('GS_GKREUZRUND','0')=='1' else ('t',)   # Versuch: auch Kreuze für homr rund zeichnen
     for h in det:
-        if h.get('t')!='t': continue
+        if h.get('t') not in arten: continue
         d=float(h.get('d') or 0)
         if d<=2: continue
         x,y=float(h['x']),float(h['y'])
@@ -383,7 +390,7 @@ def tri_rund(g,det,st):
             for ly in st[si]:
                 if y0-lw<=ly<=y1+lw: cv2.line(g2,(x0,int(round(ly))),(x1-1,int(round(ly))),0,lw)
         ax=(max(2,int(round(0.6*d))),max(2,int(round(0.42*d))))
-        if h.get('fill'): cv2.ellipse(g2,(int(round(x)),int(round(y))),ax,-20,0,360,0,-1)
+        if h.get('fill') or h.get('t')=='x': cv2.ellipse(g2,(int(round(x)),int(round(y))),ax,-20,0,360,0,-1)
         else: cv2.ellipse(g2,(int(round(x)),int(round(y))),ax,-20,0,360,0,max(1,int(round(0.14*d))))
     return g2
 def read(path,shift=0,work=None,table=None,bass=None):
@@ -547,7 +554,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     if GERUEST and (not G.FOTO_LINES or _os.environ.get('GS_GERUESTFOTO','1')=='1') and not (_tri and _os.environ.get('GS_GERUESTTRI','1')=='0'):   # Seiten mit Dreiecken (Philipp/Margetich): homr liest sie schlecht, daher Leser   # Fotos: mit homrs eigener Systemsuche (gerust.py, GS_GFOTOHOMR); GS_GERUESTFOTO=0 nimmt Fotos aus
         import gerust as GR
         GR.FOTO=bool(G.FOTO_LINES)
-        _gh=tri_rund(g,det,st) if _tri else g
+        _gh=tri_rund(g,det,st) if (_tri or _os.environ.get('GS_GKREUZRUND','0')=='1') else g
         _DBG['gerust']={};meas,medge=GR.rebuild(_gh,st,x_ext,meas,medge,button,pitch,table,off,_DBG['gerust'])
         if _tri: _DBG['gerust']['tri_rund']=True
     def gl(gr): return sum(e['lp'] for e in gr) if 'lp' in gr[0] else np.zeros(len(UNIT))
