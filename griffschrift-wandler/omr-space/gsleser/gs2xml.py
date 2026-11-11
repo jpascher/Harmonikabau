@@ -74,8 +74,20 @@ def orient(g):
     if vt>2*max(hz,1):
         # senkrechte Zierrahmen oder Randlinien: stehen schon so Notensysteme im Bild, nicht drehen
         if len(G.staves(cv2.threshold(g,240,255,cv2.THRESH_BINARY_INV)[1]))>=2: return g
-        return cv2.rotate(g,cv2.ROTATE_90_CLOCKWISE)
+        return cv2.rotate(g,cv2.ROTATE_90_COUNTERCLOCKWISE if quer_richtung(g)==270 else cv2.ROTATE_90_CLOCKWISE)
     return g
+def quer_richtung(g):
+    """Quer liegende Seite: in welche Richtung drehen? Beide Drehungen werden mit der Texterkennung (Tesseract) gelesen; die Richtung,
+    in der mehr Wörter mit mindestens drei Buchstaben erkannt werden (Titel, Bearbeiter, Teilbezeichnungen), gewinnt. Gefunden am
+    11.11.2026 bei den Steinkellner-PDFs, die quer und im Uhrzeigersinn gedreht im PDF liegen; bisher wurde immer im Uhrzeigersinn
+    gedreht, die Seite stand dann auf dem Kopf. Ohne Tesseract oder bei Gleichstand: 90 (bisheriges Verhalten)."""
+    try:
+        import pytesseract,re
+        sm=cv2.resize(g,None,fx=min(1.0,2400/max(g.shape)),fy=min(1.0,2400/max(g.shape)),interpolation=cv2.INTER_AREA)
+        def n(im): return len(re.findall(r'[A-Za-zÄÖÜäöüß]{3,}',pytesseract.image_to_string(im,lang='deu',config='--psm 11')))
+        a=n(cv2.rotate(sm,cv2.ROTATE_90_CLOCKWISE));b=n(cv2.rotate(sm,cv2.ROTATE_90_COUNTERCLOCKWISE))
+        return 270 if b>a else 90
+    except Exception: return 90
 def upside_down(g,st):
     """Steht die Seite auf dem Kopf? Gezählt werden sicher erkannte Bassbuchstaben unter den Systemen, einmal so und einmal um 180° gedreht;
     auf dem Kopf stehende Buchstaben erkennt das Modell nicht."""
@@ -146,7 +158,8 @@ STYLE_RULES={
  'michlbauer':  dict(xmark=True,  druck='auto'),
  'rosenzopf':   dict(xmark=True,  druck='duenn'),
  'margetich':   dict(xmark=False, druck='auto'),
- 'bayerisch':   dict(xmark=False, druck='auto'),
+ 'bayerisch':   dict(xmark=False, druck='auto', kreuzrund=True),   # Kreuze für homr rund: Schaborak/Kiermeier 11.11.2026 besser
+ 'handschrift': dict(xmark=False, druck='auto', kreuzrund=True),   # Handschriften: ebenso (Die alte Lena 5 statt 15 offene Takte)
  'steinkellner':dict(xmark=False, druck='auto'),
  'pacher':      dict(xmark=False, druck='auto'),   # Günther Pacher (MC-Score): Kreuze vor runden Köpfen sind eigene Köpfe der 3. Reihe
  'klausner':    dict(xmark=False, druck='auto'),   # Hubert Klausner und Stefan Sirtl (Finale): ebenso
@@ -372,11 +385,15 @@ def _koepfe(work,g,st):
                 return det
         except Exception as e: D.LAST['yolo']='Fehler: '+str(e)[:80]
     return D.detect(work,1)
+def kreuz_rund():
+    """Kreuze für homr rund zeichnen? GS_GKREUZRUND=1 erzwingt es, =0 schaltet es ab; sonst nach Schreibweise (bayerisch, Handschrift)."""
+    v=_os.environ.get('GS_GKREUZRUND','')
+    return v=='1' if v in ('0','1') else bool(STYLE_RULES[STYLE[0]].get('kreuzrund'))
 def tri_rund(g,det,st):
     """Kopie des Graubilds für homr: jedes Dreieck weiß abdecken, die Notenlinien dort wieder ziehen und an derselben Stelle einen
     runden Kopf zeichnen (voll, wenn das Dreieck voll war, sonst hohl). Die übrigen Köpfe bleiben unverändert."""
     g2=g.copy();H,W=g2.shape[:2]
-    arten=('t','x') if _os.environ.get('GS_GKREUZRUND','0')=='1' else ('t',)   # Versuch: auch Kreuze für homr rund zeichnen
+    arten=('t','x') if kreuz_rund() else ('t',)   # Kreuze nur je nach Schreibweise (kreuz_rund)
     for h in det:
         if h.get('t') not in arten: continue
         d=float(h.get('d') or 0)
@@ -554,7 +571,7 @@ def read(path,shift=0,work=None,table=None,bass=None):
     if GERUEST and (not G.FOTO_LINES or _os.environ.get('GS_GERUESTFOTO','1')=='1') and not (_tri and _os.environ.get('GS_GERUESTTRI','1')=='0'):   # Seiten mit Dreiecken (Philipp/Margetich): homr liest sie schlecht, daher Leser   # Fotos: mit homrs eigener Systemsuche (gerust.py, GS_GFOTOHOMR); GS_GERUESTFOTO=0 nimmt Fotos aus
         import gerust as GR
         GR.FOTO=bool(G.FOTO_LINES)
-        _gh=tri_rund(g,det,st) if (_tri or _os.environ.get('GS_GKREUZRUND','0')=='1') else g
+        _gh=tri_rund(g,det,st) if (_tri or kreuz_rund()) else g
         _DBG['gerust']={};meas,medge=GR.rebuild(_gh,st,x_ext,meas,medge,button,pitch,table,off,_DBG['gerust'])
         if _tri: _DBG['gerust']['tri_rund']=True
     def gl(gr): return sum(e['lp'] for e in gr) if 'lp' in gr[0] else np.zeros(len(UNIT))
