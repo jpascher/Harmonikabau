@@ -18,7 +18,7 @@ def _druck(g,bw,st,thin):
         L=[(s[i,0],s[i,0]+s[i,2],y0+s[i,1]) for i in range(1,n) if s[i,2]>2*d]
         # Nur Druckstriche zählen: deutlich unter dem System und direkt unter Bassbuchstaben (nicht Triolen- oder
         # Wiederholungsklammern, Bindebögen); Buchstaben = Teile in Schriftgröße knapp über dem Strich in seinem Bereich
-        if L and _os.environ.get('GS_DRUCK','1')=='1':
+        if L and _os.environ.get('GS_DRUCK','1')=='1' and not DRUCK_FREI[0]:   # Handschrift: Bassbuchstaben fehlen oft, dann jeden Strich unter dem System nehmen
             nb,_,sb,_=cv2.connectedComponentsWithStats(band)
             let=[(sb[i,0],sb[i,0]+sb[i,2],y0+sb[i,1]+sb[i,3]) for i in range(1,nb) if 0.6*d<=sb[i,3]<=3.2*d and 0.2*d<=sb[i,2]<=3.0*d]
             def ok(l):
@@ -28,6 +28,7 @@ def _druck(g,bw,st,thin):
             L=[l for l in L if ok(l)]
         out[si]=L
     return out
+DRUCK_FREI=[False]   # von gs2xml je Schreibweise gesetzt (Handschrift): Druckstriche auch ohne Bassbuchstaben darüber
 DRUCK_MODE=['auto']   # von gs2xml je Schreibweise gesetzt: 'auto', 'dick' (Fuchs, Philipp), 'duenn' (Rosenzopf)
 def druck_bars(g):
     """Druckstriche je System. Fuchs und Philipp setzen dicke Balken, Rosenzopf dünne Striche. Gesucht wird zuerst nach dicken;

@@ -159,7 +159,7 @@ STYLE_RULES={
  'rosenzopf':   dict(xmark=True,  druck='duenn'),
  'margetich':   dict(xmark=False, druck='auto'),
  'bayerisch':   dict(xmark=False, druck='auto', kreuzrund=True),   # Kreuze für homr rund: Schaborak/Kiermeier 11.11.2026 besser
- 'handschrift': dict(xmark=False, druck='duenn', kreuzrund=True, yoloconf=0.1),   # Handschriften: Druckstriche dünn, Kreuze rund (Die alte Lena 5 statt 15 offene Takte), Kopf-Erkenner ab Sicherheit 0,1 (Bummelpetrus 0,35: 71 Akkorde, 0,15: 98, 0,08: 106)
+ 'handschrift': dict(xmark=True, druck='duenn', druckfrei=True, kreuzrund=True, yoloconf=0.1),   # Handschriften: Druckstriche dünn, Kreuze rund (Die alte Lena 5 statt 15 offene Takte), Kopf-Erkenner ab Sicherheit 0,1 (Bummelpetrus 0,35: 71 Akkorde, 0,15: 98, 0,08: 106)
  'steinkellner':dict(xmark=False, druck='auto', barunten=True),   # Taktstriche reichen unter dem System bis zur Basszeile (11.11.2026)
  'pacher':      dict(xmark=False, druck='auto'),   # Günther Pacher (MC-Score): Kreuze vor runden Köpfen sind eigene Köpfe der 3. Reihe
  'klausner':    dict(xmark=False, druck='auto'),   # Hubert Klausner und Stefan Sirtl (Finale): ebenso
@@ -168,7 +168,7 @@ STYLE=['auto']
 def set_style(name):
     name=(name or 'auto').strip().lower()
     STYLE[0]=name if name in STYLE_RULES else 'auto'
-    import fuchsread as _F;_F.DRUCK_MODE[0]=STYLE_RULES[STYLE[0]]['druck']
+    import fuchsread as _F;_F.DRUCK_MODE[0]=STYLE_RULES[STYLE[0]]['druck'];_F.DRUCK_FREI[0]=bool(STYLE_RULES[STYLE[0]].get('druckfrei'))
     import measures as _M;_M.BAR_UNTEN[0]=bool(STYLE_RULES[STYLE[0]].get('barunten'))
     return STYLE[0]
 # Texterkennung (Tesseract, deutsch): Titel, Bearbeiter, Teilbezeichnungen; nur Plausibles wird übernommen
