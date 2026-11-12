@@ -19,6 +19,7 @@ def local_shift(bw,ys,d):
         sv.append(best)
     sv=[int(np.median(sv[max(0,i-3):i+4])) for i in range(len(sv))]   # Ausreißer (Bögen, Balken) glätten
     return np.round(np.interp(np.arange(W),xs,sv)).astype(int)
+BAR_UNTEN=[False]   # von gs2xml.set_style gesetzt (Schreibweise steinkellner)
 def barlines(bw,ys,d,heads_x):
     """Senkrechte Striche genau von der obersten bis zur untersten Linie, ohne Kopf daneben."""
     top,bot=int(ys[0]),int(ys[4]);W=bw.shape[1];cols=[]
@@ -26,7 +27,7 @@ def barlines(bw,ys,d,heads_x):
     above=(bw[max(0,top-int(.8*d)):top-2]>0).mean(0);below=(bw[bot+3:bot+int(.8*d)]>0).mean(0)
     sh=local_shift(bw,ys,d) if G.FOTO_LINES and not _os.environ.get('GS_NOBLSHIFT') else None
     for x in range(W):
-        if inside[x]>0.92 and above[x]<0.3 and below[x]<0.3: cols.append(x);continue
+        if inside[x]>0.92 and (above[x]<0.3 or (BAR_UNTEN[0] and above[x]>=0.95)) and (below[x]<0.3 or (BAR_UNTEN[0] and below[x]>=0.95)): cols.append(x);continue   # Steinkellner: Taktstriche laufen über und unter dem System weiter (Bass- und Klammerzeilen)
         if sh is None: continue
         # Fotos: System an dieser Stelle etwas höher oder tiefer (gewölbte Seite); Linien dort neu ansetzen
         t,b_=top+sh[x],bot+sh[x]

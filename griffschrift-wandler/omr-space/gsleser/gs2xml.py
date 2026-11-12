@@ -159,8 +159,8 @@ STYLE_RULES={
  'rosenzopf':   dict(xmark=True,  druck='duenn'),
  'margetich':   dict(xmark=False, druck='auto'),
  'bayerisch':   dict(xmark=False, druck='auto', kreuzrund=True),   # Kreuze für homr rund: Schaborak/Kiermeier 11.11.2026 besser
- 'handschrift': dict(xmark=False, druck='auto', kreuzrund=True),   # Handschriften: ebenso (Die alte Lena 5 statt 15 offene Takte)
- 'steinkellner':dict(xmark=False, druck='auto'),
+ 'handschrift': dict(xmark=False, druck='auto', kreuzrund=True, yoloconf=0.15),   # Handschriften: Kreuze rund (Die alte Lena 5 statt 15 offene Takte); Kopf-Erkenner ab Sicherheit 0,15 (Bummelpetrus 98 statt 71 Akkorde, 28 statt 20 Takte)
+ 'steinkellner':dict(xmark=False, druck='auto', barunten=True),   # Taktstriche reichen unter dem System bis zur Basszeile (11.11.2026)
  'pacher':      dict(xmark=False, druck='auto'),   # Günther Pacher (MC-Score): Kreuze vor runden Köpfen sind eigene Köpfe der 3. Reihe
  'klausner':    dict(xmark=False, druck='auto'),   # Hubert Klausner und Stefan Sirtl (Finale): ebenso
 }
@@ -169,6 +169,7 @@ def set_style(name):
     name=(name or 'auto').strip().lower()
     STYLE[0]=name if name in STYLE_RULES else 'auto'
     import fuchsread as _F;_F.DRUCK_MODE[0]=STYLE_RULES[STYLE[0]]['druck']
+    import measures as _M;_M.BAR_UNTEN[0]=bool(STYLE_RULES[STYLE[0]].get('barunten'))
     return STYLE[0]
 # Texterkennung (Tesseract, deutsch): Titel, Bearbeiter, Teilbezeichnungen; nur Plausibles wird übernommen
 TEIL_WOERTER=['Einleitung','Vorspiel','Tanz','Trio','Fine','D.S.','D.C.','Coda','Zwischenspiel','Schluss','Ende']
@@ -375,20 +376,23 @@ def _koepfe(work,g,st):
     """Köpfe der Seite: bisheriger Erkenner (detect.py) oder der gelernte Erkenner (yolo_koepfe.py), wenn das Modell vorhanden ist.
     Wahl: ERKENNER (aus dem Wandler) vor der Space-Variablen GS_YOLO=1. Fotos liest auch bei GS_YOLO=1 der bisherige Erkenner,
     weil der gelernte dort mehr Takte offen lässt (GS_YOLOFOTO=1 nimmt ihn auch für Fotos); ERKENNER='yolo' gilt immer."""
-    D.LAST['erkenner']='alt'
+    D.LAST['erkenner']='alt';D.LAST['sc_mittel']=None
     _foto_alt=bool(G.FOTO_LINES) and _os.environ.get('GS_YOLOFOTO','0')!='1'
     if ERKENNER=='yolo' or (ERKENNER!='alt' and _os.environ.get('GS_YOLO','0')=='1' and not _foto_alt):
         try:
             import yolo_koepfe as YK
             if YK.vorhanden():
-                det=YK.detect(g,st);D.LAST['tri_page']=tri_seite(det);D.LAST['yolo']=len(det);D.LAST['erkenner']='yolo'
+                det=YK.detect(g,st,STYLE_RULES[STYLE[0]].get('yoloconf') if not _os.environ.get('GS_YOLOCONF') else None);D.LAST['tri_page']=tri_seite(det);D.LAST['sc_mittel']=float(np.mean([h['sc'] for h in det])) if det else None;D.LAST['yolo']=len(det);D.LAST['erkenner']='yolo'
                 return det
         except Exception as e: D.LAST['yolo']='Fehler: '+str(e)[:80]
     return D.detect(work,1)
 def kreuz_rund():
     """Kreuze für homr rund zeichnen? GS_GKREUZRUND=1 erzwingt es, =0 schaltet es ab; sonst nach Schreibweise (bayerisch, Handschrift)."""
     v=_os.environ.get('GS_GKREUZRUND','')
-    return v=='1' if v in ('0','1') else bool(STYLE_RULES[STYLE[0]].get('kreuzrund'))
+    if v in ('0','1'): return v=='1'
+    if STYLE[0]=='auto' and D.LAST.get('sc_mittel') is not None and not D.LAST.get('tri_page'):   # Schreibweise unbekannt: unsicher erkannte Köpfe deuten auf Handschrift
+        return D.LAST['sc_mittel']<float(_os.environ.get('GS_KREUZSC','0.79'))   # oder unsauberen Satz (gemessen 12.11.2026 an 22 PDFs)
+    return bool(STYLE_RULES[STYLE[0]].get('kreuzrund'))
 def tri_rund(g,det,st):
     """Kopie des Graubilds für homr: jedes Dreieck weiß abdecken, die Notenlinien dort wieder ziehen und an derselben Stelle einen
     runden Kopf zeichnen (voll, wenn das Dreieck voll war, sonst hohl). Die übrigen Köpfe bleiben unverändert."""
@@ -448,8 +452,17 @@ def read(path,shift=0,work=None,table=None,bass=None):
         # Ausdehnung des Systems: Spalten, in denen (fast) alle fünf Linien Tinte haben; längstes Stück (Fotos: Seitenrand und Nachbarseite bleiben draußen)
         # Toleranz um jede Linie (GS_XEXTW, in Linienabständen): auf gewölbten Fotoseiten laufen die Linien bis zu einem halben Abstand von ihrer Höhe weg
         _xw=float(_os.environ.get('GS_XEXTW','0.45' if (foto_like or G.FOTO_LINES) else '0.25'));_pad=int(8+_xw*(ys[4]-ys[0])/4)
-        hl=cv2.morphologyEx(bw[max(0,int(ys[0])-_pad):int(ys[4])+_pad+1],cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(max(5,int(2*(ys[4]-ys[0])/4)),1)));o0=max(0,int(ys[0])-_pad)
-        w_=max(1,int(_xw*(ys[4]-ys[0])/4));cols=sum((hl[max(0,int(round(y))-o0-w_):int(round(y))-o0+w_+1].max(0)>0).astype(np.int8) for y in ys)>=3
+        o0=max(0,int(ys[0])-_pad);w_=max(1,int(_xw*(ys[4]-ys[0])/4))
+        def _cols(bw_):
+            hl=cv2.morphologyEx(bw_[o0:int(ys[4])+_pad+1],cv2.MORPH_OPEN,cv2.getStructuringElement(cv2.MORPH_RECT,(max(5,int(2*(ys[4]-ys[0])/4)),1)))
+            return sum((hl[max(0,int(round(y))-o0-w_):int(round(y))-o0+w_+1].max(0)>0).astype(np.int8) for y in ys)>=3
+        cols=_cols(bw)
+        # Blasse Linien (Kopien, Handschrift): am Zeilenanfang und -ende liegen die Linien oft über der Schwelle 200, das System wird zu kurz
+        # und ganze Takte fallen weg. Scans (nicht Fotos): zusätzlich mit hellerer Schwelle (235, höchstens 12 unter dem Papierton) messen und die weitere Ausdehnung nehmen (GS_XEXTHELL=1: ein)
+        if not G.FOTO_LINES and _os.environ.get('GS_XEXTHELL','0')=='1':   # Versuch 12.11.2026: brachte bei Handschriften nichts, daher aus
+            if '_bwh' not in locals(): _bwh=cv2.threshold(g,int(min(235,float(np.median(g))-12)),255,cv2.THRESH_BINARY_INV)[1]   # unter dem Papierton bleiben
+            ch=_cols(_bwh)
+            if ch.sum()>1.05*cols.sum(): cols=ch
         # volle Tintenblöcke breiter als 1,5 Linienabstände (Stempel, Aufkleber) sind kein System; Taktstriche und Wiederholungszeichen bleiben
         cols=cv2.dilate(cols.astype(np.uint8)[None],np.ones((1,9),np.uint8))[0]>0
         runs=[];a_=None

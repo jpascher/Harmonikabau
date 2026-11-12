@@ -73,9 +73,10 @@ def koepfe(g, conf=None, ueberlapp=192):
     return [(boxes[i][0] + boxes[i][2] / 2, boxes[i][1] + boxes[i][3] / 2, boxes[i][2], boxes[i][3], cls[i], float(scores[i])) for i in keep]
 
 
-def detect(g, st):
-    """Köpfe als Einträge wie detect.detect; vorgesetzte Doppelkreuze machen den runden Kopf rechts daneben zum Kreuzkopf."""
-    hs = koepfe(g)
+def detect(g, st, conf=None):
+    """Köpfe als Einträge wie detect.detect; vorgesetzte Doppelkreuze machen den runden Kopf rechts daneben zum Kreuzkopf.
+    conf: Sicherheitsschwelle (sonst GS_YOLOCONF bzw. 0,35); für Handschrift niedriger, weil die Köpfe anders aussehen als die gelernten."""
+    hs = koepfe(g, conf)
     if not hs or not st: return []
     mids = [(ys[2], (ys[4] - ys[0]) / 4) for ys in st]
     out = []; pre = []
