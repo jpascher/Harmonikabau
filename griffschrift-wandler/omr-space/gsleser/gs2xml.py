@@ -159,7 +159,7 @@ STYLE_RULES={
  'rosenzopf':   dict(xmark=True,  druck='duenn'),
  'margetich':   dict(xmark=False, druck='auto'),
  'bayerisch':   dict(xmark=False, druck='auto', kreuzrund=True),   # Kreuze für homr rund: Schaborak/Kiermeier 11.11.2026 besser
- 'handschrift': dict(xmark=False, druck='auto', kreuzrund=True, yoloconf=0.15),   # Handschriften: Kreuze rund (Die alte Lena 5 statt 15 offene Takte); Kopf-Erkenner ab Sicherheit 0,15 (Bummelpetrus 98 statt 71 Akkorde, 28 statt 20 Takte)
+ 'handschrift': dict(xmark=False, druck='duenn', kreuzrund=True, yoloconf=0.1),   # Handschriften: Druckstriche dünn, Kreuze rund (Die alte Lena 5 statt 15 offene Takte), Kopf-Erkenner ab Sicherheit 0,1 (Bummelpetrus 0,35: 71 Akkorde, 0,15: 98, 0,08: 106)
  'steinkellner':dict(xmark=False, druck='auto', barunten=True),   # Taktstriche reichen unter dem System bis zur Basszeile (11.11.2026)
  'pacher':      dict(xmark=False, druck='auto'),   # Günther Pacher (MC-Score): Kreuze vor runden Köpfen sind eigene Köpfe der 3. Reihe
  'klausner':    dict(xmark=False, druck='auto'),   # Hubert Klausner und Stefan Sirtl (Finale): ebenso
@@ -365,6 +365,7 @@ def thick_bar_filter(det,bw):
         if any(abs(h['x']-x)<0.8*h['d'] for x in cache[k]): continue
         out.append(h)
     return out
+YOLOCONF=None   # vom Space je Scan gesetzt (Wandler-Auswahl „Empfindlichkeit“): Sicherheitsschwelle des gelernten Kopf-Erkenners
 ERKENNER=''   # vom Space je Scan gesetzt: 'alt' oder 'yolo'; leer = Variable GS_YOLO entscheidet
 def tri_seite(det):
     """Seite in Dreieck-Schreibweise (Margetich/Philipp)? Gemessen am 11.11.2026: Philipps Notenseiten haben mindestens 8 sichere
@@ -382,7 +383,7 @@ def _koepfe(work,g,st):
         try:
             import yolo_koepfe as YK
             if YK.vorhanden():
-                det=YK.detect(g,st,STYLE_RULES[STYLE[0]].get('yoloconf') if not _os.environ.get('GS_YOLOCONF') else None);D.LAST['tri_page']=tri_seite(det);D.LAST['sc_mittel']=float(np.mean([h['sc'] for h in det])) if det else None;D.LAST['yolo']=len(det);D.LAST['erkenner']='yolo'
+                det=YK.detect(g,st,YOLOCONF or (STYLE_RULES[STYLE[0]].get('yoloconf') if not _os.environ.get('GS_YOLOCONF') else None));D.LAST['tri_page']=tri_seite(det);D.LAST['sc_mittel']=float(np.mean([h['sc'] for h in det])) if det else None;D.LAST['yolo']=len(det);D.LAST['erkenner']='yolo'
                 return det
         except Exception as e: D.LAST['yolo']='Fehler: '+str(e)[:80]
     return D.detect(work,1)

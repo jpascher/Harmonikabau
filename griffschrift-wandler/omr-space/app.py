@@ -52,11 +52,12 @@ def scan_gs(file, shift, layout=""):
                 pass
         bilder = []   # Kontrollbilder je Seite (JPEG): erkannte Köpfe, Notenwerte, nicht aufgehende Takte
         # Schreibweise: steckt im Belegungs-JSON als „style“ (so bleiben ältere Wandler und die Schnittstelle mit drei Werten gültig); fehlt sie: automatisch
-        style = "auto"; erkenner = ""
+        style = "auto"; erkenner = ""; gs2xml.YOLOCONF = None
         try:
             lj = json.loads(layout) if layout else {}
             style = lj.get("style") or "auto"
             erkenner = lj.get("erkenner") or ""   # Kopf-Erkenner je Scan: "alt" = bisheriger, "yolo" = gelernter; leer = Space-Variable GS_YOLO
+            gs2xml.YOLOCONF = float(lj["conf"]) if lj.get("conf") else None   # Empfindlichkeit aus dem Wandler (Sicherheitsschwelle des gelernten Erkenners)
         except Exception:
             pass
         gs2xml.ERKENNER = erkenner if erkenner in ("alt", "yolo") else ""
