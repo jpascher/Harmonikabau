@@ -199,12 +199,13 @@ button.ghost2{background:transparent;color:var(--accent)}
 @media print{
   .verses{font-size:12px;margin-top:10px}
   :root{--bg:#fff;--panel:#fff;--fg:#000;--muted:#444;--line:#999;--accent:#000;--zug:#000;--druck:#000;--bad:#000;--extra:#000;color-scheme:light}
-  @page{size:A4;margin:0}   /* ohne Seitenrand druckt der Browser keine eigene Kopf- und Fußzeile mit der Adresse; den Rand gibt .wrap vor */
+  @page{size:A4;margin:12mm 0 var(--prand,16mm)}   /* Rand oben/unten je Seite; die Adresse steht als Fußzeile im unteren Rand (@bottom-center, s. #pagestyle) – dann druckt der Browser keine eigene Kopf- und Fußzeile */
   body{background:#fff}
-  .wrap{max-width:none;padding:12mm 12mm 16mm;gap:0;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .wrap{max-width:none;padding:0 12mm;gap:0;box-decoration-break:clone;-webkit-box-decoration-break:clone}
   header .lead,header h1,.hbtns,.panel:has(.controls),.panel:has(#status),.sides,.notes,#lg-griff,#lg-tab,#ttl{display:none!important}
   .ptitle{display:block!important;font-family:"Zilla Slab",serif;margin:0 0 6px}
-  .pfoot{display:block!important;position:fixed;left:12mm;right:12mm;bottom:6mm;font-size:9px;color:#444;text-align:center}
+  .pfoot{display:none!important}
+  #griff svg.gsys{break-inside:avoid;page-break-inside:avoid}   /* eine Notenzeile nie über den Seitenumbruch teilen */
   .panel{border:none;padding:0;border-radius:0}
   #griff{overflow:visible}
   #griff svg{width:100%!important;height:auto!important;max-width:100%}
@@ -282,7 +283,7 @@ html.ui-neu .tipbox{position:fixed;z-index:60;max-width:300px;padding:7px 10px;b
 <div class="wrap">
   <header>
     <div class="pfoot" style="display:none">https://jpascher.github.io/Harmonikabau/griffschrift-wandler/</div>
-    <div class="titlerow"><h1>Griffschrift-Wandler</h1><span id="wver" class="wver" title="Programmstand / version">v176 · 12.11.2026</span><div class="hbtns"><button id="uibtn" type="button" class="ghost2"></button><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
+    <div class="titlerow"><h1>Griffschrift-Wandler</h1><span id="wver" class="wver" title="Programmstand / version">v178 · 13.11.2026</span><div class="hbtns"><button id="uibtn" type="button" class="ghost2"></button><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
     <p class="lead"><x-de>Normalnoten als MusicXML rein, Griffweise für die Steirische Harmonika raus. Das Programm legt die Stufen fest und wählt Grundbass und Begleiter so, dass der Bass flüssig läuft. Die Balgrichtung kommt vom Bass, die Melodie samt Doppelgriffen wird darauf abgestimmt.</x-de><x-en>Standard notation goes in as MusicXML, fingering for the Styrian accordion (Steirische Harmonika) comes out. The program works out the harmonic degrees and picks bass and chord buttons so the bass side flows smoothly. The bellows direction follows the bass; the melody, double stops included, is fitted to it.</x-en></p>
   </header>
 
@@ -331,7 +332,7 @@ html.ui-neu .tipbox{position:fixed;z-index:60;max-width:300px;padding:7px 10px;b
         <select id="sound"><option value="rec">Aufnahme (Harmonika)</option><option value="syn">Synthetisch</option></select>
       </div>
       <button id="play" type="button">▶ Abspielen</button>
-      <button id="print" type="button" class="ghost2"><x-de>Drucken</x-de><x-en>Print</x-en></button>
+      <button id="print" type="button" class="ghost2"><x-de>Drucken</x-de><x-en>Print</x-en></button><select id="prand" title="Unterer Rand beim Drucken / als PDF speichern · bottom margin when printing / saving as PDF"><option value="10" data-de="Rand unten 10 mm" data-en="Bottom margin 10 mm">Rand unten 10 mm</option><option value="16" data-de="Rand unten 16 mm" data-en="Bottom margin 16 mm" selected>Rand unten 16 mm</option><option value="25" data-de="Rand unten 25 mm" data-en="Bottom margin 25 mm">Rand unten 25 mm</option><option value="35" data-de="Rand unten 35 mm" data-en="Bottom margin 35 mm">Rand unten 35 mm</option></select>
       <button id="helpbtn" type="button" class="ghost2"><x-de>Hilfe</x-de><x-en>Help</x-en></button>
       <button id="pcbtn" type="button" class="ghost2"><x-de>Für den PC ⤓</x-de><x-en>For your PC ⤓</x-en></button>
       <button id="mobbtn" type="button" class="ghost2"><x-de>Fürs Handy 📱</x-de><x-en>For your phone 📱</x-en></button>
@@ -910,7 +911,7 @@ function applyStaticLang(){uiLang();setTimeout(syncDemoSel,0);
   og("og-fuchs","Volkstänze, Satz Franz Fuchs (volksmusik.cc)","Austrian folk dances, arr. Franz Fuchs (volksmusik.cc)");og("og-own","Eigene Beispiele","Own examples");og("og-ddia","Diatonische ohne Gleichton (Tabulatur)","Diatonic without Gleichton (tablature)");og("og-d3","Steirische 3-reihig, Strasser (harmonika.com)","Styrian 3-row, Strasser (harmonika.com)");og("og-b3","Steirische 3-reihig, Strasser (harmonika.com)","Styrian 3-row, Strasser (harmonika.com)");og("og-bdia","Diatonische ohne Gleichton","Diatonic without Gleichton");og("og-philipp","Stücke von Philipp Ramoner (urheberrechtlich geschützt)","Pieces by Philipp Ramoner (protected by copyright)");og("og-hyper","Akkordsuche (hyperbox.org)","Chord finder (hyperbox.org)");og("og-strasser","Strasser (harmonika.com)","Strasser (harmonika.com)");og("og-schab","Dieter Schaborak (Original)","Dieter Schaborak (original)");og("og-dhyper","Akkordsuche (hyperbox.org)","Chord finder (hyperbox.org)");og("og-dstrasser","Strasser (harmonika.com)","Strasser (harmonika.com)");
   const ts=document.getElementById("transp");if(ts)[...ts.options].forEach(o=>{if(o.value==="auto")o.textContent=TX("Automatisch (beste Lage)","Automatic (best key)");else{const t=+o.value;o.textContent=t===0?"Original":(t>0?"+":"")+t+TX(" Halbtöne"," semitones");}});
   const ps=document.getElementById("part");if(ps)[...ps.options].forEach(o=>{if(o.dataset.auto)o.textContent=TX("Stimme ","Part ")+o.dataset.auto;if(o.dataset.midi)o.textContent=TX("Melodie (aus MIDI)","Melody (from MIDI)");});
-  document.querySelectorAll("#crkey option,#cropts option,#cr2kind option,#auch option,#crstyle option,#aukind option,#auts option,#augrid option,#ausens option,#scankind option,#scanstyle option,#scanmodel option,#scanconf option").forEach(o=>{if(o.dataset.de)o.textContent=TX(o.dataset.de,o.dataset.en);});
+  document.querySelectorAll("#crkey option,#cropts option,#cr2kind option,#auch option,#crstyle option,#aukind option,#auts option,#augrid option,#ausens option,#scankind option,#scanstyle option,#scanmodel option,#scanconf option,#prand option").forEach(o=>{if(o.dataset.de)o.textContent=TX(o.dataset.de,o.dataset.en);});
   const so=document.getElementById("sound");if(so){so.options[0].textContent=TX("Aufnahme (Harmonika)","Recording (accordion)");so.options[1].textContent=TX("Synthetisch","Synthetic");}
   document.getElementById("selfrom").placeholder=TX("von","from");document.getElementById("selto").placeholder=TX("bis","to");
   document.getElementById("helpclose").setAttribute("aria-label",TX("Hilfe schließen","Close help"));
@@ -2525,6 +2526,11 @@ helpDlg.querySelectorAll(".helptoc a").forEach(a=>a.addEventListener("click",e=>
 let PAGE_TITLE=null;   // Der Browser schlägt den Seitentitel als PDF-Dateinamen vor: beim Drucken die Überschrift, danach wieder der alte Titel
 function printName(on){if(on){const t=(document.querySelector("#ptitle .pt1").textContent||TITLE||"").trim();if(PAGE_TITLE==null)PAGE_TITLE=document.title;if(t)document.title=t;}
   else if(PAGE_TITLE!=null){document.title=PAGE_TITLE;PAGE_TITLE=null;}}
+// Druckrand unten (Auswahl neben „Drucken“, gemerkt): als eigene @page-Regel, dazu die Adresse als Fußzeile im unteren Seitenrand
+function pageStyle(){let mm=16;try{const v=localStorage.getItem("gw-prand");if(v)mm=+v;}catch(e){}const sel=document.getElementById("prand");if(sel&&sel.value)mm=+sel.value;
+  let st=document.getElementById("pagestyle");if(!st){st=document.createElement("style");st.id="pagestyle";document.head.appendChild(st);}
+  st.textContent=`@media print{@page{size:A4;margin:12mm 0 ${mm}mm;@bottom-center{content:"https://jpascher.github.io/Harmonikabau/griffschrift-wandler/";font-size:8pt;color:#444;vertical-align:middle}}}`;}
+{const sel=document.getElementById("prand");try{const v=localStorage.getItem("gw-prand");if(v&&[...sel.options].some(o=>o.value===v))sel.value=v;}catch(e){}sel.addEventListener("change",()=>{try{localStorage.setItem("gw-prand",sel.value);}catch(e){}pageStyle();});pageStyle();}
 function printPrep(on){PRINT_W=on?860:0;if(R){renderGriff();}printName(on);}
 window.addEventListener("beforeprint",()=>printPrep(true));
 window.addEventListener("afterprint",()=>printPrep(false));
