@@ -93,6 +93,30 @@ def _set_title(xml, title):
         return re.sub(r"<work-title>.*?</work-title>", "<work-title>" + t + "</work-title>", xml, count=1, flags=re.S)
     return xml
 
+def _split_double(fn):
+    """Querformat mit zwei Notenseiten nebeneinander (Doppelseite, z. B. Stimmenblätter von Blasmusikverlagen): an der hellsten
+    senkrechten Spalte im mittleren Drittel in eine linke und eine rechte Seite teilen, weil homr ein System über die ganze Breite
+    erwartet und sonst Zeilen beider Seiten vermischt (gefunden 13.11.2026 an einer Flügelhorn-Stimme). Hochformat oder ohne
+    leere Mittelspalte: unverändert. OMR_SPLIT=0 schaltet das Teilen ab."""
+    if os.environ.get("OMR_SPLIT", "1") != "1": return [fn]
+    try:
+        import numpy as np
+        from PIL import Image
+        im = Image.open(fn).convert("L"); w, h = im.size
+        if w < 1.25 * h: return [fn]
+        a = np.asarray(im, dtype=np.float32); ink = (a < 128).mean(axis=0)   # Anteil dunkler Punkte je Spalte
+        k = max(3, w // 200); sm = np.convolve(ink, np.ones(k) / k, mode="same")
+        lo, hi = int(w * 0.35), int(w * 0.65); x = lo + int(np.argmin(sm[lo:hi]))
+        body = float(np.median(sm[int(w * 0.1):int(w * 0.9)]))
+        if sm[x] > 0.15 * body or sm[x] > 0.01: return [fn]   # keine leere Mittelspalte: keine Doppelseite
+        if ink[:x].mean() < 0.3 * body or ink[x:].mean() < 0.3 * body: return [fn]   # eine Hälfte fast leer
+        base = os.path.splitext(fn)[0]; out = []
+        for j, (x0, x1) in enumerate(((0, x), (x, w))):
+            f2 = f"{base}_{'ab'[j]}.png"; im.crop((x0, 0, x1, h)).save(f2); out.append(f2)
+        return out
+    except Exception:
+        return [fn]
+
 def scan_file(path, timeout=600, max_pages=8):
     ext = os.path.splitext(path)[1].lower()
     work = tempfile.mkdtemp(prefix="omrc-")
@@ -110,6 +134,7 @@ def scan_file(path, timeout=600, max_pages=8):
             fn = os.path.join(work, "seite01" + ext); shutil.copy(path, fn); imgs.append(fn)
         else:
             raise RuntimeError("Nur Bilder (PNG, JPG …) oder PDF")
+        imgs = [g for i in imgs for g in _split_double(i)]   # Doppelseiten im Querformat in zwei Seiten teilen
         outs = [_homr(i, timeout) for i in imgs]
         if len(outs) == 1:
             with open(outs[0], encoding="utf-8") as f:
