@@ -531,6 +531,13 @@ def read(path,shift=0,work=None,table=None,bass=None):
             for r_,n_,p_ in it['heads']: hxy.append((it['x'],0))
         heads_xy=[(h['x'],h['y']) for c in C if c[0]['st']==si for h in c]+[(h['x'],h['y']) for h in XDROP if h['st']==si]
         bl=barlines(bw,ys,d,[x for x,_ in heads_xy]);nol=G.stems_off(G.remove_lines(bw,ys,d),d)
+        if _vk:   # Vektor-PDF mit SMuFL-Schrift (PriMus, MuseScore 4, Dorico): Taktstriche aus der Vektorgrafik; im Bild werden Striche direkt neben einem Kopf als Hals verworfen (GS_VEKTORBARS=0 schaltet ab)
+            try:
+                import vektor as VK
+                if not any(str(h.get('c','')).startswith('SMuFL') for h in (VK.load(path) or [])): raise ValueError
+                _vb=VK.bars_for_staff(VK.load_bars(path),g.shape[1]/Image.open(path).size[0],ys,[x for x,_ in heads_xy])
+                if _vb: bl=sorted(_vb+[x for x in bl if all(abs(x-v)>=0.9*d for v in _vb)])
+            except Exception: pass
         rs=[dict(kind='r',st=si,x=x,u=u) for x,u in rests(bw,nol,ys,d,heads_xy,bl)]
         edges=[0]+bl+[1e9];allg=[]
         if bass is not None and not _os.environ.get('NOBASS'):
