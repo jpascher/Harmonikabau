@@ -1,0 +1,10 @@
+{
+	"autodeskProduct": "Fusion",
+	"type": "script",
+	"author": "Johann Pascher",
+	"description": {
+		"": "Spielt den Ablauf vor: Verdeck weg, Griffstock aus, Hebel reihenweise druecken, alles zurueck"
+	},
+	"supportedOS": "windows|mac",
+	"editEnabled": true
+}

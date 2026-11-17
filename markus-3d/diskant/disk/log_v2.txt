@@ -1,0 +1,24 @@
+Boden: Ventilloecher 150 Bohrungen 7
+1.reihe B: Loecher 39/39  Sohle X 4.0-376.0 Y 152.8-187.8  Kammern vorn 19 hinten 20
+2.reihe Es: Loecher 39/39  Sohle X 4.0-376.0 Y 117.8-152.8  Kammern vorn 20 hinten 19
+3.reihe As: Loecher 36/36  Sohle X 4.0-375.8 Y 82.8-117.8  Kammern vorn 18 hinten 18
+4.reihe Des: Loecher 36/36  Sohle X 4.0-375.8 Y 47.2-82.2  Kammern vorn 18 hinten 18
+Verdeck: Durchbrueche Deckel 345 Seiten 58 58 Front 122
+Teile 181 -> Diskantteil_Markus_v2.step
+1.reihe A: Loecher 39/39  Sohle X 4.0-376.0 Y 152.8-187.8  Kammern vorn 19 hinten 20
+2.reihe D: Loecher 39/39  Sohle X 4.0-376.0 Y 117.8-152.8  Kammern vorn 20 hinten 19
+3.reihe G: Loecher 36/36  Sohle X 4.0-376.0 Y 82.8-117.8  Kammern vorn 18 hinten 18
+4.reihe C: Loecher 36/36  Sohle X 12.5-376.0 Y 47.2-82.2  Kammern vorn 18 hinten 18
+Teile 181 -> Diskantteil_Markus_v2_ADGC.step
+Traceback (most recent call last):
+TypeError: cannot unpack non-iterable NoneType object
+1.reihe G: Loecher 39/39  Sohle X 12.0-376.0 Y 152.0-187.0  Kammern vorn 28 hinten 11
+2.reihe C: Loecher 39/39  Sohle X 12.0-376.0 Y 117.2-152.2  Kammern vorn 20 hinten 19
+3.reihe F: Loecher 36/36  Sohle X 12.0-376.0 Y 82.2-117.2  Kammern vorn 18 hinten 18
+4.reihe B: Loecher 36/36  Sohle X 12.0-376.0 Y 45.8-81.5  Kammern vorn 18 hinten 18
+Teile 181 -> Diskantteil_Markus_v2_GCFB.step
+1.reihe Gis: Loecher 39/39  Sohle X 4.0-376.0 Y 152.8-187.8  Kammern vorn 19 hinten 20
+2.reihe Cis: Loecher 39/39  Sohle X 4.0-376.0 Y 117.8-152.8  Kammern vorn 20 hinten 19
+3.reihe Fis: Loecher 36/36  Sohle X 4.0-376.0 Y 82.8-117.8  Kammern vorn 18 hinten 18
+4.reihe H: Loecher 36/36  Sohle X 4.0-375.8 Y 47.2-82.2  Kammern vorn 18 hinten 18
+Teile 181 -> Diskantteil_Markus_v2_GISCISFISH.step
