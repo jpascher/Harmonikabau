@@ -283,7 +283,7 @@ html.ui-neu .tipbox{position:fixed;z-index:60;max-width:300px;padding:7px 10px;b
 <div class="wrap">
   <header>
     <div class="pfoot" style="display:none">https://jpascher.github.io/Harmonikabau/griffschrift-wandler/</div>
-    <div class="titlerow"><h1>Griffschrift-Wandler</h1><span id="wver" class="wver" title="Programmstand / version">v183 · 14.11.2026</span><div class="hbtns"><button id="uibtn" type="button" class="ghost2"></button><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
+    <div class="titlerow"><h1>Griffschrift-Wandler</h1><span id="wver" class="wver" title="Programmstand / version">v184 · 19.11.2026</span><div class="hbtns"><button id="uibtn" type="button" class="ghost2"></button><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
     <p class="lead"><x-de>Normalnoten als MusicXML rein, Griffweise für die Steirische Harmonika raus. Das Programm legt die Stufen fest und wählt Grundbass und Begleiter so, dass der Bass flüssig läuft. Die Balgrichtung kommt vom Bass, die Melodie samt Doppelgriffen wird darauf abgestimmt.</x-de><x-en>Standard notation goes in as MusicXML, fingering for the Styrian accordion (Steirische Harmonika) comes out. The program works out the harmonic degrees and picks bass and chord buttons so the bass side flows smoothly. The bellows direction follows the bass; the melody, double stops included, is fitted to it.</x-en></p>
   </header>
 
@@ -2053,7 +2053,7 @@ function renderGriff(){
         // Klammerzahl rechts neben die Taktnummer setzen (sonst steht sie genau über der Nummer)
         if(first)svg+=`<text class="vl" x="${mx+8+(String(m.no).length+(bad_?1:0))*6.2}" y="${vy+10}">${x.d.volta}.</text>`;}
       // Balkengruppen (Achtel innerhalb eines Schlags)
-      const beamG={};m.ev.forEach((e,i)=>{if((e.type==="note"||e.type==="tie")&&e.dur<=0.5+1e-9){const k2=Math.floor(e.on+1e-9);(beamG[k2]=beamG[k2]||[]).push(e);}});
+      const beamG={};m.ev.forEach((e,i)=>{if((e.type==="note"||e.type==="tie")&&e.dur<=0.75+1e-9){const k2=Math.floor(e.on+1e-9);(beamG[k2]=beamG[k2]||[]).push(e);}});
       const inBeam=new Map();Object.values(beamG).forEach(gr=>{if(gr.length>1)gr.forEach(e=>inBeam.set(e,gr));});
       const stemInfo=new Map();
       const headsOf=e=>{if(NORM)return (e._nh||[]).map(h=>({...h}));const r=e.type==="note"?e._r:(e.src._r||{}),g=r.g;if(!g)return [];const hs=g.btns.map(q=>({p:posOf(q.b),row:q.b.row,extra:q.b.extra,m:q.m}));extShown(r).forEach(q=>hs.push({p:posOf(q.b),row:q.b.row,ext:!FILLFIX,extra:FILLFIX&&q.b.extra}));return hs.sort((a,b)=>a.p-b.p);};
@@ -2101,9 +2101,13 @@ function renderGriff(){
           const sx=up?xh+5:xh-5;const yA=up?yOf(lo):yOf(hi);
           const yE=si?si.yEnd:(up?yOf(hi)-26:yOf(lo)+26);
           s+=`<line x1="${sx}" x2="${sx}" y1="${yA}" y2="${yE}" stroke="currentColor" stroke-width="1.3"/>`;hitT=Math.min(hitT,yE);hitB=Math.max(hitB,yE);
-          if(!si&&e.dur<=0.5+1e-9)s+=`<path d="M${sx} ${yE} q${up?8:8} ${up?8:-8} 7 ${up?18:-18}" fill="none" stroke="currentColor" stroke-width="1.6"/>`;
+          if(!si&&e.dur<=0.75+1e-9){s+=`<path d="M${sx} ${yE} q${up?8:8} ${up?8:-8} 7 ${up?18:-18}" fill="none" stroke="currentColor" stroke-width="1.6"/>`;   // Achtel (auch punktiert): ein Fähnchen, Sechzehntel: zwei
+            if(e.dur<=0.375+1e-9){const y1=yE+(up?7:-7);s+=`<path d="M${sx} ${y1} q${up?8:8} ${up?8:-8} 7 ${up?18:-18}" fill="none" stroke="currentColor" stroke-width="1.6"/>`;}}
           if(si){const gr=inBeam.get(e);if(gr[gr.length-1]===e){const x1=X(gr[0].on)+6+(up?5:-5);s+=`<line x1="${x1}" x2="${sx}" y1="${yE}" y2="${yE}" stroke="currentColor" stroke-width="4"/>`;
-            const y2=yE+(up?7:-7);for(let j=0;j+1<gr.length;j++)if(gr[j].dur<=0.25+1e-9&&gr[j+1].dur<=0.25+1e-9){const xa=X(gr[j].on)+6+(up?5:-5),xb=X(gr[j+1].on)+6+(up?5:-5);s+=`<line x1="${xa}" x2="${xb}" y1="${y2}" y2="${y2}" stroke="currentColor" stroke-width="4"/>`;}}}
+            const y2=yE+(up?7:-7),xs=q=>X(q.on)+6+(up?5:-5),sx16=q=>q.dur<=0.375+1e-9;
+            for(let j=0;j+1<gr.length;j++)if(sx16(gr[j])&&sx16(gr[j+1])){s+=`<line x1="${xs(gr[j])}" x2="${xs(gr[j+1])}" y1="${y2}" y2="${y2}" stroke="currentColor" stroke-width="4"/>`;}
+            // einzelne Sechzehntel neben Achtel (z. B. punktierte Achtel + Sechzehntel): kurzer zweiter Balken zum Nachbarn hin
+            gr.forEach((q,j)=>{if(!sx16(q)||(j>0&&sx16(gr[j-1]))||(j+1<gr.length&&sx16(gr[j+1])))return;const x0=xs(q),dx=j>0?-9:9;s+=`<line x1="${x0}" x2="${x0+dx}" y1="${y2}" y2="${y2}" stroke="currentColor" stroke-width="4"/>`;});}}
         }
         // Haltebogen
         if(e.type==="tie"&&tieFrom[e.src._uid]){const t=tieFrom[e.src._uid],yy=yOf(lo)+9,arc=(a,b,y)=>`<path d="M${a} ${y} Q${(a+b)/2} ${y+9} ${b} ${y}" fill="none" stroke="currentColor" stroke-width="1.2"/>`;
