@@ -20,10 +20,12 @@ git status
 git add .
 
 :: Prüfen ob Änderungen vorhanden
+:: Zeitstempel VOR dem if-Block setzen (innerhalb eines Blocks wird %TIMESTAMP%
+:: schon beim Einlesen ersetzt und nimmt den alten Wert); PowerShell statt wmic
+for /f "tokens=*" %%a in ('powershell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"') do set TIMESTAMP=%%a
+
 git diff --cached --quiet
 if %errorlevel%==1 (
-    for /f "tokens=*" %%a in ('wmic os get localdatetime ^| find "."') do set datetime=%%a
-    set TIMESTAMP=%datetime:~0,4%-%datetime:~4,2%-%datetime:~6,2% %datetime:~8,2%:%datetime:~10,2%
     git commit -m "Update vom %TIMESTAMP%"
     git push origin main
     echo Änderungen erfolgreich gepusht!
