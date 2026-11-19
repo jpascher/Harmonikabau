@@ -22,6 +22,43 @@ T_VD, H_VD = 3.5, 32.0    # Verdeck-Wandstaerke 3,5 mm (Johann 16.11.), Seitenst
 
 def box(x0, x1, y0, y1, z0, z1):
     return cq.Workplane("XY").box(x1-x0, y1-y0, z1-z0, centered=False).translate((x0, y0, z0)).val()
+L_GRUND, DL = 380.0, 0.0      # Grundlaenge des Markus-Gehaeuses; DL = Streckung im Instrument-Modus
+def _saubere_x(s_, x_ziel, such=120.0):
+    """X-Ebene nahe x_ziel, an der der Koerper prismatisch ist (keine Kante quer zu X in +-1 mm)."""
+    sp = []
+    for e in s_.Edges():
+        b = e.BoundingBox()
+        if e.geomType() == "LINE" and abs(e.startPoint().y - e.endPoint().y) < 1e-6 and abs(e.startPoint().z - e.endPoint().z) < 1e-6:
+            continue                                             # Kante laengs X
+        sp.append((b.xmin - 1.0, b.xmax + 1.0))
+    for d in [k * 0.5 for k in range(int(such * 2))]:
+        for x in (x_ziel + d, x_ziel - d):
+            if all(not (a < x < b) for a, b in sp): return x
+    return None
+def strecke(s_, d, x_ziel=None, name=""):
+    """Koerper an einer sauberen Ebene x_c aufschneiden, rechten Teil um d verschieben, Luecke mit dem Querschnitt fuellen."""
+    if abs(d) < 1e-9: return s_
+    b = s_.BoundingBox()
+    x_ziel = (b.xmin + b.xmax) / 2 if x_ziel is None else x_ziel
+    if b.xmax <= x_ziel - 50 or b.xmin >= x_ziel + 50:          # ganz links bzw. ganz rechts: nur verschieben
+        return s_ if b.xmax <= x_ziel else s_.translate(cq.Vector(d, 0, 0))
+    xc = _saubere_x(s_, min(max(x_ziel, b.xmin + 5), b.xmax - 5))
+    if xc is None:
+        print(f"   STRECKEN {name}: keine prismatische Stelle gefunden - nur verschoben"); return s_
+    W = 1e4
+    li = s_.intersect(box(b.xmin - 1, xc, -W, W, -W, W))
+    if d > 0:
+        re = s_.intersect(box(xc, b.xmax + 1, -W, W, -W, W)).translate(cq.Vector(d, 0, 0))
+        fl = [f for f in li.Faces() if abs(f.Center().x - xc) < 1e-4 and abs(abs(f.normalAt().x) - 1) < 1e-6]
+        mi = [cq.Solid.extrudeLinear(f, cq.Vector(d, 0, 0)) for f in fl]
+        neu = li
+        for m_ in mi + [re]: neu = neu.fuse(m_)
+    else:
+        re = s_.intersect(box(xc - d, b.xmax + 1, -W, W, -W, W)).translate(cq.Vector(d, 0, 0))
+        neu = li.fuse(re)
+    neu = neu.clean()
+    print(f"   gestreckt {name}: bei X {xc:.1f} um {d:+.2f} mm, Volumen {s_.Volume():.0f} -> {neu.Volume():.0f}")
+    return neu
 def vereinigt(liste):
     c = liste[0]
     for s in liste[1:]: c = c.fuse(s)
@@ -49,10 +86,30 @@ teile = []   # (name, solid, farbe)
 # ---------------- Diskantboden ----------------
 bm = ezdxf.readfile("boden.dxf").modelspace()
 loecher = dedupe(kreise_der_inserts(bm, "2Füllung-Öffnug"))
+# Instrument-Modus (INSTRUMENT=tastenliste.txt): Loecher, Klappen und Stimmstock-Kammern aus der Tastenliste (instrument.py)
+INSTR = None
+if os.environ.get("INSTRUMENT"):
+    import instrument as _ins
+    INSTR = _ins.erzeuge(_ins.lies(os.environ["INSTRUMENT"]))
+    loecher = [(x - BXO, y, 5.25) for R_ in INSTR["reihen"].values() for x, y in R_["loecher"]]
+    print("Instrument:", INSTR["name"], "%d-choerig" % INSTR["choerig"], "Gehaeuse X %.2f" % INSTR["gehaeuse_x"])
+    L = round(INSTR["gehaeuse_x"], 2); DL = L - L_GRUND
+    if abs(DL) > 1e-6: print(f"   Gehaeuse gestreckt: {L_GRUND} -> {L} mm (DL {DL:+.2f})")
+X_STRECK = float(INSTR.get("streck_x", L_GRUND / 2)) if INSTR else L_GRUND / 2   # Streckstelle (alte Koordinaten)
 boden = box(RI, L - RI, RI, B - RI, 0, T_BODEN)          # Boden liegt innerhalb des Rahmens (zwischen den Rahmenwaenden)
 werk = bohrungen([(x + BXO, y) for x, y, r in loecher], 10.5, -1, T_BODEN + 1)
-for c in [c for c in bm.query('CIRCLE') if c.dxf.layer in ("GH-füllung-innenabmessungen", "0Griffstockleiste")]:
-    werk += bohrungen([(c.dxf.center.x + BXO, c.dxf.center.y)], 2*c.dxf.radius, -1, T_BODEN + 1)
+ZWEI = INSTR is not None and INSTR["choerig"] == 2
+HF = INSTR["knopfabstand"] / 2 if ZWEI else 8.75     # halbe Feldteilung fuer Abstufungsbloecke (Markus 17,5, Marie 19)
+_bm2 = ezdxf.readfile(INSTR["boden_dxf"]).modelspace() if INSTR is not None and INSTR.get("boden_dxf") and os.path.exists(INSTR["boden_dxf"]) else None
+if ZWEI and _bm2 is None: print("ACHTUNG: 2-choerig ohne boden_dxf - Klappenumriss/Griffstockfuesse aus boden.dxf")
+_gh = ([(c, INSTR["verschub"]) for c in _bm2.query('CIRCLE') if "griffstock" in c.dxf.layer.lower()] if _bm2 is not None else
+       [(c, BXO) for c in bm.query('CIRCLE') if c.dxf.layer in ("GH-füllung-innenabmessungen", "0Griffstockleiste")])
+if os.environ.get("MECHANIK", "1") == "1" and INSTR is not None: _gh = []   # 19.11.: Griffstock-Loecher setzt hebel.py (Schrauben von unten)
+for c, _ox in _gh:
+    _xb = c.dxf.center.x + _ox
+    if _ox != BXO:
+        werk += bohrungen([(_xb, c.dxf.center.y)], 2*c.dxf.radius, -1, T_BODEN + 1); continue
+    werk += bohrungen([(_xb + (DL if _xb > X_STRECK else 0.0), c.dxf.center.y)], 2*c.dxf.radius, -1, T_BODEN + 1)
 boden = schneide(boden, werk)
 teile.append(("Diskantboden", boden, "Holz"))
 leder = box(T_ZARGE, L - T_ZARGE, T_ZARGE, B - T_ZARGE, T_BODEN, Z_ST)
@@ -71,11 +128,28 @@ n_kl = 0
 gesehen = []
 KL_TEILE = []        # (Mitte, Klappe, Polster) - mit Mechanik kommen sie in die Hebelgruppe
 MIT_MECH = os.environ.get("MECHANIK", "1") == "1"
-for ins in bm.query('INSERT[layer=="2Füllung-Öffnug"]'):
-    p0 = (round(ins.dxf.insert.x, 2), round(ins.dxf.insert.y, 2))
-    if p0 in gesehen: continue                   # doppelte Inserts in der Zeichnung
-    gesehen.append(p0)
-    for v in ins.virtual_entities():
+def _klappen_quellen():
+    """Liefert je Klappe die Umriss-Polylinien (Weltkoordinaten der Boden-DXF)."""
+    if INSTR is None:
+        for ins in bm.query('INSERT[layer=="2Füllung-Öffnug"]'):
+            p0 = (round(ins.dxf.insert.x, 2), round(ins.dxf.insert.y, 2))
+            if p0 in gesehen: continue           # doppelte Inserts in der Zeichnung
+            gesehen.append(p0)
+            yield list(ins.virtual_entities())
+        return
+    # Vorlage-Inserts je Lage (*U4 = unten, *U3 = oben) aus boden.dxf; 2-choerig: Block 2chor-klappe (Lage "-")
+    vorl = {}
+    for ins in (list(_bm2.query('INSERT')) if _bm2 is not None else []) + list(bm.query('INSERT[layer=="2Füllung-Öffnug"]')):
+        vorl.setdefault({"*U4": "unten", "*U3": "oben"}.get(ins.dxf.name, "-"), ins)
+    for R_ in INSTR["reihen"].values():
+        for k_ in R_["klappen"]:
+            ins = vorl.get(k_["lage"]) or next(iter(vorl.values()))
+            off_ = 8.0 if ins.dxf.name == "*U4" else -8.0 if ins.dxf.name == "*U3" else 0.0
+            ziel = (k_["x"] - BXO, k_["y"] + off_)
+            d_ = (ziel[0] - ins.dxf.insert.x, ziel[1] - ins.dxf.insert.y)
+            yield [v.translate(d_[0], d_[1], 0) for v in ins.virtual_entities()]
+for _ves in _klappen_quellen():
+    for v in _ves:
         if v.dxftype() != "LWPOLYLINE": continue
         pts = [(q.x + BXO, q.y) for q in ezdxf.path.make_path(v).flattening(0.05)]
         pts = [q for i_, q in enumerate(pts) if i_ == 0 or math.hypot(q[0]-pts[i_-1][0], q[1]-pts[i_-1][1]) > 1e-4]
@@ -94,7 +168,7 @@ print("Klappen:", n_kl)
 imp = lambda f: cq.importers.importStep(f).val()
 O_, XA, ZA = cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), cq.Vector(0, 0, 1)
 st = lambda s_: s_.rotate(O_, XA, 90)
-LR, BR = L + 2.0, B + 2.0
+LR, BR = L_GRUND + 2.0, B + 2.0      # Rahmen aus den STEP-Teilen in Grundlaenge, danach gestreckt
 rah = [("Rahmen_hinten", st(imp("Dr_rueck_51.step")).translate(cq.Vector(0, D_RAHMEN, 0))),
        ("Rahmen_vorne", st(imp("Dr_front_51.step")).rotate(O_, ZA, 180).translate(cq.Vector(LR, BR - D_RAHMEN, 0))),
        ("Rahmen_links", st(imp("Dr_seite_51.step")).rotate(O_, ZA, -90).translate(cq.Vector(D_RAHMEN, BR, 0))),
@@ -121,7 +195,8 @@ for n_, s_ in rah:
             print(n_, f"Aussenkanten R{_r}:", len(_ed)); break
         except Exception as ex_:
             print(n_, f"Abrundung R{_r} nicht moeglich:", ex_)
-    s_ = s_.mirror("YZ", cq.Vector(L / 2, 0, 0))          # seitenverkehrt wie der ganze Diskantteil
+    s_ = s_.mirror("YZ", cq.Vector(L_GRUND / 2, 0, 0))         # seitenverkehrt wie der ganze Diskantteil
+    s_ = strecke(s_, DL, X_STRECK, n_)
     teile.append((n_.replace("hinten", "X").replace("vorne", "hinten").replace("X", "vorne"), s_, "Holz"))
 # Umlaufende Leiste innen zum Balg: 3 mm dick, 5 mm im Rahmen, 10 mm vorstehend, Ecken auf Gehrung,
 # untere Innenkante abgeschraegt (2 mm), uebrige Kanten leicht gebrochen (0,3 mm)
@@ -148,6 +223,123 @@ for n_, pts_ in _leisten.items():
 
 # ---------------- Stimmstoecke ----------------
 bl = [(x + BXO, y) for x, y, r in loecher]
+# Stimmstock-Parameter (Plattenlaengen je Tripel und Regeln nach Jakob) aus stimmstock_parameter.txt
+# (Johann 18.11.2026: Plattenlaengen muessen per Variable festlegbar bleiben). Datei per STPARAM=... ueberschreibbar.
+def lies_stparam(pfad):
+    P = {}
+    for z in open(pfad, encoding="utf-8"):
+        z = z.split("#", 1)[0].strip()
+        if not z or "=" not in z: continue
+        k, v = [t.strip() for t in z.split("=", 1)]
+        P[k] = v
+    out = {"k": {r: [float(x) for x in P["k_" + r].split()] for r in ("1.reihe", "2.reihe", "3.reihe", "4.reihe")}}
+    for n in ("steg_schmal", "steg_breit", "steg_breit_bis", "tiefe_durch", "tiefe_durch_ab", "tiefe_mittel", "tiefe_mittel_ab", "tiefe_kurz"):
+        out[n] = float(P[n])
+    out["abstufung"] = sorted((float(a.split(":")[0]), float(a.split(":")[1])) for a in P["abstufung"].split())
+    out["teilung"] = 17.5
+    out["mittelsteg"] = float(P.get("mittelsteg", "1"))
+    return out
+STPARAM = os.environ.get("STPARAM", os.path.join(os.path.dirname(os.path.abspath(__file__)), "stimmstock_parameter.txt"))
+SP = lies_stparam(STPARAM)
+JAKOB_K = SP["k"]
+print("Stimmstock-Parameter:", STPARAM)
+def jakob_regel(L):
+    """Regeln nach Jakob, nur von der Plattenlaenge L abhaengig, fuer alle Reihen gleich:
+    Kanzellenbreite (Teilung 17,5 bleibt), Kanzellentiefe von aussen, Absenkung der Oberflaeche."""
+    steg = SP["steg_breit"] if L <= SP["steg_breit_bis"] + 1e-6 else SP["steg_schmal"]
+    breite = SP["teilung"] - steg
+    tiefe = SP["tiefe_durch"] if L >= SP["tiefe_durch_ab"] - 1e-6 else (SP["tiefe_mittel"] if L >= SP["tiefe_mittel_ab"] - 1e-6 else SP["tiefe_kurz"])
+    ab = 0.0
+    for grenze, wert in SP["abstufung"]:          # aufsteigend: kleinster passender Eintrag gewinnt
+        if L <= grenze + 1e-6: ab = wert; break
+    return breite, tiefe, ab
+def fraes_aufgeklappt(reihe, ton, koerper, seiten_info, yc, A, zb, phi, dx, ordner):
+    """Fraesversion wie bei Jakob: Vorder- und Rueckwand (je 10 mm) flach aufgeklappt, Scharnier an der Unterkante (Y = 0),
+    Rueckseite Y < 0, Vorderseite Y > 0, Aussenflaeche oben (Z = 0), Taschen nach unten (Z < 0).
+    X in Fraeskoordinaten der CamBam-Zeichnung (x = -(X - dx)). Dazu DXF mit Layern je Frästiefe und der Keil als 3D-Teil."""
+    import ezdxf as _ez
+    MS = SP["mittelsteg"]
+    os.makedirs(ordner, exist_ok=True)
+    lok = koerper.translate(cq.Vector(0, -yc, -zb)).rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), A)   # zurueck ins Stocksystem
+    bretter = []
+    doc = _ez.new(); msp = doc.modelspace()
+    for seite, aussen_y, innen, felder in seiten_info:
+        haelfte = lok.intersect(box(-50, 450, 0 if aussen_y > 0 else -60, 60 if aussen_y > 0 else 0, -50, 200))
+        b = haelfte.translate(cq.Vector(0, -aussen_y, 0)).rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), innen * phi)
+        if innen == 1: b = b.mirror("XZ")
+        b = b.rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), -90)          # jetzt (u, v, w): w = Tiefe von aussen
+        b = b.intersect(box(-50, 450, 0, 200, 0, 10.0))
+        vmin_ = b.BoundingBox().ymin
+        off_ = MS / 2 - vmin_                                                  # Unterkante (Sohlenseite) genau an den Mittelsteg
+        # Aussenkontur aus der ungekappten 10-mm-Schicht (oben ueberlappen sich die Waende, Stock oben nur 19 breit)
+        bu = lok.translate(cq.Vector(0, -aussen_y, 0)).rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), innen * phi)
+        if innen == 1: bu = bu.mirror("XZ")
+        bu = bu.rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), -90).intersect(box(-50, 450, -1, 200, 9.7, 9.9))
+        bu = bu.mirror("XY").mirror("YZ").translate(cq.Vector(dx, 0, 0))
+        if seite == "hinten": bu = bu.mirror("XZ")
+        bu = bu.translate(cq.Vector(0, (-1 if seite == "hinten" else 1) * off_, 0))
+        flach = b.mirror("XY").mirror("YZ").translate(cq.Vector(dx, 0, 0))   # Z = -w, x = -(u - dx)
+        lay = "Rueckseite" if seite == "hinten" else "Vorderseite"
+        if seite == "hinten": flach = flach.mirror("XZ")
+        sy = -1 if seite == "hinten" else 1
+        flach = flach.translate(cq.Vector(0, sy * off_, 0))                   # Mittelsteg: Material zwischen den Seiten
+        bretter.append((lay, flach))
+        bb = flach.BoundingBox()
+        # Kontur: Unterseite (Z = -10) des Bretts
+        def kontur_von(face, layer):
+            seg = [((round(e.startPoint().x, 3), round(e.startPoint().y, 3)), (round(e.endPoint().x, 3), round(e.endPoint().y, 3)))
+                   for e in face.outerWire().Edges()]
+            pkt = [seg[0][0], seg[0][1]]; seg = seg[1:]
+            while seg:
+                i_ = min(range(len(seg)), key=lambda j: min(math.dist(seg[j][0], pkt[-1]), math.dist(seg[j][1], pkt[-1])))
+                a_, b_ = seg.pop(i_)
+                pkt.append(b_ if math.dist(a_, pkt[-1]) <= math.dist(b_, pkt[-1]) else a_)
+            msp.add_lwpolyline(pkt[:-1], close=True, dxfattribs={"layer": layer})
+        fu = sorted([f for f in bu.Faces() if f.normalAt().z > 0.9], key=lambda f: -f.Area())
+        if fu: kontur_von(fu[0], f"Kontur_{lay}")
+        fl = [f for f in flach.Faces() if abs(f.Center().z + 10.0) < 0.01 and f.normalAt().z < -0.9]
+        if fl:
+            kontur_von(sorted(fl, key=lambda f: -f.Area())[0], f"Innenseite_volle_10mm_{lay}")
+        vmax = max(abs(bb.ymin), abs(bb.ymax)) + 1
+        for Xm, h, kb, kt, ab, v0 in felder:
+            xa, xb = -(Xm + kb/2 - dx), -(Xm - kb/2 - dx)
+            y0_, y1_ = sy * MS / 2, sy * (off_ + v0 + h)
+            msp.add_lwpolyline([(xa, y0_), (xb, y0_), (xb, y1_), (xa, y1_)], close=True,
+                               dxfattribs={"layer": f"Kanzelle_Tiefe_{kt:g}"})
+        bl = []
+        for Xm, h, kb, kt, ab, v0 in sorted(felder):
+            if ab <= 0: continue
+            if bl and abs(bl[-1][2] - ab) < 1e-6 and abs(Xm - HF - bl[-1][1]) < 0.2: bl[-1][1] = Xm + HF
+            else: bl.append([Xm - HF, Xm + HF, ab])
+        for u0, u1, ab in bl:
+            xa, xb = -(u1 - dx), -(u0 - dx)
+            msp.add_lwpolyline([(xa, sy * MS / 2), (xb, sy * MS / 2), (xb, vmax*sy), (xa, vmax*sy)], close=True,
+                               dxfattribs={"layer": f"Abstufung_Tiefe_{ab:g}"})
+    for lay, fl_ in bretter:
+        bb = fl_.BoundingBox()
+        print(f"   Fraesen {reihe} {lay}: X {bb.xmin:.1f}..{bb.xmax:.1f} Y {bb.ymin:.1f}..{bb.ymax:.1f} Z {bb.zmin:.1f}..{bb.zmax:.1f} gueltig {fl_.isValid()}")
+    keil_ = lok
+    for seite, aussen_y, innen, felder in seiten_info:
+        # Brettbereich im Stocksystem: Schicht 10 mm hinter der Aussenflaeche
+        sch = box(-50, 450, -1, 200, 0, 10.0).rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), 90)
+        if innen == 1: sch = sch.mirror("XZ")
+        sch = sch.rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), -innen * phi).translate(cq.Vector(0, aussen_y, 0))
+        sch = sch.intersect(box(-50, 450, 0 if aussen_y > 0 else -60, 60 if aussen_y > 0 else 0, -50, 200))
+        keil_ = keil_.cut(sch)
+    if MS > 0:
+        xs_ = [fl_.BoundingBox() for _, fl_ in bretter]
+        x0_, x1_ = min(b_.xmin for b_ in xs_), max(b_.xmax for b_ in xs_)
+        steg_ = box(x0_, x1_, -MS / 2, MS / 2, -10.0, 0.0)
+        bretter.append(("Mittelsteg", steg_))
+        msp.add_lwpolyline([(x0_, -MS / 2), (x1_, -MS / 2), (x1_, MS / 2), (x0_, MS / 2)], close=True, dxfattribs={"layer": "Mittelsteg"})
+    a_ = cq.Assembly(name=f"Stimmstock_{reihe}_{ton}_fraesen")
+    for lay, fl_ in bretter:
+        a_.add(cq.Workplane().add(fl_), name=f"{lay}_{reihe}", color=cq.Color(0.85, 0.65, 0.45))
+    a_.add(cq.Workplane().add(keil_.translate(cq.Vector(0, 0, -80))), name=f"Keil_{reihe}", color=cq.Color(0.7, 0.5, 0.3))
+    a_.export(os.path.join(ordner, f"Stimmstock_{reihe}_{ton}_fraesen.step"))
+    doc.saveas(os.path.join(ordner, f"Stimmstock_{reihe}_{ton}_fraesen.dxf"))
+    print(f"   Keil {reihe}: Volumen {keil_.Volume():.0f} mm3")
+
 def kammern(m):
     """Plattenfelder nach Layer: Vorder* -> vorne, R*ck* -> hinten; Rechtecke ~15 breit, Hoehe = Plattenlaenge."""
     vorn, hint = {}, {}
@@ -193,33 +385,71 @@ B_STOCK, B_OBEN = 24.0, 19.0     # Stimmstock unten 24, oben 19 breit (Angabe Jo
 dateien = sorted(glob.glob(f"var/{VAR}/*.reihe/*.dxf"))
 assert dateien, "Variante nicht gefunden"
 holz2 = []
+if ZWEI:      # 2-choerig: Stimmstoecke ganz aus der Tastenliste (Kammern vorn/hinten gegenueber)
+    dateien = [f"__instrument__/{r_}.reihe/{R_['ton']}.dxf" for r_, R_ in sorted(INSTR["reihen"].items())]
 for f in dateien:
     reihe = f.split("/")[-2]; ton = f.split("/")[-1][:-4]
-    m = ezdxf.readfile(f).modelspace()
-    sl = [(x, y) for x, y, r in dedupe(kreise_der_inserts(m, "2Füllung-Öffnugen-ori"))]
-    # beste Lage auf dem Boden suchen: Spiegelung in y, Verschiebung aus Lochdifferenzen
-    best = None
-    Y_BAND = {'1.reihe': (152.8, 187.8), '2.reihe': (117.8, 152.8), '3.reihe': (82.8, 117.8), '4.reihe': (47.2, 82.2)}
-    SX = -1      # Stimmstock-Zeichnung ist fuer das Fraesen aufgeklappt: beim Einbau gewendet -> in X gespiegelt
-    for sy in (1, -1):
-        for a, b in bl:
-            x0, y0 = sl[0]
-            dx = a - SX*x0; dy = b - sy*y0
-            if not (Y_BAND[reihe][0] - 3 <= sy*y0 + dy <= Y_BAND[reihe][1] + 3): continue
-            tr = lambda x, y, dx=dx, dy=dy, sy=sy: (SX*x + dx, sy*y + dy)
-            n = passung(sl, tr)
-            if best is None or n > best[0]: best = (n, sy, dx, dy)
-    n, sy, dx, dy = best
-    tr = lambda x, y: (SX*x + dx, sy*y + dy)
-    vorn, hint = kammern(m)
-    sx0, sx1, sy0, sy1 = sohle(m)
+    if f.startswith("__instrument__"):
+        R2_ = INSTR["reihen"][int(reihe.split(".")[0])]
+        SX, sy, dx, dy, m = 1, 1, 0.0, 0.0, None
+        tr = lambda x, y: (x, y)
+        sl = [tuple(q) for q in R2_["loecher"]]; n = len(sl)
+        vorn = {round(k_["x"], 2): k_["L"] for k_ in R2_["kammern"] if k_["seite"] == "v"}
+        hint = {round(k_["x"], 2): k_["L"] for k_ in R2_["kammern"] if k_["seite"] == "h"}
+        _ysl = [y_ for x_, y_ in sl]
+        _ym = lambda R__: sum(y_ for x_, y_ in R__["loecher"]) / len(R__["loecher"])
+        _ab = min([abs(_ym(R__) - _ym(R2_)) for R__ in INSTR["reihen"].values() if R__ is not R2_] + [35.0])
+        _hs = min(17.5, _ab / 2 - 0.1)                       # Sohlen benachbarter Reihen beruehren sich nicht
+        _sohle = (4.0, L - 4.0, (min(_ysl) + max(_ysl)) / 2 - _hs, (min(_ysl) + max(_ysl)) / 2 + _hs)
+    else:
+        _sohle = None
+    if _sohle is None:
+        m = ezdxf.readfile(f).modelspace()
+        sl = [(x, y) for x, y, r in dedupe(kreise_der_inserts(m, "2Füllung-Öffnugen-ori"))]
+        # beste Lage auf dem Boden suchen: Spiegelung in y, Verschiebung aus Lochdifferenzen
+        best = None
+        Y_BAND = {'1.reihe': (152.8, 187.8), '2.reihe': (117.8, 152.8), '3.reihe': (82.8, 117.8), '4.reihe': (47.2, 82.2)}
+        SX = -1      # Stimmstock-Zeichnung ist fuer das Fraesen aufgeklappt: beim Einbau gewendet -> in X gespiegelt
+        for sy in (1, -1):
+            for a, b in bl:
+                x0, y0 = sl[0]
+                dx = a - SX*x0; dy = b - sy*y0
+                if not (Y_BAND[reihe][0] - 3 <= sy*y0 + dy <= Y_BAND[reihe][1] + 3): continue
+                tr = lambda x, y, dx=dx, dy=dy, sy=sy: (SX*x + dx, sy*y + dy)
+                n = passung(sl, tr)
+                if best is None or n > best[0]: best = (n, sy, dx, dy)
+        n, sy, dx, dy = best
+        tr = lambda x, y: (SX*x + dx, sy*y + dy)
+    if _sohle is None: vorn, hint = kammern(m)
+    if INSTR is not None and _sohle is None:
+        # erzeugte Werte in die Koordinaten der Stimmstock-Zeichnung zuruecktransformieren (tr ist affin, SX = -1)
+        R_ = INSTR["reihen"][int(reihe.split(".")[0])]
+        sl = [((X_ - dx) / SX, (Y_ - dy) / sy) for X_, Y_ in R_["loecher"]]
+        vorn = {round((k_["x"] - dx) / SX, 2): k_["L"] for k_ in R_["kammern"] if k_["seite"] == "v"}
+        hint = {round((k_["x"] - dx) / SX, 2): k_["L"] for k_ in R_["kammern"] if k_["seite"] == "h"}
+        n = len(sl)
+        print(f"   Instrument {reihe}: {len(R_['klappen'])} Klappen, Kammern vorn {len(vorn)} hinten {len(hint)}")
+    # Jakob-Hoehen zuweisen: beide Seiten nach X ordnen, von der tiefen (langen) Seite her je 3 Felder ein k
+    _pos = [(tr(xm, 0)[0], "v", xm, h) for xm, h in vorn.items()] + [(tr(xm, 0)[0], "h", xm, h) for xm, h in hint.items()]
+    _xmid = sum(p_[0] for p_ in _pos) / len(_pos)
+    _tl = sum(p_[3] for p_ in _pos if p_[0] < _xmid) > sum(p_[3] for p_ in _pos if p_[0] >= _xmid)
+    _pos.sort(key=lambda p_: p_[0], reverse=not _tl)
+    _k = JAKOB_K[reihe] if INSTR is None else []
+    if INSTR is None and len(_pos) != 3 * len(_k): print(f"   ACHTUNG {reihe}: {len(_pos)} Felder, Jakob-k fuer {3*len(_k)}")
+    for i_, (X_, sd_, xm_, h_) in enumerate(_pos):
+        if INSTR is not None: break                # Plattenlaengen kommen direkt aus der Tastenliste
+        hn_ = float(_k[min(i_ // 3, len(_k) - 1)])
+        (vorn if sd_ == "v" else hint)[xm_] = hn_
+    print(f"   Jakob-Hoehen {reihe}:", " ".join("%g" % (vorn if sd_ == "v" else hint)[xm_] for X_, sd_, xm_, h_ in _pos))
+    sx0, sx1, sy0, sy1 = sohle(m) if _sohle is None else _sohle
     xa, ya = tr(sx0, sy0); xb, yb = tr(sx1, sy1)
-    X0, X1, Y0, Y1 = max(min(xa, xb), 4.0), min(max(xa, xb), 376.0), min(ya, yb), max(ya, yb)
+    X0, X1, Y0, Y1 = max(min(xa, xb), 4.0), min(max(xa, xb), L - 4.0), min(ya, yb), max(ya, yb)
     print(f"{reihe} {ton}: Loecher {n}/{len(sl)}  Sohle X {X0:.1f}-{X1:.1f} Y {Y0:.1f}-{Y1:.1f}  Kammern vorn {len(vorn)} hinten {len(hint)}")
     zs = Z_ST
     # Laengsaufteilung: tiefe Seite (lange Platten) -> Stock endet nach der letzten Trennwand, Nase 20 hoch bis zur Wand;
     # hohe Seite -> alle Stoecke gleich lang, davor eine Schraubleiste an der Wand.
     felder_x = [(tr(xm, 0)[0], h) for xm, h in list(vorn.items()) + list(hint.items())]
+    # Kein zusaetzlicher Hoehenversatz (Johann 18.11.: der Versatz der Reihen ergibt sich aus der Neigung; der Seitenversatz aus den Bodenbohrungen)
     xmid = (X0 + X1) / 2
     lo = [h for x, h in felder_x if x < xmid]; hi = [h for x, h in felder_x if x >= xmid]
     tief_links = sum(lo) / max(len(lo), 1) > sum(hi) / max(len(hi), 1)
@@ -230,6 +460,11 @@ for f in dateien:
         X0, X1 = XW0 + B_LEISTE, XW1 - B_RASTE_O
         x_tw = max(x for x, h in felder_x) + 7.5 + T_TW
     SEITE_TIEF.append(tief_links)
+    _kx0, _kx1 = min(x for x, h in felder_x) - 7.5, max(x for x, h in felder_x) + 7.5
+    if _kx0 < X0 + 1.0 or _kx1 > X1 - 1.0:
+        _fehl = max(X0 + 1.0 - _kx0, _kx1 - (X1 - 1.0))
+        raise SystemExit(f"ABBRUCH {reihe}: Kammern X {_kx0:.1f}-{_kx1:.1f} passen nicht zwischen {X0:.1f} und {X1:.1f} "
+                         f"(Gehaeuse um mind. {_fehl:.1f} mm zu kurz - Gehaeuse strecken oder Klappen verschieben)")
     sole = box(XW0 + B_RASTE_U if tief_links else X0, X1 if tief_links else XW1 - B_RASTE_U, Y0, Y1, zs, zs + T_SOLE)
     sole = schneide(sole, bohrungen([tr(x, y) for x, y in sl], 10.5, zs - 1, zs + T_SOLE + 1))
     teile.append((f"Stimmstock_{reihe}_{ton}_Sohle", sole, "Holz"))
@@ -238,7 +473,7 @@ for f in dateien:
     ym = sum(yv) / len(yv)
     kv = sy1 if abs(ym - sy1) < abs(ym - sy0) else sy0
     kh = sy0 if kv == sy1 else sy1
-    A = NEIGUNG.get(reihe, 0.0)
+    A = NEIGUNG.get(reihe, 0.0) if _sohle is None else INSTR["reihen"][int(reihe.split(".")[0])]["neigung"]
     yc = sum(tr(x, y)[1] for x, y in sl) / len(sl)            # Stockmitte = Mitte der Lochreihen
     kv_y = tr(0, kv)[1]
     # Stimmstock = ein keilfoermiger Vollkoerper: unten 24, oben 19 breit, Hoehe H_WAND;
@@ -249,7 +484,7 @@ for f in dateien:
     _t = math.tan(math.radians(phi)); _u = 20.0                # nach unten verlaengert, spaeter waagrecht auf der Sohle abgeschnitten
     koerper = (cq.Workplane("YZ").polyline([(-B_STOCK/2 - _u*_t, -_u), (B_STOCK/2 + _u*_t, -_u), (B_OBEN/2, H_WAND), (-B_OBEN/2, H_WAND)])
                .close().extrude(X1 - X0).translate((X0, 0, 0)).val())
-    cuts_all, platten_all = [], []
+    cuts_all, platten_all, stufen, seiten_info = [], [], [], []
     for seite, felder in (("vorn", vorn), ("hinten", hint)):
         vorne_hoch = kv_y > yc
         auf_plus = vorne_hoch if seite == "vorn" else not vorne_hoch
@@ -260,15 +495,31 @@ for f in dateien:
             if innen == 1: s_ = s_.mirror("XZ")                                 # w -> +Y
             s_ = s_.rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), -innen * phi)  # Seitenflaeche geneigt
             return s_.translate(cq.Vector(0, aussen_y, 0))
+        seiten_info.append((seite, aussen_y, innen, []))
         for xm, h in felder.items():
             Xm = tr(xm, 0)[0]
-            cuts_all.append(stelle(box(Xm - 7.5, Xm + 7.5, -25, 1.0 + h, -1, 9.5)))              # Kammer 15 x h, 9,5 tief (CamBam), unten zur Sohle offen
-            pl = box(Xm - 8.0, Xm + 8.0, -25.0, 2.0 + h, -T_PLATTE, 0.0)                         # Stimmplatte liegt aussen auf
+            kb, kt, ab = jakob_regel(h)          # 19.11.: auch 2-choerig (Marie) Breite/Tiefe/Abstufung nach Jakob aus der Plattenlaenge
+            v0 = 1.0                                                                          # Kanzellenoberkante bei 1 + h ueber der Sohle
+            seiten_info[-1][3].append((Xm, h, kb, kt, ab, v0))
+            cuts_all.append(stelle(box(Xm - kb/2, Xm + kb/2, -25, v0 + h, -1, kt)))           # Kammer kb x h, Tiefe kt von aussen, unten zur Sohle offen
+            if ab > 0: stufen.append((Xm, ab, stelle))                                         # Oberflaeche abgestuft: Feld um ab tiefer
+            pl = box(Xm - 8.0, Xm + 8.0, -25.0, 2.0 + h, -T_PLATTE + ab, ab)                   # Stimmplatte liegt aussen (auf der abgesenkten Flaeche) auf
             for s2 in (-2.2, 2.2):
                 pl = pl.cut(box(Xm + s2 - 1.0, Xm + s2 + 1.0, 4.0, h - 3.0, -5, 5))   # Stimmschlitze durch
             platten_all.append((seite, stelle(pl)))
     koerper = schneide(koerper, cuts_all)
+    # Abstufungen einzeln nacheinander schneiden (ueberlappende Werkzeuge in einem Compound fuehren zu kaputten Booleschen Ergebnissen);
+    # benachbarte Felder gleicher Tiefe auf einer Seite zu einem Block zusammengefasst
+    _bl = []
+    for Xm, ab, st_ in sorted(stufen, key=lambda q: (id(q[2]), q[0])):
+        if _bl and _bl[-1][3] is st_ and abs(_bl[-1][2] - ab) < 1e-6 and abs(Xm - HF - _bl[-1][1]) < 0.2:
+            _bl[-1][1] = Xm + HF
+        else:
+            _bl.append([Xm - HF, Xm + HF, ab, st_])
+    for x0_, x1_, ab, st_ in _bl:
+        koerper = koerper.cut(st_(box(x0_, x1_, -25, 100, -1, ab)))
     koerper = gesamt(koerper)
+    print(f"   Abstufungen: {len(_bl)} Bloecke, gueltig: {koerper.isValid()}")
     unten = box(-50, 450, yc - 60, yc + 60, -50, zs + T_SOLE)     # alles unter der Sohlenoberkante weg: Stock, Kammern, Platten buendig
     koerper = koerper.cut(unten)
     # Oberkante: parallel zum Boden, gleichmaessig verlaufend = obere Huelle ueber alle Plattenoberkanten (+2 mm)
@@ -307,6 +558,8 @@ for f in dateien:
                                         ((XW0 - 5) if tief_links else (XW1 + 5), zr1 + 1),
                                         ((XW0 - 5) if tief_links else (XW1 + 5), zr0 - 1)]).close().extrude(-80).translate((0, yc - 40, 0)).val()
     koerper = koerper.cut(keil)
+    if os.environ.get("FRAES"):
+        fraes_aufgeklappt(reihe, ton, koerper, seiten_info, yc, A, zs + T_SOLE, phi, dx, os.environ["FRAES"])
     zz = [q[1] for q in prof]
     Z_ENDE_HOCH.append(prof[-1][1] if tief_links else prof[0][1])
     STOCK_INFO.append((reihe, yc, A, zb, Z_ENDE_HOCH[-1], X1 if tief_links else X0, tief_links))
@@ -381,12 +634,34 @@ def kontur(e):
     return [(v.x, v.y) for v in ezdxf.path.make_path(e).flattening(0.05)][:-1]
 ornamente = [kontur(e) for e in vm.query('LWPOLYLINE CIRCLE') if e.dxf.layer == "LAYER2"]
 ornamente = [o for o in ornamente if len(o) >= 3]
+# Verdeckmuster (Johann 18.11.: vorerst unwichtig, verschiedene in Verwendung): im Instrument-Modus nur mit
+# "verdeck_muster = verdeck.dxf" in der Tastenliste, sonst glattes Verdeck; Marie bekommt spaeter ein eigenes Muster
+VD_MUSTER = (INSTR.get("verdeck_muster", "keines") if INSTR else "verdeck.dxf")
+VD_EXT = None
+if VD_MUSTER != "verdeck.dxf":
+    ornamente = []
+    if VD_MUSTER == "keines":
+        print("Verdeck: ohne Muster")
+    else:                                   # eigenes Muster (z. B. Marie: muster/geschwungen.dxf), auf dem Deckel zentriert
+        import verdeck_muster as _vmu
+        _pf = next((q for q in (VD_MUSTER, os.path.join("muster", VD_MUSTER), os.path.join("muster", VD_MUSTER + ".dxf")) if os.path.exists(q)), None)
+        if _pf is None:
+            print(f"Verdeck: Muster {VD_MUSTER} nicht gefunden - ohne Muster")
+        else:
+            VD_EXT, _inf = _vmu.lade(_pf)
+            print(f"Verdeck: Muster {_pf}:", {k: len(v) for k, v in VD_EXT.items()})
 def prisma(pts2d, z0, z1):
     return cq.Workplane("XY").polyline(pts2d).close().extrude(z1 - z0).translate((0, 0, z0)).val()
 # Deckplatte
-dk = box(10.45, 369.55, VY, VY + 168.0, -H_VD, -H_VD + T_VD)
-werk = [prisma([(x + VX, y + VY) for x, y in o], -H_VD - 1, -H_VD + T_VD + 1)
-        for o in ornamente if -359.1 < min(a for a, _ in o) and max(a for a, _ in o) < 0 and min(b for _, b in o) > 0]
+# Instrument-Modus: Verdeck um DL laenger, Durchbrueche rechts der Streckstelle um DL verschoben
+def _vx(o): return VX + (DL if sum(a for a, _ in o) / len(o) + VX > X_STRECK else 0.0)
+def _bleibt(o):                 # beim Kuerzen fallen Durchbrueche im herausgenommenen Streifen weg
+    if DL >= 0: return True
+    x0_, x1_ = min(a for a, _ in o) + VX, max(a for a, _ in o) + VX
+    return x1_ < X_STRECK - 1.0 or x0_ > X_STRECK - DL + 1.0
+dk = box(10.45, 369.55 + DL, VY, VY + 168.0, -H_VD, -H_VD + T_VD)
+werk = [prisma([(x + _vx(o), y + VY) for x, y in o], -H_VD - 1, -H_VD + T_VD + 1)
+        for o in ornamente if _bleibt(o) and -359.1 < min(a for a, _ in o) and max(a for a, _ in o) < 0 and min(b for _, b in o) > 0]
 teile.append(("Verdeck_Deckplatte", schneide(dk, werk), "Verdeck"))
 nd = len(werk)
 # Seitenwaende (Abwicklung: Abstand d von der Deckelkante -> Z = -H_VD + d)
@@ -400,27 +675,44 @@ def wand_x(xk, richt, X):     # xk Kante in der Zeichnung, richt +1 rechts/-1 li
         ws.append(cq.Workplane("YZ").polyline(pts).close().extrude(T_VD + 2).translate((X - 1, 0, 0)).val())
     return schneide(s, ws), len(ws)
 sl_, nl = wand_x(-360.2, -1, 10.45)
-sr_, nr = wand_x(1.1, 1, 369.55 - T_VD)
+sr_, nr = wand_x(1.1, 1, 369.55 + DL - T_VD)
 teile += [("Verdeck_Seite_links", sl_, "Verdeck"), ("Verdeck_Seite_rechts", sr_, "Verdeck")]
-fs = box(10.45, 369.55, VY, VY + T_VD, -H_VD + T_VD, 0)
+fs = box(10.45, 369.55 + DL, VY, VY + T_VD, -H_VD + T_VD, 0)
 sel = [o for o in ornamente if max(b for _, b in o) < -1.1]
-ws = [cq.Workplane("XZ").polyline([(x + VX, -H_VD + (-1.1 - y)) for x, y in o]).close().extrude(-(T_VD + 2)).translate((0, VY - 1, 0)).val()
-      for o in sel]
+ws = [cq.Workplane("XZ").polyline([(x + _vx(o), -H_VD + (-1.1 - y)) for x, y in o]).close().extrude(-(T_VD + 2)).translate((0, VY - 1, 0)).val()
+      for o in sel if _bleibt(o)]
 teile.append(("Verdeck_Front", schneide(fs, ws), "Verdeck"))
+if VD_EXT:
+    def _mit_inseln(g, mach):                 # Durchbruch mit stehen bleibenden Inseln
+        w_ = mach(list(g.exterior.coords)[:-1])
+        for h_ in g.interiors: w_ = w_.cut(mach(list(h_.coords)[:-1]))
+        return w_
+    _dx = VX + DL / 2                         # Muster auf dem (gestreckten) Deckel zentriert
+    _wz = {"Verdeck_Deckplatte": [_mit_inseln(g, lambda q: prisma([(x + _dx, y + VY) for x, y in q], -H_VD - 1, -H_VD + T_VD + 1)) for g in VD_EXT["deckel"]],
+           "Verdeck_Front": [_mit_inseln(g, lambda q: cq.Workplane("XZ").polyline([(x + _dx, -H_VD + (-1.1 - y)) for x, y in q]).close()
+                                          .extrude(-(T_VD + 2)).translate((0, VY - 1, 0)).val()) for g in VD_EXT["front"]],
+           "Verdeck_Seite_links": [_mit_inseln(g, lambda q: cq.Workplane("YZ").polyline([(VY + y, -H_VD + abs(x + 360.2)) for x, y in q]).close()
+                                                .extrude(T_VD + 2).translate((10.45 - 1, 0, 0)).val()) for g in VD_EXT["links"]],
+           "Verdeck_Seite_rechts": [_mit_inseln(g, lambda q: cq.Workplane("YZ").polyline([(VY + y, -H_VD + abs(x - 1.1)) for x, y in q]).close()
+                                                 .extrude(T_VD + 2).translate((369.55 + DL - T_VD - 1, 0, 0)).val()) for g in VD_EXT["rechts"]]}
+    teile = [(n_, schneide(s_, _wz[n_]) if n_ in _wz and _wz[n_] else s_, f_) for n_, s_, f_ in teile]
+    nd, nl, nr, ws = len(_wz["Verdeck_Deckplatte"]), len(_wz["Verdeck_Seite_links"]), len(_wz["Verdeck_Seite_rechts"]), _wz["Verdeck_Front"]
 # Verdeck 180 Grad drehen (vorne/hinten vertauscht), gleicher Platz Y 28..196
-_m = (10.45 + 369.55) / 2, VY + 84.0
+_m = (10.45 + 369.55 + DL) / 2, VY + 84.0
 teile = [(n_, s_.rotate(cq.Vector(_m[0], _m[1], 0), cq.Vector(_m[0], _m[1], 1), 180) if f_ == "Verdeck" else s_, f_) for n_, s_, f_ in teile]
 # ganzer Diskantteil seitenverkehrt (links <-> rechts): Verdeck in X gespiegelt
 teile = [(n_, s_.mirror("YZ", cq.Vector(L / 2, 0, 0)).translate(cq.Vector(0, VD_DY, 0)) if f_ == "Verdeck" else s_, f_) for n_, s_, f_ in teile]
 print("Verdeck: Durchbrueche Deckel", nd, "Seiten", nl, nr, "Front", len(ws))
 
 # ---------------- Griffstock + Diskantmechanik (hebel.py, nach griffstock-alternativ1-schnitt.dxf) ----------------
+if ZWEI and os.environ.get("MECHANIK", "1") == "1":
+    print("Mechanik: 2-choerig mit dem Markus-Griffstock/Hebelaufbau (Johann 18.11.: Variante 2), Knoepfe aus der Tastenliste")
 if os.environ.get("MECHANIK", "1") == "1":
     exec(open("hebel.py").read())
     # Verdeck an Griffstock, Abdeckung, Kunststoffteil und Keil anpassen (keine Ueberschneidung),
     # umlaufende Aussenkante der Deckplatte an den freien Seiten R 0,5
     _gsf = [s_ for n_, s_, f_ in teile if n_ in ("Griffstock_Koerper", "Griffstock_Teil2", "Griffstock_Abdeckung", "Kunststoffteil_Lagerblock", "Dreieckleiste")]
-    _gsf.append(prisma_uy(_pts(_gr(HUELLE_G.buffer(1.0))), 190.0, 400.0))   # ganzer Griffstockbereich inkl. Holzhebel + 1 mm Luft
+    _gsf.append(prisma_uy(_pts(_gr(HUELLE_G.buffer(1.0))), L / 2, L + 20.0))   # ganzer Griffstockbereich inkl. Holzhebel + 1 mm Luft
     _neu = []
     for n_, s_, f_ in teile:
         if f_ == "Verdeck":
@@ -513,29 +805,30 @@ teile = [(n_, schneide(s_, _boden_l) if n_ == "Diskantboden" else (s_.cut(_wand_
 print("Verdeckstuetzen (X, Y Mitte):", STUETZEN, "Schraube seitlich bei Z", _Z_SCHR)
 
 # ---- Verdeck-Front: in der Mitte fehlte eine Blume -> Rosette aus Blume1.dxf in die Luecke (durchgebrochen wie die anderen)
-_vf = [s_ for n_, s_, f_ in teile if n_ == "Verdeck_Front"][0]
-_bv = _vf.BoundingBox(); _ymv = (_bv.ymin + _bv.ymax) / 2
-_ff = max([f for f in _vf.Faces() if abs(abs(f.normalAt().y) - 1) < 1e-6], key=lambda f: f.Area())
-_ros = []
-for w_ in _ff.innerWires():
-    fa_ = cq.Face.makeFromWires(w_); a_ = fa_.Area()
-    if 13.0 < a_ < 16.0: c_ = fa_.Center(); _ros.append((round(c_.x, 2), round(c_.z, 2)))
-_ros = sorted(set(_ros))
-print("Rosetten-Mitten Verdeck-Front:", _ros)
-_gp = max(zip(_ros, _ros[1:]), key=lambda q: q[1][0] - q[0][0])
-_xc, _zc = (_gp[0][0] + _gp[1][0]) / 2, _gp[0][1]
-_b1 = ezdxf.readfile("blume1.dxf").modelspace(); _rx, _ry = -765.9, 3.3
-_rw = []
-for e in _b1:
-    if e.dxf.layer != "LAYER2": continue
-    if e.dxftype() == "CIRCLE" and math.hypot(e.dxf.center.x - _rx, e.dxf.center.y - _ry) < 0.2:
-        _rw.append(cq.Solid.makeCylinder(e.dxf.radius, 20, cq.Vector(_xc, _bv.ymin - 5, _zc), cq.Vector(0, 1, 0)))
-    elif e.dxftype() == "LWPOLYLINE" and e.closed:
-        p_ = [(v.x, v.y) for v in ezdxf.path.make_path(e).flattening(0.03)][:-1]
-        if max(math.hypot(x_ - _rx, y_ - _ry) for x_, y_ in p_) < 9.5:
-            _rw.append(cq.Workplane("XZ").polyline([(_xc + (x_ - _rx), _zc + (y_ - _ry)) for x_, y_ in p_]).close().extrude(-20).translate((0, _bv.ymin - 5, 0)).val())
-teile = [(n_, schneide(s_, _rw) if n_ == "Verdeck_Front" else s_, f_) for n_, s_, f_ in teile]
-print(f"Verdeck-Front: Rosette in der Mitte X {_xc:.1f} Z {_zc:.1f} ({len(_rw)} Teile)")
+if ornamente:
+    _vf = [s_ for n_, s_, f_ in teile if n_ == "Verdeck_Front"][0]
+    _bv = _vf.BoundingBox(); _ymv = (_bv.ymin + _bv.ymax) / 2
+    _ff = max([f for f in _vf.Faces() if abs(abs(f.normalAt().y) - 1) < 1e-6], key=lambda f: f.Area())
+    _ros = []
+    for w_ in _ff.innerWires():
+        fa_ = cq.Face.makeFromWires(w_); a_ = fa_.Area()
+        if 13.0 < a_ < 16.0: c_ = fa_.Center(); _ros.append((round(c_.x, 2), round(c_.z, 2)))
+    _ros = sorted(set(_ros))
+    print("Rosetten-Mitten Verdeck-Front:", _ros)
+    _gp = max(zip(_ros, _ros[1:]), key=lambda q: q[1][0] - q[0][0])
+    _xc, _zc = (_gp[0][0] + _gp[1][0]) / 2, _gp[0][1]
+    _b1 = ezdxf.readfile("blume1.dxf").modelspace(); _rx, _ry = -765.9, 3.3
+    _rw = []
+    for e in _b1:
+        if e.dxf.layer != "LAYER2": continue
+        if e.dxftype() == "CIRCLE" and math.hypot(e.dxf.center.x - _rx, e.dxf.center.y - _ry) < 0.2:
+            _rw.append(cq.Solid.makeCylinder(e.dxf.radius, 20, cq.Vector(_xc, _bv.ymin - 5, _zc), cq.Vector(0, 1, 0)))
+        elif e.dxftype() == "LWPOLYLINE" and e.closed:
+            p_ = [(v.x, v.y) for v in ezdxf.path.make_path(e).flattening(0.03)][:-1]
+            if max(math.hypot(x_ - _rx, y_ - _ry) for x_, y_ in p_) < 9.5:
+                _rw.append(cq.Workplane("XZ").polyline([(_xc + (x_ - _rx), _zc + (y_ - _ry)) for x_, y_ in p_]).close().extrude(-20).translate((0, _bv.ymin - 5, 0)).val())
+    teile = [(n_, schneide(s_, _rw) if n_ == "Verdeck_Front" else s_, f_) for n_, s_, f_ in teile]
+    print(f"Verdeck-Front: Rosette in der Mitte X {_xc:.1f} Z {_zc:.1f} ({len(_rw)} Teile)")
 
 # ---- Rahmen vorne: Einlage mittig = Venus-Blume (Front-einlage, Fron-venus2.dxf): Ring (R16,5-17,5) und Blumenmuster
 # schwarz eingelegt, 1,5 mm tief, buendig, auf der Front zentriert
@@ -558,17 +851,39 @@ teile.append(("Rahmeneinlage/Ring", _ring, "Einlage"))
 for i_, s_ in enumerate(_muster): teile.append((f"Rahmeneinlage/Blume_{i_ + 1:02d}", s_, "Einlage"))
 print(f"Rahmen vorne: Venus-Blume Ring R{R_RING_I}-{_r_out} + {len(_muster)} Musterteile schwarz, Mitte X {_xm:.1f} Z {_zm:.1f}")
 
+# ---- Kollisionspruefung (KOLLISION=1): Teile, die von der Tastenliste abhaengen, gegen alle anderen ----
+if os.environ.get("KOLLISION") == "1":
+    import re as _rek, json as _jk
+    _dyn = _rek.compile(os.environ.get("KOLL_MUSTER", r"Stimmstock|Stimmplatte|Klappe|Hebel|Holzteil|Knopf|Achse|Schieber"))
+    _bbs = [(n_, s_, s_.BoundingBox()) for n_, s_, f_ in teile]
+    _koll = []
+    for i_, (na, sa, ba) in enumerate(_bbs):
+        if not _dyn.search(na): continue
+        for j_, (nb, sb, bb) in enumerate(_bbs):
+            if j_ == i_ or (_dyn.search(nb) and j_ < i_): continue
+            if ba.xmax < bb.xmin or bb.xmax < ba.xmin or ba.ymax < bb.ymin or bb.ymax < ba.ymin or ba.zmax < bb.zmin or bb.zmax < ba.zmin: continue
+            try: v_ = sa.intersect(sb).Volume()
+            except Exception: v_ = -1.0
+            if v_ > 0.5 or v_ < 0: _koll.append((na, nb, round(v_, 1)))
+    print(f"Kollisionen (> 0,5 mm3): {len(_koll)}")
+    for k_ in _koll: print("   KOLL", k_)
+    _jk.dump(_koll, open(OUT + ".kollision.json", "w"), indent=0)
+
 # ---------------- Ausgabe ----------------
 farben = {"Einlage": cq.Color(0.12, 0.07, 0.04), "Holz": cq.Color(0.80, 0.62, 0.40), "Alu": cq.Color(0.78, 0.80, 0.83), "Verdeck": cq.Color(0.15, 0.15, 0.15),
-          "Leder": cq.Color(0.55, 0.30, 0.15), "Stahl": cq.Color(0.55, 0.57, 0.60), "Schraube": cq.Color(0.80, 0.65, 0.20), "Klappe": cq.Color(0.30, 0.20, 0.12), "Hebelholz": cq.Color(0.70, 0.45, 0.25), "Kunststoff": cq.Color(0.92, 0.92, 0.88), "Knopf": cq.Color(0.95, 0.93, 0.85), "Griffstock": cq.Color(0.45, 0.28, 0.15),
+          "Leder": cq.Color(0.55, 0.30, 0.15), "Stahl": cq.Color(0.55, 0.57, 0.60), "Messing": cq.Color(0.85, 0.68, 0.25), "Schraube": cq.Color(0.80, 0.65, 0.20), "Klappe": cq.Color(0.30, 0.20, 0.12), "Hebelholz": cq.Color(0.70, 0.45, 0.25), "Kunststoff": cq.Color(0.92, 0.92, 0.88), "Knopf": cq.Color(0.95, 0.93, 0.85), "Griffstock": cq.Color(0.45, 0.28, 0.15),
           # Hebel je Knopfreihe eigene Farbe (Alu kraeftig, Holzteil heller)
           "Alu_R1": cq.Color(0.85, 0.15, 0.15), "Holz_R1": cq.Color(0.95, 0.55, 0.55),
           "Alu_R2": cq.Color(0.15, 0.35, 0.90), "Holz_R2": cq.Color(0.55, 0.70, 0.98),
           "Alu_R3": cq.Color(0.10, 0.65, 0.20), "Holz_R3": cq.Color(0.55, 0.88, 0.55),
           "Alu_R4": cq.Color(0.95, 0.60, 0.05), "Holz_R4": cq.Color(0.99, 0.85, 0.45)}
 import os
-asm = cq.Assembly(name=f"Diskantteil_Markus_{VAR}")
+asm = cq.Assembly(name=(f"Diskantteil_{INSTR['name']}" if INSTR else f"Diskantteil_Markus_{VAR}"))   # Name der obersten Komponente in Fusion
 import re as _re
+if os.environ.get("GS_STEP"):          # 19.11.: Griffstock Teil 1/2 + Abdeckung fuer die Fraesdateien (gs_fraes.py) mit ausgeben
+    _gs = [s_ for n_, s_, f_ in teile if n_ in ("Griffstock_Koerper", "Griffstock_Teil2", "Griffstock_Abdeckung")]
+    cq.exporters.export(cq.Compound.makeCompound(_gs), os.environ["GS_STEP"])
+    print("Griffstock fuer Fraesdateien:", len(_gs), "Teile ->", os.environ["GS_STEP"])
 _filt = os.environ.get("NUR")          # z.B. NUR="Diskantboden|Klappe|Griffstock|Rahmen_vorne" fuer leichte Ansicht
 if _filt: teile = [t_ for t_ in teile if _re.search(_filt, t_[0])]
 _grp = {}

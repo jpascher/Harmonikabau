@@ -1,0 +1,8 @@
+{
+  "autodeskProduct": "Fusion",
+  "type": "script",
+  "author": "Johann Pascher",
+  "description": {"": "Markus und Marie STEP laden und speichern"},
+  "supportedOS": "windows|mac",
+  "editEnabled": true
+}

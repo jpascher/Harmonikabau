@@ -1,0 +1,24 @@
+{
+ "name": "Markus",
+ "version": "v33",
+ "erzeugt": "2026-11-19T19:17",
+ "dokument": "Stimmstoecke_Markus_Fraesen",
+ "modell": "Diskantteil_Markus_v33.step",
+ "stimmstoecke": {
+  "ordner": "Stimmstoecke",
+  "teile": [
+   "Stimmstock_1.reihe_B_fraesen",
+   "Stimmstock_2.reihe_Es_fraesen",
+   "Stimmstock_3.reihe_As_fraesen",
+   "Stimmstock_4.reihe_Des_fraesen"
+  ]
+ },
+ "griffstock": {
+  "ordner": "Griffstock",
+  "json": "Griffstock_Markus_fraesen.json",
+  "teile": {
+   "Teil1": "Griffstock_Teil1_Markus_fraesen",
+   "Teil2": "Griffstock_Teil2_Markus_fraesen"
+  }
+ }
+}

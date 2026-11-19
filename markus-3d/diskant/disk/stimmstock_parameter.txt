@@ -1,0 +1,33 @@
+# Stimmstoecke Diskant Markus - Parameter (alle Masse in mm)
+# Nach jeder Aenderung neu rechnen lassen. Kommentare beginnen mit #.
+#
+# Stimmplattenlaengen: ein Wert je Tripel (3 Kanzellen), von der tiefen (langen) Seite her.
+# Reihe 1 = B, 2 = Es, 3 = As, 4 = Des (aufsteigend im Quintenzirkel).
+# Reihe 3 und 4 haben 12 Tripel (Jakob: erstes Tripel 49 bzw. 34 weggelassen).
+k_1.reihe = 40 40 49 49 48 47 45 43 40 37 34 33 32
+k_2.reihe = 48 52 49 48 47 43 40 39 35 33 32 31 29
+k_3.reihe = 49 49 48 47 43 40 37 34 32 31 29 27
+k_4.reihe = 49 47 45 43 39 35 35 32 29 27 26 34
+
+# Teilung (Mitte zu Mitte je Seite) bleibt fest 17,5.
+# Stege: bis einschliesslich steg_breit_bis gilt steg_breit, darueber steg_schmal.
+steg_schmal = 2.5
+steg_breit = 3.5
+steg_breit_bis = 34
+
+# Kanzellentiefe von der Aussenflaeche (Wand 10 mm):
+# ab tiefe_durch_ab -> tiefe_durch, ab tiefe_mittel_ab -> tiefe_mittel, sonst tiefe_kurz
+tiefe_durch = 9.5
+tiefe_durch_ab = 47
+tiefe_mittel = 8.5
+tiefe_mittel_ab = 31
+tiefe_kurz = 7.0
+
+# Abstufung der Oberflaeche (Absenkung des Plattenfelds): "bis L : Absenkung"
+# gilt fuer alle Platten mit Laenge <= L (der kleinste passende Eintrag zaehlt); laengere: 0
+abstufung = 34:2.0  32:3.0  30:3.5  29:3.6  27:4.0
+
+# Fraesversion: Material zwischen Vorder- und Rueckseite (Mittelsteg), Gesamtbreite in mm
+# (je 0,5 mm pro Seite wie bei Jakob -> 1,0 gesamt)
+mittelsteg = 1.0
+

@@ -1,0 +1,8 @@
+{
+  "autodeskProduct": "Fusion",
+  "type": "script",
+  "author": "Johann Pascher",
+  "description": {"": "Fraesteile aus fraes_liste.json einsetzen und CAM anlegen"},
+  "supportedOS": "windows|mac",
+  "editEnabled": true
+}
