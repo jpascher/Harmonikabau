@@ -88,6 +88,7 @@ def erzeuge(inst):
     out["verdeck_muster"] = str(inst.get("verdeck_muster", "keines"))
     for k_ in ("boden_dxf",):
         if k_ in inst: out[k_] = str(inst[k_])
+    out["griffstock"] = str(inst.get("griffstock", ""))   # 20.11.: "traditionell" = Holzhebel auf zwei durchgehenden Achsen
     out["feder"] = str(inst.get("feder", ""))        # Drehfedern an den Achsen: "" = keine, "alle", oder Hebelname z. B. Hebel_R1_07
     out["kammer_breite"] = float(inst.get("kammer_breite", 15.0))     # nur 2-choerig (3-choerig: Regeln nach Jakob)
     out["kammer_tiefe"] = float(inst.get("kammer_tiefe", 9.5))
@@ -173,6 +174,13 @@ def erzeuge(inst):
             print("WARNUNG: Klappen ragen ueber das Gehaeuse", xmin, xmax)
         if st_l is not None and st_l < ST_X: print("WARNUNG: Klappe links an der Verdeckstuetze")
         if st_r is not None and st_r > out["gehaeuse_x"] - ST_X: print("WARNUNG: Klappe rechts an der Verdeckstuetze")
+    # 22.11.2026 (Johann): Griffstock/Knopfpyramide immer mittig am Korpus, abhaengig von der konfigurierten Knopfanzahl
+    # (wirksame Knopf-X inkl. Knopfversatz; Klappen bleiben, wo sie sind)
+    _kx = [x + R["knopf_versatz"] for R in out["reihen"].values() for x in R["knoepfe"]]
+    _dm = out["gehaeuse_x"] / 2 - (min(_kx) + max(_kx)) / 2
+    if abs(_dm) > 0.01:
+        for R in out["reihen"].values(): R["knoepfe"] = [x + _dm for x in R["knoepfe"]]
+        print("   Knopfpyramide mittig am Korpus: um %+.2f mm verschoben" % _dm)
     return out
 
 

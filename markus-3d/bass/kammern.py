@@ -4,7 +4,7 @@
 import sys, math, ezdxf, ezdxf.path, cadquery as cq
 from ezdxf import bbox
 D, L, B = 5.5, 382.0, 207.0
-Z_BODEN, T_BODEN = 31.2, 6.0
+Z_BODEN, T_BODEN = 31.2, 3.5                # Boden 3,5 mm (Oberkante unveraendert): Platz fuer lange Arme
 H_KAM   = 54.0      # Kammerhoehe = Leistenhoehe (Streifen 54 mm in der Trennwandzeichnung)
 T_LEIST = 6.0       # gemeinsame Laengsleiste
 T_WAND  = 3.6       # Trennwand
@@ -253,6 +253,11 @@ for k_ in range(len(teile)):
 print("Rundung trifft:", _gerundet)
 print("Rueckteil: Kantenrundung R", R_KANTE, "X", round(lx0, 1), "-", round(lx1, 1), "Auslauf je", L_AUSLAUF, "mm")
 teile.append(("Bassdeckel_Leiste_hinten", deckel_h))
+# Auflage fuer den Deckel hinten (wie Standard-Bassteil 4/5): Leiste 2 dick x 6 breit innen unter der Fuge zwischen
+# schmaler hinterer Deckelleiste und Deckel eingeleimt, halb unter der Leiste, halb unter dem Deckel; zwischen den Eckbloecken.
+_yfuge = D + B_DL
+teile.append(("Bassdeckel_Auflage_hinten", box(xi0 + BLK + 0.5, xi1 - BLK - 0.5, _yfuge - 3.0, _yfuge + 3.0, T_DECKEL_BASS, T_DECKEL_BASS + 2.0)))
+print("Deckelauflage hinten 2 x 6 bei Y", round(_yfuge - 3.0, 1), "-", round(_yfuge + 3.0, 1), "X", round(xi0 + BLK + 0.5, 1), "-", round(xi1 - BLK - 0.5, 1))
 teile.append(("Bassdeckel", deckel_r))
 print("Bassdeckel: hintere Leiste", B_DL, "mm + Rest; Eckbloecke", len(ecken), "je", BLK, "x", BLK, "bis Boden")
 print("Deckelauflage rundum: Aussparungen Rueckteil", len(aus_rueck), "Front (Hornbohrungen)", len(aus_front))
@@ -645,6 +650,42 @@ for n1, s1 in hoerner + fuesse:
         vv = s1.intersect(s2).Volume()
         if vv > 0.5: print("Ueberschneidung", n1, n2, round(vv, 1))
 
+# ---------- Fliegengitter (Gaze) innen ueber Rosetten (Deckel), F-Loechern (Rueckteil) und Hornbohrungen (Front) ----------
+# Gewebe: Faeden 0,2 x 0,2 im Raster 2 mm, Kett-/Schussfaeden versetzt, 0,3 dick; je 3 mm groesser als die Oeffnung (Kleberand).
+# Angrenzende feste Teile bekommen eine 0,3-mm-Aussparung.
+# vereinfacht: Platte 0,3 mit quadratischen Durchbruechen, Raster 4 mm / Steg 0,4 (echt: Raster 2 mm / Faden 0,2)
+T_GZ, R_GZ, RASTER, D_FADEN = 0.3, 3.0, 4.0, 0.4
+from shapely.geometry import Polygon as _Poly, Point as _Pt
+from gaze2d import gaze_platte
+_huellen = []
+_ros = sorted({(round(c.dxf.center.x + 381, 2), round(c.dxf.center.y + 206, 2), round(c.dxf.radius, 2)) for c in VD.query('CIRCLE[layer=="0"]')})
+for j_, (mx_, my_, _) in enumerate(sorted([r_ for r_ in _ros if r_[2] > 6.5])):
+    rr_ = max(math.hypot(x_ - mx_, y_ - my_) + r_ for x_, y_, r_ in _ros if math.hypot(x_ - mx_, y_ - my_) < 30) + R_GZ
+    _huellen.append((f"Gaze_Rosette_{j_+1}", cq.Solid.makeCylinder(rr_, T_GZ, cq.Vector(mx_, my_, T_DECKEL_BASS)), (_Pt(mx_, my_).buffer(rr_, 32), "XY", T_DECKEL_BASS)))
+_jf = 0
+for e in RD.query('SPLINE[layer=="LAYER_1"]'):
+    pp_ = [(q.x, q.y) for q in ezdxf.path.make_path(e).flattening(0.2)]
+    if min(b for _, b in pp_) > -4.24:
+        pg_ = _Poly([(a + 382.0, b + 4.24) for a, b in pp_]).buffer(R_GZ).simplify(0.05); _jf += 1
+        _huellen.append((f"Gaze_FLoch_{_jf}", cq.Workplane("XZ").polyline(list(pg_.exterior.coords)[:-1]).close().extrude(-T_GZ).translate((0, D, 0)).val(), (pg_, "XZ", D)))
+_jh = 0
+for c in RD.query('CIRCLE[layer=="Hörner-Bohrung"]'):
+    x, y, r = c.dxf.center.x, c.dxf.center.y, c.dxf.radius
+    if -382 < x < 0 and -4.24 < y < 71.75:
+        _jh += 1
+        _huellen.append((f"Gaze_Horn_{_jh}", cq.Solid.makeCylinder(r + R_GZ, T_GZ, cq.Vector(-x, FI - T_GZ, y + 4.24), cq.Vector(0, 1, 0)), (_Pt(-x, y + 4.24).buffer(r + R_GZ, 32), "XZ", FI - T_GZ)))
+_aus = set()
+for k_ in range(len(teile)):
+    n_, s_ = teile[k_]
+    if n_ == "Bassdeckel": continue
+    for gn_, gs_, _ in _huellen:
+        if s_.intersect(gs_).Volume() > 1e-3: s_ = s_.cut(gs_); _aus.add(n_)
+    teile[k_] = (n_, s_)
+for gn_, gs_, _ in _huellen:
+    if boden.intersect(gs_).Volume() > 1e-3: boden = boden.cut(gs_); _aus.add("Bassboden")
+teile += [(gn_, gaze_platte(g2_[0], g2_[1], g2_[2], T_GZ, RASTER, D_FADEN)[0]) for gn_, gs_, g2_ in _huellen]
+print("Gaze:", len(_huellen), "Stueck (Rosetten, F-Loecher, Hoerner), Aussparungen in", sorted(_aus))
+
 exec(open("mechanik.py", encoding="utf-8").read())
 a = cq.Assembly(name="Bassteil_Markus")
 # Links/rechts getauscht (auf Johanns Wunsch): alles an der Ebene X = L/2 spiegeln
@@ -653,10 +694,49 @@ _add_orig = a.add
 def _add_gespiegelt(obj, *args, **kw):
     if SPIEGELN and isinstance(obj, cq.Shape):
         obj = obj.mirror("YZ", basePointVector=(L / 2, 0, 0))
+    if isinstance(obj, cq.Shape) and kw.get("name"):      # Farbgebung wie Standard 4/5 / Variante 3 (cadquery ruft add intern nochmals ohne Namen auf)
+        kw["color"] = cq.Color(*farbe_std(kw["name"]))
     return _add_orig(obj, *args, **kw)
+FARBEN_STD = [   # (Praefix, Farbe) - wie Standardmodell, erste passende Zeile gilt
+    ("Gaze", (0.78, 0.80, 0.82)), ("Frontblende", (0.45, 0.25, 0.12)), ("Blende", (0.45, 0.25, 0.12)), ("Frontleiste", (0.60, 0.45, 0.28)), ("Front", (0.78, 0.60, 0.38)), ("Rueck", (0.74, 0.56, 0.36)), ("Seiten", (0.70, 0.52, 0.33)),
+    ("Horn", (0.70, 0.55, 0.30)), ("Bassbodenleder", (0.12, 0.08, 0.05)),
+    ("Bassboden", (0.90, 0.82, 0.62)), ("Deckelauflage", (0.60, 0.45, 0.28)), ("Eckblock", (0.55, 0.40, 0.25)), ("Lagerblock", (0.55, 0.40, 0.25)), ("Fuss", (0.28, 0.20, 0.14)),
+    ("Fuellleiste", (0.60, 0.45, 0.28)), ("Zwischen_Laengswand", (0.60, 0.45, 0.28)), ("Zwischen_Deckel", (0.84, 0.86, 0.60)), ("Begleiter_Zwischenteil", (0.84, 0.86, 0.60)),
+    ("Bassdeckel_Leder", (0.12, 0.08, 0.05)), ("Bassdeckel_Auflage", (0.60, 0.45, 0.28)), ("Bassdeckel", (0.30, 0.22, 0.15)),
+    ("Haken", (0.40, 0.40, 0.42)), ("Zusatzkammer_Teiler", (0.95, 0.80, 0.45)), ("Zusatzkammer", (0.50, 0.62, 0.80)), ("Stimmplatte_", (0.80, 0.82, 0.86)),
+    ("Basskammer_Teiler", (0.95, 0.80, 0.45)), ("Basskammer_Trennwand", (0.65, 0.75, 0.88)), ("Basskammer", (0.50, 0.62, 0.80)),
+    ("Begleiter_Stimmplatte", (0.80, 0.82, 0.86)), ("Begleiter_Sole", (0.55, 0.68, 0.45)), ("Begleiter_Stimmstock", (0.62, 0.72, 0.55)), ("Begleiterstimmstock", (0.62, 0.72, 0.55)),
+    ("Lufttaste_Filz", (0.85, 0.15, 0.15)), ("Lufttaste_Gabelgelenk", (0.95, 0.45, 0.10)), ("Lufttaste_Gelenkbolzen", (0.95, 0.85, 0.20)),
+    ("Lufttaste_Schubstange", (0.10, 0.60, 0.60)), ("Lufttaste", (0.35, 0.25, 0.15)),
+    ("Lufthebel_Feder", (0.75, 0.10, 0.75)), ("Lufthebel_Stuetze_Schraube", (0.40, 0.40, 0.42)), ("Lufthebel_Stuetze", (0.25, 0.75, 0.35)), ("Lufthebel_Bolzen", (0.95, 0.85, 0.20)), ("Lufthebel", (0.70, 0.72, 0.78)),
+    ("Knopfzylinder", (0.95, 0.95, 0.92)), ("Knopf", (0.12, 0.12, 0.12)), ("Filzeinlage", (0.85, 0.15, 0.15)), ("Filzring", (0.85, 0.15, 0.15)),
+    ("Achse", (0.55, 0.55, 0.60)), ("Schenkel_Knopf", (0.20, 0.40, 0.85)), ("Schenkel_Klappe", (0.10, 0.65, 0.30)), ("Klappenhebel", (0.10, 0.65, 0.30)),
+    ("Druckstange", (0.10, 0.60, 0.60)), ("Schubstange", (0.10, 0.60, 0.60)), ("Gelenkgabel", (0.95, 0.45, 0.10)), ("Gelenkkopf", (0.60, 0.20, 0.70)),
+    ("Gelenkbolzen", (0.95, 0.85, 0.20)), ("Feder", (0.75, 0.10, 0.75)),
+    ("Lagerschelle", (0.25, 0.75, 0.35)), ("Lagerbuchse", (0.25, 0.75, 0.35)),
+]
+MARKUS_VOR = [("Luftklappe_Achse", (0.55, 0.55, 0.60)), ("Luftklappe_Arm", (0.10, 0.65, 0.30)), ("Luftklappe_Lagerbock_Schraube", (0.40, 0.40, 0.42)),
+    ("Luftklappe_Lagerbock", (0.25, 0.75, 0.35)), ("Luftklappe_Feder", (0.75, 0.10, 0.75)), ("Luftklappe_Druckstange", (0.10, 0.60, 0.60)), ("Lagerbock", (0.25, 0.75, 0.35))]
+def farbe_std(n):
+    for p_, c_ in MARKUS_VOR:
+        if n.startswith(p_) and not n.endswith("_Schraube") and "_Schraube_" not in n: return c_
+    if n.startswith(("Reihe_", "Schmal", "Einzel_")):                 # Markus-Kammern wie Basskammer im Standard
+        if "_Trennwand" in n: return (0.65, 0.75, 0.88)
+        if "_Folie" in n: return (0.85, 0.30, 0.30)
+        return (0.50, 0.62, 0.80)
+    if n.startswith("Stimmplatte") and ("_Haken" in n or n.endswith("_Schraube")): return (0.40, 0.40, 0.42)
+    if n.startswith("Stimmplatte"): return (0.80, 0.82, 0.86)
+    if n.endswith("_Filz"): return (0.85, 0.15, 0.15)              # Klappenfilz rot
+    if n.endswith("_Schraube") or "_Schraube_" in n: return (0.40, 0.40, 0.42)
+    if n.endswith("_Gummipfropfen"): return (0.08, 0.08, 0.08)
+    if "klappe" in n.lower(): return (0.22, 0.22, 0.25)
+    for p_, c_ in FARBEN_STD:
+        if n.startswith(p_): return c_
+    print("FARBE ohne Zuordnung:", n)
+    return (0.60, 0.60, 0.63)
 a.add = _add_gespiegelt
-farben = {"Rahmen": (0.78, 0.60, 0.38), "Boden": (0.88, 0.80, 0.62), "Leiste": (0.55, 0.40, 0.25),
-          "Trennwand": (0.65, 0.75, 0.88), "Folie": (0.85, 0.30, 0.30), "Stimmplatte": (0.80, 0.82, 0.86), "Zwischen": (0.70, 0.55, 0.35), "Frontleiste": (0.55, 0.40, 0.25), "Begleiter": (0.62, 0.72, 0.55), "Fuellleiste": (0.55, 0.40, 0.25), "Front_Aufdoppelung": (0.78, 0.60, 0.38), "Deckelauflage": (0.60, 0.45, 0.28), "Eckblock": (0.55, 0.40, 0.25), "Bassdeckel": (0.30, 0.22, 0.15), "Bassbodenleder": (0.12, 0.08, 0.05), "Lufttaste_Filz": (0.85, 0.85, 0.80), "Lufttaste": (0.35, 0.25, 0.15), "Aufdoppelung": (0.65, 0.75, 0.88)}
+farben = {"Gaze": (0.78, 0.80, 0.82), "Rahmen": (0.78, 0.60, 0.38), "Boden": (0.88, 0.80, 0.62), "Leiste": (0.55, 0.40, 0.25),
+          "Trennwand": (0.65, 0.75, 0.88), "Folie": (0.85, 0.30, 0.30), "Stimmplatte": (0.80, 0.82, 0.86), "Zwischen": (0.70, 0.55, 0.35), "Frontleiste": (0.55, 0.40, 0.25), "Begleiter": (0.62, 0.72, 0.55), "Fuellleiste": (0.55, 0.40, 0.25), "Front_Aufdoppelung": (0.78, 0.60, 0.38), "Deckelauflage": (0.60, 0.45, 0.28), "Eckblock": (0.55, 0.40, 0.25), "Bassdeckel": (0.30, 0.22, 0.15), "Bassbodenleder": (0.12, 0.08, 0.05), "Abdeckung": (0.55, 0.40, 0.25), "Lufttaste_Filz": (0.85, 0.85, 0.80), "Lufttaste": (0.35, 0.25, 0.15), "Aufdoppelung": (0.65, 0.75, 0.88)}
 for n, s in [("Front", front), ("Rueckteil", rueck), ("Seitenteil_links", sl), ("Seitenteil_rechts", sr)]:
     a.add(s, name=n, color=cq.Color(*farben["Rahmen"]))
 a.add(boden, name="Bassboden", color=cq.Color(*farben["Boden"]))

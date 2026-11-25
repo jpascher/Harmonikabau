@@ -143,6 +143,8 @@ else:
 
 T_ALU, T_HOLZ = 2.0, 4.8          # Holzteil fuellt die 5-mm-Nut mit minimalem Spiel, Alu mittig im Kanal
 U_KL = T_POLSTER + T_KLAPPE                            # Klappenoberseite (u)
+T_KLAPPE4, T_POLSTER4 = 0.6, 2.0 + 0.6                 # 21.11. traditionell: Reihe 4 Decke 0,6, Filz 2 + Leder 0,6
+U_KL4 = T_POLSTER4 + T_KLAPPE4
 def schnitt_y(pts, y0, y1):
     q = [p for p in pts if y0 <= p[1] <= y1]
     return (min(p[0] for p in q), max(p[0] for p in q)) if q else None
@@ -251,7 +253,14 @@ def arm_durchgehend(r, ya, yk, pfad):
     ytip = yk + 4.0
     # 19.11. (Johann): flacher Endteil auf der Klappe nur 2 mm hoch, der lange Arm laeuft bis dorthin auf halbe Hoehe zu
     h_ = bd[1] - bd[0]
-    if r == 4:          # innere Reihe: ohne Stufe, keilfoermig zur Klappe
+    if r == 4 and globals().get("TRAD"):
+        # 21.11. (Johann, traditionell): Klappe Reihe 4 flach (0,6 Decke + 2 Filz + 0,6 Leder = 3,2); der Schenkel zur Klappe
+        # wird in der Materialhoehe verringert und laeuft spitz aus (Spitze 0,5 mm) - liegt so tiefer unter den Armen 1/2
+        _u4 = U_KL4
+        yc0 = max(yk - 12.0, ya + 6.0)
+        # Oberkante gleich nach dem Griffstock auf 3 mm ueber der Unterkante (gedrueckt frei unter den Armen 1/2)
+        prof = _SPG([(bd[0], y0), (_u4, yc0), (_u4, ytip), (_u4 + 0.5, ytip), (bd[0] + 3.0, y0 + 1.0), (bd[1], y0)])
+    elif r == 4:        # innere Reihe: ohne Stufe, keilfoermig zur Klappe
         yc0 = max(yk - 12.0, ya + 6.0)
         prof = _SPG([(bd[0], y0), (U_KL, yc0), (U_KL, ytip), (U_KL + 2.0, ytip), (U_KL + 2.0, yc0),
                      (max(U_KL + 2.0, bd[0] + h_ / 2), yc0 - 1.0), (bd[1], y0)])
@@ -351,6 +360,15 @@ if os.environ.get("DEBUG_LAGER"):
             st_ = [q_.bounds for q_ in (getattr(g_, "geoms", None) or [g_]) if not q_.is_empty]
             print("   Y", Yq, [(round(q_[0], 1), round(q_[2], 1)) for q_ in st_])
     raise SystemExit("DEBUG_LAGER")
+# 22.11.2026: Griffstock "kolben" - verdeckt, Kunststoffzylinder unter den Knoepfen, Hebel nur Alu (kolben_geo.py)
+_GSART0 = ((INSTR.get("griffstock", "") if globals().get("INSTR") is not None else "") or os.environ.get("GRIFFSTOCK", ""))
+_WINKEL = _GSART0 == "winkel"       # 22.11.: wie kolben, aber Alu-Winkel 46753 mit einer Achse fuer alle Hebel (winkel_geo.py)
+_KOLBEN = _GSART0 in ("kolben", "kolben12", "winkel")
+# 22.11. 11:45 (Johann): "kolben12" = Reihen 1/2 verdeckt mit Kolben, Reihen 3/4 offen mit Kanaelen und Holzhebeln (Teil 2 wie bisher)
+KOLBEN_R = (1, 2) if _GSART0 == "kolben12" else (1, 2, 3, 4)
+_KOLBEN_ALLE = _KOLBEN and 3 in KOLBEN_R
+if _KOLBEN: exec(open("kolben_geo.py").read())
+if _WINKEL: exec(open("winkel_geo.py").read())
 # Knopfversatz (Johann 18.11.): Reihen 1/2 Knopf + Knopfschenkel um eine halbe Teilung nach +X, der Alu-Hebel bekommt
 # zwischen u 45 und 62 (Knopfschenkel unterhalb der Kammern, oberhalb Teil 2 / Reihen 3/4) eine seitliche Z-Kroepfung
 KV = {r_: (INSTR["reihen"][r_].get("knopf_versatz", 0.0) if globals().get("INSTR") is not None and r_ in INSTR["reihen"] else 0.0) for r_ in (1, 2, 3, 4)}
@@ -395,6 +413,88 @@ def min_wand_buchse(r_, hb_, x_, Yp_, up_):
     except Exception as ex_:
         print("Wandpruefung Buchse:", ex_); return -1.0
 PFADE = []                                            # fuer die Kollisionspruefung: (Reihe, [(Y, X)...])
+if _WINKEL:
+    # 22.11. 16:14 (Johann): von hinten gesehen weichen die Hebel den Zylindern aus - der Freiraum zwischen den Zylindern
+    # wird gleichmaessig fuer die Durchfuehrung der Hebel aufgeteilt. Je Zylinderreihe b eine Zone (u-Bereich, in dem
+    # Hebel hoeherer Reihen a < b durch die Zylinder b laufen); dort liegen die durchlaufenden Hebel gleichmaessig
+    # verteilt in den Luecken; unterhalb im Schlitz des Winkels, oberhalb beim eigenen Knopf.
+    from shapely.geometry import LineString as _WLS2, Polygon as _WPG2
+    _wH = {r_: _WPG2(HEBEL[r_]).buffer(0) for r_ in (1, 2, 3, 4)}
+    _wKN = {r_: (knopf_u[r_ - 1][0] + (JP_KNOPF_D[r_][0] if JP else 0), knopf_u[r_ - 1][1] + (JP_KNOPF_D[r_][1] if JP else 0)) for r_ in (1, 2, 3, 4)}
+    _wC = {r_: _WLS2([KOLBEN_UNTEN[r_], _wKN[r_]]).buffer(3.75, cap_style=2) for r_ in (1, 2, 3, 4)}
+    W_ZONE = {}
+    for b_ in (1, 2, 3, 4):
+        z_ = [_wH[a_].intersection(_wC[b_].buffer(0.5)) for a_ in (1, 2, 3, 4) if a_ < b_]
+        z_ = [g_ for g_ in z_ if not g_.is_empty]
+        if z_: W_ZONE[b_] = (min(g_.bounds[0] for g_ in z_) - 0.3, max(g_.bounds[2] for g_ in z_) + 0.3)
+    W_OWN_U = {r_: _wC[r_].intersection(_wH[r_]).bounds[0] - 0.3 for r_ in (1, 2, 3, 4)}
+    print("Winkel: Zylinderzonen (u)", {b_: tuple(round(v_, 1) for v_ in z_) for b_, z_ in W_ZONE.items()}, "eigener Zylinder ab u", {r_: round(v_, 1) for r_, v_ in W_OWN_U.items()})
+    _wlev = [(r_, x_, x_ + KV[r_]) for r_, x_, k_, kr_ in zuordnung]          # (Reihe, Hebelebene, Knopf-X)
+    # 22.11. 17:48 (Johann): Fuehrung nach ital.df.dxf (Ansicht von hinten, 20 mm Knopfabstand): Reihen 3/4 gerade auf dem
+    # eigenen X; Reihen 1/2 oben (Achse) +5, an der naechsttieferen Reihe +7, dann auf das eigene X (Reihe 2 zwischen den
+    # Zylindern 4 und 3, Reihe 1 zwischen 3 und 2) -> oben gleichmaessige Teilung 5 mm
+    # 18:11 (Johann): in jeder Engstelle die durchlaufenden Hebel gleichmaessig zwischen die beiden Zylinder verteilen
+    # (welche Luecke und Reihenfolge wie in der Zeichnung); von der Lagerung nur eine Kroepfung bis zur ersten Engstelle
+    _R_ZYL = 3.75
+    _ZG = {4: {1: 5.0, 2: 7.0, 3: 0.0}, 3: {1: 7.0, 2: 0.0}, 2: {1: 0.0}}      # Lage nach Zeichnung (relativ zum eigenen X)
+    W_POS = {}
+    for b_ in (4, 3, 2):
+        cyl_ = sorted(kx_ for r_, x_, kx_ in _wlev if r_ == b_)
+        pas_ = [(kx_ + _ZG[b_][r_], r_, x_) for r_, x_, kx_ in _wlev if r_ < b_]
+        cyx_ = [cyl_[0] - 20.0 * k_ for k_ in (4, 3, 2, 1)] + cyl_ + [cyl_[-1] + 20.0 * k_ for k_ in (1, 2, 3, 4)]   # ausserhalb gedachte Zylinder
+        for i_ in range(len(cyx_) - 1):
+            e0_ = cyx_[i_] + _R_ZYL
+            e1_ = cyx_[i_ + 1] - _R_ZYL
+            l_ = sorted(q_ for q_ in pas_ if e0_ < q_[0] < e1_)
+            if not l_: continue
+            if e0_ < -1e8 or e1_ > 1e8: xs_ = [q_[0] for q_ in l_]
+            else:
+                n_ = len(l_); g_ = (e1_ - e0_ - 2.0 * n_) / (n_ + 1)
+                if g_ < 0.4: print(f"   ACHTUNG Winkel: Engstelle {e0_:.1f}-{e1_:.1f} (Zylinder Reihe {b_}) mit {n_} Hebeln - nur {g_:.2f} mm Luft")
+                xs_ = [e0_ + g_ * (k_ + 1) + 2.0 * k_ + 1.0 for k_ in range(n_)]
+            for (p_, r_, x_), v_ in zip(l_, xs_): W_POS.setdefault((r_, round(x_, 3)), {})[b_] = v_
+        print(f"Winkel: Engstelle Zylinder Reihe {b_}: Luft Hebel-Zylinder/Hebel-Hebel min "
+              f"{min((abs(v_[b_] - c_) - _R_ZYL - 1.0) for v_ in W_POS.values() if b_ in v_ for c_ in cyl_):.2f} mm")
+    W_OBEN = {(r_, round(x_, 3)): (W_POS[(r_, round(x_, 3))][4] if r_ < 4 else kx_) for r_, x_, kx_ in _wlev}
+    _wx_unten = sorted((W_OBEN[(r_, round(x_, 3))], r_, x_) for r_, x_, kx_ in _wlev)
+    _wsm = [W_SCHLITZ_X[i_] for i_ in range(len(_wx_unten))]           # 1 + 4 x 12 + 1 Hebel zwischen den Winkel-Laschen
+    W_XOFF = sum(a_[0] - b_ for a_, b_ in zip(_wx_unten, _wsm)) / len(_wx_unten)
+    W_SLOT = {(r_, round(x_, 3)): W_XOFF + m_ for (v_, r_, x_), m_ in zip(_wx_unten, _wsm)}
+    print("Winkel: Schlitz - Lage oben min %.2f max %.2f mm, Platten-Nullpunkt X %.2f" % (
+        min(W_SLOT[(r_, round(x_, 3))] - v_ for v_, r_, x_ in _wx_unten), max(W_SLOT[(r_, round(x_, 3))] - v_ for v_, r_, x_ in _wx_unten), W_XOFF))
+    W_U_SCHLITZ = 36.0
+    def _w_knoten(r_, x_, kx_):
+        sl_ = W_SLOT[(r_, round(x_, 3))]; ps_ = W_POS.get((r_, round(x_, 3)), {})
+        kn_ = [(W_U_SCHLITZ, sl_)]
+        for b_ in (4, 3, 2):
+            if b_ <= r_: break
+            z0_, z1_ = W_ZONE[b_]
+            kn_ += [(z0_ - (1.0 if b_ == 4 else 0.3), ps_[b_]), (z1_, ps_[b_])]
+        kn_.append((W_OWN_U[r_] - 0.3 if r_ < 4 else W_ZONE[4][0] - 1.0, kx_))
+        kn_ = [k_ for i_, k_ in enumerate(kn_) if i_ == 0 or abs(k_[1] - kn_[i_ - 1][1]) > 1e-6 or i_ == len(kn_) - 1 or True]
+        for (u0_, _a), (u1_, _b) in zip(kn_, kn_[1:]):
+            if u1_ - u0_ < 2.5 and abs(_a - _b) > 0.05: print(f"   ACHTUNG Winkel R{r_} x {x_:.1f}: Uebergang u {u0_:.1f}-{u1_:.1f} nur {u1_ - u0_:.1f} mm")
+        return kn_
+    def _w_versatz(s_, x_, ya_, knoten_):
+        """u < 36: im Schlitz, Klappenarm Y 36..ya-1 zurueck auf die Hebelebene x; u >= 36: X nach den Knoten (stueckweise geschert)"""
+        W = 1e4; U0 = W_U_SCHLITZ
+        dx = knoten_[0][1] - x_
+        lo_ = s_.intersect(box(-W, W, -W, W, -U0, W)).translate(cq.Vector(dx, 0, 0)); hi_ = s_.intersect(box(-W, W, -W, W, -W, -U0))
+        st_ = [lo_]
+        gr_ = [k_ for k_ in knoten_] + [(1e3, knoten_[-1][1])]
+        for (u0_, a_), (u1_, b_) in zip(gr_, gr_[1:]):
+            sl_ = hi_.intersect(box(-W, W, -W, W, -u1_, -u0_))
+            if sl_.Volume() < 1e-6: continue
+            a_, b_ = a_ - x_, b_ - x_
+            if abs(b_ - a_) < 1e-6: st_.append(sl_.translate(cq.Vector(a_, 0, 0)))
+            else:
+                k_ = (b_ - a_) / (u1_ - u0_)       # X' = X + a + k (u - u0), u = -z
+                st_.append(sl_.transformGeometry(cq.Matrix([[1.0, 0.0, -k_, a_ - k_ * u0_], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0]])))
+        erg_ = None
+        for t_ in st_:
+            if t_ is None or t_.Volume() < 1e-6: continue
+            erg_ = t_ if erg_ is None else erg_.fuse(t_)
+        return erg_.clean()
 for n_, (r, x, k, kr) in enumerate(zuordnung):
     up, Yp = lager_von(r)
     G = f"Hebel_R{r}_{n_+1:02d}"
@@ -417,15 +517,23 @@ for n_, (r, x, k, kr) in enumerate(zuordnung):
             if yf0 - yb > 0.5: pfad.append((yf0, lane))
             pfad.append((yf1, v))
         pfad.append((k[1], v))
+    if _WINKEL:          # Klappenarm bleibt bis ya im Schlitz-X des Winkels, biegt dann zur Klappe
+        _wxs0 = W_SLOT[(r, round(x, 3))]
+        pfad = [(pfad[0][0], _wxs0), (pfad[1][0], _wxs0)] + pfad[2:]
     PFADE.append((r if kr == r else 1, pfad))
     hb = prisma_uy(alu_s, x, T_ALU).cut(box(x - 5, x + 5, ya, L + 20, -300, 50))
+    if _WINKEL:
+        _wkn = _w_knoten(r, x, x + KV[r]); _xs = _wkn[0][1]
+        for _nl in W_NIETLOCH_LOKAL: hb = hb.cut(W_LOKAL(_nl, r, x))           # Nietloecher (vor dem Versatz, in der Ebene x)
+        hb = hb.cut(W_LOKAL(W_FEDER[r][1], r, x))                               # Bohrung Ø1 fuer den Federschenkel
+        _v0 = hb.Volume(); hb = _w_versatz(hb, x, ya, _wkn)
     teile_arm = arm_durchgehend(r, ya, k[1], pfad)
     if os.environ.get("DEBUG_ARM") and n_ in (0, 1, 15, 28, 40):
         print("DEBUG_ARM", G, "ya", ya, "yk", round(k[1], 1), "pfad", [(round(a_, 1), round(b_, 1)) for a_, b_ in pfad],
               "Stuecke", [tuple(round(v_, 1) for v_ in (q_.BoundingBox().ymin, q_.BoundingBox().ymax, q_.BoundingBox().zmin)) for q_ in teile_arm])
     ende = None
     # kein Alu ueber das Holzteil hinaus
-    ring = holz_ring(r)
+    ring = None if (_KOLBEN and r in KOLBEN_R) else holz_ring(r)
     if ring:
         _hc = holz_geclippt(r, ring)                                     # buendig mit der eigenen Stufe, sonst darunter
         holz_m = [(float(a_), float(b_)) for a_, b_ in list(_hc.exterior.coords)[:-1]]
@@ -439,32 +547,57 @@ for n_, (r, x, k, kr) in enumerate(zuordnung):
     for s_ in teile_arm: hb = hb.fuse(s_)
     if len(hb.Solids()) > 1 or hb.Volume() < 0.9 * _vsoll:
         print(f"   ACHTUNG {G}: Hebel nicht zusammenhaengend ({len(hb.Solids())} Koerper, Volumen {hb.Volume():.0f} statt <= {_vsoll:.0f})")
-    _zz = JP_ALU_ZONE[r].intersection(_JPoly([(-300, -300), (300, -300), (300, ya - 1.0), (-300, ya - 1.0)])) if (JP and JP_ALU_ZONE[r] is not None) else None
+    _zz = JP_ALU_ZONE[r].intersection(_JPoly([(-300, -300), (300, -300), (300, ya - 1.0), (-300, ya - 1.0)])) if (JP and not (_KOLBEN and r in KOLBEN_R) and JP_ALU_ZONE[r] is not None) else None
     if _zz is not None and not _zz.is_empty:      # nur im geraden Stueck (Griffstock), nicht am verkroepften Arm
         for z_ in [g for g in (_zz.geoms if hasattr(_zz, "geoms") else [_zz]) if g.geom_type == "Polygon" and g.area > 0.05]:
             hb = hb.cut(prisma_uy(_jpts(z_), x, 30.0))
             neu_ = JP_ALU[r].intersection(z_)
             for g_ in (neu_.geoms if hasattr(neu_, "geoms") else [neu_]):
                 if g_.geom_type == "Polygon" and g_.area > 0.05: hb = hb.fuse(prisma_uy(_jpts(g_), x, T_ALU))
-    hb = _kroepfen(hb, KV[r])
+    if _WINKEL:
+        if len(hb.Solids()) > 1: print(f"   ACHTUNG {G}: Winkel-Hebel {len(hb.Solids())} Koerper")
+    if not _WINKEL: hb = _kroepfen(hb, KV[r])          # Winkel: Knopfversatz schon in der Kroepfung u 34-44
     # 19.11.: Messingbuchse zwischen Achse und Alu: aussen 6, Bohrung 2 (Achse), eingepresst, so breit wie das Alu (2 mm) -
     # Aussenmasse unveraendert; Alu bekommt die 6-mm-Bohrung
     _bz = lambda r_, l_: cq.Solid.makeCylinder(r_, l_, cq.Vector(x - l_ / 2, Yp, -up), cq.Vector(1, 0, 0))
-    hb = hb.cut(_bz(D_BUCHSE / 2, T_ALU + 2.0))
-    _wand = min_wand_buchse(r, hb, x, Yp, up)
-    if _wand < 0.8: print(f"   ACHTUNG {G}: um die Messingbuchse nur {_wand:.2f} mm Alu")
-    WAND_BUCHSE.append(_wand)
+    if not _WINKEL:
+        hb = hb.cut(_bz(D_BUCHSE / 2, T_ALU + 2.0))
+        _wand = min_wand_buchse(r, hb, x, Yp, up)
+        if _wand < 0.8: print(f"   ACHTUNG {G}: um die Messingbuchse nur {_wand:.2f} mm Alu")
+        WAND_BUCHSE.append(_wand)
     teile.append((f"{G}/Hebel_Alu", hb, f"Alu_R{r}"))
     HEBEL_DATEN.append({"G": G, "r": r, "x": x, "Yp": Yp, "up": up, "kv": KV[r], "ya": ya, "pts": ARM_PTS_LETZTE, "hb": hb})
-    teile.append((f"{G}/Messingbuchse", _bz(D_BUCHSE / 2, T_ALU).cut(_bz(1.0, T_ALU + 1.0)), "Messing"))
+    if _WINKEL:      # Ms-Lasche 0,5 nach 4685 / V3, Bohrung Ø3 auf der gemeinsamen Achse, 2 Niete
+        teile.append((f"{G}/Ms_Lasche", W_LOKAL(W_LASCHE_LOKAL, r, _xs), "Messing"))
+        for _i, _n in enumerate(W_NIET_LOKAL): teile.append((f"{G}/Niete_{_i + 1}", W_LOKAL(_n, r, _xs), "Messing"))
+        teile.append((f"{G}/Feder", W_LOKAL(W_FEDER[r][0], r, _xs), "Stahl"))
+    else: teile.append((f"{G}/Messingbuchse", _bz(D_BUCHSE / 2, T_ALU).cut(_bz(1.0, T_ALU + 1.0)), "Messing"))
     km = min(KL_TEILE, key=lambda t_: math.hypot(t_[0][0] - k[0], t_[0][1] - k[1]))
-    teile.append((f"{G}/Klappe", km[1], "Klappe")); teile.append((f"{G}/Klappenpolster", km[2], "Leder"))
-    teile.append((f"{G}/Achse", cq.Workplane("YZ").center(Yp, -up).circle(1.0).extrude(11.0).translate((x - 5.5, 0, 0)).val(), "Stahl"))
+    if _WINKEL and kr in (1, 2, 3):
+        # 22.11. 19:37 (Johann): Gummi 031404 V3 auf der Klappe (Reihen 1-3), Hebelende steckt im Loch 2 x 2,5;
+        # Klappendeckel 1 mm niedriger, weil das Gummi mit seinem 1-mm-Fuss darunter liegt (Hebelhoehe bleibt)
+        _kl = km[1].cut(box(-1e4, 1e4, -1e4, 1e4, -(U_KL + 60.0), -(U_KL - 1.0)))
+        teile.append((f"{G}/Klappe", _kl, "Klappe")); teile.append((f"{G}/Klappenpolster", km[2], "Leder"))
+        _gx, _gy = pfad[-1][1], k[1]
+        _gp = [(-4.0, 0.0), (4.0, 0.0), (2.0, 1.0), (2.0, 4.3)] + [(2.0 * math.cos(math.pi * i_ / 24), 4.3 + 2.0 * math.sin(math.pi * i_ / 24)) for i_ in range(1, 24)] + [(-2.0, 4.3), (-2.0, 1.0)]   # Profil nach 031404_Gummi_V3.dxf
+        _gu = cq.Workplane("XZ").polyline([(_gx + a_, -(U_KL - 1.0 + b_)) for a_, b_ in _gp]).close().extrude(-7.0).translate((0, _gy - 3.5, 0)).val()
+        _gu = _gu.cut(box(_gx - 1.0, _gx + 1.0, _gy - 10, _gy + 10, -(U_KL - 1.0 + 3.5), -(U_KL - 1.0 + 1.0)))
+        teile.append((f"{G}/Gummi_031404", _gu, "Leder"))
+    else:
+        teile.append((f"{G}/Klappe", km[1], "Klappe")); teile.append((f"{G}/Klappenpolster", km[2], "Leder"))
+    if not _WINKEL: teile.append((f"{G}/Achse", cq.Workplane("YZ").center(Yp, -up).circle(1.0).extrude(11.0).translate((x - 5.5, 0, 0)).val(), "Stahl"))
     ku, kY = knopf_u[r - 1]
     d_ = KNOPF_RICHT; L_ = math.hypot(*d_)
     if JP: ku, kY = ku + JP_KNOPF_D[r][0], kY + JP_KNOPF_D[r][1]
     knopf = cq.Solid.makeCylinder(D_KNOPF / 2, 3.0, cq.Vector(x + KV[r], kY, -ku), cq.Vector(0, d_[1] / L_, -d_[0] / L_))
     teile.append((f"{G}/Knopf", knopf, "Knopf"))
+    if _KOLBEN and r in KOLBEN_R and KOLBEN_UNTEN.get(r):                   # Kunststoffzylinder ueber das Armende bis unter den Knopf; der verjuengte
+        cu_, cY_ = KOLBEN_UNTEN[r]; _lk = math.dist((cu_, cY_), (ku, kY))     # Hebelteil sitzt in einer gleich grossen Ausnehmung
+        _kol = cq.Solid.makeCylinder(D_KOLBEN / 2, _lk, cq.Vector(x + KV[r], cY_, -cu_), cq.Vector(0, d_[1] / L_, -d_[0] / L_)).cut(hb)
+        _thk = math.degrees(3.6 / math.hypot(ku - up, kY - Yp))      # Ausnehmung ueber den ganzen Hub (Hebel dreht im Zylinder)
+        for _wk in (() if _WINKEL else (_thk / 2, _thk, -_thk / 2, -_thk)):     # Winkel: Zylinder starr mit dem Hebel (Zapfen)
+            _kol = _kol.cut(hb.rotate(cq.Vector(x - 5, Yp, -up), cq.Vector(x + 5, Yp, -up), _wk))
+        teile.append((f"{G}/Kolben", _kol, "Kunststoff"))
 print("Hebel:", len(zuordnung))
 # Kollisionspruefung in der Aufsicht (Reihen 1-3 untereinander), Mindestabstand Mitte-Mitte 3,5 mm
 def _x_bei(pf, y):
@@ -551,6 +684,11 @@ for r1_, r2_ in ((1, 2), (3, 4)):
 # Drehfedern (Johann 18.11.): Feder links vom Hebel (von den Knoepfen Richtung Klappen gesehen, Aussenseite oben = +X);
 # dafuer Kunststoffteil, Dreieckleiste, Durchbrueche und Schrauben um KST_DX verschieben, Hebel liegen dann nicht mehr mittig
 FEDER = (INSTR.get("feder", "") if globals().get("INSTR") is not None else os.environ.get("FEDER", "")) or ""
+# 20.11.: traditioneller Griffstock (trad.py) - Holzhebel auf zwei durchgehenden Achsen statt Kunststoff-Lagerung
+_GSART = ((INSTR.get("griffstock", "") if globals().get("INSTR") is not None else "") or os.environ.get("GRIFFSTOCK", ""))
+TRAD = _GSART in ("traditionell", "kugellager")         # 21.11.: kugellager (kugel.py) nutzt dieselben Vorgaben wie traditionell
+KUGEL = _GSART == "kugellager"
+if TRAD: FEDER = ""
 KST_DX = 1.5 if FEDER else 0.0      # Durchbruch 5,41: Hebel 2 mm mit 0,2 mm Luft an einer Seite, 3,2 mm frei fuer die Feder
 if KST_DX:
     _cb = {k_: [x_ + KST_DX for x_ in v_] for k_, v_ in _cb.items()}
@@ -581,6 +719,9 @@ XM0, XM1 = KST_X0, KST_X1              # Griffstock-Enden massiv bis an Kunststo
 if any(KV.values()):                    # versetzte Knoepfe (Reihe 1/2) brauchen ihre Kammern auch ausserhalb des Kunststoffteils
     _kxv = [x_ + KV[r_] for r_, x_, k_, kr_ in zuordnung]
     XM0, XM1 = min(XM0, min(_kxv) - 9.0), max(XM1, max(_kxv) + 9.0)
+if _WINKEL:                              # 22.11.: seitlich gekroepfte Winkel-Hebel brauchen innen Platz bis zur aeussersten Lage (+3 mm)
+    _wall = [v_ for d_ in W_POS.values() for v_ in d_.values()] + list(W_SLOT.values())
+    XM0, XM1 = min(XM0, min(_wall) - 3.0), max(XM1, max(_wall) + 3.0)
 if globals().get("INSTR") is not None:   # 19.11.: beide Griffstock-Enden gleich breit (die schmaelere Seite gilt)
     _wgs = min(XM0 - GS_X0, GS_X1 - XM1)
     XM0, XM1 = GS_X0 + _wgs, GS_X1 - _wgs
@@ -607,7 +748,7 @@ _aussen = HUELLE.intersection(_u_zw(_U_RUND, 200)).difference(_mulde).buffer(-1.
 HUELLE_G = _gr(HUELLE.intersection(_u_zw(-10, _U_RUND + 3.0)).difference(_mulde).union(_aussen).buffer(0.01).buffer(-0.01).simplify(0.02))
 # Abdeckung hinten: vom Boden bis 2 mm vor die Stirnseite; innen 1 mm Luft, ringsum 3 mm Auflage
 _U_ABD = min(q[0] for q in _st) - 5.0
-if JP:     # Deckel nur so weit wie die Schlitze + 3 mm Auflage (nicht bis an die Daumenleiste)
+if JP and not _KOLBEN:     # Deckel nur so weit wie die Schlitze + 3 mm Auflage (nicht bis an die Daumenleiste)
     _U_ABD = max(JP_KAMMER[r].intersection(_band(-2.0, 4.0)).bounds[2] for r in (1, 2, 3, 4) if not JP_KAMMER[r].intersection(_band(-2.0, 4.0)).is_empty) + 0.5
     print(f"Abdeckung: Schlitze bis u {_U_ABD - 0.5:.1f}, Deckel mit Auflage bis u {_U_ABD + 3.0:.1f}")
 _abd = _band(-1.0, 3.0).intersection(HUELLE_G)
@@ -638,6 +779,36 @@ _Q = _SPGc([_uy(*p) for p in [(A4_, B_KEIL_UNTEN), (A4_ - KEIL_T, B_KEIL_KNICK),
 KORPUS_M = _gr(HUELLE_G.intersection(_Q))
 _hohl = HUELLE_G.difference(_Q)
 if JP: _hohl = HUELLE_G.difference(JP_TEIL2.union(JP_OBEN))      # Johann: Koerper = Teil 2 + oberer Block, dazwischen leer
+if _KOLBEN:            # verdeckt: innen ganz hohl, Knopfseite 4-mm-Abdeckung mit den Stufen, oben die Daumenleiste
+    _kdeck = HUELLE_G.difference(_aff.translate(HUELLE_G, -T_ABDECK * KD[0], -T_ABDECK * KD[1]))
+    if _KOLBEN_ALLE:   # 22.11. 19:04 (Johann, 19:27 auch Kolben): Innenkontur der Abdeckung ohne Stufen wie im Schnitt (griffstock-alternativ DEZ 2018,
+        # "4mm abdeckung"): an der untersten und obersten Stufe 4 mm, dazwischen eine gerade Schraege
+        _fl = []
+        _hc = list(HUELLE_G.exterior.coords)
+        for _pa, _pb in zip(_hc, _hc[1:]):
+            _dx, _dy = _pb[0] - _pa[0], _pb[1] - _pa[1]; _ll = math.hypot(_dx, _dy)
+            if _ll < 5.0 or abs((_dx * KD[0] + _dy * KD[1]) / _ll) > 0.05: continue
+            _nn = _pa[0] * KD[0] + _pa[1] * KD[1]
+            if _nn < 20.0 or max(_pa[0] * KD[1] - _pa[1] * KD[0], _pb[0] * KD[1] - _pb[1] * KD[0]) < 30.0: continue    # nur die Knopfstufen
+            _tt = sorted((_pa[0] * KD[1] - _pa[1] * KD[0], _pb[0] * KD[1] - _pb[1] * KD[0]))
+            _fl.append((_nn, _tt[0], _tt[1]))
+        _nf = sorted(set(round(f_[0], 1) for f_ in _fl), reverse=True)            # Stufenflaechen von unten (groesstes n) nach oben
+        _f0 = max((f_ for f_ in _fl if round(f_[0], 1) == _nf[0]), key=lambda f_: f_[2])
+        _f3 = min((f_ for f_ in _fl if round(f_[0], 1) == _nf[-1]), key=lambda f_: f_[1])
+        _t1, _t2 = _f0[2] - 7.3, _f3[1] + 8.3                                    # Zeichnung: 18,5 - 11,18 bzw. 58,81 - 50,5
+        _n1, _n2 = _nf[0] - T_ABDECK, _nf[-1] - T_ABDECK
+        def _tn(t_, n_): return (n_ * KD[0] + t_ * KD[1], n_ * KD[1] - t_ * KD[0])
+        _innen = _PG2([_tn(-300, -300), _tn(-300, _n1), _tn(_t1, _n1), _tn(_t2, _n2), _tn(400, _n2), _tn(400, -300)])
+        _kdeck = HUELLE_G.difference(_innen)
+        print(f"Verdeckter Griffstock: Abdeckung innen glatt - {T_ABDECK} mm an Stufe unten (n {_nf[0]:.1f}) bis t {_t1:.1f}, Schraege bis t {_t2:.1f}, dann {T_ABDECK} mm an Stufe oben (n {_nf[-1]:.1f})")
+    _kdeck = _kdeck.intersection(_u_zw(U_KOLBEN_AUSTRITT, 400.0))   # unten offen: dort gehen die Alu-Hebel zu den Klappen hinaus
+    U_KTOP = max(max(q_[0] for q_ in knopf_u) + D_KOLBEN / 2 + 3.0, max(g_.bounds[2] for g_ in KOLBEN_ALU.values()) + 4.0)   # 4 mm ueber dem hoechsten Armende (gedrueckt)
+    _ktop = HUELLE_G.intersection(_u_zw(U_KTOP, 400.0))
+    _hohl = HUELLE_G.difference(_kdeck).difference(_ktop)
+    if not _KOLBEN_ALLE:   # nur Reihen 1/2 verdeckt: Teil 2 (Kanaele 3/4) wie bisher, oberer Block innen hohl bis auf Abdeckung/Daumenleiste
+        _hohl = HUELLE_G.difference(JP_TEIL2.union(JP_OBEN.intersection(_kdeck.union(_ktop))))
+    _hohl = max(_hohl.geoms, key=lambda g_: g_.area) if hasattr(_hohl, "geoms") else _hohl
+    print(f"Kolben-Griffstock: Abdeckung {T_ABDECK} mm, Daumenleiste ab u {U_KTOP:.1f}, innen hohl {_hohl.area:.0f} mm2")
 gk = gk.cut(prisma_uy(_pts(_gr(_hohl.buffer(0.02))), (XM0 + XM1) / 2, XM1 - XM0))
 if _hohl.geom_type != "Polygon":
     for g_ in list(_hohl.geoms)[1:]: gk = gk.cut(prisma_uy(_pts(g_.buffer(0.02)), (XM0 + XM1) / 2, XM1 - XM0))
@@ -693,7 +864,62 @@ if JP:                                                 # Kammern statt der Beweg
         _kk = JP_KAMMER[r].intersection(HUELLE_G.buffer(2.0)).buffer(0)
         for g_ in (_kk.geoms if hasattr(_kk, "geoms") else [_kk]):
             if g_.geom_type == "Polygon" and g_.area > 0.5: schl_g.append(prisma_uy(_jpts(g_), x + KV[r], T_HOLZ + 0.6))
+if _KOLBEN:
+    schl_g = []
+    for r, x, k, kr in zuordnung:                     # offene Kanaele nur fuer die Reihen ohne Kolben (Holzhebel)
+        if r in KOLBEN_R: continue
+        _kk = JP_KAMMER[r].intersection(HUELLE_G.buffer(2.0)).buffer(0)
+        for g_ in (_kk.geoms if hasattr(_kk, "geoms") else [_kk]):
+            if g_.geom_type == "Polygon" and g_.area > 0.5: schl_g.append(prisma_uy(_jpts(g_), x + KV[r], T_HOLZ + 0.6))
 for w_ in schl_g: gk = gk.cut(w_)
+if _KOLBEN:            # Durchfuehrung je Kolben durch die Abdeckung
+    for n_, (r, x, k, kr) in enumerate(zuordnung):
+        if r not in KOLBEN_R: continue
+        ku, kY = knopf_u[r - 1]
+        if JP: ku, kY = ku + JP_KNOPF_D[r][0], kY + JP_KNOPF_D[r][1]
+        # 22.11. 12:23 (Johann): Durchfuehrung als Rechteck 10 x 12 mit runden Ecken (Draufsicht "Ausnehmungen eckig"),
+        # 10 quer (X), 12 entlang der Stufe
+        _pl = cq.Plane(origin=(x + KV[r], kY + 5 * KD[1], -(ku + 5 * KD[0])), xDir=(1, 0, 0), normal=(0, -KD[1], KD[0]))
+        _ak = cq.Workplane(_pl).sketch().rect(10.0, 12.0).vertices().fillet(2.0).finalize().extrude(30.0).val()
+        gk = gk.cut(_ak)
+    if os.environ.get("WINKEL_GS_DUMP"):
+        import pickle as _gpk
+        _gpk.dump({"HUELLE_G": HUELLE_G, "hohl": _hohl, "abd": _abd_gross, "HEBEL": {r_: HEBEL[r_] for r_ in (1, 2, 3, 4)}, "LAGER": {r_: lager_von(r_) for r_ in (1, 2, 3, 4)},
+                   "KNOPF": KOLBEN_KNOPF, "KD": KD}, open("/tmp/winkel_gs.pkl", "wb"))
+        raise SystemExit("WINKEL_GS_DUMP")
+    # Freischnitt: Knopfarm Ruhe bis gedrueckt darf Abdeckung und Deckel nicht beruehren (wo der Platz knapp ist, z. B. Reihe 1)
+    _nfrei = 0
+    if _KOLBEN_ALLE:  # 22.11. 19:00 (Johann, 19:27 auch Kolben): keine Freischnitte - Hebel halten 2 mm Abstand zur Griffstock-Innenseite (Ruhe und gedrueckt)
+        from shapely.geometry import LineString as _WLS3
+        from shapely.affinity import rotate as _wrot
+        _wwand = HUELLE_G.difference(_hohl).buffer(2.0)
+        _nk = 0
+        for _ti, (_tn, _ts, _tf) in enumerate(teile):
+            if not (_tn.startswith("Hebel_R") and _tn.endswith("/Hebel_Alu")): continue
+            _r = int(_tn[7]); _L = lager_von(_r); _K = KOLBEN_KNOPF[_r]
+            _tg = math.degrees(3.6 / math.hypot(_K[0] - _L[0], _K[1] - _L[1]))
+            _band = _WLS3([(KOLBEN_UNTEN[_r][0] - KD[0], KOLBEN_UNTEN[_r][1] - KD[1]), _K]).buffer(D_KOLBEN / 2, cap_style=2)
+            _vb = _wwand.union(_wrot(_wwand, _tg, origin=_L)).difference(_band).intersection(_u_zw(_L[0] + 12.0, 400.0))
+            _vb = [g_ for g_ in (_vb.geoms if hasattr(_vb, "geoms") else [_vb]) if g_.geom_type == "Polygon" and g_.area > 0.05]
+            _ns = _ts
+            for g_ in _vb:
+                _w = prisma_uy(_pts(g_), (GS_X0 + GS_X1) / 2, GS_X1 - GS_X0 + 20)
+                if _ns.intersect(_w).Volume() > 1e-3: _ns = _ns.cut(_w); _nk += 1
+            if _ns is not _ts:
+                teile[_ti] = (_tn, _ns, _tf)
+                for _hd in HEBEL_DATEN:
+                    if _hd["G"] == _tn.split("/")[0]: _hd["hb"] = _ns
+        print(f"Verdeckter Griffstock: Hebel auf 2 mm Abstand zur Innenseite gekuerzt: {_nk} Stellen")
+    for _hd in ([] if _KOLBEN_ALLE else HEBEL_DATEN):
+        if _hd["r"] not in KOLBEN_R: continue
+        _hx, _hu, _hY = _hd["x"], _hd["up"], _hd["Yp"]
+        _kkh = KOLBEN_KNOPF[_hd["r"]]; _tg = math.degrees(3.6 / math.hypot(_kkh[0] - _hu, _kkh[1] - _hY))
+        _arm3 = _hd["hb"].intersect(box(-1e4, 1e4, -1e4, 1e4, -400.0, -(_hu + 8.0)))
+        for _wk in (-_tg, -_tg / 2, _tg / 2, _tg):
+            _a3 = _arm3.rotate(cq.Vector(_hx - 5, _hY, -_hu), cq.Vector(_hx + 5, _hY, -_hu), _wk)
+            if gk.intersect(_a3).Volume() > 1e-3: gk = gk.cut(_a3); _nfrei += 1
+            if abdeckung.intersect(_a3).Volume() > 1e-3: abdeckung = abdeckung.cut(_a3); _nfrei += 1
+    print(f"Kolben-Griffstock: Freischnitte fuer den Hebelweg: {_nfrei}")
 # Durchbrueche 10 x 12 (Schnitt alternativ2, "Ausnehmungen eckig") in jeder Stufe um den Holzsteg, durch bis in den Hebelkanal
 for r, x, k, kr in ([] if JP else zuordnung):
     a_ = A_STUFE[r]; b_ = _kb[r]
@@ -719,7 +945,7 @@ def _schnitt_kontur(e, rechts):
     return cq.Workplane("XZ").polyline(poly).close().extrude(-400).translate((0, -100, 0)).val()
 seitenschnitt = [_schnitt_kontur(_r, True), _schnitt_kontur(_l, False)]
 gk = schneide(gk, seitenschnitt); dre = schneide(dre, seitenschnitt)
-if JP:                                                 # Teilung: Teil 2 (unten, Reihen 3/4) ueber die ganze Laenge, oberer Block = Koerper
+if JP and not _KOLBEN_ALLE:                            # Teilung: Teil 2 (unten, Reihen 3/4) ueber die ganze Laenge, oberer Block = Koerper
     # 19.11. (2): Teil 2 = nur der vom Deckel abgewandte Teil unter dem oberen Block; Trennung eben, parallel zur Deckelflaeche,
     # etwa in halber Hoehe (beim Fraesen liegen beide Teile auf der Deckelseite). Vorderer Block mit Stufe 1/2 bleibt bei Teil 1.
     _R2 = HUELLE_G.difference(JP_OBEN)
@@ -815,7 +1041,7 @@ GS_LOECHER = []
 if JP and globals().get("INSTR") is not None:
     from shapely.geometry import LineString as _LS
     _T_GS = 12.0                                          # Einschraubtiefe in den Griffstock
-    _P1 = HUELLE_G.difference(_t2q.buffer(0.01)); _P1 = max(_P1.geoms, key=lambda q_: q_.area) if hasattr(_P1, "geoms") else _P1
+    _P1 = HUELLE_G if _KOLBEN_ALLE else HUELLE_G.difference(_t2q.buffer(0.01)); _P1 = max(_P1.geoms, key=lambda q_: q_.area) if hasattr(_P1, "geoms") else _P1
     def _y_best(P):
         Pe = P.union(_aff.translate(P, -10.0, 0)).buffer(0)
         best = None
@@ -826,7 +1052,7 @@ if JP and globals().get("INSTR") is not None:
             d_ = Pe.boundary.distance(sg)
             if best is None or d_ > best[1]: best = (y_, d_)
         return best
-    _yt = {n_: _y_best(P_) for n_, P_ in (("Teil1", _P1), ("Teil2", _t2q))}
+    _yt = {n_: _y_best(P_) for n_, P_ in ((("Teil1", _P1),) if _KOLBEN_ALLE else (("Teil1", _P1), ("Teil2", _t2q)))}
     _xs = [GS_X0 + _wgs / 2, GS_X1 - _wgs / 2]
     _sl = [s_.BoundingBox() for n_, s_, f_ in teile if n_ == "Schraubleiste_Stimmstoecke"]
     for j_ in range(2):                                   # Schraubenkopf (Oe5) nicht unter die Schraubleiste der Stimmstoecke
@@ -930,10 +1156,17 @@ if FEDER: print("Federn:", len(FEDERN), FEDERN[:3])
 # Federschenkel 1 liegt: ca. 2 mm lang, 0,5 mm tief, 0,8 breit (Draht 0,6). Schenkel werden in der Praxis bis dorthin
 # verlaengert (im Modell nicht).
 RASTKERBEN = []
+RAST_VERSCHOBEN = []
 if FEDERN:
     from shapely.geometry import LineString as _LSr
     _ik = [i_ for i_, t_ in enumerate(teile) if t_[0] == "Kunststoffteil_Lagerblock"][0]
     _kk = teile[_ik][1]
+    if os.environ.get("DEBUG_RAST"):
+        import pickle as _pk
+        cq.exporters.export(_kk, os.environ["DEBUG_RAST"] + ".brep") if False else _kk.exportBrep(os.environ["DEBUG_RAST"] + ".brep")
+        _pk.dump(([((p_.x, p_.y, p_.z), (t_.x, t_.y, t_.z), (n_.x, n_.y, n_.z), x_) for p_, t_, n_, x_ in RASTKERBE_DATEN], KST_E, D_DRAHT),
+                 open(os.environ["DEBUG_RAST"] + ".pkl", "wb"))
+        print("DEBUG_RAST gespeichert"); sys.exit(0)
     for (pa1_, t1k_, n3k_, xk_) in RASTKERBE_DATEN:
         ein_ = cq.Vector(n3k_.x, n3k_.y, n3k_.z).normalized()               # in den Kunststoff hinein (n zeigt ins Teil)
         S_ = pa1_.add(ein_.multiply(D_DRAHT / 2))                           # Punkt auf der Flaeche unter dem Schenkel
@@ -947,22 +1180,39 @@ if FEDERN:
         e_ = max(q_.coords, key=lambda c_: (c_[0] - a2[0]) * d2[0] + (c_[1] - a2[1]) * d2[1])
         E_ = cq.Vector(xk_, e_[1], -e_[0])                                   # hintere Kante, in Flucht mit dem Hebel
         quer_ = cq.Vector(1, 0, 0)
-        def _pkt(a_, b_, c_): return E_.add(r_dir.multiply(a_)).add(quer_.multiply(b_)).add(ein_.multiply(c_))
-        _ecken = [_pkt(a_, b_, -1.0) for a_, b_ in ((-2.0, -0.4), (1.0, -0.4), (1.0, 0.4), (-2.0, 0.4))]
-        _w = cq.Wire.makePolygon(_ecken + [_ecken[0]])
-        RASTKERBEN.append(cq.Solid.extrudeLinear(cq.Face.makeFromWires(_w), ein_.multiply(1.5)))
+        def _kerbe(dx_):
+            def _pkt(a_, b_, c_): return E_.add(r_dir.multiply(a_)).add(quer_.multiply(b_ + dx_)).add(ein_.multiply(c_))
+            _ecken = [_pkt(a_, b_, -1.0) for a_, b_ in ((-2.0, -0.4), (1.0, -0.4), (1.0, 0.4), (-2.0, 0.4))]
+            _w = cq.Wire.makePolygon(_ecken + [_ecken[0]])
+            return cq.Solid.extrudeLinear(cq.Face.makeFromWires(_w), ein_.multiply(1.5))
+        # 20.11. (Johann): mindestens ein Teil der 2 mm muss an der hinteren oberen Kante Material treffen. Liegt in Flucht
+        # mit dem Hebel der Hebelschlitz (Reihe 4: Schlitz laeuft durch die Kante), Kerbe seitlich zum naechsten Material.
+        _k_ = None
+        for dx_ in [0.0] + [s_ * 0.25 * j_ for j_ in range(1, 33) for s_ in (1, -1)]:
+            _kt = _kerbe(dx_)
+            try: _vt = _kt.intersect(_kk).Volume()
+            except Exception: _vt = 0.0
+            if _vt >= 0.8:                                                  # Sollwert voll im Material ca. 1,6
+                _k_ = _kt
+                if dx_ != 0.0: RAST_VERSCHOBEN.append((round(xk_, 1), dx_))
+                break
+        if _k_ is None: _k_ = _kerbe(0.0); RAST_VERSCHOBEN.append((round(xk_, 1), None))
+        RASTKERBEN.append(_k_)
     _kk_alt = _kk
     _kk = schneide(_kk, RASTKERBEN)
     teile[_ik] = (teile[_ik][0], _kk, teile[_ik][2])
     _vk = teile[_ik][1].Volume()
     print(f"   Rastmarken: {sum(1 for k_ in RASTKERBEN if k_.intersect(_kk_alt).Volume() > 0.05)} schneiden ins Kunststoffteil")
+    if RAST_VERSCHOBEN: print("   Rastmarken seitlich verschoben (Hebelschlitz an der Kante), x: dx =", RAST_VERSCHOBEN)
     print(f"Kunststoffteil: {len(RASTKERBEN)} Rastmarken an der hinteren Kante (2 lang, 0,5 tief, 0,8 breit, in Flucht mit den Hebeln)")
 teile.append(("Dreieckleiste", dre, "Griffstock"))
 verst = schneide(verst, loch_b + [cq.Solid.makeCylinder(1.5, 7.0, cq.Vector(x_, y_, T_BODEN - 1.0), cq.Vector(0, 0, 1)) for x_, y_, n_, w_ in GS_LOECHER])
 teile.append(("Verstaerkungsleiste_innen", verst, "Holz"))
+if _WINKEL: exec(open("winkel_teile.py").read())
+if TRAD: exec(open("kugel.py" if KUGEL else "trad.py").read())
 import json as _js
 open("drehpunkte.json", "w").write(_js.dumps(DREHPUNKTE))
-if os.environ.get("KST_STEP"):          # 19.11.: Kunststoffteil in Fraeslage (Lagerseite oben, Z = 0): Fraesteil + Fertigteil
+if not TRAD and os.environ.get("KST_STEP"):          # 19.11.: Kunststoffteil in Fraeslage (Lagerseite oben, Z = 0): Fraesteil + Fertigteil
     _kf = [t_[1] for t_ in teile if t_[0] == "Kunststoffteil_Lagerblock"][0]
     _sv = [kst_s(p_) for p_ in KST_E.exterior.coords]
     _dv = [(p_[0] - _a[0]) * _n[0] + (p_[1] - _a[1]) * _n[1] for p_ in KST_E.exterior.coords]
@@ -984,7 +1234,7 @@ if os.environ.get("KST_STEP"):          # 19.11.: Kunststoffteil in Fraeslage (L
     for _nm, _so in (("", _fr), ("_fertig", _kf)):
         cq.exporters.export(_kst_lage(_so, _verschieb), os.environ["KST_STEP"].replace(".step", _nm + ".step"))
     print(f"Kunststoffteil in Fraeslage: {KST_X1 - KST_X0:.1f} x {_smax - _smin:.1f} x {_dmax:.1f} mm -> {os.environ['KST_STEP']}")
-if os.environ.get("TEILE_DUMP"):          # 19.11.: Daten fuer teile_dxf.py (Alu-Abwicklungen, Holzteile, Kunststoffteil)
+if not TRAD and os.environ.get("TEILE_DUMP"):          # 19.11.: Daten fuer teile_dxf.py (Alu-Abwicklungen, Holzteile, Kunststoffteil)
     import pickle as _pkd
     _hd = []
     for d_ in HEBEL_DATEN:

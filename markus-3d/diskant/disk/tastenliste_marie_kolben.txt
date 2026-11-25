@@ -1,0 +1,51 @@
+# Tastenliste Marie (2-choerig, 50 Tasten 14/13/12/11, Hebel auf 2 Loecher, Kammern vorn/hinten gegenueber)
+# Koordinaten wie Marie Boden.dxf (Boden50 = gleiche Lage); Plattenlaengen aus den Stimmstoecken GCFB (G/C/F/B),
+# je Klappe von links (kleines x); vorn und hinten gleich lang
+name           = Marie
+choerig        = 2
+knopfabstand   = 19
+griffstock     = kolben   # 21.11.: 22.11.: Kolben-Griffstock (kolben_geo.py): verdeckt, Kunststoffzylinder unter den Knoepfen
+gehaeuse_x     = auto
+rand_links     = 38.15   # Boden.dxf: Innenmass 332,2
+rand_rechts    = 29.05
+boden_dxf      = muster/marie_boden.dxf   # Marie Boden.dxf: Klappenumriss, Griffstockfuesse
+feder          = alle   # Drehfeder an jedem Hebel (oder einzelner Hebel, z. B. Hebel_R1_07)
+verdeck_muster = geschwungen.dxf   # Marie-Muster (muster/geschwungen.dxf)
+
+[reihe 1]
+knopf_versatz = -4.75   # Johann 19.11.: gekappte Pyramide - Reihe 1/2 um Viertelteilung nach -X, dadurch jede Reihe zur Nachbarreihe halbe Teilung, Hebel unter Reihe 3/4 Z-gekroepft
+ton       = G
+neigung   = 5.1944   # 19.11.: Schraeglage wie Markus (Seitenansicht Mechanik-DXF)
+knopf_x0  = -284.85   # Knopfreihen versetzt wie beim Markus (19.11.: Pyramide mittig auf Korpus, Mitte X 166.1)
+knoepfe   = 14
+klappe_x0 = -285.049
+klappe_y  = 157.025
+platten   = 38.1 32.9 35 36.3 38 41.4 43.3 44.9 46.3 48 49.6 49.6 45 45   # 19.11.: Stock links/rechts getauscht (lange Platten bei kleinem X wie Markus)
+
+[reihe 2]
+knopf_versatz = -4.75   # Johann 19.11.: gekappte Pyramide - Reihe 1/2 um Viertelteilung nach -X, dadurch jede Reihe zur Nachbarreihe halbe Teilung, Hebel unter Reihe 3/4 Z-gekroepft
+ton       = C
+neigung   = 0.0000   # 19.11.: Schraeglage wie Markus (Seitenansicht Mechanik-DXF)
+knopf_x0  = -275.35   # Knopfreihen versetzt wie beim Markus (19.11.: Pyramide mittig auf Korpus, Mitte X 166.1)
+knoepfe   = 13
+klappe_x0 = -278.549
+klappe_y  = 123.0
+platten   = 29.9 31 32.7 36.4 37.9 39.4 41.2 43 45.2 46.4 48 49.5 47.6   # 19.11.: Stock links/rechts getauscht (lange Platten bei kleinem X wie Markus)
+
+[reihe 3]
+ton       = F
+neigung   = -6.2258   # 19.11.: Schraeglage wie Markus (Seitenansicht Mechanik-DXF)
+knopf_x0  = -270.6   # Knopfreihen versetzt wie beim Markus (19.11.: Pyramide mittig auf Korpus, Mitte X 166.1)
+knoepfe   = 12
+klappe_x0 = -272.064
+klappe_y  = 88.975
+platten   = 25.1 29.5 33 35 36.5 39.6 41.5 43 45 48 48 45.1   # 19.11.: Stock links/rechts getauscht (lange Platten bei kleinem X wie Markus)
+
+[reihe 4]
+ton       = B
+neigung   = -12.3080   # 19.11.: Schraeglage wie Markus (Seitenansicht Mechanik-DXF)
+knopf_x0  = -261.1   # Knopfreihen versetzt wie beim Markus (19.11.: Pyramide mittig auf Korpus, Mitte X 166.1)
+knoepfe   = 11
+klappe_x0 = -265.342
+klappe_y  = 55.0
+platten   = 26.1 30 30.8 33.1 36.5 38 41.5 42.9 45 46.5 45   # 19.11.: Stock links/rechts getauscht (lange Platten bei kleinem X wie Markus)

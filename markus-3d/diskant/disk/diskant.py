@@ -709,6 +709,44 @@ if ZWEI and os.environ.get("MECHANIK", "1") == "1":
     print("Mechanik: 2-choerig mit dem Markus-Griffstock/Hebelaufbau (Johann 18.11.: Variante 2), Knoepfe aus der Tastenliste")
 if os.environ.get("MECHANIK", "1") == "1":
     exec(open("hebel.py").read())
+    # 21.11. (Johann): Kugellager - Verdeck hinten (Griffstockseite) hoeher setzen, bis kein Hebel anstoesst: das ganze
+    # Verdeck wird um die untere Kante der Stirnwand gekippt, die Seitenteile werden unten um den Keil verlaengert
+    VD_HOCH = 0.0
+    if globals().get("KUGEL_HEBEL_UY"):
+        from shapely.geometry import Point as _VPt
+        from shapely.ops import unary_union as _vuu
+        _vd_d = {n_: s_ for n_, s_, f_ in teile if f_ == "Verdeck"}
+        _bbD, _bbF = _vd_d["Verdeck_Deckplatte"].BoundingBox(), _vd_d["Verdeck_Front"].BoundingBox()
+        _YF = _bbF.ymax if abs(_bbF.ymax - _bbD.ymax) < abs(_bbF.ymin - _bbD.ymin) else _bbF.ymin   # Stirnwand (Drehkante)
+        _YB = _bbD.ymin if _YF > (_bbD.ymin + _bbD.ymax) / 2 else _bbD.ymax                           # Griffstockseite
+        _HG1, _HG0 = HUELLE_G.buffer(1.0), HUELLE_G
+        _U_IN = H_VD - T_VD                                   # Unterseite Deckplatte (u)
+        for pg_ in KUGEL_HEBEL_UY:
+            for u_, Y_ in list(pg_.exterior.coords):
+                w_ = (_YF - Y_) / (_YF - _YB)
+                if w_ <= 0.05 or w_ >= 1.0: continue           # nur ueber der Deckplatte (Griffstockseite bis Stirnwand)
+                if u_ > H_VD + 12.0: continue                 # Hebelkoepfe unter den Knoepfen liegen ueber dem Verdeck
+                _p = _VPt(u_, Y_)
+                if not _HG1.contains(_p): VD_HOCH = max(VD_HOCH, (u_ + 0.5 - _U_IN) / w_)       # unter der Deckplatte
+                elif not _HG0.contains(_p): VD_HOCH = max(VD_HOCH, (u_ + 0.3 - H_VD) / w_)      # unter der Verdeckleiste
+        VD_HOCH = math.ceil(max(0.0, VD_HOCH) * 2.0) / 2.0
+        if VD_HOCH > 0:
+            _ang = math.degrees(math.atan2(VD_HOCH, abs(_YF - _YB))) * (1.0 if _YF > _YB else -1.0)
+            _ax0, _ax1 = cq.Vector(0, _YF, 0), cq.Vector(1, _YF, 0)
+            _neu = []
+            for n_, s_, f_ in teile:
+                if f_ == "Verdeck":
+                    s_ = s_.rotate(_ax0, _ax1, _ang)
+                    if n_.startswith("Verdeck_Seite"):        # Keil unter der Seitenwand bis auf die Deckelflaeche
+                        _bb = s_.BoundingBox()
+                        _keil = (cq.Workplane("YZ").polyline([(_YB, 0.0), (_YF, 0.0), (_YB, -VD_HOCH - 0.05)]).close()
+                                 .extrude(_bb.xmax - _bb.xmin).translate((_bb.xmin, 0, 0)).val())
+                        s_ = s_.fuse(_keil.intersect(cq.Solid.makeBox(_bb.xmax - _bb.xmin, abs(_YF - _YB), VD_HOCH + 0.05,
+                                                                       cq.Vector(_bb.xmin, min(_YF, _YB), -VD_HOCH - 0.05))))
+                _neu.append((n_, s_, f_))
+            teile = _neu
+            print(f"Verdeck: hinten (Griffstockseite) um {VD_HOCH:.1f} mm hoeher gesetzt - um die Stirnkante Y {_YF:.1f} "
+                  f"um {abs(_ang):.2f} Grad gekippt, Seitenteile unten mit Keil bis auf die Deckelflaeche")
     # Verdeck an Griffstock, Abdeckung, Kunststoffteil und Keil anpassen (keine Ueberschneidung),
     # umlaufende Aussenkante der Deckplatte an den freien Seiten R 0,5
     _gsf = [s_ for n_, s_, f_ in teile if n_ in ("Griffstock_Koerper", "Griffstock_Teil2", "Griffstock_Abdeckung", "Kunststoffteil_Lagerblock", "Dreieckleiste")]
@@ -727,7 +765,7 @@ if os.environ.get("MECHANIK", "1") == "1":
                     try:
                         s_ = s_.fillet(_r, _ed); print(f"Verdeck: Kante R{_r} an", len(_ed), "Kanten"); break
                     except Exception as ex_: print(f"Verdeck: Abrundung R{_r} nicht moeglich", ex_)
-                _sec = s_.intersect(cq.Solid.makeBox(0.2, 300, 1.0, cq.Vector((KST_X0 + KST_X1) / 2 - 0.1, -50, -H_VD)))
+                _sec = s_.intersect(cq.Solid.makeBox(0.2, 300, 1.0, cq.Vector((KST_X0 + KST_X1) / 2 - 0.1, -50, -H_VD - VD_HOCH)))
                 Y_VD_KANTE = _sec.BoundingBox().ymin
             if abs(s_.Volume() - v0) > 1e-3: print(f"Verdeck {n_}: angepasst, {v0 - s_.Volume():.0f} mm3 weggenommen")
         _neu.append((n_, s_, f_))
@@ -736,7 +774,7 @@ if os.environ.get("MECHANIK", "1") == "1":
     # flache Seite buendig am Griffstock, Vorderseite und beide Enden gerundet
     W_L, H_L, R_L = 6.0, 5.0, 3.0
     from shapely.geometry import Polygon as _LP, Point as _LPt
-    _u0, _yk = H_VD, Y_VD_KANTE
+    _u0, _yk = H_VD + VD_HOCH, Y_VD_KANTE
     _pr = _LP([(_u0, _yk - 15), (_u0 + H_L, _yk - 15), (_u0 + H_L, _yk + W_L - R_L), (_u0, _yk + W_L - R_L)]).union(
           _LP([(_u0, _yk - 15), (_u0 + H_L - R_L, _yk - 15), (_u0 + H_L - R_L, _yk + W_L), (_u0, _yk + W_L)])).union(
           _LPt(_u0 + H_L - R_L, _yk + W_L - R_L).buffer(R_L, 64)).difference(HUELLE_G)
@@ -808,7 +846,7 @@ print("Verdeckstuetzen (X, Y Mitte):", STUETZEN, "Schraube seitlich bei Z", _Z_S
 if ornamente:
     _vf = [s_ for n_, s_, f_ in teile if n_ == "Verdeck_Front"][0]
     _bv = _vf.BoundingBox(); _ymv = (_bv.ymin + _bv.ymax) / 2
-    _ff = max([f for f in _vf.Faces() if abs(abs(f.normalAt().y) - 1) < 1e-6], key=lambda f: f.Area())
+    _ff = max([f for f in _vf.Faces() if abs(abs(f.normalAt().y) - 1) < 2e-3], key=lambda f: f.Area())   # 21.11.: Verdeck evtl. leicht gekippt
     _ros = []
     for w_ in _ff.innerWires():
         fa_ = cq.Face.makeFromWires(w_); a_ = fa_.Area()
@@ -851,6 +889,16 @@ teile.append(("Rahmeneinlage/Ring", _ring, "Einlage"))
 for i_, s_ in enumerate(_muster): teile.append((f"Rahmeneinlage/Blume_{i_ + 1:02d}", s_, "Einlage"))
 print(f"Rahmen vorne: Venus-Blume Ring R{R_RING_I}-{_r_out} + {len(_muster)} Musterteile schwarz, Mitte X {_xm:.1f} Z {_zm:.1f}")
 
+# 21.11. Kugellager-Griffstock: Verdeck nicht mehr freischneiden - es wird hinten hoeher gesetzt (VD_HOCH, oben)
+if globals().get("KUGEL_FREI") and os.environ.get("VERDECK_FREISCHNEIDEN"):
+    _neu_v = []
+    for n_, s_, f_ in teile:
+        if n_.startswith("Verdeck"):
+            v0_ = s_.Volume()
+            for gw_ in KUGEL_FREI: s_ = schneide(s_, gw_)
+            if v0_ - s_.Volume() > 0.01: print(f"Kugellager: {n_} fuer die Hebel freigeschnitten {v0_ - s_.Volume():.1f} mm3")
+        _neu_v.append((n_, s_, f_))
+    teile = _neu_v
 # ---- Kollisionspruefung (KOLLISION=1): Teile, die von der Tastenliste abhaengen, gegen alle anderen ----
 if os.environ.get("KOLLISION") == "1":
     import re as _rek, json as _jk
@@ -871,7 +919,7 @@ if os.environ.get("KOLLISION") == "1":
 
 # ---------------- Ausgabe ----------------
 farben = {"Einlage": cq.Color(0.12, 0.07, 0.04), "Holz": cq.Color(0.80, 0.62, 0.40), "Alu": cq.Color(0.78, 0.80, 0.83), "Verdeck": cq.Color(0.15, 0.15, 0.15),
-          "Leder": cq.Color(0.55, 0.30, 0.15), "Stahl": cq.Color(0.55, 0.57, 0.60), "Messing": cq.Color(0.85, 0.68, 0.25), "Schraube": cq.Color(0.80, 0.65, 0.20), "Klappe": cq.Color(0.30, 0.20, 0.12), "Hebelholz": cq.Color(0.70, 0.45, 0.25), "Kunststoff": cq.Color(0.92, 0.92, 0.88), "Knopf": cq.Color(0.95, 0.93, 0.85), "Griffstock": cq.Color(0.45, 0.28, 0.15),
+          "Leder": cq.Color(0.55, 0.30, 0.15), "Stahl": cq.Color(0.55, 0.57, 0.60), "Messing": cq.Color(0.85, 0.68, 0.25), "Schraube": cq.Color(0.80, 0.65, 0.20), "Klappe": cq.Color(0.30, 0.20, 0.12), "Hebelholz": cq.Color(0.70, 0.45, 0.25), "Kunststoff": cq.Color(0.92, 0.92, 0.88), "POM": cq.Color(0.96, 0.96, 0.94), "FR2": cq.Color(0.55, 0.62, 0.35), "Knopf": cq.Color(0.95, 0.93, 0.85), "Griffstock": cq.Color(0.45, 0.28, 0.15),
           # Hebel je Knopfreihe eigene Farbe (Alu kraeftig, Holzteil heller)
           "Alu_R1": cq.Color(0.85, 0.15, 0.15), "Holz_R1": cq.Color(0.95, 0.55, 0.55),
           "Alu_R2": cq.Color(0.15, 0.35, 0.90), "Holz_R2": cq.Color(0.55, 0.70, 0.98),
