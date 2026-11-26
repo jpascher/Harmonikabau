@@ -32,6 +32,7 @@
   .dateien a { font-size:.8rem; text-decoration:none; color:var(--holz); border:1px solid var(--linie); border-radius:6px; padding:.3rem .55rem; }
   .dateien a:hover { background:var(--papier); }
   .betrachter { background:#fff; border:1px solid var(--linie); border-radius:10px; padding:1rem 1.2rem; margin-top:2rem; font-family:system-ui,sans-serif; }
+  model-viewer[hidden] { display:none; }
   model-viewer { width:100%; height:480px; background:#f3efe8; border-radius:8px; margin-top:.8rem; }
   .hinweis { color:#7a6a58; font-size:.85rem; }
   footer { text-align:center; padding:2rem 1rem; color:#8a7a66; font-family:system-ui; font-size:.8rem; }
@@ -40,14 +41,15 @@
 <body>
 <header><div class="innen">
   <h1>Steirische Harmonika – 3D-Modelle</h1>
-  <p>Diskant- und Bassteile, aus den Werkstattzeichnungen gerechnet (CadQuery). Quellen: <a style="color:#fff" href="https://github.com/jpascher/Harmonikabau/tree/main/markus-3d">jpascher/Harmonikabau</a></p>
+  <p>Diskant- und Bassteile, aus den Werkstattzeichnungen gerechnet (CadQuery). Quellen: <a style="color:#fff" href="https://github.com/jpascher/Harmonikabau/tree/main/markus-3d">jpascher/Harmonikabau</a> · <a style="color:#fff" href="hilfe.html">Hilfe</a></p>
 </div></header>
 <main>
   <div class="start">
-    <p><strong>Neues Modell rechnen:</strong> Auf der GitHub-Seite „Run workflow“ öffnen, Teil (Bass/Diskant), Variante und Knopfteilung wählen und starten.
+    <p><strong>Neues Modell rechnen:</strong> Auf der GitHub-Seite „Run workflow“ öffnen, Bass- oder Diskantteil wählen – beim Bass die Variante, Knopfteilung und Länge, beim Diskant Instrument, Griffstock, Knopfzahl und Hebelteilung – und starten.
        Nach etwa 15–30 Minuten erscheint das Ergebnis unten in der Liste – mit STEP-Modell (für Fusion), Vorschau und Protokoll.</p>
     <a class="knopf" href="https://github.com/jpascher/Harmonikabau/actions/workflows/harmonika_erzeugen.yml">Variante auswählen &amp; rechnen</a>
     <a class="knopf zweit" href="https://github.com/jpascher/Harmonikabau/actions/workflows/harmonika_erzeugen.yml">Laufende Rechnungen</a>
+    <a class="knopf zweit" href="hilfe.html">Hilfe</a>
   </div>
 
   <h2>Fertige Modelle</h2>

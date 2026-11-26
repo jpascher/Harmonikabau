@@ -2,9 +2,11 @@
 #   python3 markus-3d/ci/erzeuge_ci.py <teil> <variante> <teilung> <laenge> <ausgabeordner> [vorschau ja|nein]
 #   teil      : bass | diskant
 #   variante  : Bass  -> markus, marie38, eduard, gerhard, andreas, v340
-#               Diskant -> Name der Tastenliste ohne "tastenliste_" und ".txt", z. B. markus, marie_winkel, markus48_winkel
+#               Diskant -> instrument:griffstock:knoepfe:hebel (z. B. markus:kugellager:46:9, siehe tastenliste_bauen.py)
+#                          oder Name einer vorhandenen Tastenliste ohne "tastenliste_" und ".txt", z. B. marie_winkel
 #   teilung   : Knopfteilung in mm (18, 19, 20) oder "standard" (Wert des jeweiligen Skripts); beim Diskant steht sie in der Tastenliste
 #   laenge    : Gehaeuselaenge in mm, nur fuer den Markus-Bass (Diskantlaenge genuegt, wird auf volle 10 mm aufgerundet)
+#   Umgebungsvariable PLATTEN: eigene Stimmplattenlaengen fuer den Diskant, z. B. "R1: 32 33 ...; R2: ..." (leer = gezeichnet)
 # Ergebnis im Ausgabeordner: <Modell>_step.zip (beim Diskant samt Fraesdaten), vorschau.glb, vorschau.png, notizen.md, protokoll.txt
 import sys, os, glob, shutil, subprocess, time, zipfile
 
@@ -51,16 +53,27 @@ def main():
         name = os.path.basename(step)[:-5]
         packe(os.path.join(aus, name + "_step.zip"), [step] + glob.glob(step + ".*"), aus)
     elif teil == "diskant":
-        liste = os.path.join(M3D, "diskant", "disk", f"tastenliste_{variante}.txt")
-        if not os.path.exists(liste): raise SystemExit(f"Tastenliste fehlt: {liste}")
+        if ":" in variante:                                   # Auswahl der Webseite: instrument:griffstock:knoepfe:hebel
+            sys.path.insert(0, HIER); import tastenliste_bauen
+            liste, lname, hinweise = tastenliste_bauen.baue(*variante.split(":"), os.path.join(aus, "tastenliste.txt"),
+                                                            os.environ.get("PLATTEN", ""))
+            with open(log, "a", encoding="utf-8") as f:
+                f.write(f"Tastenliste {lname} zusammengesetzt\n" + "".join(f"Hinweis: {h}\n" for h in hinweise))
+        else:
+            liste = os.path.join(M3D, "diskant", "disk", f"tastenliste_{variante}.txt")
+            if not os.path.exists(liste): raise SystemExit(f"Tastenliste fehlt: {liste}")
+            hinweise = []
         roh = os.path.join(aus, "diskant_roh")
         lauf([py, "erzeuge.py", liste, roh, "ci"], os.path.join(M3D, "diskant", "disk"), log)
         modell = glob.glob(os.path.join(roh, "Diskantteil_*_ci.step"))[0]
         name = os.path.basename(modell)[:-5]
         alle = [p for p in glob.glob(os.path.join(roh, "**", "*"), recursive=True) if os.path.isfile(p)]
+        shutil.copy(liste, os.path.join(roh, "tastenliste.txt"))
+        alle = [p for p in glob.glob(os.path.join(roh, "**", "*"), recursive=True) if os.path.isfile(p)]
         packe(os.path.join(aus, name + "_mit_Fraesdaten.zip"), alle, roh)
     else:
         raise SystemExit("teil muss bass oder diskant sein")
+    hinweise = locals().get("hinweise", [])
     if vorschau:
         lauf([py, os.path.join(HIER, "vorschau.py"), modell, os.path.join(aus, "vorschau.glb"), os.path.join(aus, "vorschau.png")], HIER, log)
     groesse = os.path.getsize(modell) / 1e6
@@ -68,8 +81,9 @@ def main():
         f.write(f"**{name}** – Teil: {teil}, Variante: {variante}, Teilung: {teilung or 'standard'}"
                 + (f", Länge: {laenge}" if teil == "bass" and variante == "markus" else "") + "\n\n"
                 f"STEP {groesse:.0f} MB, gepackt im ZIP. `vorschau.glb` (grob, mit Farben) und `vorschau.png` zur schnellen Kontrolle; "
-                f"`protokoll.txt` enthält die Ausgabe des Generators einschließlich Kollisionsprüfung.\n")
-    for p in (modell, os.path.join(aus, "diskant_roh")):          # nur die gepackten Dateien bleiben
+                f"`protokoll.txt` enthält die Ausgabe des Generators einschließlich Kollisionsprüfung.\n"
+                + "".join(f"\n> Hinweis: {h}" for h in hinweise))
+    for p in (modell, os.path.join(aus, "diskant_roh"), os.path.join(aus, "tastenliste.txt")):          # nur die gepackten Dateien bleiben
         if os.path.isdir(p): shutil.rmtree(p)
         elif os.path.exists(p): os.remove(p)
     print("fertig:", sorted(os.listdir(aus)))

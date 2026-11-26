@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hilfe – Steirische Harmonika 3D-Modelle</title>
+<style>
+  :root { --holz:#6b4a2b; --holz-hell:#a8794c; --papier:#f7f2ea; --tinte:#2b2118; --linie:#e2d6c4; --gruen:#3f6b3a; --gelb:#fbf3dc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: Georgia, "Times New Roman", serif; background:var(--papier); color:var(--tinte); line-height:1.55; }
+  header { background:linear-gradient(135deg,var(--holz),#3e2a17); color:#fff; padding:2rem 1.5rem 1.6rem; }
+  header .innen { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; flex-wrap:wrap; }
+  h1 { margin:0; font-size:1.9rem; font-weight:normal; }
+  header a { color:#fff; font-family:system-ui,sans-serif; font-size:.9rem; }
+  .rahmen { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:220px 1fr; gap:2rem; padding:1.5rem; }
+  nav { position:sticky; top:1rem; align-self:start; font-family:system-ui,sans-serif; font-size:.9rem; }
+  nav a { display:block; color:var(--holz); text-decoration:none; padding:.3rem .5rem; border-left:3px solid transparent; }
+  nav a:hover { border-left-color:var(--holz-hell); background:#fff; }
+  main section { background:#fff; border:1px solid var(--linie); border-radius:10px; padding:1.2rem 1.5rem; margin-bottom:1.3rem; }
+  main p, main li, td { font-family:system-ui,sans-serif; font-size:.95rem; }
+  h2 { font-weight:normal; margin:.2rem 0 .8rem; font-size:1.4rem; }
+  h3 { font-weight:normal; font-size:1.1rem; margin:1.2rem 0 .4rem; color:var(--holz); }
+  table { border-collapse:collapse; width:100%; margin:.5rem 0 1rem; }
+  th, td { text-align:left; padding:.45rem .6rem; border-bottom:1px solid var(--linie); vertical-align:top; }
+  th { font-family:system-ui,sans-serif; font-size:.8rem; text-transform:uppercase; letter-spacing:.04em; color:#8a7a66; font-weight:600; }
+  code { background:#f3ede3; padding:.05rem .35rem; border-radius:4px; font-size:.88em; }
+  .schritte { counter-reset:s; list-style:none; padding:0; }
+  .schritte li { counter-increment:s; position:relative; padding:.2rem 0 .7rem 2.6rem; }
+  .schritte li::before { content:counter(s); position:absolute; left:0; top:.1rem; width:1.8rem; height:1.8rem; border-radius:50%;
+                         background:var(--gruen); color:#fff; font-weight:600; display:flex; align-items:center; justify-content:center; font-family:system-ui; }
+  .hinweis { background:var(--gelb); border-left:4px solid #d4a72c; padding:.7rem 1rem; border-radius:6px; font-family:system-ui,sans-serif; font-size:.9rem; margin:.8rem 0; }
+  .ok { color:var(--gruen); font-weight:600; } .neu { color:#a06a00; font-weight:600; } .nein { color:#999; }
+  .knopf { display:inline-block; background:var(--gruen); color:#fff; text-decoration:none; padding:.6rem 1.1rem; border-radius:8px; font-weight:600; font-family:system-ui; }
+  @media (max-width:800px){ .rahmen{grid-template-columns:1fr} nav{position:static} }
+</style>
+</head>
+<body>
+<header><div class="innen">
+  <h1>Hilfe zum Modellrechner</h1>
+  <a href="./">← zurück zur Übersicht</a>
+</div></header>
+<div class="rahmen">
+<nav>
+  <a href="#ueberblick">Wie es funktioniert</a>
+  <a href="#starten">Rechnung starten</a>
+  <a href="#bass">Auswahl Bassteil</a>
+  <a href="#diskant">Auswahl Diskantteil</a>
+  <a href="#kombis">Was ist schon gerechnet?</a>
+  <a href="#ergebnis">Ergebnis &amp; Dateien</a>
+  <a href="#fusion">In Fusion öffnen</a>
+  <a href="#fehler">Wenn etwas schiefgeht</a>
+</nav>
+<main>
+
+<section id="ueberblick">
+  <h2>Wie es funktioniert</h2>
+  <p>Jedes Teil der Harmonika – Gehäuse, Kammern, Stimmstöcke, Mechanik, Griffstock – wird nicht von Hand gezeichnet, sondern von Python-Skripten aus den Werkstattzeichnungen gerechnet. Diese Skripte liegen im Repository <a href="https://github.com/jpascher/Harmonikabau/tree/main/markus-3d">jpascher/Harmonikabau</a>. Wählt man auf GitHub eine Variante aus, startet GitHub eine eigene Rechenmaschine, rechnet das Modell samt Kollisionsprüfung und legt das Ergebnis als Download ab. Am eigenen Rechner läuft dabei nichts, und es kostet nichts.</p>
+  <p>Eine Rechnung dauert je nach Teil 10 bis 30 Minuten: ein Bassteil etwa 10 Minuten, ein Diskantteil mit allen Fräsdaten etwa 25 Minuten. Das fertige Modell erscheint danach auf der <a href="./">Übersichtsseite</a>.</p>
+</section>
+
+<section id="starten">
+  <h2>Rechnung starten</h2>
+  <ol class="schritte">
+    <li>Auf der Übersichtsseite <strong>„Variante auswählen &amp; rechnen“</strong> anklicken. Es öffnet sich die GitHub-Seite des Ablaufs „Harmonika erzeugen“. Man muss bei GitHub angemeldet sein und Schreibrecht am Repository haben.</li>
+    <li>Rechts oben den grünen Knopf <strong>„Run workflow“</strong> drücken. Es klappt ein Formular mit Auswahlfeldern auf.</li>
+    <li><strong>Teil</strong> wählen: <code>bass</code> oder <code>diskant</code>. Danach gelten nur die Felder, die mit „Bass:“ bzw. „Diskant:“ beginnen; die anderen werden ignoriert.</li>
+    <li>Die Felder ausfüllen (Erklärung unten) und unten im Formular nochmals <strong>„Run workflow“</strong> drücken.</li>
+    <li>Der Lauf erscheint in der Liste mit gelbem Punkt (läuft). Ein grüner Haken heißt fertig, ein rotes Kreuz heißt Fehler. Das Ergebnis steht dann unter <a href="https://github.com/jpascher/Harmonikabau/releases">Releases</a> und auf der Übersichtsseite.</li>
+  </ol>
+  <p><a class="knopf" href="https://github.com/jpascher/Harmonikabau/actions/workflows/harmonika_erzeugen.yml">Zum Formular</a></p>
+</section>
+
+<section id="bass">
+  <h2>Auswahl Bassteil</h2>
+  <h3>Bass: Bassteil</h3>
+  <table>
+    <tr><th>Wert</th><th>Bassteil</th><th>Teilung laut Zeichnung</th></tr>
+    <tr><td><code>markus</code></td><td>Markus-Bassteil, zwei Reihen, Helikon. Als einziger in Knopfteilung <em>und</em> Gehäuselänge frei wählbar.</td><td>20 mm</td></tr>
+    <tr><td><code>marie38</code></td><td>Marie 38 cm – Helikonkammern in zwei Ebenen mit Verbindungskanal (Stockwerk).</td><td>19 mm</td></tr>
+    <tr><td><code>eduard</code></td><td>Winkelbass Eduard.</td><td>20 mm</td></tr>
+    <tr><td><code>gerhard</code></td><td>Gerhard – drei Reihen, viele Bässe, versetzte und eine liegende Kammer.</td><td>20 mm</td></tr>
+    <tr><td><code>andreas</code></td><td>Andreas – Stockwerksvariante nach Marie 38, 13 schmale Helikonbässe, Gehäuse 400 mm.</td><td>19 mm</td></tr>
+    <tr><td><code>v340</code></td><td>„340 schmal leicht schräg“ – kurzes Gehäuse, schräge Platten, abgesenkte Luftklappe.</td><td>19 mm</td></tr>
+  </table>
+  <h3>Bass: Knopfteilung</h3>
+  <p><code>standard</code> nimmt den Wert der Zeichnung (Tabelle oben). 18, 19 oder 20 mm setzt den Abstand der Bassknöpfe neu; die Knopfreihen bleiben mittig. Beim Markus-Bass ist das für alle drei Werte geprüft, bei den anderen Bassteilen ist nur der Zeichnungswert geprüft.</p>
+  <h3>Bass: Gehäuselänge</h3>
+  <p>Nur für den Markus-Bass. Man kann direkt die Länge des Diskantteils eingeben; das Gehäuse wird auf volle 10 mm aufgerundet und ist nie kürzer als 380 mm (z. B. 396,7 → 400). Die Rohteile behalten wie in den Zeichnungen 2 mm Übermaß.</p>
+</section>
+
+<section id="diskant">
+  <h2>Auswahl Diskantteil</h2>
+  <h3>Diskant: Instrument</h3>
+  <p><code>markus</code> ist die dreichörige Steirische (Hebel wirken auf Tripel), <code>marie</code> die zweichörige mit 19 mm Knopfabstand. Knopfzahl und Hebelteilung lassen sich nur beim Markus verändern; Marie wird immer so gerechnet, wie sie gezeichnet ist.</p>
+  <h3>Diskant: Griffstock</h3>
+  <table>
+    <tr><th>Wert</th><th>Bauart</th></tr>
+    <tr><td><code>standard</code></td><td>Kunststoff-Griffstock: Alu-Hebel in einem Kunststoffkamm, Drehfeder an jedem Hebel.</td></tr>
+    <tr><td><code>traditionell</code></td><td>Holzhebel auf zwei durchgehenden Achsen, Teil 1 (Reihen 1/2) und Teil 2 (Reihen 3/4), Spiralfedern.</td></tr>
+    <tr><td><code>kugellager</code></td><td>Holzhebel mit zwei Kugellagern in POM-Stützen, Epoxy-Leisten, Teile von hinten verschraubt.</td></tr>
+    <tr><td><code>kolben</code></td><td>Verdeckter Griffstock, Kunststoffzylinder (Kolben) unter allen Knöpfen, Hebel nur Alu.</td></tr>
+    <tr><td><code>kolben12</code></td><td>Reihen 1/2 verdeckt mit Kolben, Reihen 3/4 offen mit Holzhebeln.</td></tr>
+    <tr><td><code>winkel</code></td><td>Alu-Winkel 46753 an der Rückwand, alle Hebel auf einer Achse Ø 3, Führung nach ital.df.dxf. Nur mit 20 mm Knopfabstand.</td></tr>
+    <tr><td><code>winkel_ital</code></td><td>Wie <code>winkel</code>, aber mit der italienischen Endform des Griffstocks links und rechts.</td></tr>
+  </table>
+  <h3>Diskant: Knopfzahl</h3>
+  <p>44, 46, 48, 50, 52 oder 54 Knöpfe (nur Markus). Zusätzliche Knöpfe kommen auf die Seite der tiefen Töne; das Gehäuse wird automatisch an die Klappen angepasst und die Knopfpyramide bleibt mittig. Möglich ist das derzeit mit dem Winkel- und dem Standard-Griffstock; beim Kugellager-Griffstock passen die POM-Stützen bei anderer Knopfzahl nicht mehr zwischen die Hebel, traditionell und Kolben sind noch nicht angepasst. Eine unmögliche Auswahl wird gleich zu Beginn mit einer Meldung abgelehnt.</p>
+  <h3>Diskant: Hebelteilung (Knopfabstand)</h3>
+  <p>Abstand der Hebel im Griffstock: <code>10</code> mm (= 20 mm Knopfabstand), <code>9</code> mm (18 mm) oder <code>8</code> mm (16 mm). Welche Abstände gehen, hängt vom Griffstock ab:</p>
+  <table>
+    <tr><th>Griffstock</th><th>Knopfabstand</th><th>Knopfzahl</th></tr>
+    <tr><td>standard</td><td>16 / 18 / 20 mm</td><td>44–54</td></tr>
+    <tr><td>traditionell, kugellager</td><td>16 / 18 / 20 mm</td><td>nur 50</td></tr>
+    <tr><td>kolben, kolben12</td><td>16 / 18 / 20 mm</td><td>nur 50</td></tr>
+    <tr><td>winkel, winkel_ital</td><td>nur 20 mm</td><td>44–54</td></tr>
+    <tr><td>Marie (alle)</td><td>fest 19 mm</td><td>fest wie gezeichnet</td></tr>
+  </table>
+  <h3>Diskant: Plattenlängen</h3>
+  <p>Leer lassen = Stimmplattenlängen wie in der Zeichnung. Eigene Längen gibt man je Reihe in mm an, von links (hohe Töne) nach rechts (tiefe Seite), zum Beispiel:</p>
+  <p><code>R1: 32 33 34 37 40 43 45 47 48 49 49 40 40; R3: 27 29 31 32 34 37 40 43 47 48 49 49</code></p>
+  <p>Nicht genannte Reihen bleiben wie gezeichnet. Je Reihe müssen genau so viele Werte stehen, wie die Reihe Klappen hat – bei Markus mit 50 Knöpfen 13 / 13 / 12 / 12, bei anderer Knopfzahl entsprechend weniger oder mehr. Stimmt die Anzahl nicht, meldet die Rechnung sofort, wie viele Werte erwartet werden und welche Längen gezeichnet sind. Aus den Längen ergeben sich Kanzellentiefe, Stegbreite und Stufung der Stimmstöcke; bei den Knopfvarianten sind ohne eigene Eingabe die Längen der neuen Klappen Platzhalter.</p>
+  <h3>Vorschau</h3>
+  <p>Erzeugt zusätzlich ein Vorschaubild und eine vereinfachte 3D-Datei. Kostet etwa eine Minute; ausschalten nur, wenn es eilt.</p>
+</section>
+
+<section id="kombis">
+  <h2>Was ist schon gerechnet?</h2>
+  <p>Alle Kombinationen lassen sich rechnen, aber nicht alle wurden schon einmal gerechnet und angesehen. Jede Rechnung macht ohnehin eine Kollisionsprüfung und schreibt das Ergebnis ins Protokoll; bei neuen Kombinationen sollte man dieses Protokoll ansehen.</p>
+  <table>
+    <tr><th>Markus-Griffstock</th><th>50 Knöpfe, 10 mm</th><th>50 Knöpfe, 8/9 mm</th><th>andere Knopfzahl</th></tr>
+    <tr><td>standard</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="neu">rechnet (Probe 46), noch nicht angesehen</td></tr>
+    <tr><td>traditionell</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="nein">noch nicht möglich</td></tr>
+    <tr><td>kugellager</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="nein">noch nicht möglich</td></tr>
+    <tr><td>kolben / kolben12</td><td class="neu">neu</td><td class="neu">neu</td><td class="nein">noch nicht möglich</td></tr>
+    <tr><td>winkel / winkel_ital</td><td class="ok">schon gerechnet</td><td class="nein">– (nur 10 mm)</td><td class="ok">schon gerechnet</td></tr>
+  </table>
+  <p>Marie ist mit allen sechs Griffstöcken schon gerechnet (<code>winkel_ital</code> gibt es für Marie nicht). Bei den Bassteilen ist jeweils die Teilung laut Zeichnung gerechnet, beim Markus-Bass alle drei Teilungen mit 380, 400 und 410 mm Länge.</p>
+  <div class="hinweis">Bei einer neuen Kombination schreibt die Rechnung einen Hinweis in die Beschreibung des Ergebnisses. „Kollisionen 0“ im Protokoll heißt: die Mechanik ist in Ruhe und mit jeder gedrückten Taste frei.</div>
+</section>
+
+<section id="ergebnis">
+  <h2>Ergebnis &amp; Dateien</h2>
+  <table>
+    <tr><th>Datei</th><th>Inhalt</th></tr>
+    <tr><td><code>Bassteil_…_step.zip</code></td><td>Das ganze Bassteil als STEP-Modell (gepackt, ungepackt 70–200 MB).</td></tr>
+    <tr><td><code>Diskantteil_…_mit_Fraesdaten.zip</code></td><td>Diskant-Modell und alle Fertigungsdaten: Stimmstock-Frästeile (Vorder-/Rückseite), Griffstock Teil 1/2, Alu-Abwicklungen je Hebel, Holzteile, Kunststoffteil, <code>fraes_liste.json</code> für das Fusion-Skript „Fraesen_Aktualisieren“ und die verwendete Tastenliste.</td></tr>
+    <tr><td><code>vorschau.png</code></td><td>Schrägansicht zum schnellen Ansehen.</td></tr>
+    <tr><td><code>vorschau.glb</code></td><td>Vereinfachtes 3D-Modell mit Farben. Auf der Übersichtsseite unten auswählen, dann lässt es sich drehen; öffnet sich auch mit dem Windows-3D-Viewer.</td></tr>
+    <tr><td><code>protokoll.txt</code></td><td>Ausgabe des Generators mit Kollisionsprüfung und Laufzeiten.</td></tr>
+  </table>
+  <p>Die Dateien bleiben als Release dauerhaft erhalten und haben feste Download-Links. Zusätzlich hängen sie 30 Tage lang als „Artefakt“ am jeweiligen Lauf.</p>
+</section>
+
+<section id="fusion">
+  <h2>In Fusion öffnen</h2>
+  <p>ZIP herunterladen und auspacken, z. B. nach <code>C:\ACAD-DWG\0-Markus-3D</code>. In Fusion über <em>Datei → Öffnen → Von meinem Computer</em> die STEP-Datei wählen, oder wie gewohnt mit dem Ladeskript (Dienstprogramme → Zusatzmodule), nachdem der Pfad in <code>Pruefung\liste.txt</code> eingetragen ist. Für die Fräsdaten des Diskants den Ordner auspacken und in Fusion „Fraesen_Aktualisieren“ ausführen; die Werkzeugwege werden dort nicht automatisch berechnet.</p>
+</section>
+
+<section id="fehler">
+  <h2>Wenn etwas schiefgeht</h2>
+  <p>Ein rotes Kreuz am Lauf heißt, dass der Generator abgebrochen hat. Dann den Lauf anklicken: unter „Artifacts“ liegt <code>protokoll-…</code> mit der Fehlermeldung, und im Schritt „Modell rechnen“ steht die vollständige Ausgabe. Eine unzulässige Auswahl (z. B. Winkel mit 9 mm, Kugellager mit 46 Knöpfen, falsche Anzahl Plattenlängen) bricht schon im ersten Schritt „Auswahl pruefen“ nach wenigen Sekunden ab; die Meldung dort sagt, was erlaubt ist. Sonst ist meist ein Fehler in einer neu geänderten Zeichnung die Ursache. Ein Lauf darf höchstens zweieinhalb Stunden dauern; mehrere Läufe können gleichzeitig laufen.</p>
+  <p>Nur wer Schreibrecht am Repository hat, kann Rechnungen starten. Ansehen und herunterladen kann jeder.</p>
+</section>
+</main>
+</div>
+</body>
+</html>
