@@ -23,7 +23,8 @@ def aus_issue(text):
     for z in (text or "").splitlines():
         m = re.match(r"^###\s+(.+?)\s*$", z)
         if m: feld = TITEL.get(m.group(1).strip()); continue
-        if feld and z.strip() and z.strip() != "_No response_":
+        # nicht ausgefüllt: Textfelder liefern "_No response_", nicht gewählte Auswahllisten "None" -> Standardwert
+        if feld and z.strip() and z.strip() not in ("_No response_", "None"):
             werte[feld] = (werte.get(feld, "") + " " + z.strip()).strip()
     return werte
 
