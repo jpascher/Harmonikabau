@@ -119,6 +119,8 @@ Die Oberfläche lässt sich jetzt umschalten. Voreingestellt ist die gewohnte, k
 
 Mit dem Häkchen „Köpfe nach Reihe versetzen“ stehen die Notenköpfe eines Griffs über mehrere Reihen nebeneinander, so wie man wirklich greift: die kleinste Reihe im Griff rechts, alle anderen links, der Hals dazwischen. Ein G–C–G-Griff auf G-C-F-B steht also rechts–links–rechts. Liegt alles auf einer Reihe, bleibt es senkrecht. Das ist leichter zu lesen, gerade für schlechtere Augen, aber kein Druckbrauch, und der Takt wird etwas breiter; deshalb ist es voreingestellt aus, und die Lernbilder für den Griffschrift-Leser werden weiter im gewohnten Bild erzeugt (Vorschlag und Umsetzung von Helmut Seitz).
 
+Beim Drucken lässt sich neben „Drucken“ jetzt auch A4 quer wählen, etwa für Notensammlungen auf dem Tablet, die im Querformat liegen. Die Noten bleiben dabei gleich groß, es passen nur mehr Takte in eine Zeile; die Wahl wird wie der untere Rand gemerkt.
+
 Offen sind noch die Notation der übrigen Bass-Zusatzknöpfe (außer Fis und As derzeit Tonname mit Stern), die Notenkopfrichtung bei Doppelgriffen nach Fuchs und die Erkennung von Auftakten in MIDI-Dateien.
 
 ## English
@@ -235,5 +237,7 @@ The interface can now be switched. The familiar classic page is the default; the
 Besides the suggestion, “Fill grips” now also offers “to 3 voices (fixed)” and “to 4 voices (fixed)”: the added notes then appear as normal notes in the Griffschrift and are printed, for example for single-line sources. The grip search stays the same, and the added notes are not written to MusicXML (contributed by Helmut Seitz).
 
 With the box “Offset heads by row” ticked, the note heads of a grip across several rows stand side by side, the way the grip is really played: the lowest row in the grip on the right, all others on the left, the stem in between. A G–C–G grip on G-C-F-B thus reads right–left–right. If everything lies on one row it stays vertical. This is easier to read, especially for weaker eyes, but it is not printing practice and makes the measure a little wider; it is therefore off by default, and the training images for the Griffschrift reader are still produced in the usual layout (suggested and implemented by Helmut Seitz).
+
+Printing can now also be set to A4 landscape next to “Print”, for example for music collections on a tablet that are kept in landscape. The notes keep their size, only more measures fit on a line; the choice is remembered like the bottom margin.
 
 Still open: the notation of the remaining extra bass buttons (apart from F# and Ab currently the note name with a star), the note-head direction in double stops as described by Fuchs, and detecting pickups (anacruses) in MIDI files.

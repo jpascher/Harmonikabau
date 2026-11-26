@@ -283,7 +283,7 @@ html.ui-neu .tipbox{position:fixed;z-index:60;max-width:300px;padding:7px 10px;b
 <div class="wrap">
   <header>
     <div class="pfoot" style="display:none">https://jpascher.github.io/Harmonikabau/griffschrift-wandler/</div>
-    <div class="titlerow"><h1>Griffschrift-Wandler</h1><span id="wver" class="wver" title="Programmstand / version">v184 · 19.11.2026</span><div class="hbtns"><button id="uibtn" type="button" class="ghost2"></button><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
+    <div class="titlerow"><h1>Griffschrift-Wandler</h1><span id="wver" class="wver" title="Programmstand / version">v185 · 26.11.2026</span><div class="hbtns"><button id="uibtn" type="button" class="ghost2"></button><button id="lang" type="button" class="ghost2" lang="en">English</button><button id="helpbtn2" type="button" class="ghost2"><x-de>? Hilfe</x-de><x-en>? Help</x-en></button></div></div>
     <p class="lead"><x-de>Normalnoten als MusicXML rein, Griffweise für die Steirische Harmonika raus. Das Programm legt die Stufen fest und wählt Grundbass und Begleiter so, dass der Bass flüssig läuft. Die Balgrichtung kommt vom Bass, die Melodie samt Doppelgriffen wird darauf abgestimmt.</x-de><x-en>Standard notation goes in as MusicXML, fingering for the Styrian accordion (Steirische Harmonika) comes out. The program works out the harmonic degrees and picks bass and chord buttons so the bass side flows smoothly. The bellows direction follows the bass; the melody, double stops included, is fitted to it.</x-en></p>
   </header>
 
@@ -332,7 +332,7 @@ html.ui-neu .tipbox{position:fixed;z-index:60;max-width:300px;padding:7px 10px;b
         <select id="sound"><option value="rec">Aufnahme (Harmonika)</option><option value="syn">Synthetisch</option></select>
       </div>
       <button id="play" type="button">▶ Abspielen</button>
-      <button id="print" type="button" class="ghost2"><x-de>Drucken</x-de><x-en>Print</x-en></button><select id="prand" title="Unterer Rand beim Drucken / als PDF speichern · bottom margin when printing / saving as PDF"><option value="10" data-de="Rand unten 10 mm" data-en="Bottom margin 10 mm">Rand unten 10 mm</option><option value="16" data-de="Rand unten 16 mm" data-en="Bottom margin 16 mm" selected>Rand unten 16 mm</option><option value="25" data-de="Rand unten 25 mm" data-en="Bottom margin 25 mm">Rand unten 25 mm</option><option value="35" data-de="Rand unten 35 mm" data-en="Bottom margin 35 mm">Rand unten 35 mm</option></select>
+      <button id="print" type="button" class="ghost2"><x-de>Drucken</x-de><x-en>Print</x-en></button><select id="prand" title="Unterer Rand beim Drucken / als PDF speichern · bottom margin when printing / saving as PDF"><option value="10" data-de="Rand unten 10 mm" data-en="Bottom margin 10 mm">Rand unten 10 mm</option><option value="16" data-de="Rand unten 16 mm" data-en="Bottom margin 16 mm" selected>Rand unten 16 mm</option><option value="25" data-de="Rand unten 25 mm" data-en="Bottom margin 25 mm">Rand unten 25 mm</option><option value="35" data-de="Rand unten 35 mm" data-en="Bottom margin 35 mm">Rand unten 35 mm</option></select><select id="porient" title="Papierformat beim Drucken / als PDF speichern · paper orientation when printing / saving as PDF"><option value="p" data-de="A4 hoch" data-en="A4 portrait" selected>A4 hoch</option><option value="l" data-de="A4 quer" data-en="A4 landscape">A4 quer</option></select>
       <button id="helpbtn" type="button" class="ghost2"><x-de>Hilfe</x-de><x-en>Help</x-en></button>
       <button id="pcbtn" type="button" class="ghost2"><x-de>Für den PC ⤓</x-de><x-en>For your PC ⤓</x-en></button>
       <button id="mobbtn" type="button" class="ghost2"><x-de>Fürs Handy 📱</x-de><x-en>For your phone 📱</x-en></button>
@@ -698,7 +698,7 @@ html.ui-neu .tipbox{position:fixed;z-index:60;max-width:300px;padding:7px 10px;b
     </section>
     <section id="h-druck"><h3>Zeilen und Drucken</h3>
       <p><b>Takte je Zeile:</b> automatisch nach Platz oder fest 2 bis 8. Einzelne Umbrüche setzt du im Bearbeiten-Modus über den Taktstrich.</p>
-      <p><b>Drucken</b> gibt nur die Griffschrift aus, schwarz auf weiß, auf A4. Im Druckdialog des Browsers kannst du auch „Als PDF speichern“ wählen. In der Claude-Vorschau ist Drucken gesperrt; dort die Seite unter jpascher.github.io/Harmonikabau/griffschrift-wandler/ öffnen. Oben auf dem Ausdruck steht groß der Titel des Stücks; im Feld „Titel (für den Ausdruck)“ lässt er sich ändern oder neu eingeben, und er wird mit der Bearbeitung gespeichert.</p>
+      <p><b>Drucken</b> gibt nur die Griffschrift aus, schwarz auf weiß, auf A4. Neben „Drucken“ wählst du <b>A4 hoch</b> oder <b>A4 quer</b> (wird gemerkt); quer bleiben die Noten gleich groß, es passen aber mehr Takte in eine Zeile, praktisch fürs Tablet. Im Druckdialog des Browsers kannst du auch „Als PDF speichern“ wählen. In der Claude-Vorschau ist Drucken gesperrt; dort die Seite unter jpascher.github.io/Harmonikabau/griffschrift-wandler/ öffnen. Oben auf dem Ausdruck steht groß der Titel des Stücks; im Feld „Titel (für den Ausdruck)“ lässt er sich ändern oder neu eingeben, und er wird mit der Bearbeitung gespeichert.</p>
       <p><b>Abspielen ab einer Stelle:</b> Ein Doppelklick auf eine Note spielt ab dieser Note. Läuft die Wiedergabe schon, genügt ein einfacher Klick auf eine Note, dann springt sie dorthin, wie bei einem Audio-Spieler. Ist eine Übungsauswahl gesetzt, beginnt ein Klick in der Auswahl an der angeklickten Note.</p>
     </section>
     <section id="h-grenzen"><h3>Grenzen und Tipps</h3>
@@ -840,7 +840,7 @@ html.ui-neu .tipbox{position:fixed;z-index:60;max-width:300px;padding:7px 10px;b
     </section>
     <section id="e-druck"><h3>Lines and printing</h3>
       <p><b>Measures per line:</b> automatic to fit the space, or a fixed 2 to 8. Single line breaks are set in edit mode via the bar line.</p>
-      <p><b>Print</b> outputs only the Griffschrift, black on white, on A4. In the browser's print dialog you can also choose “Save as PDF”. Printing is blocked in the Claude preview; open the page at jpascher.github.io/Harmonikabau/griffschrift-wandler/ instead. The title of the tune is printed in large type at the top; you can change it or type a new one in the field “Title (for printing)”, and it is saved with your edits.</p>
+      <p><b>Print</b> outputs only the Griffschrift, black on white, on A4. Next to “Print” you choose <b>A4 portrait</b> or <b>A4 landscape</b> (remembered); in landscape the notes keep their size but more measures fit on a line, handy for tablets. In the browser's print dialog you can also choose “Save as PDF”. Printing is blocked in the Claude preview; open the page at jpascher.github.io/Harmonikabau/griffschrift-wandler/ instead. The title of the tune is printed in large type at the top; you can change it or type a new one in the field “Title (for printing)”, and it is saved with your edits.</p>
       <p><b>Playing from a given point:</b> double-click a note to play from that note. While playback is running, a single click on a note is enough: playback jumps there, like in an audio player. If a practice selection is set, a click inside the selection starts at the clicked note.</p>
     </section>
     <section id="e-grenzen"><h3>Limits and tips</h3>
@@ -911,7 +911,7 @@ function applyStaticLang(){uiLang();setTimeout(syncDemoSel,0);
   og("og-fuchs","Volkstänze, Satz Franz Fuchs (volksmusik.cc)","Austrian folk dances, arr. Franz Fuchs (volksmusik.cc)");og("og-own","Eigene Beispiele","Own examples");og("og-ddia","Diatonische ohne Gleichton (Tabulatur)","Diatonic without Gleichton (tablature)");og("og-d3","Steirische 3-reihig, Strasser (harmonika.com)","Styrian 3-row, Strasser (harmonika.com)");og("og-b3","Steirische 3-reihig, Strasser (harmonika.com)","Styrian 3-row, Strasser (harmonika.com)");og("og-bdia","Diatonische ohne Gleichton","Diatonic without Gleichton");og("og-philipp","Stücke von Philipp Ramoner (urheberrechtlich geschützt)","Pieces by Philipp Ramoner (protected by copyright)");og("og-hyper","Akkordsuche (hyperbox.org)","Chord finder (hyperbox.org)");og("og-djam","Jamnik (Belegungsplan)","Jamnik (layout chart)");og("og-bjam","Jamnik (Belegungsplan)","Jamnik (layout chart)");og("og-strasser","Strasser (harmonika.com)","Strasser (harmonika.com)");og("og-schab","Dieter Schaborak (Original)","Dieter Schaborak (original)");og("og-dhyper","Akkordsuche (hyperbox.org)","Chord finder (hyperbox.org)");og("og-dstrasser","Strasser (harmonika.com)","Strasser (harmonika.com)");
   const ts=document.getElementById("transp");if(ts)[...ts.options].forEach(o=>{if(o.value==="auto")o.textContent=TX("Automatisch (beste Lage)","Automatic (best key)");else{const t=+o.value;o.textContent=t===0?"Original":(t>0?"+":"")+t+TX(" Halbtöne"," semitones");}});
   const ps=document.getElementById("part");if(ps)[...ps.options].forEach(o=>{if(o.dataset.auto)o.textContent=TX("Stimme ","Part ")+o.dataset.auto;if(o.dataset.midi)o.textContent=TX("Melodie (aus MIDI)","Melody (from MIDI)");});
-  document.querySelectorAll("#crkey option,#cropts option,#cr2kind option,#auch option,#crstyle option,#aukind option,#auts option,#augrid option,#ausens option,#scankind option,#scanstyle option,#scanmodel option,#scanconf option,#prand option,#ed2kind option").forEach(o=>{if(o.dataset.de)o.textContent=TX(o.dataset.de,o.dataset.en);});
+  document.querySelectorAll("#crkey option,#cropts option,#cr2kind option,#auch option,#crstyle option,#aukind option,#auts option,#augrid option,#ausens option,#scankind option,#scanstyle option,#scanmodel option,#scanconf option,#prand option,#porient option,#ed2kind option").forEach(o=>{if(o.dataset.de)o.textContent=TX(o.dataset.de,o.dataset.en);});
   const so=document.getElementById("sound");if(so){so.options[0].textContent=TX("Aufnahme (Harmonika)","Recording (accordion)");so.options[1].textContent=TX("Synthetisch","Synthetic");}
   document.getElementById("selfrom").placeholder=TX("von","from");document.getElementById("selto").placeholder=TX("bis","to");
   document.getElementById("helpclose").setAttribute("aria-label",TX("Hilfe schließen","Close help"));
@@ -1807,7 +1807,7 @@ function markCur(uid,beat){
 }
 
 // ======== Griffschrift (System Rosenzopf) als SVG
-let PRINT_W=0;   // beim Drucken feste Breite, damit die Zeilen auf A4 passen
+let PRINT_W=0;   // beim Drucken feste Breite, damit die Zeilen auf A4 passen (quer breiter, s. printPrep)
 const beatUnit=m=>(m.tsD===8&&m.tsN%3===0)?1.5:1;   // 6/8, 9/8: Schlag = punktierte Viertel
 // ======== Wechselbass: bei gleichbleibendem Akkord wechselt der Grundbass zwischen Grundton und Quint
 let WB=true,LANDLER=false,ACC="auto";
@@ -2565,11 +2565,15 @@ let PAGE_TITLE=null;   // Der Browser schlägt den Seitentitel als PDF-Dateiname
 function printName(on){if(on){const t=(document.querySelector("#ptitle .pt1").textContent||TITLE||"").trim();if(PAGE_TITLE==null)PAGE_TITLE=document.title;if(t)document.title=t;}
   else if(PAGE_TITLE!=null){document.title=PAGE_TITLE;PAGE_TITLE=null;}}
 // Druckrand unten (Auswahl neben „Drucken“, gemerkt): als eigene @page-Regel, dazu die Adresse als Fußzeile im unteren Seitenrand
+// Papierformat (Auswahl neben „Drucken“, gemerkt): A4 hoch oder A4 quer; quer wird die Druckbreite größer, die Noten bleiben gleich groß, es passen mehr Takte in eine Zeile
+function pLand(){const sel=document.getElementById("porient");return !!sel&&sel.value==="l";}
 function pageStyle(){let mm=16;try{const v=localStorage.getItem("gw-prand");if(v)mm=+v;}catch(e){}const sel=document.getElementById("prand");if(sel&&sel.value)mm=+sel.value;
   let st=document.getElementById("pagestyle");if(!st){st=document.createElement("style");st.id="pagestyle";document.head.appendChild(st);}
-  st.textContent=`@media print{@page{size:A4;margin:12mm 0 ${mm}mm;@bottom-center{content:"https://jpascher.github.io/Harmonikabau/griffschrift-wandler/";font-size:8pt;color:#444;vertical-align:middle}}}`;}
-{const sel=document.getElementById("prand");try{const v=localStorage.getItem("gw-prand");if(v&&[...sel.options].some(o=>o.value===v))sel.value=v;}catch(e){}sel.addEventListener("change",()=>{try{localStorage.setItem("gw-prand",sel.value);}catch(e){}pageStyle();});pageStyle();}
-function printPrep(on){PRINT_W=on?860:0;if(R){renderGriff();}printName(on);}
+  const q=pLand();
+  st.textContent=`@media print{@page{size:A4${q?" landscape":""};margin:12mm 0 ${mm}mm;@bottom-center{content:"https://jpascher.github.io/Harmonikabau/griffschrift-wandler/";font-size:8pt;color:#444;vertical-align:middle}}}`;}
+{const sel=document.getElementById("prand");try{const v=localStorage.getItem("gw-prand");if(v&&[...sel.options].some(o=>o.value===v))sel.value=v;}catch(e){}sel.addEventListener("change",()=>{try{localStorage.setItem("gw-prand",sel.value);}catch(e){}pageStyle();});}
+{const sel=document.getElementById("porient");try{const v=localStorage.getItem("gw-porient");if(v&&[...sel.options].some(o=>o.value===v))sel.value=v;}catch(e){}sel.addEventListener("change",()=>{try{localStorage.setItem("gw-porient",sel.value);}catch(e){}pageStyle();});pageStyle();}
+function printPrep(on){PRINT_W=on?(pLand()?1262:860):0;if(R){renderGriff();}printName(on);}
 window.addEventListener("beforeprint",()=>printPrep(true));
 window.addEventListener("afterprint",()=>printPrep(false));
 document.getElementById("print").addEventListener("click",()=>{
@@ -4380,7 +4384,7 @@ applyStaticLang();updatePlayLabels();
   ids.forEach(id=>el(id).addEventListener("change",save));window.addEventListener("pagehide",save);
   // Zurücksetzen: Sprache, App-Weg und eigene Knopfbelegungen (gw-bass-*, gw-disk-*) bleiben; ohne „off“ schriebe pagehide die alten Werte zurück
   el("setreset").addEventListener("click",()=>{if(!confirm(TX("Alle gemerkten Einstellungen auf die Voreinstellung zurücksetzen? Eigene Knopfbelegungen bleiben gespeichert. Die Seite lädt neu, nicht gespeicherte Änderungen am Stück gehen verloren.","Reset all remembered settings to the defaults? Your own button layouts stay saved. The page reloads; unsaved changes to the tune are lost.")))return;
-    off=true;try{["settings","acc","lart","gstyle","fill","fill3","fill4","bname","sound","bal","mollsub","pin","follow","scanok","scanmodel","koepfr","ui"].forEach(k=>localStorage.removeItem("gw-"+k));}catch(e){}location.reload();});})();
+    off=true;try{["settings","prand","porient","acc","lart","gstyle","fill","fill3","fill4","bname","sound","bal","mollsub","pin","follow","scanok","scanmodel","koepfr","ui"].forEach(k=>localStorage.removeItem("gw-"+k));}catch(e){}location.reload();});})();
 loadDemo(dsel.value);
 
 // ======== Oberfläche klassisch / neu ========
