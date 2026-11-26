@@ -1,0 +1,7 @@
+# Bassteil „340 schmal leicht schräg“
+
+Ein kurzes Gehäuse mit 340 × 205 mm (Rohmaß 342 × 207), zwei Knopfreihen mit 19 mm Teilung, sechs Hörnern und neun schmalen Helikonkammern (Platten 46 × 94), die in zwei Reihen Rücken an Rücken stehen; die Platten liegen leicht schräg, die Trennfeder ist gerade. Links und rechts sitzen Begleiterstimmstöcke wie bei Marie 38 mit je vier runden Begleitern. Der Rahmen wird aus dem Markus-Bassteil gekürzt. Vorlage ist `v340.dxf`. Aufruf im Ordner `bass/v340`: `python3 v340.py Bassteil_340_vN.step [Knopfteilung]`, Standard 19 mm; die Mechanik steht in `mech_v340.py`.
+
+Die Luftklappe liegt auf einem abgesenkten Bodenteil, das ringsum in Nuten der langen Trennwände sitzt; im Hauptboden darunter ist ein Ausschnitt so groß wie die fehlende Basskammer. Die Klappe öffnet nach innen in die Vertiefung, ist an der Längsseite in zwei normalen Lagerböcken gelagert und wird von zwei Schenkelfedern zugehalten; die überstehende Seitenwand ist bis auf den Klappenboden zurückgeschnitten. Die Lufttaste drückt über eine einzige Schubstange direkt auf die Klappe, oben und unten mit normalen Gabelgelenken (Bolzen quer, weil die Taste gerade hochgeht und die Klappe um die Längsachse dreht); bei vollem Tastenhub von 10 mm öffnet die Klappe um gut 21°. Die Achse unter dem Boden mit zwei Schenkeln zur Taste dient nur noch der Führung. Ein Begleiter-Registerschieber ist vorerst nicht eingebaut.
+
+Stand 26.11.2026: v7, von Johann abgehakt. Modell: `bass/Modelle/Bassteil_340_v7_step.zip`.
