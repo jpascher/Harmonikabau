@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harmonikabau – Johann Pascher</title>
+<style>
+  :root { --holz:#6b4a2b; --holz-hell:#a8794c; --papier:#f7f2ea; --tinte:#2b2118; --linie:#e2d6c4; --gruen:#3f6b3a; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: Georgia, "Times New Roman", serif; background:var(--papier); color:var(--tinte); }
+  header { background:linear-gradient(135deg,var(--holz),#3e2a17); color:#fff; padding:2.6rem 1.5rem 2.2rem; }
+  header .innen, main { max-width:900px; margin:0 auto; }
+  h1 { margin:0 0 .4rem; font-size:2.1rem; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-family:system-ui,sans-serif; }
+  main { padding:1.8rem 1.5rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2rem; }
+  a.karte { display:block; background:#fff; border:1px solid var(--linie); border-radius:12px; padding:1.4rem 1.5rem; text-decoration:none; color:inherit;
+            transition: box-shadow .15s, transform .15s; }
+  a.karte:hover { box-shadow:0 6px 18px rgba(60,40,20,.12); transform:translateY(-2px); }
+  a.karte h2 { margin:0 0 .5rem; font-weight:normal; font-size:1.35rem; color:var(--holz); }
+  a.karte p { margin:0; font-family:system-ui,sans-serif; font-size:.92rem; line-height:1.5; }
+  footer { text-align:center; padding:1rem 1rem 2rem; color:#8a7a66; font-family:system-ui; font-size:.8rem; }
+</style>
+</head>
+<body>
+<header><div class="innen">
+  <h1>Harmonikabau</h1>
+  <p>Steirische Harmonika – Werkzeuge und Modelle von Johann Pascher</p>
+</div></header>
+<main>
+  <a class="karte" href="griffschrift-wandler/">
+    <h2>Griffschrift-Wandler</h2>
+    <p>Normalnoten oder MIDI in Griffschrift für die Steirische Harmonika umwandeln.</p>
+  </a>
+  <a class="karte" href="docs/">
+    <h2>3D-Modelle</h2>
+    <p>Diskant- und Bassteile aus den Werkstattzeichnungen gerechnet: Variante auswählen, rechnen lassen, STEP-Modell und Fräsdaten herunterladen.</p>
+  </a>
+  <a class="karte" href="docs/hilfe.html">
+    <h2>Hilfe zu den 3D-Modellen</h2>
+    <p>Alle Auswahlmöglichkeiten, Grenzen je Modell und was die Ergebnisdateien enthalten.</p>
+  </a>
+  <a class="karte" href="https://github.com/jpascher/Harmonikabau">
+    <h2>Quellen auf GitHub</h2>
+    <p>Dokumentation, Erzeugungsskripte und Zeichnungen im Repository jpascher/Harmonikabau.</p>
+  </a>
+</main>
+<footer>Johann Pascher · Harmonikabau</footer>
+</body>
+</html>
