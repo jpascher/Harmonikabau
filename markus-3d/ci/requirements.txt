@@ -1,0 +1,8 @@
+cadquery==2.8.0
+ezdxf==1.4.5
+shapely==2.2.0
+numpy==2.5.3
+scipy==1.18.1
+matplotlib==3.11.2
+pyvista==0.49.2
+trimesh==5.2.2

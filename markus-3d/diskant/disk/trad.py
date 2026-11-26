@@ -166,17 +166,14 @@ for n_, (r, x, k, kr) in enumerate(zuordnung):
     _rm = (F_D - D_DRAHT_T) / 2
     def _p3(xd, yd, X_):
         u_, Y_ = _M((xd, yd)); return cq.Vector(X_, Y_, -u_)
-    _feder = None
-    for j_ in range(3):                                   # Windungen als Ringe (Achse = X)
-        _cx = xk - 0.7 + 0.7 * j_
-        _ring = cq.Solid.makeTorus(_rm, D_DRAHT_T / 2, _p3(_xc, _yc, _cx), cq.Vector(1, 0, 0))
-        _feder = _ring if _feder is None else _feder.fuse(_ring)
+    # 23.11.: Wendel statt drei getrennter Ringe (Achse = X), Schenkel an den Wendelenden - ein zusammenhaengender Koerper
+    _feder, _xb, _xa = feder_wendel(lambda X_: _p3(_xc, _yc, X_), _p3(_xc + _rm, _yc, xk - 0.7), _p3(_xc - _rm, _yc, xk + 0.7), D_DRAHT_T)
     def _schenkel(pa, pb, X_):
         a3, b3 = _p3(*pa, X_), _p3(*pb, X_); v_ = b3.sub(a3)
-        return cq.Solid.makeCylinder(D_DRAHT_T / 2, v_.Length, a3, v_.normalized())
+        return cq.Solid.makeCylinder(D_DRAHT_T / 2, v_.Length, a3, v_.normalized()).fuse(cq.Solid.makeSphere(D_DRAHT_T / 2 + 0.01, b3, angleDegrees1=-90, angleDegrees2=90))
     _xgr_l = _xg - D_DRAHT_T / 2 - 0.05                   # Schenkel am Kammergrund (halb in der 0,8-Nut)
-    for t_ in (_schenkel((_xc + _rm, _yc), (_xgr_l, _yc + 2.0), xk - 0.7), _schenkel((_xgr_l, _yc + 2.0), (_xgr_l, _yc + F_SCHENKEL), xk - 0.7),
-               _schenkel((_xc - _rm, _yc), (_xlb, _ylb), xk + 0.7)):
+    for t_ in (_schenkel((_xc + _rm, _yc), (_xgr_l, _yc + 2.0), _xb), _schenkel((_xgr_l, _yc + 2.0), (_xgr_l, _yc + F_SCHENKEL), _xb),
+               _schenkel((_xc - _rm, _yc), (_xlb, _ylb), _xa)):
         _feder = _feder.fuse(t_)
     teile.append((f"{G}/Feder", _feder, "Stahl"))
     Lh = Lh.difference(_TPt(ax_).buffer(1.0, 32))
@@ -326,6 +323,14 @@ for nm_, a_ in (("Reihen12", A12), ("Reihen34", A34)):
 if GS_LOECHER:
     _gsl = [w_ for x_, y_, n_, w_ in GS_LOECHER]
     t1 = schneide(t1, _gsl); t2 = schneide(t2, _gsl)
+# 23.11.: lose Reste (z. B. 8-mm-Teilung: Stege zwischen den Nuten 3/4 ohne Verbindung nach dem Rechteckausschnitt) entfernen
+def _nur_groesster(t_, nm_):
+    _so = t_.Solids()
+    if len(_so) <= 1: return t_
+    _gr = max(_so, key=lambda s_: s_.Volume())
+    print(f"Traditionell: {nm_} - {len(_so) - 1} lose Reststuecke ({sum(s_.Volume() for s_ in _so) - _gr.Volume():.0f} mm3) entfernt")
+    return _gr
+t1 = _nur_groesster(t1, "Teil 1"); t2 = _nur_groesster(t2, "Teil 2")
 teile.append(("Griffstock_Teil2", t2, "Griffstock"))
 teile.append(("Griffstock_Koerper", t1, "Griffstock"))
 print(f"Traditionell: Griffstock Teil 1 {t1.Volume():.0f} mm3, Teil 2 {t2.Volume():.0f} mm3, Achsen 2 x {_LGS - 2.0:.0f} mm")

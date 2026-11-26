@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steirische Harmonika – 3D-Modelle</title>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<style>
+  :root { --holz:#6b4a2b; --holz-hell:#a8794c; --papier:#f7f2ea; --tinte:#2b2118; --linie:#e2d6c4; --gruen:#3f6b3a; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: Georgia, "Times New Roman", serif; background:var(--papier); color:var(--tinte); }
+  header { background:linear-gradient(135deg,var(--holz),#3e2a17); color:#fff; padding:2.2rem 1.5rem 1.8rem; }
+  header .innen, main { max-width:1100px; margin:0 auto; }
+  h1 { margin:0 0 .4rem; font-size:2rem; font-weight:normal; letter-spacing:.02em; }
+  header p { margin:0; opacity:.85; font-family:system-ui,sans-serif; font-size:.95rem; }
+  main { padding:1.5rem; }
+  .start { display:flex; gap:1.2rem; flex-wrap:wrap; align-items:center; background:#fff; border:1px solid var(--linie);
+           border-radius:10px; padding:1.2rem 1.4rem; margin-bottom:1.8rem; font-family:system-ui,sans-serif; }
+  .start p { margin:0; flex:1 1 380px; line-height:1.5; }
+  .knopf { display:inline-block; background:var(--gruen); color:#fff; text-decoration:none; padding:.75rem 1.3rem;
+           border-radius:8px; font-weight:600; white-space:nowrap; }
+  .knopf.zweit { background:#fff; color:var(--holz); border:1px solid var(--holz-hell); }
+  h2 { font-weight:normal; border-bottom:1px solid var(--linie); padding-bottom:.4rem; }
+  .raster { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.2rem; }
+  .karte { background:#fff; border:1px solid var(--linie); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
+  .karte img { width:100%; aspect-ratio:16/10; object-fit:cover; background:#eee; display:block; }
+  .karte .kein-bild { aspect-ratio:16/10; display:flex; align-items:center; justify-content:center; color:#998; background:#f0ebe3; font-family:system-ui; }
+  .karte .text { padding:.9rem 1rem 1rem; font-family:system-ui,sans-serif; font-size:.9rem; flex:1; display:flex; flex-direction:column; gap:.5rem; }
+  .karte h3 { margin:0; font-family:Georgia,serif; font-weight:normal; font-size:1.15rem; }
+  .datum { color:#8a7a66; font-size:.8rem; }
+  .dateien { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:auto; }
+  .dateien a { font-size:.8rem; text-decoration:none; color:var(--holz); border:1px solid var(--linie); border-radius:6px; padding:.3rem .55rem; }
+  .dateien a:hover { background:var(--papier); }
+  .betrachter { background:#fff; border:1px solid var(--linie); border-radius:10px; padding:1rem 1.2rem; margin-top:2rem; font-family:system-ui,sans-serif; }
+  model-viewer { width:100%; height:480px; background:#f3efe8; border-radius:8px; margin-top:.8rem; }
+  .hinweis { color:#7a6a58; font-size:.85rem; }
+  footer { text-align:center; padding:2rem 1rem; color:#8a7a66; font-family:system-ui; font-size:.8rem; }
+</style>
+</head>
+<body>
+<header><div class="innen">
+  <h1>Steirische Harmonika – 3D-Modelle</h1>
+  <p>Diskant- und Bassteile, aus den Werkstattzeichnungen gerechnet (CadQuery). Quellen: <a style="color:#fff" href="https://github.com/jpascher/Harmonikabau/tree/main/markus-3d">jpascher/Harmonikabau</a></p>
+</div></header>
+<main>
+  <div class="start">
+    <p><strong>Neues Modell rechnen:</strong> Auf der GitHub-Seite „Run workflow“ öffnen, Teil (Bass/Diskant), Variante und Knopfteilung wählen und starten.
+       Nach etwa 15–30 Minuten erscheint das Ergebnis unten in der Liste – mit STEP-Modell (für Fusion), Vorschau und Protokoll.</p>
+    <a class="knopf" href="https://github.com/jpascher/Harmonikabau/actions/workflows/harmonika_erzeugen.yml">Variante auswählen &amp; rechnen</a>
+    <a class="knopf zweit" href="https://github.com/jpascher/Harmonikabau/actions/workflows/harmonika_erzeugen.yml">Laufende Rechnungen</a>
+  </div>
+
+  <h2>Fertige Modelle</h2>
+  <div id="liste" class="raster"><p class="hinweis">Lade Liste …</p></div>
+
+  <div class="betrachter">
+    <strong>3D-Vorschau ansehen</strong>
+    <p class="hinweis">Datei <code>vorschau.glb</code> eines Modells herunterladen und hier auswählen – sie wird drehbar angezeigt (bleibt auf Ihrem Rechner).</p>
+    <input type="file" id="glb" accept=".glb,.gltf">
+    <model-viewer id="mv" camera-controls shadow-intensity="0.6" exposure="1.0" hidden></model-viewer>
+  </div>
+</main>
+<footer>Johann Pascher · Harmonikabau · Modelle unter den Bedingungen des Repositorys</footer>
+<script>
+const REPO = "jpascher/Harmonikabau";
+const liste = document.getElementById("liste");
+function esc(s){ return (s||"").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+function mb(n){ return (n/1e6).toFixed(n > 1e7 ? 0 : 1) + " MB"; }
+fetch(`https://api.github.com/repos/${REPO}/releases?per_page=60`)
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(rel => {
+    rel = rel.filter(r => r.tag_name.startsWith("modell-"));
+    if (!rel.length) { liste.innerHTML = '<p class="hinweis">Noch keine Modelle gerechnet.</p>'; return; }
+    liste.innerHTML = rel.map(r => {
+      const bild = r.assets.find(a => a.name === "vorschau.png");
+      const notiz = esc((r.body||"").split("\n")[0]).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      const dateien = r.assets.filter(a => a.name !== "notizen.md")
+        .map(a => `<a href="${a.browser_download_url}">${esc(a.name)} · ${mb(a.size)}</a>`).join("");
+      return `<div class="karte">
+        ${bild ? `<img src="${bild.browser_download_url}" alt="Vorschau ${esc(r.name)}" loading="lazy">` : '<div class="kein-bild">ohne Vorschau</div>'}
+        <div class="text"><h3>${esc(r.name)}</h3>
+          <span class="datum">${new Date(r.published_at).toLocaleString("de-AT")}</span>
+          <span>${notiz}</span>
+          <div class="dateien">${dateien}</div></div></div>`;
+    }).join("");
+  })
+  .catch(e => { liste.innerHTML = `<p class="hinweis">Liste konnte nicht geladen werden (${e}). Direkt ansehen: <a href="https://github.com/${REPO}/releases">Releases</a></p>`; });
+document.getElementById("glb").addEventListener("change", ev => {
+  const f = ev.target.files[0]; if (!f) return;
+  const mv = document.getElementById("mv"); mv.src = URL.createObjectURL(f); mv.hidden = false;
+});
+</script>
+</body>
+</html>

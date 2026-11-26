@@ -401,6 +401,12 @@ for n_, (r, x, k, kr) in enumerate(zuordnung):
     holz = holz.cut(prisma_uy(_pp(_Mpg(nabe_.buffer(0.05))), xa, T_ALU + 0.1))   # 2-mm-Vertiefung fuer das Alu
     holz = holz.cut(_zyl_x(ax_, D_LAGER / 2, xk - T_HZ, xk + T_HZ))           # Lagersitz Ø5
     teile.append((f"{G}/Holzhebel", holz, f"Holz_R{r}"))
+    # 23.11.: Gummi 031404 (Reihen 1-3) - Endform im Gummibereich auf 2,3 ueber der Klappe kappen, damit sie ins Loch (2,5) passt
+    for n_g, s_g, f_g in teile:
+        if n_g == f"{G}/Gummi_031404":
+            _bg = s_g.BoundingBox()
+            alu = alu.cut(box(_bg.xmin + 2.5, _bg.xmax - 2.5, _bg.ymin - 0.2, _bg.ymax + 0.2, -(U_kl + 40.0), -(U_kl + 2.3)))
+            break
     teile.append((f"{G}/Hebel_Alu", alu, f"Alu_R{r}"))
     for i_, xl_ in enumerate((xk - B_LAGER / 2, xk + B_LAGER / 2)):          # zwei Kugellager 5x2x2 nebeneinander
         lg_ = _zyl_x(ax_, D_LAGER / 2, xl_ - B_LAGER / 2, xl_ + B_LAGER / 2).cut(_zyl_x(ax_, D_ACHSE_K / 2, xl_ - B_LAGER, xl_ + B_LAGER))
@@ -409,13 +415,12 @@ for n_, (r, x, k, kr) in enumerate(zuordnung):
     teile.append((f"{G}/Achse", _zyl_x(ax_, D_ACHSE_K / 2, _sl, _sr), "Stahl"))   # kurze Achse von Stuetzenmitte zu Stuetzenmitte
     DREHPUNKTE[G] = (xk, _M(ax_)[1], -_M(ax_)[0])
     if r in FED2D:                                         # Spiralfeder: 3 Windungen (Achse = X), zwei Schenkel
-        F_ = FED2D[r]; _feder = None
-        for j_ in range(3):
-            _ring = cq.Solid.makeTorus(_F_RM, D_DRAHT_T / 2, _p3(F_["C"], xk - 0.7 + 0.7 * j_), cq.Vector(1, 0, 0))
-            _feder = _ring if _feder is None else _feder.fuse(_ring)
-        for (q0_, q1_), X_ in (((F_["A0"], F_["A1"]), xk + 0.7), ((F_["B0"], F_["B1"]), xk - 0.7)):
+        F_ = FED2D[r]
+        # 23.11.: Wendel statt drei getrennter Ringe, Schenkel an den Wendelenden (ein zusammenhaengender Koerper)
+        _feder, _xb, _xa = feder_wendel(lambda X_: _p3(F_["C"], X_), _p3(F_["B0"], xk - 0.7), _p3(F_["A0"], xk + 0.7), D_DRAHT_T)
+        for (q0_, q1_), X_ in (((F_["A0"], F_["A1"]), _xa), ((F_["B0"], F_["B1"]), _xb)):
             a3_, b3_ = _p3(q0_, X_), _p3(q1_, X_); v_ = b3_.sub(a3_)
-            _feder = _feder.fuse(cq.Solid.makeCylinder(D_DRAHT_T / 2, v_.Length, a3_, v_.normalized()))
+            _feder = _feder.fuse(cq.Solid.makeCylinder(D_DRAHT_T / 2, v_.Length, a3_, v_.normalized())).fuse(cq.Solid.makeSphere(D_DRAHT_T / 2 + 0.01, b3_, angleDegrees1=-90, angleDegrees2=90))
         teile.append((f"{G}/Feder", _feder, "Stahl"))
         _feder_cut.append((r, prisma_uy(_pp(_Mpg(F_["cut"])), xk, T_HZ + 0.6)))
     th = H_["th"]

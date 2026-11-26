@@ -889,6 +889,17 @@ teile.append(("Rahmeneinlage/Ring", _ring, "Einlage"))
 for i_, s_ in enumerate(_muster): teile.append((f"Rahmeneinlage/Blume_{i_ + 1:02d}", s_, "Einlage"))
 print(f"Rahmen vorne: Venus-Blume Ring R{R_RING_I}-{_r_out} + {len(_muster)} Musterteile schwarz, Mitte X {_xm:.1f} Z {_zm:.1f}")
 
+# 23.11.: Kugellager - die Verdeckleiste reicht nach dem Hoehersetzen noch bis 1,6 mm in die Holzhebel (im Griffstockbereich):
+# nur die Leiste an den Schwenkbereichen der Hebel (Ruhe bis gedrueckt, 0,3 Luft) ausnehmen
+if globals().get("KUGEL_FREI"):
+    _neu_l = []
+    for n_, s_, f_ in teile:
+        if n_ == "Verdeck_Leiste":
+            v0_ = s_.Volume()
+            for gw_ in KUGEL_FREI: s_ = schneide(s_, gw_)
+            print(f"Kugellager: Verdeckleiste an den Hebeln ausgenommen {v0_ - s_.Volume():.1f} mm3")
+        _neu_l.append((n_, s_, f_))
+    teile = _neu_l
 # 21.11. Kugellager-Griffstock: Verdeck nicht mehr freischneiden - es wird hinten hoeher gesetzt (VD_HOCH, oben)
 if globals().get("KUGEL_FREI") and os.environ.get("VERDECK_FREISCHNEIDEN"):
     _neu_v = []

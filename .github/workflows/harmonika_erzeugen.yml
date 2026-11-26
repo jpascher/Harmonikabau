@@ -1,0 +1,88 @@
+# Harmonika-Modell auf GitHub rechnen lassen (Johann 26.11.2026)
+# Bedienung: github.com/jpascher/Harmonikabau -> Actions -> "Harmonika erzeugen" -> "Run workflow" -> Auswahl -> starten.
+# Ergebnis nach ca. 15-30 min unter "Releases" (feste Download-Links) und als Artefakt am Lauf.
+name: Harmonika erzeugen
+run-name: "${{ inputs.teil }} ${{ inputs.teil == 'bass' && inputs.bass_variante || inputs.diskant_variante }} (Teilung ${{ inputs.teilung }})"
+
+on:
+  workflow_dispatch:
+    inputs:
+      teil:
+        description: "Bassteil oder Diskantteil"
+        type: choice
+        options: [bass, diskant]
+        default: bass
+      bass_variante:
+        description: "Bassteil (nur wenn Teil = bass)"
+        type: choice
+        options: [markus, marie38, eduard, gerhard, andreas, v340]
+        default: markus
+      diskant_variante:
+        description: "Diskant-Tastenliste (nur wenn Teil = diskant; Teilung und Griffstock stehen in der Liste)"
+        type: choice
+        options: [markus, marie, markus_winkel, marie_winkel, markus_winkel_ital, markus44_winkel, markus46_winkel, markus48_winkel,
+                  markus52_winkel, markus54_winkel, markus_kugel, markus_kugel_8mm, markus_kugel_9mm, markus_kugel_10mm, marie_kugel,
+                  markus_trad, markus_trad_8mm, markus_trad_9mm, markus_trad_10mm, marie_trad, markus_std_8mm, markus_std_9mm,
+                  markus_std_10mm, marie_kolben, marie_kolben12]
+        default: markus
+      teilung:
+        description: "Knopfteilung Bass in mm (standard = Wert der Zeichnung)"
+        type: choice
+        options: [standard, "18", "19", "20"]
+        default: standard
+      laenge:
+        description: "Gehaeuselaenge Markus-Bass in mm (Diskantlaenge genuegt, wird auf 10 mm aufgerundet)"
+        type: string
+        default: "380"
+      vorschau:
+        description: "Vorschau (GLB + Bild) erzeugen"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  erzeugen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: markus-3d
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: markus-3d/ci/requirements.txt
+      - name: Systempakete
+        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libgl1 libglx-mesa0 libxrender1 zip
+      - name: Python-Pakete
+        run: pip install -q -r markus-3d/ci/requirements.txt
+      - name: Modell rechnen
+        env:
+          PYVISTA_OFF_SCREEN: "true"
+        run: |
+          V="${{ inputs.teil == 'bass' && inputs.bass_variante || inputs.diskant_variante }}"
+          xvfb-run -a python3 markus-3d/ci/erzeuge_ci.py "${{ inputs.teil }}" "$V" "${{ inputs.teilung }}" "${{ inputs.laenge }}" ergebnis "${{ inputs.vorschau }}"
+      - name: Protokoll bei Fehler sichern
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protokoll-${{ github.run_number }}
+          path: ergebnis/protokoll.txt
+          if-no-files-found: ignore
+      - name: Als Artefakt ablegen
+        uses: actions/upload-artifact@v4
+        with:
+          name: modell-${{ github.run_number }}
+          path: ergebnis/
+          retention-days: 30
+      - name: Release anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V="${{ inputs.teil == 'bass' && inputs.bass_variante || inputs.diskant_variante }}"
+          gh release create "modell-${{ github.run_number }}" ergebnis/* \
+            --title "${{ inputs.teil }} $V (Lauf ${{ github.run_number }})" \
+            --notes-file ergebnis/notizen.md

@@ -10,20 +10,27 @@ import math as _wm
 from shapely.geometry import Polygon as _WP, Point as _WPt, LineString as _WL, box as _Wbox
 from shapely.ops import unary_union as _Wuu
 W_T, W_L, W_FL, W_EIN, W_EIN_W, W_SCHLITZ_S = 2.0, 31.0, 10.0, 2.0, 45.0, 28.0     # 16:36 Johann: Umbiegung unten 10 mm
-W_SCHLITZ_B, W_TEIL, W_SCHLITZE = 2.4, 4.8, 50
-# 22.11. 17:17 (Johann): je ein Hebel aussen neben den aeusseren Laschen, dazwischen 4 Bereiche zu je 12 Hebeln (1+4x12+1 = 50);
-# auf der Achse liegen die Ms-Laschen (4,8 breit) dicht an dicht, an einer Winkel-Lasche (2 dick, je 0,2 Luft) 7,2 Abstand
-W_LASCHE_NACH = (0, 12, 24, 36, 48)                     # Winkel-Lasche zwischen Hebel i und i+1 (Zaehlung 0..49)
-# 17:19 (Johann): je Bereich (12 Ms-Laschen 4,8 + Winkel-Lasche 2) 2,4 mm Spiel, gleichmaessig auf die 13 Zwischenraeume
-W_SPIEL = 2.4 / 13.0
+W_SCHLITZ_B, W_TEIL = 2.4, 4.8
+# 22.11. 17:17 (Johann): je ein Hebel aussen neben den aeusseren Laschen, dazwischen 4 Bereiche (bei 50: 1+4x12+1);
+# auf der Achse liegen die Ms-Laschen (4,8 breit) dicht an dicht, an einer Winkel-Lasche (2 dick)
+# 22.11. 22:34: Knopfanzahl variabel (44/46/48/50/52): N-2 Hebel moeglichst gleich auf 4 Bereiche, groessere Bereiche innen
+W_SCHLITZE = (sum(len(R_["klappen"]) for R_ in INSTR["reihen"].values())          # ein Hebel je Klappe
+              if globals().get("INSTR") is not None else 50)
+_wq, _wr = divmod(W_SCHLITZE - 2, 4)
+W_BEREICHE = [_wq + (1 if k_ in ((1, 2, 0, 3)[:_wr]) else 0) for k_ in range(4)]
+# 17:19 (Johann): je Bereich (Ms-Laschen 4,8 + Winkel-Lasche 2) 2,4 mm Spiel, gleichmaessig auf die n+1 Zwischenraeume
+W_SPIELE = [2.4 / (n_ + 1.0) for n_ in W_BEREICHE]
+W_SPIEL = W_SPIELE[0]
 _wlz = [0.0]                                             # Mitten der Winkel-Laschen
-for _k in range(4): _wlz.append(_wlz[-1] + 2.0 + 12 * W_TEIL + 2.4)
-W_SCHLITZ_X = [_wlz[0] - 1.0 - W_SPIEL - W_TEIL / 2]
+for _k in range(4): _wlz.append(_wlz[-1] + 2.0 + W_BEREICHE[_k] * W_TEIL + 2.4)
+W_SCHLITZ_X = [_wlz[0] - 1.0 - W_SPIELE[0] - W_TEIL / 2]
 for _k in range(4):
-    for _i in range(12): W_SCHLITZ_X.append(_wlz[_k] + 1.0 + W_SPIEL + W_TEIL / 2 + _i * (W_TEIL + W_SPIEL))
-W_SCHLITZ_X.append(_wlz[4] + 1.0 + W_SPIEL + W_TEIL / 2)
+    for _i in range(W_BEREICHE[_k]): W_SCHLITZ_X.append(_wlz[_k] + 1.0 + W_SPIELE[_k] + W_TEIL / 2 + _i * (W_TEIL + W_SPIELE[_k]))
+W_SCHLITZ_X.append(_wlz[4] + 1.0 + W_SPIELE[3] + W_TEIL / 2)
+W_LASCHE_NACH = tuple([0] + [sum(W_BEREICHE[:k_ + 1]) for k_ in range(4)])   # Winkel-Lasche zwischen Hebel i und i+1
 _w0 = W_SCHLITZ_X[0]; W_SCHLITZ_X = [v_ - _w0 for v_ in W_SCHLITZ_X]
 W_LASCHEN = tuple(v_ - _w0 - 1.0 for v_ in _wlz)        # Laschen (2 dick) ab x
+print(f"Winkel: {W_SCHLITZE} Hebel = 1 + {'+'.join(map(str, W_BEREICHE))} + 1, Spiel je Zwischenraum {[round(v_, 3) for v_ in W_SPIELE]}")
 W_LASCHE_PTS = [(4.0, 0.0), (21.683, 26.236), (21.832, 26.442), (21.994, 26.639), (22.168, 26.825), (22.354, 27.0), (22.55, 27.162), (22.756, 27.312), (22.972, 27.448), (23.196, 27.57), (23.426, 27.677), (23.664, 27.77), (23.907, 27.848), (24.154, 27.909), (24.404, 27.955), (24.657, 27.985), (24.912, 27.999), (25.167, 27.997), (25.421, 27.978), (25.673, 27.943), (25.923, 27.892), (26.169, 27.825), (26.41, 27.743), (26.645, 27.646), (26.874, 27.534), (27.095, 27.407), (27.308, 27.267), (27.511, 27.113), (27.705, 26.947), (27.887, 26.769), (28.057, 26.579), (28.215, 26.38), (28.36, 26.17), (28.492, 25.952), (28.609, 25.725), (28.711, 25.492), (28.799, 25.253), (28.871, 25.008), (28.927, 24.76), (28.968, 24.508), (28.992, 24.255), (29.0, 24.0), (29.0, 0.0)]
 W_ACHSE_D = 3.0
 _wro0 = min((q for q in GRIFFSTOCK if q[0] < 10), key=lambda q: q[1]); _wro1 = min(GRIFFSTOCK, key=lambda q: q[1])
@@ -197,7 +204,7 @@ def W_FEDER_LOKAL(r):
         for a_, b_ in zip(pts, pts[1:]):
             d_ = _w_draht(a_, b_)
             if d_ is not None: fed = fed.fuse(d_)
-        for q_ in pts[1:]: fed = fed.fuse(cq.Solid.makeSphere(W_D_DRAHT / 2, q_))
+        for q_ in pts[1:]: fed = fed.fuse(cq.Solid.makeSphere(W_D_DRAHT / 2 + 0.01, q_, angleDegrees1=-90, angleDegrees2=90))
     loch = cq.Solid.makeCylinder(0.5, 2.3, cq.Vector(W_FED_X_LOCH, 4.1 - 0.1, 0.0), cq.Vector(0, 1, 0))
     return fed.clean(), loch
 W_FEDER = {r_: W_FEDER_LOKAL(r_) for r_ in (1, 2, 3, 4)}

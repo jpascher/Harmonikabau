@@ -573,7 +573,7 @@ for n_, (r, x, k, kr) in enumerate(zuordnung):
         teile.append((f"{G}/Feder", W_LOKAL(W_FEDER[r][0], r, _xs), "Stahl"))
     else: teile.append((f"{G}/Messingbuchse", _bz(D_BUCHSE / 2, T_ALU).cut(_bz(1.0, T_ALU + 1.0)), "Messing"))
     km = min(KL_TEILE, key=lambda t_: math.hypot(t_[0][0] - k[0], t_[0][1] - k[1]))
-    if _WINKEL and kr in (1, 2, 3):
+    if kr in (1, 2, 3):   # 23.11. (Johann): Gummi 031404 bei allen Griffstock-Varianten
         # 22.11. 19:37 (Johann): Gummi 031404 V3 auf der Klappe (Reihen 1-3), Hebelende steckt im Loch 2 x 2,5;
         # Klappendeckel 1 mm niedriger, weil das Gummi mit seinem 1-mm-Fuss darunter liegt (Hebelhoehe bleibt)
         _kl = km[1].cut(box(-1e4, 1e4, -1e4, 1e4, -(U_KL + 60.0), -(U_KL - 1.0)))
@@ -583,6 +583,15 @@ for n_, (r, x, k, kr) in enumerate(zuordnung):
         _gu = cq.Workplane("XZ").polyline([(_gx + a_, -(U_KL - 1.0 + b_)) for a_, b_ in _gp]).close().extrude(-7.0).translate((0, _gy - 3.5, 0)).val()
         _gu = _gu.cut(box(_gx - 1.0, _gx + 1.0, _gy - 10, _gy + 10, -(U_KL - 1.0 + 3.5), -(U_KL - 1.0 + 1.0)))
         teile.append((f"{G}/Gummi_031404", _gu, "Leder"))
+        # 23.11.: wo der Hebel ueber dem Gummi hoeher als das Loch (2,5) ist (z. B. Kugellager-Hebel), Hebel im Gummibereich auf 2,3 kappen
+        _kap = box(_gx - 1.5, _gx + 1.5, _gy - 3.6, _gy + 3.6, -(U_KL + 40.0), -(U_KL + 2.3))
+        for _i in range(len(teile) - 1, -1, -1):
+            if teile[_i][0] == f"{G}/Hebel_Alu":
+                if teile[_i][1].intersect(_kap).Volume() > 1e-3:
+                    teile[_i] = (teile[_i][0], teile[_i][1].cut(_kap), teile[_i][2])
+                    for _hd in HEBEL_DATEN:
+                        if _hd["G"] == G: _hd["hb"] = teile[_i][1]
+                break
     else:
         teile.append((f"{G}/Klappe", km[1], "Klappe")); teile.append((f"{G}/Klappenpolster", km[2], "Leder"))
     if not _WINKEL: teile.append((f"{G}/Achse", cq.Workplane("YZ").center(Yp, -up).circle(1.0).extrude(11.0).translate((x - 5.5, 0, 0)).val(), "Stahl"))
@@ -1070,13 +1079,40 @@ if JP and globals().get("INSTR") is not None:
     teile = [(n_, (schneide(s_, _gsl) if n_ in ("Griffstock_Teil2", "Griffstock_Koerper") else
                    schneide(s_, [cq.Solid.makeCylinder(1.5, T_BODEN + 2.0, cq.Vector(x_, y_, -1.0), cq.Vector(0, 0, 1)) for x_, y_, nn_, w_ in GS_LOECHER])
                    if n_ == "Diskantboden" else s_), f_) for n_, s_, f_ in teile]
+# ---- 22.11.: Griffstock-Endform links/rechts nach ital.df.dxf (LAYER8), Ansicht entlang der Knopfachse;
+#      Zeichnung x -390 = X 0 (links), x -10 = X L (rechts), Zeichnung y 10,81 = Stufe b der Reihe 1, y waechst nach innen
+_GS_ENDE = ((INSTR.get("griffstock_ende", "") if globals().get("INSTR") is not None else "") or os.environ.get("GRIFFSTOCK_ENDE", ""))
+if _GS_ENDE == "ital":
+    _ed = ezdxf.readfile("griffstock_endform_ital.dxf").modelspace()
+    _ek = sorted(([(float(q_[0]), float(q_[1])) for q_ in e_.get_points()] for e_ in _ed if e_.dxf.layer == "LAYER8"),
+                 key=lambda c_: c_[0][0])                                     # [links, rechts]
+    def _eb(y_): return _kb[1] + (10.81 - y_)
+    _li = [(-6.0 if x_ < -389.99 else x_ + 390.0, _eb(y_)) for x_, y_ in _ek[0]]
+    _re = [(L + 6.0 if x_ > -10.01 else L + (x_ + 10.0), _eb(y_)) for x_, y_ in _ek[1]]
+    if _li[0][1] > _li[-1][1]: _li.reverse()
+    if _re[0][1] > _re[-1][1]: _re.reverse()                                  # beide von b klein (innen) nach b gross (aussen)
+    _poly = ([(-6.0, _li[0][1] - 400.0)] + _li + [(_li[-1][0], _li[-1][1] + 400.0), (_re[-1][0], _re[-1][1] + 400.0)]
+             + _re[::-1] + [(L + 6.0, _re[0][1] - 400.0)])
+    _kd3, _ke3 = cq.Vector(0, KD[1], -KD[0]), cq.Vector(0, KE[1], -KE[0])
+    _pl = cq.Plane(origin=_kd3 * -400.0, xDir=cq.Vector(1, 0, 0), normal=_kd3)
+    _keep = cq.Workplane(_pl).polyline(_poly).close().extrude(800.0).val()
+    _neu = []
+    for n_, s_, f_ in teile:
+        if n_.startswith("Griffstock_"):
+            v0_ = s_.Volume(); s_ = s_.intersect(_keep)
+            print(f"Endform ital: {n_} Volumen {v0_:.0f} -> {s_.Volume():.0f}")
+        _neu.append((n_, s_, f_))
+    teile = _neu
+    if True:
+        import pickle as _pk; _pk.dump({"poly": _poly, "kb": _kb, "L": L}, open("/tmp/endform.pkl", "wb"))
+    print("Endform ital: Reihe 4 Zeichnung b %.2f, Modell b %.2f" % (_eb(59.02), _kb[4]))
 # ---- Drehfeder je Hebel: Durchmesser 6 aussen, Draht 0,6, 3 Windungen, auf der Achse neben dem Hebel (+X);
 #      Schenkel 1 liegt auf dem Kunststoffteil, Schenkel 2 mit U-Haken ueber die Kante des 2-mm-Alu-Hebels
 D_FED, D_DRAHT, N_WDG = 6.0, 0.6, 3
 def _draht(p0, p1):
     v_ = p1.sub(p0)
     return cq.Solid.makeCylinder(D_DRAHT / 2, v_.Length, p0, v_.normalized())
-def _kugel(p): return cq.Solid.makeSphere(D_DRAHT / 2, p)
+def _kugel(p): return cq.Solid.makeSphere(D_DRAHT / 2 + 0.01, p, angleDegrees1=-90, angleDegrees2=90)   # 23.11.: volle Kugel (Vorgabe von cq ist eine Halbkugel)
 def _hebel_u_bei(r_, Y):
     """u-Bereich des Alu-Hebels der Reihe r_ bei Y (Querschnitt)."""
     g_ = _SPG(HEBEL[r_]).buffer(0).intersection(_SLS([(-60, Y), (60, Y)]))
@@ -1138,16 +1174,26 @@ for G_, (xh_, Yp_, zp_) in sorted(DREHPUNKTE.items()):
     # Schenkel 1: tangential aus dem Windungsende, 9 mm, liegt auf dem Kunststoffteil
     t_end = hel_.tangentAt(1.0); t1_ = cq.Vector(0, t_end.y, t_end.z).normalized()
     for l1_ in (9.0, 8.0, 7.0, 6.0, 5.0, 4.0):                         # 19.11.: Schenkel nicht in die Griffstock-Abdeckung
-        sch1 = [_draht(pa_, pa_.add(t1_.multiply(l1_)))]
         try:
-            if sch1[0].intersect(abdeckung).Volume() < 1e-4: break
+            if _draht(pa_, pa_.add(t1_.multiply(l1_))).intersect(abdeckung).Volume() < 1e-4: break
         except Exception: break
     # Schenkel 2: tangential aus dem Windungsanfang gerade bis zum U-Haken
-    sch2 = [_draht(pe_, q0_), _kugel(q0_), _draht(q0_, q1_), _kugel(q1_), _draht(q1_, q2_), _kugel(q2_), _draht(q2_, q3_), _kugel(q3_)]
-    fed_ = spirale
-    for t_ in sch1 + sch2:
-        try: fed_ = fed_.fuse(t_)
-        except Exception: pass
+    _d2 = q0_.sub(pe_).normalized()
+    _haken = [_kugel(q0_), _draht(q0_, q1_), _kugel(q1_), _draht(q1_, q2_), _kugel(q2_), _draht(q2_, q3_), _kugel(q3_)]
+    # 23.11.: Uebergaenge Windung/Schenkel sind boolesch heikel (gleiche Drahtstaerke, gemeinsame Stirnflaeche) -
+    # mehrere Varianten probieren, bis die Feder ein einziger Koerper ist
+    def _var(gap_, kug_):
+        return ([_kugel(pa_)] if kug_ else []) + [_draht(pa_.add(t1_.multiply(gap_)), pa_.add(t1_.multiply(l1_)))] + \
+               ([_kugel(pe_)] if kug_ else []) + [_draht(pe_.add(_d2.multiply(gap_)), q0_)] + _haken
+    fed_ = None
+    for gap_, kug_ in ((0.0, False), (0.05, True), (0.0, True), (0.02, True)):
+        f_ = spirale
+        for t_ in _var(gap_, kug_):
+            try: f_ = f_.fuse(t_)
+            except Exception: pass
+        if fed_ is None or len(f_.Solids()) < len(fed_.Solids()): fed_ = f_
+        if len(fed_.Solids()) == 1: break
+    if len(fed_.Solids()) > 1: print(f"   ACHTUNG {G_}: Feder besteht aus {len(fed_.Solids())} Koerpern")
     teile.append((f"{G_}/Feder", fed_, "Stahl"))
     RASTKERBE_DATEN.append((pa_, t1_, n3_, xh_))
     FEDERN.append(G_)
@@ -1208,6 +1254,29 @@ if FEDERN:
 teile.append(("Dreieckleiste", dre, "Griffstock"))
 verst = schneide(verst, loch_b + [cq.Solid.makeCylinder(1.5, 7.0, cq.Vector(x_, y_, T_BODEN - 1.0), cq.Vector(0, 0, 1)) for x_, y_, n_, w_ in GS_LOECHER])
 teile.append(("Verstaerkungsleiste_innen", verst, "Holz"))
+def feder_wendel(Cx, pB, pA, d, n_soll=3.0, spanne=1.9):
+    """23.11.: Spiralfeder als echte Wendel (Achse X) statt drei getrennter Ringe.
+    Cx(X) = Windungsmitte bei X; pB / pA = Schenkelanfang (Vektor, Abstand rm von der Mitte) am Anfang / Ende.
+    Laenge so, dass Anfang bei pB und Ende bei pA liegt (2,5 ... 3,5 Windungen, Steigung >= d + 0,05).
+    Rueckgabe: (Wendel-Solid, X Anfang, X Ende) - die Schenkel bei diesen X ansetzen."""
+    import math as _mm
+    c0 = Cx(0.0)
+    def _w(p): return _mm.atan2(p.z - c0.z, p.y - c0.y)
+    rm = ((pB.y - c0.y) ** 2 + (pB.z - c0.z) ** 2) ** 0.5
+    xm = (pA.x + pB.x) / 2.0
+    h0 = cq.Wire.makeHelix(1.0, 1.0, rm, Cx(0.0), cq.Vector(1, 0, 0))
+    sg = 1.0 if ((_w(h0.positionAt(0.01)) - _w(h0.startPoint()) + 3 * _mm.pi) % (2 * _mm.pi) - _mm.pi) > 0 else -1.0
+    f = ((sg * (_w(pA) - _w(pB))) / (2 * _mm.pi)) % 1.0
+    n = n_soll - 0.5 + ((f - (n_soll - 0.5)) % 1.0)          # n in [n_soll-0,5, n_soll+0,5), Endwinkel = Winkel pA
+    hoehe = max(spanne, (d + 0.05) * n)
+    x0 = xm - hoehe / 2
+    hel = cq.Wire.makeHelix(hoehe / n, hoehe, rm, Cx(x0), cq.Vector(1, 0, 0))
+    hel = hel.rotate(Cx(x0), Cx(x0 + 1.0), _mm.degrees(_w(pB) - _w(hel.startPoint())))
+    prof = cq.Wire.makeCircle(d / 2, hel.startPoint(), hel.tangentAt(0))
+    sol = cq.Solid.sweep(prof, [], hel, True, True)
+    sol = sol.fuse(cq.Solid.makeSphere(d / 2 + 0.01, hel.startPoint(), angleDegrees1=-90, angleDegrees2=90)).fuse(cq.Solid.makeSphere(d / 2 + 0.01, hel.endPoint(), angleDegrees1=-90, angleDegrees2=90))
+    return sol, x0, x0 + hoehe
+
 if _WINKEL: exec(open("winkel_teile.py").read())
 if TRAD: exec(open("kugel.py" if KUGEL else "trad.py").read())
 import json as _js
