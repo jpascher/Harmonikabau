@@ -32,7 +32,7 @@ import json as _json
 _BM = _json.load(open("belegung_modell_340.json", encoding="utf-8"))   # Klappen, Gassen, Knopflagen (auch fuer die Webseite)
 GASSEN = _BM["gassen"]
 KATALOG = {k_: {"ziel": tuple(v_["ziel"]), "hebel_x": v_["hebel_x"], "gassen": v_["gassen"]} for k_, v_ in _BM["klappen"].items()}
-REIHEN_KNOEPFE = {int(r_): n_ for r_, n_ in _BM["reihen"].items()}
+REIHEN_KNOEPFE = REIHEN_N                                  # Knopfzahl je Reihe wie in v340.py aufgebaut (R1/R2 der Belegung)
 import os
 _BEL = os.environ.get("BASS_BELEGUNG")
 if _BEL:
@@ -89,6 +89,16 @@ def hebel_seg(n2, pax, y2, pk):                           # Klappenhebel im Grun
 # Arme und Hebel als feste Hindernisse
 arme_alle = [(n_, x_, y_) for n_, y_, a_, h_ in ACHSEN for r_, x_ in a_]
 hebel_pa = {n_: [list(h) for h in h_] for n_, y_, a_, h_ in ACHSEN}
+# 26.11.2026 (freie Knopfzahl/Teilung): liegt ein Knopfschenkel der eigenen Achse zu nahe am Klappenhebelansatz, wird der
+# Ansatz um SCH_HEBEL neben den Schenkel geschoben (zur Klappe hin); der Hebel laeuft dann schraeg unter die Klappe.
+# Gebaut ist 4,3 mm Abstand (H218 / Knopf 1.7) ohne Beruehrung, daher erst unter 4 mm verschieben.
+SCH_HEBEL, SCH_MIN = 5.0, 4.0
+for n_, y_, a_, h_ in ACHSEN:
+    for h in hebel_pa[n_]:
+        for r_, xs_ in a_:
+            if abs(h[0] - xs_) < SCH_MIN:
+                alt_ = h[0]; h[0] = round(xs_ + (SCH_HEBEL if h[1][0] >= xs_ else -SCH_HEBEL), 2)
+                print(f"Hebelansatz {n_}: {alt_:.1f} -> {h[0]:.1f} (Knopfschenkel bei X {xs_:.1f})")
 boecke = []                                               # (Achse, x, y)
 def bock_frei(nm, x, y, eigene):
     r = (x - HL, x + HL, y - HB, y + HB)

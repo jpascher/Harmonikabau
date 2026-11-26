@@ -9,30 +9,16 @@
   "1": 9,
   "2": 9
  },
- "knopf_x": {
-  "1": [
-   99.67,
-   118.67,
-   137.67,
-   156.67,
-   175.67,
-   194.67,
-   213.67,
-   232.67,
-   251.67
-  ],
-  "2": [
-   90.17,
-   109.17,
-   128.17,
-   147.17,
-   166.17,
-   185.17,
-   204.17,
-   223.17,
-   242.17
-  ]
+ "reihen_mitte": {
+  "1": 175.67,
+  "2": 166.17
  },
+ "teilung": 19.0,
+ "knopf_bereich": [
+  60.0,
+  282.0
+ ],
+ "reihen_hinweis": "Knopfzahl je Reihe frei (R1 = n), Reihe mittig um reihen_mitte mit der Knopfteilung; knopf_bereich = Platz an der Front zwischen den Hoernern",
  "knopf_y": {
   "1": 198.0,
   "2": 184.0

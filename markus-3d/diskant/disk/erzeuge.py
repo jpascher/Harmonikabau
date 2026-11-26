@@ -12,7 +12,9 @@ def main(liste, ordner, version="neu"):
     hier = os.path.dirname(os.path.abspath(__file__))
     sys.path.insert(0, hier)
     import instrument
-    name = str(instrument.lies(os.path.abspath(liste))["name"])
+    _inst = instrument.lies(os.path.abspath(liste))
+    name = str(_inst["name"])
+    winkel = str(_inst.get("griffstock", "")).startswith("winkel")
     os.makedirs(ordner, exist_ok=True)
     st_dir, gs_dir = os.path.join(ordner, "Stimmstoecke"), os.path.join(ordner, "Griffstock")
     for d in (st_dir, gs_dir):
@@ -36,8 +38,10 @@ def main(liste, ordner, version="neu"):
     print("2) Griffstock-Fraesdateien ...", flush=True)
     r2 = subprocess.run([sys.executable, "gs_fraes.py", gs_step, gs_dir, name], cwd=hier, capture_output=True, text=True)
     open(os.path.join(ordner, "gs_fraes.log"), "w").write(r2.stdout + r2.stderr)
-    if r2.returncode != 0: raise SystemExit("gs_fraes-Fehler, siehe gs_fraes.log")
-    os.remove(gs_step)
+    gs_ok = r2.returncode == 0
+    if not gs_ok and not winkel: raise SystemExit("gs_fraes-Fehler, siehe gs_fraes.log")
+    if not gs_ok: print("   Hinweis: Winkel-Griffstock - Griffstock-Fraesdateien werden noch nicht automatisch erzeugt (26.11.2026)", flush=True)
+    if os.path.exists(gs_step): os.remove(gs_step)
     print("3) Alu-Abwicklungen, Holzteile, Kunststoffteil ...", flush=True)
     r3 = subprocess.run([sys.executable, "teile_dxf.py", dump, kst_step, teile_dir], cwd=hier, capture_output=True, text=True)
     open(os.path.join(ordner, "teile_dxf.log"), "w").write(r3.stdout + r3.stderr)
@@ -50,8 +54,9 @@ def main(liste, ordner, version="neu"):
               "stimmstoecke": {"ordner": "Stimmstoecke", "teile": stoecke},
               "griffstock": {"ordner": "Griffstock", "json": f"Griffstock_{name}_fraesen.json",
                              "teile": {t: f"Griffstock_{t}_{name}_fraesen" for t in ("Teil1", "Teil2")}}}
+    if not gs_ok: liste_["griffstock"] = None
     json.dump(liste_, open(os.path.join(ordner, "fraes_liste.json"), "w", encoding="utf-8"), indent=1, ensure_ascii=False)
-    print(f"fertig: {name}, {len(stoecke)} Stimmstoecke, Griffstock Teil 1/2 -> {ordner}")
+    print(f"fertig: {name}, {len(stoecke)} Stimmstoecke" + (", Griffstock Teil 1/2" if gs_ok else ", ohne Griffstock-Fraesdateien (Winkel)") + f" -> {ordner}")
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "neu")

@@ -202,7 +202,8 @@ def main(dump, kst_step, ordner):
     hd = os.path.join(ordner, "Holzteile"); os.makedirs(hd, exist_ok=True)
     print("Alu-Abwicklungen:", alu_dxf(D, ad))
     print("Holzteile:", holz_dxf(D, hd))
-    print("Kunststoffteil:", kunststoff(kst_step, ordner, D["instrument"]))
+    if os.path.exists(kst_step): print("Kunststoffteil:", kunststoff(kst_step, ordner, D["instrument"]))
+    else: print("Kunststoffteil: keines (Winkel- bzw. Holzgriffstock)")   # 26.11.2026
 
 if __name__ == "__main__":
     main(*sys.argv[1:4])

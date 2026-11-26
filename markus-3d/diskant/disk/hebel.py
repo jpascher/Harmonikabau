@@ -436,12 +436,14 @@ if _WINKEL:
     # 18:11 (Johann): in jeder Engstelle die durchlaufenden Hebel gleichmaessig zwischen die beiden Zylinder verteilen
     # (welche Luecke und Reihenfolge wie in der Zeichnung); von der Lagerung nur eine Kroepfung bis zur ersten Engstelle
     _R_ZYL = 3.75
-    _ZG = {4: {1: 5.0, 2: 7.0, 3: 0.0}, 3: {1: 7.0, 2: 0.0}, 2: {1: 0.0}}      # Lage nach Zeichnung (relativ zum eigenen X)
+    _WT = INSTR.get("knopfabstand", 20.0) if globals().get("INSTR") is not None else 20.0   # 26.11.: Knopfabstand 18/19/20
+    _ZG = {4: {1: 5.0, 2: 7.0, 3: 0.0}, 3: {1: 7.0, 2: 0.0}, 2: {1: 0.0}}      # Lage nach Zeichnung (relativ zum eigenen X, 20 mm)
+    _ZG = {b_: {r_: v_ * _WT / 20.0 for r_, v_ in d_.items()} for b_, d_ in _ZG.items()}   # mit dem Knopfabstand skaliert
     W_POS = {}
     for b_ in (4, 3, 2):
         cyl_ = sorted(kx_ for r_, x_, kx_ in _wlev if r_ == b_)
         pas_ = [(kx_ + _ZG[b_][r_], r_, x_) for r_, x_, kx_ in _wlev if r_ < b_]
-        cyx_ = [cyl_[0] - 20.0 * k_ for k_ in (4, 3, 2, 1)] + cyl_ + [cyl_[-1] + 20.0 * k_ for k_ in (1, 2, 3, 4)]   # ausserhalb gedachte Zylinder
+        cyx_ = [cyl_[0] - _WT * k_ for k_ in (4, 3, 2, 1)] + cyl_ + [cyl_[-1] + _WT * k_ for k_ in (1, 2, 3, 4)]   # ausserhalb gedachte Zylinder
         for i_ in range(len(cyx_) - 1):
             e0_ = cyx_[i_] + _R_ZYL
             e1_ = cyx_[i_ + 1] - _R_ZYL
@@ -1281,7 +1283,7 @@ if _WINKEL: exec(open("winkel_teile.py").read())
 if TRAD: exec(open("kugel.py" if KUGEL else "trad.py").read())
 import json as _js
 open("drehpunkte.json", "w").write(_js.dumps(DREHPUNKTE))
-if not TRAD and os.environ.get("KST_STEP"):          # 19.11.: Kunststoffteil in Fraeslage (Lagerseite oben, Z = 0): Fraesteil + Fertigteil
+if not TRAD and not _WINKEL and os.environ.get("KST_STEP"):   # (Winkel: kein Kunststoffteil, 26.11.) 19.11.: Kunststoffteil in Fraeslage (Lagerseite oben, Z = 0): Fraesteil + Fertigteil
     _kf = [t_[1] for t_ in teile if t_[0] == "Kunststoffteil_Lagerblock"][0]
     _sv = [kst_s(p_) for p_ in KST_E.exterior.coords]
     _dv = [(p_[0] - _a[0]) * _n[0] + (p_[1] - _a[1]) * _n[1] for p_ in KST_E.exterior.coords]

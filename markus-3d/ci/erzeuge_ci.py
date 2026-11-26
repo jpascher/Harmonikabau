@@ -2,7 +2,7 @@
 #   python3 markus-3d/ci/erzeuge_ci.py <teil> <variante> <teilung> <laenge> <ausgabeordner> [vorschau ja|nein]
 #   teil      : bass | diskant
 #   variante  : Bass  -> markus, marie38, eduard, gerhard, andreas, v340
-#               Diskant -> instrument:griffstock:knoepfe:hebel (z. B. markus:kugellager:46:9, siehe tastenliste_bauen.py)
+#               Diskant -> instrument:griffstock:knoepfe:knopfabstand (z. B. markus:kugellager:50:19, siehe tastenliste_bauen.py)
 #                          oder Name einer vorhandenen Tastenliste ohne "tastenliste_" und ".txt", z. B. marie_winkel
 #   teilung   : Knopfteilung in mm (18, 19, 20) oder "standard" (Wert des jeweiligen Skripts); beim Diskant steht sie in der Tastenliste
 #   laenge    : Gehaeuselaenge in mm, nur fuer den Markus-Bass (Diskantlaenge genuegt, wird auf volle 10 mm aufgerundet)
@@ -63,7 +63,7 @@ def main():
         name = os.path.basename(step)[:-5]
         packe(os.path.join(aus, name + "_step.zip"), [step] + glob.glob(step + ".*") + glob.glob(os.path.join(aus, "belegung.txt")), aus)
     elif teil == "diskant":
-        if ":" in variante:                                   # Auswahl der Webseite: instrument:griffstock:knoepfe:hebel
+        if ":" in variante:                                   # Auswahl der Webseite: instrument:griffstock:knoepfe:knopfabstand
             sys.path.insert(0, HIER); import tastenliste_bauen
             liste, lname, hinweise = tastenliste_bauen.baue(*variante.split(":"), os.path.join(aus, "tastenliste.txt"),
                                                             os.environ.get("PLATTEN", ""))

@@ -2,7 +2,9 @@
 #   instrument : markus (3-choerig) | marie (2-choerig)
 #   griffstock : standard | traditionell | kugellager | kolben | kolben12 | winkel | winkel_ital
 #   knoepfe    : 44 46 48 50 52 54 (nur Markus; die Reihen kommen aus tastenliste_markus<N>_winkel.txt)
-#   hebel      : 8 | 9 | 10 mm Hebelteilung (Knopfabstand 16 / 18 / 20 mm; nur Markus, Winkel nur 10 mm)
+#   abstand    : Knopfabstand 18 | 19 | 20 mm (Hebelteilung 9 / 9,5 / 10) fuer alle Griffstoecke und beide Instrumente
+#                (Johann 26.11.2026). Alte Angabe als Hebelteilung 9 / 10 wird noch verstanden (x 2).
+#                Bei Marie (2-choerig) ist die Klappenteilung = Knopfabstand, das Gehaeuse waechst/schrumpft mit.
 #   platten    : optional eigene Stimmplattenlaengen je Reihe, z. B. "R1: 32 33 34 ...; R3: 27 29 ..."
 #                (genau so viele Werte wie die Reihe Klappen hat; nicht genannte Reihen bleiben wie gezeichnet)
 # Unzulaessige Kombinationen werden sofort mit einer klaren Meldung abgelehnt (pruefe()).
@@ -11,8 +13,14 @@
 import os, re
 
 DISK = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "diskant", "disk")
-HEBEL_ERLAUBT = {"standard": (8, 9, 10), "traditionell": (8, 9, 10), "kugellager": (8, 9, 10), "kolben": (8, 9, 10),
-                 "kolben12": (8, 9, 10), "winkel": (10,), "winkel_ital": (10,)}
+GRIFFSTOECKE = ("standard", "traditionell", "kugellager", "kolben", "kolben12", "winkel", "winkel_ital")
+ABSTAENDE = (18, 19, 20)
+# bereits gerechnet und angesehen (alles andere rechnet, ist aber neu -> Hinweis im Protokoll);
+# 26.11.: Markus standard 19 (gleiche Kollisionsliste wie 20) und Markus winkel 19 (nur Bauteil-Beruehrungen) gerechnet
+GEPRUEFT = {("markus", g, a) for g in ("standard", "traditionell", "kugellager") for a in (18, 20)} | \
+           {("markus", "winkel", 20), ("markus", "winkel_ital", 20), ("marie", "winkel", 20)} | \
+           {("markus", "standard", 19), ("markus", "winkel", 19)} | \
+           {("marie", g, 19) for g in ("standard", "traditionell", "kugellager", "kolben", "kolben12")}
 KNOEPFE_ERLAUBT = {"winkel": (44, 46, 48, 50, 52, 54), "winkel_ital": (44, 46, 48, 50, 52, 54),
                    "standard": (44, 46, 48, 50, 52, 54)}   # sonst nur 50: Kugellager scheitert an den POM-Stuetzen (26.11.)
 PLATTE_MIN, PLATTE_MAX = 15.0, 100.0
@@ -59,39 +67,65 @@ def lies_platten(text):
         erg[int(m.group(1))] = werte
     return erg
 
-def pruefe(instrument, griffstock, knoepfe, hebel):
+def abstand_mm(wert_):
+    """Knopfabstand in mm; alte Angabe als Hebelteilung (<= 10) wird verdoppelt"""
+    a_ = float(str(wert_).replace(",", "."))
+    if a_ <= 10: a_ *= 2
+    if a_ not in ABSTAENDE:
+        raise SystemExit(f"Knopfabstand {a_:g} mm geht nicht - moeglich: {', '.join(map(str, ABSTAENDE))} mm")
+    return int(a_)
+
+def pruefe(instrument, griffstock, knoepfe, abstand=20):
     """unzulaessige Auswahl sofort ablehnen"""
     if instrument not in ("markus", "marie"): raise SystemExit("Instrument muss markus oder marie sein")
-    if griffstock not in HEBEL_ERLAUBT: raise SystemExit(f"unbekannter Griffstock {griffstock}")
+    if griffstock not in GRIFFSTOECKE: raise SystemExit(f"unbekannter Griffstock {griffstock}")
+    abstand_mm(abstand)
     if instrument == "marie":
         if griffstock not in MARIE: raise SystemExit(f"Marie gibt es nicht mit Griffstock {griffstock} (moeglich: {', '.join(MARIE)})")
         return
-    if hebel not in HEBEL_ERLAUBT[griffstock]:
-        raise SystemExit(f"Griffstock {griffstock}: Hebelteilung {hebel} mm geht nicht - moeglich: {', '.join(map(str, HEBEL_ERLAUBT[griffstock]))} mm "
-                         f"(Knopfabstand {', '.join(str(2 * h) for h in HEBEL_ERLAUBT[griffstock])} mm)")
     erlaubt = KNOEPFE_ERLAUBT.get(griffstock, (50,))
     if knoepfe not in erlaubt:
         raise SystemExit(f"Griffstock {griffstock}: {knoepfe} Knoepfe gehen derzeit nicht - moeglich: {', '.join(map(str, erlaubt))}. "
                          "Andere Knopfzahlen gibt es bisher nur mit Winkel- und Standard-Griffstock.")
 
-def baue(instrument, griffstock, knoepfe, hebel, ziel, platten=""):
+def skaliere(zeilen, a):
+    """Knopfabstand auf a setzen: Reihenabstaende der Pyramide (knopf_x0 relativ zu Reihe 1) und Knopfversatz
+    wachsen mit der Teilung mit; die absolute Lage richtet instrument.py mittig aus"""
+    kopf, reihen = teile(zeilen)
+    alt = float(wert(kopf, "knopfabstand"))
+    if abs(alt - a) < 1e-9: return zeilen
+    f = a / alt
+    kopf = [(f"knopfabstand   = {a:g}   # Auswahl Webseite (gezeichnet {alt:g} mm)" if re.match(r"^\s*knopfabstand\s*=", z) else z) for z in kopf]
+    x01 = float(wert(reihen[min(reihen)], "knopf_x0"))
+    for nr, blk in reihen.items():
+        neu = []
+        for z in blk:
+            m = re.match(r"^\s*(knopf_x0|knopf_versatz)\s*=\s*([-0-9.]+)", z)
+            if m:
+                v = float(m.group(2))
+                v = x01 + (v - x01) * f if m.group(1) == "knopf_x0" else v * f
+                z = f"{m.group(1):<9} = {v:.2f}   # auf {a:g} mm Knopfabstand umgerechnet"
+            neu.append(z)
+        reihen[nr] = neu
+    return kopf + [z for nr in sorted(reihen) for z in reihen[nr]]
+
+def baue(instrument, griffstock, knoepfe, abstand, ziel, platten=""):
     """schreibt die Tastenliste nach ziel und gibt (pfad, name, hinweise) zurueck"""
     hinweise = []
-    knoepfe, hebel = int(knoepfe), int(hebel)
-    pruefe(instrument, griffstock, knoepfe, hebel)
+    knoepfe, a = int(knoepfe), abstand_mm(abstand)
+    pruefe(instrument, griffstock, knoepfe, a)
     eigene = lies_platten(platten)
     if instrument == "marie":
         if griffstock not in MARIE: raise SystemExit(f"Marie gibt es nicht mit Griffstock {griffstock}")
         if knoepfe != 50: hinweise.append("Knopfzahl gilt nur fuer Markus; Marie mit ihrer gezeichneten Knopfzahl gerechnet.")
-        if hebel != 10: hinweise.append("Hebelteilung gilt nur fuer Markus; Marie mit 19 mm Knopfabstand gerechnet.")
-        zeilen = lies(MARIE[griffstock]); name = f"Marie_{griffstock}"
-        zeilen = setze(zeilen, "name", name)
+        zeilen = lies(MARIE[griffstock]); name = f"Marie_{griffstock}_{a}mm"
+        zeilen = setze(skaliere(zeilen, a), "name", name)
     elif instrument == "markus":
         if griffstock.startswith("winkel"):
             quelle = "markus_winkel_ital" if griffstock == "winkel_ital" else "markus_winkel"
         else:
             basis = {"standard": "std", "traditionell": "trad", "kugellager": "kugel", "kolben": "std", "kolben12": "std"}[griffstock]
-            quelle = f"markus_{basis}_{hebel}mm"
+            quelle = f"markus_{basis}_10mm"                   # Grundlage 20 mm, skaliert auf den gewaehlten Abstand
         kopf, reihen = teile(lies(quelle))
         if griffstock in ("kolben", "kolben12"):
             kopf = setze(kopf, "griffstock", griffstock)
@@ -105,11 +139,13 @@ def baue(instrument, griffstock, knoepfe, hebel, ziel, platten=""):
             if griffstock == "standard": hinweise.append(f"{knoepfe} Knoepfe mit Standard-Griffstock: rechnet (Probe 46 Knoepfe am 26.11.), aber noch nicht angesehen - Protokoll pruefen.")
             kopf = setze(kopf, "gehaeuse_x", "auto")
             if not eigene: hinweise.append("Klappen der Knopfvariante mit Platzhalter-Plattenlaengen - eigene Laengen im Feld 'Plattenlaengen' eintragen.")
-        name = f"Markus{knoepfe}_{griffstock}_{hebel}mm"
+        name = f"Markus{knoepfe}_{griffstock}_{a}mm"
         kopf = setze(kopf, "name", name)
-        zeilen = kopf + [z for nr in sorted(reihen) for z in reihen[nr]]
+        zeilen = skaliere(kopf + [z for nr in sorted(reihen) for z in reihen[nr]], a)
     else:
         raise SystemExit("instrument muss markus oder marie sein")
+    if (instrument, griffstock, a) not in GEPRUEFT:
+        hinweise.append(f"{instrument.capitalize()} {griffstock} mit {a} mm Knopfabstand ist neu (noch nicht angesehen) - Protokoll und Bild pruefen.")
     if eigene:                                                # eigene Plattenlaengen einsetzen
         kopf_, reihen_ = teile(zeilen)
         for nr, werte in eigene.items():

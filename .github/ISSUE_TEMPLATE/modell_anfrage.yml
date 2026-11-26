@@ -24,6 +24,7 @@ body:
     id: teilung
     attributes:
       label: "Bass: Knopfteilung"
+      description: standard = wie gezeichnet; andere Teilung geht bei allen Bassteilen
       options: [standard, "18", "19", "20"]
   - type: input
     id: laenge
@@ -34,8 +35,8 @@ body:
     id: belegung
     attributes:
       label: "Bass: Belegung (nur v340)"
-      description: Kurzform von der Seite „Bassbelegung zuordnen“ einfügen; leer = wie gebaut
-      placeholder: "1.1=V077, 1.2=BL152, ..."
+      description: Kurzform von der Seite „Bassbelegung zuordnen“ einfügen (R1=/R2= Knopfzahl je Reihe, Knöpfe ohne Zuordnung bleiben blind); leer = wie gebaut
+      placeholder: "R1=9, R2=9, 1.1=V077, 1.2=BL152, ..."
   - type: dropdown
     id: instrument
     attributes:
@@ -53,11 +54,11 @@ body:
       label: "Diskant: Knopfzahl"
       options: ["50", "44", "46", "48", "52", "54"]
   - type: dropdown
-    id: hebel
+    id: abstand
     attributes:
-      label: "Diskant: Hebelteilung (mm)"
-      description: 10 = 20 mm Knopfabstand, 9 = 18 mm, 8 = 16 mm
-      options: ["10", "9", "8"]
+      label: "Diskant: Knopfabstand (mm)"
+      description: Für alle Griffstöcke und beide Instrumente; leer = Markus 20, Marie 19. Gerechnet sind Markus 18/20 (Standard auch 19), Winkel 19/20, Marie 19 – andere Werte sind neu
+      options: ["20", "19", "18"]
   - type: textarea
     id: platten
     attributes:

@@ -91,8 +91,8 @@
     </div>
     <div id="belegung_feld">
       <h3>Belegung der Bassknöpfe</h3>
-      <p class="unter" style="margin-bottom:.5rem">Leer = wie gebaut. Eigene Belegung auf der Seite <a href="bass_belegung.html">Bassbelegung zuordnen</a> zusammenklicken; „Als Anfrage senden“ dort übernimmt sie direkt, oder die Kurzform hier einfügen.</p>
-      <textarea id="belegung" placeholder="1.1=V077, 1.2=BL152, …"></textarea>
+      <p class="unter" style="margin-bottom:.5rem">Leer = wie gebaut. Auf der Seite <a href="bass_belegung.html" id="beleg_link">Bassbelegung zuordnen</a> Knöpfe je Reihe dazugeben oder wegnehmen (die Reihen werden neu mittig verteilt), jedem Knopf eine Klappe geben oder ihn blind lassen; „Als Anfrage senden“ dort übernimmt alles direkt, oder die Kurzform hier einfügen.</p>
+      <textarea id="belegung" placeholder="R1=10, 1.1=V077, 1.2=BL152, …"></textarea>
     </div>
   </section>
 
@@ -107,9 +107,9 @@
     <h3>Knopfzahl</h3>
     <div class="chips" id="knoepfe"></div>
     <div class="warum" id="knoepfe_warum"></div>
-    <h3>Hebelteilung</h3>
-    <div class="chips" id="hebel"></div>
-    <div class="warum" id="hebel_warum"></div>
+    <h3>Knopfabstand</h3>
+    <div class="chips" id="abstand"></div>
+    <div class="warum" id="abstand_warum"></div>
     <details id="platten_box">
       <summary>Stimmplattenlängen anpassen <span id="platten_info" class="warum"></span></summary>
       <p class="unter" style="margin:.6rem 0 0">Länge je Klappe in mm, von links (hohe Töne) nach rechts. Geänderte Werte sind hervorgehoben; nur Reihen mit Änderungen werden übergeben.</p>
@@ -144,7 +144,7 @@ const BASS = [
   { id:"eduard",  name:"Eduard",       text:"Winkelbass.", teil:"20" },
   { id:"gerhard", name:"Gerhard",      text:"Drei Reihen, viele Bässe, versetzte und eine liegende Kammer.", teil:"20" },
   { id:"andreas", name:"Andreas",      text:"Stockwerk nach Marie 38, 13 schmale Helikon, 400 mm.", teil:"19" },
-  { id:"v340",    name:"340 schmal",   text:"Kurzes Gehäuse, schräge Platten, abgesenkte Luftklappe.", teil:"19", belegung:true },
+  { id:"v340",    name:"340 schmal",   text:"Kurzes Gehäuse, schräge Platten, abgesenkte Luftklappe. Knopfzahl je Reihe frei.", teil:"19", belegung:true, geprueft:["20"] },
 ];
 const GRIFF = [
   { id:"standard",     name:"Standard",       text:"Alu-Hebel im Kunststoffkamm, Drehfeder an jedem Hebel." },
@@ -157,7 +157,10 @@ const GRIFF = [
 ];
 const NEU = { "markus:kolben":1, "markus:kolben12":1 };
 let D = null;
-const W = { teil:"diskant", bass:"markus", teilung:"standard", laenge:380, belegung:"", instrument:"markus", griffstock:"standard", knoepfe:"50", hebel:"10", platten:{}, vorschau:true };
+const W = { teil:"diskant", bass:"markus", teilung:"standard", laenge:380, belegung:"", instrument:"markus", griffstock:"standard", knoepfe:"50", abstand:"20", platten:{}, vorschau:true };
+let _vorher = "";                       // Instrument/Griffstock der letzten Anzeige: bei Wechsel Knopfabstand auf den gezeichneten Wert
+const gezeichnet = () => W.instrument === "marie" && W.griffstock !== "winkel" ? "19" : "20";
+const geprueft = a => D.regeln.geprueft.includes(`${W.instrument}:${W.griffstock}:${a}`);
 const $ = id => document.getElementById(id);
 
 function karte(ziel, eintraege, feld, aus = () => "") {
@@ -181,19 +184,17 @@ function chips(ziel, werte, feld, aus = () => "", klein = () => "") {
   }
 }
 const R = () => D.regeln;
-function hebelGrund(h) {
-  if (W.instrument === "marie") return "Marie hat festen Knopfabstand 19 mm";
-  return R().hebel[W.griffstock].includes(+h) ? "" : `${W.griffstock}: nur ${R().hebel[W.griffstock].join(" / ")} mm`;
-}
 function knopfGrund(k) {
   if (W.instrument === "marie") return k === "50" ? "" : "Marie wird wie gezeichnet gerechnet";
   const erl = (R().knoepfe[W.griffstock] || [50]); return erl.includes(+k) ? "" : `${W.griffstock}: nur ${erl.join(", ")} Knöpfe`;
 }
 function korrigiere() {   // Auswahl in den erlaubten Bereich ziehen
   if (W.instrument === "marie" && !R().marie_griffstock.includes(W.griffstock)) W.griffstock = "standard";
-  if (W.instrument === "marie") { W.knoepfe = "50"; W.hebel = "10"; }
-  if (hebelGrund(W.hebel)) W.hebel = String(R().hebel[W.griffstock].slice(-1)[0]);
+  if (W.instrument === "marie") W.knoepfe = "50";
   if (knopfGrund(W.knoepfe)) W.knoepfe = "50";
+  const jetzt = W.instrument + ":" + W.griffstock;
+  if (jetzt !== _vorher && _vorher) W.abstand = gezeichnet();
+  _vorher = jetzt;
 }
 function reihenDaten() {
   const m = D.diskant[W.instrument]; return W.instrument === "marie" ? (m[W.griffstock] || m.standard) : m[W.knoepfe];
@@ -224,11 +225,12 @@ function pruefung() {
     if (b.laenge && (W.laenge < 300 || W.laenge > 500)) return ["nein", "Gehäuselänge muss zwischen 300 und 500 mm liegen."];
     if (W.belegung && !b.belegung) return ["nein", "Eigene Belegung gibt es bisher nur beim 340 schmal."];
     if (W.belegung && !/^[0-9.=A-Za-z,;\s]+$/.test(W.belegung)) return ["nein", "Belegung: nur die Kurzform 1.1=V077, 1.2=BL152, …"];
-    if (W.teilung !== "standard" && !b.laenge) return ["neu", `Andere Teilung als gezeichnet (${b.teil} mm) ist beim ${b.name} noch nicht gerechnet worden – Protokoll prüfen.`];
+    if (W.teilung !== "standard" && !b.laenge && !(b.geprueft || []).includes(W.teilung)) return ["neu", `Andere Teilung als gezeichnet (${b.teil} mm) ist beim ${b.name} noch nicht gerechnet worden – Protokoll prüfen.`];
     return ["ok", "Diese Auswahl lässt sich rechnen."];
   }
   for (const nr in W.platten) if (W.platten[nr].some(x => !(x >= R().platte_min && x <= R().platte_max))) return ["nein", `Plattenlängen Reihe ${nr}: Werte zwischen ${R().platte_min} und ${R().platte_max} mm.`];
   if (NEU[`${W.instrument}:${W.griffstock}`]) return ["neu", "Markus mit Kolben-Griffstock ist neu (bisher nur Marie gerechnet) – Protokoll prüfen."];
+  if (!geprueft(W.abstand)) return ["neu", `${W.instrument === "markus" ? "Markus" : "Marie"} ${W.griffstock} mit ${W.abstand} mm Knopfabstand rechnet, ist aber noch nicht angesehen – Protokoll und Bild prüfen.${W.instrument === "marie" ? " Bei Marie ändert sich die Klappenteilung mit." : ""}`];
   if (W.instrument === "markus" && W.knoepfe !== "50" && W.griffstock === "standard") return ["neu", `${W.knoepfe} Knöpfe mit Standard-Griffstock rechnet, ist aber noch nicht angesehen.`];
   if (W.instrument === "markus" && W.knoepfe !== "50") return ["ok", "Lässt sich rechnen. Die Klappen der Knopfvariante haben Platzhalter-Plattenlängen, solange keine eigenen eingetragen sind."];
   return ["ok", "Diese Auswahl lässt sich rechnen."];
@@ -238,11 +240,13 @@ function zusammenfassung() {
   if (W.teil === "bass") {
     z.push(["Teil", "Bassteil"], ["Modell", b.name], ["Knopfteilung", W.teilung === "standard" ? `${b.teil} mm (gezeichnet)` : `${W.teilung} mm`]);
     if (b.laenge) z.push(["Länge", `${W.laenge} mm`]);
-    if (b.belegung) z.push(["Belegung", W.belegung ? "eigene" : "wie gebaut"]);
+    if (b.belegung) { const rr = (W.belegung.match(/R\d+\s*=\s*\d+/gi) || []).map(x => x.replace(/\s/g, "")).join(", ");
+      z.push(["Belegung", W.belegung ? "eigene" + (rr ? ` (${rr})` : "") : "wie gebaut"]); }
   } else {
     const pt = plattenText();
     z.push(["Teil", "Diskantteil"], ["Instrument", W.instrument === "markus" ? "Markus, 3-chörig" : "Marie, 2-chörig"], ["Griffstock", g.name]);
-    if (W.instrument === "markus") z.push(["Knöpfe", W.knoepfe], ["Hebel", `${W.hebel} mm (Knopf ${2 * W.hebel} mm)`]);
+    if (W.instrument === "markus") z.push(["Knöpfe", W.knoepfe]);
+    z.push(["Knopfabstand", `${W.abstand} mm (Hebel ${String(W.abstand / 2).replace(".", ",")} mm)${geprueft(W.abstand) ? "" : " – neu"}`]);
     z.push(["Plattenlängen", pt ? "eigene (" + Object.keys(W.platten).filter(n => pt.includes("R" + n)).map(n => "R" + n).join(", ") + ")" : "wie gezeichnet"]);
   }
   z.push(["Vorschau", W.vorschau ? "ja" : "nein"]);
@@ -251,8 +255,8 @@ function zusammenfassung() {
   const p = new URLSearchParams({ template: "modell_anfrage.yml", teil: W.teil, vorschau: W.vorschau ? "ja" : "nein" });
   if (W.teil === "bass") { p.set("title", `Modell-Anfrage: Bass ${b.name}`); p.set("bass_variante", W.bass); p.set("teilung", W.teilung);
     if (b.laenge) p.set("laenge", W.laenge); if (W.belegung) p.set("belegung", W.belegung.trim()); }
-  else { p.set("title", `Modell-Anfrage: Diskant ${W.instrument} ${g.name}${W.instrument === "markus" ? `, ${W.knoepfe} Knöpfe, ${W.hebel} mm` : ""}`);
-    p.set("instrument", W.instrument); p.set("griffstock", W.griffstock); p.set("knoepfe", W.knoepfe); p.set("hebel", W.hebel);
+  else { p.set("title", `Modell-Anfrage: Diskant ${W.instrument} ${g.name}${W.instrument === "markus" ? `, ${W.knoepfe} Knöpfe` : ""}, Knopfabstand ${W.abstand} mm`);
+    p.set("instrument", W.instrument); p.set("griffstock", W.griffstock); p.set("knoepfe", W.knoepfe); p.set("abstand", W.abstand);
     const pt = plattenText(); if (pt) p.set("platten", pt); }
   $("senden").href = "https://github.com/jpascher/Harmonikabau/issues/new?" + p.toString();
   $("senden").classList.toggle("aus", st === "nein");
@@ -260,26 +264,28 @@ function zusammenfassung() {
 function neu() {
   korrigiere();
   karte($("teil"), [{ id:"bass", name:"Bassteil", text:"Sechs Modelle, Knopfteilung, Länge, freie Belegung." },
-                    { id:"diskant", name:"Diskantteil", text:"Markus oder Marie, sieben Griffstöcke, Knopfzahl, Teilung, Plattenlängen." }], "teil");
+                    { id:"diskant", name:"Diskantteil", text:"Markus oder Marie, sieben Griffstöcke, Knopfzahl, Knopfabstand 18/19/20, Plattenlängen." }], "teil");
   $("s_bass").classList.toggle("verborgen", W.teil !== "bass"); $("s_diskant").classList.toggle("verborgen", W.teil !== "diskant");
   // Bass
   karte($("bass"), BASS.map(b => ({ ...b, marke: b.belegung ? "freie Belegung" : (b.laenge ? "Länge frei" : "") })), "bass");
   const b = BASS.find(x => x.id === W.bass);
   chips($("teilung"), ["standard", "18", "19", "20"], "teilung", () => "", v => v === "standard" ? `${b.teil} mm` : "mm");
-  $("teilung_warum").textContent = b.laenge ? "Beim Markus-Bass sind alle Teilungen gerechnet." : `Gerechnet ist die Teilung laut Zeichnung (${b.teil} mm); andere Werte gehen, sind aber neu.`;
+  $("teilung_warum").textContent = b.laenge ? "Beim Markus-Bass sind alle Teilungen gerechnet." : `Bei allen Bassteilen frei wählbar. Gerechnet ist die Teilung laut Zeichnung (${b.teil} mm); andere Werte gehen, sind aber neu.`;
+  $("beleg_link").href = "bass_belegung.html" + (W.teilung !== "standard" ? "?teilung=" + W.teilung : "");
   $("laenge_feld").classList.toggle("verborgen", !b.laenge); $("belegung_feld").classList.toggle("verborgen", !b.belegung);
   $("laenge_warum").textContent = ` → Gehäuse ${Math.max(380, Math.ceil(W.laenge / 10) * 10)} mm (auf 10 mm aufgerundet, mindestens 380)`;
   // Diskant
   karte($("instrument"), [{ id:"markus", name:"Markus", text:"3-chörig, Hebel auf Tripel. Knopfzahl und Teilung wählbar." },
-                          { id:"marie", name:"Marie", text:"2-chörig, 19 mm Knopfabstand, wie gezeichnet." }], "instrument");
+                          { id:"marie", name:"Marie", text:"2-chörig, gezeichnet mit 19 mm Knopfabstand; Knopfabstand wählbar." }], "instrument");
   karte($("griffstock"), GRIFF.map(g => ({ ...g, marke: NEU[`${W.instrument}:${g.id}`] ? "neu" : "" })), "griffstock",
         id => W.instrument === "marie" && !R().marie_griffstock.includes(id) ? "gibt es für Marie nicht" : "");
   $("griff_warum").textContent = W.instrument === "marie" ? "Die italienische Endform gibt es nur für Markus." : "";
   chips($("knoepfe"), ["44", "46", "48", "50", "52", "54"], "knoepfe", knopfGrund);
   $("knoepfe_warum").textContent = W.instrument === "marie" ? "Marie wird mit ihrer gezeichneten Knopfzahl gerechnet." :
     ((R().knoepfe[W.griffstock] || [50]).length > 1 ? "Zusätzliche Knöpfe kommen auf die tiefe Seite; das Gehäuse passt sich an." : `Andere Knopfzahlen gibt es bisher nur mit Standard- und Winkel-Griffstock.`);
-  chips($("hebel"), ["10", "9", "8"], "hebel", hebelGrund, v => `Knopf ${2 * v} mm`);
-  $("hebel_warum").textContent = W.instrument === "marie" ? "Marie: fester Knopfabstand 19 mm." : (W.griffstock.startsWith("winkel") ? "Der Winkel-Griffstock geht nur mit 20 mm Knopfabstand." : "");
+  chips($("abstand"), D.regeln.abstaende.map(String).reverse(), "abstand", () => "", v => (geprueft(v) ? "mm" : "mm · neu") + (v === gezeichnet() ? " · gezeichnet" : ""));
+  $("abstand_warum").textContent = "Für alle Griffstöcke und beide Instrumente wählbar; die Hebelteilung ist die Hälfte. „neu“ = rechnet, wurde aber noch nicht angesehen."
+    + (W.instrument === "marie" ? " Bei Marie (2-chörig) ist die Klappenteilung gleich dem Knopfabstand – das Gehäuse wird mit länger oder kürzer." : "");
   zeichnePlatten();
   const pt = plattenText(); $("platten_info").textContent = pt ? " – geändert" : " – wie gezeichnet";
   zusammenfassung();
@@ -289,7 +295,8 @@ $("belegung").oninput = e => { W.belegung = e.target.value; zusammenfassung(); }
 $("vorschau").onchange = e => { W.vorschau = e.target.checked; zusammenfassung(); };
 $("platten_zurueck").onclick = () => { W.platten = {}; neu(); };
 // Vorwahl ueber die Adresse, z. B. konfigurator.html?teil=bass&bass=v340
-const q = new URLSearchParams(location.search); for (const k of ["teil", "bass", "instrument", "griffstock", "knoepfe", "hebel"]) if (q.get(k)) W[k] = q.get(k);
+const q = new URLSearchParams(location.search); for (const k of ["teil", "bass", "instrument", "griffstock", "knoepfe", "abstand"]) if (q.get(k)) W[k] = q.get(k);
+_vorher = W.instrument + ":" + W.griffstock; if (!q.get("abstand")) W.abstand = gezeichnet();
 fetch("konfig_daten.json").then(r => r.json()).then(d => { D = d; neu(); })
   .catch(e => { $("ampel").className = "ampel nein"; $("ampel").textContent = "Daten konnten nicht geladen werden: " + e; });
 </script>

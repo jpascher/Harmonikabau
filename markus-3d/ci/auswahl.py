@@ -9,14 +9,14 @@ M3D = os.path.dirname(HIER)
 LISTEN = {"teil": ["bass", "diskant"], "bass_variante": ["markus", "marie38", "eduard", "gerhard", "andreas", "v340"],
           "teilung": ["standard", "18", "19", "20"], "instrument": ["markus", "marie"],
           "griffstock": ["standard", "traditionell", "kugellager", "kolben", "kolben12", "winkel", "winkel_ital"],
-          "knoepfe": ["50", "44", "46", "48", "52", "54"], "hebel": ["10", "9", "8"]}
+          "knoepfe": ["50", "44", "46", "48", "52", "54"], "abstand": ["20", "19", "18"]}
 STANDARD = {"teil": "bass", "bass_variante": "markus", "teilung": "standard", "laenge": "380", "instrument": "markus",
-            "griffstock": "standard", "knoepfe": "50", "hebel": "10", "platten": "", "belegung": "", "vorschau": "ja"}
+            "griffstock": "standard", "knoepfe": "50", "abstand": "", "hebel": "", "platten": "", "belegung": "", "vorschau": "ja"}
 # Feldtitel im Issue-Formular (.github/ISSUE_TEMPLATE/modell_anfrage.yml) -> Feld
 TITEL = {"Teil": "teil", "Bass: Bassteil": "bass_variante", "Bass: Knopfteilung": "teilung",
          "Bass: Gehäuselänge (nur Markus-Bass, mm)": "laenge", "Bass: Belegung (nur v340)": "belegung",
          "Diskant: Instrument": "instrument", "Diskant: Griffstock": "griffstock", "Diskant: Knopfzahl": "knoepfe",
-         "Diskant: Hebelteilung (mm)": "hebel", "Diskant: Stimmplattenlängen": "platten", "Vorschau erzeugen": "vorschau"}
+         "Diskant: Knopfabstand (mm)": "abstand", "Diskant: Hebelteilung (mm)": "hebel", "Diskant: Stimmplattenlängen": "platten", "Vorschau erzeugen": "vorschau"}
 
 def aus_issue(text):
     werte, feld = {}, None
@@ -30,6 +30,9 @@ def aus_issue(text):
 
 def pruefe(w):
     a = dict(STANDARD); a.update({k: v.strip() for k, v in w.items() if v is not None and v.strip() != ""})
+    if not a["abstand"]:                    # alte Angabe Hebelteilung 9 / 10 -> Knopfabstand 18 / 20; sonst Markus 20, Marie 19
+        a["abstand"] = {"9": "18", "10": "20"}.get(a["hebel"], "") if a["hebel"] else ("19" if a["instrument"] == "marie" and a["griffstock"] != "winkel" else "20")
+        if not a["abstand"]: raise ValueError(f"Hebelteilung {a['hebel']} mm gibt es nicht mehr - Knopfabstand 18, 19 oder 20 mm wählen")
     for k, erlaubt in LISTEN.items():
         if a[k] not in erlaubt: raise ValueError(f"{k}: '{a[k]}' ist nicht erlaubt ({', '.join(erlaubt)})")
     a["vorschau"] = "true" if a["vorschau"].lower() in ("ja", "true", "1") else "false"
@@ -43,18 +46,17 @@ def pruefe(w):
     sys.path.insert(0, HIER); sys.path.insert(0, os.path.join(M3D, "bass"))
     if a["teil"] == "diskant":
         import tastenliste_bauen as tb
-        tb.pruefe(a["instrument"], a["griffstock"], int(a["knoepfe"]), int(a["hebel"]))
+        tb.pruefe(a["instrument"], a["griffstock"], int(a["knoepfe"]), int(a["abstand"]))
         if a["platten"]: tb.lies_platten(a["platten"])
-        a["variante"] = f'{a["instrument"]}:{a["griffstock"]}:{a["knoepfe"]}:{a["hebel"]}'
-        a["titel"] = f'Diskant {a["instrument"]}, {a["griffstock"]}, {a["knoepfe"]} Knoepfe, Hebel {a["hebel"]} mm'
+        a["variante"] = f'{a["instrument"]}:{a["griffstock"]}:{a["knoepfe"]}:{a["abstand"]}'
+        a["titel"] = f'Diskant {a["instrument"]}, {a["griffstock"]}, {a["knoepfe"]} Knoepfe, Knopfabstand {a["abstand"]} mm'
     else:
         a["variante"] = a["bass_variante"]
         if a["belegung"]:
             mj = glob.glob(os.path.join(M3D, "bass", a["bass_variante"], "belegung_modell_*.json"))
             if not mj: raise ValueError(f"Freie Belegung gibt es für {a['bass_variante']} noch nicht (bisher nur v340)")
             import belegung
-            m, katalog, gassen, kx, reihen = belegung.lade_modell(mj[0])
-            belegung.baue_tabelle(a["belegung"], katalog, gassen, kx, reihen, m.get("min_luecke", 12.0))
+            belegung.pruefe_alles(mj[0], a["belegung"], a["teilung"])   # Knopfzahl je Reihe (R1=..), Teilung, Gassen
         a["titel"] = f'Bass {a["bass_variante"]}, Teilung {a["teilung"]}' + (", eigene Belegung" if a["belegung"] else "")
     return a
 

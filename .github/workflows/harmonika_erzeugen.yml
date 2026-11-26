@@ -5,7 +5,7 @@
 # Repo-Besitzers rechnen sofort, andere sobald der Besitzer das Etikett "freigegeben" setzt; Antwort mit Link im Issue.
 # Alle Eingaben werden zuerst von markus-3d/ci/auswahl.py gegen feste Listen geprueft.
 name: Harmonika erzeugen
-run-name: "${{ github.event_name == 'issues' && format('Anfrage #{0}: {1}', github.event.issue.number, github.event.issue.title) || (inputs.teil == 'bass' && format('Bass {0}, Teilung {1}{2}', inputs.bass_variante, inputs.teilung, inputs.belegung != '' && ', eigene Belegung' || '') || format('Diskant {0}, {1}, {2} Knoepfe, Hebel {3} mm', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel)) }}"
+run-name: "${{ github.event_name == 'issues' && format('Anfrage #{0}: {1}', github.event.issue.number, github.event.issue.title) || (inputs.teil == 'bass' && format('Bass {0}, Teilung {1}{2}', inputs.bass_variante, inputs.teilung, inputs.belegung != '' && ', eigene Belegung' || '') || format('Diskant {0}, {1}, {2} Knoepfe, Knopfabstand {3} mm', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.abstand)) }}"
 
 on:
   issues:
@@ -37,17 +37,17 @@ on:
         type: choice
         options: ["50", "44", "46", "48", "52", "54"]
         default: "50"
-      hebel:
-        description: "Diskant: Hebelteilung in mm (10 = 20 mm Knopfabstand, 9 = 18, 8 = 16; nur Markus, Winkel immer 10)"
+      abstand:
+        description: "Diskant: Knopfabstand in mm (Hebelteilung die Haelfte); gerechnet: Markus 18/20 (Standard auch 19), Winkel 19/20, Marie 19 - sonst neu"
         type: choice
-        options: ["10", "9", "8"]
-        default: "10"
+        options: ["20", "19", "18"]
+        default: "20"
       platten:
         description: "Diskant: eigene Stimmplattenlaengen in mm, leer = wie gezeichnet. Form: R1: 32 33 34 ...; R2: 29 31 ... (Anzahl je Reihe = Klappen der Reihe)"
         type: string
         default: ""
       belegung:
-        description: "Bass: freie Belegung (nur v340) - Kurzform von der Seite 'Bassbelegung zuordnen', leer = wie gebaut"
+        description: "Bass: freie Belegung (nur v340) - Kurzform von der Seite 'Bassbelegung zuordnen' (R1=10, 1.1=V077, ...), leer = wie gebaut"
         type: string
         default: ""
       teilung:
@@ -106,7 +106,7 @@ jobs:
           IN_INSTRUMENT: ${{ inputs.instrument }}
           IN_GRIFFSTOCK: ${{ inputs.griffstock }}
           IN_KNOEPFE: ${{ inputs.knoepfe }}
-          IN_HEBEL: ${{ inputs.hebel }}
+          IN_ABSTAND: ${{ inputs.abstand }}
           IN_PLATTEN: ${{ inputs.platten }}
           IN_BELEGUNG: ${{ inputs.belegung }}
           IN_VORSCHAU: ${{ inputs.vorschau }}

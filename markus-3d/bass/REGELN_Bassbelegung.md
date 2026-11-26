@@ -2,7 +2,7 @@
 
 Diese Regeln sind aus den fünf Bassteilen abgeleitet, deren Mechanik nach demselben Baukasten gerechnet wird: Eduard (`eduard/mech_eduard.py`), Gerhard (`gerhard/mech_gerhard.py`), Andreas (`andreas/mech_andreas.py`), 340 schmal (`v340/mech_v340.py`) und Marie 38 (`marie38/mech38.py`). Der Markus-Bass (`mechanik.py`) liest seine Mechanik noch direkt aus der Zeichnung und folgt denselben Bauteilen, aber nicht derselben Tabelle; er wird später auf die Tabelle umgestellt. Neue Bauteile kommen nicht vor; jede Belegung muss sich aus Achse, Lagerbock, Schenkel mit Gelenk, Schubstange, Klappenhebel und Feder zusammensetzen lassen.
 
-## 1. Grundregel: Knöpfe = Klappen + Kopplungen
+## 1. Grundregel: verdrahtete Knöpfe = Klappen + Kopplungen
 
 Jede Klappe hat genau eine Achse, und jede Achse bedient genau eine Klappe. Eine Kopplung entsteht, indem ein zweiter Knopf mit einem eigenen Schenkel auf dieselbe Achse greift. Damit ist die Knopfzahl immer die Zahl der Klappen plus die Zahl der Kopplungen. Alle fünf Modelle erfüllen das genau:
 
@@ -18,7 +18,7 @@ Eine Begleiterklappe in Tripelteilung öffnet drei Kammern, zählt hier aber als
 
 ## 2. Was je Modell fest ist und was frei wählbar wird
 
-Fest sind beim gewählten Modell das Gehäuse, die Kammern und damit Zahl, Art und Lage der Klappen (Grundbass-Klappen in ihren Reihen, Begleiterklappen links und rechts), die Knopfreihen mit ihrer Knopfzahl und die Lage der Achsgassen. Frei wird die Belegung: welcher Knopf welche Klappe öffnet, welche Knöpfe gekoppelt sind, und die Knopfteilung innerhalb der Grenzen des Modells. Die Gesamtknopfzahl ergibt sich aus Klappen plus gewünschten Kopplungen; passt sie nicht zu den Knopfreihen des Modells, wird das gemeldet.
+Fest sind beim gewählten Modell das Gehäuse, die Kammern und damit Zahl, Art und Lage der Klappen (Grundbass-Klappen in ihren Reihen, Begleiterklappen links und rechts) und die Lage der Achsgassen. Frei wird die Belegung: welcher Knopf welche Klappe öffnet, welche Knöpfe gekoppelt sind, die Knopfteilung und (Johann 26.11.2026) die Knopfzahl jeder Reihe. Die Reihen werden dabei neu verteilt: jede Reihe so mittig wie möglich, die Reihen gegeneinander um die halbe Teilung versetzt wie gezeichnet, das ganze Knopffeld auf die gezeichnete Mitte (bei 9 / 9 und Teilung 19 genau die Zeichnung, bei 10 / 9 beide Reihen exakt mittig, bei 11 / 9 die kürzere Reihe eine halbe Teilung neben der Mitte). Eine Reihe muss zwischen die Hörner an der Front passen (`knopf_bereich` im Modell, beim 340 schmal X 60 bis 282 mm). Knöpfe ohne Zuordnung sind blind: sie sitzen in der Front, haben aber keine Mechanik, und zählen in der Grundregel nicht mit. Die verdrahteten Knöpfe ergeben sich also aus Klappen plus gewünschten Kopplungen.
 
 ## 3. Achsgassen
 
@@ -42,13 +42,13 @@ Jede Achse hat eine Rückdruckfeder, normalerweise am freien Ende zwischen Gelen
 
 ## 7. Wie die automatische Zuordnung arbeiten soll
 
-Die Belegung wird in einer Datei je Instrument festgelegt (wie die Tastenliste beim Diskant): Modell, Knopfteilung, und für jeden Knopf die Klappe, die er öffnet. Zwei Knöpfe mit derselben Klappe sind gekoppelt. Daraus rechnet das Programm:
+Die Belegung wird in einer Datei je Instrument festgelegt (wie die Tastenliste beim Diskant): Modell, Knopfzahl je Reihe (`R1 = 10`, ohne Angabe wie gezeichnet), und für jeden verdrahteten Knopf die Klappe, die er öffnet. Zwei Knöpfe mit derselben Klappe sind gekoppelt, Knöpfe ohne Eintrag blind. Die Knopfteilung kommt aus der Auswahl. Daraus rechnet das Programm:
 
-1. Prüfen, ob die Zahlen aufgehen (jede Klappe mindestens ein Knopf, Knöpfe = Klappen + Kopplungen, Knopfzahl passt zu den Reihen des Modells).
+1. Knopflagen der Reihen bestimmen (Abschnitt 2) und prüfen, ob die Zahlen aufgehen (jede Klappe mindestens ein Knopf, jeder verdrahtete Knopf genau eine Klappe, verdrahtete Knöpfe = Klappen + Kopplungen, kein Knopf außerhalb der Reihen).
 2. Für jede Achse den X-Bereich und die Gassen, aus denen der Hebel die Klappe erreicht (Regel 4).
 3. Die Achsen so auf die Gassen verteilen, dass sich in keiner Gasse X-Bereiche überschneiden; bevorzugt die Gasse, die der Klappe am nächsten liegt, lange und gekoppelte Achsen zuerst.
 4. Schenkel versetzen, wo Stangen in derselben X-Lage zusammentreffen (Regel 5), Böcke setzen, Federn an das freie Ende.
-5. Mit der vorhandenen Mechanik-Berechnung bauen und prüfen.
+5. Mit der vorhandenen Mechanik-Berechnung bauen und prüfen. Liegt ein Knopfschenkel näher als 4 mm am Klappenhebelansatz der eigenen Achse (kann bei anderer Teilung oder Knopfzahl vorkommen), wird der Ansatz 5 mm neben den Schenkel zur Klappe hin geschoben; der Hebel läuft dann schräg unter die Klappe.
 
 Geht eine Belegung nicht auf, meldet das Programm, welche Achse in keiner Gasse Platz findet oder welche Teile kollidieren, statt ein falsches Modell zu liefern. Die bestehenden Modelle dienen als Prüfstein: ihre heutige Belegung, als Datei geschrieben, muss wieder dieselbe Mechanik ergeben.
 
@@ -56,3 +56,4 @@ Geht eine Belegung nicht auf, meldet das Programm, welche Achse in keiner Gasse 
 
 Umgesetzt in `belegung.py` (Prüfung und Verteilung mit Rücksprung, wenn die erste Verteilung nicht aufgeht) für den Bassteil 340 schmal: Klappen, Gassen und Knopflagen stehen in `v340/belegung_modell_340.json`, die Belegung wie gebaut in `v340/belegung_340.txt`. Diese ergibt genau die gebauten Gassen. Eine Probe mit anderer Kopplung (Knopf 2.1 auf H077 statt H218) und getauschten Begleitern rechts wurde vollständig gebaut: Mechanikprüfung und Kollisionsprüfung ohne neue Berührungen. Eine Belegung mit V077 auf Knopf 1.3 wird richtig als nicht baubar gemeldet. Die Webseite `docs/bass_belegung.html` macht dieselbe Prüfung im Browser. Die anderen Bassteile werden nach demselben Muster umgestellt.
 
+Knopfzahl je Reihe, blinde Knöpfe und Teilung (26.11.2026): `belegung.knopf_lagen` bestimmt die Knopflagen (Reihenmitten und Teilung der Zeichnung stehen als `reihen_mitte` und `teilung` in `belegung_modell_340.json`), `v340.py` baut Front, Blende und Knöpfe danach. Zwei Proben vollständig gebaut und geprüft: (a) Reihe 1 mit 10 Knöpfen, Knopf 1.9 blind, 18 verdrahtete Knöpfe = 17 Klappen + 1 Kopplung, Teilung 19; (b) 9 / 9 wie gebaut mit Teilung 20. Beide: Mechanik in Ruhe und mit allen Tasten gedrückt ohne Kollision, Kollisionsprüfung nur die bekannten Berührungen (Horn/Front, Knopfzylinder/Schubstange, Achse/Klappenhebel). Bei beiden musste ein Klappenhebelansatz neben den Knopfschenkel rücken (Regel 7.5). Nicht jede Belegung bleibt nach dem Ändern der Knopfzahl baubar: weil sich alle Knopflagen verschieben, kann eine Achse ihre Gasse verlieren; das wird gemeldet.

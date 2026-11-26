@@ -4,8 +4,10 @@
 # (je 4 Begleiter, rund O18); Luftklappe auf abgesenktem Bodenteil, oeffnet nach innen, in normalen Lagerboecken; Taste mit
 # Achse und zwei Schenkeln (Fuehrung), direkte Schubstange Taste -> Klappe, alle Gelenke normale Gabelgelenke.
 # Aufgebaut auf dem Markus-Bassteil (Rahmen gekuerzt). Achsen: X = Laenge, Y = Tiefe (0 = Rueckteil aussen), Z ab Deckel aussen.
+# Knopfreihen (26.11.2026): Knopfzahl je Reihe frei (Kopf R1 = n / R2 = n der Belegung in BASS_BELEGUNG), jede Reihe mittig um
+# die gezeichnete Reihenmitte mit der Knopfteilung verteilt; Knoepfe ohne Zuordnung bleiben blind (ohne Mechanik).
 # Aufruf: python3 v340.py ausgabe.step [Knopfteilung]
-import sys, math, ezdxf, ezdxf.path, cadquery as cq
+import sys, os, math, ezdxf, ezdxf.path, cadquery as cq
 from ezdxf import bbox
 OUT = sys.argv[1]
 T_KNOPF = float(sys.argv[2]) if len(sys.argv) > 2 else 19.0
@@ -64,8 +66,15 @@ PX = lambda x_: x_ + 354.8
 PY = lambda y_: y_ + 243.3
 # ---------- Front: Knopfreihen 9 / 9 wie gezeichnet (Reihe 1 buendig, Reihe 2 auf 7-mm-Blende), Hoerner nach Zeichnung ----------
 _kc = [c for c in AD.query('CIRCLE[layer=="Front"]') if -16 < c.dxf.center.y < 60 and abs(c.dxf.radius - 8.5) > 0.1 and abs(c.dxf.radius - 16.5) > 0.1]
-R1X = sorted({round(PX(c.dxf.center.x), 2) for c in _kc if abs(c.dxf.radius - 5.5) < 0.05})
-R2X = sorted({round(PX(c.dxf.center.x), 2) for c in _kc if abs(c.dxf.radius - 5.0) < 0.05})
+_R1Z = sorted({round(PX(c.dxf.center.x), 2) for c in _kc if abs(c.dxf.radius - 5.5) < 0.05})   # gezeichnet (9 / 9, Teilung 19)
+_R2Z = sorted({round(PX(c.dxf.center.x), 2) for c in _kc if abs(c.dxf.radius - 5.0) < 0.05})
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath("v340.py"))))
+import json as _json, belegung as _belegung
+_BMJ = _json.load(open("belegung_modell_340.json", encoding="utf-8"))
+REIHEN_N = {1: len(_R1Z), 2: len(_R2Z)}
+if os.environ.get("BASS_BELEGUNG"): REIHEN_N = _belegung.reihen_aus(_belegung.lies(os.environ["BASS_BELEGUNG"])[0], REIHEN_N)
+_KX = _belegung.knopf_lagen(_BMJ, REIHEN_N, T_KNOPF)          # mittig um die gezeichnete Reihenmitte, prueft den Platz
+R1X, R2X = _KX[1], _KX[2]
 Z_RH = {1: -2.3 + 16.1, 2: 11.7 + 16.1}
 R_RH = {1: 5.5, 2: 5.0}
 X_KM = L / 2
@@ -369,7 +378,9 @@ ANG0 = -20.0                                                # Tastenschenkel in 
 L_S1 = HUB_LT / math.sin(math.radians(-ANG0))
 Y_LA = Y_T - L_S1 * math.cos(math.radians(ANG0))
 Z_G1 = Z_LA + L_S1 * math.sin(math.radians(ANG0))
-X_S1 = [208.95, LT_X + LT_L / 2 - 6.0]                     # vorne und hinten an der Taste (zwischen den Knopfstangen)
+_kxa = sorted(k[0] for k in kn)                             # vordere Schenkel in der Luecke zwischen den Knopfstangen bei X 209
+_xs1 = min(((a_ + b_) / 2 for a_, b_ in zip(_kxa[:-1], _kxa[1:])), key=lambda m_: abs(m_ - 208.95))
+X_S1 = [208.95 if abs(_xs1 - 208.95) < 0.1 else _xs1, LT_X + LT_L / 2 - 6.0]   # wie gezeichnet bei 9 / 9, Teilung 19
 X_S3 = k0 + 6.0                                             # Schubstange Taste -> Klappe (gegenueber der Klappenachse)
 XB_ = [X_S1[0] - 9.0, XA1 + 5.5]
 ach = stab((XB_[0] + 1.0, Y_LA, Z_LA), (XB_[1] - 1.0, Y_LA, Z_LA), D_LA)   # Enden 1 mm vor den Schrauben

@@ -41,6 +41,11 @@
   table.liste { border-collapse:collapse; width:100%; font-size:.82rem; } table.liste td { padding:.2rem .3rem; border-bottom:1px solid #f0e8dc; }
   .leg { display:inline-flex; align-items:center; gap:.3rem; margin-right:.8rem; font-size:.8rem; } .leg i { width:12px; height:12px; border-radius:3px; display:inline-block; }
   .hinweis { color:#7a6a58; font-size:.82rem; line-height:1.45; }
+  .reihenwahl { display:flex; flex-wrap:wrap; gap:.5rem 1.4rem; align-items:center; margin:.2rem 0 .6rem; font-size:.85rem; }
+  .reihenwahl .gr { display:inline-flex; align-items:center; gap:.25rem; }
+  .reihenwahl button { padding:.15rem .45rem; font-size:.78rem; }
+  .reihenwahl b.n { display:inline-block; min-width:1.6rem; text-align:center; font-size:1rem; }
+  .knopf.blind circle { fill:#e4ddd2; stroke:#a89c8c; stroke-dasharray:3 2; } .knopf.blind text { fill:#8a7f70; }
   @media (max-width:980px){ .rahmen{grid-template-columns:1fr} }
 </style>
 </head>
@@ -60,7 +65,8 @@
           <span class="leg"><i style="background:var(--bl)"></i>Begleiter</span>
         </span>
       </div>
-      <p class="hinweis">Draufsicht auf den Boden, Rückwand oben, Knopfreihen unten. <b>Knopf anklicken, dann die Klappe</b>, die er öffnen soll. Zwei Knöpfe auf derselben Klappe sind gekoppelt. Gestrichelte Linien sind die Achsgassen; nach jeder Änderung wird geprüft, ob sich alle Achsen unterbringen lassen.</p>
+      <p class="hinweis">Draufsicht auf den Boden, Rückwand oben, Knopfreihen unten. <b>Knopf anklicken, dann die Klappe</b>, die er öffnen soll. Zwei Knöpfe auf derselben Klappe sind gekoppelt. Ein Knopf ohne Klappe bleibt <b>blind</b> (grau, ohne Mechanik) und zählt nicht. Gestrichelte Linien sind die Achsgassen; nach jeder Änderung wird geprüft, ob sich alle Achsen unterbringen lassen.</p>
+      <div class="reihenwahl" id="reihenwahl"></div>
       <svg id="plan"></svg>
     </div>
   </div>
@@ -72,15 +78,16 @@
       <div class="knoepfe">
         <button id="standard">Wie gebaut</button>
         <button id="leeren">Alle lösen</button>
-        <button id="loesen" disabled>Knopf lösen</button>
+        <button id="loesen" disabled>Knopf blind machen</button>
       </div>
     </div>
     <div class="feld" style="margin-top:1rem">
       <h2>Rechnen lassen</h2>
       <p class="hinweis"><b>Als Anfrage senden</b> öffnet auf GitHub ein schon ausgefülltes Anfrageformular (kostenloses GitHub-Konto nötig); nach der Freigabe kommt das Ergebnis als Antwort. Wer Schreibrecht hat, kann die Kurzform auch direkt ins Feld <i>Bass: Belegung</i> des Formulars „Run workflow“ einfügen.</p>
-      <textarea id="kurz" readonly></textarea>
+      <textarea id="kurz"></textarea>
       <div class="knoepfe">
         <button id="kopieren">Kurzform kopieren</button>
+        <button id="einlesen" title="Eine früher kopierte oder geänderte Kurzform wieder ins Bild übernehmen">Kurzform übernehmen</button>
         <a class="knopfl haupt" id="anfrage" href="#" target="_blank">Als Anfrage senden</a>
         <a class="knopfl" href="https://github.com/jpascher/Harmonikabau/actions/workflows/harmonika_erzeugen.yml" target="_blank">Direkt rechnen (Besitzer)</a>
       </div>
@@ -93,19 +100,78 @@
 </div>
 <script>
 const S = 2.6;                         // mm -> Bildpunkte
-let M = null, zuo = {}, gewaehlt = null;
+let M = null, zuo = {}, gewaehlt = null, N = {}, T = "standard", KX = {}, BER_FEHLER = [];
 const farbe = a => a === "Grundbass hinten" ? "var(--hb)" : a === "Grundbass vorne" ? "var(--hbv)" : a.endsWith("links") ? "var(--bl)" : "var(--br)";
 const NS = "http://www.w3.org/2000/svg";
 function el(t, at, kind) { const e = document.createElementNS(NS, t); for (const k in at) e.setAttribute(k, at[k]); if (kind) e.textContent = kind; return e; }
-function knopfXY(r, i) { return [M.knopf_x[r][i - 1], M.knopf_y[r]]; }
+function knopfXY(r, i) { return [KX[r][i - 1], M.knopf_y[r]]; }
+// ---- Knopflagen wie belegung.knopf_lagen: Reihen bleiben versetzt wie gezeichnet, jede so mittig wie moeglich,
+//      dann das ganze Knopffeld auf die gezeichnete Mitte ----
+function knopfLagen() {
+  const t0 = M.teilung, t = T === "standard" ? t0 : +T, rs = Object.keys(N).map(Number).sort();
+  const mi = {}; rs.forEach(r => mi[r] = M.reihen_mitte[r]);
+  const c = (Math.min(...Object.values(mi)) + Math.max(...Object.values(mi))) / 2, o = {};
+  rs.forEach(r => o[r] = (mi[r] - c) * t / t0);
+  const folge = rs.slice().sort((a, b) => mi[a] - mi[b]).join();
+  let best = null;
+  const probier = (j, wahl) => {
+    if (j === rs.length) {
+      const lagen = {}; rs.forEach((r, q) => lagen[r] = Array.from({ length: N[r] }, (_, i) => o[r] + (wahl[q] + i) * t));
+      const alle = Object.values(lagen).flat(); if (!alle.length) return;
+      const mitte = (Math.min(...alle) + Math.max(...alle)) / 2;
+      const asym = Object.values(lagen).filter(x => x.length).reduce((s, x) => s + Math.abs((x[0] + x[x.length - 1]) / 2 - mitte), 0);
+      const anders = rs.slice().sort((a, b) => (lagen[a][0] + lagen[a].at(-1)) / 2 - (lagen[b][0] + lagen[b].at(-1)) / 2).join() !== folge ? 1 : 0;
+      const w = [+(Math.max(...alle) - Math.min(...alle)).toFixed(6), +asym.toFixed(6), anders];
+      if (!best || w[0] < best.w[0] - 1e-9 || (Math.abs(w[0] - best.w[0]) < 1e-9 && (w[1] < best.w[1] - 1e-9 || (Math.abs(w[1] - best.w[1]) < 1e-9 && w[2] < best.w[2])))) best = { w, lagen, mitte };
+      return;
+    }
+    for (let k0 = -N[rs[j]] - 1; k0 <= 1; k0++) probier(j + 1, wahl.concat([k0]));
+  };
+  probier(0, []);
+  KX = {}; BER_FEHLER = [];
+  const [x0, x1] = M.knopf_bereich || [-1e9, 1e9];
+  rs.forEach(r => { KX[r] = best.lagen[r].map(x => +(c + x - best.mitte).toFixed(2));
+    if (KX[r].length && (KX[r][0] < x0 || KX[r].at(-1) > x1))
+      BER_FEHLER.push(`Reihe ${r}: ${N[r]} Knöpfe mit ${t} mm Teilung reichen von X ${KX[r][0].toFixed(0)} bis ${KX[r].at(-1).toFixed(0)} – an der Front ist nur Platz von ${x0} bis ${x1} (Hörner, Seitenwände)`); });
+}
+function reihenWahl() {
+  const box = document.getElementById("reihenwahl"); box.innerHTML = "";
+  for (const r of Object.keys(N)) {
+    const g = document.createElement("span"); g.className = "gr";
+    g.innerHTML = `Reihe ${r}: <button data-a="-l" title="linken Knopf entfernen">− links</button><button data-a="+l" title="links einen Knopf dazu">+ links</button>`
+      + `<b class="n">${N[r]}</b><button data-a="+r" title="rechts einen Knopf dazu">+ rechts</button><button data-a="-r" title="rechten Knopf entfernen">− rechts</button>`
+      + (N[r] !== M.reihen[r] ? ` <small class="hinweis">(gezeichnet ${M.reihen[r]})</small>` : "");
+    g.querySelectorAll("button").forEach(b => b.onclick = () => aendereReihe(+r, b.dataset.a));
+    box.append(g);
+  }
+  const tg = document.createElement("label"); tg.className = "gr";
+  tg.innerHTML = `Knopfteilung <select id="teilung">${["standard", "18", "19", "20"].map(v => `<option value="${v}"${v === T ? " selected" : ""}>${v === "standard" ? M.teilung + " mm (gezeichnet)" : v + " mm"}</option>`).join("")}</select>`;
+  tg.querySelector("select").onchange = e => { T = e.target.value; aktualisiere(); };
+  box.append(tg);
+}
+function aendereReihe(r, a) {             // Knoepfe von links gezaehlt: links dazu/weg verschiebt die Nummern der Reihe
+  const neu = {};
+  if (a === "+r") N[r]++;
+  else if (a === "-r") { if (N[r] <= 1) return; delete zuo[`${r}.${N[r]}`]; N[r]--; }
+  else {
+    if (a === "-l" && N[r] <= 1) return;
+    const d = a === "+l" ? 1 : -1;
+    for (const k in zuo) { const [rr, i] = k.split(".").map(Number);
+      if (rr !== r) { neu[k] = zuo[k]; continue; }
+      if (a === "-l" && i === 1) continue;
+      neu[`${r}.${i + d}`] = zuo[k]; }
+    zuo = neu; N[r] += d;
+  }
+  gewaehlt = null; aktualisiere();
+}
 
 // ---- gleiche Verteilung wie belegung.py (Suche mit Ruecksprung) ----
 function pruefe() {
-  const fehler = [], kl = M.klappen, achsen = {};
-  for (const r in M.reihen) for (let i = 1; i <= M.reihen[r]; i++) { const k = `${r}.${i}`; if (!zuo[k]) fehler.push(`Knopf ${k} hat keine Klappe`); else (achsen[zuo[k]] = achsen[zuo[k]] || []).push([+r, i]); }
+  const fehler = BER_FEHLER.slice(), kl = M.klappen, achsen = {};
+  for (const r in N) for (let i = 1; i <= N[r]; i++) { const k = `${r}.${i}`; if (zuo[k]) (achsen[zuo[k]] = achsen[zuo[k]] || []).push([+r, i]); }
   for (const n in kl) if (!achsen[n]) fehler.push(`Klappe ${n} wird von keinem Knopf geöffnet`);
   if (fehler.length) return { ok: false, fehler, achsen, wahl: null };
-  const ber = n => { const xs = achsen[n].map(([r, i]) => M.knopf_x[r][i - 1]).concat([kl[n].hebel_x]); return [Math.min(...xs), Math.max(...xs)]; };
+  const ber = n => { const xs = achsen[n].map(([r, i]) => KX[r][i - 1]).concat([kl[n].hebel_x]); return [Math.min(...xs), Math.max(...xs)]; };
   const folge = Object.keys(achsen).sort((a, b) => (kl[a].gassen.length - kl[b].gassen.length) || ((ber(a)[1] - ber(a)[0]) - (ber(b)[1] - ber(b)[0])));
   const L = M.min_luecke, belegt = {}, wahl = {}; let tief = [0, null];
   const frei = (g, x0, x1) => !(belegt[g] || []).some(([a, b]) => !(x1 + L <= a || b + L <= x0));
@@ -148,29 +214,35 @@ function zeichne() {
     g.onclick = () => { if (gewaehlt) { zuo[gewaehlt] = n; gewaehlt = null; aktualisiere(); } };
     svg.append(g); }
   // Knoepfe
-  for (const r in M.reihen) for (let i = 1; i <= M.reihen[r]; i++) { const k = `${r}.${i}`, [x, y] = knopfXY(+r, i);
-    const g = el("g", { class: "knopf" + (zuo[k] ? "" : " leer") + (gewaehlt === k ? " gewaehlt" : "") });
+  for (const r in N) for (let i = 1; i <= N[r]; i++) { const k = `${r}.${i}`, [x, y] = knopfXY(+r, i);
+    const g = el("g", { class: "knopf" + (zuo[k] ? "" : " blind") + (gewaehlt === k ? " gewaehlt" : "") });
     g.append(el("circle", { cx: x * S, cy: y * S, r: 6.5 * S })); g.append(el("text", { x: x * S, y: y * S }, k));
     g.onclick = () => { gewaehlt = gewaehlt === k ? null : k; aktualisiere(); };
     svg.append(g); }
-  svg.append(el("text", { x: 6, y: (B + 9) * S, "font-size": 10, fill: "#7a6a58", "font-family": "system-ui" }, "Reihe 1 = vordere Knopfreihe, Knöpfe von links gezählt"));
+  svg.append(el("text", { x: 6, y: (B + 9) * S, "font-size": 10, fill: "#7a6a58", "font-family": "system-ui" }, "Reihe 1 = vordere Knopfreihe, Knöpfe von links gezählt; grau gestrichelt = blind (ohne Mechanik)"));
   return erg;
 }
 
+function kurzform() {
+  const kopf = Object.keys(N).filter(r => N[r] !== M.reihen[r]).map(r => `R${r}=${N[r]}`);
+  const sortiert = Object.keys(zuo).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  return kopf.concat(sortiert.map(k => `${k}=${zuo[k]}`)).join(", ");
+}
 function aktualisiere() {
+  knopfLagen(); reihenWahl();
   const erg = zeichne(), st = document.getElementById("status"), ml = document.getElementById("meldungen");
-  const nk = Object.keys(zuo).length, nkl = Object.keys(M.klappen).length, alle = Object.values(M.reihen).reduce((a, b) => a + b, 0);
-  const kopp = Math.max(0, nk - new Set(Object.values(zuo)).size);
+  const nk = Object.keys(zuo).length, nkl = Object.keys(M.klappen).length, alle = Object.values(N).reduce((a, b) => a + b, 0);
+  const kopp = Math.max(0, nk - new Set(Object.values(zuo)).size), blind = alle - nk;
+  const bl = blind ? `, ${blind} blind` : "";
   st.className = "status " + (erg.ok ? "ok" : "nein");
-  st.innerHTML = erg.ok ? `✓ Baubar: ${alle} Knöpfe = ${nkl} Klappen + ${alle - nkl} Kopplung${alle - nkl === 1 ? "" : "en"}`
-                        : `✗ Noch nicht baubar (${nk} von ${alle} Knöpfen belegt, ${kopp} Kopplung${kopp === 1 ? "" : "en"})`;
+  st.innerHTML = erg.ok ? `✓ Baubar: ${nk} verdrahtete Knöpfe = ${nkl} Klappen + ${kopp} Kopplung${kopp === 1 ? "" : "en"}${bl}`
+                        : `✗ Noch nicht baubar (${nk} Knöpfe verdrahtet, ${kopp} Kopplung${kopp === 1 ? "" : "en"}${bl})`;
   ml.innerHTML = erg.fehler.slice(0, 8).map(f => `<li>${f}</li>`).join("") + (erg.fehler.length > 8 ? `<li>… ${erg.fehler.length - 8} weitere</li>` : "");
   document.getElementById("loesen").disabled = !(gewaehlt && zuo[gewaehlt]);
-  const sortiert = Object.keys(zuo).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-  document.getElementById("kurz").value = sortiert.map(k => `${k}=${zuo[k]}`).join(", ");
+  document.getElementById("kurz").value = kurzform();
   const an = document.getElementById("anfrage");
   an.href = "https://github.com/jpascher/Harmonikabau/issues/new?template=modell_anfrage.yml&title=" + encodeURIComponent("Modell-Anfrage: Bass " + M.modell + ", eigene Belegung")
-          + "&teil=bass&bass_variante=" + encodeURIComponent(M.modell) + "&belegung=" + encodeURIComponent(document.getElementById("kurz").value);
+          + "&teil=bass&bass_variante=" + encodeURIComponent(M.modell) + "&teilung=" + encodeURIComponent(T) + "&belegung=" + encodeURIComponent(document.getElementById("kurz").value);
   an.style.opacity = erg.ok ? 1 : .45; an.style.pointerEvents = erg.ok ? "auto" : "none";
   const tab = document.getElementById("achsliste");
   tab.innerHTML = erg.ok ? Object.keys(erg.wahl).sort().map(n => `<tr><td><b>${n}</b></td><td>${M.klappen[n].art}</td><td>${erg.achsen[n].map(a => a.join(".")).join(" + ")}</td><td>${erg.wahl[n]}</td></tr>`).join("")
@@ -178,15 +250,30 @@ function aktualisiere() {
 }
 
 async function lade(url) {
-  M = await (await fetch(url)).json(); zuo = { ...M.standard }; gewaehlt = null; aktualisiere();
+  M = await (await fetch(url)).json(); zuo = { ...M.standard }; N = { ...M.reihen }; T = "standard"; gewaehlt = null; aktualisiere();
 }
-document.getElementById("standard").onclick = () => { zuo = { ...M.standard }; gewaehlt = null; aktualisiere(); };
+document.getElementById("standard").onclick = () => { zuo = { ...M.standard }; N = { ...M.reihen }; T = "standard"; gewaehlt = null; aktualisiere(); };
+document.getElementById("einlesen").onclick = () => {   // Kurzform zurueck ins Bild: R1=10, 1.1=V077, ...
+  const neuN = { ...M.reihen }, neuZ = {}, falsch = [];
+  for (const t of document.getElementById("kurz").value.split(/[,;\n]/).map(x => x.trim()).filter(Boolean)) {
+    let m = t.match(/^R(\d+)\s*=\s*(\d+)$/i);
+    if (m && neuN[m[1]] !== undefined) { neuN[m[1]] = +m[2]; continue; }
+    m = t.match(/^(\d+)\.(\d+)\s*=\s*(\w+)$/);
+    if (m && M.klappen[m[3].toUpperCase()]) { neuZ[`${+m[1]}.${+m[2]}`] = m[3].toUpperCase(); continue; }
+    falsch.push(t);
+  }
+  if (falsch.length) { document.getElementById("meldungen").innerHTML = `<li>Nicht verstanden: ${falsch.join(", ")}</li>`; return; }
+  for (const k in neuZ) { const [r, i] = k.split(".").map(Number); if (!neuN[r] || i > neuN[r]) neuN[r] = Math.max(neuN[r] || 0, i); }
+  N = neuN; zuo = neuZ; gewaehlt = null; aktualisiere();
+};
 document.getElementById("leeren").onclick = () => { zuo = {}; gewaehlt = null; aktualisiere(); };
+// Vorwahl der Teilung ueber die Adresse (bass_belegung.html?teilung=20)
+const _q = new URLSearchParams(location.search);
 document.getElementById("loesen").onclick = () => { if (gewaehlt) delete zuo[gewaehlt]; gewaehlt = null; aktualisiere(); };
 document.getElementById("kopieren").onclick = async () => { const t = document.getElementById("kurz"); t.select();
   try { await navigator.clipboard.writeText(t.value); } catch (e) { document.execCommand("copy"); } };
 document.getElementById("modell").onchange = e => lade(e.target.value);
-lade(document.getElementById("modell").value).catch(e => { document.getElementById("status").textContent = "Modell konnte nicht geladen werden: " + e; });
+lade(document.getElementById("modell").value).then(() => { if (["18", "19", "20"].includes(_q.get("teilung"))) { T = _q.get("teilung"); aktualisiere(); } }).catch(e => { document.getElementById("status").textContent = "Modell konnte nicht geladen werden: " + e; });
 </script>
 </body>
 </html>

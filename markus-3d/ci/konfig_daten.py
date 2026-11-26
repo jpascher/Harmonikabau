@@ -12,7 +12,7 @@ def reihen(name):
             for nr, blk in r.items()}
 
 d = {"diskant": {"markus": {"50": reihen("markus_std_10mm")}, "marie": {}},
-     "regeln": {"hebel": tb.HEBEL_ERLAUBT, "knoepfe": tb.KNOEPFE_ERLAUBT, "marie_griffstock": list(tb.MARIE),
+     "regeln": {"abstaende": list(tb.ABSTAENDE), "geprueft": sorted(f"{i}:{g}:{a}" for i, g, a in tb.GEPRUEFT), "knoepfe": tb.KNOEPFE_ERLAUBT, "marie_griffstock": list(tb.MARIE),
                 "platte_min": tb.PLATTE_MIN, "platte_max": tb.PLATTE_MAX}}
 for n in (44, 46, 48, 52, 54): d["diskant"]["markus"][str(n)] = reihen(f"markus{n}_winkel")
 for g, f in tb.MARIE.items(): d["diskant"]["marie"][g] = reihen(f)

@@ -91,9 +91,9 @@
     <tr><td><code>v340</code></td><td>„340 schmal leicht schräg“ – kurzes Gehäuse, schräge Platten, abgesenkte Luftklappe.</td><td>19 mm</td></tr>
   </table>
   <h3>Bass: Knopfteilung</h3>
-  <p><code>standard</code> nimmt den Wert der Zeichnung (Tabelle oben). 18, 19 oder 20 mm setzt den Abstand der Bassknöpfe neu; die Knopfreihen bleiben mittig. Beim Markus-Bass ist das für alle drei Werte geprüft, bei den anderen Bassteilen ist nur der Zeichnungswert geprüft.</p>
+  <p><code>standard</code> nimmt den Wert der Zeichnung (Tabelle oben). 18, 19 oder 20 mm setzt den Abstand der Bassknöpfe neu – das geht bei allen Bassteilen; die Knopfreihen bleiben mittig und gegeneinander um die halbe Teilung versetzt. Beim Markus-Bass ist das für alle drei Werte geprüft, bei den anderen Bassteilen ist nur der Zeichnungswert geprüft; jede Rechnung macht aber die volle Kollisionsprüfung.</p>
   <h3>Bass: Belegung</h3>
-  <p>Leer lassen = Belegung wie gebaut. Sonst die Kurzform von der Seite <a href="bass_belegung.html">Bassbelegung zuordnen</a> einfügen (siehe <a href="#belegung">Freie Bassbelegung</a>).</p>
+  <p>Leer lassen = Belegung wie gebaut. Sonst die Kurzform von der Seite <a href="bass_belegung.html">Bassbelegung zuordnen</a> einfügen, z. B. <code>R1=10, 1.1=V077, 1.2=BL152, …</code> (siehe <a href="#belegung">Freie Bassbelegung</a>). <code>R1=10</code> heißt: Reihe 1 mit 10 Knöpfen; ohne diese Angabe hat jede Reihe ihre gezeichnete Knopfzahl.</p>
   <h3>Bass: Gehäuselänge</h3>
   <p>Nur für den Markus-Bass. Man kann direkt die Länge des Diskantteils eingeben; das Gehäuse wird auf volle 10 mm aufgerundet und ist nie kürzer als 380 mm (z. B. 396,7 → 400). Die Rohteile behalten wie in den Zeichnungen 2 mm Übermaß.</p>
 </section>
@@ -101,7 +101,8 @@
 <section id="belegung">
   <h2>Freie Bassbelegung</h2>
   <p>Beim Bassteil kann man festlegen, welcher Knopf welche Klappe öffnet – also welcher Knopf ein Grundbass (Helikon) und welcher ein Begleiter ist und welche Knöpfe miteinander gekoppelt sind. Gehäuse, Kammern und Klappen bleiben wie beim gewählten Modell; nur die Zuordnung ändert sich. Die Tonhöhe spielt für die Mechanik keine Rolle. Derzeit geht das beim Bassteil <code>v340</code>; die anderen Bassteile folgen.</p>
-  <p>Auf der Seite <a href="bass_belegung.html">Bassbelegung zuordnen</a> ist der Boden von oben gezeichnet: Klappen oben, Knopfreihen unten. Man klickt einen Knopf an und dann die Klappe, die er öffnen soll. Zwei Knöpfe auf derselben Klappe sind gekoppelt. Es gilt immer: <b>Knöpfe = Klappen + Kopplungen</b> – jede Klappe braucht mindestens einen Knopf, jeder Knopf genau eine Klappe.</p>
+  <p>Auf der Seite <a href="bass_belegung.html">Bassbelegung zuordnen</a> ist der Boden von oben gezeichnet: Klappen oben, Knopfreihen unten. Man klickt einen Knopf an und dann die Klappe, die er öffnen soll. Zwei Knöpfe auf derselben Klappe sind gekoppelt. Es gilt immer: <b>verdrahtete Knöpfe = Klappen + Kopplungen</b> – jede Klappe braucht mindestens einen Knopf, jeder verdrahtete Knopf genau eine Klappe. Ein Knopf ohne Klappe ist <b>blind</b> (sitzt in der Front, hat aber keine Mechanik) und zählt nicht mit; auf der Seite ist er grau gestrichelt, „Knopf blind machen“ löst einen Knopf von seiner Klappe.</p>
+  <p><b>Knöpfe dazu oder weg:</b> über dem Bild hat jede Reihe die Knöpfe „+ links / + rechts“ und „− links / − rechts“. Danach wird die Reihe neu mittig verteilt; die Reihen bleiben dabei um die halbe Teilung gegeneinander versetzt wie gezeichnet (bei 10 / 9 Knöpfen sind beide Reihen genau mittig, bei 11 / 9 liegt die kürzere Reihe eine halbe Teilung neben der Mitte). Die Knöpfe werden immer von links gezählt, „+ links“ verschiebt also die Nummern der Reihe um eins. Ebenso lässt sich dort die Knopfteilung umstellen. Passt eine Reihe nicht mehr zwischen die Hörner an der Front (beim 340 schmal etwa X 60 bis 282 mm), meldet die Seite das sofort. Weil sich mit der Knopfzahl oder Teilung alle Knopflagen verschieben, kann eine vorher baubare Belegung danach in den Gassen keinen Platz mehr haben – dann einzelne Klappen anderen Knöpfen geben. Eine geänderte oder früher kopierte Kurzform holt „Kurzform übernehmen“ wieder ins Bild.</p>
   <p>Nach jeder Änderung prüft die Seite, ob sich alle Achsen in den Achsgassen unter dem Boden unterbringen lassen (dieselbe Prüfung wie bei der Rechnung, siehe <a href="https://github.com/jpascher/Harmonikabau/blob/main/markus-3d/bass/REGELN_Bassbelegung.md">Regeln</a>). Grün heißt baubar; sonst steht dort, welcher Knopf fehlt oder welche Achse keinen Platz findet. Ist die Belegung baubar, die <b>Kurzform kopieren</b>, im Formular <i>Teil = bass</i> und <i>Bass: Bassteil = v340</i> wählen und die Kurzform in <i>Bass: Belegung</i> einfügen. Die Rechnung prüft die Belegung zuerst noch einmal und baut dann die Mechanik mit der vollständigen Kollisionsprüfung; die verwendete Belegung liegt dem Ergebnis bei.</p>
   <div class="hinweis">Nicht jede Wunschbelegung lässt sich bauen: liegen zu viele lange Achsen im selben Bereich, ist in den Gassen kein Platz mehr. Dann einer der betroffenen Klappen einen Knopf geben, der näher an ihr liegt.</div>
 </section>
@@ -109,7 +110,7 @@
 <section id="diskant">
   <h2>Auswahl Diskantteil</h2>
   <h3>Diskant: Instrument</h3>
-  <p><code>markus</code> ist die dreichörige Steirische (Hebel wirken auf Tripel), <code>marie</code> die zweichörige mit 19 mm Knopfabstand. Knopfzahl und Hebelteilung lassen sich nur beim Markus verändern; Marie wird immer so gerechnet, wie sie gezeichnet ist.</p>
+  <p><code>markus</code> ist die dreichörige Steirische (Hebel wirken auf Tripel, gezeichnet mit 20 mm Knopfabstand), <code>marie</code> die zweichörige (gezeichnet mit 19 mm). Der Knopfabstand ist bei beiden wählbar, die Knopfzahl nur beim Markus.</p>
   <h3>Diskant: Griffstock</h3>
   <table>
     <tr><th>Wert</th><th>Bauart</th></tr>
@@ -118,21 +119,24 @@
     <tr><td><code>kugellager</code></td><td>Holzhebel mit zwei Kugellagern in POM-Stützen, Epoxy-Leisten, Teile von hinten verschraubt.</td></tr>
     <tr><td><code>kolben</code></td><td>Verdeckter Griffstock, Kunststoffzylinder (Kolben) unter allen Knöpfen, Hebel nur Alu.</td></tr>
     <tr><td><code>kolben12</code></td><td>Reihen 1/2 verdeckt mit Kolben, Reihen 3/4 offen mit Holzhebeln.</td></tr>
-    <tr><td><code>winkel</code></td><td>Alu-Winkel 46753 an der Rückwand, alle Hebel auf einer Achse Ø 3, Führung nach ital.df.dxf. Nur mit 20 mm Knopfabstand.</td></tr>
+    <tr><td><code>winkel</code></td><td>Alu-Winkel 46753 an der Rückwand, alle Hebel auf einer Achse Ø 3, Führung nach ital.df.dxf. Gezeichnet mit 20 mm Knopfabstand.</td></tr>
     <tr><td><code>winkel_ital</code></td><td>Wie <code>winkel</code>, aber mit der italienischen Endform des Griffstocks links und rechts.</td></tr>
   </table>
   <h3>Diskant: Knopfzahl</h3>
   <p>44, 46, 48, 50, 52 oder 54 Knöpfe (nur Markus). Zusätzliche Knöpfe kommen auf die Seite der tiefen Töne; das Gehäuse wird automatisch an die Klappen angepasst und die Knopfpyramide bleibt mittig. Möglich ist das derzeit mit dem Winkel- und dem Standard-Griffstock; beim Kugellager-Griffstock passen die POM-Stützen bei anderer Knopfzahl nicht mehr zwischen die Hebel, traditionell und Kolben sind noch nicht angepasst. Eine unmögliche Auswahl wird gleich zu Beginn mit einer Meldung abgelehnt.</p>
-  <h3>Diskant: Hebelteilung (Knopfabstand)</h3>
-  <p>Abstand der Hebel im Griffstock: <code>10</code> mm (= 20 mm Knopfabstand), <code>9</code> mm (18 mm) oder <code>8</code> mm (16 mm). Welche Abstände gehen, hängt vom Griffstock ab:</p>
+  <h3>Diskant: Knopfabstand</h3>
+  <p><code>18</code>, <code>19</code> oder <code>20</code> mm, bei allen Griffstöcken und bei beiden Instrumenten. Die Hebelteilung im Griffstock ist die Hälfte (9 / 9,5 / 10 mm). Die Knopfpyramide wird dafür maßstäblich umgerechnet (Versatz der Reihen gegeneinander und Viertelteilung der Reihen 1/2) und wieder mittig auf das Gehäuse gesetzt. Beim Markus bleibt die Klappenteilung gleich; bei Marie (zweichörig) ist die Klappenteilung gleich dem Knopfabstand, das Gehäuse wird also mit länger oder kürzer. Ohne Angabe nimmt die Rechnung den gezeichneten Wert (Markus 20, Marie 19, Marie Winkel 20).</p>
   <table>
-    <tr><th>Griffstock</th><th>Knopfabstand</th><th>Knopfzahl</th></tr>
-    <tr><td>standard</td><td>16 / 18 / 20 mm</td><td>44–54</td></tr>
-    <tr><td>traditionell, kugellager</td><td>16 / 18 / 20 mm</td><td>nur 50</td></tr>
-    <tr><td>kolben, kolben12</td><td>16 / 18 / 20 mm</td><td>nur 50</td></tr>
-    <tr><td>winkel, winkel_ital</td><td>nur 20 mm</td><td>44–54</td></tr>
-    <tr><td>Marie (alle)</td><td>fest 19 mm</td><td>fest wie gezeichnet</td></tr>
+    <tr><th>Instrument / Griffstock</th><th>schon gerechnet</th><th>neu (rechnet, noch nicht angesehen)</th></tr>
+    <tr><td>Markus standard</td><td class="ok">18 / 19 / 20 mm</td><td>–</td></tr>
+    <tr><td>Markus traditionell, kugellager</td><td class="ok">18 und 20 mm</td><td class="neu">19 mm</td></tr>
+    <tr><td>Markus kolben, kolben12</td><td>–</td><td class="neu">18 / 19 / 20 mm</td></tr>
+    <tr><td>Markus winkel</td><td class="ok">19 und 20 mm</td><td class="neu">18 mm (Winkel-Führung ist für 20 mm gezeichnet und wird umgerechnet – Bild genau ansehen)</td></tr>
+    <tr><td>Markus winkel_ital</td><td class="ok">20 mm</td><td class="neu">18 / 19 mm</td></tr>
+    <tr><td>Marie standard, traditionell, kugellager, kolben, kolben12</td><td class="ok">19 mm</td><td class="neu">18 / 20 mm</td></tr>
+    <tr><td>Marie winkel</td><td class="ok">20 mm</td><td class="neu">18 / 19 mm</td></tr>
   </table>
+  <p>Die frühere Angabe als Hebelteilung (<code>9</code> / <code>10</code>) wird noch verstanden und als 18 / 20 mm gerechnet; 16 mm Knopfabstand gibt es nicht mehr.</p>
   <h3>Diskant: Plattenlängen</h3>
   <p>Leer lassen = Stimmplattenlängen wie in der Zeichnung. Eigene Längen gibt man je Reihe in mm an, von links (hohe Töne) nach rechts (tiefe Seite), zum Beispiel:</p>
   <p><code>R1: 32 33 34 37 40 43 45 47 48 49 49 40 40; R3: 27 29 31 32 34 37 40 43 47 48 49 49</code></p>
@@ -145,14 +149,15 @@
   <h2>Was ist schon gerechnet?</h2>
   <p>Alle Kombinationen lassen sich rechnen, aber nicht alle wurden schon einmal gerechnet und angesehen. Jede Rechnung macht ohnehin eine Kollisionsprüfung und schreibt das Ergebnis ins Protokoll; bei neuen Kombinationen sollte man dieses Protokoll ansehen.</p>
   <table>
-    <tr><th>Markus-Griffstock</th><th>50 Knöpfe, 10 mm</th><th>50 Knöpfe, 8/9 mm</th><th>andere Knopfzahl</th></tr>
-    <tr><td>standard</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="neu">rechnet (Probe 46), noch nicht angesehen</td></tr>
-    <tr><td>traditionell</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="nein">noch nicht möglich</td></tr>
-    <tr><td>kugellager</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="nein">noch nicht möglich</td></tr>
-    <tr><td>kolben / kolben12</td><td class="neu">neu</td><td class="neu">neu</td><td class="nein">noch nicht möglich</td></tr>
-    <tr><td>winkel / winkel_ital</td><td class="ok">schon gerechnet</td><td class="nein">– (nur 10 mm)</td><td class="ok">schon gerechnet</td></tr>
+    <tr><th>Markus-Griffstock</th><th>50 Knöpfe, 20 mm</th><th>50 Knöpfe, 18 mm</th><th>50 Knöpfe, 19 mm</th><th>andere Knopfzahl</th></tr>
+    <tr><td>standard</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="neu">rechnet (Probe 46), noch nicht angesehen</td></tr>
+    <tr><td>traditionell</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="neu">neu</td><td class="nein">noch nicht möglich</td></tr>
+    <tr><td>kugellager</td><td class="ok">schon gerechnet</td><td class="ok">schon gerechnet</td><td class="neu">neu</td><td class="nein">noch nicht möglich</td></tr>
+    <tr><td>kolben / kolben12</td><td class="neu">neu</td><td class="neu">neu</td><td class="neu">neu</td><td class="nein">noch nicht möglich</td></tr>
+    <tr><td>winkel / winkel_ital</td><td class="ok">schon gerechnet</td><td class="neu">neu</td><td class="ok">winkel gerechnet, winkel_ital neu</td><td class="ok">schon gerechnet (20 mm)</td></tr>
   </table>
-  <p>Marie ist mit allen sechs Griffstöcken schon gerechnet (<code>winkel_ital</code> gibt es für Marie nicht). Bei den Bassteilen ist jeweils die Teilung laut Zeichnung gerechnet, beim Markus-Bass alle drei Teilungen mit 380, 400 und 410 mm Länge.</p>
+  <p>Marie ist mit allen sechs Griffstöcken in ihrem gezeichneten Knopfabstand schon gerechnet (<code>winkel_ital</code> gibt es für Marie nicht), andere Knopfabstände sind neu. Bei den Bassteilen ist jeweils die Teilung laut Zeichnung gerechnet, beim Markus-Bass alle drei Teilungen mit 380, 400 und 410 mm Länge; beim 340 schmal außerdem 20 mm und 10 / 9 Knöpfe mit einem blinden Knopf (26.11.).</p>
+  <div class="hinweis">Beim Winkel-Griffstock gibt es noch keine automatischen Griffstock-Fräsdateien (Teil 1/2 gibt es dort so nicht); Modell, Stimmstock-Frästeile, Alu-Abwicklungen und Holzteile kommen wie sonst.</div>
   <div class="hinweis">Bei einer neuen Kombination schreibt die Rechnung einen Hinweis in die Beschreibung des Ergebnisses. „Kollisionen 0“ im Protokoll heißt: die Mechanik ist in Ruhe und mit jeder gedrückten Taste frei.</div>
 </section>
 
