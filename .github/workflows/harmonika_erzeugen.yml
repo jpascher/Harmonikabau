@@ -1,10 +1,15 @@
 # Harmonika-Modell auf GitHub rechnen lassen (Johann 26.11.2026)
 # Bedienung: github.com/jpascher/Harmonikabau -> Actions -> "Harmonika erzeugen" -> "Run workflow" -> Auswahl -> starten.
 # Ergebnis nach ca. 15-30 min unter "Releases" (feste Download-Links) und als Artefakt am Lauf.
+# Ohne Schreibrecht: Issue "Modell rechnen lassen" (Formular .github/ISSUE_TEMPLATE/modell_anfrage.yml). Anfragen des
+# Repo-Besitzers rechnen sofort, andere sobald der Besitzer das Etikett "freigegeben" setzt; Antwort mit Link im Issue.
+# Alle Eingaben werden zuerst von markus-3d/ci/auswahl.py gegen feste Listen geprueft.
 name: Harmonika erzeugen
-run-name: "${{ inputs.teil == 'bass' && format('Bass {0}, Teilung {1}{2}', inputs.bass_variante, inputs.teilung, inputs.belegung != '' && ', eigene Belegung' || '') || format('Diskant {0}, {1}, {2} Knoepfe, Hebel {3} mm', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
+run-name: "${{ github.event_name == 'issues' && format('Anfrage #{0}: {1}', github.event.issue.number, github.event.issue.title) || (inputs.teil == 'bass' && format('Bass {0}, Teilung {1}{2}', inputs.bass_variante, inputs.teilung, inputs.belegung != '' && ', eigene Belegung' || '') || format('Diskant {0}, {1}, {2} Knoepfe, Hebel {3} mm', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel)) }}"
 
 on:
+  issues:
+    types: [opened, labeled]
   workflow_dispatch:
     inputs:
       teil:
@@ -61,28 +66,78 @@ on:
 
 permissions:
   contents: write
+  issues: write
+
+concurrency:
+  group: modell-${{ github.event.issue.number || github.run_id }}
 
 jobs:
-  erzeugen:
+  auswahl:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (contains(github.event.issue.body, '### Teil') &&
+       ((github.event.action == 'opened' && github.event.issue.author_association == 'OWNER') ||
+        (github.event.action == 'labeled' && github.event.label.name == 'freigegeben')))
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    outputs:
+      ok: ${{ steps.p.outputs.ok }}
+      grund: ${{ steps.p.outputs.grund }}
+      teil: ${{ steps.p.outputs.teil }}
+      variante: ${{ steps.p.outputs.variante }}
+      teilung: ${{ steps.p.outputs.teilung }}
+      laenge: ${{ steps.p.outputs.laenge }}
+      vorschau: ${{ steps.p.outputs.vorschau }}
+      platten: ${{ steps.p.outputs.platten }}
+      belegung: ${{ steps.p.outputs.belegung }}
+      titel: ${{ steps.p.outputs.titel }}
     steps:
       - uses: actions/checkout@v4
         with:
           sparse-checkout: markus-3d
       - name: Auswahl pruefen
-        if: inputs.teil == 'diskant'
+        id: p
         env:
-          PLATTEN: ${{ inputs.platten }}
-        run: python3 markus-3d/ci/tastenliste_bauen.py "${{ inputs.instrument }}" "${{ inputs.griffstock }}" "${{ inputs.knoepfe }}" "${{ inputs.hebel }}" /tmp/pruef_liste.txt "$PLATTEN"
-      - name: Belegung pruefen
-        if: inputs.teil == 'bass' && inputs.belegung != ''
+          QUELLE: ${{ github.event_name == 'issues' && 'issue' || 'formular' }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          IN_TEIL: ${{ inputs.teil }}
+          IN_BASS_VARIANTE: ${{ inputs.bass_variante }}
+          IN_TEILUNG: ${{ inputs.teilung }}
+          IN_LAENGE: ${{ inputs.laenge }}
+          IN_INSTRUMENT: ${{ inputs.instrument }}
+          IN_GRIFFSTOCK: ${{ inputs.griffstock }}
+          IN_KNOEPFE: ${{ inputs.knoepfe }}
+          IN_HEBEL: ${{ inputs.hebel }}
+          IN_PLATTEN: ${{ inputs.platten }}
+          IN_BELEGUNG: ${{ inputs.belegung }}
+          IN_VORSCHAU: ${{ inputs.vorschau }}
+        run: python3 markus-3d/ci/auswahl.py
+      - name: Antwort an die Anfrage
+        if: github.event_name == 'issues'
         env:
-          BELEGUNG: ${{ inputs.belegung }}
+          GH_TOKEN: ${{ github.token }}
+          OK: ${{ steps.p.outputs.ok }}
+          GRUND: ${{ steps.p.outputs.grund }}
+          TITEL: ${{ steps.p.outputs.titel }}
+          NR: ${{ github.event.issue.number }}
+          LAUF: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          M=$(ls markus-3d/bass/${{ inputs.bass_variante }}/belegung_modell_*.json 2>/dev/null | head -1)
-          if [ -z "$M" ]; then echo "Freie Belegung gibt es fuer ${{ inputs.bass_variante }} noch nicht (bisher nur v340)"; exit 1; fi
-          python3 markus-3d/bass/belegung.py "$M" "$BELEGUNG"
+          if [ "$OK" = "ja" ]; then
+            gh issue comment "$NR" --repo "$GITHUB_REPOSITORY" --body "Angenommen: **$TITEL**. Die Rechnung läuft ([Fortschritt]($LAUF)); das Ergebnis kommt in etwa 15–30 Minuten hier als Antwort."
+          else
+            gh issue comment "$NR" --repo "$GITHUB_REPOSITORY" --body "Diese Auswahl geht leider nicht: $GRUND. Bitte die Anfrage bearbeiten oder neu stellen (Hilfe: https://jpascher.github.io/Harmonikabau/docs/hilfe.html)."
+          fi
+
+  erzeugen:
+    needs: auswahl
+    if: needs.auswahl.outputs.ok == 'ja'
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    outputs:
+      tag: ${{ steps.rel.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: markus-3d
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -95,11 +150,14 @@ jobs:
       - name: Modell rechnen
         env:
           PYVISTA_OFF_SCREEN: "true"
-          PLATTEN: ${{ inputs.platten }}
-          BELEGUNG: ${{ inputs.teil == 'bass' && inputs.belegung || '' }}
-        run: |
-          V="${{ inputs.teil == 'bass' && inputs.bass_variante || format('{0}:{1}:{2}:{3}', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
-          xvfb-run -a python3 markus-3d/ci/erzeuge_ci.py "${{ inputs.teil }}" "$V" "${{ inputs.teilung }}" "${{ inputs.laenge }}" ergebnis "${{ inputs.vorschau }}"
+          TEIL: ${{ needs.auswahl.outputs.teil }}
+          VARIANTE: ${{ needs.auswahl.outputs.variante }}
+          TEILUNG: ${{ needs.auswahl.outputs.teilung }}
+          LAENGE: ${{ needs.auswahl.outputs.laenge }}
+          VORSCHAU: ${{ needs.auswahl.outputs.vorschau }}
+          PLATTEN: ${{ needs.auswahl.outputs.platten }}
+          BELEGUNG: ${{ needs.auswahl.outputs.teil == 'bass' && needs.auswahl.outputs.belegung || '' }}
+        run: xvfb-run -a python3 markus-3d/ci/erzeuge_ci.py "$TEIL" "$VARIANTE" "$TEILUNG" "$LAENGE" ergebnis "$VORSCHAU"
       - name: Protokoll bei Fehler sichern
         if: failure()
         uses: actions/upload-artifact@v4
@@ -114,11 +172,60 @@ jobs:
           path: ergebnis/
           retention-days: 30
       - name: Release anlegen
+        id: rel
         env:
           GH_TOKEN: ${{ github.token }}
-          TITEL: "${{ inputs.teil == 'bass' && format('Bass {0}, Teilung {1}{2}', inputs.bass_variante, inputs.teilung, inputs.belegung != '' && ', eigene Belegung' || '') || format('Diskant {0}, {1}, {2} Knoepfe, Hebel {3} mm', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
+          TITEL: ${{ needs.auswahl.outputs.titel }}
+          TAG: modell-${{ github.run_number }}
         run: |
-          V="${{ inputs.teil == 'bass' && inputs.bass_variante || format('{0}:{1}:{2}:{3}', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
-          gh release create "modell-${{ github.run_number }}" ergebnis/* \
-            --title "$TITEL (Lauf ${{ github.run_number }})" \
-            --notes-file ergebnis/notizen.md
+          gh release create "$TAG" ergebnis/* --title "$TITEL (Lauf ${{ github.run_number }})" --notes-file ergebnis/notizen.md
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+      - name: Alte Modelle aufraeumen (die neuesten 40 bleiben)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release list --limit 300 --json tagName,createdAt --jq '[.[] | select(.tagName | startswith("modell-"))] | sort_by(.createdAt) | reverse | .[40:] | .[].tagName' |
+          while read -r t; do [ -n "$t" ] && gh release delete "$t" --yes --cleanup-tag; done
+
+  antwort:
+    needs: [auswahl, erzeugen]
+    if: always() && github.event_name == 'issues' && needs.auswahl.outputs.ok == 'ja'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ergebnis melden
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ERGEBNIS: ${{ needs.erzeugen.result }}
+          TAG: ${{ needs.erzeugen.outputs.tag }}
+          NR: ${{ github.event.issue.number }}
+          LAUF: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ "$ERGEBNIS" = "success" ]; then
+            gh issue comment "$NR" --repo "$GITHUB_REPOSITORY" --body "Fertig! Modell, Vorschau und Protokoll: ${{ github.server_url }}/${{ github.repository }}/releases/tag/$TAG – auch auf der Übersicht https://jpascher.github.io/Harmonikabau/docs/"
+            gh issue close "$NR" --repo "$GITHUB_REPOSITORY"
+          else
+            gh issue comment "$NR" --repo "$GITHUB_REPOSITORY" --body "Die Rechnung ist leider abgebrochen. Protokoll: $LAUF"
+          fi
+
+  wartet:
+    if: >-
+      github.event_name == 'issues' && github.event.action == 'opened' &&
+      contains(github.event.issue.body, '### Teil') && github.event.issue.author_association != 'OWNER'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Eingang bestaetigen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NR: ${{ github.event.issue.number }}
+        run: gh issue comment "$NR" --repo "$GITHUB_REPOSITORY" --body "Danke für die Anfrage! Sie wird gerechnet, sobald sie freigegeben ist (Etikett „freigegeben“). Danach kommt das Ergebnis in etwa 15–30 Minuten hier als Antwort."
+
+  etiketten:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Etiketten fuer Anfragen anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create modell-anfrage --repo "$GITHUB_REPOSITORY" --color C2A36B --description "Anfrage: Modell rechnen lassen" --force
+          gh label create freigegeben --repo "$GITHUB_REPOSITORY" --color 3F6B3A --description "Anfrage freigegeben, wird gerechnet" --force

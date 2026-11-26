@@ -42,6 +42,7 @@
 <div class="rahmen">
 <nav>
   <a href="#ueberblick">Wie es funktioniert</a>
+  <a href="#anfrage">Modell anfragen</a>
   <a href="#starten">Rechnung starten</a>
   <a href="#bass">Auswahl Bassteil</a>
   <a href="#belegung">Freie Bassbelegung</a>
@@ -59,8 +60,14 @@
   <p>Eine Rechnung dauert je nach Teil 10 bis 30 Minuten: ein Bassteil etwa 10 Minuten, ein Diskantteil mit allen Fräsdaten etwa 25 Minuten. Das fertige Modell erscheint danach auf der <a href="./">Übersichtsseite</a>.</p>
 </section>
 
+<section id="anfrage">
+  <h2>Modell anfragen (ohne Schreibrecht)</h2>
+  <p>Jeder mit einem kostenlosen GitHub-Konto kann ein Modell anfragen: auf der Übersicht <b>„Modell anfragen“</b> wählen. Es öffnet sich ein Formular mit denselben Auswahlfeldern wie unten beschrieben. Nach dem Absenden prüft GitHub die Auswahl; eine unmögliche Kombination wird gleich als Antwort gemeldet. Gerechnet wird, sobald die Anfrage freigegeben ist – Anfragen des Repo-Besitzers sofort, andere nach der Freigabe mit dem Etikett „freigegeben“. Nach etwa 15–30 Minuten kommt das Ergebnis als Antwort mit Download-Link, und die Anfrage wird geschlossen. Von der Seite <a href="bass_belegung.html">Bassbelegung zuordnen</a> aus öffnet „Als Anfrage senden“ das Formular schon ausgefüllt.</p>
+  <p>Die Ergebnisse bleiben unter Releases erhalten; damit es nicht unübersichtlich wird, bleiben die neuesten 40 Modelle stehen, ältere werden beim nächsten Lauf gelöscht.</p>
+</section>
+
 <section id="starten">
-  <h2>Rechnung starten</h2>
+  <h2>Rechnung starten (mit Schreibrecht)</h2>
   <ol class="schritte">
     <li>Auf der Übersichtsseite <strong>„Variante auswählen &amp; rechnen“</strong> anklicken. Es öffnet sich die GitHub-Seite des Ablaufs „Harmonika erzeugen“. Man muss bei GitHub angemeldet sein und Schreibrecht am Repository haben.</li>
     <li>Rechts oben den grünen Knopf <strong>„Run workflow“</strong> drücken. Es klappt ein Formular mit Auswahlfeldern auf.</li>
@@ -170,7 +177,7 @@
 <section id="fehler">
   <h2>Wenn etwas schiefgeht</h2>
   <p>Ein rotes Kreuz am Lauf heißt, dass der Generator abgebrochen hat. Dann den Lauf anklicken: unter „Artifacts“ liegt <code>protokoll-…</code> mit der Fehlermeldung, und im Schritt „Modell rechnen“ steht die vollständige Ausgabe. Eine unzulässige Auswahl (z. B. Winkel mit 9 mm, Kugellager mit 46 Knöpfen, falsche Anzahl Plattenlängen) bricht schon im ersten Schritt „Auswahl pruefen“ nach wenigen Sekunden ab; die Meldung dort sagt, was erlaubt ist. Sonst ist meist ein Fehler in einer neu geänderten Zeichnung die Ursache. Ein Lauf darf höchstens zweieinhalb Stunden dauern; mehrere Läufe können gleichzeitig laufen.</p>
-  <p>Nur wer Schreibrecht am Repository hat, kann Rechnungen starten. Ansehen und herunterladen kann jeder.</p>
+  <p>Direkt starten („Run workflow“) kann nur, wer Schreibrecht am Repository hat; alle anderen fragen über das Formular an. Ansehen und herunterladen kann jeder.</p>
 </section>
 </main>
 </div>

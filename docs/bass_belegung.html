@@ -77,11 +77,12 @@
     </div>
     <div class="feld" style="margin-top:1rem">
       <h2>Rechnen lassen</h2>
-      <p class="hinweis">Kurzform kopieren, dann im GitHub-Formular <i>Teil = bass</i>, <i>Bass: Bassteil = v340</i> wählen und die Kurzform ins Feld <i>Bass: Belegung</i> einfügen.</p>
+      <p class="hinweis"><b>Als Anfrage senden</b> öffnet auf GitHub ein schon ausgefülltes Anfrageformular (kostenloses GitHub-Konto nötig); nach der Freigabe kommt das Ergebnis als Antwort. Wer Schreibrecht hat, kann die Kurzform auch direkt ins Feld <i>Bass: Belegung</i> des Formulars „Run workflow“ einfügen.</p>
       <textarea id="kurz" readonly></textarea>
       <div class="knoepfe">
         <button id="kopieren">Kurzform kopieren</button>
-        <a class="knopfl haupt" href="https://github.com/jpascher/Harmonikabau/actions/workflows/harmonika_erzeugen.yml" target="_blank">Zum Formular</a>
+        <a class="knopfl haupt" id="anfrage" href="#" target="_blank">Als Anfrage senden</a>
+        <a class="knopfl" href="https://github.com/jpascher/Harmonikabau/actions/workflows/harmonika_erzeugen.yml" target="_blank">Direkt rechnen (Besitzer)</a>
       </div>
     </div>
     <div class="feld" style="margin-top:1rem">
@@ -167,6 +168,10 @@ function aktualisiere() {
   document.getElementById("loesen").disabled = !(gewaehlt && zuo[gewaehlt]);
   const sortiert = Object.keys(zuo).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   document.getElementById("kurz").value = sortiert.map(k => `${k}=${zuo[k]}`).join(", ");
+  const an = document.getElementById("anfrage");
+  an.href = "https://github.com/jpascher/Harmonikabau/issues/new?template=modell_anfrage.yml&title=" + encodeURIComponent("Modell-Anfrage: Bass " + M.modell + ", eigene Belegung")
+          + "&teil=bass&bass_variante=" + encodeURIComponent(M.modell) + "&belegung=" + encodeURIComponent(document.getElementById("kurz").value);
+  an.style.opacity = erg.ok ? 1 : .45; an.style.pointerEvents = erg.ok ? "auto" : "none";
   const tab = document.getElementById("achsliste");
   tab.innerHTML = erg.ok ? Object.keys(erg.wahl).sort().map(n => `<tr><td><b>${n}</b></td><td>${M.klappen[n].art}</td><td>${erg.achsen[n].map(a => a.join(".")).join(" + ")}</td><td>${erg.wahl[n]}</td></tr>`).join("")
                          : `<tr><td class="hinweis">Erscheint, sobald die Belegung baubar ist.</td></tr>`;
