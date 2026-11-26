@@ -25,25 +25,40 @@ YV = [93.4, 99.0, 110.4]                                  # zwischen den Klappen
 XH = [77.0, 124.0, 171.0, 218.0, 265.0]                   # Helikonspalten
 HY, KY = 73.0, 133.0                                      # Klappenreihen hinten / vorne
 XBL, XBR, YBG = 31.0, 311.0, [50.1, 84.1, 118.1, 152.1]   # Begleiter rund links / rechts
-_A = [
-    ("BL050", YR[0], [(2, K2(4), K2(4))], [(40.0, (XBL, YBG[0]))], None),
-    ("BR050", YR[0], [(1, K1(5), K1(5))], [(302.0, (XBR, YBG[0]))], None),
-    ("H218", YR[1], [(2, K2(0), K2(0)), (1, K1(6), K1(6))], [(218.0, (XH[3], HY))], None),   # zwei Knoepfe
-    ("H077", YR[2], [(2, K2(1), K2(1))], [(77.0, (XH[0], HY))], None),
-    ("H124", YR[2], [(1, K1(2), K1(2))], [(124.0, (XH[1], HY))], None),
-    ("H171", YR[2], [(1, K1(4), K1(4))], [(171.0, (XH[2], HY))], None),
-    ("H265", YR[2], [(1, K1(8), K1(8))], [(265.0, (XH[4], HY))], None),
-    ("BL084", YR[3], [(1, K1(3), K1(3))], [(54.4, (XBL, YBG[1]))], None),
-    ("BR084", YR[3], [(2, K2(6), K2(6))], [(288.1, (XBR, YBG[1]))], None),
-    ("BL118", YV[0], [(2, K2(2), K2(2))], [(54.4, (XBL, YBG[2]))], None),
-    ("BR118", YV[0], [(1, K1(7), K1(7))], [(288.9, (XBR, YBG[2]))], None),
-    ("V077", YV[1], [(1, K1(0), K1(0))], [(77.0, (XH[0], KY))], None),
-    ("V124", YV[1], [(2, K2(3), K2(3))], [(124.0, (XH[1], KY))], None),
-    ("V171", YV[1], [(2, K2(5), K2(5))], [(171.0, (XH[2], KY))], None),
-    ("V218", YV[1], [(2, K2(7), K2(7))], [(218.0, (XH[3], KY))], None),
-    ("BL152", YV[2], [(1, K1(1), K1(1))], [(54.4, (XBL, YBG[3]))], None),
-    ("BR152", YV[2], [(2, K2(8), K2(8))], [(288.1, (XBR, YBG[3]))], None),
-]
+# Freie Belegung (belegung.py, Regeln in ../REGELN_Bassbelegung.md): Klappen des Modells mit Hebelziel, Hebelansatz und
+# den Gassen, aus denen der Hebel sie erreicht (Vorzugsreihenfolge). Grundbass hinten (HY) aus den hinteren Gassen,
+# Grundbass vorne (KY) aus den Gassen zwischen den Klappenreihen, Begleiter schraeg aus der Gasse auf Hoehe ihrer Klappe.
+import json as _json
+_BM = _json.load(open("belegung_modell_340.json", encoding="utf-8"))   # Klappen, Gassen, Knopflagen (auch fuer die Webseite)
+GASSEN = _BM["gassen"]
+KATALOG = {k_: {"ziel": tuple(v_["ziel"]), "hebel_x": v_["hebel_x"], "gassen": v_["gassen"]} for k_, v_ in _BM["klappen"].items()}
+REIHEN_KNOEPFE = {int(r_): n_ for r_, n_ in _BM["reihen"].items()}
+import os
+_BEL = os.environ.get("BASS_BELEGUNG")
+if _BEL:
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath("mech_v340.py"))))
+    import belegung as _belegung
+    _A = _belegung.baue_tabelle(_BEL, KATALOG, GASSEN, knx, REIHEN_KNOEPFE, _BM.get("min_luecke", 12.0))
+else:
+    _A = [
+        ("BL050", YR[0], [(2, K2(4), K2(4))], [(40.0, (XBL, YBG[0]))], None),
+        ("BR050", YR[0], [(1, K1(5), K1(5))], [(302.0, (XBR, YBG[0]))], None),
+        ("H218", YR[1], [(2, K2(0), K2(0)), (1, K1(6), K1(6))], [(218.0, (XH[3], HY))], None),   # zwei Knoepfe
+        ("H077", YR[2], [(2, K2(1), K2(1))], [(77.0, (XH[0], HY))], None),
+        ("H124", YR[2], [(1, K1(2), K1(2))], [(124.0, (XH[1], HY))], None),
+        ("H171", YR[2], [(1, K1(4), K1(4))], [(171.0, (XH[2], HY))], None),
+        ("H265", YR[2], [(1, K1(8), K1(8))], [(265.0, (XH[4], HY))], None),
+        ("BL084", YR[3], [(1, K1(3), K1(3))], [(54.4, (XBL, YBG[1]))], None),
+        ("BR084", YR[3], [(2, K2(6), K2(6))], [(288.1, (XBR, YBG[1]))], None),
+        ("BL118", YV[0], [(2, K2(2), K2(2))], [(54.4, (XBL, YBG[2]))], None),
+        ("BR118", YV[0], [(1, K1(7), K1(7))], [(288.9, (XBR, YBG[2]))], None),
+        ("V077", YV[1], [(1, K1(0), K1(0))], [(77.0, (XH[0], KY))], None),
+        ("V124", YV[1], [(2, K2(3), K2(3))], [(124.0, (XH[1], KY))], None),
+        ("V171", YV[1], [(2, K2(5), K2(5))], [(171.0, (XH[2], KY))], None),
+        ("V218", YV[1], [(2, K2(7), K2(7))], [(218.0, (XH[3], KY))], None),
+        ("BL152", YV[2], [(1, K1(1), K1(1))], [(54.4, (XBL, YBG[3]))], None),
+        ("BR152", YV[2], [(2, K2(8), K2(8))], [(288.1, (XBR, YBG[3]))], None),
+    ]
 ACHSEN, KNOPF_X, HEBEL_WEG = [], {}, {}
 for n_, y_, ks_, hs_, weg_ in _A:
     ACHSEN.append((n_, y_, [(r_, xs_) for r_, xk_, xs_ in ks_], [(xa_, km(*pz_)) for xa_, pz_ in hs_]))

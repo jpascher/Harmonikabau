@@ -1,0 +1,24 @@
+# Bassbelegung 340 schmal leicht schraeg - wie gebaut (v7)
+# Form: Reihe.Knopf = Klappe   (Knopf von links gezaehlt, Reihe 1 = vordere Knopfreihe)
+# Klappen: Grundbass hinten H077 H124 H171 H218 H265, vorne V077 V124 V171 V218,
+#          Begleiter links BL050 BL084 BL118 BL152, rechts BR050 BR084 BR118 BR152
+# Zwei Knoepfe mit derselben Klappe = Kopplung.  Knoepfe = Klappen + Kopplungen (18 = 17 + 1)
+modell = v340
+1.1 = V077
+1.2 = BL152
+1.3 = H124
+1.4 = BL084
+1.5 = H171
+1.6 = BR050
+1.7 = H218
+1.8 = BR118
+1.9 = H265
+2.1 = H218
+2.2 = H077
+2.3 = BL118
+2.4 = V124
+2.5 = BL050
+2.6 = V171
+2.7 = BR084
+2.8 = V218
+2.9 = BR152

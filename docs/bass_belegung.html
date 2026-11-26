@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bassbelegung zuordnen – Steirische Harmonika</title>
+<style>
+  :root { --holz:#6b4a2b; --holz-hell:#a8794c; --papier:#f7f2ea; --tinte:#2b2118; --linie:#e2d6c4; --gruen:#3f6b3a; --rot:#a3332b;
+          --hb:#4b6a8a; --hbv:#6f8fb0; --bl:#8a6a2b; --br:#a5803a; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: Georgia, "Times New Roman", serif; background:var(--papier); color:var(--tinte); }
+  header { background:linear-gradient(135deg,var(--holz),#3e2a17); color:#fff; padding:1.8rem 1.5rem 1.4rem; }
+  header .innen { max-width:1250px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; flex-wrap:wrap; }
+  h1 { margin:0; font-size:1.8rem; font-weight:normal; }
+  header a { color:#fff; font-family:system-ui,sans-serif; font-size:.9rem; margin-left:1rem; }
+  .rahmen { max-width:1250px; margin:0 auto; padding:1.2rem 1.5rem; display:grid; grid-template-columns:minmax(0,1fr) 380px; gap:1.3rem; }
+  .feld { background:#fff; border:1px solid var(--linie); border-radius:10px; padding:1rem 1.2rem; font-family:system-ui,sans-serif; font-size:.92rem; }
+  .feld h2 { font-family:Georgia,serif; font-weight:normal; margin:.1rem 0 .7rem; font-size:1.2rem; }
+  svg { width:100%; height:auto; display:block; user-select:none; }
+  .knopf { cursor:pointer; }
+  .knopf circle { fill:#222; stroke:#fff; stroke-width:1.2; }
+  .knopf.leer circle { fill:#fff; stroke:var(--rot); stroke-width:2; stroke-dasharray:3 2; }
+  .knopf.gewaehlt circle { stroke:#f3b01b; stroke-width:4; }
+  .knopf text { fill:#fff; font-size:8px; text-anchor:middle; dominant-baseline:central; pointer-events:none; font-family:system-ui; }
+  .knopf.leer text { fill:var(--rot); }
+  .klappe { cursor:pointer; }
+  .klappe .form { stroke:#fff; stroke-width:1.5; opacity:.9; }
+  .klappe.frei .form { opacity:.35; stroke:var(--rot); stroke-width:2; stroke-dasharray:4 3; }
+  .klappe.ziel .form { stroke:#f3b01b; stroke-width:3.5; opacity:1; }
+  .klappe text { fill:#fff; font-size:9px; text-anchor:middle; dominant-baseline:central; pointer-events:none; font-family:system-ui; font-weight:600; }
+  .verbindung { stroke-width:1.6; fill:none; opacity:.75; pointer-events:none; }
+  .gasse { stroke:#c9b79c; stroke-width:.7; stroke-dasharray:2 3; }
+  .achse { stroke-width:3; stroke-linecap:round; opacity:.85; }
+  .status { padding:.6rem .8rem; border-radius:8px; margin:.4rem 0 .8rem; }
+  .status.ok { background:#e6f0e2; color:#24451f; } .status.nein { background:#f6e1dc; color:#6b1f17; }
+  ul.meldung { margin:.3rem 0 .6rem 1.1rem; padding:0; } ul.meldung li { margin:.15rem 0; }
+  .knoepfe { display:flex; gap:.5rem; flex-wrap:wrap; margin:.6rem 0; }
+  button, .knopfl { font:inherit; font-size:.85rem; border:1px solid var(--holz-hell); background:#fff; color:var(--holz); border-radius:7px; padding:.45rem .8rem; cursor:pointer; text-decoration:none; }
+  button.haupt, .knopfl.haupt { background:var(--gruen); border-color:var(--gruen); color:#fff; font-weight:600; }
+  textarea { width:100%; height:5.5rem; font-family:ui-monospace,monospace; font-size:.8rem; border:1px solid var(--linie); border-radius:6px; padding:.4rem; }
+  table.liste { border-collapse:collapse; width:100%; font-size:.82rem; } table.liste td { padding:.2rem .3rem; border-bottom:1px solid #f0e8dc; }
+  .leg { display:inline-flex; align-items:center; gap:.3rem; margin-right:.8rem; font-size:.8rem; } .leg i { width:12px; height:12px; border-radius:3px; display:inline-block; }
+  .hinweis { color:#7a6a58; font-size:.82rem; line-height:1.45; }
+  @media (max-width:980px){ .rahmen{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<header><div class="innen">
+  <h1>Bassbelegung zuordnen</h1>
+  <div><a href="./">3D-Modelle</a><a href="hilfe.html#belegung">Hilfe</a></div>
+</div></header>
+<div class="rahmen">
+  <div>
+    <div class="feld">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+        <label>Modell: <select id="modell"><option value="../markus-3d/bass/v340/belegung_modell_340.json">340 schmal leicht schräg</option></select></label>
+        <span>
+          <span class="leg"><i style="background:var(--hb)"></i>Grundbass hinten</span>
+          <span class="leg"><i style="background:var(--hbv)"></i>Grundbass vorne</span>
+          <span class="leg"><i style="background:var(--bl)"></i>Begleiter</span>
+        </span>
+      </div>
+      <p class="hinweis">Draufsicht auf den Boden, Rückwand oben, Knopfreihen unten. <b>Knopf anklicken, dann die Klappe</b>, die er öffnen soll. Zwei Knöpfe auf derselben Klappe sind gekoppelt. Gestrichelte Linien sind die Achsgassen; nach jeder Änderung wird geprüft, ob sich alle Achsen unterbringen lassen.</p>
+      <svg id="plan"></svg>
+    </div>
+  </div>
+  <div>
+    <div class="feld">
+      <h2>Prüfung</h2>
+      <div id="status" class="status"></div>
+      <ul id="meldungen" class="meldung"></ul>
+      <div class="knoepfe">
+        <button id="standard">Wie gebaut</button>
+        <button id="leeren">Alle lösen</button>
+        <button id="loesen" disabled>Knopf lösen</button>
+      </div>
+    </div>
+    <div class="feld" style="margin-top:1rem">
+      <h2>Rechnen lassen</h2>
+      <p class="hinweis">Kurzform kopieren, dann im GitHub-Formular <i>Teil = bass</i>, <i>Bass: Bassteil = v340</i> wählen und die Kurzform ins Feld <i>Bass: Belegung</i> einfügen.</p>
+      <textarea id="kurz" readonly></textarea>
+      <div class="knoepfe">
+        <button id="kopieren">Kurzform kopieren</button>
+        <a class="knopfl haupt" href="https://github.com/jpascher/Harmonikabau/actions/workflows/harmonika_erzeugen.yml" target="_blank">Zum Formular</a>
+      </div>
+    </div>
+    <div class="feld" style="margin-top:1rem">
+      <h2>Achsen</h2>
+      <table class="liste" id="achsliste"></table>
+    </div>
+  </div>
+</div>
+<script>
+const S = 2.6;                         // mm -> Bildpunkte
+let M = null, zuo = {}, gewaehlt = null;
+const farbe = a => a === "Grundbass hinten" ? "var(--hb)" : a === "Grundbass vorne" ? "var(--hbv)" : a.endsWith("links") ? "var(--bl)" : "var(--br)";
+const NS = "http://www.w3.org/2000/svg";
+function el(t, at, kind) { const e = document.createElementNS(NS, t); for (const k in at) e.setAttribute(k, at[k]); if (kind) e.textContent = kind; return e; }
+function knopfXY(r, i) { return [M.knopf_x[r][i - 1], M.knopf_y[r]]; }
+
+// ---- gleiche Verteilung wie belegung.py (Suche mit Ruecksprung) ----
+function pruefe() {
+  const fehler = [], kl = M.klappen, achsen = {};
+  for (const r in M.reihen) for (let i = 1; i <= M.reihen[r]; i++) { const k = `${r}.${i}`; if (!zuo[k]) fehler.push(`Knopf ${k} hat keine Klappe`); else (achsen[zuo[k]] = achsen[zuo[k]] || []).push([+r, i]); }
+  for (const n in kl) if (!achsen[n]) fehler.push(`Klappe ${n} wird von keinem Knopf geöffnet`);
+  if (fehler.length) return { ok: false, fehler, achsen, wahl: null };
+  const ber = n => { const xs = achsen[n].map(([r, i]) => M.knopf_x[r][i - 1]).concat([kl[n].hebel_x]); return [Math.min(...xs), Math.max(...xs)]; };
+  const folge = Object.keys(achsen).sort((a, b) => (kl[a].gassen.length - kl[b].gassen.length) || ((ber(a)[1] - ber(a)[0]) - (ber(b)[1] - ber(b)[0])));
+  const L = M.min_luecke, belegt = {}, wahl = {}; let tief = [0, null];
+  const frei = (g, x0, x1) => !(belegt[g] || []).some(([a, b]) => !(x1 + L <= a || b + L <= x0));
+  function suche(k) {
+    if (k === folge.length) return true;
+    const n = folge[k], [x0, x1] = ber(n);
+    for (const g of kl[n].gassen) {
+      if (!frei(g, x0, x1)) continue;
+      (belegt[g] = belegt[g] || []).push([x0, x1, n]); wahl[n] = g;
+      if (suche(k + 1)) return true;
+      belegt[g].pop(); delete wahl[n];
+    }
+    if (k >= tief[0]) tief = [k, n];
+    return false;
+  }
+  if (!suche(0)) { const n = tief[1], [x0, x1] = ber(n);
+    return { ok: false, achsen, wahl: null, fehler: [`Achse ${n} (Knöpfe ${achsen[n].map(a => a.join(".")).join(", ")}, X ${x0.toFixed(0)}–${x1.toFixed(0)}) findet keine freie Gasse – andere Knöpfe für diese Klappe wählen`] }; }
+  return { ok: true, achsen, wahl, ber, fehler: [] };
+}
+
+function zeichne() {
+  const svg = document.getElementById("plan"); svg.innerHTML = "";
+  const [L, B] = M.gehaeuse; svg.setAttribute("viewBox", `-10 -10 ${L * S + 20} ${(B + 12) * S + 20}`);
+  svg.append(el("rect", { x: 0, y: 0, width: L * S, height: B * S, rx: 10, fill: "#efe4d2", stroke: "#8b6a46", "stroke-width": 3 }));
+  const erg = pruefe();
+  for (const g in M.gassen) { const y = M.gassen[g] * S; svg.append(el("line", { x1: 8, x2: L * S - 8, y1: y, y2: y, class: "gasse" })); svg.append(el("text", { x: L * S - 4, y: y - 2, "font-size": 8, fill: "#a89273", "text-anchor": "end", "font-family": "system-ui" }, g)); }
+  if (erg.ok) for (const n in erg.wahl) { const [x0, x1] = erg.ber(n), y = M.gassen[erg.wahl[n]] * S;
+    svg.append(el("line", { x1: x0 * S, x2: x1 * S, y1: y, y2: y, class: "achse", stroke: farbe(M.klappen[n].art) })); }
+  // Verbindungen Knopf -> Klappe
+  for (const k in zuo) { const [r, i] = k.split(".").map(Number), [kx, ky] = knopfXY(r, i), z = M.klappen[zuo[k]].ziel;
+    svg.append(el("path", { d: `M${kx * S},${ky * S} C${kx * S},${(ky - 40) * S} ${z[0] * S},${(z[1] + 30) * S} ${z[0] * S},${z[1] * S}`, class: "verbindung", stroke: farbe(M.klappen[zuo[k]].art) })); }
+  // Klappen
+  const zaehl = {}; Object.values(zuo).forEach(n => zaehl[n] = (zaehl[n] || 0) + 1);
+  for (const n in M.klappen) { const k = M.klappen[n], [x, y] = k.ziel, g = el("g", { class: "klappe" + (zaehl[n] ? "" : " frei") + (gewaehlt && zuo[gewaehlt] === n ? " ziel" : "") });
+    const rund = k.art.startsWith("Begleiter");
+    g.append(rund ? el("circle", { cx: x * S, cy: y * S, r: 13 * S, fill: farbe(k.art), class: "form" })
+                  : el("rect", { x: (x - 19) * S, y: (y - 14) * S, width: 38 * S, height: 28 * S, rx: 8, fill: farbe(k.art), class: "form" }));
+    g.append(el("text", { x: x * S, y: (y - (zaehl[n] > 1 ? 3 : 0)) * S }, n));
+    if (zaehl[n] > 1) g.append(el("text", { x: x * S, y: (y + 5) * S, style: "font-size:8px;font-weight:400" }, `${zaehl[n]} Knöpfe`));
+    g.onclick = () => { if (gewaehlt) { zuo[gewaehlt] = n; gewaehlt = null; aktualisiere(); } };
+    svg.append(g); }
+  // Knoepfe
+  for (const r in M.reihen) for (let i = 1; i <= M.reihen[r]; i++) { const k = `${r}.${i}`, [x, y] = knopfXY(+r, i);
+    const g = el("g", { class: "knopf" + (zuo[k] ? "" : " leer") + (gewaehlt === k ? " gewaehlt" : "") });
+    g.append(el("circle", { cx: x * S, cy: y * S, r: 6.5 * S })); g.append(el("text", { x: x * S, y: y * S }, k));
+    g.onclick = () => { gewaehlt = gewaehlt === k ? null : k; aktualisiere(); };
+    svg.append(g); }
+  svg.append(el("text", { x: 6, y: (B + 9) * S, "font-size": 10, fill: "#7a6a58", "font-family": "system-ui" }, "Reihe 1 = vordere Knopfreihe, Knöpfe von links gezählt"));
+  return erg;
+}
+
+function aktualisiere() {
+  const erg = zeichne(), st = document.getElementById("status"), ml = document.getElementById("meldungen");
+  const nk = Object.keys(zuo).length, nkl = Object.keys(M.klappen).length, alle = Object.values(M.reihen).reduce((a, b) => a + b, 0);
+  const kopp = Math.max(0, nk - new Set(Object.values(zuo)).size);
+  st.className = "status " + (erg.ok ? "ok" : "nein");
+  st.innerHTML = erg.ok ? `✓ Baubar: ${alle} Knöpfe = ${nkl} Klappen + ${alle - nkl} Kopplung${alle - nkl === 1 ? "" : "en"}`
+                        : `✗ Noch nicht baubar (${nk} von ${alle} Knöpfen belegt, ${kopp} Kopplung${kopp === 1 ? "" : "en"})`;
+  ml.innerHTML = erg.fehler.slice(0, 8).map(f => `<li>${f}</li>`).join("") + (erg.fehler.length > 8 ? `<li>… ${erg.fehler.length - 8} weitere</li>` : "");
+  document.getElementById("loesen").disabled = !(gewaehlt && zuo[gewaehlt]);
+  const sortiert = Object.keys(zuo).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  document.getElementById("kurz").value = sortiert.map(k => `${k}=${zuo[k]}`).join(", ");
+  const tab = document.getElementById("achsliste");
+  tab.innerHTML = erg.ok ? Object.keys(erg.wahl).sort().map(n => `<tr><td><b>${n}</b></td><td>${M.klappen[n].art}</td><td>${erg.achsen[n].map(a => a.join(".")).join(" + ")}</td><td>${erg.wahl[n]}</td></tr>`).join("")
+                         : `<tr><td class="hinweis">Erscheint, sobald die Belegung baubar ist.</td></tr>`;
+}
+
+async function lade(url) {
+  M = await (await fetch(url)).json(); zuo = { ...M.standard }; gewaehlt = null; aktualisiere();
+}
+document.getElementById("standard").onclick = () => { zuo = { ...M.standard }; gewaehlt = null; aktualisiere(); };
+document.getElementById("leeren").onclick = () => { zuo = {}; gewaehlt = null; aktualisiere(); };
+document.getElementById("loesen").onclick = () => { if (gewaehlt) delete zuo[gewaehlt]; gewaehlt = null; aktualisiere(); };
+document.getElementById("kopieren").onclick = async () => { const t = document.getElementById("kurz"); t.select();
+  try { await navigator.clipboard.writeText(t.value); } catch (e) { document.execCommand("copy"); } };
+document.getElementById("modell").onchange = e => lade(e.target.value);
+lade(document.getElementById("modell").value).catch(e => { document.getElementById("status").textContent = "Modell konnte nicht geladen werden: " + e; });
+</script>
+</body>
+</html>

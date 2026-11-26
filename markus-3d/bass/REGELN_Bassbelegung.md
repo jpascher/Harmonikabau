@@ -51,3 +51,8 @@ Die Belegung wird in einer Datei je Instrument festgelegt (wie die Tastenliste b
 5. Mit der vorhandenen Mechanik-Berechnung bauen und prüfen.
 
 Geht eine Belegung nicht auf, meldet das Programm, welche Achse in keiner Gasse Platz findet oder welche Teile kollidieren, statt ein falsches Modell zu liefern. Die bestehenden Modelle dienen als Prüfstein: ihre heutige Belegung, als Datei geschrieben, muss wieder dieselbe Mechanik ergeben.
+
+## 8. Stand der Umsetzung
+
+Umgesetzt in `belegung.py` (Prüfung und Verteilung mit Rücksprung, wenn die erste Verteilung nicht aufgeht) für den Bassteil 340 schmal: Klappen, Gassen und Knopflagen stehen in `v340/belegung_modell_340.json`, die Belegung wie gebaut in `v340/belegung_340.txt`. Diese ergibt genau die gebauten Gassen. Eine Probe mit anderer Kopplung (Knopf 2.1 auf H077 statt H218) und getauschten Begleitern rechts wurde vollständig gebaut: Mechanikprüfung und Kollisionsprüfung ohne neue Berührungen. Eine Belegung mit V077 auf Knopf 1.3 wird richtig als nicht baubar gemeldet. Die Webseite `docs/bass_belegung.html` macht dieselbe Prüfung im Browser. Die anderen Bassteile werden nach demselben Muster umgestellt.
+

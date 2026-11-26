@@ -2,7 +2,7 @@
 # Bedienung: github.com/jpascher/Harmonikabau -> Actions -> "Harmonika erzeugen" -> "Run workflow" -> Auswahl -> starten.
 # Ergebnis nach ca. 15-30 min unter "Releases" (feste Download-Links) und als Artefakt am Lauf.
 name: Harmonika erzeugen
-run-name: "${{ inputs.teil == 'bass' && format('Bass {0}, Teilung {1}', inputs.bass_variante, inputs.teilung) || format('Diskant {0}, {1}, {2} Knoepfe, Hebel {3} mm', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
+run-name: "${{ inputs.teil == 'bass' && format('Bass {0}, Teilung {1}{2}', inputs.bass_variante, inputs.teilung, inputs.belegung != '' && ', eigene Belegung' || '') || format('Diskant {0}, {1}, {2} Knoepfe, Hebel {3} mm', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
 
 on:
   workflow_dispatch:
@@ -41,6 +41,10 @@ on:
         description: "Diskant: eigene Stimmplattenlaengen in mm, leer = wie gezeichnet. Form: R1: 32 33 34 ...; R2: 29 31 ... (Anzahl je Reihe = Klappen der Reihe)"
         type: string
         default: ""
+      belegung:
+        description: "Bass: freie Belegung (nur v340) - Kurzform von der Seite 'Bassbelegung zuordnen', leer = wie gebaut"
+        type: string
+        default: ""
       teilung:
         description: "Bass: Knopfteilung in mm (standard = Wert der Zeichnung)"
         type: choice
@@ -71,6 +75,14 @@ jobs:
         env:
           PLATTEN: ${{ inputs.platten }}
         run: python3 markus-3d/ci/tastenliste_bauen.py "${{ inputs.instrument }}" "${{ inputs.griffstock }}" "${{ inputs.knoepfe }}" "${{ inputs.hebel }}" /tmp/pruef_liste.txt "$PLATTEN"
+      - name: Belegung pruefen
+        if: inputs.teil == 'bass' && inputs.belegung != ''
+        env:
+          BELEGUNG: ${{ inputs.belegung }}
+        run: |
+          M=$(ls markus-3d/bass/${{ inputs.bass_variante }}/belegung_modell_*.json 2>/dev/null | head -1)
+          if [ -z "$M" ]; then echo "Freie Belegung gibt es fuer ${{ inputs.bass_variante }} noch nicht (bisher nur v340)"; exit 1; fi
+          python3 markus-3d/bass/belegung.py "$M" "$BELEGUNG"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -84,6 +96,7 @@ jobs:
         env:
           PYVISTA_OFF_SCREEN: "true"
           PLATTEN: ${{ inputs.platten }}
+          BELEGUNG: ${{ inputs.teil == 'bass' && inputs.belegung || '' }}
         run: |
           V="${{ inputs.teil == 'bass' && inputs.bass_variante || format('{0}:{1}:{2}:{3}', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
           xvfb-run -a python3 markus-3d/ci/erzeuge_ci.py "${{ inputs.teil }}" "$V" "${{ inputs.teilung }}" "${{ inputs.laenge }}" ergebnis "${{ inputs.vorschau }}"
@@ -103,7 +116,7 @@ jobs:
       - name: Release anlegen
         env:
           GH_TOKEN: ${{ github.token }}
-          TITEL: "${{ inputs.teil == 'bass' && format('Bass {0}, Teilung {1}', inputs.bass_variante, inputs.teilung) || format('Diskant {0}, {1}, {2} Knoepfe, Hebel {3} mm', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
+          TITEL: "${{ inputs.teil == 'bass' && format('Bass {0}, Teilung {1}{2}', inputs.bass_variante, inputs.teilung, inputs.belegung != '' && ', eigene Belegung' || '') || format('Diskant {0}, {1}, {2} Knoepfe, Hebel {3} mm', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
         run: |
           V="${{ inputs.teil == 'bass' && inputs.bass_variante || format('{0}:{1}:{2}:{3}', inputs.instrument, inputs.griffstock, inputs.knoepfe, inputs.hebel) }}"
           gh release create "modell-${{ github.run_number }}" ergebnis/* \

@@ -44,6 +44,7 @@
   <a href="#ueberblick">Wie es funktioniert</a>
   <a href="#starten">Rechnung starten</a>
   <a href="#bass">Auswahl Bassteil</a>
+  <a href="#belegung">Freie Bassbelegung</a>
   <a href="#diskant">Auswahl Diskantteil</a>
   <a href="#kombis">Was ist schon gerechnet?</a>
   <a href="#ergebnis">Ergebnis &amp; Dateien</a>
@@ -84,8 +85,18 @@
   </table>
   <h3>Bass: Knopfteilung</h3>
   <p><code>standard</code> nimmt den Wert der Zeichnung (Tabelle oben). 18, 19 oder 20 mm setzt den Abstand der Bassknöpfe neu; die Knopfreihen bleiben mittig. Beim Markus-Bass ist das für alle drei Werte geprüft, bei den anderen Bassteilen ist nur der Zeichnungswert geprüft.</p>
+  <h3>Bass: Belegung</h3>
+  <p>Leer lassen = Belegung wie gebaut. Sonst die Kurzform von der Seite <a href="bass_belegung.html">Bassbelegung zuordnen</a> einfügen (siehe <a href="#belegung">Freie Bassbelegung</a>).</p>
   <h3>Bass: Gehäuselänge</h3>
   <p>Nur für den Markus-Bass. Man kann direkt die Länge des Diskantteils eingeben; das Gehäuse wird auf volle 10 mm aufgerundet und ist nie kürzer als 380 mm (z. B. 396,7 → 400). Die Rohteile behalten wie in den Zeichnungen 2 mm Übermaß.</p>
+</section>
+
+<section id="belegung">
+  <h2>Freie Bassbelegung</h2>
+  <p>Beim Bassteil kann man festlegen, welcher Knopf welche Klappe öffnet – also welcher Knopf ein Grundbass (Helikon) und welcher ein Begleiter ist und welche Knöpfe miteinander gekoppelt sind. Gehäuse, Kammern und Klappen bleiben wie beim gewählten Modell; nur die Zuordnung ändert sich. Die Tonhöhe spielt für die Mechanik keine Rolle. Derzeit geht das beim Bassteil <code>v340</code>; die anderen Bassteile folgen.</p>
+  <p>Auf der Seite <a href="bass_belegung.html">Bassbelegung zuordnen</a> ist der Boden von oben gezeichnet: Klappen oben, Knopfreihen unten. Man klickt einen Knopf an und dann die Klappe, die er öffnen soll. Zwei Knöpfe auf derselben Klappe sind gekoppelt. Es gilt immer: <b>Knöpfe = Klappen + Kopplungen</b> – jede Klappe braucht mindestens einen Knopf, jeder Knopf genau eine Klappe.</p>
+  <p>Nach jeder Änderung prüft die Seite, ob sich alle Achsen in den Achsgassen unter dem Boden unterbringen lassen (dieselbe Prüfung wie bei der Rechnung, siehe <a href="https://github.com/jpascher/Harmonikabau/blob/main/markus-3d/bass/REGELN_Bassbelegung.md">Regeln</a>). Grün heißt baubar; sonst steht dort, welcher Knopf fehlt oder welche Achse keinen Platz findet. Ist die Belegung baubar, die <b>Kurzform kopieren</b>, im Formular <i>Teil = bass</i> und <i>Bass: Bassteil = v340</i> wählen und die Kurzform in <i>Bass: Belegung</i> einfügen. Die Rechnung prüft die Belegung zuerst noch einmal und baut dann die Mechanik mit der vollständigen Kollisionsprüfung; die verwendete Belegung liegt dem Ergebnis bei.</p>
+  <div class="hinweis">Nicht jede Wunschbelegung lässt sich bauen: liegen zu viele lange Achsen im selben Bereich, ist in den Gassen kein Platz mehr. Dann einer der betroffenen Klappen einen Knopf geben, der näher an ihr liegt.</div>
 </section>
 
 <section id="diskant">

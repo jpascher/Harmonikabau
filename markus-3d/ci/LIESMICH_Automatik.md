@@ -11,3 +11,6 @@ Die Übersichtsseite `docs/index.html` zeigt alle gerechneten Modelle mit Vorsch
 Technisch ruft der Ablauf `markus-3d/ci/erzeuge_ci.py` auf, das je nach Auswahl den passenden Generator startet (`bass_erzeuge.py`, `kammern38.py`, `eduard.py`, `gerhard.py`, `andreas.py`, `v340.py` oder beim Diskant `disk/erzeuge.py`), das Ergebnis packt und mit `vorschau.py` die Vorschau erzeugt. Die Python-Pakete stehen mit festen Versionen in `ci/requirements.txt`. Am eigenen Rechner funktioniert derselbe Aufruf genauso, z. B. `python3 markus-3d/ci/erzeuge_ci.py bass v340 standard 380 ergebnis`.
 
 Hinweis zum Diskant: Die Dateien vom 23.11. (Knopfanzahl-Varianten, Griffstock-Endform ital) lagen bisher nur in `diskant/` statt in `diskant/disk/`, wo `erzeuge.py` sie sucht. Sie sind jetzt auch nach `diskant/disk/` kopiert; die Kopien in `diskant/` selbst können gelöscht werden.
+
+Freie Bassbelegung: Auf der Seite „Bassbelegung zuordnen“ (`docs/bass_belegung.html`) legt man fest, welcher Knopf welche Klappe öffnet; die Seite prüft sofort, ob es baubar ist, und liefert eine Kurzform. Diese kommt im Formular ins Feld „Bass: Belegung“; der Ablauf prüft sie mit `markus-3d/bass/belegung.py` und baut die Mechanik danach. Bisher für den Bassteil v340.
+
