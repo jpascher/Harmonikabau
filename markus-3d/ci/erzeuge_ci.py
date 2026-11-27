@@ -10,7 +10,7 @@
 #   Umgebungsvariable BREITE: Gehaeusebreite (Tiefe, Aussenmass fertig) 200-215 mm, leer = 205 (masse.py)
 #   Umgebungsvariable BELEGUNG: freie Bassbelegung in Kurzform "1.1=V077, 1.2=BL152, ..." (bisher nur v340)
 #   Umgebungsvariable PLATTEN: eigene Stimmplattenlaengen fuer den Diskant, z. B. "R1: 32 33 ...; R2: ..." (leer = gezeichnet)
-# Ergebnis im Ausgabeordner: <Modell>_step.zip (beim Diskant samt Fraesdaten), vorschau.glb, vorschau.png, notizen.md, protokoll.txt
+# Ergebnis im Ausgabeordner: <Modell>_step.zip (Bass, mit Fraesteile_2D) bzw. _mit_Fraesdaten.zip (Diskant), vorschau.glb, vorschau.png, notizen.md, protokoll.txt
 import sys, os, glob, shutil, subprocess, time, zipfile
 
 HIER = os.path.dirname(os.path.abspath(__file__))
@@ -78,7 +78,10 @@ def main():
         l_aendern = laenge if variante != "markus" else ""
         modell = masse_anpassen(modell, "bass", os.environ.get("BREITE", ""), l_aendern, log, aus)
         name = os.path.basename(modell)[:-5]
-        packe(os.path.join(aus, name + "_step.zip"), [modell] + glob.glob(os.path.join(aus, "belegung.txt")) + glob.glob(os.path.join(aus, "masse.json")), aus)
+        f2d = os.path.join(aus, "Fraesteile_2D")                 # 27.11.2026: alle 2D-Fraesteile als DXF fuer CamBam
+        lauf([py, os.path.join(HIER, "platten_dxf.py"), modell, f2d, "--teil", "bass"], HIER, log)
+        extra = [p for p in glob.glob(os.path.join(f2d, "**", "*"), recursive=True) if os.path.isfile(p)]
+        packe(os.path.join(aus, name + "_step.zip"), [modell] + glob.glob(os.path.join(aus, "belegung.txt")) + glob.glob(os.path.join(aus, "masse.json")) + extra, aus)
     elif teil == "diskant":
         if ":" in variante:                                   # Auswahl der Webseite: instrument:griffstock:knoepfe:knopfabstand
             sys.path.insert(0, HIER); import tastenliste_bauen
@@ -96,7 +99,7 @@ def main():
         neu_ = masse_anpassen(modell, "diskant", os.environ.get("BREITE", ""), "", log, roh)
         if neu_ != modell: os.remove(modell); modell = neu_
         name = os.path.basename(modell)[:-5]
-        alle = [p for p in glob.glob(os.path.join(roh, "**", "*"), recursive=True) if os.path.isfile(p)]
+        lauf([py, os.path.join(HIER, "platten_dxf.py"), modell, os.path.join(roh, "Fraesteile_2D"), "--teil", "diskant"], HIER, log)
         shutil.copy(liste, os.path.join(roh, "tastenliste.txt"))
         alle = [p for p in glob.glob(os.path.join(roh, "**", "*"), recursive=True) if os.path.isfile(p)]
         packe(os.path.join(aus, name + "_mit_Fraesdaten.zip"), alle, roh)
@@ -112,7 +115,7 @@ def main():
                 f"STEP {groesse:.0f} MB, gepackt im ZIP. `vorschau.glb` (grob, mit Farben) und `vorschau.png` zur schnellen Kontrolle; "
                 f"`protokoll.txt` enthält die Ausgabe des Generators einschließlich Kollisionsprüfung.\n"
                 + "".join(f"\n> Hinweis: {h}" for h in hinweise))
-    for p in (modell, os.path.join(aus, "diskant_roh"), os.path.join(aus, "tastenliste.txt"), os.path.join(aus, "belegung.txt"), os.path.join(aus, "masse.json")):          # nur die gepackten Dateien bleiben
+    for p in (modell, os.path.join(aus, "diskant_roh"), os.path.join(aus, "tastenliste.txt"), os.path.join(aus, "belegung.txt"), os.path.join(aus, "masse.json"), os.path.join(aus, "Fraesteile_2D")):          # nur die gepackten Dateien bleiben
         if os.path.isdir(p): shutil.rmtree(p)
         elif os.path.exists(p): os.remove(p)
     print("fertig:", sorted(os.listdir(aus)))

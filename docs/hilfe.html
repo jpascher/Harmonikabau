@@ -50,6 +50,7 @@
   <a href="#masse">Gehäusemaße</a>
   <a href="#kombis">Was ist schon gerechnet?</a>
   <a href="#ergebnis">Ergebnis &amp; Dateien</a>
+  <a href="#fraesdaten">Fräsdaten</a>
   <a href="#fusion">In Fusion öffnen</a>
   <a href="#fehler">Wenn etwas schiefgeht</a>
 </nav>
@@ -119,7 +120,7 @@
     <tr><td>Bass 340 schmal</td><td>203 mm</td></tr>
     <tr><td>Bass Markus</td><td>203,5 mm</td></tr>
   </table>
-  <p>Beim Verbreitern bleiben Eckblöcke und Füße beim Einbau, wenn im Deckel daneben Durchbrüche für den Einbau liegen (Lufttaste); sonst wandern sie mit der Wand. Beim Verlängern bleiben sie beim 340 schmal und bei Andreas in den Ecken (Deckel samt Rosetten wird innen gestreckt); bei Eduard, Gerhard und Marie 38 liegen nahe den Enden Durchbrüche für den Einbau im Deckel (Register-Schieber), dort rücken Füße und Eckblöcke mit dem Einbau um die halbe Mehrlänge nach innen. Die Rechnung schreibt das ins Protokoll.</p>
+  <p>Eckblöcke, Eckwinkel und Füße bleiben beim Verbreitern und Verlängern immer in den Ecken an der Außenwand. Wo im Deckel Durchbrüche für den Einbau liegen (Lufttaste, Register-Schieber), wird der Deckel abgestuft gestreckt: der Streifen mit dem Durchbruch wird vor dem Durchbruch gedehnt, der Rest nahe der Wand. So bleibt der Durchbruch beim Einbau und die Ecken bleiben bei der Wand. Alle Rosetten eines Streifens bleiben beisammen. Schrauben, die durch Leisten in die Eckwinkel gehen, wandern samt Leiste mit. Die Rechnung schreibt ins Protokoll, welche Teile bei der Wand bleiben.</p>
   <div class="hinweis">Nach jeder Maßänderung sucht die Rechnung alle neu entstandenen Berührungen zwischen den Teilen. Gibt es welche, wird das Modell nicht gespeichert und die Teile werden gemeldet. Die verwendeten Schnittstellen stehen in <code>masse.json</code> im Ergebnis.</div>
 </section>
 
@@ -190,13 +191,21 @@
   <h2>Ergebnis &amp; Dateien</h2>
   <table>
     <tr><th>Datei</th><th>Inhalt</th></tr>
-    <tr><td><code>Bassteil_…_step.zip</code></td><td>Das ganze Bassteil als STEP-Modell (gepackt, ungepackt 70–200 MB).</td></tr>
-    <tr><td><code>Diskantteil_…_mit_Fraesdaten.zip</code></td><td>Diskant-Modell und alle Fertigungsdaten: Stimmstock-Frästeile (Vorder-/Rückseite), Griffstock Teil 1/2, Alu-Abwicklungen je Hebel, Holzteile, Kunststoffteil, <code>fraes_liste.json</code> für das Fusion-Skript „Fraesen_Aktualisieren“ und die verwendete Tastenliste.</td></tr>
+    <tr><td><code>Bassteil_…_step.zip</code></td><td>Das ganze Bassteil als STEP-Modell (gepackt, ungepackt 70–200 MB) und im Ordner <code>Fraesteile_2D</code> alle 2D-Frästeile als DXF für CamBam (siehe <a href="#fraesdaten">Fräsdaten</a>).</td></tr>
+    <tr><td><code>Diskantteil_…_mit_Fraesdaten.zip</code></td><td>Diskant-Modell und alle Fertigungsdaten: Stimmstock-Frästeile (Vorder-/Rückseite), Griffstock Teil 1/2, Alu-Abwicklungen je Hebel, alle Alu-Hebel gemeinsam auf einer Frästafel, Holzteile, Kunststoffteil, die übrigen 2D-Frästeile (<code>Fraesteile_2D</code>), <code>fraes_liste.json</code> für das Fusion-Skript „Fraesen_Aktualisieren“ und die verwendete Tastenliste.</td></tr>
     <tr><td><code>vorschau.png</code></td><td>Schrägansicht zum schnellen Ansehen.</td></tr>
     <tr><td><code>vorschau.glb</code></td><td>Vereinfachtes 3D-Modell mit Farben. Auf der Übersichtsseite unten auswählen, dann lässt es sich drehen; öffnet sich auch mit dem Windows-3D-Viewer.</td></tr>
     <tr><td><code>protokoll.txt</code></td><td>Ausgabe des Generators mit Kollisionsprüfung und Laufzeiten.</td></tr>
   </table>
   <p>Die Dateien bleiben als Release dauerhaft erhalten und haben feste Download-Links. Zusätzlich hängen sie 30 Tage lang als „Artefakt“ am jeweiligen Lauf.</p>
+</section>
+
+<section id="fraesdaten">
+  <h2>Fräsdaten: Fusion und CamBam</h2>
+  <p>In Fusion werden nur die Diskant-Stimmstöcke und die Griffstöcke bearbeitet (Skript „Fraesen_Aktualisieren“). Alles, was sich zweidimensional fräsen lässt, kommt als DXF für CamBam: Stimmstock-Sohlen, Begleiterstimmstöcke und Sohlen, Wände, Leisten, Rahmen, Boden, Deckel, Trennwände und Kleinteile.</p>
+  <p><code>Alu_Hebel_alle_verschachtelt.dxf</code> enthält alle Alu-Hebel des Diskants auf einer Tafel (Standard 300 mm breit), so dicht wie möglich gesetzt und gedreht, nie gespiegelt. Zwischen zwei Hebeln liegen mindestens 6 mm: zweimal 2 mm Fräserbahn und 2 mm Material, das stehen bleibt; zum Tafelrand 4 mm. Layer: <code>Kontur</code> (außen), <code>Ausschnitt</code> (innen), <code>Bohrung_D6</code>, <code>Biegelinie</code> (nur anreißen), <code>Text</code>, <code>Platte</code> (Rohtafel). Die einzelnen Abwicklungen liegen weiter im Ordner <code>Alu_Hebel_abgewickelt</code>.</p>
+  <p>Die Holz-Hebelteile kommen je Reihe als eigene Datei mit Stückzahl, alle in derselben Stärke.</p>
+  <p>Im Ordner <code>Fraesteile_2D</code> liegt je Teil eine DXF, nach Stärke sortiert in Unterordnern <code>Platten_&lt;Stärke&gt;mm</code>; gleiche Teile sind zusammengefasst, die Stückzahl steht im Dateinamen. Layer: <code>Kontur_aussen_durch</code>, <code>Durchbruch</code>, <code>Bohrung_D…_durch</code> (runde Löcher als Kreis), <code>Tasche_oben_T…</code> (Tiefe ab Oberseite). Braucht ein Teil auch Taschen von unten, gibt es dazu <code>…_Unterseite.dxf</code>, gespiegelt, also so, wie das umgedrehte Teil aufgespannt liegt. Hat ein Teil Schrägen, Fasen oder quer liegende Bohrungen, enthält die DXF nur Umriss und Durchbrüche, und der Rest wird von Hand gemacht; das steht in der Datei und in <code>Uebersicht_2D_Teile.csv</code>. Diese Liste nennt für jede Datei Stückzahl, Stärke, Maße und die Teilenamen im Modell.</p>
 </section>
 
 <section id="fusion">

@@ -96,7 +96,7 @@ def pruefe_ebene(teile, k, p, r, schrumpf):
     for i in kreuz:                                          # zuerst die billigen Pruefungen (nur Namen und Lage)
         t = teiles = teile[i]; n = t["name"]; lo, hi = t["bb"][k], t["bb"][k + 3]; e = hi - lo
         if r > 0 and VERBOTEN.search(n): return False, None, f"{n} wuerde beschnitten"
-        if r == 0 and not (GANZ.search(n) or (e < KLEIN and not WAND.search(n))):
+        if r == 0 and not (GANZ.search(n) or ECKE.search(n) or (e < KLEIN and not WAND.search(n))):
             if VERBOTEN.search(n): return False, None, f"{n} wuerde geschnitten"
             if e < 8.0: return False, None, f"{n} (duenn, {e:.1f} mm) wuerde dicker"
     kreuz.sort(key=lambda i: len(teile[i]["s"].Faces()))      # einfache Teile zuerst pruefen
@@ -118,7 +118,7 @@ def pruefe_ebene(teile, k, p, r, schrumpf):
                 arten[i] = "schnitt"; continue
             if WAND.search(n) and e > 60: arten[i] = "rand"; continue
             return False, None, f"{n} ist bei {p:.1f} nicht gleichmaessig"
-        if GANZ.search(n) or (e < KLEIN and not WAND.search(n)):
+        if GANZ.search(n) or ECKE.search(n) or (e < KLEIN and not WAND.search(n)):
             arten[i] = "ganz"; continue
         if VERBOTEN.search(n): return False, None, f"{n} wuerde geschnitten"
         if e < 8.0: return False, None, f"{n} (duenn, {e:.1f} mm) wuerde dicker"
@@ -205,7 +205,7 @@ def aendere(teile, k, p, r, d, arten, bericht, was):
         if not wand: continue
         w0 = min(teile[i]["bb"][k] for i in wand); w1 = max(teile[i]["bb"][k + 3] for i in wand)
         nahe = lambda t: (t["bb"][k] < w1 + 45.0) if seite == "unten" else (t["bb"][k + 3] > w0 - 45.0)
-        kann = lambda i, t: (i not in arten or arten[i] == "ganz") and not VERBOTEN.search(t["name"]) and nahe(t) and \
+        kann = lambda i, t: (i not in arten or arten[i] == "ganz") and not VERBOTEN.search(t["name"]) and nahe(t) and "Gaze_" not in t["name"] and \
                             (GANZ.search(t["name"]) or ECKE.search(t["name"]) or ausdehnung(t, k) < KLEIN)
         grp = set(wand) | {i for i, t in enumerate(teile) if ECKE.search(t["name"]) and nahe(t) and not VERBOTEN.search(t["name"])}
         neu_ = list(grp)
@@ -241,12 +241,90 @@ def aendere(teile, k, p, r, d, arten, bericht, was):
             if all(teile[i]["bb"][k] + 1.0 < u < teile[i]["bb"][k + 3] - 1.0 and prismatisch(teile[i], k, u - 0.3, u + r + 0.3) for i in deck):
                 return u
         return None
+    jj_ = 1 - k                                              # Querrichtung (Baender des gestuften Deckelschnitts)
+    def baender(i, innen_mit, haengt):
+        """gestufter Schnitt eines Deckelteils (Johann 27.11.): in jedem Querbereich eine eigene Schnittstelle -
+        hinter Fuessen/Eckbloecken (die wandern mit der Wand), vor Lufttaste/Schieber (die bleiben beim Einbau)"""
+        t = teile[i]; tb = t["bb"]
+        innen = 1 if p < (tb[k] + tb[k + 3]) / 2 else -1
+        M = [m for m in innen_mit if beruehrt(teile[m]["bb"], tb, 1.0)]
+        U = [u for u in durch if beruehrt(teile[u]["bb"], tb, -0.2)]
+        H = [h for h in haengt if beruehrt(teile[h]["bb"], tb, 1.0)]
+        kanten = sorted({tb[jj_], tb[jj_ + 3]} | {teiles_bb(x)[jj_] for x in M + U + H} | {teiles_bb(x)[jj_ + 3] for x in M + U + H})
+        kanten = [x for x in kanten if tb[jj_] - 1e-6 <= x <= tb[jj_ + 3] + 1e-6]
+        def stueck_t(a, b):
+            lo = list(tb[:3]); hi = list(tb[3:]); lo[jj_], hi[jj_] = a, b
+            box_ = cq.Solid.makeBox(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2] + 10, cq.Vector(lo[0], lo[1], lo[2] - 5))
+            c = t["s"].intersect(box_); return {"s": c, "bb": bbox(c), "name": t["name"]} if c.Volume() > 1e-6 else None
+        def aktiv(liste, a, b): return [x for x in liste if teiles_bb(x)[jj_] < b - 1e-6 and teiles_bb(x)[jj_ + 3] > a + 1e-6]
+        def passt(u, a, b):
+            for m in aktiv(M, a, b):
+                if (innen < 0 and u > teiles_bb(m)[k] - 1.0) or (innen > 0 and u < teiles_bb(m)[k + 3] + 1.0): return False
+            for x in aktiv(U, a, b):
+                if (innen < 0 and u < teiles_bb(x)[k + 3] + 0.5) or (innen > 0 and u > teiles_bb(x)[k] - 0.5): return False
+            ha = aktiv(H, a, b)                              # Gaze/Rosetten eines Bereichs nicht trennen: alle auf einer Seite
+            if ha and not (u < min(teiles_bb(h)[k] for h in ha) - 0.5 or u > max(teiles_bb(h)[k + 3] for h in ha) + 0.5): return False
+            return True
+        roh = []
+        for a, b in zip(kanten[:-1], kanten[1:]):
+            if b - a < 1e-3: continue
+            st = stueck_t(a, b)
+            if st is None: continue
+            q = None
+            for n_ in range(0, 500):
+                u = p + innen * n_ * 0.5
+                if not (tb[k] + 1.0 < u < tb[k + 3] - 1.0): continue
+                if passt(u, a, b) and prismatisch(st, k, u - 0.3, u + 0.3): q = u; break
+            if q is None:
+                nm = lambda x: teile[x]["name"].split("/")[-1]
+                print(f"  Stufenschnitt {t['name'].split('/')[-1]} {('XYZ')[jj_]} {a:.1f}-{b:.1f}: keine Stelle; Wand:",
+                      [nm(x) for x in aktiv(M, a, b)], "Einbau:", [nm(x) for x in aktiv(U, a, b)], "Gaze:", [nm(x) for x in aktiv(H, a, b)], flush=True)
+                return None
+            roh.append([a, b, q])
+        ba = []                                              # gleiche Schnittstellen zusammenfassen
+        for e in roh:
+            if ba and abs(ba[-1][2] - e[2]) < 1e-6 and abs(ba[-1][1] - e[0]) < 1e-3: ba[-1][1] = e[1]
+            else: ba.append(e)
+        for n_ in range(len(ba) - 1):                       # Stufe an eine glatte Stelle legen (keine Bohrung zerreissen)
+            a0, b0, q0 = ba[n_]; a1, b1, q1 = ba[n_ + 1]
+            ylo, yhi = min(q0, q1) - 0.5, max(q0, q1) + abs(d) + 0.5
+            def glatt(x):
+                lo = list(tb[:3]); hi = list(tb[3:]); lo[k], hi[k] = ylo, yhi
+                box_ = cq.Solid.makeBox(hi[0] - lo[0] + (0 if jj_ else 0), hi[1] - lo[1], hi[2] - lo[2] + 10, cq.Vector(lo[0], lo[1], lo[2] - 5))
+                c = t["s"].intersect(box_)
+                return c.Volume() > 1e-6 and prismatisch({"s": c, "bb": bbox(c)}, jj_, x - 0.3, x + 0.3)
+            ok = False
+            for sch in [0.5 * z for z in range(0, 80)]:
+                for x in ((b0 - sch, b0 + sch) if sch else (b0,)):
+                    if not (a0 + 0.5 < x < b1 - 0.5): continue
+                    if x < b0 and not passt(q1, x, b0): continue
+                    if x > b0 and not passt(q0, b0, x): continue
+                    if glatt(x): ba[n_][1] = x; ba[n_ + 1][0] = x; ok = True; break
+                if ok: break
+            if not ok:
+                print(f"  Stufenschnitt {t['name'].split('/')[-1]}: Stufe bei {('XYZ')[jj_]} {b0:.1f} findet keine glatte Stelle", flush=True)
+                return None
+        return ba
+    def teiles_bb(x): return teile[x]["bb"]
+    band = {}
     # 2) Deckel: gemeinsam innerhalb der Randgruppen schneiden (Fuss-/Eckblockbohrungen, Rosetten bleiben am Rand)
     innen_mit = [] if r > 0 else [i for i in mit if ((mit[i] == "unten" and teile[i]["bb"][k + 3] > p) or (mit[i] == "oben" and teile[i]["bb"][k] < hoch))
                  and (ECKE.search(teile[i]["name"]) or GANZ.search(teile[i]["name"]))]   # nur was im Deckel verschraubt ist
+    if innen_mit:                                            # Leisten, durch die Eckwinkel-/Fussschrauben gehen, wie den Deckel behandeln
+        for i, a_ in list(arten.items()):
+            if a_ == "schnitt" and i not in deck and not WAND.search(teile[i]["name"]) and not VERBOTEN.search(teile[i]["name"]) \
+               and not STANGE.search(teile[i]["name"]) and not ECKE.search(teile[i]["name"]) and not GANZ.search(teile[i]["name"]) and any(beruehrt(teile[i]["bb"], teile[m]["bb"], -0.2) for m in innen_mit):
+                deck.append(i)
     if deck and (any(arten[i] == "rand" for i in deck) or innen_mit):
         haengt = [j for j, t in enumerate(teile) if GANZ.search(t["name"]) and j not in mit and any(beruehrt(t["bb"], teile[i]["bb"]) for i in deck)]
         q = deckel_ebene(innen_mit, haengt)
+        if q is None and innen_mit:                          # gestufter Schnitt: Ecken am Rand, Lufttaste/Schieber beim Einbau
+            bb_ = {i: baender(i, innen_mit, haengt) for i in deck}
+            if all(v is not None for v in bb_.values()):
+                for i, v in bb_.items():
+                    band[i] = v; arten[i] = "band"
+                    bericht.append(f"{teile[i]['name']}: gestuft geschnitten " + ", ".join(f"{('XYZ')[jj_]} {a:.0f}-{b:.0f} bei {q_:.1f}" for a, b, q_ in v))
+                q = "band"
         if q is None and innen_mit:                          # geht nicht: Ecken/Fuesse bleiben beim Einbau (Deckelbohrungen passen)
             for i in [i for i in innen_mit if ECKE.search(teile[i]["name"]) or GANZ.search(teile[i]["name"])]: mit.pop(i, None)
             innen_mit = [i for i in innen_mit if i in mit]
@@ -258,7 +336,8 @@ def aendere(teile, k, p, r, d, arten, bericht, was):
             print("  Deckel:", [nm(i) for i in deck], "\n  innen bei der Wand:", [nm(i) for i in innen_mit],
                   "\n  durch den Deckel:", [nm(i) for i in durch], "\n  haengt am Deckel:", [nm(i) for i in haengt], flush=True)
             raise MassFehler(f"{was}: Deckel/Balgrahmen haben keine passende glatte Stelle fuer den Schnitt")
-        for i in deck: eigene[i] = q; arten[i] = "rand"
+        if q != "band":
+            for i in deck: eigene[i] = q; arten[i] = "rand"
     for i, a in arten.items():
         if a == "rand" and i not in eigene:
             t = teile[i]; mitte = (t["bb"][k] + t["bb"][k + 3]) / 2
@@ -274,6 +353,16 @@ def aendere(teile, k, p, r, d, arten, bericht, was):
             mi = (t["bb"][k] + t["bb"][k + 3]) / 2
             if lo_ - 0.5 < mi < hi_ + r + 0.5 and beruehrt(t["bb"], teile[j]["bb"]):
                 folgt[i] = q; neu_.append(i)
+    for i_b, v in band.items():                              # Gaze usw. folgt dem Band des Deckels, in dem sie liegt
+        for i, t in enumerate(teile):
+            if i in folgt or i in mit or arten.get(i) not in ("ganz", None) or not GANZ.search(t["name"]): continue
+            if not beruehrt(t["bb"], teile[i_b]["bb"]): continue
+            mj = (t["bb"][jj_] + t["bb"][jj_ + 3]) / 2
+            for a_, b_, q_ in v:
+                if a_ <= mj <= b_:
+                    lo_, hi_ = sorted((p, q_)); mi = (t["bb"][k] + t["bb"][k + 3]) / 2
+                    if lo_ - 0.5 < mi < hi_ + 0.5: folgt[i] = q_
+                    break
     dd = d if r == 0 else -r
     for i, t in enumerate(teile):
         q = folgt.get(i, p); a = arten.get(i)
@@ -283,6 +372,18 @@ def aendere(teile, k, p, r, d, arten, bericht, was):
             if mit[i] == "oben":
                 t["s"] = verschiebe(t["s"], k, dd); t["art"] = t.get("art", "") + f"M{k}"
             if (mit[i] == "oben") != (mi > grenze) or a == "ganz": bericht.append(f"{t['name']}: " + ("wandert mit der Wand" if mit[i] == "oben" else "bleibt bei der Wand"))
+        elif a == "band":
+            tb = t["bb"]; stuecke = []
+            for a_, b_, q_ in band[i]:
+                lo_ = list(tb[:3]); hi_ = list(tb[3:]); lo_[jj_], hi_[jj_] = a_, b_
+                c = t["s"].intersect(cq.Solid.makeBox(hi_[0] - lo_[0], hi_[1] - lo_[1], hi_[2] - lo_[2] + 10, cq.Vector(lo_[0], lo_[1], lo_[2] - 5)))
+                if c.Volume() > 1e-6: stuecke.append(schneide({"s": c, "bb": bbox(c), "name": t["name"]}, k, q_, 0.0, d))
+            neu = stuecke[0]
+            for x in stuecke[1:]: neu = neu.fuse(x)
+            try: neu = neu.clean()
+            except Exception: pass
+            sol = neu.Solids(); t["s"] = sol[0] if len(sol) == 1 else neu
+            t["art"] = t.get("art", "") + f"B{k}"
         elif a in ("schnitt", "rand"):
             t["s"] = schneide(t, k, q, r, d); t["art"] = t.get("art", "") + f"S{k}{q:.1f}"
             bericht.append(f"{t['name']}: geschnitten bei {('XYZ')[k]} {q:.1f}" + (f" (eigene Stelle statt {p:.1f})" if abs(q - p) > 0.01 else ""))
@@ -353,7 +454,8 @@ def kollisionen(teile, alt, nur):
                 if teile[i].get("art") == teile[j].get("art") and teile[i].get("art"): continue   # gleich bewegt
                 try: v = liste[i].intersect(liste[j]).Volume()
                 except Exception: v = 0.0
-                if v > 0.5: erg[tuple(sorted((teile[i]["name"], teile[j]["name"])))] = round(v, 2)
+                if v > 0.5 and not ("Gaze_" in teile[i]["name"] + teile[j]["name"] and v < 20.0):   # Gaze-Tuch: Modellueberlappung
+                    erg[tuple(sorted((teile[i]["name"], teile[j]["name"])))] = round(v, 2)
         return erg
     vor = paare(alt); nach = paare([t["s"] for t in teile])
     return {p: v for p, v in nach.items() if p not in vor or v > 2 * vor[p] + 0.5}

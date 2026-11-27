@@ -201,6 +201,9 @@ def main(dump, kst_step, ordner):
     ad = os.path.join(ordner, "Alu_Hebel_abgewickelt"); os.makedirs(ad, exist_ok=True)
     hd = os.path.join(ordner, "Holzteile"); os.makedirs(hd, exist_ok=True)
     print("Alu-Abwicklungen:", alu_dxf(D, ad))
+    import alu_verschachteln                                   # 27.11.2026: alle Alu-Hebel auf eine Fraesplatte
+    alu_verschachteln.main(ad, os.path.join(ordner, "Alu_Hebel_alle_verschachtelt.dxf"),
+                           float(os.environ.get("ALU_PLATTE_BREITE", "300")))
     print("Holzteile:", holz_dxf(D, hd))
     if os.path.exists(kst_step): print("Kunststoffteil:", kunststoff(kst_step, ordner, D["instrument"]))
     else: print("Kunststoffteil: keines (Winkel- bzw. Holzgriffstock)")   # 26.11.2026
