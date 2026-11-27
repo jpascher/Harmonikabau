@@ -56,9 +56,13 @@ on:
         options: [standard, "18", "19", "20"]
         default: standard
       laenge:
-        description: "Bass: Gehaeuselaenge Markus-Bass in mm (Diskantlaenge genuegt, wird auf 10 mm aufgerundet)"
+        description: "Gehaeuselaenge (Aussenmass fertig, mm) fuer Bass und Diskant gleich; leer = wie gezeichnet bzw. wie die Knopfzahl verlangt"
         type: string
-        default: "380"
+        default: ""
+      breite:
+        description: "Gehaeusebreite (Tiefe, Aussenmass fertig) 200-215 mm, leer = 205; schmaeler nur wo es ohne Beschneiden geht"
+        type: string
+        default: ""
       vorschau:
         description: "Vorschau (GLB + Bild) erzeugen"
         type: boolean
@@ -86,6 +90,7 @@ jobs:
       variante: ${{ steps.p.outputs.variante }}
       teilung: ${{ steps.p.outputs.teilung }}
       laenge: ${{ steps.p.outputs.laenge }}
+      breite: ${{ steps.p.outputs.breite }}
       vorschau: ${{ steps.p.outputs.vorschau }}
       platten: ${{ steps.p.outputs.platten }}
       belegung: ${{ steps.p.outputs.belegung }}
@@ -103,6 +108,7 @@ jobs:
           IN_BASS_VARIANTE: ${{ inputs.bass_variante }}
           IN_TEILUNG: ${{ inputs.teilung }}
           IN_LAENGE: ${{ inputs.laenge }}
+          IN_BREITE: ${{ inputs.breite }}
           IN_INSTRUMENT: ${{ inputs.instrument }}
           IN_GRIFFSTOCK: ${{ inputs.griffstock }}
           IN_KNOEPFE: ${{ inputs.knoepfe }}
@@ -154,6 +160,7 @@ jobs:
           VARIANTE: ${{ needs.auswahl.outputs.variante }}
           TEILUNG: ${{ needs.auswahl.outputs.teilung }}
           LAENGE: ${{ needs.auswahl.outputs.laenge }}
+          BREITE: ${{ needs.auswahl.outputs.breite }}
           VORSCHAU: ${{ needs.auswahl.outputs.vorschau }}
           PLATTEN: ${{ needs.auswahl.outputs.platten }}
           BELEGUNG: ${{ needs.auswahl.outputs.teil == 'bass' && needs.auswahl.outputs.belegung || '' }}

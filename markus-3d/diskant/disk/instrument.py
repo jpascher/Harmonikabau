@@ -10,6 +10,7 @@ Format der Tastenliste (Kommentare mit #):
     knopfabstand   = 20         # 18 / 19 / 20 ...
     klappenteilung = 26.25      # bei choerig=2 = knopfabstand
     gehaeuse_x     = 380        # Innenlaenge fix, oder "auto"
+    gehaeuse_min   = 400        # optional: mindestens so lang (Leerraum je zur Haelfte an den Enden, 27.11.2026)
     rand           = 17.5       # Abstand Klappenrand -> Gehaeuse bei auto
     rand_links / rand_rechts    # optional getrennt (sonst = rand)
     verdeck_muster = keines     # oder verdeck.dxf (Markus) / geschwungen.dxf (Marie, im Ordner muster); Standard: glatt
@@ -175,6 +176,21 @@ def erzeuge(inst):
             print("WARNUNG: Klappen ragen ueber das Gehaeuse", xmin, xmax)
         if st_l is not None and st_l < ST_X: print("WARNUNG: Klappe links an der Verdeckstuetze")
         if st_r is not None and st_r > out["gehaeuse_x"] - ST_X: print("WARNUNG: Klappe rechts an der Verdeckstuetze")
+    # 27.11.2026 (Johann): gemeinsames Aussenmass mit dem Bassteil - laengeres Gehaeuse durch Leerraum zwischen
+    # Aussenwand und Einbau, je zur Haelfte an beiden Enden (gehaeuse_min = gewuenschte Laenge, fertig)
+    _gmin = inst.get("gehaeuse_min")
+    if _gmin not in (None, "", "auto") and float(_gmin) > out["gehaeuse_x"] + 1e-6:
+        _e = float(_gmin) - out["gehaeuse_x"]
+        for R in out["reihen"].values():
+            for k in R["klappen"]: k["x"] += _e / 2
+            for k in R["kammern"]: k["x"] += _e / 2
+            R["loecher"] = [(x + _e / 2, y) for x, y in R["loecher"]]
+            R["knoepfe"] = [x + _e / 2 for x in R["knoepfe"]]
+        out["verschub"] = out.get("verschub", 0.0) + _e / 2
+        for _s in ("rand_links", "rand_rechts"):
+            if _s in out: out[_s] += _e / 2
+        print("   Gehaeuse auf %.1f mm verlaengert (je %.1f mm Leerraum an den Enden)" % (float(_gmin), _e / 2))
+        out["gehaeuse_x"] = float(_gmin)
     # 22.11.2026 (Johann): Griffstock/Knopfpyramide immer mittig am Korpus, abhaengig von der konfigurierten Knopfanzahl
     # (wirksame Knopf-X inkl. Knopfversatz; Klappen bleiben, wo sie sind)
     _kx = [x + R["knopf_versatz"] for R in out["reihen"].values() for x in R["knoepfe"][R["knopf_ab"] - 1:]]   # nur benutzte Plaetze

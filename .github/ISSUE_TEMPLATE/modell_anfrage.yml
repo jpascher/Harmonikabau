@@ -29,8 +29,15 @@ body:
   - type: input
     id: laenge
     attributes:
-      label: "Bass: Gehäuselänge (nur Markus-Bass, mm)"
+      label: "Gehäuselänge (mm)"
+      description: Außenmaß fertig, für Bass- und Diskantteil gleich eingeben; leer = wie gezeichnet bzw. wie die Knopfzahl verlangt. Länger = Leerraum an beiden Enden
       placeholder: "380"
+  - type: input
+    id: breite
+    attributes:
+      label: "Gehäusebreite (mm)"
+      description: Tiefe, Außenmaß fertig, 200–215; leer = 205. Breiter = mehr Raum vorne; schmäler nur, wo nichts beschnitten werden muss
+      placeholder: "205"
   - type: textarea
     id: belegung
     attributes:

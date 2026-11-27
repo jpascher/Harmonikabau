@@ -17,5 +17,17 @@ d = {"diskant": {"markus": {"50": reihen("markus_std_10mm")}, "marie": {}},
 for n in (44, 46, 48, 52, 54): d["diskant"]["markus"][str(n)] = reihen(f"markus{n}_winkel")
 for g, f in tb.MARIE.items(): d["diskant"]["marie"][g] = reihen(f)
 d["diskant"]["marie"]["standard"] = reihen("marie")
+# 27.11.2026: Gehaeuselaenge, die jede Diskant-Auswahl mindestens braucht (gemeinsames Aussenmass mit dem Bass)
+import tempfile
+d["laenge_diskant"] = {}
+with tempfile.TemporaryDirectory() as td:
+    for ins in ("markus", "marie"):
+        for g in tb.GRIFFSTOECKE:
+            if ins == "marie" and g not in tb.MARIE: continue
+            for k in ((50,) if ins == "marie" else tb.KNOEPFE_ERLAUBT.get(g, (50,))):
+                for a in tb.ABSTAENDE:
+                    try: p_, _, _ = tb.baue(ins, g, k, a, os.path.join(td, "t.txt"))
+                    except SystemExit: continue
+                    d["laenge_diskant"][f"{ins}:{g}:{k}:{a}"] = tb.gehaeuse_laenge(p_)
 json.dump(d, open(sys.argv[1] if len(sys.argv) > 1 else "konfig_daten.json", "w", encoding="utf-8"), ensure_ascii=False)
 print("geschrieben:", sys.argv[1] if len(sys.argv) > 1 else "konfig_daten.json")

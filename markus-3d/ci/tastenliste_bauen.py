@@ -5,6 +5,8 @@
 #   abstand    : Knopfabstand 18 | 19 | 20 mm (Hebelteilung 9 / 9,5 / 10) fuer alle Griffstoecke und beide Instrumente
 #                (Johann 26.11.2026). Alte Angabe als Hebelteilung 9 / 10 wird noch verstanden (x 2).
 #                Bei Marie (2-choerig) ist die Klappenteilung = Knopfabstand, das Gehaeuse waechst/schrumpft mit.
+#   laenge     : optional Gehaeuselaenge (fertig, mm) - wie der Bassteil; laenger als noetig = Leerraum je zur Haelfte
+#                an den Enden (instrument.py: gehaeuse_min); kuerzer als die Knopfzahl verlangt geht nicht
 #   platten    : optional eigene Stimmplattenlaengen je Reihe, z. B. "R1: 32 33 34 ...; R3: 27 29 ..."
 #                (genau so viele Werte wie die Reihe Klappen hat; nicht genannte Reihen bleiben wie gezeichnet)
 # Unzulaessige Kombinationen werden sofort mit einer klaren Meldung abgelehnt (pruefe()).
@@ -109,7 +111,15 @@ def skaliere(zeilen, a):
         reihen[nr] = neu
     return kopf + [z for nr in sorted(reihen) for z in reihen[nr]]
 
-def baue(instrument, griffstock, knoepfe, abstand, ziel, platten=""):
+def gehaeuse_laenge(pfad):
+    """Gehaeuselaenge, die instrument.py fuer eine Tastenliste ergibt (ohne gehaeuse_min)"""
+    import sys, io, contextlib
+    sys.path.insert(0, DISK); import instrument as _ins
+    inst = _ins.lies(pfad); inst.pop("gehaeuse_min", None)
+    with contextlib.redirect_stdout(io.StringIO()): g = _ins.erzeuge(inst)
+    return round(g["gehaeuse_x"], 1)
+
+def baue(instrument, griffstock, knoepfe, abstand, ziel, platten="", laenge=""):
     """schreibt die Tastenliste nach ziel und gibt (pfad, name, hinweise) zurueck"""
     hinweise = []
     knoepfe, a = int(knoepfe), abstand_mm(abstand)
@@ -162,6 +172,16 @@ def baue(instrument, griffstock, knoepfe, abstand, ziel, platten=""):
         zeilen = kopf_ + [z for nr in sorted(reihen_) for z in reihen_[nr]]
     os.makedirs(os.path.dirname(os.path.abspath(ziel)), exist_ok=True)
     open(ziel, "w", encoding="utf-8").write("\n".join(zeilen) + "\n")
+    if str(laenge or "").strip():                             # gemeinsames Aussenmass mit dem Bassteil
+        l_ = float(str(laenge).replace(",", ".")); n_ = gehaeuse_laenge(ziel)
+        if l_ < n_ - 0.05:
+            raise SystemExit(f"Gehaeuselaenge {l_:g} mm: {name} braucht mindestens {n_:g} mm (Knopfzahl/Knopfabstand)")
+        if l_ > n_ + 0.05:
+            kopf_, reihen_ = teile(zeilen); kopf_ = setze(kopf_, "gehaeuse_min", f"{l_:g}   # gemeinsames Aussenmass (gebraucht {n_:g})")
+            name = f"{name}_L{l_:g}"; kopf_ = setze(kopf_, "name", name)
+            zeilen = kopf_ + [z for nr in sorted(reihen_) for z in reihen_[nr]]
+            open(ziel, "w", encoding="utf-8").write("\n".join(zeilen) + "\n")
+            hinweise.append(f"Gehaeuse {l_:g} mm statt {n_:g} mm: je {(l_ - n_) / 2:g} mm Leerraum an den Enden")
     return ziel, name, hinweise
 
 if __name__ == "__main__":

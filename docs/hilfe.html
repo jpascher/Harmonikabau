@@ -47,6 +47,7 @@
   <a href="#bass">Auswahl Bassteil</a>
   <a href="#belegung">Freie Bassbelegung</a>
   <a href="#diskant">Auswahl Diskantteil</a>
+  <a href="#masse">Gehäusemaße</a>
   <a href="#kombis">Was ist schon gerechnet?</a>
   <a href="#ergebnis">Ergebnis &amp; Dateien</a>
   <a href="#fusion">In Fusion öffnen</a>
@@ -83,7 +84,7 @@
   <h3>Bass: Bassteil</h3>
   <table>
     <tr><th>Wert</th><th>Bassteil</th><th>Teilung laut Zeichnung</th></tr>
-    <tr><td><code>markus</code></td><td>Markus-Bassteil, zwei Reihen, Helikon. Als einziger in Knopfteilung <em>und</em> Gehäuselänge frei wählbar.</td><td>20 mm</td></tr>
+    <tr><td><code>markus</code></td><td>Markus-Bassteil, zwei Reihen, Helikon. Knopfteilung und Gehäuselänge (im Generator selbst) frei wählbar.</td><td>20 mm</td></tr>
     <tr><td><code>marie38</code></td><td>Marie 38 cm – Helikonkammern in zwei Ebenen mit Verbindungskanal (Stockwerk).</td><td>19 mm</td></tr>
     <tr><td><code>eduard</code></td><td>Winkelbass Eduard.</td><td>20 mm</td></tr>
     <tr><td><code>gerhard</code></td><td>Gerhard – drei Reihen, viele Bässe, versetzte und eine liegende Kammer.</td><td>20 mm</td></tr>
@@ -94,8 +95,32 @@
   <p><code>standard</code> nimmt den Wert der Zeichnung (Tabelle oben). 18, 19 oder 20 mm setzt den Abstand der Bassknöpfe neu – das geht bei allen Bassteilen; die Knopfreihen bleiben mittig und gegeneinander um die halbe Teilung versetzt. Beim Markus-Bass ist das für alle drei Werte geprüft, bei den anderen Bassteilen ist nur der Zeichnungswert geprüft; jede Rechnung macht aber die volle Kollisionsprüfung.</p>
   <h3>Bass: Belegung</h3>
   <p>Leer lassen = Belegung wie gebaut. Sonst die Kurzform von der Seite <a href="bass_belegung.html">Bassbelegung zuordnen</a> einfügen, z. B. <code>R1=10, 1.1=V077, 1.2=BL152, …</code> (siehe <a href="#belegung">Freie Bassbelegung</a>). <code>R1=10</code> heißt: Reihe 1 mit 10 Knöpfen; ohne diese Angabe hat jede Reihe ihre gezeichnete Knopfzahl.</p>
-  <h3>Bass: Gehäuselänge</h3>
-  <p>Nur für den Markus-Bass. Man kann direkt die Länge des Diskantteils eingeben; das Gehäuse wird auf volle 10 mm aufgerundet und ist nie kürzer als 380 mm (z. B. 396,7 → 400). Die Rohteile behalten wie in den Zeichnungen 2 mm Übermaß.</p>
+</section>
+
+<section id="masse">
+  <h2>Gehäusemaße (Bass und Diskant gleich)</h2>
+  <p>Länge und Breite sind Außenmaße des fertigen Gehäuses (die Rohteile behalten wie in den Zeichnungen 2 mm Übermaß). Auf der Seite <a href="konfigurator.html">Modell zusammenstellen</a> stehen beide Felder in einem eigenen Schritt und bleiben beim Wechsel zwischen Bass und Diskant stehen: wer beide Teile mit derselben Länge und Breite rechnen lässt, bekommt zwei Gehäuse mit gleichen Außenmaßen. Leer heißt wie gezeichnet.</p>
+  <h3>Länge</h3>
+  <p>Verlängert wird immer durch Leerraum zwischen Außenwand und Einbau, je zur Hälfte an beiden Enden. Kammern, Stimmstöcke, Klappen und Mechanik bleiben, wie sie sind. Die Schachtel selbst bleibt an den Außenmaßen ausgerichtet: Deckel, Balgrahmen und Balg-/Rahmenleisten werden länger, Eckblöcke, Eckwinkel und Füße bleiben in den Ecken, die Rosetten des Deckels bleiben am Rand. Kürzer als gezeichnet geht nicht.</p>
+  <ul>
+    <li><b>Diskant:</b> mindestens so lang, wie Knopfzahl und Knopfabstand verlangen (Markus 50 Knöpfe 380 mm, 54 Knöpfe 408 mm, Marie 332 mm bei 19 mm). Die Seite zeigt den Wert zur Auswahl an.</li>
+    <li><b>Markus-Bass:</b> 380 bis 560 mm, jetzt genau wie eingegeben (früher auf volle 10 mm aufgerundet).</li>
+    <li><b>Andere Bassteile:</b> ab der gezeichneten Länge (340 schmal 340 mm, Andreas 400 mm, sonst 380 mm), bis 150 mm länger.</li>
+  </ul>
+  <h3>Breite</h3>
+  <p>Die Breite (Tiefe zum Balg hin gesehen) geht von 200 bis 215 mm, gezeichnet sind 205 mm. <b>Breiter:</b> beim Bass bekommt der ganze Einbau vorne mehr Raum (zwischen Einbau und Front, die Knopfzylinder und Schubstangen werden länger), beim Diskant wird vorne der Freiraum und der Boden breiter, der Griffstock bleibt hinten bündig an der Außenkante. <b>Schmäler:</b> nur dort, wo nichts beschnitten werden muss – in freiem Raum, an Längsleisten (bleiben mindestens 2 mm) und an den Gehäusewänden (bleiben mindestens 4 mm). Stimmplatten, Stimmstöcke, Kammern, Klappen und Mechanik werden nie angetastet. Wird die Front dünner, rücken die Hörner mit der Außenseite nach und werden innen entsprechend gekürzt. Geht die gewünschte Breite bei einem Modell nicht, meldet die Rechnung sofort, wie schmal es höchstens geht.</p>
+  <table>
+    <tr><th>Teil</th><th>schmälste Breite (gerechnet 27.11.2026)</th></tr>
+    <tr><td>Diskant Markus und Marie</td><td class="ok">200 mm (Freiraum vor den Stimmstöcken und am Verdeck)</td></tr>
+    <tr><td>Bass Marie 38</td><td class="ok">200 mm</td></tr>
+    <tr><td>Bass Eduard</td><td>200,5 mm</td></tr>
+    <tr><td>Bass Gerhard</td><td>202 mm</td></tr>
+    <tr><td>Bass Andreas</td><td>202,5 mm</td></tr>
+    <tr><td>Bass 340 schmal</td><td>203 mm</td></tr>
+    <tr><td>Bass Markus</td><td>203,5 mm</td></tr>
+  </table>
+  <p>Beim Verbreitern bleiben Eckblöcke und Füße beim Einbau, wenn im Deckel daneben Durchbrüche für den Einbau liegen (Lufttaste); sonst wandern sie mit der Wand. Beim Verlängern bleiben sie beim 340 schmal und bei Andreas in den Ecken (Deckel samt Rosetten wird innen gestreckt); bei Eduard, Gerhard und Marie 38 liegen nahe den Enden Durchbrüche für den Einbau im Deckel (Register-Schieber), dort rücken Füße und Eckblöcke mit dem Einbau um die halbe Mehrlänge nach innen. Die Rechnung schreibt das ins Protokoll.</p>
+  <div class="hinweis">Nach jeder Maßänderung sucht die Rechnung alle neu entstandenen Berührungen zwischen den Teilen. Gibt es welche, wird das Modell nicht gespeichert und die Teile werden gemeldet. Die verwendeten Schnittstellen stehen in <code>masse.json</code> im Ergebnis.</div>
 </section>
 
 <section id="belegung">
